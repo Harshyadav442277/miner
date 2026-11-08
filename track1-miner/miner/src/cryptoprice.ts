@@ -15,6 +15,11 @@
  * own benefit", and CoinGecko reserves redistribution for its Enterprise plan.
  * A paid miner answer is redistribution, so those three are not called.
  *
+ * EXCEPT COINBASE'S SPOT PRICE, WITH THE GATE OFF (2026-11-08). Bitstamp lists no PEPE, TON or HYPE market,
+ * and those answered price_usd null. Since the owner turned LICENCE_GATE off on 2026-11-07 (payments are
+ * testnet), a USD pair Bitstamp lacks or did not answer is read from Coinbase's keyless spot price
+ * (api.coinbase.com/v2/prices/{BASE}-USD/spot), named as Coinbase in the answer. LICENCE_GATE=on removes it.
+ *
  *   /api/v2/ticker/{pair}/   last trade price and its unix timestamp, spot only
  *   /api/v2/ohlc/{pair}/     a past UTC day's open and close (step 86400)
  *
@@ -34,6 +39,10 @@
  */
 
 import { fetchBlended, formatRate } from "./currency";
+import { permitted } from "./sources";
+
+/** Whether the Coinbase fallback may be called (LICENCE_GATE off; its terms bar resale). */
+const gateOff = (): boolean => permitted("https://api.coinbase.com/");
 
 const TIMEOUT_MS = Number(process.env.CRYPTO_TIMEOUT_MS ?? 4_000);
 const BITSTAMP = "https://www.bitstamp.net/api/v2";
@@ -246,8 +255,47 @@ export function formatPrice(n: number, quote: string): string {
 
 const utc = (ms: number): string => `${new Date(ms).toISOString().slice(0, 19).replace("T", " ")} UTC`;
 
-/** A Bitstamp spot ticker. */
-interface Ticker { price: number; at: number; bid: number; ask: number; volume: number }
+/** A spot ticker: Bitstamp's last trade, or Coinbase's spot price at the instant it was read (no bid, ask or volume). */
+interface Ticker { price: number; at: number; bid: number; ask: number; volume: number; venue: "Bitstamp" | "Coinbase" }
+
+/**
+ * Coinbase's public spot price, keyless, for a USD pair Bitstamp does not list or did not answer: PEPE, TON and
+ * HYPE had no Bitstamp market and answered price_usd null, and Coinbase quoted all three on 2026-11-08. Its terms
+ * bar redistribution (sources.ts), so it is called only while LICENCE_GATE is off. Null when Coinbase has no
+ * such pair (404), undefined when it did not answer.
+ */
+const COINBASE = "https://api.coinbase.com/v2/prices";
+async function coinbaseSpot(base: string): Promise<Ticker | null | undefined> {
+  const url = `${COINBASE}/${encodeURIComponent(base.toUpperCase())}-USD/spot`;
+  if (!permitted(url)) return null;
+  const key = `coinbase:${base.toLowerCase()}`;
+  const hit = cache.get(key);
+  if (hit && Date.now() - hit.at < CACHE_MS) return hit.value;
+  try {
+    const r = await fetch(url, { headers: { accept: "application/json", "user-agent": UA }, signal: AbortSignal.timeout(TIMEOUT_MS) });
+    if (r.status === 404 || r.status === 400) {
+      cache.set(key, { at: Date.now(), value: null });
+      return null;
+    }
+    if (!r.ok) return undefined;
+    const d = ((await r.json()) as { data?: { amount?: string; base?: string; currency?: string } }).data;
+    const price = Number(d?.amount);
+    if (!(price > 0) || d?.currency !== "USD" || String(d?.base).toUpperCase() !== base.toUpperCase()) return undefined;
+    const value: Ticker = { price, at: Date.now(), bid: NaN, ask: NaN, volume: NaN, venue: "Coinbase" };
+    cache.set(key, { at: Date.now(), value });
+    return value;
+  } catch {
+    return undefined;
+  }
+}
+
+/** The USD ticker: Bitstamp's, else Coinbase's when Bitstamp lists no pair or did not answer. */
+async function usdTicker(base: string): Promise<Ticker | null | undefined> {
+  const b = await ticker(base, "USD");
+  if (b) return b;
+  const c = await coinbaseSpot(base);
+  return c ?? (b === undefined || c === undefined ? undefined : null);
+}
 
 /**
  * Bitstamp's bot wall answered 503 after about six requests within a few
@@ -281,7 +329,7 @@ async function ticker(base: string, quote: string): Promise<Ticker | null | unde
   const price = Number(t.last);
   const at = Number(t.timestamp) * 1000;
   if (!Array.isArray(j) && (!(price > 0) || !Number.isFinite(at))) return undefined;
-  const value = Array.isArray(j) ? null : { price, at, bid: Number(t.bid), ask: Number(t.ask), volume: Number(t.volume) };
+  const value = Array.isArray(j) ? null : { price, at, bid: Number(t.bid), ask: Number(t.ask), volume: Number(t.volume), venue: "Bitstamp" as const };
   cache.set(pair, { at: Date.now(), value });
   return value;
 }
@@ -302,13 +350,14 @@ const DIRECT_QUOTES = new Set(["USD", "EUR", "GBP", "BTC", "ETH"]);
 
 /** The price of `symbol` in `quote` from Bitstamp, directly or derived; null unlisted, undefined unavailable. */
 async function quoteNow(symbol: string, quote: string): Promise<Quoted | null | undefined> {
-  const direct = DIRECT_QUOTES.has(quote) ? await ticker(symbol, quote) : null;
+  const direct = DIRECT_QUOTES.has(quote) ? await (quote === "USD" ? usdTicker(symbol) : ticker(symbol, quote)) : null;
   if (direct) return { how: "direct", price: direct.price, t: direct };
-  if (direct === undefined || quote === "USD") return direct;
-  const usd = await ticker(symbol, "USD");
-  if (!usd) return usd;
+  if (quote === "USD") return direct;
+  // A non-USD pair Bitstamp lacks, or that it did not answer, is derived from the USD quote.
+  const usd = await usdTicker(symbol);
+  if (!usd) return direct === undefined && usd === null ? undefined : usd;
   if (quote === "BTC" || quote === "ETH") {
-    const q = await ticker(quote, "USD");
+    const q = await usdTicker(quote);
     return q ? { how: "cross", price: usd.price / q.price, t: usd, q } : undefined;
   }
   const fx = await fetchBlended("USD", quote);
@@ -351,29 +400,36 @@ export async function lookupCryptoPrice(question: string, symbolParam = "", now 
   const got = await quoteNow(asset.symbol, quote);
   if (got === undefined) {
     return { asset: asset.name, symbol: asset.symbol, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
-      reason: `The current price of ${label} could not be retrieved because Bitstamp${quote === "USD" || quote === "EUR" || quote === "GBP" ? "" : " or the exchange-rate source"} did not answer with a usable quote. This is an availability problem, not a statement about ${asset.symbol}.` };
+      reason: `The current price of ${label} could not be retrieved because Bitstamp${gateOff() ? " and Coinbase" : ""}${quote === "USD" || quote === "EUR" || quote === "GBP" ? "" : " or the exchange-rate source"} did not answer with a usable quote. This is an availability problem, not a statement about ${asset.symbol}.` };
   }
   if (got === null) {
     return { asset: asset.name, symbol: asset.symbol, verdict: "not_found", confidence: 0.5,
-      reason: `Bitstamp lists no ${asset.symbol} market, and it is the only price source here whose terms allow its data to be resold, so no price is reported for ${label} rather than one from an unlicensed source.` };
+      reason: gateOff()
+        ? `Neither Bitstamp nor Coinbase lists a ${asset.symbol} market, so no price is reported for ${label} rather than one for a coin guessed from the ticker.`
+        : `Bitstamp lists no ${asset.symbol} market, and it is the only price source here whose terms allow its data to be resold, so no price is reported for ${label} rather than one from an unlicensed source.` };
   }
   const { t } = got;
+  // "the last Bitstamp trade at …" or "Coinbase's spot price read at …": what the instant is the instant of.
+  const struck = (x: Ticker, pair: string): string => (x.venue === "Bitstamp" ? `Bitstamp's last ${pair} trade at ${utc(x.at)}` : `Coinbase's ${pair} spot price read at ${utc(x.at)}`);
   const head = got.how === "direct"
-    ? `${label} is ${formatPrice(got.price, quote)}, the last Bitstamp trade at ${utc(t.at)}.`
+    ? `${label} is ${formatPrice(got.price, quote)}, ${t.venue === "Bitstamp" ? `the last Bitstamp trade at ${utc(t.at)}` : `Coinbase's spot price read at ${utc(t.at)}`}.`
     : got.how === "fiat"
-      ? `${label} is about ${formatPrice(got.price, quote)}: Bitstamp's last ${asset.symbol}-USD trade at ${utc(t.at)} was ` +
+      ? `${label} is about ${formatPrice(got.price, quote)}: ${struck(t, `${asset.symbol}-USD`)} was ` +
         `${formatPrice(t.price, "USD")}, converted at 1 USD = ${formatRate(got.rate)} ${quote}, Frankfurter's blended ` +
         `central-bank rate whose newest contributing rate is dated ${got.rateDate}. Bitstamp does not quote ${asset.symbol} in ${quote}.`
-      : `${label} is about ${formatPrice(got.price, quote)}, derived from Bitstamp's last ${asset.symbol}-USD trade ` +
-        `(${formatPrice(t.price, "USD")}) and ${quote}-USD trade (${formatPrice(got.q.price, "USD")}), ` +
-        `the older of the two at ${utc(Math.min(t.at, got.q.at))}.`;
+      : t.venue === "Bitstamp" && got.q.venue === "Bitstamp"
+        ? `${label} is about ${formatPrice(got.price, quote)}, derived from Bitstamp's last ${asset.symbol}-USD trade ` +
+          `(${formatPrice(t.price, "USD")}) and ${quote}-USD trade (${formatPrice(got.q.price, "USD")}), ` +
+          `the older of the two at ${utc(Math.min(t.at, got.q.at))}.`
+        : `${label} is about ${formatPrice(got.price, quote)}, derived from ${struck(t, `${asset.symbol}-USD`)} ` +
+          `(${formatPrice(t.price, "USD")}) and ${struck(got.q, `${quote}-USD`)} (${formatPrice(got.q.price, "USD")}).`;
   // "is USDC price stable?" is a routed question: for a dollar stablecoin the
   // distance from the peg is the part of the price that answers it.
   const peg = STABLE.has(asset.symbol) && quote === "USD"
     ? ` That is ${(Math.abs(got.price - 1) * 100).toFixed(2)}% from its $1.00 peg.` : "";
   return { asset: asset.name, symbol: asset.symbol, verdict: "price", confidence: got.how === "direct" ? 0.9 : 0.8,
     price: got.price, quote, price_at: new Date(t.at).toISOString(),
-    source: got.how === "fiat" ? "Bitstamp, Frankfurter" : "Bitstamp",
+    source: [...new Set([t.venue, ...(got.how === "cross" ? [got.q.venue] : []), ...(got.how === "fiat" ? ["Frankfurter"] : [])])].join(", "),
     ...(got.how === "direct" && Number.isFinite(t.bid) && Number.isFinite(t.ask) ? { bid: t.bid, ask: t.ask } : {}),
     ...(got.how === "direct" && Number.isFinite(t.volume) ? { volume_24h: t.volume } : {}),
     ...(got.how === "fiat" ? { usd_price: t.price, fx_rate: got.rate, fx_as_of: got.rateDate } : {}),

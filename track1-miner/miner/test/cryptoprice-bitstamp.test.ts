@@ -34,12 +34,35 @@ test("a direct pair answers from Bitstamp alone, with the trade time and the boo
 });
 
 test("an unlisted pair's all-tickers reply is never read as the asset's price", async (t) => {
+  // With LICENCE_GATE=on (a mainnet or commercial deployment) Coinbase, whose terms bar resale, is never called.
+  process.env.LICENCE_GATE = "on";
+  t.after(() => { delete process.env.LICENCE_GATE; });
   const urls = stub(t, () => Response.json(ALL));
   const r = await lookupCryptoPrice("What is the price of Wrapped Bitcoin?");
   assert.equal(r.verdict, "not_found");
   assert.equal(r.price, undefined);
   assert.match(r.reason, /Bitstamp lists no WBTC market/);
   assert.ok(!urls.some((u) => UNLICENSED.test(u)), urls.join(", "));
+});
+
+test("a pair Bitstamp does not list is quoted from Coinbase's spot price, and named as such (2026-11-08)", async (t) => {
+  // PEPE, TON and HYPE answered price_usd null with Bitstamp alone; Coinbase's shape as read on 2026-11-08.
+  const urls = stub(t, (u) => {
+    if (u.includes("bitstamp.net")) return Response.json(ALL);
+    if (u === "https://api.coinbase.com/v2/prices/PEPE-USD/spot") return Response.json({ data: { amount: "0.00000506", base: "PEPE", currency: "USD" } });
+    if (u.includes("api.coinbase.com")) return Response.json({ error: "rpc error: code = NotFound desc = not found", code: 5 }, { status: 404 });
+    return new Response("unexpected", { status: 500 });
+  });
+  const r = await lookupCryptoPrice("What is the price of $PEPE?");
+  assert.equal(r.verdict, "price");
+  assert.equal(r.price, 0.00000506);
+  assert.equal(r.source, "Coinbase");
+  assert.equal(r.bid, undefined, "a spot price has no book");
+  assert.match(r.reason, /^PEPE is \$0\.000005060 USD, Coinbase's spot price read at \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} UTC\./);
+  assert.deepEqual(urls, ["https://www.bitstamp.net/api/v2/ticker/pepeusd/", "https://api.coinbase.com/v2/prices/PEPE-USD/spot"]);
+  const none = await lookupCryptoPrice("What is the price of $ZZZQ?");
+  assert.equal(none.verdict, "not_found");
+  assert.match(none.reason, /^Neither Bitstamp nor Coinbase lists a ZZZQ market/);
 });
 
 test("a fiat quote Bitstamp does not list is derived from the USD pair and the blended FX rate, and says so", async (t) => {
@@ -123,5 +146,7 @@ test("a pair read in the last 10 s is reused, and an outage is not cached", asyn
   wall = false;
   assert.equal((await lookupCryptoPrice("price of ETH")).price, 2100, "the 503 must not be remembered");
   assert.equal((await lookupCryptoPrice("What is ETH worth?")).price, 2100);
-  assert.equal(urls.length, 2, `the third question should be served from the cache: ${urls.join(", ")}`);
+  // The outage also tries the Coinbase fallback once; neither 503 is remembered.
+  const bitstamp = urls.filter((u) => u.includes("bitstamp.net"));
+  assert.equal(bitstamp.length, 2, `the third question should be served from the cache: ${urls.join(", ")}`);
 });
