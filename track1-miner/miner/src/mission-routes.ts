@@ -53,8 +53,8 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
   },
   "/macro": {
     what: "A macroeconomic statistic lookup",
-    params: ["indicator", "country"],
-    run: (q, p) => macroIndicators(q, p("indicator"), p("country")),
+    params: ["indicator", "country", "year"],
+    run: (q, p) => macroIndicators(q, p("indicator"), p("country"), p("year")),
   },
   "/url-reputation": {
     what: "A threat-list check",

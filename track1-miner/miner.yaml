@@ -1157,7 +1157,8 @@ endpoints:
       value (and value_high for a range), unit, period, frequency, series id,
       source and source_url. Several statistics can be asked for at once. A policy
       rate outside the US and the euro area is named as not covered rather than
-      replaced by another figure.
+      replaced by another figure. A past year ("US inflation in 2023") returns that
+      year's World Bank WDI annual value with its year, never the latest print.
     params:
       query:
         optional:
@@ -1169,6 +1170,10 @@ endpoints:
             type: string
             intents: ["*"]
             description: "Country or region, e.g. US, euro area, Germany or Japan. Read from the question when absent."
+          - name: year
+            type: string
+            intents: ["*"]
+            description: "A past calendar year, e.g. 2023: that year's World Bank annual value is returned instead of the latest print. Read from the question (\"in 2023\") when absent."
           - name: query
             type: string
             intents: ["*"]

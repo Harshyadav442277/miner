@@ -145,6 +145,28 @@ async function worldBank(indicator: Indicator, region: string): Promise<Reading 
     frequency: "annual", series: w[0], source: "World Bank World Development Indicators", source_url: `https://data.worldbank.org/indicator/${w[0]}?locations=${code}` } : null;
 }
 
+/**
+ * One calendar year's WDI value, unrounded beyond four places: asked "inflation of the United States in 2023",
+ * the leaders served WDI's 4.1163 while we served September 2026's monthly print (comparison, 2026-11-08).
+ * Null when WDI has no such series or no value for that year; World Bank returns `[meta, null]` then.
+ */
+async function worldBankYear(indicator: Indicator, region: string, year: number): Promise<Reading | null> {
+  const w = WDI[indicator];
+  if (!w) return null;
+  const code = region === "EA" ? "EMU" : region;
+  const j = (await getJson(`https://api.worldbank.org/v2/country/${code}/indicator/${w[0]}?format=json&date=${year}`)) as [unknown, Array<{ date: string; value: number | null }>?];
+  const row = (j[1] ?? []).find((r) => r.date === String(year));
+  return row && row.value !== null ? { indicator, region, value: Number(row.value.toFixed(w[1] === "%" ? 4 : 0)), unit: w[1], period: row.date,
+    frequency: "annual", series: w[0], source: "World Bank World Development Indicators", source_url: `https://data.worldbank.org/indicator/${w[0]}?locations=${code}` } : null;
+}
+
+/** The year a question asks about: the `year` parameter, else "in 2023", "for 2022", "during 2021". Pure. */
+export function yearAsked(question: string, yearParam = "", now = new Date()): number | null {
+  const m = String(yearParam).trim().match(/^((?:19|20)\d{2})$/) ?? String(question ?? "").match(/\b(?:in|for|during|of|year)\s+((?:19|20)\d{2})\b/i);
+  const y = m ? Number(m[1]) : NaN;
+  return Number.isInteger(y) && y >= 1960 && y <= now.getUTCFullYear() ? y : null;
+}
+
 /** The reading for one indicator in one region, from its publisher; null when not covered. */
 export async function readIndicator(indicator: Indicator, region: string): Promise<Reading | null> {
   const eu = region === "EA" || EURO_AREA.has(region) || EU_OTHER.has(region);
@@ -201,28 +223,36 @@ export interface MacroResult {
   error?: string;
   indicators: Reading[];
   not_covered: string[];
+  /** The calendar year asked for, when one was; the readings are then that year's annual values. */
+  year: number | null;
 }
 
-export async function macroIndicators(question: string, indicatorParam = "", countryParam = ""): Promise<MacroResult> {
+export async function macroIndicators(question: string, indicatorParam = "", countryParam = "", yearParam = ""): Promise<MacroResult> {
   const asked = indicatorsAsked(`${indicatorParam} ${question}`);
   const region = macroRegion(countryParam) ?? macroRegion(question) ?? (asked.includes("policy_rate") && /\bfed\b/i.test(question) ? "US" : null);
+  const year = yearAsked(question, yearParam);
   if (!asked.length || !region) {
-    return { region, verdict: "unknown", confidence: 0, error: !asked.length ? "no_indicator" : "no_region", indicators: [], not_covered: [],
+    return { region, year, verdict: "unknown", confidence: 0, error: !asked.length ? "no_indicator" : "no_region", indicators: [], not_covered: [],
       reason: !asked.length
         ? "No macroeconomic statistic was named, so nothing was looked up. Name one, for example: What was the latest US CPI year-over-year print?"
         : "No country or region was named, so no statistic was looked up. Name one, for example the US, the euro area or Japan." };
   }
-  const results = await Promise.all(asked.map((i) => readIndicator(i, region).then((r) => ({ i, r }), () => ({ i, r: undefined }))));
+  // A stated past year is that year's annual WDI value, never the latest print substituted for it. The current
+  // year has no annual value yet, and its latest print is a reading in that year, so it keeps the latest path.
+  const past = year !== null && year < new Date().getUTCFullYear() ? year : null;
+  const read = (i: Indicator): Promise<Reading | null> => (past ? worldBankYear(i, region, past) : readIndicator(i, region));
+  const results = await Promise.all(asked.map((i) => read(i).then((r) => ({ i, r }), () => ({ i, r: undefined }))));
   const readings = results.flatMap((x) => (x.r ? [x.r] : []));
   const where = region === "EA" ? "the euro area" : regionNames.of(region) ?? region;
-  const notCovered = results.filter((x) => x.r === null).map((x) => `${LABEL[x.i]} for ${where}`);
+  const notCovered = results.filter((x) => x.r === null).map((x) => `${LABEL[x.i]} for ${where}${past ? ` in ${past}` : ""}`);
   const down = results.filter((x) => x.r === undefined).map((x) => `${LABEL[x.i]} for ${where}`);
-  const tail = (notCovered.length ? ` The ${notCovered.join(" and ")} is not read here.` : "") +
+  const missing = past ? "has no annual World Bank figure here (none is published yet, or the statistic has no annual WDI series)" : "is not read here";
+  const tail = (notCovered.length ? ` The ${notCovered.join(" and ")} ${missing}.` : "") +
     (down.length ? ` The ${down.join(" and ")} could not be retrieved because its publisher did not answer.` : "");
   if (!readings.length) {
-    return { region, verdict: down.length ? "unknown" : "not_covered", confidence: 0, error: down.length ? "upstream_unavailable" : "not_covered",
+    return { region, year, verdict: down.length ? "unknown" : "not_covered", confidence: 0, error: down.length ? "upstream_unavailable" : "not_covered",
       indicators: [], not_covered: notCovered, reason: `No figure is reported.${tail}` };
   }
-  return { region, verdict: "reported", confidence: down.length ? 0.6 : 0.95, indicators: readings, not_covered: notCovered,
+  return { region, year, verdict: "reported", confidence: down.length ? 0.6 : 0.95, indicators: readings, not_covered: notCovered,
     reason: `${readings.map(describe).join(" ")}${tail}` };
 }
