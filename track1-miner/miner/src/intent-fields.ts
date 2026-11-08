@@ -67,6 +67,20 @@ export function clip(text: string, n = 80): string {
   return out;
 }
 
+/**
+ * "name: value" pairs joined, at most `n` characters in all: whole pairs only, so a value is never cut
+ * ("date: March 3" for March 3, 2025); a first pair longer than `n` is clipped. Pure.
+ */
+export function pairsBrief(pairs: string[], n = 80): string {
+  let out = "";
+  for (const p of pairs) {
+    const next = out ? `${out}; ${p}` : p;
+    if (next.length > n) break;
+    out = next;
+  }
+  return out || clip(pairs[0] ?? "", n);
+}
+
 /** The answer's lead sentence (envelope.ts, which knows "et al." and "Nov."), at most `n` characters. */
 const brief = (reason: unknown, n = 80): string | null => {
   const s = str(reason);
@@ -152,7 +166,7 @@ const SCORED: Record<string, (b: Body) => Body> = {
   "/extract": (b) => {
     const ex = b.extracted && typeof b.extracted === "object" && !Array.isArray(b.extracted) ? (b.extracted as Record<string, unknown>) : {};
     const pairs = Object.entries(ex).filter(([, v]) => Array.isArray(v) && v.length).map(([k, v]) => `${k}: ${(v as unknown[]).join(", ")}`);
-    return { entities: Object.values(ex).flatMap((v) => (Array.isArray(v) ? v : [])), brief: pairs.length ? clip(pairs.join("; ")) : brief(b.reason) };
+    return { entities: Object.values(ex).flatMap((v) => (Array.isArray(v) ? v : [])), brief: pairs.length ? pairsBrief(pairs) : brief(b.reason) };
   },
   // NEWS_HEADLINES_GENERAL
   "/headlines": (b) => ({ top_headline: (list(b.headlines)[0]?.title as string | undefined) ?? null }),
