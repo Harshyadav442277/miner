@@ -1,6 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { asksWillHappen, chat, cut, generateText, normaliseFindings, opening, parseObject, reviewCode, reviewVerdict, wordTarget } from "../src/genai";
+import {
+  asksWillHappen, auditContract, chat, cut, generateText, normaliseAuditFindings, normaliseFindings, opening, parseObject, reviewCode, reviewSummary,
+  reviewVerdict, riskGrade, wordTarget, writeBrief, writeTitle, type AuditFinding,
+} from "../src/genai";
 import { resetPhraseState } from "../src/llm";
 
 /** Groq answering with `content` for every call; restores fetch and the key after. */
@@ -31,10 +34,15 @@ test("genai: helpers parse JSON, cut to 80 characters and read word targets", ()
   assert.ok(long.length <= 80, long);
   assert.equal(opening("First one. Second one."), "First one.");
   // Production, 2026-11-07: the old cut served "… breaking into smaller copies of."
+  // A truncated phrase is marked "…", never ended with "." as if it were a sentence (2026-11-08).
   assert.equal(cut("Recursion is when a problem solves itself by breaking into smaller copies of itself until it is simple."),
-    "Recursion is when a problem solves itself by breaking into smaller copies.");
+    "Recursion is when a problem solves itself by breaking into smaller copies…");
+  // A clause boundary under 60 characters is not taken: the 48-character clause read as the whole answer.
   assert.equal(cut("Recursion is like a set of Russian nesting dolls: each doll contains a smaller doll that looks just like the one before."),
-    "Recursion is like a set of Russian nesting dolls.");
+    "Recursion is like a set of Russian nesting dolls: each doll contains a smaller…");
+  // One at 60 or later is, and ends as a sentence.
+  assert.equal(cut("Bitcoin traded near its record this week, as spot ETF inflows rose, while miners sold coins to fund new rigs today."),
+    "Bitcoin traded near its record this week, as spot ETF inflows rose.");
   assert.equal(wordTarget("Write a 60-word product description"), 60);
   assert.equal(wordTarget("Summarise in 120 words"), 120);
   assert.equal(wordTarget("Write a haiku"), null);
@@ -67,8 +75,24 @@ test("genai: chat serves brief, reply and a will-verdict from the model's JSON",
   });
   await withModel(JSON.stringify({ brief: "Canberra is the capital of Australia.", reply: "Canberra is the capital of Australia.", verdict: null }), async () => {
     const a = await chat("", "What is the capital of Australia?");
-    assert.equal(a.verdict, "answered");
+    // The schema's verdict enum is Likely | Unlikely | Uncertain: a non-forecast answer carries none.
+    assert.equal("verdict" in a, false);
     assert.equal(a.brief, "Canberra is the capital of Australia.");
+  });
+});
+
+test("genai: a one-word forecast brief falls back to the reply's opening sentence, and hyphens are plain", async () => {
+  // Production shape, 2026-11-08: brief "Uncertain" alone on a forecast question.
+  await withModel(JSON.stringify({ brief: "Uncertain", verdict: "Uncertain",
+    reply: "Uncertain: the Fed‑funds path depends on 2027 inflation, which sits near −1 point of target. Markets price two cuts." }), async () => {
+    const a = await chat("Will the Fed cut rates in 2027?");
+    assert.equal(a.verdict, "Uncertain");
+    assert.match(String(a.brief), /^Uncertain: the Fed-funds path depends on 2027 inflation\b/);
+    assert.ok(String(a.brief).length <= 80);
+    assert.doesNotMatch(String(a.reply), /[‐‑−]/);
+  });
+  await withModel(JSON.stringify({ brief: "Likely.", verdict: "Likely", reply: "Likely. Launch windows open in 2027." }), async () => {
+    assert.equal((await chat("Will a Mars launch happen in 2027?")).brief, "Likely.");
   });
 });
 
@@ -94,8 +118,97 @@ test("genai: a review's verdict follows its findings and leads the answer", asyn
     assert.equal(a.verdict, "Request changes");
     assert.equal(a.finding_count, 2);
     assert.equal((a.findings as Array<{ severity: string }>)[0]!.severity, "critical");
-    assert.match(String(a.reason), /^Request changes: The code is unsafe/);
+    // A summary without the correctness opener gets the one its verdict supports.
+    assert.match(String(a.reason), /^Request changes: The code is not correct\. The code is unsafe/);
   });
+});
+
+test("genai: the review summary opens with its correctness sentence and asks for 3-6 sentences", async () => {
+  assert.equal(reviewSummary("The code is correct. A buffer overflow at line 3.", "Request changes"), "The code is not correct. A buffer overflow at line 3.");
+  assert.equal(reviewSummary("The code is correct. Names are clear.", "Approve"), "The code is correct. Names are clear.");
+  assert.equal(reviewSummary("Clean and readable.", "Approve"), "The code is correct. Clean and readable.");
+  assert.equal(reviewSummary("One medium issue.", "Comment"), "One medium issue.");
+  await withModel(JSON.stringify({ verdict: "Approve", summary: "The code is correct. It sums a list.", findings: [] }), async (calls) => {
+    await reviewCode("", "def total(xs):\n  return sum(xs)\n");
+    assert.match(String((calls[0]!.messages as Array<{ content: string }>)[0]!.content), /three to six plain sentences that open with exactly "The code is correct\." or "The code is not correct\."/);
+  });
+});
+
+const VAULT = `pragma solidity ^0.8.0;
+contract Vault {
+  mapping(address => uint) public balances;
+  function deposit() external payable { balances[msg.sender] += msg.value; }
+  function withdraw() external {
+    uint amount = balances[msg.sender];
+    (bool ok, ) = msg.sender.call{value: amount}("");
+    require(ok);
+    balances[msg.sender] = 0;
+  }
+}`;
+
+test("audit: a planted reentrancy is graded by its finding, and the summary opens with that grade", async () => {
+  const model = { verdict: "High", summary: "Overall risk is High. withdraw sends ETH before zeroing the balance.", findings: [
+    { class: "Access control", function: "deposit", severity: "low", issue: "No event is emitted.", fix: "Emit Deposit." },
+    { class: "Reentrancy", function: "withdraw()", severity: "critical", issue: "The external call runs before balances[msg.sender] = 0, so a fallback re-enters and drains the vault.", fix: "Set the balance to 0 before the call, or use ReentrancyGuard." },
+  ] };
+  await withModel(JSON.stringify(model), async (calls) => {
+    const a = await auditContract("", VAULT);
+    assert.equal(a.verdict, "Critical", "the grade follows the most serious finding, not the stated one");
+    assert.equal(a.finding_count, 2);
+    const f = a.findings as AuditFinding[];
+    assert.deepEqual([f[0]!.class, f[0]!.function, f[0]!.severity], ["reentrancy", "withdraw", "critical"]);
+    assert.match(String(a.summary), /^Overall risk: Critical\. withdraw sends ETH/);
+    assert.match(String((calls[0]!.messages as Array<{ content: string }>)[0]!.content), /^You are a smart-contract security auditor\./);
+    assert.equal(calls[0]!.model, "openai/gpt-oss-120b");
+  });
+});
+
+test("audit: a safe contract is No issues found, and links, addresses and empty input are refused", async () => {
+  await withModel(JSON.stringify({ verdict: "Low", summary: "The contract is safe: it only stores a number.", findings: [] }), async () => {
+    const a = await auditContract("Audit: pragma solidity ^0.8.0; contract S { uint x; function set(uint v) external { x = v; } }");
+    assert.equal(a.verdict, "No issues found");
+    assert.match(String(a.summary), /^Overall risk: No issues found\. The contract is safe/);
+  });
+  assert.equal(riskGrade([]), "No issues found");
+  assert.equal(normaliseAuditFindings([{ severity: "bogus", issue: "x" }])[0]!.severity, "info");
+  assert.equal((await auditContract("")).error, "no_contract");
+  assert.equal((await auditContract("", "0x1234567890abcdef1234567890abcdef12345678")).error, "source_not_fetched");
+  assert.equal((await auditContract("https://etherscan.io/address/0x1")).error, "source_not_fetched");
+});
+
+test("llm: a 400 moves to the next model at once, and a json_validate_failed generation is kept when it parses", async () => {
+  const real = globalThis.fetch;
+  const models: string[] = [];
+  let salvageable = true;
+  process.env.GROQ_API_KEY = "test-key";
+  resetPhraseState();
+  const review = { verdict: "Approve", summary: "The code is correct. It sums a list.", findings: [] };
+  globalThis.fetch = (async (_url: string, init: { body: string }) => {
+    const model = String((JSON.parse(init.body) as { model: string }).model);
+    models.push(model);
+    if (model === "openai/gpt-oss-120b") {
+      return new Response(JSON.stringify({ error: { code: "json_validate_failed", message: "Failed to generate JSON",
+        failed_generation: salvageable ? `Here is the review: ${JSON.stringify(review)}` : "not json at all" } }), { status: 400 });
+    }
+    return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(review) } }] }), { status: 200 });
+  }) as typeof fetch;
+  try {
+    const a = await reviewCode("", "def total(xs):\n  return sum(xs)\n");
+    assert.equal(a.verdict, "Approve");
+    assert.deepEqual(models, ["openai/gpt-oss-120b"], "the paid-for generation is used, no second model");
+    salvageable = false;
+    models.length = 0;
+    resetPhraseState();
+    const t0 = Date.now();
+    const b = await reviewCode("", "def total(xs):\n  return sum(xs)\n");
+    assert.equal(b.verdict, "Approve");
+    assert.deepEqual(models, ["openai/gpt-oss-120b", "qwen/qwen3.8-27b"]);
+    assert.ok(Date.now() - t0 < 1_000, "no wait between a 400 and the next model");
+  } finally {
+    globalThis.fetch = real;
+    delete process.env.GROQ_API_KEY;
+    resetPhraseState();
+  }
 });
 
 test("genai: long calls are budgeted by tokens and their rate limits never park the phrasing path", async () => {
@@ -149,6 +262,20 @@ test("genai: the token estimate counts non-ASCII characters whole, and every fal
   } finally {
     delete process.env.LLM_LONG_TOKENS_PER_MIN;
   }
+});
+
+test("genai: generated text always has a title, and a multi-line text's brief is its first line", async () => {
+  assert.equal(writeTitle("", "Charge anywhere with sunlight. More."), "Charge anywhere with sunlight");
+  assert.equal(writeTitle("**Sun Charger**", "x"), "Sun Charger");
+  assert.equal(writeBrief("Autumn moonlight\na worm digs silently\ninto the chestnut."), "Autumn moonlight");
+  assert.equal(writeBrief("Ode to Rain\n\nThe rain comes soft at dusk\nand leaves by dawn.", "Ode to Rain"), "The rain comes soft at dusk");
+  assert.equal(writeBrief("Short single line."), "Short single line.");
+  await withModel(JSON.stringify({ title: "", text: "Autumn moonlight\na worm digs silently\ninto the chestnut." }), async (calls) => {
+    const a = await generateText("", "Write a haiku about autumn.");
+    assert.equal(a.title, "Autumn moonlight");
+    assert.equal(a.brief, "Autumn moonlight");
+    assert.match(String((calls[0]!.messages as Array<{ content: string }>)[0]!.content), /"title": a short title for the piece in at most eight words, always given/);
+  });
 });
 
 test("genai: generated text carries brief, word count and the requested count", async () => {

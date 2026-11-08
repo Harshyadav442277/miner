@@ -53,6 +53,8 @@ export interface Article {
   title: string;
   source: string | null;
   published: string | null;
+  /** The item's <link>: a news.google.com article URL that redirects to the publisher. Absent when the item has none. */
+  url?: string;
 }
 
 export interface NewsSearchResult {
@@ -398,7 +400,8 @@ async function searchPass(
     // A window that was ASKED FOR is enforced. An article with no date cannot
     // be shown to be inside it, so it is dropped rather than assumed current.
     if (cutoff !== null && (!published || new Date(published).getTime() < cutoff)) continue;
-    all.push({ title, source, published });
+    const link = decode(block.match(/<link>(?:<!\[CDATA\[)?\s*(https?:\/\/[^\s<\]]+)\s*(?:\]\]>)?<\/link>/)?.[1] ?? "");
+    all.push({ title, source, published, ...(link ? { url: link } : {}) });
   }
 
   const key2 = key;

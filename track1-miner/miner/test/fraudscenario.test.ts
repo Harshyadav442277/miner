@@ -224,3 +224,24 @@ test("the address path is byte-identical: the scenario work did not touch it", a
     globalThis.fetch = real;
   }
 });
+
+test("a held parcel, a small fee and a look-alike link is the parcel-fee scam, even with the threat feed down (2026-11-08)", async () => {
+  const real = globalThis.fetch;
+  globalThis.fetch = (async () => { throw new Error("threat feed down"); }) as unknown as typeof fetch;
+  try {
+    // Production answered this inconclusive: the domain could not be checked.
+    const r = await assessFraud("A text says my USPS parcel is held and asks me to pay a 1.99 fee at usps-redeliver.info");
+    assert.equal(r.verdict, "high_risk");
+    assert.equal(r.subject, "parcel-delivery fee scam (smishing)");
+    assert.equal((r.red_flags as string[]).length, 3);
+    assert.match(r.reason, /^High fraud risk: this is a likely parcel-delivery fee scam \(smishing\)\. Red flags: it says a parcel is held/);
+    const sms = await assessFraud("Royal Mail: your package could not be delivered. A redelivery fee of £1.45 is due: https://royalmail-redelivery.top/pay");
+    assert.equal(sms.verdict, "high_risk");
+  } finally {
+    globalThis.fetch = real;
+  }
+  // A real delivery notice with no fee and no link is not graded a scam.
+  const fine = assessScenario("Your package was delivered to the front porch at 2:14 pm.");
+  assert.notEqual(fine?.verdict, "high_risk");
+  assert.notEqual(fine?.verdict, "elevated_risk");
+});

@@ -1272,6 +1272,24 @@ const CHECKS = {
     return bad;
   },
 
+  async SMART_CONTRACT_AUDIT() {
+    const bad = [];
+    // A planted reentrancy: the ETH is sent before the balance is zeroed.
+    const vault = "pragma solidity ^0.8.0;\ncontract Vault {\n  mapping(address => uint) public balances;\n  function deposit() external payable { balances[msg.sender] += msg.value; }\n  function withdraw() external {\n    uint amount = balances[msg.sender];\n    (bool ok, ) = msg.sender.call{value: amount}(\"\");\n    require(ok);\n    balances[msg.sender] = 0;\n  }\n}\n";
+    const a = await get("/contract-audit", { contract: vault });
+    if (a.body.error === "upstream_unavailable") return ["the model did not answer (Groq quota or outage)"];
+    if (!["Critical", "High"].includes(a.body.verdict)) bad.push(`planted reentrancy -> ${a.body.verdict}, want Critical or High`);
+    const top = (a.body.findings ?? [])[0];
+    if (!/reentr/i.test(String(top?.class) + String(top?.issue))) bad.push(`the most serious finding is not the reentrancy: ${JSON.stringify(top)}`);
+    if (!/withdraw/i.test(String(top?.function) + String(top?.issue))) bad.push("the reentrancy is not placed in withdraw");
+    if (!/^Overall risk: /.test(String(a.body.summary)) && !new RegExp(String(a.body.verdict), "i").test(String(a.body.summary).split(".")[0])) {
+      bad.push("the summary does not open with the risk grade");
+    }
+    const safe = await get("/contract-audit", { contract: "pragma solidity ^0.8.0;\ncontract Store {\n  uint256 private value;\n  function get() external view returns (uint256) { return value; }\n}\n" });
+    if (["Critical", "High"].includes(safe.body.verdict)) bad.push(`a read-only storage contract -> ${safe.body.verdict}`);
+    return bad;
+  },
+
   async TEXT_GENERATION() {
     const bad = [];
     const a = await get("/generate", { prompt: "Write a 60-word product description for a solar-powered phone charger. Mention that it is waterproof." });

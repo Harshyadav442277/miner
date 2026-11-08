@@ -25,6 +25,35 @@ export const TABLE_NOTE: Record<string, string> = {
   USDT: "Tether's contract was read; on Arbitrum and Polygon it now reports its symbol as USDT0.",
 };
 
+/** Token names asked for in place of their symbols. A name is never sent to the resolver, which matched one to a look-alike. */
+export const TOKEN_NAMES: Record<string, string> = { TETHER: "USDT", USDCOIN: "USDC", CHAINLINK: "LINK", WRAPPEDETHER: "WETH", WRAPPEDBITCOIN: "WBTC" };
+
+export interface NativeCoin { symbol: string; of: string; wrapped: string | null; note: string }
+
+/**
+ * Chains' own coins, by symbol and by name. None is an ERC-20 contract, so none has a totalSupply() to read, and
+ * the resolver must not be asked: token=ethereum read a contract named "ETHEREUM" (1,000,000,000) and
+ * token=solana a meme token (888,888,888,888,888), comparison with the top miners, 2026-11-08.
+ */
+const NATIVE: NativeCoin[] = [
+  { symbol: "ETH", of: "Ethereum (and the gas coin of Base, Arbitrum and Optimism)", wrapped: "WETH", note: "Its supply is set by protocol issuance and the EIP-1559 burn, which is not a contract value." },
+  { symbol: "BTC", of: "Bitcoin", wrapped: "WBTC", note: "Bitcoin is not an EVM chain, and its supply is set by the protocol's issuance schedule." },
+  { symbol: "SOL", of: "Solana", wrapped: null, note: "Solana is not an EVM chain, and Solana SPL tokens are not read here." },
+  { symbol: "BNB", of: "BNB Smart Chain", wrapped: null, note: "An ERC-20 representation on another chain is a separate contract: send its address to read it." },
+  { symbol: "POL", of: "Polygon PoS (formerly MATIC)", wrapped: null, note: "POL and MATIC also exist as ERC-20 contracts on Ethereum: send the contract address to read one." },
+  { symbol: "AVAX", of: "Avalanche C-Chain", wrapped: null, note: "An ERC-20 representation on another chain is a separate contract: send its address to read it." },
+];
+const NATIVE_ALIASES: Record<string, string> = {
+  ETH: "ETH", ETHER: "ETH", ETHEREUM: "ETH", BTC: "BTC", XBT: "BTC", BITCOIN: "BTC", SOL: "SOL", SOLANA: "SOL",
+  BNB: "BNB", MATIC: "POL", POL: "POL", POLYGON: "POL", AVAX: "AVAX", AVALANCHE: "AVAX",
+};
+
+/** The native coin a symbol or name stands for, or null. Pure. */
+export function nativeCoin(symbolOrName: string): NativeCoin | null {
+  const s = NATIVE_ALIASES[symbolOrName.replace(/[\s-]+/g, "").toUpperCase()];
+  return s ? NATIVE.find((c) => c.symbol === s) ?? null : null;
+}
+
 /** The listed contract for a symbol on a chain, in any letter case, or null. Pure. */
 export function knownToken(chain: string, symbol: string): string | null {
   return KNOWN_TOKENS[chain]?.[symbol.trim().toUpperCase()] ?? null;

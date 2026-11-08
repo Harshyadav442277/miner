@@ -9,7 +9,7 @@
 import { lookupDns } from "./dns";
 import { monitorFilings } from "./filings";
 import { registryIntentFields, sanctionsIntentFields } from "./intent-fields";
-import { chat, generateText, reviewCode } from "./genai";
+import { auditContract, chat, generateText, reviewCode } from "./genai";
 import { verifyOnchainMetric } from "./onchain-metric";
 import { answerQuestion } from "./qa";
 import { macroIndicators } from "./macro";
@@ -18,7 +18,7 @@ import { screenSanctions } from "./sanctions";
 import { verifyTokenSupply } from "./token-supply";
 import { urlReputation } from "./urlsafe";
 
-export interface MissionAnswer { verdict: string; confidence: number; reason: string; error?: string }
+export interface MissionAnswer { verdict?: string; confidence: number; reason: string; error?: string }
 
 export interface MissionRoute {
   /** "A sanctions screening": the watchdog's sentence when the route runs out of time. */
@@ -53,8 +53,8 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
   },
   "/macro": {
     what: "A macroeconomic statistic lookup",
-    params: ["indicator", "country"],
-    run: (q, p) => macroIndicators(q, p("indicator"), p("country")),
+    params: ["indicator", "country", "year"],
+    run: (q, p) => macroIndicators(q, p("indicator"), p("country"), p("year")),
   },
   "/url-reputation": {
     what: "A threat-list check",
@@ -87,6 +87,12 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
     params: ["code"],
     exact: true,
     run: (q, p) => reviewCode(q, p("code")),
+  },
+  "/contract-audit": {
+    what: "A smart-contract audit",
+    params: ["contract", "code", "source", "solidity"],
+    exact: true,
+    run: (q, p) => auditContract(q, p("contract", "code", "source", "solidity")),
   },
   "/generate": {
     what: "The requested text",
