@@ -44,10 +44,13 @@ $data = Join-Path $EvalRoot "pairs/$Pairs"
 $h1 = Join-Path $data 'holdout.jsonl'
 $probe = Join-Path $EvalRoot 'pairs/urlscan_probe16.jsonl'
 $h2 = Join-Path $EvalRoot 'urlscan-h2-r1/pairs.jsonl'
+$h3 = Join-Path $EvalRoot 'urlscan-h3-r1/pairs.jsonl'   # frozen at 729bd23 before any V3 score
+$genericEvH3 = Join-Path $here 'evidence/generic-900005-h3'
 $pinned = Join-Path $EvalRoot 'foundation/tokenizer.json'
 $foundation = Join-Path $EvalRoot 'foundation/foundation.json'
 $pkg = Join-Path $runDir 'URL_SCAN.safetensors'
-$sets = @('--pairs', "h1=$h1", '--pairs', "probe=$probe", '--pairs', "h2=$h2")
+$sets = @('--pairs', "h1=$h1", '--pairs', "probe=$probe", '--pairs', "h2=$h2", '--pairs', "h3=$h3")
+$setsV2 = $sets[0..5]
 
 if (!$FromStage1) {
     Set-Location -LiteralPath $here
@@ -73,9 +76,15 @@ try {
     Set-Location -LiteralPath $here
     if (!(Test-Path -LiteralPath (Join-Path $genericEv 'generic-scores.json'))) {
         New-Item -ItemType Directory -Force $genericEv | Out-Null
-        Invoke-Recorded $py (@('measure_v2.py') + $sets + @('--package',
+        Invoke-Recorded $py (@('measure_v2.py') + $setsV2 + @('--package',
             "generic=$EvalRoot/dl/generic_900005/adapter-GENERIC-dc4f8bd55442.safetensors=dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
             '--out', $genericEv)) (Join-Path $genericEv 'measure.txt')
+    }
+    if (!(Test-Path -LiteralPath (Join-Path $genericEvH3 'generic-scores.json'))) {
+        New-Item -ItemType Directory -Force $genericEvH3 | Out-Null
+        Invoke-Recorded $py @('measure_v2.py', '--pairs', "h3=$h3", '--package',
+            "generic=$EvalRoot/dl/generic_900005/adapter-GENERIC-dc4f8bd55442.safetensors=dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+            '--out', $genericEvH3) (Join-Path $genericEvH3 'measure.txt')
     }
     Invoke-Recorded $py (@('measure_v2.py') + $sets + @('--package', "candidate=$pkg=$($stage1.keccak256)", '--out', $ev)) (Join-Path $ev 'measure.txt')
 } finally {
@@ -85,7 +94,7 @@ try {
 
 Set-Location -LiteralPath $here
 Copy-Item -LiteralPath (Join-Path $genericEv 'generic-scores.json') -Destination (Join-Path $ev 'generic-scores.json')
-Invoke-Recorded $py (@('report_v2.py', '--measure', $ev, '--train', "$data/train.jsonl") + $sets) (Join-Path $ev 'report.md')
+Invoke-Recorded $py (@('report_v2.py', '--measure', $ev, '--measure', $genericEvH3, '--train', "$data/train.jsonl") + $sets) (Join-Path $ev 'report.md')
 $bits = (Get-Content -LiteralPath (Join-Path $ev 'candidate-scores.json') -Raw | ConvertFrom-Json).verify_input_bits
 "adapterbuild score_hex $($stage1.score_hex) / adapterexec verify-input bits $bits / equal: $($stage1.score_hex -eq $bits)" |
     Tee-Object -FilePath (Join-Path $ev 'bit-equality.txt')

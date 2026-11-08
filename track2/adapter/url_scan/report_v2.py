@@ -17,6 +17,8 @@ import numpy as np
 
 TOKEN = re.compile(r"[a-z0-9_]+")
 HOLDOUT_ONLY = {"nested", "sentence_json"}
+# miners whose response FORMAT the V3 synth_mimic renderers copy (4433 is ours and never in pairs)
+TEMPLATED = {"731440", "9002", "302", "20260828", "4433"}
 
 
 def wilson_lower(k, n, z=1.96):
@@ -61,14 +63,17 @@ def frac(hits, n):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--measure", type=Path, required=True)
+    ap.add_argument("--measure", type=Path, action="append", required=True, help="repeatable; sets merge by package")
     ap.add_argument("--pairs", action="append", required=True)
     ap.add_argument("--train", type=Path, required=True)
     a = ap.parse_args()
     train = [json.loads(l) for l in a.train.read_text(encoding="utf-8").splitlines()]
     bow = bow_model(train)
-    packages = {p.stem.removesuffix("-scores"): json.loads(p.read_text(encoding="utf-8"))
-                for p in sorted(a.measure.glob("*-scores.json"))}
+    packages = {}
+    for folder in a.measure:
+        for p in sorted(folder.glob("*-scores.json")):
+            res = json.loads(p.read_text(encoding="utf-8"))
+            packages.setdefault(p.stem.removesuffix("-scores"), {"sets": {}})["sets"].update(res["sets"])
     report = {}
     for spec in a.pairs:
         name, path = spec.split("=", 1)
@@ -76,6 +81,10 @@ def main():
         groups = {"all": list(range(len(pairs)))}
         for i, p in enumerate(pairs):
             groups.setdefault("kind:" + str(p.get("kind")), []).append(i)
+            if "chosen_miner" in p:
+                hits = (p["chosen_miner"] in TEMPLATED) + (p["rejected_miner"] in TEMPLATED)
+                tag = ["untemplated", "mixed", "templated"][hits]
+                groups.setdefault(f"{tag}:{p.get('kind')}", []).append(i)
             fmt = str(p.get("format") or "")
             if fmt:
                 unseen = any(f in HOLDOUT_ONLY for f in fmt.split("|"))
@@ -93,7 +102,7 @@ def main():
         print(f"\n### {name}\n\n| group | n | " + " | ".join(cols) + " |\n|---|---:|" + "---:|" * len(cols))
         for g, idx in groups.items():
             print(f"| {g} | {len(idx)} | " + " | ".join(frac([v[i] for i in idx], len(idx)) for v in cols.values()) + " |")
-    (a.measure / "report.json").write_text(json.dumps(report, indent=1), encoding="utf-8")
+    (a.measure[0] / "report.json").write_text(json.dumps(report, indent=1), encoding="utf-8")
 
 
 if __name__ == "__main__":
