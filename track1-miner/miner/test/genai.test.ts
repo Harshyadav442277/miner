@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   asksWillHappen, auditContract, chat, cut, generateText, normaliseAuditFindings, normaliseFindings, opening, parseObject, reviewCode, reviewSummary,
-  reviewVerdict, riskGrade, wordTarget, type AuditFinding,
+  reviewVerdict, riskGrade, wordTarget, writeBrief, writeTitle, type AuditFinding,
 } from "../src/genai";
 import { resetPhraseState } from "../src/llm";
 
@@ -34,10 +34,15 @@ test("genai: helpers parse JSON, cut to 80 characters and read word targets", ()
   assert.ok(long.length <= 80, long);
   assert.equal(opening("First one. Second one."), "First one.");
   // Production, 2026-11-07: the old cut served "… breaking into smaller copies of."
+  // A truncated phrase is marked "…", never ended with "." as if it were a sentence (2026-11-08).
   assert.equal(cut("Recursion is when a problem solves itself by breaking into smaller copies of itself until it is simple."),
-    "Recursion is when a problem solves itself by breaking into smaller copies.");
+    "Recursion is when a problem solves itself by breaking into smaller copies…");
+  // A clause boundary under 60 characters is not taken: the 48-character clause read as the whole answer.
   assert.equal(cut("Recursion is like a set of Russian nesting dolls: each doll contains a smaller doll that looks just like the one before."),
-    "Recursion is like a set of Russian nesting dolls.");
+    "Recursion is like a set of Russian nesting dolls: each doll contains a smaller…");
+  // One at 60 or later is, and ends as a sentence.
+  assert.equal(cut("Bitcoin traded near its record this week, as spot ETF inflows rose, while miners sold coins to fund new rigs today."),
+    "Bitcoin traded near its record this week, as spot ETF inflows rose.");
   assert.equal(wordTarget("Write a 60-word product description"), 60);
   assert.equal(wordTarget("Summarise in 120 words"), 120);
   assert.equal(wordTarget("Write a haiku"), null);
@@ -257,6 +262,20 @@ test("genai: the token estimate counts non-ASCII characters whole, and every fal
   } finally {
     delete process.env.LLM_LONG_TOKENS_PER_MIN;
   }
+});
+
+test("genai: generated text always has a title, and a multi-line text's brief is its first line", async () => {
+  assert.equal(writeTitle("", "Charge anywhere with sunlight. More."), "Charge anywhere with sunlight");
+  assert.equal(writeTitle("**Sun Charger**", "x"), "Sun Charger");
+  assert.equal(writeBrief("Autumn moonlight\na worm digs silently\ninto the chestnut."), "Autumn moonlight");
+  assert.equal(writeBrief("Ode to Rain\n\nThe rain comes soft at dusk\nand leaves by dawn.", "Ode to Rain"), "The rain comes soft at dusk");
+  assert.equal(writeBrief("Short single line."), "Short single line.");
+  await withModel(JSON.stringify({ title: "", text: "Autumn moonlight\na worm digs silently\ninto the chestnut." }), async (calls) => {
+    const a = await generateText("", "Write a haiku about autumn.");
+    assert.equal(a.title, "Autumn moonlight");
+    assert.equal(a.brief, "Autumn moonlight");
+    assert.match(String((calls[0]!.messages as Array<{ content: string }>)[0]!.content), /"title": a short title for the piece in at most eight words, always given/);
+  });
 });
 
 test("genai: generated text carries brief, word count and the requested count", async () => {

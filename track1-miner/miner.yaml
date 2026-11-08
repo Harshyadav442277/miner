@@ -1392,8 +1392,9 @@ endpoints:
       ten-year-old: <text>". Every stated constraint is honoured (length, format,
       tone, words to include), and the answer reports word_count next to
       requested_words so a length target can be checked. Returns text (the writing
-      only, no preamble), title (when the piece has one), brief (the text if at most
-      80 characters, else its opening sentence cut to 80), word_count and
+      only, no preamble), title (always: a short title of at most eight words),
+      brief (the text if at most 80 characters; for a multi-line text its first
+      line when that fits; else its opening sentence cut to 80), word_count and
       requested_words.
     params:
       query:
@@ -1853,7 +1854,7 @@ output_schema:
           issue: { type: string }
           fix: { type: string }
     finding_count: { type: [integer, "null"] }
-    title: { type: [string, "null"], description: "/generate: the title, empty when the piece has none." }
+    title: { type: [string, "null"], description: "/generate: a short title, always given." }
     word_count: { type: [integer, "null"] }
     requested_words: { type: [integer, "null"], description: "/generate: the word count the prompt asked for, if any." }
 

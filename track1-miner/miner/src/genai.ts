@@ -39,17 +39,21 @@ export function parseObject(raw: string): Record<string, unknown> | null {
 
 const str = (v: unknown): string => (typeof v === "string" ? v.trim() : "");
 
-/** At most `n` characters, cut at a word and ended with a full stop. Pure. */
+/**
+ * At most `n` characters. A clause boundary at 60 characters or later reads as a sentence and ends with a full
+ * stop; anything shorter is a truncated phrase, cut at a word and marked "…", never dressed as a sentence with
+ * a "." (a 40-character clause gave "Recursion is like a set of Russian nesting dolls.", 2026-11-08). Pure.
+ */
 export function cut(text: string, n = 80): string {
   const t = text.replace(/\s+/g, " ").trim();
   if (t.length <= n) return t;
   const head = t.slice(0, n - 1);
-  // A clause boundary reads as a sentence; a bare word boundary can leave "… smaller copies of." (2026-11-07).
   const clause = Math.max(head.lastIndexOf(", "), head.lastIndexOf("; "), head.lastIndexOf(": "), head.lastIndexOf(" - "), head.lastIndexOf(" — "));
-  const at = clause >= 40 ? clause : head.lastIndexOf(" ");
+  const whole = clause >= 60;
+  const at = whole ? clause : head.lastIndexOf(" ");
   let out = (at > 20 ? head.slice(0, at) : head).replace(/[,;:\s]+$/, "");
   while (DANGLING.test(out)) out = out.replace(DANGLING, "");
-  return `${out}.`;
+  return whole ? `${out}.` : `${out.replace(/[.,;:!?\s—-]+$/, "")}…`;
 }
 
 /** Words a cut sentence must not end on. */
@@ -247,7 +251,7 @@ export async function auditContract(question: string, contractParam = ""): Promi
 }
 
 const WRITE_SYSTEM = `You write exactly what the user asks for. Reply with a JSON object:
-{"title": the title if the piece has one, else "", "text": the requested text only, with no preamble, no notes and no closing offer}
+{"title": a short title for the piece in at most eight words, always given, "text": the requested text only, with no preamble, no notes, no closing offer and no title line}
 Honour every stated constraint: length in words, sentences or paragraphs, format, tone, audience and any words to include or avoid. A stated word count is a target to meet within 5%. Keep supplied facts unchanged when rewriting or summarising.`;
 
 /** The word count a prompt asks for ("a 60-word", "in 120 words", "under 200 words"), or null. Pure. */
@@ -258,6 +262,28 @@ export function wordTarget(prompt: string): number | null {
 
 export const words = (t: string): number => (t.trim() ? t.trim().split(/\s+/).length : 0);
 
+/** The model's title when it gave one, else the text's opening words: a title is always served. Pure. */
+export function writeTitle(stated: string, text: string): string {
+  const t = plainHyphens(stated.replace(/^#+\s*|["“”*]/g, "").replace(/\s+/g, " ").trim());
+  if (t) return t.length <= 80 ? t : cut(t, 80);
+  // The opening line of a poem or list, else the opening sentence; eight words at most.
+  const line = text.split(/\r?\n/).map((l) => l.replace(/^#+\s*|\*\*/g, "").trim()).find(Boolean) ?? "";
+  const w = opening(line).replace(/[.!?,;:]+$/, "").split(/\s+/).filter(Boolean);
+  return w.length <= 8 ? w.join(" ") : `${w.slice(0, 6).join(" ").replace(/[,;:]+$/, "")}…`;
+}
+
+/**
+ * The scored brief: a short single-line text whole; a multi-line text's first line (a title line skipped) when
+ * it fits, since a poem or a list is read line by line; else the opening sentence, cut to 80. Pure.
+ */
+export function writeBrief(text: string, title = ""): string {
+  const lines = text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  if (lines.length <= 1) return text.length <= 80 ? text.trim() : cut(opening(text));
+  const strip = (l: string): string => l.replace(/^#+\s*|\*\*/g, "").trim();
+  const first = lines.find((l) => strip(l).toLowerCase() !== title.toLowerCase()) ?? lines[0]!;
+  return strip(first).length <= 80 ? strip(first) : cut(opening(strip(first)));
+}
+
 export async function generateText(question: string, promptParam = ""): Promise<GenAnswer> {
   const prompt = (promptParam || question).trim().slice(0, MAX_INPUT);
   if (!prompt) return missing("writing task", "prompt", { text: null, title: null, brief: null });
@@ -267,7 +293,7 @@ export async function generateText(question: string, promptParam = ""): Promise<
   const text = str(o?.text);
   if (!o || !text) return unavailable("the text", { text: null, title: null, brief: null });
   const n = words(text);
-  const brief = text.length <= 80 ? text : cut(opening(text));
-  return { text, title: str(o.title), brief, word_count: n, requested_words: target, verdict: "generated", confidence: CONFIDENCE, source: SOURCE,
+  // The brief skips a first line only when it repeats the model's own title, not one derived from that line.
+  return { text, title: writeTitle(str(o.title), text), brief: writeBrief(text, str(o.title)), word_count: n, requested_words: target, verdict: "generated", confidence: CONFIDENCE, source: SOURCE,
     reason: text };
 }
