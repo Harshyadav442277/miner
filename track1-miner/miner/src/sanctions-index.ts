@@ -26,9 +26,11 @@ type Row = [number, string, string, (string[] | 0)?, string?, (number[] | 0)?, (
 export interface IndexList { n: ListName; pub: string | null; count: number; src: string; u: string | null }
 export interface SanctionsIndex { v: 1; built_at: string; lists: IndexList[]; failed: Array<{ n: ListName; error: string }>; s: string[]; p: Row[] }
 
-/** Where each list's parties are looked up by a reader. Called, not a constant: see the import cycle note below. */
+/**
+ * Where each list's parties are looked up by a reader. sanctions-lists imports this module, and sanctions-uk-eu
+ * imports sanctions-lists, so nothing from either is read at load time here: only inside functions.
+ */
 function urlTemplate(list: ListName): string | null {
-  // sanctions-uk-eu imports from sanctions-lists, which imports this module, so its exports are read at call time.
   if (list === "UK Sanctions List") return UK_URL;
   if (list === "EU Financial Sanctions Consolidated List") return EU_URL;
   if (list.startsWith("OFAC")) return "https://sanctionssearch.ofac.treas.gov/Details.aspx?id={id}";
@@ -62,7 +64,6 @@ export function encodeIndex(reads: ListRead[], failed: Array<{ n: ListName; erro
 }
 
 const arr = <T>(x: unknown): T[] => (Array.isArray(x) ? x as T[] : []);
-const KNOWN = new Set<string>([...CORE_LISTS, ...OPTIONAL_LISTS]);
 
 /**
  * The lists in an index, or null when it should not be used: not version 1, built more than MAX_AGE_MS
@@ -87,8 +88,10 @@ export function decodeIndex(ix: unknown, now: number): SanctionsLists | null {
     });
   }
   const reads: ListRead[] = [];
+  // Built here, not at load: sanctions-lists imports this module, so its constants exist only once it has run.
+  const known = new Set<string>([...CORE_LISTS, ...OPTIONAL_LISTS]);
   for (const [i, meta] of x.lists.entries()) {
-    if (!KNOWN.has(meta.n) || reads.some((r) => r.list === meta.n)) return null;
+    if (!known.has(meta.n) || reads.some((r) => r.list === meta.n)) return null;
     if (byList[i]!.length !== meta.count || !looksComplete(meta.n, byList[i]!)) return null;
     reads.push({ list: meta.n, published: meta.pub ?? null, parties: byList[i]!, source: meta.src });
   }

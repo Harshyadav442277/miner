@@ -25,6 +25,8 @@ const STALE_MS = 54 * 3_600_000;
 const TIMEOUT_MS = Number(process.env.SANCTIONS_TIMEOUT_MS ?? 9_000);
 const OFAC = "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports";
 
+import { loadIndex } from "./sanctions-index";
+
 export type ListName = "OFAC SDN" | "OFAC Consolidated (non-SDN)" | "UN Security Council Consolidated"
   | "UK Sanctions List" | "EU Financial Sanctions Consolidated List";
 
@@ -223,6 +225,9 @@ export function toLists(reads: ListRead[], failed: ListName[], notScreened: List
 }
 
 async function download(): Promise<SanctionsLists> {
+  // One fetch of the prebuilt index when it is usable; the direct read below, as before, when it is not.
+  const indexed = await loadIndex();
+  if (indexed) return indexed;
   const keys = Object.keys(DIRECT_FILES) as Array<keyof typeof DIRECT_FILES>;
   const got = await Promise.all(keys.map((k) => read(DIRECT_FILES[k]).catch(() => null)));
   const { reads, failed } = assemble(Object.fromEntries(keys.map((k, i) => [k, got[i] ?? null])) as Record<keyof typeof DIRECT_FILES, Fetched>);
@@ -230,7 +235,7 @@ async function download(): Promise<SanctionsLists> {
 }
 
 /**
- * All three lists. A complete read is kept for six hours, then served for up to two
+ * All the lists, from the index or read directly. A complete read is kept for six hours, then served for up to two
  * days more while a fresh copy downloads, and preferred over a partial fresh
  * read; its edition dates say how old it is.
  */

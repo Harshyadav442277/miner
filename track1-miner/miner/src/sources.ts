@@ -162,9 +162,11 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/sentiment": ["groq"],
   "/classify": ["datamuse", "groq"],
   "/research-synthesis": ["clinicaltrials", "doaj", "ebi", "ncbi", "openalex", "wikipedia"],
-  "/sanctions-screen": ["ofac", "un-sanctions"],
-  "/company-registry": ["gleif", "ofac", "sec", "un-sanctions"],
-  "/sec-filings": ["ofac", "sec", "un-sanctions"],
+  // The sanctions index (sanctions-index.ts) is served from raw.githubusercontent.com, the host registered for
+  // "ofac-list", so that id is listed too; the index's data comes from ofac, un-sanctions, uk-sanctions and eu-sanctions.
+  "/sanctions-screen": ["eu-sanctions", "ofac", "ofac-list", "uk-sanctions", "un-sanctions"],
+  "/company-registry": ["eu-sanctions", "gleif", "ofac", "ofac-list", "sec", "uk-sanctions", "un-sanctions"],
+  "/sec-filings": ["eu-sanctions", "ofac", "ofac-list", "sec", "uk-sanctions", "un-sanctions"],
   "/macro": ["bls", "ecb", "eurostat", "nyfed", "worldbank"],
   "/url-reputation": ["dns-resolvers"],
   "/answer": ["groq", "wikipedia"],
