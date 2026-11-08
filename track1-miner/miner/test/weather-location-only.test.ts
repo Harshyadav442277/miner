@@ -42,3 +42,14 @@ test("a location and nothing else is the temperature now", async () => {
     assert.notEqual(forecast.window_hours, 0, "a forecast question with no window is still a forecast");
   });
 });
+
+// STORM_ALERT_GENERAL and WEATHER_FORECAST_GENERAL name the window `window_hours`; both routes ignored it.
+test("window_hours sets the storm and the forecast window", async () => {
+  await withStub(async () => {
+    const storm = await request("/storm-alert", { location: "Chennai", window_hours: "36" });
+    assert.equal(storm.window_hours, 36);
+    assert.equal(storm.window, "36 hours");
+    const forecast = await request("/weather-forecast", { location: "Kano", window_hours: "12" });
+    assert.equal(forecast.window_hours, 12);
+  });
+});

@@ -378,7 +378,7 @@ function upstreamUnavailable(res: ServerResponse, what: string, subject: string,
  * piece of the question we have to echo back.
  */
 function requestedWindow(url: URL): string {
-  const hours = Number(firstValue(url, "hours", "forecast_hours"));
+  const hours = Number(firstValue(url, "hours", "forecast_hours", "window_hours"));
   if (Number.isFinite(hours) && hours > 0) return `${Math.floor(hours)}-hour`;
   const days = Number(firstValue(url, "days", "forecast_days"));
   if (Number.isFinite(days) && days > 0) return `${Math.floor(days) * 24}-hour`;
@@ -554,8 +554,9 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     // `hours=0` means the current hour — our own input_schema says so — but a
     // falsy-zero `||` here silently turned it into the 24-hour default, so a
     // "what is it right now" question was answered with a day-long range. An
-    // absent parameter is an empty string, which is what separates the two.
-    const hoursRaw = firstValue(url, "hours");
+    // absent parameter is an empty string, which is what separates the two. WEATHER_FORECAST_GENERAL names
+    // its window `window_hours` (GET /engine/v1/intents/WEATHER_FORECAST_GENERAL, read 2026-11-08 UTC).
+    const hoursRaw = firstValue(url, "hours", "window_hours");
     const hoursNum = Number(hoursRaw);
     const hours =
       hoursRaw !== "" && Number.isFinite(hoursNum)
@@ -711,7 +712,9 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       return;
     }
     const stormDays = Number(firstValue(url, "days", "forecast_days"));
-    const stormHoursRaw = firstValue(url, "hours", "forecast_hours");
+    // STORM_ALERT_GENERAL names its window `window_hours` (GET /engine/v1/intents/STORM_ALERT_GENERAL, read
+    // 2026-11-08 UTC); it was ignored, so every window was the route's own default.
+    const stormHoursRaw = firstValue(url, "hours", "forecast_hours", "window_hours");
     const stormHours = stormHoursRaw !== "" && Number.isFinite(Number(stormHoursRaw))
       ? Number(stormHoursRaw)
       : Number.isFinite(stormDays) && stormDays > 0 ? stormDays * 24 : undefined;
