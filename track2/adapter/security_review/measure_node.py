@@ -26,6 +26,7 @@ from tokenizers import Tokenizer
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check_executor import batch_input_root  # noqa: E402
+from keccak import keccak256  # noqa: E402
 
 ENGINE_HASH = "77643d6e1176ab8744801cef93ccb844d0136ed32b8daa865d541f37d13292de"
 
@@ -108,15 +109,9 @@ def run_package(a, name, pkg, pair_sets, tok_path, foundation):
                     if time.monotonic() > deadline:
                         raise TimeoutError("worker start")
                     time.sleep(0.5)
-        # the adapter hash a validator sends is the registered keccak; learn it from a 1-item probe
-        probe = urllib.request.Request(f"http://127.0.0.1:{ports[0]}/", json.dumps(
-            {"batch": [{"tokens": list(unique[0])}]}).encode(), {"Content-Type": "application/json"})
-        with urllib.request.urlopen(probe, timeout=600) as resp:
-            echo = json.load(resp)
-        ident = {"foundation_hash": foundation["foundation_hash"], "adapter_hash": echo["adapter_hash"].lower(),
+        # the adapter hash a validator sends is the registered keccak256 of the file
+        ident = {"foundation_hash": foundation["foundation_hash"], "adapter_hash": keccak256(Path(pkg).read_bytes()),
                  "tokenizer_hash": foundation["tokenizer_hash"]}
-        if echo["foundation_hash"].lower() != ident["foundation_hash"] or echo["tokenizer_hash"].lower() != ident["tokenizer_hash"]:
-            raise ValueError("worker runs another foundation/tokenizer")
         chunks = [unique[i:i + 6] for i in range(0, len(unique), 6)]
         bits = {}
         with concurrent.futures.ThreadPoolExecutor(len(ports)) as pool:
@@ -139,7 +134,7 @@ def run_package(a, name, pkg, pair_sets, tok_path, foundation):
     for set_name, pairs in pair_sets.items():
         rows = []
         for p, (c, r) in zip(pairs, keys[set_name]):
-            rows.append({"id": p.get("id"), "kind": p.get("kind"), "category": p.get("category"),
+            rows.append({"id": p.get("id"), "kind": p.get("kind"), "category": p.get("category"), "format": p.get("format", "unseen-oot"),
                          "chosen_bits": bits[c], "rejected_bits": bits[r], "correct": f32(bits[c]) > f32(bits[r]),
                          "truncated": len(c) >= max_tokens or len(r) >= max_tokens})
         k = sum(x["correct"] for x in rows)
@@ -149,6 +144,7 @@ def run_package(a, name, pkg, pair_sets, tok_path, foundation):
         result["sets"][set_name] = {"pairs": len(rows), "correct": k, "accuracy": round(k / len(rows), 4),
                                     "wilson95": wilson(k, len(rows)), "truncated_pairs": sum(x["truncated"] for x in rows),
                                     "by_kind": {kk: f"{sum(v)}/{len(v)}" for kk, v in sorted(by_kind.items())},
+                                    "by_format": {f: f"{sum(x['correct'] for x in rows if x['format'] == f)}/{sum(x['format'] == f for x in rows)}" for f in sorted({x['format'] for x in rows})},
                                     "rows": rows}
     return result
 

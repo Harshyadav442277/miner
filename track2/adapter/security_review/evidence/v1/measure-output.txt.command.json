@@ -1,0 +1,25 @@
+{
+ "argv": [
+  "C:/Users/hyada/tg-eval/.venv/Scripts/python.exe",
+  "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/.claude/worktrees/agent-ab157a6de2e63631c/track2/adapter/security_review/measure_node.py",
+  "--home",
+  "C:/Users/hyada/tg-eval",
+  "--package",
+  "v1=C:/Users/hyada/tg-eval/runs-v2/SECURITY_REVIEW_v1/SECURITY_REVIEW.safetensors",
+  "--package",
+  "generic=C:/Users/hyada/tg-eval/runs-v2/SECURITY_REVIEW_ref_generic/GENERIC.safetensors",
+  "--pairs",
+  "holdout=C:/Users/hyada/tg-eval/pairs/security_review_v1/holdout.jsonl",
+  "--pairs",
+  "oot=C:/Users/hyada/tg-eval/pairs/security_review_oot_v1/oot.jsonl",
+  "--out",
+  "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/.claude/worktrees/agent-ab157a6de2e63631c/track2/adapter/security_review/evidence/v1/node-scores.json",
+  "--workers",
+  "4"
+ ],
+ "cwd": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-ab157a6de2e63631c\\track2\\adapter\\security_review",
+ "env_set": {},
+ "started_at": "2026-11-08T08:21:55.516282+00:00",
+ "exit_code": 0,
+ "finished_at": "2026-11-08T08:53:41.547054+00:00"
+}

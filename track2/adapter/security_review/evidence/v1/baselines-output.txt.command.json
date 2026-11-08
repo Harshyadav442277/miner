@@ -1,0 +1,19 @@
+{
+ "argv": [
+  "C:/Users/hyada/tg-eval/.venv/Scripts/python.exe",
+  "baselines.py",
+  "C:/Users/hyada/tg-eval/kit-v2",
+  "C:/Users/hyada/tg-eval/pairs/security_review_v1/train.jsonl",
+  "--eval",
+  "holdout=C:/Users/hyada/tg-eval/pairs/security_review_v1/holdout.jsonl",
+  "--eval",
+  "oot=C:/Users/hyada/tg-eval/pairs/security_review_oot_v1/oot.jsonl",
+  "--out",
+  "evidence/v1/baselines.json"
+ ],
+ "cwd": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-ab157a6de2e63631c\\track2\\adapter\\security_review",
+ "env_set": {},
+ "started_at": "2026-11-08T08:20:00.483867+00:00",
+ "exit_code": 0,
+ "finished_at": "2026-11-08T08:20:03.730607+00:00"
+}

@@ -47,3 +47,8 @@ $REC "$EV/measure-output.txt" -- $PY "$HERE/measure_node.py" --home $HOME_ \
   --package "$VER=$PKG" ${EXTRA_PACKAGES:-} \
   --pairs "holdout=$HOME_/pairs/security_review_v1/holdout.jsonl" \
   --pairs "oot=$HOME_/pairs/security_review_oot_v1/oot.jsonl" --out "$EV/node-scores.json" --workers 4
+
+mkdir -p "$EV/bitcheck"
+$REC "$EV/bit-equality-output.txt" -- $PY "$HERE/bit_equality.py" --home $HOME_ --package "$PKG" \
+  --scores "$EV/node-scores.json" --name "$VER" --pairs $HOME_/pairs/security_review_v1/holdout.jsonl \
+  --n 4 --out "$EV/bit-equality.json"
