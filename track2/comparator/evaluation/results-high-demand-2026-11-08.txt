@@ -1,4 +1,4 @@
-# High-demand comparator families, run 2026-11-09 (~01:00 UTC). Branch claude/high-demand-comparators.
+# High-demand comparator families, run 2026-11-08 ~19:00-19:30 UTC (2026-11-09 ~00:30-01:00 IST). Branch claude/high-demand-comparators.
 
 ## 1. Our files: dist/ bytes = commit-pinned hosted URL bytes (sha256), keccak256 (`go run . hash`) = dist/manifest.json
 REGULATORY_FILING_MONITOR bytes=2306 sha256=5506d7f0f3b168d1ea45a5ab7ca43457264d9eb43403d505936a0cadd824c97e pinned_equal=True keccak=0x99d21ca63338375e236bd25e81a52070506447d266ed2c6b3c9a61893a9ff35e manifest_equal=True

@@ -1,7 +1,7 @@
 // node high-demand.mjs
 // Ours vs the pending competitors on the six high-demand families' adversarial suites.
 // Each competitor is fetched from its registered, commit-pinned wasm_url and must match the sha256 below,
-// whose keccak256 was checked against the registry's wasm_hash on 2026-11-09 (`go run . hash`, ../verify).
+// whose keccak256 was checked against the registry's wasm_hash on 2026-11-08 ~19:20 UTC (`go run . hash`, ../verify).
 // Every module runs twice in fresh WebAssembly instances (node's V8, the runnable's runtime; the node's own
 // wazero runtime is covered by the 234,848-case grid in ../verify). Scores are compared with each case's
 // `expected`, which gen-suite.mjs computed from the documented rule. Three mutants show the suite can fail.

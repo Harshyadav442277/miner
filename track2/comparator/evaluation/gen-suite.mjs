@@ -79,7 +79,7 @@ const SPECS = {
     [2n, 10n, "battery RelTol 0.1%"], [1n, 1000000n, "battery AbsTol $1 at 6 dp"], [3n, 0n, "battery PassFail"], [7n, 100n, "battery unknown code"], [2n, 10000n, "battery RelTol 100%"]],
   WEATHER_CHECK: [[0n, 0n, "gate_recorded (/api/wasm intent_spec, 2026-11-08)"], [1n, 2000000n, "on-chain AbsTol 2.0 C (GAPS G237, read 2026-10-31; 6 dp assumed)"],
     [1n, 500000n, "battery AbsTol 0.5 C"], [2n, 100n, "battery RelTol 1%"], [3n, 0n, "battery PassFail"], [7n, 100n, "battery unknown code"], [1n, 0n, "battery AbsTol 0"]],
-  // High-demand families (added 2026-11-09). Appended after the first three, so their files and the
+  // High-demand families (added 2026-11-08 UTC). Appended after the first three, so their files and the
   // seeded jitter they draw are unchanged. Kit specs are the prefix specs in kit-v2 comparator.go (1ed063e).
   REGULATORY_FILING_MONITOR: [[0n, 0n, "gate default (no kit spec)"], [1n, 1n, "battery AbsTol 1 filing"], [2n, 500n, "battery RelTol 5%"],
     [3n, 0n, "battery PassFail"], [7n, 100n, "battery unknown code"], [1n, 0n, "battery AbsTol 0"]],
@@ -96,7 +96,7 @@ const SPECS = {
 };
 
 // High-demand anchors are synthetic values inside each intent's published range and scale
-// (devnode /engine/v1/intents/<FAMILY>_GENERAL, read 2026-11-09), except GRID's 38.09459, which is
+// (devnode /engine/v1/intents/<FAMILY>_GENERAL, read 2026-11-08 ~19:10 UTC), except GRID's 38.09459, which is
 // the settled CAISO DAM LMP the kit pins in grid_power_price.go. A comparator sees two integers only,
 // so what matters is scale, sign, range edges and the unit mistakes each intent invites.
 const HD = {
