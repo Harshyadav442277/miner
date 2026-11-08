@@ -1,6 +1,25 @@
 # MEMORY.md — session continuity
 
-## 2026-11-08 ~19:45 UTC: CURRENT — six high-demand comparators ready; prod deploy needs the owner's yes
+## 2026-11-08 20:08 UTC (Nov 9 01:38 IST): CURRENT — owner registered the six high-demand comparators
+
+- Owner signed at 19:58–20:05 UTC, all status 1 on Sepolia. Registration ids come from the Diamond logs:
+
+| Family | Reg | Tx |
+|---|---|---|
+| REGULATORY_FILING_MONITOR | 273 | `0xb9075f1a…df53` |
+| CORPORATE_REGISTRY_LOOKUP | 274 | `0x8f64567b…e1e7` |
+| LIQUIDITY_DEPTH_VERIFY | 275 | `0x82331248…c8f` |
+| GRID_POWER_PRICE | 276 | `0x99416e82…5480` |
+| MINING_HASHPRICE_VERIFY | 277 | `0x58351c0e…f83` |
+| FINANCIAL_DATA | 278 | `0x4d91139f…3815` |
+
+- Each log carries 0.7520 MACHINA (`0x0a756345916d710e`), read as the bond.
+- One extra call (`0x9d3b8517`, 20:00:00, `0xb91ef9e7…7d9f`) is undecoded.
+- Wallet: 3.22 MACHINA.
+- `/api/wasm` had not indexed 273–278 at 20:08 UTC. Expect `pending`, "no published snapshot", like the
+  competitors.
+
+## 2026-11-08 ~19:45 UTC: six high-demand comparators ready; prod deploy needs the owner's yes
 
 - Branch `claude/high-demand-comparators` `c2f5394`, sign file `track2/runnable/SIGN_HIGH_DEMAND.md`. Families:
   REGULATORY_FILING_MONITOR, CORPORATE_REGISTRY_LOOKUP, LIQUIDITY_DEPTH_VERIFY, GRID_POWER_PRICE,
