@@ -24,8 +24,44 @@ test("a chain we cannot read is named, not silently replaced with Ethereum", () 
   const sol = resolveChain("", "What is the gas price on Solana?");
   assert.equal(sol.chain, null);
   assert.equal(sol.unread, "Solana");
-  assert.equal(resolveChain("", "BNB Chain fees right now?").unread, "BNB Chain");
   assert.equal(resolveChain("", "bitcoin transaction fees").unread, "Bitcoin");
+});
+
+test("BSC and Avalanche are read; testnets are refused, never answered with their mainnet's fee (2026-11-08)", async () => {
+  assert.equal(resolveChain("", "BNB Chain fees right now?").chain, "bsc");
+  assert.equal(resolveChain("", "gas price on BSC").chain, "bsc");
+  assert.equal(resolveChain("", "What is the gas price on Avalanche?").chain, "avalanche");
+  assert.equal(resolveChain("avax", "").chain, "avalanche");
+  for (const [q, name] of [["gas on Base Sepolia", "Sepolia"], ["holesky gas price", "Holesky"], ["goerli fees", "Goerli"], ["BSC testnet gas", "BSC testnet"]] as const) {
+    const r = resolveChain("", q);
+    assert.equal(r.chain, null, q);
+    assert.equal(r.unread, `${name} (a test network)`);
+  }
+  assert.equal(resolveChain("ethereum", "gas on sepolia").chain, null, "a testnet in the question outranks the chain parameter");
+  const t = await getGasPrice(null, "Sepolia (a test network)");
+  assert.equal(t.error, "testnet");
+  assert.equal(t.gwei, null);
+  assert.match(t.reason, /^Sepolia is a test network: .* No mainnet gas price is reported in its place/);
+
+  const original = globalThis.fetch;
+  const hosts: string[] = [];
+  globalThis.fetch = (async (input: string | URL | Request, init?: RequestInit) => {
+    hosts.push(new URL(String(input)).hostname);
+    const { method } = JSON.parse(String(init?.body)) as { method: string };
+    // Values as api.avax.network answered on 2026-11-08.
+    const result = method === "eth_gasPrice" ? "0x97596678" : { number: "0x5f26cd7", baseFeePerGas: "0x975965e2" };
+    return Response.json({ jsonrpc: "2.0", id: 1, result });
+  }) as typeof globalThis.fetch;
+  try {
+    const r = await getGasPrice("avalanche");
+    assert.equal(r.verdict, "gas_price");
+    assert.deepEqual([...new Set(hosts)], ["api.avax.network"]);
+    assert.match(r.reason, /^The current gas price on Avalanche C-Chain is 2\.539 Gwei, or about 2\.54 Gwei/);
+    assert.match(r.reason, /a priority fee of 0\.00000015 Gwei\./, "no exponent form");
+    assert.match(r.reason, /not the price of AVAX\./);
+  } finally {
+    globalThis.fetch = original;
+  }
 });
 
 test("a question naming no chain is marked as such", () => {

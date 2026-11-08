@@ -466,17 +466,18 @@ endpoints:
       base fee and priority fee that make it up, the block the reading is from so
       the figure is checkable, and what a standard 21,000-gas transfer costs at
       that rate. This is the fee level and never the chain token's price, which is
-      a different intent. Covers ethereum, base, arbitrum, optimism and polygon; a
-      chain outside that list is named as uncovered rather than answered with a
-      different chain's fee, and an unresponsive endpoint is reported as unknown
-      rather than as a fee of zero.
+      a different intent. Covers the mainnets ethereum, base, arbitrum, optimism,
+      polygon, bsc (BNB Smart Chain) and avalanche (C-Chain); a chain outside that
+      list, or a test network such as Sepolia or Holesky, is named as uncovered
+      rather than answered with a mainnet's fee, and an unresponsive endpoint is
+      reported as unknown rather than as a fee of zero.
     params:
       query:
         optional:
           - name: chain
             type: string
             intents: ["*"]
-            description: "Chain to read: ethereum, base, arbitrum, optimism or polygon. Read from the question when absent."
+            description: "Chain to read: ethereum, base, arbitrum, optimism, polygon, bsc or avalanche. Read from the question when absent."
           - name: query
             type: string
             intents: ["*"]
