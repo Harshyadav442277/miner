@@ -225,15 +225,26 @@ export async function headlineAnswer(question: string, articles: Article[], ms =
   // phrase() starts no model with under 1.5 s left, so a short remainder costs nothing.
   if (ms < 1_500) return null;
   const lines = articles.map((a, i) => `${i + 1}. ${a.title} (${a.source ?? "publisher not stated"}, ${fmtDate(a.published)})`).join("\n");
+  // 400, not 160: gpt-oss spends part of max_completion_tokens on hidden reasoning, and on production the direct
+  // answer was missing for the Fed and World Cup questions while it led for OpenAI and Tesla (2026-11-08).
   return phrase({
-    system: ANSWER_SYSTEM, user: `Question: ${question}\nHeadlines:\n${lines}`, maxTokens: 160, deadlineMs: ms,
-    clean: (raw) => {
-      const s = sanitise(raw);
-      if (!s) return null;
-      const one = opening(s);
-      return one.length >= 20 && one.length <= 300 && !/\bheadlines?\b/i.test(one) ? (/[.!?]$/.test(one) ? one : `${one}.`) : null;
-    },
+    system: ANSWER_SYSTEM, user: `Question: ${question}\nHeadlines:\n${lines}`, maxTokens: 400, deadlineMs: ms,
+    clean: (raw) => headlineSentence(raw),
   });
+}
+
+/**
+ * The model's reply as one served sentence, or null. Pure. A reply that opens "The headlines report that …" is the
+ * answer with a preamble, so the preamble is removed rather than the answer thrown away; non-breaking hyphens
+ * ("Musk‑backed", production 2026-11-08) become plain ones.
+ */
+export function headlineSentence(raw: string): string | null {
+  const s = sanitise(String(raw ?? "").replace(/[‐‑−]/g, "-"));
+  if (!s) return null;
+  let one = opening(s).replace(/^(?:the\s+)?(?:news\s+)?(?:headlines?|reports?|coverage)\s+(?:report|say|show|indicate|state|note|suggest)s?\s*(?:that\s+)?/i, "");
+  one = one.charAt(0).toUpperCase() + one.slice(1);
+  if (one.length < 20 || one.length > 300 || /\bheadlines?\b/i.test(one)) return null;
+  return /[.!?]$/.test(one) ? one : `${one}.`;
 }
 
 export async function webSearch(question: string): Promise<WebSearchResult> {

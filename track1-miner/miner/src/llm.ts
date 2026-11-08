@@ -176,6 +176,13 @@ export function sanitise(raw: string): string | null {
 }
 
 /**
+ * A model reply with plain hyphens. gpt-oss writes U+2011 non-breaking hyphens ("off-by-one" came back with
+ * U+2011, as did "Musk-backed", production 2026-11-08); a JSON value keeps them, so they are replaced at the
+ * source. Pure.
+ */
+export const plainHyphens = (text: string): string => text.replace(/[‐‑]/g, "-");
+
+/**
  * A 400 ends this model's attempt at once, and the caller moves to the next model. With `json`, Groq answers
  * 400 `json_validate_failed` only AFTER the model has written its whole reply, and returns that reply as
  * `error.failed_generation`: a code review spent its 120b generation that way, then qwen ran 8.1 s (production,
@@ -186,7 +193,7 @@ export function salvage400(body: string, r: PhraseRequest): string | null {
   try {
     const e = (JSON.parse(body) as { error?: { code?: string; failed_generation?: string } })?.error;
     const gen = r.json && e?.code === "json_validate_failed" ? e.failed_generation : undefined;
-    return typeof gen === "string" && gen.trim() ? (r.clean ?? sanitise)(gen) : null;
+    return typeof gen === "string" && gen.trim() ? (r.clean ?? sanitise)(plainHyphens(gen)) : null;
   } catch {
     return null;
   }
@@ -213,7 +220,7 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number): Pr
     if (res.status === 400) return salvage400(await res.text().catch(() => ""), r);
     if (!res.ok) return null;
     const body = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
-    return (r.clean ?? sanitise)(body?.choices?.[0]?.message?.content ?? "");
+    return (r.clean ?? sanitise)(plainHyphens(body?.choices?.[0]?.message?.content ?? ""));
   } catch {
     // A timeout, a DNS failure or a malformed body. The caller falls back.
     return null;

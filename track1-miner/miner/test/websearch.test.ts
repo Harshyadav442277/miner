@@ -186,3 +186,12 @@ test("a news answer leads with a direct sentence from the titles and lists the a
     resetPhraseState();
   }
 });
+
+test("a headline answer keeps the answer behind a 'the headlines report' preamble, with plain hyphens", async () => {
+  const { headlineSentence } = await import("../src/websearch");
+  assert.equal(headlineSentence("The headlines report that the Fed is expected to hold rates in December."),
+    "The Fed is expected to hold rates in December.");
+  assert.equal(headlineSentence("Tesla shares fell after Musk\u2011backed candidates lost"), "Tesla shares fell after Musk-backed candidates lost.");
+  assert.equal(headlineSentence("Too short."), null);
+  assert.equal(headlineSentence("I cannot answer that from these headlines."), null);
+});

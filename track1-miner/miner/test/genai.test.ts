@@ -289,3 +289,9 @@ test("genai: generated text carries brief, word count and the requested count", 
     assert.equal(a.reason, text);
   });
 });
+
+test("genai: every model reply gets plain hyphens before it is cleaned", async () => {
+  const { plainHyphens } = await import("../src/llm");
+  assert.equal(plainHyphens("off\u2011by\u2011one and Musk\u2010backed"), "off-by-one and Musk-backed");
+  assert.equal(plainHyphens("a \u2212 b"), "a \u2212 b", "a minus sign is not a hyphen");
+});
