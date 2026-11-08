@@ -79,10 +79,49 @@ const SPECS = {
     [2n, 10n, "battery RelTol 0.1%"], [1n, 1000000n, "battery AbsTol $1 at 6 dp"], [3n, 0n, "battery PassFail"], [7n, 100n, "battery unknown code"], [2n, 10000n, "battery RelTol 100%"]],
   WEATHER_CHECK: [[0n, 0n, "gate_recorded (/api/wasm intent_spec, 2026-11-08)"], [1n, 2000000n, "on-chain AbsTol 2.0 C (GAPS G237, read 2026-10-31; 6 dp assumed)"],
     [1n, 500000n, "battery AbsTol 0.5 C"], [2n, 100n, "battery RelTol 1%"], [3n, 0n, "battery PassFail"], [7n, 100n, "battery unknown code"], [1n, 0n, "battery AbsTol 0"]],
+  // High-demand families (added 2026-11-09). Appended after the first three, so their files and the
+  // seeded jitter they draw are unchanged. Kit specs are the prefix specs in kit-v2 comparator.go (1ed063e).
+  REGULATORY_FILING_MONITOR: [[0n, 0n, "gate default (no kit spec)"], [1n, 1n, "battery AbsTol 1 filing"], [2n, 500n, "battery RelTol 5%"],
+    [3n, 0n, "battery PassFail"], [7n, 100n, "battery unknown code"], [1n, 0n, "battery AbsTol 0"]],
+  CORPORATE_REGISTRY_LOOKUP: [[0n, 0n, "gate default (no kit spec)"], [3n, 0n, "battery PassFail"], [1n, 1n, "battery AbsTol 1"],
+    [2n, 100n, "battery RelTol 1%"], [7n, 100n, "battery unknown code"]],
+  LIQUIDITY_DEPTH_VERIFY: [[0n, 0n, "gate default"], [2n, 300n, "kit-v2 prefix spec RelTol 3%"], [2n, 100n, "battery RelTol 1%"],
+    [1n, 1000000n, "battery AbsTol $1 at 6 dp"], [3n, 0n, "battery PassFail"], [7n, 100n, "battery unknown code"]],
+  GRID_POWER_PRICE: [[0n, 0n, "gate default"], [2n, 30n, "kit-v2 prefix spec RelTol 0.30%"], [1n, 1000000n, "battery AbsTol $1/MWh at 6 dp"],
+    [2n, 100n, "battery RelTol 1%"], [3n, 0n, "battery PassFail"], [7n, 100n, "battery unknown code"]],
+  MINING_HASHPRICE_VERIFY: [[0n, 0n, "gate default"], [2n, 400n, "kit-v2 prefix spec RelTol 4%"], [2n, 100n, "battery RelTol 1%"],
+    [3n, 0n, "battery PassFail"], [7n, 100n, "battery unknown code"]],
+  FINANCIAL_DATA: [[0n, 0n, "gate default (no kit spec)"], [2n, 100n, "battery RelTol 1%"], [2n, 50n, "battery RelTol 0.5%"],
+    [3n, 0n, "battery PassFail"], [7n, 100n, "battery unknown code"]],
+};
+
+// High-demand anchors are synthetic values inside each intent's published range and scale
+// (devnode /engine/v1/intents/<FAMILY>_GENERAL, read 2026-11-09), except GRID's 38.09459, which is
+// the settled CAISO DAM LMP the kit pins in grid_power_price.go. A comparator sees two integers only,
+// so what matters is scale, sign, range edges and the unit mistakes each intent invites.
+const HD = {
+  REGULATORY_FILING_MONITOR: () => [0n, 1n, 4n, 37n, 100000000n].map((t) => ["REGULATORY_FILING_MONITOR_GENERAL", `filings=${t}`, t, [
+    ["all_form_types_x3", t * 3n], ["year_read_as_count", 2026n], ["negative_count", -1n], ["off_by_two", t + 2n]]]),
+  CORPORATE_REGISTRY_LOOKUP: () => [0n, 1n].map((t) => ["CORPORATE_REGISTRY_LOOKUP_GENERAL", `active=${t}`, t, [
+    ["inverted_bool", 1n - t], ["two_as_true", 2n], ["minus_one_as_true", -1n]]]),
+  LIQUIDITY_DEPTH_VERIFY: () => [["$1_range_min", 1000000n], ["$12,345,678.901234", 12345678901234n], ["$1e12_range_max", 10n ** 18n]]
+    .map(([k, t]) => ["LIQUIDITY_DEPTH_VERIFY_GENERAL", k, t, [["one_side_reserve_half", t / 2n], ["double_counted", t * 2n],
+      ["18dp_read_as_6dp", t * 10n ** 12n], ["token_units_not_usd_x1800", t * 1800n]]]),
+  GRID_POWER_PRICE: () => [["kit_pinned_38.09459", 38094590n], ["negative_-12.5", -12500000n], ["range_max_20000", 20000000000n],
+    ["range_min_-2000", -2000000000n], ["near_zero_0.000001", 1n]]
+    .map(([k, t]) => ["GRID_POWER_PRICE_GENERAL", k, t, [["usd_per_kwh", t / 1000n], ["cents_per_kwh", t / 10n],
+      ["real_time_not_day_ahead_+7pct", t + t * 7n / 100n], ["adjacent_hour_+25pct", t + t / 4n]]]),
+  MINING_HASHPRICE_VERIFY: () => [["52000.123456", 52000123456n], ["range_min_1", 1000000n], ["range_max_1e9", 10n ** 15n]]
+    .map(([k, t]) => ["MINING_HASHPRICE_VERIFY_GENERAL", k, t, [["btc_not_sats", t / 100000000n], ["per_th_not_ph", t / 1000n],
+      ["per_eh_not_ph", t * 1000n], ["sats_per_ph_hour", t / 24n]]]),
+  FINANCIAL_DATA: () => [["$3.5T", 3500000000000000000n], ["$1,234,567,890.5", 1234567890500000n], ["$9.22T_i64_ceiling", I64_MAX], ["zero_cap", 0n]]
+    .map(([k, t]) => ["FINANCIAL_DATA_GENERAL", k, t, [["in_billions", t / 1000000000n], ["fully_diluted_x1.2", t + t / 5n],
+      ["share_price_not_cap", t / 15000000000n], ["above_i64_ceiling_$10T", 10n ** 19n]]]),
 };
 
 // Per-family anchors: [key, truth, extra failure-mode cases]
 function anchors(fam) {
+  if (HD[fam]) return HD[fam]();
   if (fam === "FX_NOW") {
     const e = T.FX_NOW.eur_based, rate = (s, k) => divRound(fixed(s[k], 6) * 1000000n, fixed(s.USD, 6));
     const cur = { EUR: divRound(10n ** 12n, fixed(e.current.USD, 6)), CAD: rate(e.current, "CAD"), SEK: rate(e.current, "SEK") };

@@ -1,0 +1,70 @@
+# High-demand comparator families, run 2026-11-09 (~01:00 UTC). Branch claude/high-demand-comparators.
+
+## 1. Our files: dist/ bytes = commit-pinned hosted URL bytes (sha256), keccak256 (`go run . hash`) = dist/manifest.json
+REGULATORY_FILING_MONITOR bytes=2306 sha256=5506d7f0f3b168d1ea45a5ab7ca43457264d9eb43403d505936a0cadd824c97e pinned_equal=True keccak=0x99d21ca63338375e236bd25e81a52070506447d266ed2c6b3c9a61893a9ff35e manifest_equal=True
+CORPORATE_REGISTRY_LOOKUP bytes=2306 sha256=86ff887bc600975c2be5e6687dc6ca2dac3caf954bfe8d4535f5dacc9d0b4088 pinned_equal=True keccak=0x1ab0d329db3ad549f1ec5c9c064bd9184d45765eb68512b23594671d10fcd652 manifest_equal=True
+LIQUIDITY_DEPTH_VERIFY bytes=2303 sha256=65bdefda4bc80ef2728c9f7556789750a97ef88b20e2ebb7a9231bc43c3d1ee5 pinned_equal=True keccak=0x3d1b423ccabb5dbddf2907ffdd6495993acb4e40971751ac6e8fa3ad644b65d2 manifest_equal=True
+GRID_POWER_PRICE bytes=2297 sha256=a5aa5d7dc954883e9c2215f3479ff91884758a65624ef579837328c9e910e2ac pinned_equal=True keccak=0xcc7a1ec6fe7162bbaa1d2e3f422d2503da5e685b8b46f5be50bf2f580206795d manifest_equal=True
+MINING_HASHPRICE_VERIFY bytes=2304 sha256=9b816e49609a9eb23a7b0793ccb4d71564a697e70654bc86a1e21f2b8011d0da pinned_equal=True keccak=0x7519e81a734ca85fba736ce2df47621b70f5fb07349541efd16a67b73303e5aa manifest_equal=True
+FINANCIAL_DATA bytes=2295 sha256=dc502271f195e3d3d046ad229fb002f99d67c563638fc3a8f412dbe46a8ef395 pinned_equal=True keccak=0x4c073c921a55721b4e8b706a7445e0545a2146adc2b3d8f84e29591c4d478f18 manifest_equal=True
+
+## 2. Competitors: fetched from the registry's wasm_url; keccak256 (`go run . hash`) equals the registry wasm_hash for all 7
+#120 REGULATORY_FILING_MONITOR 0x68fe68f857bc0b66b93a1eb4bdaaa577101249c10828ddc8e25e1935584c4877
+#101 CORPORATE_REGISTRY_LOOKUP 0x1a36926e4bb74141e885cf4e80f4baa1abfb15b9864ae9cf72169e46964e58c5
+#114 LIQUIDITY_DEPTH_VERIFY    0x3b3a1cc0426fb269ef88a89dc22788cd45a8f65bdf72b0f35c3a5f730b142188
+#111 GRID_POWER_PRICE          0x06c4e2f8949fdba989545a676e186f06780c6c9d558c714f8347b685783e4df1
+#76  GRID_POWER_PRICE          0x52fa795872e336f525009de71cc00d10608417c982818b06de133df44001ba9a
+#116 MINING_HASHPRICE_VERIFY   0x5577130370bc384d1f4019b708b8c2e063d6c1dc64e641712bad66372e368370
+#107 FINANCIAL_DATA            0x41baac49cb49af51857cb40598d96a7aba0d9ce0d829f1505c6720f0251e590f
+
+## 3. Kit equivalence grid (`cd ../verify && go run . <file>`; kit 992f2650 runtime vs comparator.ReferenceScore)
+REGULATORY_FILING_MONITOR.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+CORPORATE_REGISTRY_LOOKUP.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+LIQUIDITY_DEPTH_VERIFY.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+GRID_POWER_PRICE.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+MINING_HASHPRICE_VERIFY.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+FINANCIAL_DATA.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+CORPORATE_REGISTRY_LOOKUP-101.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+FINANCIAL_DATA-107.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+GRID_POWER_PRICE-111.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+GRID_POWER_PRICE-76.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+LIQUIDITY_DEPTH_VERIFY-114.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+MINING_HASHPRICE_VERIFY-116.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+REGULATORY_FILING_MONITOR-120.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 | PASS
+
+## 4. Adversarial suite (`node high-demand.mjs`, V8 runtime, two instances per module)
+== REGULATORY_FILING_MONITOR: 560 cases
+  ours dist/REGULATORY_FILING_MONITOR.wasm (2306 B): 559/560 agree, nondeterministic 0 | REGULATORY_FILING_MONITOR-0026 parse_overflow_i64_min want 4611686018427388000 got -4611686018427388000
+  #120 0xb3fb14fe (2739 B): 559/560 agree, nondeterministic 0 | REGULATORY_FILING_MONITOR-0026 parse_overflow_i64_min want 4611686018427388000 got -4611686018427388000
+  mutant i64-saturating diff*10000: 1 disagree
+  mutant window = tolerance: 54 disagree
+  mutant rounded RelTol quotient: 8 disagree
+== CORPORATE_REGISTRY_LOOKUP: 184 cases
+  ours dist/CORPORATE_REGISTRY_LOOKUP.wasm (2306 B): 183/184 agree, nondeterministic 0 | CORPORATE_REGISTRY_LOOKUP-0039 parse_overflow_i64_min want 4611686018427388000 got -4611686018427388000
+  #101 0xb3fb14fe (2739 B): 183/184 agree, nondeterministic 0 | CORPORATE_REGISTRY_LOOKUP-0039 parse_overflow_i64_min want 4611686018427388000 got -4611686018427388000
+  mutant i64-saturating diff*10000: 1 disagree
+  mutant window = tolerance: 22 disagree
+  mutant rounded RelTol quotient: 1 disagree
+== LIQUIDITY_DEPTH_VERIFY: 372 cases
+  ours (2303 B): 372/372 agree, nondeterministic 0
+  #114 0xb3fb14fe (2736 B): 372/372 agree, nondeterministic 0
+  mutants: 48 / 59 / 17 disagree
+== GRID_POWER_PRICE: 620 cases
+  ours (2297 B): 620/620 agree, nondeterministic 0
+  #111 0xb3fb14fe (2730 B): 620/620 agree, nondeterministic 0
+  #76 0x8b224783 (2374 B): 620/620 agree, nondeterministic 0
+  mutants: 0 (not caught) / 79 / 25 disagree
+== MINING_HASHPRICE_VERIFY: 297 cases
+  ours (2304 B): 297/297 agree, nondeterministic 0
+  #116 0xb3fb14fe (2737 B): 297/297 agree, nondeterministic 0
+  mutants: 0 (not caught) / 42 / 16 disagree
+== FINANCIAL_DATA: 396 cases
+  ours (2295 B): 396/396 agree, nondeterministic 0
+  #107 0xb3fb14fe (2728 B): 396/396 agree, nondeterministic 0
+  mutants: 71 / 34 / 13 disagree
+
+The single disagreement on REGULATORY and CORPORATE is the known i64 wrap (README, WEATHER_CHECK-1220):
+truth 0, miner i64::MIN, AbsTol 1, so |miner - truth| wraps to i64::MIN. Ours, the competitor and the kit
+ReferenceScore (grid above, 0 mismatches) all return the same negative value, which the node runtime treats
+as a refusal. gen-suite's documented rule does not wrap `window - err`, so its `expected` differs there.
+Result: ours and every competitor score identically on all 2,429 cases; this is a tie, not a win.
