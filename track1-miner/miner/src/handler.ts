@@ -1632,7 +1632,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       sendAnswer(res, q, hit as TranslationResult);
       return;
     }
-    translate(q)
+    translate(q, undefined, firstValue(url, "source_language", "source_lang", "from_language"))
       .then((r) => {
         toCache(key, r);
         sendAnswer(res, q, r);

@@ -29,6 +29,47 @@ export interface TranslationResult {
   confidence: number;
   reason: string;
   checked_at: string;
+  /** LANGUAGE_TRANSLATION_GENERAL's `source_language`, only when stated or read from the text itself. */
+  source_language?: string;
+  source_code?: string;
+  source_language_basis?: "stated" | "detected from the script" | "detected from common English words";
+}
+
+const title = (name: string): string => name.replace(/\b[a-z]/g, (c) => c.toUpperCase());
+
+/** Scripts only one language in LANGS is written in. Han without kana could be Chinese or Japanese, so it is not here. */
+const SCRIPTS: Array<[RegExp, string]> = [
+  [/[぀-ヿ]/, "japanese"], [/[가-힯]/, "korean"], [/[Ͱ-Ͽ]/, "greek"], [/[֐-׿]/, "hebrew"],
+  [/[฀-๿]/, "thai"], [/[ঀ-৿]/, "bengali"], [/[஀-௿]/, "tamil"], [/[ఀ-౿]/, "telugu"],
+  [/[઀-૿]/, "gujarati"], [/[ಀ-೿]/, "kannada"], [/[ഀ-ൿ]/, "malayalam"], [/[਀-੿]/, "punjabi"],
+];
+const ENGLISH = new Set(["the", "a", "an", "is", "are", "was", "were", "be", "been", "and", "or", "but", "of", "to", "in", "on", "at",
+  "for", "with", "from", "by", "you", "your", "i", "we", "our", "my", "it", "this", "that", "these", "how", "what", "when", "where",
+  "why", "who", "will", "would", "can", "could", "should", "has", "have", "had", "not", "do", "does", "did", "please", "thank",
+  "thanks", "hello", "good", "morning", "until", "next", "there", "here", "all", "very"]);
+
+/**
+ * The language the text is in: named in the request ("from Swedish", "the following English passage", or the
+ * `source_language` parameter), else read from a script only one language uses, else English when common
+ * English words make up a quarter of an ASCII text of two or more words. Null otherwise; nothing is guessed. Pure.
+ */
+export function sourceLanguage(question: string, text: string, stated = ""): { name: string; code: string; basis: NonNullable<TranslationResult["source_language_basis"]> } | null {
+  const named = (w: string | undefined): { name: string; code: string } | null => {
+    const k = String(w ?? "").toLowerCase().trim();
+    return LANGS[k] ? { name: k, code: LANGS[k]! } : CODES[k] ?? null;
+  };
+  // The payload's own words name nothing: "Translate 'the French word for cat' into German".
+  const q = String(question ?? "").toLowerCase().replace(String(text ?? "").toLowerCase(), " ");
+  const said = named(stated) ?? named(q.match(/\bfrom\s+([a-z]+)\s+(?:in)?to\b/)?.[1])
+    ?? named(q.match(/\b([a-z]+)\s+(?:text|passage|sentence|phrase|word|paragraph|message)\b/)?.[1]);
+  if (said) return { ...said, basis: "stated" };
+  const script = SCRIPTS.find(([re]) => re.test(text))?.[1];
+  if (script) return { name: script, code: LANGS[script]!, basis: "detected from the script" };
+  const words = text.toLowerCase().match(/[a-z']+/g) ?? [];
+  if (/^[\x20-\x7e\s]+$/.test(text) && words.length >= 2 && words.filter((w) => ENGLISH.has(w)).length / words.length >= 0.25) {
+    return { name: "english", code: "en", basis: "detected from common English words" };
+  }
+  return null;
 }
 
 /** Language names as questions write them, mapped to ISO 639-1 codes (zh-CN for Chinese). */
@@ -162,14 +203,15 @@ export function targetLanguage(question: string): { name: string; code: string }
   return null;
 }
 
-export async function translate(question: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<TranslationResult> {
+export async function translate(question: string, timeoutMs = DEFAULT_TIMEOUT_MS, statedSource = ""): Promise<TranslationResult> {
   const now = new Date().toISOString();
   const text = sourceText(question);
   const lang = targetLanguage(question);
+  const from = text ? sourceLanguage(question, text, statedSource) : null;
 
   const base: TranslationResult = {
     source_text: text,
-    target_language: lang ? lang.name.replace(/\b[a-z]/g, (c) => c.toUpperCase()) : null,
+    target_language: lang ? title(lang.name) : null,
     target_code: lang?.code ?? null,
     translation: null,
     source: null,
@@ -177,6 +219,7 @@ export async function translate(question: string, timeoutMs = DEFAULT_TIMEOUT_MS
     confidence: 0,
     reason: "",
     checked_at: now,
+    ...(from ? { source_language: title(from.name), source_code: from.code, source_language_basis: from.basis } : {}),
   };
 
   if (!text) {
