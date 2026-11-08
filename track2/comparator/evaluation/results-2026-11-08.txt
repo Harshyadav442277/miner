@@ -1,0 +1,93 @@
+== 1. regenerate the suite and check it is the frozen one
+FX_NOW 474 cases
+CRYPTO_PRICE 1577 cases
+WEATHER_CHECK 1314 cases
+suite/FX_NOW.jsonl: OK
+suite/CRYPTO_PRICE.jsonl: OK
+suite/WEATHER_CHECK.jsonl: OK
+== 2. download the three champions and check their keccak256 against the registry values
+FX_NOW champion keccak256 0xc66c240d7a437b85b1232dfcf1e46af880916455ef628b881071f5610496fcc8 matches the registry
+CRYPTO_PRICE champion keccak256 0x23abf049db661d4a2ec5128c47c946ee4bb6575e0d29ba82effef1125183133c matches the registry
+WEATHER_CHECK champion keccak256 0xf5dc2abdf7d855fdde81bf50433213cbb5bf47f9b39880aeecb4d2da96d9c80c matches the registry
+== 3. node-runtime equivalence grid (234,848 cases) for ours and the champions
+../dist/FX_NOW.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 PASS 
+../dist/CRYPTO_PRICE.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 PASS 
+../dist/WEATHER_CHECK.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 PASS 
+<champion-dir>/FX_NOW.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 PASS 
+<champion-dir>/CRYPTO_PRICE.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 PASS 
+<champion-dir>/WEATHER_CHECK.wasm: cases 234848 · mismatches 0 · max deviation 0 bp · nondeterministic 0 PASS 
+== 4. adversarial suite: reference, ours, champions, mutants
+== 4. adversarial suite (re-run after counting module refusals)
+
+== FX_NOW: 474 cases ==
+kit ReferenceScore                             agree 474/474  refused 0  disagree 0  
+ours#267:FX_NOW (nondeterministic 0)           agree 474/474  refused 0  disagree 0  
+champion#263:FX_NOW (nondeterministic 0)       agree 474/474  refused 0  disagree 0  
+mutant swapped_truth_miner                     agree 370/474  refused 0  disagree 104  at_tolerance_above:9 at_tolerance_below:6 decimal_shift_div100:3 decimal_shift_x1000:3 decimal_shift_x100:3 decimal_shift_x10:3 decimals_4_read_as_6:3 far_outside_band_above:3 far_outside_band_below:3 inverted_rate_usd_per_key:3 just_inside_band_above:9 just_inside_band_below:3 just_outside_band_above:9 parse_overflow_i64_max:3 rounding_edge_band_above:9 rounding_edge_band_below:6 seeded_jitter:11 stale_rate_2026-10-01:6 wrong_pair_CAD:2 wrong_pair_EUR:2 wrong_pair_SEK:2 zero_answer:3
+    e.g. FX_NOW-0033 EUR at_tolerance_above spec=[2,50] truth=895656 miner=900135 want=5000 got=5100
+    e.g. FX_NOW-0035 EUR just_inside_band_above spec=[2,50] truth=895656 miner=904523 want=100 got=200
+mutant reltol_i64_saturating_product           agree 474/474  refused 0  disagree 0  
+mutant reltol_rounds_not_truncates             agree 450/474  refused 0  disagree 24  rounding_edge_band_above:6 rounding_edge_band_below:6 seeded_jitter:8 stale_rate_2026-10-01:3 wrong_pair_EUR:1
+    e.g. FX_NOW-0037 EUR rounding_edge_band_above spec=[2,50] truth=895656 miner=904568 want=100 got=0
+    e.g. FX_NOW-0038 EUR rounding_edge_band_below spec=[2,50] truth=895656 miner=886744 want=100 got=0
+mutant zero_at_tolerance_not_2x                agree 375/474  refused 0  disagree 99  at_tolerance_above:12 at_tolerance_below:12 decimal_shift_div100:3 decimals_4_read_as_6:3 inverted_rate_usd_per_key:3 just_inside_band_above:9 just_inside_band_below:9 one_unit_above:3 one_unit_below:3 rounding_edge_band_above:6 rounding_edge_band_below:6 seeded_jitter:17 stale_rate_2026-10-01:6 wrong_pair_CAD:2 wrong_pair_EUR:2 zero_answer:3
+    e.g. FX_NOW-0033 EUR at_tolerance_above spec=[2,50] truth=895656 miner=900135 want=5000 got=0
+    e.g. FX_NOW-0034 EUR at_tolerance_below spec=[2,50] truth=895656 miner=891177 want=5000 got=0
+mutant unknown_code_scores_zero                agree 471/474  refused 0  disagree 3  exact:3
+    e.g. FX_NOW-0115 EUR exact spec=[7,100] truth=895656 miner=895656 want=10000 got=0
+    e.g. FX_NOW-0273 CAD exact spec=[7,100] truth=1406628 miner=1406628 want=10000 got=0
+mutant float64_arithmetic                      agree 399/474  refused 0  disagree 75  at_tolerance_above:6 at_tolerance_below:6 decimal_shift_div100:3 decimals_4_read_as_6:3 just_inside_band_above:6 just_inside_band_below:6 one_unit_above:9 one_unit_below:9 rounding_edge_band_above:6 rounding_edge_band_below:6 seeded_jitter:11 stale_rate_2026-10-01:3 wrong_pair_EUR:1
+    e.g. FX_NOW-0018 EUR one_unit_above spec=[2,50] truth=895656 miner=895657 want=10000 got=9998
+    e.g. FX_NOW-0019 EUR one_unit_below spec=[2,50] truth=895656 miner=895655 want=10000 got=9998
+
+== CRYPTO_PRICE: 1577 cases ==
+kit ReferenceScore                             agree 1577/1577  refused 0  disagree 0  
+ours#268:CRYPTO_PRICE (nondeterministic 0)     agree 1577/1577  refused 0  disagree 0  
+champion#261:CRYPTO_PRICE (nondeterministic 0) agree 1577/1577  refused 0  disagree 0  
+mutant swapped_truth_miner                     agree 1265/1577  refused 0  disagree 312  at_tolerance_above:33 at_tolerance_below:22 decimal_shift_div100:11 decimal_shift_x1000:11 decimal_shift_x100:11 decimal_shift_x10:11 far_outside_band_above:11 far_outside_band_below:10 inverted_asset_per_usd:5 just_inside_band_above:33 just_inside_band_below:11 just_outside_band_above:33 parse_overflow_i64_max:11 price_in_cents:5 rounding_edge_band_above:22 rounding_edge_band_below:11 satoshi_scale_x100:5 seeded_jitter:29 six_dp_value_on_18dp_scale:1 six_dp_value_on_8dp_scale:5 stale_synthetic_minus_3pct:5 wrong_asset_BTC:4 wrong_asset_ETH:1 zero_answer:11
+    e.g. CRYPTO_PRICE-0033 BTC@6dp at_tolerance_above spec=[2,100] truth=75973000000 miner=76732730000 want=5000 got=5050
+    e.g. CRYPTO_PRICE-0034 BTC@6dp at_tolerance_below spec=[2,100] truth=75973000000 miner=75213270000 want=5000 got=4950
+mutant reltol_i64_saturating_product           agree 1515/1577  refused 0  disagree 62  at_tolerance_above:3 at_tolerance_below:3 decimal_shift_div100:3 decimal_shift_x1000:3 decimal_shift_x100:3 decimal_shift_x10:3 far_outside_band_above:3 far_outside_band_below:3 just_inside_band_above:3 just_inside_band_below:3 just_outside_band_above:3 just_outside_band_below:3 parse_overflow_i64_max:3 parse_overflow_i64_min:3 rounding_edge_band_above:3 rounding_edge_band_below:3 seeded_jitter:5 sign_flipped:3 six_dp_value_on_18dp_scale:3 zero_answer:3
+    e.g. CRYPTO_PRICE-1457 XRP@18dp decimal_shift_x10 spec=[2,100] truth=1160000000000000000 miner=9223372036854775807 want=0 got=9650
+    e.g. CRYPTO_PRICE-1458 XRP@18dp decimal_shift_x100 spec=[2,100] truth=1160000000000000000 miner=9223372036854775807 want=0 got=9650
+mutant reltol_rounds_not_truncates             agree 1524/1577  refused 0  disagree 53  inverted_asset_per_usd:1 rounding_edge_band_above:22 rounding_edge_band_below:22 seeded_jitter:8
+    e.g. CRYPTO_PRICE-0037 BTC@6dp rounding_edge_band_above spec=[2,100] truth=75973000000 miner=77488661350 want=50 got=0
+    e.g. CRYPTO_PRICE-0038 BTC@6dp rounding_edge_band_below spec=[2,100] truth=75973000000 miner=74457338650 want=50 got=0
+mutant zero_at_tolerance_not_2x                agree 1302/1577  refused 0  disagree 275  at_tolerance_above:44 at_tolerance_below:44 decimal_shift_div100:12 inverted_asset_per_usd:6 just_inside_band_above:22 just_inside_band_below:22 rounding_edge_band_above:22 rounding_edge_band_below:22 seeded_jitter:56 six_dp_value_on_18dp_scale:1 six_dp_value_on_8dp_scale:5 stale_synthetic_minus_3pct:6 wrong_asset_ETH:1 zero_answer:12
+    e.g. CRYPTO_PRICE-0033 BTC@6dp at_tolerance_above spec=[2,100] truth=75973000000 miner=76732730000 want=5000 got=0
+    e.g. CRYPTO_PRICE-0034 BTC@6dp at_tolerance_below spec=[2,100] truth=75973000000 miner=75213270000 want=5000 got=0
+mutant unknown_code_scores_zero                agree 1566/1577  refused 0  disagree 11  exact:11
+    e.g. CRYPTO_PRICE-0115 BTC@6dp exact spec=[7,100] truth=75973000000 miner=75973000000 want=10000 got=0
+    e.g. CRYPTO_PRICE-0253 BTC@8dp exact spec=[7,100] truth=7597300000000 miner=7597300000000 want=10000 got=0
+mutant float64_arithmetic                      agree 1433/1577  refused 0  disagree 144  inverted_asset_per_usd:2 one_unit_above:31 one_unit_below:31 one_wei_above:1 rounding_edge_band_above:22 rounding_edge_band_below:22 seeded_jitter:35
+    e.g. CRYPTO_PRICE-0018 BTC@6dp one_unit_above spec=[2,100] truth=75973000000 miner=75973000001 want=10000 got=9999
+    e.g. CRYPTO_PRICE-0019 BTC@6dp one_unit_below spec=[2,100] truth=75973000000 miner=75972999999 want=10000 got=9999
+
+== WEATHER_CHECK: 1314 cases ==
+kit ReferenceScore                             agree 1310/1314  refused 0  disagree 4  parse_overflow_i64_max:2 parse_overflow_i64_min:2
+    e.g. WEATHER_CHECK-1093 zero_0C parse_overflow_i64_min spec=[1,2000000] truth=0 miner=-9223372036854775808 want=2305843009213 got=-2305843009213
+    e.g. WEATHER_CHECK-1117 zero_0C parse_overflow_i64_min spec=[1,500000] truth=0 miner=-9223372036854775808 want=9223372036854 got=-9223372036854
+ours#269:WEATHER_CHECK (nondeterministic 0)    agree 1182/1314  refused 132  disagree 0  
+champion#266:WEATHER_CHECK (nondeterministic 0) agree 1182/1314  refused 132  disagree 0  
+mutant swapped_truth_miner                     agree 1242/1314  refused 0  disagree 72  at_tolerance_above:8 at_tolerance_below:8 below_range_-91C:1 just_inside_band_above:8 just_inside_band_below:8 just_outside_band_above:7 just_outside_band_below:1 parse_overflow_i64_max:3 parse_overflow_i64_min:2 rounded_to_whole_degree:1 rounding_edge_band_above:8 rounding_edge_band_below:8 seeded_jitter:9
+    e.g. WEATHER_CHECK-0081 London at_tolerance_above spec=[2,100] truth=11100000 miner=11211000 want=5000 got=5050
+    e.g. WEATHER_CHECK-0082 London at_tolerance_below spec=[2,100] truth=11100000 miner=10989000 want=5000 got=4950
+mutant reltol_i64_saturating_product           agree 1308/1314  refused 0  disagree 6  parse_overflow_i64_max:3 parse_overflow_i64_min:3
+    e.g. WEATHER_CHECK-1093 zero_0C parse_overflow_i64_min spec=[1,2000000] truth=0 miner=-9223372036854775808 want=2305843009213 got=-2305843009213
+    e.g. WEATHER_CHECK-1117 zero_0C parse_overflow_i64_min spec=[1,500000] truth=0 miner=-9223372036854775808 want=9223372036854 got=-9223372036854
+mutant reltol_rounds_not_truncates             agree 1283/1314  refused 0  disagree 31  parse_overflow_i64_max:4 parse_overflow_i64_min:4 rounded_to_whole_degree:1 rounding_edge_band_above:8 rounding_edge_band_below:8 seeded_jitter:6
+    e.g. WEATHER_CHECK-0085 London rounding_edge_band_above spec=[2,100] truth=11100000 miner=11321445 want=50 got=0
+    e.g. WEATHER_CHECK-0086 London rounding_edge_band_below spec=[2,100] truth=11100000 miner=10878555 want=50 got=0
+mutant zero_at_tolerance_not_2x                agree 1162/1314  refused 0  disagree 152  at_tolerance_above:28 at_tolerance_below:28 below_range_-91C:2 decimal_shift_x1000:2 decimal_shift_x100:1 just_inside_band_above:8 just_inside_band_below:8 parse_overflow_i64_max:2 parse_overflow_i64_min:2 rounded_to_whole_degree:12 rounding_edge_band_above:8 rounding_edge_band_below:8 seeded_jitter:39 wrong_city_Sydney:2 wrong_city_Tokyo:2
+    e.g. WEATHER_CHECK-0029 London wrong_city_Tokyo spec=[1,2000000] truth=11100000 miner=10300000 want=8000 got=6000
+    e.g. WEATHER_CHECK-0030 London rounded_to_whole_degree spec=[1,2000000] truth=11100000 miner=11000000 want=9750 got=9500
+mutant unknown_code_scores_zero                agree 1293/1314  refused 0  disagree 21  decimal_shift_div100:1 decimal_shift_x1000:1 decimal_shift_x100:1 decimal_shift_x10:1 exact:10 parse_overflow_i64_max:2 parse_overflow_i64_min:2 rounded_to_whole_degree:1 sign_flipped:1 zero_answer:1
+    e.g. WEATHER_CHECK-0108 London exact spec=[7,100] truth=11100000 miner=11100000 want=10000 got=0
+    e.g. WEATHER_CHECK-0245 Tokyo exact spec=[7,100] truth=10300000 miner=10300000 want=10000 got=0
+mutant float64_arithmetic                      agree 1263/1314  refused 0  disagree 51  below_range_-91C:1 one_unit_above:8 one_unit_below:8 parse_overflow_i64_max:2 parse_overflow_i64_min:2 rounded_to_whole_degree:2 rounding_edge_band_above:8 rounding_edge_band_below:8 seeded_jitter:12
+    e.g. WEATHER_CHECK-0067 London one_unit_above spec=[2,100] truth=11100000 miner=11100001 want=10000 got=9999
+    e.g. WEATHER_CHECK-0068 London one_unit_below spec=[2,100] truth=11100000 miner=11099999 want=10000 got=9999
+== 5. live runnables and hosted bytes, node live-check-all.mjs (second run, ~15:46Z; the 15:45:48Z run printed the same)
+FX_NOW: local sha256 7aa1397d440d5ed7d133d7ec68b8c56ab0bcdd6bdd40dc96159f7e439c1980cc | pinned-URL bytes 2287 sha256 equal | runnable GET sha256 equal | POST 600/600 answered, 0 differ from local, 0 failed batches
+CRYPTO_PRICE: local sha256 c72796f25cd48d2e1a79a9b12e4d714ba633346dc092dff51b3f65b8660ee11c | pinned-URL bytes 2293 sha256 equal | runnable GET sha256 equal | POST 600/600 answered, 0 differ from local, 0 failed batches
+WEATHER_CHECK: local sha256 82f0addaab2e4197b5dc7dc059da87897b8afa089d0e52af8c37798f1569aec6 | pinned-URL bytes 2294 sha256 equal | runnable GET sha256 equal | POST 600/600 answered, 0 differ from local, 0 failed batches
