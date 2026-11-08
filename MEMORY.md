@@ -1,5 +1,22 @@
 # MEMORY.md — session continuity
 
+## 2026-11-07 ~21:45 UTC (Nov 8 03:15 IST): CURRENT — schema fields LIVE (`1f43311`); registration **5135** (42 intents)
+
+- **Production:** `1f43311`, `miner-7bo22h7r8` (`dpl_9WvUyyb7o9uBqYpsXLSDz5dXjzTU`).
+  - Every answer carries its intent's format-version-3 fields (`src/intent-fields.ts`).
+  - The schema's enum words replace ours where they conflict; ours are kept in `verdict_detail`.
+  - Schema sweep: 25 ok / 6 probe artefacts, against 11 / 22 before.
+  - **Rollback target:** `miner-l6uql9dui` (`8b6e4d3`).
+  - Record: `track1-miner/docs/evidence/release-2026-11-07-schema-fields/`.
+- **Registration 5135 is active** (signed 19:52 UTC, YAML at `8b6e4d3`, 42 intents). The repository variable, the
+  tools and the release skill follow it.
+- **Ranks, epoch 2036:** top 3 in 11 of 32. Within 0.003 of third: URL scan, SSL, sanctions, text classification
+  and onchain metric.
+- **Next:**
+  - Read the epochs after 21:40 UTC for the effect of the schema fields.
+  - Then the near-misses: sanctions (EU/UK lists, P1c) and text classification.
+  - Run `tools/schema-sweep.mjs` after any schema change on the node.
+
 ## 2026-11-07 ~19:20 UTC (Nov 8 00:50 IST): CURRENT — chat, code review and writing LIVE (`8b6e4d3`); 42-intent YAML ready to sign
 
 - **Production:** `8b6e4d3`, `miner-l6uql9dui` (`dpl_HZoxe8XB3iU2m1tWkXu1wGNejeHZ`).
