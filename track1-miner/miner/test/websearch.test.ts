@@ -144,3 +144,45 @@ test("a timeless encyclopaedic question is not a news search (2026-10-21)", () =
     assert.equal(timeless(q), false, q);
   }
 });
+
+test("a news answer leads with a direct sentence from the titles and lists the article URLs", async () => {
+  const original = globalThis.fetch;
+  const recent = new Date(Date.now() - 86_400_000).toUTCString();
+  const rss = `<rss><channel>
+    <item><title>Fed holds interest rates steady at 3.5% - Reuters</title><link>https://news.google.com/rss/articles/AAA?oc=5</link><pubDate>${recent}</pubDate></item>
+    <item><title>Fed rate decision: Powell signals patience - CNBC</title><link>https://news.google.com/rss/articles/BBB?oc=5</link><pubDate>${recent}</pubDate></item>
+  </channel></rss>`;
+  let model: string | null = "The Fed held interest rates steady at 3.5%, and Powell signalled patience.";
+  let groqBody = "";
+  globalThis.fetch = (async (input: string | URL | Request, init?: { body?: string }) => {
+    const url = String(input);
+    if (url.includes("news.google.com")) return new Response(rss, { status: 200 });
+    if (url.includes("api.groq.com")) {
+      groqBody = String(init?.body ?? "");
+      return model === null ? new Response("{}", { status: 429 })
+        : new Response(JSON.stringify({ choices: [{ message: { content: model } }] }), { status: 200 });
+    }
+    return new Response("not found", { status: 404 });
+  }) as unknown as typeof globalThis.fetch;
+  process.env.GROQ_API_KEY = "test-key";
+  const { resetPhraseState } = await import("../src/llm");
+  resetPhraseState();
+  try {
+    const r = await webSearch("What's the latest news on the Fed's interest rate decision?");
+    assert.equal(r.verdict, "answered");
+    assert.match(r.reason, /^The Fed held interest rates steady at 3\.5%, and Powell signalled patience\. The most relevant current reports are "/);
+    assert.deepEqual(r.sources, ["https://news.google.com/rss/articles/AAA?oc=5", "https://news.google.com/rss/articles/BBB?oc=5"]);
+    assert.equal(r.articles[0]!.url, "https://news.google.com/rss/articles/AAA?oc=5");
+    assert.match(groqBody, /Fed holds interest rates steady/, "the model is given the titles");
+    // No model answer: the dated digest sentence leads, as before.
+    model = null;
+    resetPhraseState();
+    const d = await webSearch("What's the latest news on the Fed's interest rate decision?");
+    assert.match(d.reason, /^The most relevant current reports are "/);
+    assert.equal(d.sources.length, 2);
+  } finally {
+    globalThis.fetch = original;
+    delete process.env.GROQ_API_KEY;
+    resetPhraseState();
+  }
+});
