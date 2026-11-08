@@ -1,6 +1,14 @@
 # MEMORY.md — session continuity
 
-## 2026-11-08 ~13:15 UTC (18:45 IST): CURRENT — both adapter lanes closed; nothing to register
+## 2026-11-08 15:31 UTC (21:01 IST): CURRENT — three comparators registered by the owner, pending
+
+- The owner registered FX_NOW **#267**, CRYPTO_PRICE **#268** and WEATHER_CHECK **#269** at 15:29:43–55 UTC.
+- All three read `pending`, "awaiting_seed_epoch: no confirmed epoch recorded after the registration".
+- The champions are still #263, #261 and #266 (`0x8b224783…`).
+- Next: check `/api/wasm` by registration id after the next epoch. Expect `active`, then `superseded` under G282.
+- Bonds stay locked while registered, and for 48 h after deregistering.
+
+## 2026-11-08 ~13:15 UTC (18:45 IST): both adapter lanes closed; nothing to register
 
 - SECURITY_REVIEW (`claude/security-review-adapter` `1b93a9a`):
   - v1 holdout 68.0%, against 73.0% for answer-only bag-of-words.
