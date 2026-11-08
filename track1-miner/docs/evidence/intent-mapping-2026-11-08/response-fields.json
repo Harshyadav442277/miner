@@ -1,0 +1,1309 @@
+{
+ "ACADEMIC_SEARCH_GENERAL": {
+  "fields": [
+   {
+    "name": "answer",
+    "description": "The written answer naming the papers found",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "paper_titles",
+    "description": "Titles of the papers found, in relevance order",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "dois",
+    "description": "DOIs of the papers found, in the same order",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "total_matches",
+    "description": "How many matching papers were found in total",
+    "type": "integer",
+    "range": [
+     0,
+     100000000
+    ],
+    "off_chain": true
+   },
+   {
+    "name": "brief",
+    "description": "The answer to the request in one plain sentence of at most 80 characters",
+    "type": "string",
+    "processed": true
+   }
+  ]
+ },
+ "CHAT_COMPLETION_GENERAL": {
+  "fields": [
+   {
+    "name": "reply",
+    "description": "The assistant's reply to the message",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "verdict",
+    "description": "For a 'will X happen' question, the verdict word the reply leads with",
+    "type": "enum",
+    "allowed": [
+     "Likely",
+     "Unlikely",
+     "Uncertain"
+    ],
+    "off_chain": true
+   },
+   {
+    "name": "brief",
+    "description": "The answer to the request in one plain sentence of at most 80 characters",
+    "type": "string",
+    "processed": true
+   }
+  ]
+ },
+ "CODE_REVIEW_GENERAL": {
+  "fields": [
+   {
+    "name": "verdict",
+    "description": "Review verdict",
+    "type": "enum",
+    "allowed": [
+     "Approve",
+     "Request changes",
+     "Comment"
+    ],
+    "processed": true
+   },
+   {
+    "name": "findings",
+    "description": "Findings in severity order",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "summary",
+    "description": "One- or two-sentence summary of the review",
+    "type": "string",
+    "off_chain": true
+   }
+  ]
+ },
+ "CONTENT_EXTRACTION_GENERAL": {
+  "fields": [
+   {
+    "name": "title",
+    "description": "Title of the page or document",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "content",
+    "description": "The extracted readable text",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "url",
+    "description": "The URL the content was extracted from",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "entities",
+    "description": "Named entities, dates and quantities extracted",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "brief",
+    "description": "The values the request asks for, as name: value pairs, at most 80 characters in all",
+    "type": "string",
+    "processed": true
+   }
+  ]
+ },
+ "CORPORATE_REGISTRY_LOOKUP_GENERAL": {
+  "fields": [
+   {
+    "name": "legal_name",
+    "description": "Registered legal name",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "registration_id",
+    "description": "Registry identifier (LEI, company number, org number)",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "active",
+    "description": "Whether the company is active / in good standing",
+    "type": "bool",
+    "true_when": [
+     "true",
+     "yes",
+     "active",
+     "1"
+    ],
+    "false_when": [
+     "false",
+     "no",
+     "0",
+     "inactive",
+     "dissolved",
+     "struck off",
+     "closed"
+    ],
+    "scored": true
+   },
+   {
+    "name": "jurisdiction",
+    "description": "Jurisdiction of registration",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "registered_address",
+    "description": "Registered address",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "incorporated",
+    "description": "Date of incorporation or registration",
+    "type": "date",
+    "off_chain": true
+   }
+  ]
+ },
+ "CROSS_CHAIN_STATE_VERIFY_GENERAL": {
+  "fields": []
+ },
+ "CRYPTO_PRICE_USD": {
+  "fields": [
+   {
+    "name": "price_usd",
+    "description": "Current price of {key}, in US dollars",
+    "type": "number",
+    "unit": "US dollars",
+    "range": [
+     1e-06,
+     10000000
+    ],
+    "scored": true
+   }
+  ]
+ },
+ "CRYPTO_TRANSFER_VERIFY_GENERAL": {
+  "fields": []
+ },
+ "CURRENCY_EXCHANGE_CONVERT": {
+  "fields": [
+   {
+    "name": "converted_amount",
+    "description": "What 100 US dollars convert to in {key}",
+    "type": "number",
+    "unit": "{key}",
+    "range": [
+     0.01,
+     100000000
+    ],
+    "scored": true
+   }
+  ]
+ },
+ "CVE_LOOKUP_CVSS": {
+  "fields": [
+   {
+    "name": "cve_id",
+    "description": "The CVE identifier",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "cvss_score",
+    "description": "CVSS base score, 0.0 to 10.0",
+    "type": "number",
+    "unit": "CVSS score (0-10)",
+    "range": [
+     0,
+     10
+    ],
+    "scored": true,
+    "decimals": 6
+   },
+   {
+    "name": "severity",
+    "description": "Severity rating",
+    "type": "enum",
+    "allowed": [
+     "NONE",
+     "LOW",
+     "MEDIUM",
+     "HIGH",
+     "CRITICAL"
+    ],
+    "processed": true
+   },
+   {
+    "name": "description",
+    "description": "Short description of the vulnerability",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "published",
+    "description": "Date the CVE was published",
+    "type": "date",
+    "off_chain": true
+   },
+   {
+    "name": "references",
+    "description": "Reference URLs for the vulnerability",
+    "type": "list",
+    "off_chain": true
+   }
+  ]
+ },
+ "DNS_RECORD_LOOKUP_GENERAL": {
+  "fields": [
+   {
+    "name": "has_record",
+    "description": "Whether the DNS {type} lookup for {name} returned at least one record: 1 or true means yes, 0 or false means no",
+    "type": "bool",
+    "true_when": [
+     "1",
+     "true",
+     "yes"
+    ],
+    "false_when": [
+     "false",
+     "no",
+     "0"
+    ],
+    "scored": true
+   }
+  ]
+ },
+ "EVENT_OUTCOME_RESOLUTION_GENERAL": {
+  "fields": [
+   {
+    "name": "event",
+    "description": "The event or question being resolved",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "outcome",
+    "description": "Resolved outcome",
+    "type": "enum",
+    "allowed": [
+     "yes",
+     "no",
+     "unresolved"
+    ],
+    "processed": true
+   },
+   {
+    "name": "resolved_yes",
+    "description": "Whether the event resolved YES (happened / passed / won)",
+    "type": "bool",
+    "true_when": [
+     "true",
+     "yes",
+     "1"
+    ],
+    "false_when": [
+     "false",
+     "no",
+     "0"
+    ],
+    "scored": true
+   },
+   {
+    "name": "winner",
+    "description": "The winner's name, when the event has one",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "resolved_at",
+    "description": "Date or time the outcome was settled",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "sources",
+    "description": "URLs or names of the sources the answer cites",
+    "type": "list",
+    "off_chain": true
+   }
+  ]
+ },
+ "FACT_CHECK_GENERAL": {
+  "fields": [
+   {
+    "name": "claim",
+    "description": "The claim that was checked",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "verdict",
+    "description": "Fact-check verdict",
+    "type": "enum",
+    "allowed": [
+     "True",
+     "Mostly True",
+     "Mixed",
+     "Misleading",
+     "Mostly False",
+     "False",
+     "Unverified"
+    ],
+    "processed": true
+   },
+   {
+    "name": "reasoning",
+    "description": "The reasoning behind the verdict",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "sources",
+    "description": "URLs or names of the sources the answer cites",
+    "type": "list",
+    "off_chain": true
+   }
+  ]
+ },
+ "FINANCIAL_DATA_GENERAL": {
+  "fields": [
+   {
+    "name": "asset",
+    "description": "The company, token or market the figures are for",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "market_cap_usd",
+    "description": "Market capitalisation in US dollars",
+    "type": "number",
+    "unit": "USD",
+    "range": [
+     0,
+     1000000000000000
+    ],
+    "scored": true,
+    "decimals": 6
+   },
+   {
+    "name": "volume_24h_usd",
+    "description": "Trading volume over the last 24 hours in US dollars",
+    "type": "number",
+    "unit": "USD",
+    "range": [
+     0,
+     1000000000000000
+    ],
+    "decimals": 6,
+    "off_chain": true
+   },
+   {
+    "name": "metrics",
+    "description": "The other financial figures the answer reports (ratios, revenue, growth), as written",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "as_of",
+    "description": "Timestamp or date the figures are for",
+    "type": "string",
+    "off_chain": true
+   }
+  ]
+ },
+ "FRAUD_DETECTION_GENERAL": {
+  "fields": [
+   {
+    "name": "subject",
+    "description": "The entity, scheme, address or action assessed",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "verdict",
+    "description": "Fraud verdict",
+    "type": "enum",
+    "allowed": [
+     "FRAUD",
+     "LIKELY_FRAUD",
+     "SUSPICIOUS",
+     "LEGITIMATE",
+     "INCONCLUSIVE",
+     "LOW",
+     "ELEVATED",
+     "HIGH"
+    ],
+    "processed": true
+   },
+   {
+    "name": "risk_score",
+    "description": "Fraud risk score from 0 to 1",
+    "type": "number",
+    "unit": "fraction (0-1)",
+    "range": [
+     0,
+     1
+    ],
+    "scored": true,
+    "decimals": 6
+   },
+   {
+    "name": "signals",
+    "description": "Named signals or reasons behind the verdict",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "summary",
+    "description": "One- or two-sentence summary of the fraud assessment",
+    "type": "string",
+    "off_chain": true
+   }
+  ]
+ },
+ "GAS_PRICE_GENERAL": {
+  "fields": [
+   {
+    "name": "chain",
+    "description": "The chain the gas price is for",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "gas_price_gwei",
+    "description": "Current gas price in gwei",
+    "type": "number",
+    "unit": "gwei",
+    "unit_aliases": {
+     "wei": 1e-09
+    },
+    "range": [
+     0,
+     100000
+    ],
+    "scored": true,
+    "decimals": 6
+   },
+   {
+    "name": "transfer_fee_usd",
+    "description": "Estimated US dollar cost of a standard 21,000-gas transfer",
+    "type": "number",
+    "unit": "USD",
+    "range": [
+     0,
+     10000
+    ],
+    "decimals": 6,
+    "off_chain": true
+   },
+   {
+    "name": "as_of",
+    "description": "Timestamp of the reading",
+    "type": "string",
+    "off_chain": true
+   }
+  ]
+ },
+ "IP_GEOLOCATION_GENERAL": {
+  "fields": []
+ },
+ "LANGUAGE_TRANSLATION_GENERAL": {
+  "fields": [
+   {
+    "name": "translation",
+    "description": "The translated text alone",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "target_language",
+    "description": "The language translated into",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "source_language",
+    "description": "The language translated from",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "brief",
+    "description": "The translation itself if it is at most 80 characters, otherwise its opening cut to 80 characters",
+    "type": "string",
+    "processed": true
+   }
+  ]
+ },
+ "MACRO_ECONOMIC_INDICATOR_GENERAL": {
+  "fields": [
+   {
+    "name": "rate_pct",
+    "description": "Unemployment rate (% of total labour force, World Bank indicator {indicator}) for {country_name} ({country}) in {year}, in percent",
+    "type": "number",
+    "unit": "percent",
+    "range": [
+     0,
+     100
+    ],
+    "scored": true,
+    "decimals": 6
+   }
+  ]
+ },
+ "NEWS_HEADLINES_GENERAL": {
+  "fields": [
+   {
+    "name": "topic",
+    "description": "The topic the headlines are about",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "headlines",
+    "description": "Headline titles, in the order listed",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "urls",
+    "description": "Source URLs of the headlines, in the same order",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "window",
+    "description": "The time window the headlines were drawn from",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "top_headline",
+    "description": "The first headline listed, as written",
+    "type": "string"
+   }
+  ]
+ },
+ "NEWS_SEARCH_GENERAL": {
+  "fields": [
+   {
+    "name": "answer",
+    "description": "The latest news on the question, as written",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "result_count",
+    "description": "How many news sources the answer drew on",
+    "type": "integer",
+    "range": [
+     0,
+     1000
+    ],
+    "off_chain": true
+   },
+   {
+    "name": "sources",
+    "description": "URLs or names of the sources the answer cites",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "brief",
+    "description": "The answer to the request in one plain sentence of at most 80 characters",
+    "type": "string",
+    "processed": true
+   }
+  ]
+ },
+ "ONCHAIN_METRIC_VERIFY_GENERAL": {
+  "fields": [
+   {
+    "name": "balance_gwei",
+    "description": "ETH balance of the wallet {key} at its pinned block, in Gwei (1 ETH = 1000000000 Gwei)",
+    "type": "number",
+    "unit": "Gwei",
+    "unit_aliases": {
+     "ETH": 1000000000,
+     "wei": 1e-09
+    },
+    "range": [
+     0,
+     100000000000000000000
+    ],
+    "user_description": "Coin balance that answers this request, in Gwei: {query}",
+    "scored": true,
+    "decimals": 6
+   },
+   {
+    "name": "address",
+    "description": "The address whose balance is reported",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "block",
+    "description": "The block the balance was read at",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "chain",
+    "description": "The chain the balance is on",
+    "type": "string",
+    "off_chain": true
+   }
+  ]
+ },
+ "ONCHAIN_TX_LOOKUP_GENERAL": {
+  "fields": [
+   {
+    "name": "tx_hash",
+    "description": "The transaction hash looked up",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "status",
+    "description": "Transaction status",
+    "type": "enum",
+    "allowed": [
+     "confirmed",
+     "reverted",
+     "pending",
+     "not_found"
+    ],
+    "processed": true
+   },
+   {
+    "name": "from",
+    "description": "Sender address",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "to",
+    "description": "Recipient or contract address",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "block_number",
+    "description": "Block the transaction was included in",
+    "type": "number",
+    "unit": "block height",
+    "range": [
+     0,
+     1000000000000
+    ],
+    "scored": true,
+    "decimals": 0,
+    "off_chain": true
+   },
+   {
+    "name": "value_eth",
+    "description": "Native-token value transferred, in whole units",
+    "type": "number",
+    "unit": "whole native units",
+    "range": [
+     0,
+     1000000000000
+    ],
+    "decimals": 6,
+    "off_chain": true
+   }
+  ]
+ },
+ "QUESTION_ANSWERING_GENERAL": {
+  "fields": []
+ },
+ "REGULATORY_FILING_MONITOR_GENERAL": {
+  "fields": [
+   {
+    "name": "entity",
+    "description": "The company, product or concern searched",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "filing_count",
+    "description": "Number of matching filings found",
+    "type": "number",
+    "unit": "filings",
+    "range": [
+     0,
+     100000000
+    ],
+    "scored": true,
+    "decimals": 0
+   },
+   {
+    "name": "filings",
+    "description": "Titles of the matching filings, newest first",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "urls",
+    "description": "URLs of the matching filings, in the same order",
+    "type": "list",
+    "off_chain": true
+   }
+  ]
+ },
+ "RESEARCH_QUERY_GENERAL": {
+  "fields": [
+   {
+    "name": "answer",
+    "description": "The one-paragraph research answer",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "source_count",
+    "description": "How many sources the answer drew on",
+    "type": "integer",
+    "range": [
+     0,
+     1000
+    ],
+    "off_chain": true
+   },
+   {
+    "name": "sources",
+    "description": "URLs or names of the sources the answer cites",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "brief",
+    "description": "The answer to the request in one plain sentence of at most 80 characters",
+    "type": "string",
+    "processed": true
+   }
+  ]
+ },
+ "RESEARCH_SYNTHESIS_GENERAL": {
+  "fields": [
+   {
+    "name": "answer",
+    "description": "The written synthesis across sources",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "source_count",
+    "description": "How many sources the synthesis drew on",
+    "type": "integer",
+    "range": [
+     0,
+     1000
+    ],
+    "off_chain": true
+   },
+   {
+    "name": "sources",
+    "description": "URLs or names of the sources the answer cites",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "brief",
+    "description": "The answer to the request in one plain sentence of at most 80 characters",
+    "type": "string",
+    "processed": true
+   }
+  ]
+ },
+ "SANCTIONS_SCREENING_MATCH_GENERAL": {
+  "fields": [
+   {
+    "name": "name",
+    "description": "The person or entity screened",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "matched",
+    "description": "Whether the name matched a sanctions-list entry",
+    "type": "bool",
+    "true_when": [
+     "true",
+     "yes",
+     "match",
+     "matched",
+     "1"
+    ],
+    "false_when": [
+     "false",
+     "no",
+     "0",
+     "no match",
+     "not matched",
+     "clear"
+    ],
+    "scored": true
+   },
+   {
+    "name": "matches",
+    "description": "Matching sanctions-list entries",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "lists",
+    "description": "Sanctions lists checked or matched (e.g. OFAC SDN)",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "match_score",
+    "description": "Best fuzzy-match score, 0 to 1",
+    "type": "number",
+    "unit": "fraction (0-1)",
+    "range": [
+     0,
+     1
+    ],
+    "decimals": 6,
+    "off_chain": true
+   }
+  ]
+ },
+ "SENTIMENT_ANALYSIS_GENERAL": {
+  "fields": [
+   {
+    "name": "sentiment",
+    "description": "Sentiment classification",
+    "type": "enum",
+    "allowed": [
+     "Positive",
+     "Negative",
+     "Neutral",
+     "Mixed"
+    ],
+    "processed": true
+   },
+   {
+    "name": "score",
+    "description": "Sentiment score or confidence the answer gives, from -1 to 1",
+    "type": "number",
+    "unit": "score (-1 to 1)",
+    "range": [
+     -1,
+     1
+    ],
+    "decimals": 6,
+    "off_chain": true
+   },
+   {
+    "name": "reason",
+    "description": "Short reason for the classification",
+    "type": "string",
+    "off_chain": true
+   }
+  ]
+ },
+ "SMART_CONTRACT_AUDIT_GENERAL": {
+  "fields": []
+ },
+ "SSL_VERIFICATION_CERT": {
+  "fields": [
+   {
+    "name": "certificate_valid",
+    "description": "Whether the TLS certificate of {key} is currently valid and trusted",
+    "type": "bool",
+    "true_when": [
+     "true",
+     "yes",
+     "valid",
+     "trusted"
+    ],
+    "scored": true
+   }
+  ]
+ },
+ "STOCK_PRICE_US_EQUITY": {
+  "fields": [
+   {
+    "name": "price_usd",
+    "description": "Current share price of {key}, in US dollars",
+    "type": "number",
+    "unit": "US dollars",
+    "range": [
+     0.01,
+     1000000
+    ],
+    "scored": true
+   }
+  ]
+ },
+ "STORM_ALERT_GENERAL": {
+  "fields": [
+   {
+    "name": "location",
+    "description": "The place the storm risk is for",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "risk_score",
+    "description": "Overall storm or weather-disruption risk from 0 to 1",
+    "type": "number",
+    "unit": "fraction (0-1)",
+    "range": [
+     0,
+     1
+    ],
+    "scored": true,
+    "decimals": 6
+   },
+   {
+    "name": "risk_level",
+    "description": "Named storm risk grade",
+    "type": "enum",
+    "allowed": [
+     "LOW",
+     "MODERATE",
+     "HIGH",
+     "SEVERE"
+    ],
+    "processed": true
+   },
+   {
+    "name": "peak_gust_kmh",
+    "description": "Strongest wind gust in the window, km/h",
+    "type": "number",
+    "unit": "km/h",
+    "range": [
+     0,
+     500
+    ],
+    "decimals": 6,
+    "off_chain": true
+   },
+   {
+    "name": "precipitation_mm",
+    "description": "Total precipitation in the window, millimetres",
+    "type": "number",
+    "unit": "mm",
+    "range": [
+     0,
+     5000
+    ],
+    "decimals": 6,
+    "off_chain": true
+   },
+   {
+    "name": "window",
+    "description": "The time window assessed",
+    "type": "string",
+    "off_chain": true
+   }
+  ]
+ },
+ "TEXT_CLASSIFICATION_GENERAL": {
+  "fields": [
+   {
+    "name": "category",
+    "description": "The single best category for the text",
+    "type": "string"
+   },
+   {
+    "name": "reason",
+    "description": "Short reason for the category",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "confidence",
+    "description": "Confidence the answer states, from 0 to 1",
+    "type": "number",
+    "unit": "fraction (0-1)",
+    "range": [
+     0,
+     1
+    ],
+    "decimals": 6,
+    "off_chain": true
+   }
+  ]
+ },
+ "TEXT_GENERATION_GENERAL": {
+  "fields": [
+   {
+    "name": "text",
+    "description": "The generated text, without preamble",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "title",
+    "description": "Title of the generated text, if it has one",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "brief",
+    "description": "The produced text if it is at most 80 characters, otherwise its opening sentence cut to 80 characters",
+    "type": "string",
+    "processed": true
+   }
+  ]
+ },
+ "TOKEN_HOLDER_COUNT_GENERAL": {
+  "fields": [
+   {
+    "name": "token",
+    "description": "The token contract address or name",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "chain",
+    "description": "The chain the token is on",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "holders_count",
+    "description": "Number of distinct addresses holding the token",
+    "type": "number",
+    "unit": "addresses",
+    "range": [
+     0,
+     10000000000
+    ],
+    "scored": true,
+    "decimals": 0
+   },
+   {
+    "name": "token_symbol",
+    "description": "The token's symbol",
+    "type": "string",
+    "off_chain": true
+   }
+  ]
+ },
+ "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL": {
+  "fields": [
+   {
+    "name": "total_supply",
+    "description": "Current total supply of the token, in whole tokens (decimals applied)",
+    "type": "number",
+    "unit": "whole tokens",
+    "range": [
+     0,
+     1000000000000000
+    ],
+    "scored": true
+   }
+  ]
+ },
+ "URL_SAFE_GENERAL": {
+  "fields": [
+   {
+    "name": "url",
+    "description": "The URL checked",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "verdict",
+    "description": "Safety verdict",
+    "type": "enum",
+    "allowed": [
+     "Safe",
+     "Suspicious",
+     "Malicious",
+     "Unknown"
+    ],
+    "processed": true
+   },
+   {
+    "name": "detections",
+    "description": "Number of engines or databases flagging the URL",
+    "type": "number",
+    "unit": "detections",
+    "range": [
+     0,
+     1000
+    ],
+    "scored": true,
+    "decimals": 0
+   },
+   {
+    "name": "summary",
+    "description": "One- or two-sentence summary of the check",
+    "type": "string",
+    "off_chain": true
+   }
+  ]
+ },
+ "URL_SCAN_VERDICT": {
+  "fields": [
+   {
+    "name": "safe",
+    "description": "Whether the URL {key} is safe to visit",
+    "type": "bool",
+    "true_when": [
+     "true",
+     "yes",
+     "safe",
+     "clean"
+    ],
+    "scored": true
+   }
+  ]
+ },
+ "WALLET_BALANCE_CHECK_GENERAL": {
+  "fields": [
+   {
+    "name": "address",
+    "description": "The blockchain address whose balance is reported",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "chain",
+    "description": "The chain the balance is on",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "balance",
+    "description": "Balance held, in whole units of the coin or token (not wei)",
+    "type": "number",
+    "unit": "whole token units",
+    "range": [
+     0,
+     1000000000000000
+    ],
+    "scored": true,
+    "decimals": 6
+   },
+   {
+    "name": "token_symbol",
+    "description": "Symbol of the coin or token the balance is in",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "as_of",
+    "description": "Timestamp of the balance reading",
+    "type": "string",
+    "off_chain": true
+   }
+  ]
+ },
+ "WEATHER_CHECK_TEMPERATURE": {
+  "fields": [
+   {
+    "name": "temperature_c",
+    "description": "Current air temperature in {key}, in degrees Celsius",
+    "type": "number",
+    "unit": "degrees Celsius",
+    "range": [
+     -90,
+     60
+    ],
+    "scored": true
+   }
+  ]
+ },
+ "WEATHER_FORECAST_GENERAL": {
+  "fields": [
+   {
+    "name": "location",
+    "description": "The place the forecast is for",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "when",
+    "description": "The day or window the forecast covers",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "temp_max_c",
+    "description": "Forecast high temperature, degrees Celsius",
+    "type": "number",
+    "unit": "degrees Celsius",
+    "range": [
+     -90,
+     60
+    ],
+    "scored": true,
+    "decimals": 6
+   },
+   {
+    "name": "temp_min_c",
+    "description": "Forecast low temperature, degrees Celsius",
+    "type": "number",
+    "unit": "degrees Celsius",
+    "range": [
+     -90,
+     60
+    ],
+    "decimals": 6
+   },
+   {
+    "name": "precipitation_probability_pct",
+    "description": "Peak chance of precipitation, percent",
+    "type": "number",
+    "unit": "percent",
+    "range": [
+     0,
+     100
+    ],
+    "decimals": 6,
+    "off_chain": true
+   },
+   {
+    "name": "condition",
+    "description": "Expected weather condition in plain words",
+    "type": "string",
+    "off_chain": true
+   }
+  ]
+ },
+ "WEB_SEARCH_GENERAL": {
+  "fields": [
+   {
+    "name": "answer",
+    "description": "The written answer drawn from the web search",
+    "type": "string",
+    "off_chain": true
+   },
+   {
+    "name": "sources",
+    "description": "URLs or names of the sources the answer cites",
+    "type": "list",
+    "off_chain": true
+   },
+   {
+    "name": "brief",
+    "description": "The answer to the request in one plain sentence of at most 80 characters",
+    "type": "string",
+    "processed": true
+   }
+  ]
+ }
+}

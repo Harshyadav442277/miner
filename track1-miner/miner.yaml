@@ -1514,6 +1514,255 @@ semantics:
     - NEWS_SEARCH_GENERAL
     - STOCK_PRICE_US_EQUITY
 
+# intent_mapping (anjoman.ai/docs/miners/yaml-config, updated 2026-11-05): where each field of an intent's
+# response format sits in our answer, so the node reads it by path instead of asking a model to find it.
+# Fields we never produce are left out (the node reports them missing either way). The five intents with no
+# response format (CROSS_CHAIN_STATE_VERIFY, CRYPTO_TRANSFER_VERIFY, QUESTION_ANSWERING, SMART_CONTRACT_AUDIT,
+# IP_GEOLOCATION) have nothing to map. No `input`: requests are still built from each endpoint's params.
+intent_mapping:
+  SSL_VERIFICATION_CERT:
+    endpoint: /ssl-check
+    output:
+      certificate_valid: { path: certificate_valid }
+  STORM_ALERT_GENERAL:
+    endpoint: /storm-alert
+    output:
+      location: { path: location }
+      risk_score: { path: risk_score }
+      risk_level: { path: risk_level }
+      peak_gust_kmh: { path: peak_gust_kmh }
+      window: { path: window }
+  WEATHER_FORECAST_GENERAL:
+    endpoint: /weather-forecast
+    output:
+      location: { path: location }
+      when: { path: when }
+      temp_max_c: { path: temp_max_c }
+      temp_min_c: { path: temp_min_c }
+      precipitation_probability_pct: { path: precipitation_probability_pct }
+      condition: { path: verdict }
+  WEATHER_CHECK_TEMPERATURE:
+    endpoint: /weather-forecast
+    output:
+      temperature_c: { path: temperature_c }
+  LANGUAGE_TRANSLATION_GENERAL:
+    endpoint: /translate
+    output:
+      translation: { path: translation }
+      target_language: { path: target_language }
+      source_language: { path: source_language }
+      brief: { path: brief }
+  ACADEMIC_SEARCH_GENERAL:
+    endpoint: /papers
+    output:
+      answer: { path: answer }
+      paper_titles: { path: paper_titles }
+      dois: { path: dois }
+      total_matches: { path: total_matches }
+      brief: { path: brief }
+  CONTENT_EXTRACTION_GENERAL:
+    endpoint: /extract
+    output:
+      entities: { path: entities }
+      brief: { path: brief }
+  WALLET_BALANCE_CHECK_GENERAL:
+    endpoint: /wallet-balance
+    output:
+      address: { path: address }
+      chain: { path: chain }
+      balance: { path: balance }
+      token_symbol: { path: token_symbol }
+      as_of: { path: checked_at }
+  FACT_CHECK_GENERAL:
+    endpoint: /fact-check
+    output:
+      claim: { path: claim }
+      verdict: { path: verdict }
+      reasoning: { path: reasoning }
+      sources: { path: sources }
+  ONCHAIN_TX_LOOKUP_GENERAL:
+    endpoint: /tx-lookup
+    output:
+      tx_hash: { path: tx_hash }
+      status: { path: status }
+      from: { path: from }
+      to: { path: to }
+      block_number: { path: block_number }
+      value_eth: { path: value_eth }
+  CVE_LOOKUP_CVSS:
+    endpoint: /cve
+    output:
+      cve_id: { path: cve_id }
+      cvss_score: { path: cvss_score }
+      severity: { path: severity }
+      description: { path: description }
+      published: { path: published }
+  CURRENCY_EXCHANGE_CONVERT:
+    endpoint: /convert
+    output:
+      converted_amount: { path: converted_amount }
+  GAS_PRICE_GENERAL:
+    endpoint: /gas-price
+    output:
+      chain: { path: chain }
+      gas_price_gwei: { path: gas_price_gwei }
+      as_of: { path: checked_at }
+  FINANCIAL_DATA_GENERAL:
+    endpoint: /financial
+    output:
+      asset: { path: asset }
+      market_cap_usd: { path: market_cap_usd }
+      volume_24h_usd: { path: volume_24h_usd }
+      as_of: { path: as_of }
+  FRAUD_DETECTION_GENERAL:
+    endpoint: /fraud-check
+    output:
+      subject: { path: subject }
+      verdict: { path: verdict }
+      risk_score: { path: risk_score }
+      signals: { path: signals }
+      summary: { path: summary }
+  TOKEN_HOLDER_COUNT_GENERAL:
+    endpoint: /token-holders
+    output:
+      token: { path: token }
+      chain: { path: chain }
+      holders_count: { path: holders_count }
+      token_symbol: { path: token_symbol }
+  RESEARCH_QUERY_GENERAL:
+    endpoint: /research
+    output:
+      answer: { path: answer }
+      source_count: { path: source_count }
+      sources: { path: sources }
+      brief: { path: brief }
+  CRYPTO_PRICE_USD:
+    endpoint: /crypto-price
+    output:
+      price_usd: { path: price_usd }
+  EVENT_OUTCOME_RESOLUTION_GENERAL:
+    endpoint: /event-outcome
+    output:
+      event: { path: event }
+      outcome: { path: outcome }
+      resolved_yes: { path: resolved_yes }
+      winner: { path: winner }
+      sources: { path: sources }
+  URL_SCAN_VERDICT:
+    endpoint: /url-scan
+    output:
+      safe: { path: safe }
+  WEB_SEARCH_GENERAL:
+    endpoint: /web-search
+    output:
+      answer: { path: answer }
+      sources: { path: sources }
+      brief: { path: brief }
+  SENTIMENT_ANALYSIS_GENERAL:
+    endpoint: /sentiment
+    output:
+      sentiment: { path: sentiment }
+      score: { path: score }
+      reason: { path: reason }
+  TEXT_CLASSIFICATION_GENERAL:
+    endpoint: /classify
+    output:
+      category: { path: category }
+      reason: { path: reason }
+      confidence: { path: confidence }
+  RESEARCH_SYNTHESIS_GENERAL:
+    endpoint: /research-synthesis
+    output:
+      answer: { path: answer }
+      source_count: { path: source_count }
+      sources: { path: sources }
+      brief: { path: brief }
+  SANCTIONS_SCREENING_MATCH_GENERAL:
+    endpoint: /sanctions-screen
+    output:
+      name: { path: name }
+      matched: { path: matched }
+      matches: { path: matches }
+      lists: { path: lists }
+      match_score: { path: match_score }
+  CORPORATE_REGISTRY_LOOKUP_GENERAL:
+    endpoint: /company-registry
+    output:
+      legal_name: { path: legal_name }
+      registration_id: { path: registration_id }
+      active: { path: active }
+      jurisdiction: { path: jurisdiction }
+      registered_address: { path: registered_address }
+      incorporated: { path: incorporated }
+  REGULATORY_FILING_MONITOR_GENERAL:
+    endpoint: /sec-filings
+    output:
+      entity: { path: entity }
+      filing_count: { path: filing_count }
+      filings: { path: filings }
+      urls: { path: urls }
+  MACRO_ECONOMIC_INDICATOR_GENERAL:
+    endpoint: /macro
+    output:
+      rate_pct: { path: rate_pct }
+  URL_SAFE_GENERAL:
+    endpoint: /url-reputation
+    output:
+      url: { path: url }
+      verdict: { path: verdict }
+      detections: { path: detections }
+      summary: { path: summary }
+  DNS_RECORD_LOOKUP_GENERAL:
+    endpoint: /dns
+    output:
+      has_record: { path: has_record }
+  TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL:
+    endpoint: /token-supply
+    output:
+      total_supply: { path: total_supply }
+  ONCHAIN_METRIC_VERIFY_GENERAL:
+    endpoint: /onchain-metric
+    output:
+      balance_gwei: { path: balance_gwei }
+      address: { path: address }
+      block: { path: block }
+      chain: { path: chain }
+  CHAT_COMPLETION_GENERAL:
+    endpoint: /chat
+    output:
+      reply: { path: reply }
+      verdict: { path: verdict }
+      brief: { path: brief }
+  CODE_REVIEW_GENERAL:
+    endpoint: /code-review
+    output:
+      verdict: { path: verdict }
+      findings: { path: findings }
+      summary: { path: summary }
+  TEXT_GENERATION_GENERAL:
+    endpoint: /generate
+    output:
+      text: { path: text }
+      title: { path: title }
+      brief: { path: brief }
+  NEWS_HEADLINES_GENERAL:
+    endpoint: /headlines
+    output:
+      topic: { path: topic }
+      headlines: { path: "headlines[].title" }
+      top_headline: { path: top_headline }
+  NEWS_SEARCH_GENERAL:
+    endpoint: /news-search
+    output:
+      answer: { path: answer }
+      result_count: { path: result_count }
+      sources: { path: sources }
+      brief: { path: brief }
+  STOCK_PRICE_US_EQUITY:
+    endpoint: /stock-price
+    output:
+      price_usd: { path: price_usd }
+
 # input_schema is a single top-level block covering every endpoint — the schema
 # refuses it inside endpoints[], and the node does not enforce it against requests.
 input_schema:
