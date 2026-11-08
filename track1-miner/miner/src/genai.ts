@@ -1,5 +1,5 @@
 /**
- * CHAT_COMPLETION, CODE_REVIEW and TEXT_GENERATION — answers a language model writes, through llm.ts (Groq).
+ * CHAT_COMPLETION, CODE_REVIEW, SMART_CONTRACT_AUDIT and TEXT_GENERATION — answers a language model writes, through llm.ts (Groq).
  *
  * Each intent's own schema (GET /engine/v1/intents/<id>, read 2026-11-07) names the request field and the
  * scored one:
@@ -178,6 +178,72 @@ export async function reviewCode(question: string, codeParam = ""): Promise<GenA
   const listed = findings.map((f, i) => `${i + 1}) ${f.severity}${f.line ? `, line ${f.line}` : ""}: ${f.issue}${f.fix ? ` Fix: ${f.fix}` : ""}`).join(" ");
   return { verdict, summary, findings, finding_count: findings.length, confidence: CONFIDENCE, source: SOURCE,
     reason: `${verdict}: ${summary}${listed ? ` Findings: ${listed}` : ""}` };
+}
+
+/**
+ * SMART_CONTRACT_AUDIT — a security audit of supplied Solidity. The intent declared no response format on
+ * 2026-11-08 (GET /engine/v1/intents/SMART_CONTRACT_AUDIT_GENERAL: "the intent has no response format"), so
+ * the fields follow the leaders' shape: a risk grade, prose that opens with it, and severity-ordered findings.
+ */
+const AUDIT_SYSTEM = `You are a smart-contract security auditor. Open with one sentence giving the overall risk verdict (Critical/High/Medium/Low/No issues found). Then, for each finding, give its class (reentrancy, access control, unchecked external call, integer/precision, oracle manipulation, front-running, denial of service, upgradeability), the affected function, the severity, why it is exploitable, and the concrete fix with corrected Solidity where short. Report only real issues; say so plainly when the contract is safe. Reply with a JSON object:
+{"verdict": "Critical" | "High" | "Medium" | "Low" | "No issues found", "summary": that prose, opening with the verdict sentence, "findings": [{"class": one of the classes above, "function": the affected function's name, "severity": "critical"|"high"|"medium"|"low"|"info", "issue": what is wrong and why it is exploitable, "fix": the concrete change}]}
+Order findings by severity, most serious first. The verdict is the severity of the most serious finding.`;
+
+export type RiskGrade = "Critical" | "High" | "Medium" | "Low" | "No issues found";
+export interface AuditFinding { class: string; function: string | null; severity: Severity; issue: string; fix: string }
+
+/** Audit findings as served: known severities only, most serious first. Pure. */
+export function normaliseAuditFindings(v: unknown): AuditFinding[] {
+  if (!Array.isArray(v)) return [];
+  const out: AuditFinding[] = [];
+  for (const f of v.slice(0, 20)) {
+    if (!f || typeof f !== "object") continue;
+    const o = f as Record<string, unknown>;
+    const issue = str(o.issue);
+    if (!issue) continue;
+    const sev = str(o.severity).toLowerCase();
+    out.push({ class: str(o.class).toLowerCase() || "other", function: str(o.function).replace(/\(\)$/, "") || null,
+      severity: (SEVERITIES as readonly string[]).includes(sev) ? (sev as Severity) : "info", issue, fix: str(o.fix) });
+  }
+  return out.sort((a, b) => SEVERITIES.indexOf(a.severity) - SEVERITIES.indexOf(b.severity));
+}
+
+/** The grade the findings support: the most serious finding's severity; only info notes is no issue. Pure. */
+export function riskGrade(findings: AuditFinding[]): RiskGrade {
+  const top = findings[0]?.severity;
+  return top === "critical" ? "Critical" : top === "high" ? "High" : top === "medium" ? "Medium" : top === "low" ? "Low" : "No issues found";
+}
+
+/** The summary opening with the grade the findings support. A model sentence that names another grade is replaced. Pure. */
+export function auditSummary(summary: string, grade: RiskGrade): string {
+  const s = plainHyphens(summary.replace(/\s+/g, " ").trim());
+  const first = opening(s);
+  const named = first.match(/\b(critical|high|medium|low|no issues found)\b/i)?.[1];
+  const opener = grade === "No issues found" ? "Overall risk: No issues found." : `Overall risk: ${grade}.`;
+  if (named && named.toLowerCase() === grade.toLowerCase()) return s;
+  // An opening sentence that grades the contract differently from its own findings is dropped, not contradicted.
+  const rest = named && /\b(?:overall|risk|verdict|rating|grade)\b/i.test(first) ? s.slice(first.length).trim() : s;
+  return rest ? `${opener} ${rest}` : opener;
+}
+
+export async function auditContract(question: string, contractParam = ""): Promise<GenAnswer> {
+  const source = (contractParam || question).slice(0, MAX_INPUT);
+  const none = { findings: [], summary: null, finding_count: null };
+  if (!source.trim()) return missing("contract source", "contract", none);
+  if (/^\s*(?:https?:\/\/\S+|0x[0-9a-fA-F]{40})\s*$/.test(source)) {
+    return { ...none, verdict: "insufficient_input", confidence: 0, error: "source_not_fetched", source: SOURCE,
+      reason: "A link or an address was sent, and neither is fetched. Send the Solidity source itself as the contract parameter." };
+  }
+  const raw = await phrase({ system: AUDIT_SYSTEM, user: source, maxTokens: 1_800, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
+  const o = raw ? parseObject(raw) : null;
+  const stated = str(o?.summary);
+  if (!o || !stated) return unavailable("an audit", none);
+  const findings = normaliseAuditFindings(o.findings);
+  const verdict = riskGrade(findings);
+  const summary = auditSummary(stated, verdict);
+  const listed = findings.map((f, i) => `${i + 1}) ${f.severity} ${f.class}${f.function ? ` in ${f.function}` : ""}: ${f.issue}${f.fix ? ` Fix: ${f.fix}` : ""}`).join(" ");
+  return { verdict, summary, findings, finding_count: findings.length, confidence: CONFIDENCE, source: SOURCE,
+    reason: `${summary}${listed ? ` Findings: ${listed}` : ""}` };
 }
 
 const WRITE_SYSTEM = `You write exactly what the user asks for. Reply with a JSON object:

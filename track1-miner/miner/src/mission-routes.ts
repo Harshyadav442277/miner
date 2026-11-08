@@ -9,7 +9,7 @@
 import { lookupDns } from "./dns";
 import { monitorFilings } from "./filings";
 import { registryIntentFields, sanctionsIntentFields } from "./intent-fields";
-import { chat, generateText, reviewCode } from "./genai";
+import { auditContract, chat, generateText, reviewCode } from "./genai";
 import { verifyOnchainMetric } from "./onchain-metric";
 import { answerQuestion } from "./qa";
 import { macroIndicators } from "./macro";
@@ -87,6 +87,12 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
     params: ["code"],
     exact: true,
     run: (q, p) => reviewCode(q, p("code")),
+  },
+  "/contract-audit": {
+    what: "A smart-contract audit",
+    params: ["contract", "code", "source", "solidity"],
+    exact: true,
+    run: (q, p) => auditContract(q, p("contract", "code", "source", "solidity")),
   },
   "/generate": {
     what: "The requested text",

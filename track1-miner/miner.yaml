@@ -1334,8 +1334,9 @@ endpoints:
       performance and clarity. Example questions: "Review this function: <code>",
       "Is this SQL query safe? <code>". Returns verdict (Approve, Request changes or
       Comment; Request changes whenever a finding is critical or high, so a verdict
-      never contradicts its own findings), summary (one or two sentences: whether
-      the code is correct and its most serious problem), findings in severity order
+      never contradicts its own findings), summary (three to six sentences opening
+      "The code is correct." or "The code is not correct.", then each serious issue
+      explained), findings in severity order
       (each with severity critical, high, medium, low or info, line where known, the
       issue by its technical name and the concrete fix) and finding_count. Links are
       not fetched: send the code itself. Up to 8,000 characters.
@@ -1351,6 +1352,34 @@ endpoints:
             type: string
             intents: ["*"]
             description: "The user's original question, verbatim; used when code is absent."
+
+  - path: /contract-audit
+    external_path: /contract-audit
+    method: GET
+    intents: [SMART_CONTRACT_AUDIT_GENERAL]
+    description: >-
+      A security audit of supplied Solidity source. Example questions: "Audit this
+      contract: <code>", "Is this vault safe from reentrancy? <code>". Returns verdict
+      (the overall risk grade: Critical, High, Medium, Low or No issues found, always
+      the severity of the most serious finding), summary (prose that opens with that
+      grade, then for each finding its class, function, severity, why it is
+      exploitable and the concrete fix), findings in severity order (each with class:
+      reentrancy, access control, unchecked external call, integer/precision, oracle
+      manipulation, front-running, denial of service or upgradeability; function;
+      severity; issue; fix) and finding_count. Links and addresses are not fetched:
+      send the source itself. Up to 8,000 characters.
+    params:
+      query:
+        required:
+          - name: contract
+            type: string
+            intents: ["*"]
+            description: "The Solidity source to audit, verbatim and URL-encoded."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim; used when contract is absent."
 
   - path: /generate
     external_path: /generate
@@ -1471,6 +1500,7 @@ semantics:
     - ONCHAIN_METRIC_VERIFY_GENERAL
     - CHAT_COMPLETION_GENERAL
     - CODE_REVIEW_GENERAL
+    - SMART_CONTRACT_AUDIT_GENERAL
     - TEXT_GENERATION_GENERAL
     - IP_GEOLOCATION_GENERAL
     - NEWS_HEADLINES_GENERAL
@@ -1810,13 +1840,15 @@ output_schema:
     # /chat, /code-review, /generate
     reply: { type: [string, "null"], description: "/chat: the full answer, opening with brief." }
     brief: { type: [string, "null"], description: "/chat and /generate: one plain sentence of at most 80 characters." }
-    summary: { type: [string, "null"], description: "/code-review: whether the code is correct and its most serious problem." }
+    summary: { type: [string, "null"], description: "/code-review: three to six sentences opening 'The code is correct.' or 'The code is not correct.'; /contract-audit: prose opening with the risk grade." }
     findings:
       type: [array, "null"]
       items:
         type: object
         properties:
           severity: { type: string, description: "critical, high, medium, low or info." }
+          class: { type: string, description: "/contract-audit: the vulnerability class." }
+          function: { type: [string, "null"], description: "/contract-audit: the affected function." }
           line: { type: [integer, "null"] }
           issue: { type: string }
           fix: { type: string }

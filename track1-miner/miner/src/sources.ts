@@ -169,6 +169,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/token-supply": ["1rpc", "blockscout", "chain-rpcs", "coingecko", "drpc", "ensideas", "flashbots", "merkle", "publicnode"],
   "/chat": ["groq"],
   "/code-review": ["groq"],
+  "/contract-audit": ["groq"],
   "/generate": ["groq"],
   "/onchain-metric": ["1rpc", "blockscout", "chain-rpcs", "coingecko", "drpc", "ensideas", "flashbots", "merkle", "publicnode"],
 };

@@ -1,6 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { asksWillHappen, chat, cut, generateText, normaliseFindings, opening, parseObject, reviewCode, reviewSummary, reviewVerdict, wordTarget } from "../src/genai";
+import {
+  asksWillHappen, auditContract, chat, cut, generateText, normaliseAuditFindings, normaliseFindings, opening, parseObject, reviewCode, reviewSummary,
+  reviewVerdict, riskGrade, wordTarget, type AuditFinding,
+} from "../src/genai";
 import { resetPhraseState } from "../src/llm";
 
 /** Groq answering with `content` for every call; restores fetch and the key after. */
@@ -124,6 +127,48 @@ test("genai: the review summary opens with its correctness sentence and asks for
     await reviewCode("", "def total(xs):\n  return sum(xs)\n");
     assert.match(String((calls[0]!.messages as Array<{ content: string }>)[0]!.content), /three to six plain sentences that open with exactly "The code is correct\." or "The code is not correct\."/);
   });
+});
+
+const VAULT = `pragma solidity ^0.8.0;
+contract Vault {
+  mapping(address => uint) public balances;
+  function deposit() external payable { balances[msg.sender] += msg.value; }
+  function withdraw() external {
+    uint amount = balances[msg.sender];
+    (bool ok, ) = msg.sender.call{value: amount}("");
+    require(ok);
+    balances[msg.sender] = 0;
+  }
+}`;
+
+test("audit: a planted reentrancy is graded by its finding, and the summary opens with that grade", async () => {
+  const model = { verdict: "High", summary: "Overall risk is High. withdraw sends ETH before zeroing the balance.", findings: [
+    { class: "Access control", function: "deposit", severity: "low", issue: "No event is emitted.", fix: "Emit Deposit." },
+    { class: "Reentrancy", function: "withdraw()", severity: "critical", issue: "The external call runs before balances[msg.sender] = 0, so a fallback re-enters and drains the vault.", fix: "Set the balance to 0 before the call, or use ReentrancyGuard." },
+  ] };
+  await withModel(JSON.stringify(model), async (calls) => {
+    const a = await auditContract("", VAULT);
+    assert.equal(a.verdict, "Critical", "the grade follows the most serious finding, not the stated one");
+    assert.equal(a.finding_count, 2);
+    const f = a.findings as AuditFinding[];
+    assert.deepEqual([f[0]!.class, f[0]!.function, f[0]!.severity], ["reentrancy", "withdraw", "critical"]);
+    assert.match(String(a.summary), /^Overall risk: Critical\. withdraw sends ETH/);
+    assert.match(String((calls[0]!.messages as Array<{ content: string }>)[0]!.content), /^You are a smart-contract security auditor\./);
+    assert.equal(calls[0]!.model, "openai/gpt-oss-120b");
+  });
+});
+
+test("audit: a safe contract is No issues found, and links, addresses and empty input are refused", async () => {
+  await withModel(JSON.stringify({ verdict: "Low", summary: "The contract is safe: it only stores a number.", findings: [] }), async () => {
+    const a = await auditContract("Audit: pragma solidity ^0.8.0; contract S { uint x; function set(uint v) external { x = v; } }");
+    assert.equal(a.verdict, "No issues found");
+    assert.match(String(a.summary), /^Overall risk: No issues found\. The contract is safe/);
+  });
+  assert.equal(riskGrade([]), "No issues found");
+  assert.equal(normaliseAuditFindings([{ severity: "bogus", issue: "x" }])[0]!.severity, "info");
+  assert.equal((await auditContract("")).error, "no_contract");
+  assert.equal((await auditContract("", "0x1234567890abcdef1234567890abcdef12345678")).error, "source_not_fetched");
+  assert.equal((await auditContract("https://etherscan.io/address/0x1")).error, "source_not_fetched");
 });
 
 test("llm: a 400 moves to the next model at once, and a json_validate_failed generation is kept when it parses", async () => {
