@@ -185,8 +185,12 @@ const SCORED: Record<string, (b: Body) => Body> = {
   // RESEARCH_QUERY_GENERAL
   "/research": (b) => {
     const c = list(b.citations);
-    const first = str(c[0]?.title) ?? str(list(b.trials)[0]?.title);
-    return { source_count: c.length, sources: c.map((x) => x.url ?? x.title).filter(Boolean), brief: first ? clip(first) : brief(b.reason) };
+    const trials = list(b.trials);
+    const first = str(c[0]?.title) ?? str(trials[0]?.title);
+    // Registered trials are sources too: an answer citing 5 trials said source_count 0 (2026-11-08).
+    const trialUrls = trials.map((t) => (typeof t.id === "string" && /^NCT\d{8}$/.test(t.id) ? `https://clinicaltrials.gov/study/${t.id}` : t.title)).filter(Boolean);
+    const sources = [...c.map((x) => x.url ?? x.title).filter(Boolean), ...trialUrls];
+    return { source_count: sources.length, sources, brief: first ? clip(first) : brief(b.reason) };
   },
   // STOCK_PRICE_US_EQUITY: a dollar quote only
   "/stock-price": (b) => ({ price_usd: b.currency === "USD" ? num(b.price) : null }),

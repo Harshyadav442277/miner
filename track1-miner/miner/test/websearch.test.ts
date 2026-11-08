@@ -195,3 +195,20 @@ test("a headline answer keeps the answer behind a 'the headlines report' preambl
   assert.equal(headlineSentence("Too short."), null);
   assert.equal(headlineSentence("I cannot answer that from these headlines."), null);
 });
+
+test("an answer from Wikipedia names the article it quotes in sources", async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = (async (input: string | URL | Request) => {
+    const url = String(input);
+    // News answers with nothing about the entity; Wikipedia answers with its article.
+    if (url.includes("news.google.com")) return new Response("<rss><channel></channel></rss>", { status: 200 });
+    return new Response(JSON.stringify({ title: "OpenAI", extract: "OpenAI is an American artificial intelligence organization. Its chief executive is Sam Altman." }), { status: 200 });
+  }) as unknown as typeof globalThis.fetch;
+  try {
+    const r = await webSearch("Who is the CEO of OpenAI?");
+    if (r.verdict === "answered" && r.background) assert.deepEqual(r.sources, ["https://en.wikipedia.org/wiki/OpenAI"]);
+    else assert.fail(`expected a Wikipedia answer, got ${r.verdict}: ${r.reason}`);
+  } finally {
+    globalThis.fetch = original;
+  }
+});

@@ -211,3 +211,10 @@ test("briefs carry content, end at a word boundary and never gain a full stop", 
     "Paris is the capital of France.");
   assert.equal(scoredFields("/url-reputation", { sources: [], reason: "Safe: listed by none of 3 sources. Detail." }).summary, "Safe: listed by none of 3 sources.");
 });
+
+test("research: registered trials count as sources, each with its ClinicalTrials.gov page", () => {
+  const f = scoredFields("/research", { citations: [{ title: "A review", url: "https://europepmc.org/abstract/MED/1" }],
+    trials: [{ id: "NCT04777396", title: "evoke" }, { id: "NCT04777409", title: "evoke+" }] });
+  assert.equal(f.source_count, 3);
+  assert.deepEqual(f.sources, ["https://europepmc.org/abstract/MED/1", "https://clinicaltrials.gov/study/NCT04777396", "https://clinicaltrials.gov/study/NCT04777409"]);
+});

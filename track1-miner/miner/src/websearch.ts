@@ -338,8 +338,10 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
   if (background) {
     const note = newsBarred ? " Current news was not searched, because no news index licensed for paid use is available."
       : newsDown ? " The news index did not answer, so no current reporting is included." : " No current news report on this subject was found.";
+    // The article the answer quotes is its source: "Who is the CEO of OpenAI?" came back with sources [] (2026-11-08).
+    const page = wiki && wiki !== "unavailable" ? `https://en.wikipedia.org/wiki/${encodeURIComponent(wiki.title.replace(/ /g, "_"))}` : null;
     return {
-      articles, sources: [], background, verdict: "answered", confidence: 0.5,
+      articles, sources: page ? [page] : [], background, verdict: "answered", confidence: 0.5,
       reason: `According to Wikipedia: ${background}${note}${caveat}`,
     };
   }
