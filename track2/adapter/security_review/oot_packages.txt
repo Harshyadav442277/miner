@@ -1,0 +1,10 @@
+lodash
+minimist
+org.apache.logging.log4j:log4j-core
+pyyaml
+node-fetch
+follow-redirects
+requests
+nokogiri
+flask
+org.yaml:snakeyaml
