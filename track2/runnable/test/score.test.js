@@ -3,7 +3,8 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
-const { FAMILIES, handle, parseExact, bytesOf } = require("../lib/score");
+const crypto = require("node:crypto");
+const { FAMILIES, PINNED_SHA256, handle, parseExact, bytesOf } = require("../lib/score");
 
 // ReferenceScore from telegraph-wasm-baseline pkg/scoring/comparator/reference.go
 // (unchanged between 992f2650 and 5fa5d68b), ported independently of the module:
@@ -55,6 +56,14 @@ test("the served bytes are the verified comparator builds", () => {
   for (const f of FAMILIES) {
     const verified = fs.readFileSync(path.join(__dirname, "..", "..", "comparator", "dist", `${f}.wasm`));
     assert.ok(bytesOf(f).equals(verified), f);
+  }
+});
+
+test("nine families are served, each pinned to the sha256 of its hosted file", () => {
+  assert.equal(FAMILIES.length, 9);
+  for (const f of FAMILIES) {
+    const b = bytesOf(f);
+    assert.equal(crypto.createHash("sha256").update(b).digest("hex"), PINNED_SHA256[f], f);
   }
 });
 
