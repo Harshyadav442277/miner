@@ -1,10 +1,13 @@
 # Train a URL_SCAN candidate under the shared GPU lock. The lock is taken exclusively
-# (fails if another lane holds it) and removed in `finally`, only if this script created it.
+# (waiting while another lane holds it) and removed in `finally`, only if this script created it.
 param([string]$Run = 'URL_SCAN_v2', [string]$Pairs = 'urlscan_v2', [int]$Epochs = 2,
       [string]$Lr = '0.0001', [string]$EvalRoot = 'C:/Users/hyada/tg-eval')
 $ErrorActionPreference = 'Stop'
 $lock = Join-Path $EvalRoot 'GPU.lock'
-$stream = [System.IO.File]::Open($lock, 'CreateNew', 'Write')   # throws if the lock exists
+while ($true) {   # wait for the shared lock; never touch another lane's lock
+    try { $stream = [System.IO.File]::Open($lock, 'CreateNew', 'Write'); break }
+    catch [System.IO.IOException] { Start-Sleep -Seconds 60 }
+}
 $bytes = [System.Text.Encoding]::UTF8.GetBytes("url_scan $((Get-Date).ToUniversalTime().ToString('s'))Z $Run training")
 $stream.Write($bytes, 0, $bytes.Length); $stream.Close()
 try {

@@ -17,9 +17,17 @@ import random
 from pathlib import Path
 
 import synth as S
+from synth_mimic import MIMIC_FORMATS
 
 SPLITS = {"train": (0, 80), "val": (80, 86), "test": (86, 90), "holdout": (90, 95), "real": (95, 100)}
 SIZES = {"train": 4000, "val": 400, "test": 400, "holdout": 200}
+# V3 (one final iteration): real-miner-shaped formats, 60% cross-format pairs left at their natural
+# lengths (format is drawn independently of the label), more contradiction pairs, balanced weak
+# kinds. H1 is not regenerated: the frozen V2 H1 stays the holdout.
+V3 = {"sizes": {"train": 5000, "val": 400, "test": 400}, "same_format": 0.4,
+      "kinds": {"false_safe_weak": 15, "false_safe_contradiction": 12, "false_safe_prior": 9,
+                "false_unsafe_weak": 15, "false_unsafe_contradiction": 12, "false_unsafe_prior": 9,
+                "wrong_url": 18, "stale": 4, "unsupported": 4, "non_answer": 4}}
 EXCLUDE = {"example.com", "example.org", "example.net", "msft.net", "testsafebrowsing.appspot.com",
            "eicar.org", "microsoft.com", "iana.org", "cert.pl"}
 V1_CASES = ["C:/Users/hyada/tg-eval/urlscan-certpl-v1/cases.json",
@@ -126,7 +134,7 @@ def support(rng, safe, rank):
     return ev
 
 
-def build_pair(rng, kind, target, partner, names, prompts):
+def build_pair(rng, kind, target, partner, names, prompts, same_format=0.45):
     (host0, reg, rank), truth = target
     url, host = make_url(rng, host0, truth)
     ctx = S.random_choice_ctx(rng, rank)
@@ -178,16 +186,16 @@ def build_pair(rng, kind, target, partner, names, prompts):
         c = rec(url, host, truth, support(rng, truth, rank), good_reasons)
         r = S.non_answer(rng, url, host, t, ctx, n_extra)
     fc = rng.choice(names)
-    fr = fc if rng.random() < 0.45 else rng.choice(names)
+    fr = fc if rng.random() < same_format else rng.choice(names)
     prompt = rng.choice(prompts).format(url=url)
     if shared and rng.random() < 0.25:
         prompt += f" Context: a scan reported that {shared[0][2].format(**ctx)}."
     return prompt, c, r, fc, fr
 
 
-def make_split(rng, name, unsafe, safe, n, formats, names, prompts):
-    kinds = list(KINDS)
-    weights = [KINDS[k] for k in kinds]
+def make_split(rng, name, unsafe, safe, n, formats, names, prompts, kinds_w=KINDS, same_format=0.45):
+    kinds = list(kinds_w)
+    weights = [kinds_w[k] for k in kinds]
     rows, tries = [], 0
     kind = None
     while len(rows) < n:
@@ -199,13 +207,16 @@ def make_split(rng, name, unsafe, safe, n, formats, names, prompts):
         partner = (rng.choice(safe if p_truth else unsafe), p_truth)
         if partner[0][1] == target[0][1]:
             continue
-        prompt, c, r, fc, fr = build_pair(rng, kind, target, partner, names, prompts)
+        prompt, c, r, fc, fr = build_pair(rng, kind, target, partner, names, prompts, same_format)
         cs, rs = formats[fc](c), formats[fr](r)
-        if abs(len(cs) - len(rs)) > 48:
+        if fc != fr and same_format < 0.45:
+            pass  # V3 cross-format pairs keep natural lengths; format is independent of the label
+        elif abs(len(cs) - len(rs)) > 48:
             continue  # resample rather than pad a long way: a long trace is its own tell
-        top = max(len(cs), len(rs))
-        cs = S.pad_to(rng, c, formats[fc], top + rng.randint(0, 8))
-        rs = S.pad_to(rng, r, formats[fr], top + rng.randint(0, 8))
+        else:
+            top = max(len(cs), len(rs))
+            cs = S.pad_to(rng, c, formats[fc], top + rng.randint(0, 8))
+            rs = S.pad_to(rng, r, formats[fr], top + rng.randint(0, 8))
         rows.append({"prompt": prompt, "chosen": cs, "rejected": rs, "kind": kind, "format": f"{fc}|{fr}",
                      "truth_safe": truth, "domain": target[0][1], "partner_domain": partner[0][1]
                      if kind == "wrong_url" else None, "split": name})
@@ -218,18 +229,25 @@ def main():
     ap.add_argument("--sources", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--seed", type=int, default=20261108)
+    ap.add_argument("--profile", choices=["v2", "v3"], default="v2")
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=False)
     psl = PSL(a.sources / "public_suffix_list.dat")
     unsafe, safe, excluded = load_hosts(a.sources, psl)
     manifest = {"seed": a.seed, "sources": json.loads((a.sources / "MANIFEST.json").read_text(encoding="utf-8")),
                 "excluded_registrable_domains": excluded, "kinds": KINDS, "splits": {}}
-    for name, n in SIZES.items():
-        rng = random.Random(f"{a.seed}:{name}")
-        formats = {**S.TRAIN_FORMATS, **S.HOLDOUT_FORMATS}
+    v3 = a.profile == "v3"
+    if v3:
+        manifest["kinds"], manifest["profile"] = V3["kinds"], "v3"
+    for name, n in (V3["sizes"] if v3 else SIZES).items():
+        rng = random.Random(f"{a.seed}:{a.profile}:{name}" if v3 else f"{a.seed}:{name}")
+        formats = {**S.TRAIN_FORMATS, **S.HOLDOUT_FORMATS, **MIMIC_FORMATS}
         names = list(S.TRAIN_FORMATS) + (list(S.HOLDOUT_FORMATS) * 4 if name == "holdout" else [])  # H1: half unseen
+        if v3:
+            names = list(S.TRAIN_FORMATS) + list(MIMIC_FORMATS) * 2  # real-miner shapes are ~55% of answers
         prompts = PROMPTS if name != "holdout" else PROMPTS + HOLDOUT_PROMPTS * 2
-        rows, tries = make_split(rng, name, unsafe[name], safe[name], n, formats, names, prompts)
+        rows, tries = make_split(rng, name, unsafe[name], safe[name], n, formats, names, prompts,
+                                 V3["kinds"] if v3 else KINDS, V3["same_format"] if v3 else 0.45)
         path = a.out / f"{name}.jsonl"
         path.write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8")
         manifest["splits"][name] = {"pairs": len(rows), "tries": tries, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),

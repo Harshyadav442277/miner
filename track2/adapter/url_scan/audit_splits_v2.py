@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 from build_pairs_v2 import PSL, V1_CASES, EXCLUDE
+from synth_mimic import SOURCE_URLS
 
 HOST = re.compile(r"https?://([a-z0-9.-]+)")
 PROBE = Path(__file__).with_name("build_preflight_pairs.py")
@@ -26,13 +27,16 @@ def main():
     reserved = set(EXCLUDE) | {psl.registrable(h) for h in HOST.findall(PROBE.read_text(encoding="utf-8"))}
     for path in V1_CASES:
         reserved |= {psl.registrable(c["url"].split("/")[2]) for c in json.loads(Path(path).read_text(encoding="utf-8"))}
-    regs, report = {}, {"splits": {}, "overlaps": {}, "reserved_hits": {}}
+    # Evidence-source URLs cited inside answers (V3 formats) are citations, not scanned targets.
+    cited = {psl.registrable(u.split("/")[2]) for u in SOURCE_URLS.values()}
+    regs, report = {}, {"splits": {}, "overlaps": {}, "reserved_hits": {}, "ignored_citation_domains": sorted(cited)}
     for split in ("train", "val", "test", "holdout"):
         rows = [json.loads(l) for l in (a.pairs / f"{split}.jsonl").read_text(encoding="utf-8").splitlines()]
         found = set()
         for r in rows:
             for field in ("prompt", "chosen", "rejected"):
                 found |= {psl.registrable(h) for h in HOST.findall(r[field].lower())}
+        found -= cited
         regs[split] = found
         report["splits"][split] = {"pairs": len(rows), "registrable_domains": len(found)}
         report["reserved_hits"][split] = sorted(found & reserved)
