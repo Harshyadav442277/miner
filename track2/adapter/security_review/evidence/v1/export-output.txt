@@ -1,0 +1,5 @@
+09:35:32 INFO: reward head from C:\Users\hyada\tg-eval\runs-v2\SECURITY_REVIEW_v1\adapter\reward_head.pt
+09:35:32 INFO: wrote C:\Users\hyada\tg-eval\runs-v2\SECURITY_REVIEW_v1\SECURITY_REVIEW.safetensors (6776908 bytes, sha256 411bc11fa0dea09e09bcd8e0d097bdd9edea902c16d38bf09e5e3d1c05e625c3, rank 8, 178 tensors)
+
+Next:
+  go run ./cmd/adapterbuild lora --intent SECURITY_REVIEW --package C:/Users/hyada/tg-eval/runs-v2/SECURITY_REVIEW_v1/SECURITY_REVIEW.safetensors --out C:/Users/hyada/tg-eval/runs-v2/SECURITY_REVIEW_v1 --foundation C:/Users/hyada/tg-eval/foundation/foundation.json

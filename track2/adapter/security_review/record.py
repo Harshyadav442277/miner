@@ -31,9 +31,11 @@ def main():
     with open(a.log, "w", encoding="utf-8") as log:
         p = subprocess.Popen(cmd, cwd=a.cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                              text=True, encoding="utf-8", errors="replace")
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # cp1252 console crashed on '→'
         for line in p.stdout:
             sys.stdout.write(line)
             log.write(line)
+            log.flush()
         rec["exit_code"] = p.wait()
     rec["finished_at"] = now()
     with open(a.log + ".command.json", "w", encoding="utf-8") as f:
