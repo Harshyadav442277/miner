@@ -60,6 +60,10 @@ test("a pair Bitstamp does not list is quoted from Coinbase's spot price, and na
   assert.equal(r.bid, undefined, "a spot price has no book");
   assert.match(r.reason, /^PEPE is \$0\.000005060 USD, Coinbase's spot price read at \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} UTC\./);
   assert.deepEqual(urls, ["https://www.bitstamp.net/api/v2/ticker/pepeusd/", "https://api.coinbase.com/v2/prices/PEPE-USD/spot"]);
+  // The handler sends `symbol=PEPE` with no question as the bare ticker; it answered "No cryptocurrency was named".
+  const bare = await lookupCryptoPrice("PEPE");
+  assert.equal(bare.verdict, "price");
+  assert.equal(bare.symbol, "PEPE");
   const none = await lookupCryptoPrice("What is the price of $ZZZQ?");
   assert.equal(none.verdict, "not_found");
   assert.match(none.reason, /^Neither Bitstamp nor Coinbase lists a ZZZQ market/);

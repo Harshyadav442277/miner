@@ -180,6 +180,10 @@ export function quoteCurrency(text: string): string {
  * that is BitShiba (SHIBA), a different coin (verifier, 2026-09-12).
  */
 export function candidateName(text: string): string | null {
+  // A request that is only a ticker: `symbol=PEPE` with no question reaches here as "PEPE", and answered
+  // "No cryptocurrency was named" for PEPE, TON and HYPE (comparison with the top miners, 2026-11-08).
+  const bare = String(text ?? "").trim().match(/^\$?([A-Za-z][A-Za-z0-9]{1,9})$/)?.[1];
+  if (bare && !FILLER.test(bare) && !GENERIC.test(bare)) return bare;
   return candidateIn(withoutQuote(text)) ?? candidateIn(String(text ?? ""));
 }
 
