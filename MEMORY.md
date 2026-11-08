@@ -1,6 +1,13 @@
 # MEMORY.md — session continuity
 
-## 2026-11-08 15:31 UTC (21:01 IST): CURRENT — three comparators registered by the owner, pending
+## 2026-11-08 19:09 UTC (Nov 9 00:39 IST): CURRENT — our three comparators are champions
+
+- `/api/wasm`: FX_NOW #267, CRYPTO_PRICE #268 and WEATHER_CHECK #269 are `active`, `canonical`, champion,
+  eval_score 1. Promoted 18:09:19–20 UTC.
+- #263, #261 and #266 (`0x8b224783…`) are now `superseded`.
+- G282 predicts a re-registration takes the slots back. Check by registration id.
+
+## 2026-11-08 15:31 UTC (21:01 IST): three comparators registered by the owner, pending
 
 - The owner registered FX_NOW **#267**, CRYPTO_PRICE **#268** and WEATHER_CHECK **#269** at 15:29:43–55 UTC.
 - All three read `pending`, "awaiting_seed_epoch: no confirmed epoch recorded after the registration".
