@@ -2,13 +2,31 @@
 //   node live-check.js [base-url]        (default: production)
 // Per family: the commit-pinned hosted file's sha256 equals the pin, GET reports that sha256,
 // and POST scores equal the local module's on a 600-question grid (6 batches of 100).
-// For a protected preview, set VERCEL_BYPASS to a protection-bypass secret (sent as a header, never printed).
+// For a preview behind Vercel Authentication, set VERCEL_CURL=1 (run from the linked deploy folder): every
+// request then goes through `npx vercel curl --scope wukong4`, which adds the protection bypass itself.
 const crypto = require("node:crypto");
+const fs = require("node:fs");
+const os = require("node:os");
+const path = require("node:path");
+const { execFileSync } = require("node:child_process");
 const { FAMILIES, PINNED_SHA256, handle } = require("./lib/score");
 const BASE = (process.argv[2] || "https://livecert-comparator.vercel.app").replace(/\/$/, "");
 const PINNED = "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/2825b06f8ae7e4a0cd16e9e8824d66ef8b8fa5a9/season2/comparator/dist";
-const H = process.env.VERCEL_BYPASS ? { "x-vercel-protection-bypass": process.env.VERCEL_BYPASS } : {};
-const get = (url, init = {}) => fetch(url, { ...init, headers: { ...H, ...(init.headers || {}) }, signal: AbortSignal.timeout(30000) });
+function viaVercelCurl(url, init) {
+  // No spaces or newlines in any argument: on Windows this runs through cmd.exe.
+  const tmp = path.join(os.tmpdir(), `live-check-${process.pid}`);
+  const args = ["vercel", "curl", url, "--scope", "wukong4", "--", "-sS", "-o", `${tmp}.out`, "-w", "%{http_code}"];
+  if (init.method === "POST") {
+    fs.writeFileSync(`${tmp}.in`, init.body);
+    args.push("-X", "POST", "-H", "content-type:application/json", "--data-binary", `@${tmp}.in`);
+  }
+  const out = execFileSync("npx", args, { encoding: "utf8", shell: process.platform === "win32", stdio: ["ignore", "pipe", "ignore"] });
+  const status = Number(out.trim().split(/\s+/).pop());
+  const text = fs.readFileSync(`${tmp}.out`, "utf8");
+  return { status, json: async () => JSON.parse(text) };
+}
+const get = async (url, init = {}) => (process.env.VERCEL_CURL === "1" && url.startsWith(BASE)
+  ? viaVercelCurl(url, init) : fetch(url, { ...init, signal: AbortSignal.timeout(30000) }));
 const sha = (b) => crypto.createHash("sha256").update(b).digest("hex");
 (async () => {
   const qs = [];
