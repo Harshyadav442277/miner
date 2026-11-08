@@ -50,6 +50,23 @@ export interface EventOutcomeResult {
   play_money?: boolean;
   closes_at?: string | null;
   source?: string;
+  /** Each winner with the classification it won, when the record splits them (an F1 race's driver and constructor). */
+  winners_by_class?: Array<{ name: string; klass: string }>;
+}
+
+/**
+ * Winners recorded by classification, the person's first: "Max Verstappen (Formula One World Drivers'
+ * Championship)" and "Red Bull Racing (… Constructors' Championship)" for the 2024 Bahrain Grand Prix. Both
+ * were named as the winner, which read as the season's champions (2026-11-08); the race was won by the driver.
+ * Null unless every winner carries a class. Pure.
+ */
+export function classWinners(winners: string[]): { lead: { name: string; klass: string }; rest: Array<{ name: string; klass: string }> } | null {
+  const parsed = winners.map((w) => w.match(/^(.+?) \(([^()]+)\)$/)).map((m) => (m ? { name: m[1]!, klass: m[2]! } : null));
+  if (parsed.length < 2 || parsed.some((p) => p === null)) return null;
+  const all = parsed as Array<{ name: string; klass: string }>;
+  const person = all.findIndex((p) => /\b(?:drivers?|riders?|individual|players?|athletes?|pilots?)\b/i.test(p.klass));
+  const i = person === -1 ? 0 : person;
+  return { lead: all[i]!, rest: all.filter((_, k) => k !== i) };
 }
 
 export interface Candidate {
@@ -329,9 +346,14 @@ export async function resolveEvent(question: string): Promise<EventOutcomeResult
   if (who && (!best || !best.c.settled)) {
     const record = await findEventWinner(q).catch(() => null);
     if (record) {
-      return { verdict: "resolved", confidence: 0.85, outcome: andList(record.winners), winner: andList(record.winners),
+      const split = classWinners(record.winners);
+      const named = split ? split.lead.name : andList(record.winners);
+      const also = split?.rest.length
+        ? `; ${andList(split.rest.map((r) => `${r.name} won its ${r.klass} classification`))}` : "";
+      return { verdict: "resolved", confidence: 0.85, outcome: named, winner: named,
+        ...(split ? { winners_by_class: [split.lead, ...split.rest] } : {}),
         market: null, event: record.event, venue: "Wikidata", play_money: false, source: record.source_url,
-        reason: `${andList(record.winners)} won ${/^\d/.test(record.event) ? "the " : ""}${record.event}${record.ended ? `, which ended ${record.ended.length === 4 ? `in ${record.ended}` : record.ended}` : ""}, as recorded on the event's Wikidata item (${record.event_id}, ${record.source_url}).` +
+        reason: `${named} won ${/^\d/.test(record.event) ? "the " : ""}${record.event}${record.ended ? `, which ended ${record.ended.length === 4 ? `in ${record.ended}` : record.ended}` : ""}${split ? ` (the ${split.lead.klass} classification)` : ""}${also}, as recorded on the event's Wikidata item (${record.event_id}, ${record.source_url}).` +
           `${best ? "" : pm ? " No prediction market on it was found on Polymarket." : " Polymarket did not respond, so no market was compared."}` };
     }
   }
