@@ -140,6 +140,12 @@ test("format-version-3 fields: each copies what the route states, and the schema
   const f = scoredFields("/fact-check", { verdict: "contradicted", reason: "The Eiffel Tower is in Paris.", source_url: "https://en.wikipedia.org/wiki/Eiffel_Tower" });
   assert.deepEqual(only(f, { verdict: 0, verdict_detail: 0, sources: 0 }), { verdict: "False", verdict_detail: "contradicted", sources: ["https://en.wikipedia.org/wiki/Eiffel_Tower"] });
   assert.equal(scoredFields("/fact-check", { verdict: "supported" }).verdict, "True");
+  // The reason opens with the schema's verdict word, and reasoning is its lead sentence, not the whole reason.
+  const fc = scoredFields("/fact-check", { verdict: "unverified", reason: "The claim \"x\" was checked against the source consulted, which does not settle it. According to Wikipedia: y. This check consulted one source." });
+  assert.match(String(fc.reason), /^Unverified\. The claim "x" was checked/);
+  assert.equal(fc.answer, "Unverified. The claim \"x\" was checked against the source consulted, which does not settle it.");
+  assert.equal(fc.reasoning, "The claim \"x\" was checked against the source consulted, which does not settle it.");
+  assert.equal(scoredFields("/fact-check", { verdict: "contradicted", reason: "False. Already led." }).reason, undefined, "never twice");
   assert.equal(scoredFields("/url-reputation", { verdict: "unsafe", sources: [] }).verdict, "Malicious");
   const fraud = scoredFields("/fraud-check", { verdict: "no_indicators", evidence: ["not on the OFAC list"], reason: "No fraud indicators were found." });
   assert.deepEqual(only(fraud, { verdict: 0, risk_score: 0, signals: 0 }), { verdict: "LOW", risk_score: 0.05, signals: ["not on the OFAC list"] });

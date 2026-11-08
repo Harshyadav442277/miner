@@ -194,7 +194,8 @@ const SCORED: Record<string, (b: Body) => Body> = {
     return { source_count: Array.isArray(b.sources) ? b.sources.length : null, ...(q ? { brief: q } : {}) };
   },
   // FACT_CHECK_GENERAL
-  "/fact-check": (b) => ({ reasoning: typeof b.reason === "string" ? b.reason : null, sources: typeof b.source_url === "string" ? [b.source_url] : [] }),
+  // reasoning is the explanation in short: the reason's lead sentence, not the whole reason with its caveats
+  "/fact-check": (b) => ({ reasoning: brief(b.reason, 240), sources: typeof b.source_url === "string" ? [b.source_url] : [] }),
   // MACRO_ECONOMIC_INDICATOR_GENERAL: the first percentage reported
   "/macro": (b) => ({ rate_pct: num(list(b.indicators).find((i) => i.unit === "%")?.value) }),
   // DNS_RECORD_LOOKUP_GENERAL: at least one record, or none (NXDOMAIN or an empty answer); null when unread
@@ -240,7 +241,14 @@ const MORE: Record<string, (b: Body) => Body> = {
  */
 const OVERRIDE: Record<string, (b: Body) => Body> = {
   // FACT_CHECK_GENERAL: True | Mostly True | Mixed | Misleading | Mostly False | False | Unverified
-  "/fact-check": (b) => mapped(b, { supported: "True", contradicted: "False", unverified: "Unverified", unknown: "Unverified" }),
+  // The reason and the answer open with that word ("False. The claim ..."), as the schema's verdict reads.
+  "/fact-check": (b) => {
+    const m = mapped(b, { supported: "True", contradicted: "False", unverified: "Unverified", unknown: "Unverified" });
+    const word = m.verdict as string | undefined;
+    const reason = str(b.reason);
+    if (!word || !reason || reason.startsWith(`${word}.`)) return m;
+    return { ...m, reason: `${word}. ${reason}`, answer: `${word}. ${leadSentence(reason)}` };
+  },
   // URL_SAFE_GENERAL: Safe | Suspicious | Malicious | Unknown
   "/url-reputation": (b) => mapped(b, { safe: "Safe", suspicious: "Suspicious", unsafe: "Malicious", unknown: "Unknown" }),
   // FRAUD_DETECTION_GENERAL: the grade, and risk_score as that grade's stated midpoint, not a calibrated probability
