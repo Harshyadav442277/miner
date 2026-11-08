@@ -16,8 +16,34 @@ const TIMEOUT_MS = Number(process.env.EDGAR_TIMEOUT_MS ?? 5_000);
 const MATERIAL = new Set(["10-K", "10-Q", "8-K", "20-F", "6-K", "40-F", "DEF 14A", "S-1", "S-4", "F-1", "10-KT"]);
 const OTHER_REGULATOR = /\b(?:FCA|RNS|SEDAR|SEBI|BSE|NSE|LSE|ASX|HKEX|ESMA|Companies House|AMF|BaFin)\b/;
 
-/** fiscal_year is set only when the question names one: "its 10-K for fiscal 2026", "FY2026". */
-export interface FilingAsk { company: string; form: string | null; since: string | null; latest: boolean; fiscal_year?: number }
+/**
+ * fiscal_year is set only when the question or period names one: "its 10-K for fiscal 2026", "FY2026". `until`
+ * closes a window that has an end: a calendar year ("2025") or quarter ("Q3 2025").
+ */
+export interface FilingAsk { company: string; form: string | null; since: string | null; until?: string; latest: boolean; fiscal_year?: number }
+
+const QUARTER: Record<string, number> = { first: 1, second: 2, third: 3, fourth: 4 };
+const QUARTER_END = ["03-31", "06-30", "09-30", "12-31"];
+const YEAR = String.raw`((?:19|20)\d{2})(?![-/]\d)`;
+
+/**
+ * A named year or quarter: "FY2025" or "fiscal 2025" (the fiscal year), "Q3 2025" (1 July to 30 September),
+ * "2025" (the calendar year). A period parameter may be the year alone; in a question the year needs a
+ * preposition ("filings in 2025"), so "Apple's 2025 10-K" is not a window. Pure.
+ */
+export function namedPeriod(text: string, bare: boolean): { since: string; until: string } | { fiscal_year: number } | null {
+  const t = String(text ?? "");
+  const fy = t.match(new RegExp(String.raw`\b(?:fiscal(?:\s+year)?\s*|FY\s?)${YEAR}`, "i"))?.[1];
+  if (fy) return { fiscal_year: Number(fy) };
+  const qa = t.match(new RegExp(String.raw`\bQ([1-4])\s*(?:of\s+)?${YEAR}`, "i"));
+  const qb = t.match(new RegExp(String.raw`\b${YEAR}\s*-?\s*Q([1-4])\b`, "i"));
+  const qc = t.match(new RegExp(String.raw`\b(first|second|third|fourth)\s+quarter\s+(?:of\s+)?${YEAR}`, "i"));
+  const [n, yr] = qa ? [Number(qa[1]), qa[2]!] : qb ? [Number(qb[2]), qb[1]!] : qc ? [QUARTER[qc[1]!.toLowerCase()]!, qc[2]!] : [0, ""];
+  if (n) return { since: `${yr}-${String(3 * n - 2).padStart(2, "0")}-01`, until: `${yr}-${QUARTER_END[n - 1]}` };
+  const y = (bare ? t.match(new RegExp(String.raw`^\s*(?:(?:in|during|for|calendar(?:\s+year)?|year)\s+)?${YEAR}\s*$`, "i")) : null)
+    ?? t.match(new RegExp(String.raw`\b(?:in|during|throughout|over)\s+(?:calendar\s+(?:year\s+)?|the\s+year\s+)?${YEAR}`, "i"));
+  return y ? { since: `${y[1]}-01-01`, until: `${y[1]}-12-31` } : null;
+}
 
 const FORM = /\b(10-K|10-Q|8-K|20-F|6-K|40-F|S-1|S-3|S-4|F-1|DEF\s?14A|13F-HR|11-K|10-KT)(\/A)?\b/i;
 
@@ -71,14 +97,21 @@ export function filingAsk(question: string, companyParam = "", formParam = "", n
   const form = named ?? (/\bannual report\b/i.test(q) ? "10-K" : /\bquarterly report\b/i.test(q) ? "10-Q"
     : /\bcurrent report\b/i.test(q) ? "8-K" : /\bproxy\b/i.test(q) ? "DEF 14A" : null);
   const period = periodParam.trim().slice(0, 200);
-  const since = (period && windowStart(`in the ${period.replace(/^(?:(?:in|over|during|within|for)\s+)?(?:the\s+)?/i, "")}`, now))
-    || windowStart(q, now);
-  const fy = q.match(/\b(?:fiscal(?:\s+year)?\s*|FY\s?)((?:19|20)\d{2})\b/i)?.[1];
+  const periodRel = period ? windowStart(`in the ${period.replace(/^(?:(?:in|over|during|within|for)\s+)?(?:the\s+)?/i, "")}`, now) : null;
+  // "2025", "FY2025" and "Q3 2025" as the period left filing_count null: only relative phrases were read (2026-11-08).
+  // The period parameter wins over the question, and a relative window in the question over a year in it.
+  const periodSpan = !periodRel && period ? namedPeriod(period, true) : null;
+  const qRel = periodRel || (periodSpan && "since" in periodSpan) ? null : windowStart(q, now);
+  const qSpan = namedPeriod(q, false);
+  const span = periodSpan ?? (qRel && qSpan && "since" in qSpan ? null : qSpan);
+  const since = periodRel || qRel || (span && "since" in span ? span.since : null);
+  const until = !periodRel && !qRel && span && "until" in span ? span.until : undefined;
+  const fy = span && "fiscal_year" in span ? span.fiscal_year : undefined;
   let m: RegExpMatchArray | null = null;
   for (const re of ISSUER) if ((m = q.match(re))) break;
   const company = (companyParam.trim() || (m?.[1] ?? "")).replace(/^(?:the|a)\s+/i, "").replace(/(?:'s|’s)$/, "")
     .replace(/[?!]+$/, "").replace(/\s*\([^)]*\)$/, "").trim();
-  return { company, form, since, latest: !since, ...(fy ? { fiscal_year: Number(fy) } : {}) };
+  return { company, form, since, ...(until ? { until } : {}), latest: !since, ...(fy ? { fiscal_year: fy } : {}) };
 }
 
 export interface Figures {
@@ -173,6 +206,8 @@ export interface FilingResult {
   filings?: string[];
   urls?: string[];
   counted_since?: string | null;
+  /** The last filing date counted, when the window has an end (a calendar year or quarter). */
+  counted_until?: string;
   /** False when the window reaches past the 1,000 filings EDGAR's index returns, so the count is a lower bound. */
   count_complete?: boolean;
 }
@@ -240,13 +275,16 @@ export async function monitorFilings(question: string, companyParam = "", formPa
   const inYear = (f: Filing): boolean => !ask.fiscal_year || (f.period ?? "").startsWith(String(ask.fiscal_year));
   const all = co.filings.filter((f) => ofForm(f) && inYear(f));
   const fiscal = ask.fiscal_year ? ` for fiscal ${ask.fiscal_year}` : "";
-  const inWindow = ask.since ? all.filter((f) => f.filed >= ask.since!) : all;
+  const within = (f: Filing): boolean => (!ask.since || f.filed >= ask.since) && (!ask.until || f.filed <= ask.until);
+  const inWindow = all.filter(within);
+  const span = ask.until ? `between ${ask.since} and ${ask.until}` : `since ${ask.since}`;
   // `filing_count` counts every form in the window unless a form was asked, as zk-filing does ("defaults to all
   // forms"). Counting material forms only, we scored 0.8145 and 0.8749 against zk-filing's 0.9975 (epochs 2019,
   // 2021; GAPS G263). The answer's own filing is still the latest material one.
-  const counted = co.filings.filter((f) => (ask.form ? f.form === ask.form : true) && inYear(f) && (!ask.since || f.filed >= ask.since));
+  const counted = co.filings.filter((f) => (ask.form ? f.form === ask.form : true) && inYear(f) && within(f));
   const ident = {
     company: co.name, cik: co.cik, tickers: co.tickers, source_url: co.source_url, recent_filings: inWindow.slice(0, 5),
+    ...(ask.until ? { counted_until: ask.until } : {}),
     // A fiscal year's filings are all filed on or after 1 January of that year: the bound for completeness.
     entity: co.name, ...countFields(counted, co.filings, ask.since ?? (ask.fiscal_year ? `${ask.fiscal_year}-01-01` : null),
       Boolean(ask.since || ask.fiscal_year)),
@@ -258,7 +296,7 @@ export async function monitorFilings(question: string, companyParam = "", formPa
     const others = !ask.form && ask.since && counted.length
       ? `; it made ${counted.length} other EDGAR filing${counted.length === 1 ? "" : "s"} in that window, the latest ${article(counted[0]!.form)} on ${counted[0]!.filed}` : "";
     return { ...base, ...ident, verdict: "not_filed", confidence: 0.85, filing: last ?? null,
-      reason: `No: ${co.name} has filed no ${what === "material filing" ? "material filing" : what}${fiscal}${ask.since ? ` since ${ask.since}` : " among its recent EDGAR filings"}` +
+      reason: `No: ${co.name} has filed no ${what === "material filing" ? "material filing" : what}${fiscal}${ask.since ? ` ${span}` : " among its recent EDGAR filings"}` +
         `${others}${last ? `; its last${ask.form ? "" : " material"} one was filed on ${last.filed}${last.period ? ` for the period ended ${last.period}` : ""}` : ""}.${notCovered ? ` ${notCovered}` : ""}` };
   }
   let figures: { current: Figures; prior: Figures | null } | null = null;
@@ -284,9 +322,9 @@ export async function monitorFilings(question: string, companyParam = "", formPa
   const lead = ask.latest
     ? `${co.name}'s latest ${ask.form ? `${ask.form} was filed` : `filing is ${article(f.form)}, filed`}`
     : ask.form
-      ? inWindow.length === 1 ? `${co.name} has filed ${article(f.form)} since ${ask.since}; the latest was filed`
-        : `${co.name} has filed ${inWindow.length} ${ask.form}s since ${ask.since}; the latest was filed`
-      : `${co.name} has made ${counted.length} EDGAR filing${counted.length === 1 ? "" : "s"} since ${ask.since}, ` +
+      ? inWindow.length === 1 ? `${co.name} has filed ${article(f.form)} ${span}; the latest was filed`
+        : `${co.name} has filed ${inWindow.length} ${ask.form}s ${span}; the latest was filed`
+      : `${co.name} has made ${counted.length} EDGAR filing${counted.length === 1 ? "" : "s"} ${span}, ` +
         `${inWindow.length} of them material (10-K, 10-Q, 8-K and the like); the latest material one, ${article(f.form)}, was filed`;
   return {
     ...base, ...ident, verdict: "filed", confidence: 0.95, filing: f, figures: c ?? null, prior_year_figures: p ?? null,
