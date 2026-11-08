@@ -52,3 +52,13 @@ in the test (`61f1046`); re-run passes; production was not affected. Registratio
 
 - Rank effects: read the epochs after 19:08 UTC.
 - Licences: Coinbase is recorded as barred and is called only because the licence gate is off.
+
+## Follow-up release `eb09b0a` (2026-11-08 ~19:22 UTC)
+
+- **Production:** `https://miner-ic5zvq5es-wukong4.vercel.app` (`dpl_HxNRUWbpvPQok2pUeUfZzWSsqhxT`). Rollback target: `miner-4hs6cb5jh` (`a2f911e`).
+- **Change:** web search's direct answer. The token cap goes 160 → 400, past gpt-oss's hidden reasoning. A "the headlines report" opener is stripped instead of rejected. Every model reply gets plain hyphens.
+- **Live:** all four test questions now open with a direct sentence (`prod-probes-eb09b0a.txt`). Before, the Fed and World Cup questions led with the digest.
+- **Gates:** 6/7 (`preflight-eb09b0a.txt`). ONCHAIN_METRIC failed only because Blockscout, the gate's reference, did not answer the tx call. A direct read returned 200 afterwards, and our gas_used is 264,493, the value Blockscout gave earlier. Registration 5135 is `active`, 373 ms.
+- **Ranks at epoch 2044** (scored 19:18 UTC, 10 minutes after `a2f911e`; `ranks-epoch2044.txt`): top 3 in 14 of 26 scored, against 9 of 35 at epoch 2040.
+  - CODE_REVIEW 1st (1.0); CVE, token holders and tx lookup 1st; research query 9th → 3rd.
+  - Sanctions 3rd → 4th (0.9999 → 0.9978) and text generation 0.98 → 0.85, causes unknown.

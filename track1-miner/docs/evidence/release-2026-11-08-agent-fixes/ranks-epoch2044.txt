@@ -1,0 +1,43 @@
+CORPORATE_REGISTRY_LOOKUP_GENERAL    2044      1/13      1.0000    was 1/13 1.0000
+CURRENCY_EXCHANGE_CONVERT            2044      1/16      0.9967    was 1/16 0.9967
+CODE_REVIEW_GENERAL                  2044      1/16      1.0000    new      
+CVE_LOOKUP_CVSS                      2044      1/17      1.0000    was 4/17 0.7017
+TOKEN_HOLDER_COUNT_GENERAL           2044      1/20      0.8885    was 5/20 0.8861
+ONCHAIN_TX_LOOKUP_GENERAL            2044      1/22      0.9335    was 5/26 0.9673
+IP_GEOLOCATION_GENERAL               2044      2/15      0.9006    was 2/15 0.8995
+URL_SAFE_GENERAL                     2044      2/17      0.9994    was 3/17 0.9996
+CRYPTO_TRANSFER_VERIFY_GENERAL       2044      2/25      0.8461    new      
+STOCK_PRICE_US_EQUITY                2044      2/26      0.9595    was 1/26 0.9777
+URL_SCAN_VERDICT                     2044      3/8       0.5996    was 4/8 0.5997
+NEWS_HEADLINES_GENERAL               2044      3/17      0.9894    was 1/17 0.9993
+TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL    2044      3/24      0.9962    was 6/23 0.9955
+RESEARCH_QUERY_GENERAL               2044      3/26      0.9854    was 9/26 0.9532
+CHAT_COMPLETION_GENERAL              2044      4/15      0.9553    was 5/15 0.9792
+SANCTIONS_SCREENING_MATCH_GENERAL    2044      4/18      0.9978    was 3/18 0.9999
+WALLET_BALANCE_CHECK_GENERAL         2044      4/20      0.8446    was 2/21 0.8963
+GAS_PRICE_GENERAL                    2044      4/28      0.9824    was 4/28 0.9727
+MACRO_ECONOMIC_INDICATOR_GENERAL     2044      6/30      0.9745    was 5/30 0.9778
+TEXT_GENERATION_GENERAL              2044      7/17      0.8531    was 9/18 0.9765
+TEXT_CLASSIFICATION_GENERAL          2044      8/20      0.9985    was 4/20 0.9968
+SENTIMENT_ANALYSIS_GENERAL           2044      10/20     0.9346    was 7/20 0.9664
+WEATHER_CHECK_TEMPERATURE            2044      11/14     0.3417    was 8/13 0.1417
+LANGUAGE_TRANSLATION_GENERAL         2044      12/22     0.9634    was 10/22 0.8976
+REGULATORY_FILING_MONITOR_GENERAL    2044      13/19     0.8258    was 13/19 0.9181
+CRYPTO_PRICE_USD                     2044      14/48     0.9500    was 17/48 0.9700
+SSL_VERIFICATION_CERT                -         unscored            4/20 0.9852
+STORM_ALERT_GENERAL                  -         unscored            11/18 0.9208
+WEATHER_FORECAST_GENERAL             -         unscored                     
+ACADEMIC_SEARCH_GENERAL              -         unscored            14/17 0.8700
+CONTENT_EXTRACTION_GENERAL           -         unscored            7/20 0.9959
+FACT_CHECK_GENERAL                   -         unscored            8/18 0.9796
+FINANCIAL_DATA_GENERAL               -         unscored                     
+FRAUD_DETECTION_GENERAL              -         unscored            6/28 0.9996
+CROSS_CHAIN_STATE_VERIFY_GENERAL     -         unscored            3/27 0.9905
+EVENT_OUTCOME_RESOLUTION_GENERAL     -         unscored            13/33 0.0291
+WEB_SEARCH_GENERAL                   -         unscored            5/26 0.9975
+RESEARCH_SYNTHESIS_GENERAL           -         unscored            12/18 0.7815
+QUESTION_ANSWERING_GENERAL           -         unscored            8/17 0.9585
+DNS_RECORD_LOOKUP_GENERAL            -         unscored                     
+ONCHAIN_METRIC_VERIFY_GENERAL        -         unscored                     
+NEWS_SEARCH_GENERAL                  -         unscored                     
+top3 14 of 26
