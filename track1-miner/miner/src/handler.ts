@@ -520,9 +520,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   }
 
   if (path === "/weather-forecast") {
+    const asked = firstValue(url, "query", "q", "question", "text", "input");
     const q =
       withSubject(
-        firstValue(url, "query", "q", "question", "text", "input"),
+        asked,
         firstRealValue(url, "location", "place", "city"),
       ) || coordsFromParams(url);
     if (!q.trim()) {
@@ -609,7 +610,11 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      * answer opens by naming the subject and the reading, so the prefix would
      * spend the start of a ~32-word budget repeating the question.
      */
-    if (hoursRaw === "0" || (hoursRaw === "" && !daysRequested && (asksCurrentConditions(q) || asksTemperatureNow(q)))) {
+    // A place and nothing else is WEATHER_CHECK_TEMPERATURE's whole request (its one param is `location`;
+    // WEATHER_FORECAST_GENERAL requires `window_hours`): it asks for the temperature now. It was answered with a
+    // 24-hour range, so temperature_c was null (2026-11-08).
+    const placeOnly = !asked.trim() && hoursRaw === "" && !daysRequested;
+    if (hoursRaw === "0" || placeOnly || (hoursRaw === "" && !daysRequested && (asksCurrentConditions(q) || asksTemperatureNow(q)))) {
       const nowKey = `wcnow:${q.trim().toLowerCase()}`;
       const nowHit = fromCache(nowKey);
       if (nowHit) {
