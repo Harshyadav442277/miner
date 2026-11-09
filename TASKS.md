@@ -31,6 +31,9 @@ fix scores on the quality rubric but may not move the devnode rank.
       (`release-2026-11-06-ofac-nonsdn/`); ABU TEIR (ref 9640) now `match`, was `no_match` (G268).
 - [ ] P1c EU and UK lists: too large to read per request (18.6 MB, 16.6 MB). Build a compact name index on a
       schedule and read that. The #1 miner screens UK and EU entities.
+      Built on `claude/sanctions-index` (not merged, not deployed): builder, daily workflow, miner loads the
+      index with a fallback to direct reads. UK list in; EU file returned HTTP 500 (G283). Next: merge the
+      workflow to `main`, dispatch it once, check the `sanctions-data` branch, then deploy (G284).
 - [ ] P1d Owner sends Ahmed the G265 draft (in GAPS G265).
 - [ ] Read sanctions epochs after ~16:45 UTC and record the rank change, if any.
 - [ ] P2 WEB_SEARCH: fix G207 (wrong Wikipedia article) and G250 (manifest example is a news question).
