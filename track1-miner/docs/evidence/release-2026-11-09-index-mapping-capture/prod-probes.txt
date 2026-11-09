@@ -1,0 +1,8 @@
+Mon Nov  9 00:20:09 UTC 2026
+production miner-o6dy8wc6k (b455022)
+{"t":"1.936381s","path":"sanctions-screen","verdict":"match","matched":true,"match_score":1,"lists":"OFAC SDN | OFAC Consolidated (non-SDN) | UN Security Council Consolidated | UK Sanctions List"}
+{"t":"0.929687s","path":"sanctions-screen","verdict":"match","matched":true,"lists":"OFAC SDN | OFAC Consolidated (non-SDN) | UN Security Council Consolidated | UK Sanctions List"}
+{"t":"0.749772s","path":"sanctions-screen","verdict":"no_match","matched":false,"match_score":0,"lists":"OFAC SDN | OFAC Consolidated (non-SDN) | UN Security Council Consolidated | UK Sanctions List"}
+{"t":"1.124124s","path":"research","source_count":7}
+{"t":"0.790543s","path":"web-search","sources":[]}
+{"t":"0.794536s","path":"chat","brief":"Canberra is the capital city of Australia, serving as the seat of government…"}

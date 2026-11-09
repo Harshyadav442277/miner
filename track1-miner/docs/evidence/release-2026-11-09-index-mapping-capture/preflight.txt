@@ -1,0 +1,49 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to:
+  
+  'unknown'
+      at TestContext.<anonymous> (C:\Users\hyada\tg-deploy\m-nonsdn\track1-miner\miner\dist-test\test\paperfraud.test.js:86:22)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'unknown',
+    expected: 'unknown',
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+--- intent answers (correctness) ---
+  SANCTIONS_SCREENING_MATCH FAIL
+      - lists screened: OFAC SDN | OFAC Consolidated (non-SDN) | UN Security Council Consolidated | UK Sanctions List; want OFAC SDN, OFAC non-SDN and UN
+      - the unscreened lists are not named
+  CORPORATE_REGISTRY_LOOKUP PASS
+...
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  CHAT_COMPLETION        PASS
+  CODE_REVIEW            PASS
+  SMART_CONTRACT_AUDIT   PASS
+  TEXT_GENERATION        PASS
+  ONCHAIN_METRIC_VERIFY  PASS
+
+42/43 intents answering correctly.
+
+5/7 gates passed — re-run the failing gate alone before believing it.

@@ -1116,10 +1116,13 @@ const CHECKS = {
     if (kim.body.verdict !== "match") bad.push(`Kim Jong Un -> ${kim.body.verdict}, want match`);
     if (kim.body.matches?.[0]?.id !== "20157") bad.push(`top match id ${kim.body.matches?.[0]?.id}, want OFAC 20157`);
     const screened = (kim.body.lists_checked ?? []).map((e) => e.list).join(" | ");
-    if (screened !== "OFAC SDN | OFAC Consolidated (non-SDN) | UN Security Council Consolidated") {
-      bad.push(`lists screened: ${screened || "none"}; want OFAC SDN, OFAC non-SDN and UN`);
+    // The three core lists always; the UK and EU lists when the prebuilt index carries them (2026-11-09).
+    const core = "OFAC SDN | OFAC Consolidated (non-SDN) | UN Security Council Consolidated";
+    if (!screened.startsWith(core) || !/^(?: \| (?:UK Sanctions List|EU Financial Sanctions Consolidated List))*$/.test(screened.slice(core.length))) {
+      bad.push(`lists screened: ${screened || "none"}; want OFAC SDN, OFAC non-SDN and UN, then UK/EU when read`);
     }
-    if (!/EU and UK lists were not screened/.test(String(kim.body.reason))) bad.push("the unscreened lists are not named");
+    const missing = kim.body.lists_not_checked ?? [];
+    if (missing.length && !/\b(?:EU|UK)\b[^.]*\bnot screened\b/.test(String(kim.body.reason))) bad.push("the unscreened lists are not named");
     const near = await get("/sanctions-screen", { query: "Is Viktor But sanctioned?" });
     if (!/^(?:match|possible_match)$/.test(String(near.body.verdict))) bad.push(`Viktor But -> ${near.body.verdict}, want a near-match on Bout`);
     // ABU TEIR, Mohammed (NS-PLC) is on OFAC's non-SDN list only; production cleared him before 192aecc (G268).

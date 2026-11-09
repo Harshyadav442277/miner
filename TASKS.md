@@ -5,6 +5,18 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## Handoff 2026-11-09 — next actions (MEMORY.md top block has the details)
+
+- [ ] Owner: sign the 43-intent YAML (`4e385e1`, `0x2176c98e…504a0e`), then update the registration id everywhere.
+- [ ] Owner: merge `.github/workflows/sanctions-index.yml` to `main` and dispatch once, before 2026-11-12 00:03 UTC.
+- [ ] Owner: add an Upstash Redis store in Vercel to switch on request capture (G282).
+- [ ] Read the epochs after 2026-11-09 00:19 UTC: sanctions with the index, text generation's drop.
+- [ ] Web search: `currentfacts.ts` answers carry no `sources` URL.
+- [ ] Chat and code review: a multi-provider router and a second-pass check (keys from the owner).
+- [ ] Sanctions: EU list once its file serves (G283).
+- [ ] Gaps: storm gust and weather rain-probability nulls; event outcome 2022 World Cup; flaky Blockscout and
+      Crossref gate checks.
+
 ## Intent push — by Anjoman's 30-day earnings, started 2026-11-06 (owner: "priortize from the highest one. leave chat completion")
 
 Ranks: devnode epoch 2026, 2026-11-06 12:40 UTC, before the `7301474` release

@@ -1,0 +1,40 @@
+{
+ "built_at": "2026-11-09T00:03:08.574Z",
+ "build_ms": 23206,
+ "bytes": 2830368,
+ "gzip_bytes": 792733,
+ "sha256": "ec5d74129f5301f646254aff77c84af804189def51caa97dc9ae3b1a64493483",
+ "parties": 27476,
+ "lists": [
+  {
+   "list": "OFAC SDN",
+   "published": "2026-11-05",
+   "entries": 19563,
+   "source": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV"
+  },
+  {
+   "list": "OFAC Consolidated (non-SDN)",
+   "published": "2026-11-05",
+   "entries": 486,
+   "source": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/CONS_PRIM.CSV"
+  },
+  {
+   "list": "UN Security Council Consolidated",
+   "published": "2026-11-08",
+   "entries": 1007,
+   "source": "https://scsanctions.un.org/resources/xml/en/consolidated.xml"
+  },
+  {
+   "list": "UK Sanctions List",
+   "published": "2026-11-03",
+   "entries": 6420,
+   "source": "https://sanctionslist.fcdo.gov.uk/docs/UK-Sanctions-List.xml"
+  }
+ ],
+ "failed": [
+  {
+   "n": "EU Financial Sanctions Consolidated List",
+   "error": "HTTP 500"
+  }
+ ]
+}
