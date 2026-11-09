@@ -33,8 +33,8 @@
 
 **Owner actions pending (none done yet)**
 1. **Sign the 43-intent YAML** on anjoman.ai/dashboard/earn (registration 5135):
-   - URL `https://raw.githubusercontent.com/Harshyadav442277/miner/4e385e194464084b83ef7a65837f6e4313178e18/track1-miner/miner.yaml`
-   - SHA-256 `0x2176c98e24373013896718eaf043a0695273e6a8bd6a5cabc81d7264e3504a0e`
+   - URL `https://raw.githubusercontent.com/Harshyadav442277/miner/15ecfd65dc247f265ef6a62a6784c733ee3f4290/track1-miner/miner.yaml`
+   - SHA-256 `0xb721afd72f117de397a04f991ebf13b7fbb694d9f1d2c7507d390d9c1d3b7b5a`
    - Fee address `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`; min price 10000.
    - Adds intent_mapping, SMART_CONTRACT_AUDIT and macro `year`. manifest-diff flags /macro CHANGED for that
      optional param only.
@@ -83,7 +83,7 @@
   cold 2.2 s, warm about 1.1 s, both including `vercel curl` overhead from India.
 - **Production:** still `eb09b0a` (`miner-ic5zvq5es`).
 - **To sign after deploy:** YAML at `4e385e1`, SHA-256
-  `0x2176c98e24373013896718eaf043a0695273e6a8bd6a5cabc81d7264e3504a0e`, 43 intents. It adds intent_mapping,
+  `0xb721afd72f117de397a04f991ebf13b7fbb694d9f1d2c7507d390d9c1d3b7b5a`, 43 intents. It adds intent_mapping,
   SMART_CONTRACT_AUDIT and macro's `year`. manifest-diff flags `/macro` CHANGED for that added param only.
 
 ## 2026-11-08 ~19:20 UTC (Nov 9 00:50 IST): CURRENT — `a2f911e` LIVE (4-agent fixes, 22 intents); 43-intent YAML to sign

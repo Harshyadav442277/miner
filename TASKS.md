@@ -7,7 +7,7 @@ commit.
 
 ## Handoff 2026-11-09 — next actions (MEMORY.md top block has the details)
 
-- [ ] Owner: sign the 43-intent YAML (`4e385e1`, `0x2176c98e…504a0e`), then update the registration id everywhere.
+- [ ] Owner: sign the 43-intent YAML (`15ecfd6`, `0xb721afd7…3b7b5a`; the 4e385e1 YAML was too large for the validator), then update the registration id everywhere.
 - [ ] Owner: merge `.github/workflows/sanctions-index.yml` to `main` and dispatch once, before 2026-11-12 00:03 UTC.
 - [ ] Owner: add an Upstash Redis store in Vercel to switch on request capture (G282).
 - [ ] Read the epochs after 2026-11-09 00:19 UTC: sanctions with the index, text generation's drop.
