@@ -1,5 +1,30 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-09 ~00:10 UTC (05:40 IST) prebuilt sanctions index, branch `claude/sanctions-index` — G282–G285
+
+Numbers taken on this branch; renumber on merge if a parallel branch used them.
+
+- **G282 — The EU financial sanctions file could not be read, so `parseEu` is unchecked against a live file.
+  `OPEN`.** Every file URL on webgate.ec.europa.eu (XML v1.0/v1.1, CSV v1.0/v1.1, PDF, public token
+  `dG9rZW4tMjAxNw`) answered HTTP 500 with a JSON error body at 2026-11-08 20:11 and 23:44 UTC; the RSS feed
+  on the same host answered 200 and dates the files 2026-10-23. The parser follows the v1.1 layout
+  (sanctionEntity / nameAlias / citizenship / birthdate) from the published schema, not from a downloaded
+  file. Until a build succeeds, the index carries no EU list and answers name it under `lists_not_checked`.
+  Close: one builder run with the EU file read, its party count above 1,000 and a known EU name (Putin)
+  matched under the EU list.
+- **G283 — The `sanctions-data` branch does not exist yet, and the daily build cannot run from this branch.
+  `OPEN`.** GitHub runs scheduled workflows only from the default branch; `sanctions-index.yml` must be on
+  `main`, then dispatched once, before the miner's default index URL resolves. Until then a deployed miner
+  gets a 404 for the index and reads the lists directly, as before (tested fallback).
+- **G284 — Index latency was measured against a local HTTP server, not raw.githubusercontent.com from Vercel.
+  `OPEN`.** Local: first answer 0.34 s cold with the index, against 11.0 s (route watchdog fired) then 7.4 s
+  on the direct path from this machine. The production cold time adds the download of a 2.83 MB (0.79 MB
+  gzip) file from GitHub.
+- **G285 — Licence ledger over-counts the sanctions endpoints. `OPEN`.** The index host,
+  raw.githubusercontent.com, is registered as `ofac-list` (0xB10C's MIT list), so /sanctions-screen,
+  /company-registry and /sec-filings now list `ofac-list` among their upstreams. The index's data comes from
+  ofac, un-sanctions, uk-sanctions (OGL v3.0) and eu-sanctions (CC BY 4.0). A path-aware host ledger would fix it.
+
 ## 2026-11-07 ~19:15 UTC — G281
 
 - **G281 — Routescan intermittently omits an address's `transactionsCount`. `OPEN`.** A live test got
