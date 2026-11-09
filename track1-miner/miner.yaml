@@ -1527,20 +1527,12 @@ intent_mapping:
   STORM_ALERT_GENERAL:
     endpoint: /storm-alert
     output:
-      location: { path: location }
       risk_score: { path: risk_score }
       risk_level: { path: risk_level }
-      peak_gust_kmh: { path: peak_gust_kmh }
-      window: { path: window }
   WEATHER_FORECAST_GENERAL:
     endpoint: /weather-forecast
     output:
-      location: { path: location }
-      when: { path: when }
       temp_max_c: { path: temp_max_c }
-      temp_min_c: { path: temp_min_c }
-      precipitation_probability_pct: { path: precipitation_probability_pct }
-      condition: { path: verdict }
   WEATHER_CHECK_TEMPERATURE:
     endpoint: /weather-forecast
     output:
@@ -1548,55 +1540,33 @@ intent_mapping:
   LANGUAGE_TRANSLATION_GENERAL:
     endpoint: /translate
     output:
-      translation: { path: translation }
-      target_language: { path: target_language }
-      source_language: { path: source_language }
       brief: { path: brief }
   ACADEMIC_SEARCH_GENERAL:
     endpoint: /papers
     output:
-      answer: { path: answer }
-      paper_titles: { path: paper_titles }
-      dois: { path: dois }
-      total_matches: { path: total_matches }
       brief: { path: brief }
   CONTENT_EXTRACTION_GENERAL:
     endpoint: /extract
     output:
-      entities: { path: entities }
       brief: { path: brief }
   WALLET_BALANCE_CHECK_GENERAL:
     endpoint: /wallet-balance
     output:
-      address: { path: address }
-      chain: { path: chain }
       balance: { path: balance }
-      token_symbol: { path: token_symbol }
-      as_of: { path: checked_at }
   FACT_CHECK_GENERAL:
     endpoint: /fact-check
     output:
-      claim: { path: claim }
       verdict: { path: verdict }
-      reasoning: { path: reasoning }
-      sources: { path: sources }
   ONCHAIN_TX_LOOKUP_GENERAL:
     endpoint: /tx-lookup
     output:
-      tx_hash: { path: tx_hash }
       status: { path: status }
-      from: { path: from }
-      to: { path: to }
       block_number: { path: block_number }
-      value_eth: { path: value_eth }
   CVE_LOOKUP_CVSS:
     endpoint: /cve
     output:
-      cve_id: { path: cve_id }
       cvss_score: { path: cvss_score }
       severity: { path: severity }
-      description: { path: description }
-      published: { path: published }
   CURRENCY_EXCHANGE_CONVERT:
     endpoint: /convert
     output:
@@ -1604,37 +1574,23 @@ intent_mapping:
   GAS_PRICE_GENERAL:
     endpoint: /gas-price
     output:
-      chain: { path: chain }
       gas_price_gwei: { path: gas_price_gwei }
-      as_of: { path: checked_at }
   FINANCIAL_DATA_GENERAL:
     endpoint: /financial
     output:
-      asset: { path: asset }
       market_cap_usd: { path: market_cap_usd }
-      volume_24h_usd: { path: volume_24h_usd }
-      as_of: { path: as_of }
   FRAUD_DETECTION_GENERAL:
     endpoint: /fraud-check
     output:
-      subject: { path: subject }
       verdict: { path: verdict }
       risk_score: { path: risk_score }
-      signals: { path: signals }
-      summary: { path: summary }
   TOKEN_HOLDER_COUNT_GENERAL:
     endpoint: /token-holders
     output:
-      token: { path: token }
-      chain: { path: chain }
       holders_count: { path: holders_count }
-      token_symbol: { path: token_symbol }
   RESEARCH_QUERY_GENERAL:
     endpoint: /research
     output:
-      answer: { path: answer }
-      source_count: { path: source_count }
-      sources: { path: sources }
       brief: { path: brief }
   CRYPTO_PRICE_USD:
     endpoint: /crypto-price
@@ -1643,11 +1599,8 @@ intent_mapping:
   EVENT_OUTCOME_RESOLUTION_GENERAL:
     endpoint: /event-outcome
     output:
-      event: { path: event }
       outcome: { path: outcome }
       resolved_yes: { path: resolved_yes }
-      winner: { path: winner }
-      sources: { path: sources }
   URL_SCAN_VERDICT:
     endpoint: /url-scan
     output:
@@ -1655,52 +1608,27 @@ intent_mapping:
   WEB_SEARCH_GENERAL:
     endpoint: /web-search
     output:
-      answer: { path: answer }
-      sources: { path: sources }
       brief: { path: brief }
   SENTIMENT_ANALYSIS_GENERAL:
     endpoint: /sentiment
     output:
       sentiment: { path: sentiment }
-      score: { path: score }
-      reason: { path: reason }
-  TEXT_CLASSIFICATION_GENERAL:
-    endpoint: /classify
-    output:
-      category: { path: category }
-      reason: { path: reason }
-      confidence: { path: confidence }
   RESEARCH_SYNTHESIS_GENERAL:
     endpoint: /research-synthesis
     output:
-      answer: { path: answer }
-      source_count: { path: source_count }
-      sources: { path: sources }
       brief: { path: brief }
   SANCTIONS_SCREENING_MATCH_GENERAL:
     endpoint: /sanctions-screen
     output:
-      name: { path: name }
       matched: { path: matched }
-      matches: { path: matches }
-      lists: { path: lists }
-      match_score: { path: match_score }
   CORPORATE_REGISTRY_LOOKUP_GENERAL:
     endpoint: /company-registry
     output:
-      legal_name: { path: legal_name }
-      registration_id: { path: registration_id }
       active: { path: active }
-      jurisdiction: { path: jurisdiction }
-      registered_address: { path: registered_address }
-      incorporated: { path: incorporated }
   REGULATORY_FILING_MONITOR_GENERAL:
     endpoint: /sec-filings
     output:
-      entity: { path: entity }
       filing_count: { path: filing_count }
-      filings: { path: filings }
-      urls: { path: urls }
   MACRO_ECONOMIC_INDICATOR_GENERAL:
     endpoint: /macro
     output:
@@ -1708,10 +1636,8 @@ intent_mapping:
   URL_SAFE_GENERAL:
     endpoint: /url-reputation
     output:
-      url: { path: url }
       verdict: { path: verdict }
       detections: { path: detections }
-      summary: { path: summary }
   DNS_RECORD_LOOKUP_GENERAL:
     endpoint: /dns
     output:
@@ -1724,39 +1650,21 @@ intent_mapping:
     endpoint: /onchain-metric
     output:
       balance_gwei: { path: balance_gwei }
-      address: { path: address }
-      block: { path: block }
-      chain: { path: chain }
   CHAT_COMPLETION_GENERAL:
     endpoint: /chat
     output:
-      reply: { path: reply }
-      verdict: { path: verdict }
       brief: { path: brief }
   CODE_REVIEW_GENERAL:
     endpoint: /code-review
     output:
       verdict: { path: verdict }
-      findings: { path: findings }
-      summary: { path: summary }
   TEXT_GENERATION_GENERAL:
     endpoint: /generate
     output:
-      text: { path: text }
-      title: { path: title }
       brief: { path: brief }
-  NEWS_HEADLINES_GENERAL:
-    endpoint: /headlines
-    output:
-      topic: { path: topic }
-      headlines: { path: "headlines[].title" }
-      top_headline: { path: top_headline }
   NEWS_SEARCH_GENERAL:
     endpoint: /news-search
     output:
-      answer: { path: answer }
-      result_count: { path: result_count }
-      sources: { path: sources }
       brief: { path: brief }
   STOCK_PRICE_US_EQUITY:
     endpoint: /stock-price
@@ -1885,62 +1793,34 @@ output_schema:
     domain: { type: string }
     chain_length:
       type: [integer, "null"]
-      description: Certificates the server presented, leaf included. /ssl-check only.
     chain_complete:
       type: [boolean, "null"]
-      description: Whether intermediates were sent, not just the leaf.
     subject_alt_names:
       type: [array, "null"]
       items: { type: string }
-      description: Subject Alternative Names on the leaf certificate.
     unreachable_reason:
       type: [string, "null"]
-      description: Why the host could not be reached, when it could not be.
     start_time:
       type: [string, "null"]
-      description: >-
-        First hour of the returned series, UTC. /weather-forecast honours an
-        explicit start named in the question.
     end_time:
       type: [string, "null"]
     hourly_count:
       type: integer
-      description: Number of hourly values returned.
     hourly_min_precipitation_mm:
       type: [number, "null"]
     hourly_max_precipitation_mm:
       type: [number, "null"]
     time_mode:
       type: string
-      description: >-
-        "point" when the question asked about one moment ("in 44 hours", "right
-        now"); "window" when it asked about a span ("over the next 44 hours").
       enum: [point, window]
     valid_at:
       type: [string, "null"]
-      description: >-
-        For a point answer, the UTC hour the values describe. Null for a window.
     risk_score:
       type: number
-      description: >-
-        Storm risk from 0 (none) to 1 (severe). /storm-alert only.
       minimum: 0
       maximum: 1
     verdict:
       type: string
-      description: >-
-        The answer's label, and its vocabulary is per endpoint. /ssl-check returns a
-        certificate state (valid, expired, not_yet_valid, hostname_mismatch,
-        self_signed, untrusted, unreachable); /storm-alert a storm-risk grade (none,
-        low, moderate, high, severe); /weather-forecast a condition (clear, mostly
-        clear, cloudy, fog, drizzle, rain, heavy rain, snow, thunderstorms);
-        /translate "translated"; /papers "papers"; /ai-detect likely_human, likely_ai
-        or inconclusive; and /ip-geolocate the resolved place itself, or the class of
-        a special-use range (private, reserved, loopback, link_local, shared,
-        multicast, broadcast). Any endpoint returns "unknown" when it could not
-        answer. A closed enum was declared here previously and four endpoints did not
-        conform to it, /ip-geolocate least of all because a place name cannot be
-        enumerated.
     valid: { type: boolean }
     trusted: { type: boolean }
     expired: { type: boolean }
@@ -1978,23 +1858,23 @@ output_schema:
     # being.
 
     # /storm-alert
-    wind_direction: { type: [string, "null"], description: "Compass direction of the peak wind." }
-    threshold_exceeded: { type: [boolean, "null"], description: "Whether a wind threshold named in the question was crossed." }
-    threshold_hours: { type: [array, "null"], items: { type: string }, description: "The UTC hours at which it was crossed." }
+    wind_direction: { type: [string, "null"] }
+    threshold_exceeded: { type: [boolean, "null"] }
+    threshold_hours: { type: [array, "null"], items: { type: string } }
 
     # /weather-forecast
     precipitation_probability_max_pct: { type: [number, "null"] }
-    span_days: { type: [integer, "null"], description: "Forecast span in days when the question asked in days." }
+    span_days: { type: [integer, "null"] }
 
     # /ip-geolocate. `verdict` carries the resolved place, so these are its parts.
     ip: { type: [string, "null"] }
     city: { type: [string, "null"] }
-    region: { type: [string, "null"], description: "Subdivision for an IP; requested news region for /headlines." }
+    region: { type: [string, "null"] }
     country: { type: [string, "null"] }
     country_code: { type: [string, "null"] }
     timezone: { type: [string, "null"] }
-    asn: { type: [string, "null"], description: "Autonomous system number of the announcing network." }
-    organisation: { type: [string, "null"], description: "Network operator the address is registered to." }
+    asn: { type: [string, "null"] }
+    organisation: { type: [string, "null"] }
 
     # /translate. `reason` is the bare translation; this repeats it explicitly.
     translation: { type: [string, "null"] }
@@ -2002,7 +1882,6 @@ output_schema:
     # /papers
     papers:
       type: [array, "null"]
-      description: "Each entry carries title, authors, year, citations, venue and doi."
       items:
         type: object
         properties:
@@ -2012,10 +1891,10 @@ output_schema:
           citations: { type: [integer, "null"] }
           venue: { type: [string, "null"] }
           doi: { type: [string, "null"] }
-    topic: { type: [string, "null"], description: "Subject actually searched for, after parsing the question." }
+    topic: { type: [string, "null"] }
     from_date: { type: [string, "null"] }
     to_date: { type: [string, "null"] }
-    count: { type: [integer, "null"], description: "Number of papers or headlines returned." }
+    count: { type: [integer, "null"] }
 
     # /ai-detect. The measurements behind the verdict, so a reader can disagree
     # with it — the confidence is deliberately low and these are why.
@@ -2030,7 +1909,6 @@ output_schema:
     # /extract
     extracted:
       type: [object, "null"]
-      description: "The fields the question asked for. Keys vary with the request — emails, phones, urls, quantities, dates, entities, action items."
 
     # /headlines
     headlines:
@@ -2045,22 +1923,22 @@ output_schema:
     # /wallet-balance
     # /fact-check
     claim: { type: [string, "null"] }
-    source: { type: [string, "null"], description: "The reference consulted, named so a reader can weigh it." }
+    source: { type: [string, "null"] }
     source_url: { type: [string, "null"] }
-    evidence: { type: [string, "null"], description: "The passage the verdict was read from." }
+    evidence: { type: [string, "null"] }
 
     # /wallet-balance
     address: { type: [string, "null"] }
-    chain: { type: [string, "null"], description: "ethereum, base, arbitrum, optimism or polygon." }
-    balance_eth: { type: [number, "null"], description: "Native-coin balance. Null when the RPC did not answer, which is not the same as zero." }
-    symbol: { type: [string, "null"], description: "Native coin of the chain — POL on polygon, ETH elsewhere." }
+    chain: { type: [string, "null"] }
+    balance_eth: { type: [number, "null"] }
+    symbol: { type: [string, "null"] }
 
     # /dns
-    name: { type: [string, "null"], description: "The name looked up; _dmarc.<domain> for a DMARC question." }
+    name: { type: [string, "null"] }
     record_type: { type: [string, "null"] }
     records: { type: [array, "null"], items: { type: string } }
-    ttl: { type: [integer, "null"], description: "Lowest TTL of the returned records, in seconds." }
-    resolvers_agree: { type: [boolean, "null"], description: "Null when only one resolver answered." }
+    ttl: { type: [integer, "null"] }
+    resolvers_agree: { type: [boolean, "null"] }
     cname_chain: { type: [array, "null"], items: { type: string } }
     resolvers:
       type: array
@@ -2068,7 +1946,7 @@ output_schema:
         type: object
         properties:
           resolver: { type: string }
-          status: { type: [string, "null"], description: "NOERROR, NXDOMAIN, SERVFAIL or REFUSED; null when it did not answer." }
+          status: { type: [string, "null"] }
           records: { type: array, items: { type: string } }
           ttl: { type: [integer, "null"] }
           dnssec_validated: { type: [boolean, "null"] }
@@ -2076,13 +1954,13 @@ output_schema:
     # /token-supply
     token_address: { type: [string, "null"] }
     decimals: { type: [integer, "null"] }
-    total_supply: { type: [string, "null"], description: "Exact, in whole-token units." }
-    total_supply_raw: { type: [string, "null"], description: "totalSupply() as returned, in base units." }
-    burned: { type: [string, "null"], description: "Held at 0x…dEaD and the zero address, in whole-token units." }
+    total_supply: { type: [string, "null"] }
+    total_supply_raw: { type: [string, "null"] }
+    burned: { type: [string, "null"] }
     burned_raw: { type: [string, "null"] }
     burn_addresses: { type: array, items: { type: string } }
     supply_net_of_burn: { type: [string, "null"] }
-    block_number: { type: [integer, "null"], description: "The block both RPCs were read at." }
+    block_number: { type: [integer, "null"] }
     providers_agree: { type: [boolean, "null"] }
     providers:
       type: array
@@ -2091,38 +1969,38 @@ output_schema:
         properties:
           provider: { type: string }
           total_supply_raw: { type: [string, "null"] }
-          value_raw: { type: [string, "null"], description: "/onchain-metric: the value this provider returned." }
+          value_raw: { type: [string, "null"] }
 
     # /chat, /code-review, /generate
-    reply: { type: [string, "null"], description: "/chat: the full answer, opening with brief." }
-    brief: { type: [string, "null"], description: "/chat and /generate: one plain sentence of at most 80 characters." }
-    summary: { type: [string, "null"], description: "/code-review: three to six sentences opening 'The code is correct.' or 'The code is not correct.'; /contract-audit: prose opening with the risk grade." }
+    reply: { type: [string, "null"] }
+    brief: { type: [string, "null"] }
+    summary: { type: [string, "null"] }
     findings:
       type: [array, "null"]
       items:
         type: object
         properties:
-          severity: { type: string, description: "critical, high, medium, low or info." }
-          class: { type: string, description: "/contract-audit: the vulnerability class." }
-          function: { type: [string, "null"], description: "/contract-audit: the affected function." }
+          severity: { type: string }
+          class: { type: string }
+          function: { type: [string, "null"] }
           line: { type: [integer, "null"] }
           issue: { type: string }
           fix: { type: string }
     finding_count: { type: [integer, "null"] }
-    title: { type: [string, "null"], description: "/generate: a short title, always given." }
+    title: { type: [string, "null"] }
     word_count: { type: [integer, "null"] }
-    requested_words: { type: [integer, "null"], description: "/generate: the word count the prompt asked for, if any." }
+    requested_words: { type: [integer, "null"] }
 
     # /onchain-metric
-    metric: { type: [string, "null"], description: "tx_receipt, storage, total_supply, token_balance, native_balance or block." }
-    block_anchor: { type: [string, "null"], description: "stated, or latest (pinned behind the head)." }
-    value: { type: [string, "null"], description: "Exact, in token or coin units where they apply; a 32-byte word for storage; gas for a receipt or block." }
+    metric: { type: [string, "null"] }
+    block_anchor: { type: [string, "null"] }
+    value: { type: [string, "null"] }
     value_raw: { type: [string, "null"] }
     unit: { type: [string, "null"] }
     tx_hash: { type: [string, "null"] }
-    tx_status: { type: [string, "null"], description: "success or reverted." }
+    tx_status: { type: [string, "null"] }
     gas_used: { type: [string, "null"] }
-    fee: { type: [string, "null"], description: "gas used x effective gas price, in the chain's native coin." }
+    fee: { type: [string, "null"] }
     transfers:
       type: [array, "null"]
       items:
@@ -2132,9 +2010,9 @@ output_schema:
           symbol: { type: [string, "null"] }
           from: { type: string }
           to: { type: string }
-          amount: { type: [string, "null"], description: "Exact, in token units; null for an ERC-721 transfer." }
+          amount: { type: [string, "null"] }
           amount_raw: { type: [string, "null"] }
-          token_id: { type: [string, "null"], description: "ERC-721 token id." }
+          token_id: { type: [string, "null"] }
           log_index: { type: integer }
 
 docs:

@@ -71,16 +71,25 @@ function at(answer: Record<string, unknown>, path: string): unknown {
   return answer[path];
 }
 
-test("every supported intent with a response format has a mapping, and nothing else is mapped", () => {
+// Only scored or processed fields are mapped: the full mapping put miner.yaml at 103 KB, and Anjoman's validator
+// answered "request entity too large" (owner, 2026-11-09). An intent whose schema scores nothing has no entry.
+test("every supported intent with a scored field has a mapping, and nothing else is mapped", () => {
   assert.equal(supported.length, 43);
   for (const intent of supported) {
     const f = fields[intent]?.fields;
     assert.ok(f, `${intent} has no recorded response fields; re-record docs/evidence/intent-mapping-*`);
-    if (f.length) assert.ok(mapping.has(intent), `${intent} has a response format but no intent_mapping entry`);
-    else assert.ok(!mapping.has(intent), `${intent} has no response format, so it has nothing to map`);
+    const scored = f.some((x: { scored?: boolean; processed?: boolean }) => x.scored || x.processed);
+    if (scored) assert.ok(mapping.has(intent), `${intent} has a scored field but no intent_mapping entry`);
+    else assert.ok(!mapping.has(intent), `${intent} scores nothing, so it has nothing to map`);
   }
   for (const intent of mapping.keys()) assert.ok(supported.includes(intent), `${intent} is mapped but not in supported_intents`);
-  assert.equal(mapping.size, 38);
+  assert.equal(mapping.size, 36);
+});
+
+test("miner.yaml stays under the size Anjoman's validator accepted", () => {
+  // 93,175 bytes (96,002 as the JSON request) validated on 2026-11-07; 103,086 (106,235) was refused as too large.
+  const bytes = Buffer.byteLength(readFileSync(resolve(process.cwd(), "../miner.yaml"), "utf8").replace(/\r\n/g, "\n"));
+  assert.ok(bytes <= 97_000, `miner.yaml is ${bytes} bytes; keep it under 97,000`);
 });
 
 test("each mapping names a served endpoint that declares the intent", () => {
