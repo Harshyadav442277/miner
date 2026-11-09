@@ -1,5 +1,28 @@
 # MEMORY.md — session continuity
 
+## 2026-11-09 ~00:15 UTC (05:45 IST): CURRENT — three big moves merged on `claude/n1-v2-ids` (`4e385e1`), NOT deployed
+
+- **Merged and pushed:**
+  - **Request capture:** `src/capture.ts` and `tools/capture-pull.mjs`. Off until the owner adds an Upstash store
+    in Vercel (G282).
+  - **`intent_mapping`:** 38 intents, 128 fields, every scored field mapped. Syntax from anjoman.ai/docs
+    yaml-config.
+  - **Prebuilt sanctions index:** OFAC SDN, non-SDN, UN and UK in one file; EU returned HTTP 500 (G283).
+  - **Fixes:** research counts its trials as sources; web search cites the Wikipedia article it quotes.
+  - Unit 976/976.
+- **Sanctions index data:** branch `sanctions-data` (`c1311f9`) published by hand. Built 2026-11-09 00:03 UTC,
+  27,476 parties, SHA-256 `ec5d7412…`.
+  - The loader ignores an index older than 72 h, so it falls back to direct reads after Nov 12 00:03 UTC unless
+    it is rebuilt.
+  - The daily rebuild needs `.github/workflows/sanctions-index.yml` merged to `main` (owner's yes), then one
+    dispatch (G284).
+- **Preview `miner-qezkjslds`:** answered from the index. Hezbollah matched (score 1) through the UK alias;
+  cold 2.2 s, warm about 1.1 s, both including `vercel curl` overhead from India.
+- **Production:** still `eb09b0a` (`miner-ic5zvq5es`).
+- **To sign after deploy:** YAML at `4e385e1`, SHA-256
+  `0x2176c98e24373013896718eaf043a0695273e6a8bd6a5cabc81d7264e3504a0e`, 43 intents. It adds intent_mapping,
+  SMART_CONTRACT_AUDIT and macro's `year`. manifest-diff flags `/macro` CHANGED for that added param only.
+
 ## 2026-11-08 ~19:20 UTC (Nov 9 00:50 IST): CURRENT — `a2f911e` LIVE (4-agent fixes, 22 intents); 43-intent YAML to sign
 
 - **Production:** `a2f911e`, `miner-4hs6cb5jh` (`dpl_ABhFVKcsHHwJiqKgG38CJBSnVpRM`).
