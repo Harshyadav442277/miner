@@ -205,7 +205,7 @@ test("audit: a planted reentrancy is graded by its finding, and the summary open
 });
 
 test("audit: a safe contract is No issues found, and links, addresses and empty input are refused", async () => {
-  await withModel(JSON.stringify({ verdict: "Low", summary: "The contract is safe: it only stores a number.", findings: [] }), async () => {
+  await withModel(JSON.stringify({ verdict: "No issues found", summary: "The contract is safe: it only stores a number.", findings: [] }), async () => {
     const a = await auditContract("Audit: pragma solidity ^0.8.0; contract S { uint x; function set(uint v) external { x = v; } }");
     assert.equal(a.verdict, "No issues found");
     assert.match(String(a.summary), /^Overall risk: No issues found\. The contract is safe/);
@@ -215,6 +215,16 @@ test("audit: a safe contract is No issues found, and links, addresses and empty 
   assert.equal((await auditContract("")).error, "no_contract");
   assert.equal((await auditContract("", "0x1234567890abcdef1234567890abcdef12345678")).error, "source_not_fetched");
   assert.equal((await auditContract("https://etherscan.io/address/0x1")).error, "source_not_fetched");
+});
+
+test("audit: a stated risk without supporting findings is incomplete, not a clean audit", async () => {
+  for (const verdict of ["Critical", "High", "Medium", "Low"]) {
+    await withModel(JSON.stringify({ verdict, summary: "The contract has an exploitable issue.", findings: [] }), async () => {
+      const result = await auditContract(VAULT);
+      assert.equal(result.verdict, "unknown");
+      assert.equal(result.error, "invalid_model_response");
+    });
+  }
 });
 
 test("llm: a 400 moves to the next model at once, and a json_validate_failed generation is kept when it parses", async () => {
