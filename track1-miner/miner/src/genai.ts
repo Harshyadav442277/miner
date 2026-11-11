@@ -15,6 +15,7 @@
  * model answer is an honest `unknown`, never an invented one.
  */
 import { phrase } from "./llm";
+import { completeReview } from "./review-validation";
 
 export interface GenAnswer { verdict?: string; confidence: number; reason: string; error?: string; [k: string]: unknown }
 
@@ -73,6 +74,11 @@ function unavailable(what: string, extra: Record<string, unknown>): GenAnswer {
 function missing(what: string, field: string, extra: Record<string, unknown>): GenAnswer {
   return { ...extra, verdict: "insufficient_input", confidence: 0, error: `no_${field}`, source: SOURCE,
     reason: `No ${what} was supplied. Send it as the ${field} parameter or as the whole question.` };
+}
+
+function oversizedReview(what: string): GenAnswer {
+  return { verdict: "insufficient_input", confidence: 0, error: "input_too_long", findings: [], summary: null, finding_count: null,
+    reason: `The ${what} exceeds the ${MAX_INPUT}-character review limit. No code was reviewed. Send a smaller complete unit with its relevant dependencies.` };
 }
 
 /** A "will X happen" question, whose reply leads with Likely, Unlikely or Uncertain. Pure. */
@@ -166,8 +172,9 @@ export function reviewSummary(summary: string, verdict: string): string {
 }
 
 export async function reviewCode(question: string, codeParam = ""): Promise<GenAnswer> {
-  const code = (codeParam || question).slice(0, MAX_INPUT);
+  const code = codeParam || question;
   if (!code.trim()) return missing("code", "code", { findings: [], summary: null });
+  if (code.length > MAX_INPUT) return oversizedReview("code");
   if (/^\s*https?:\/\/\S+\s*$/.test(code)) {
     return { verdict: "insufficient_input", confidence: 0, error: "link_not_fetched", findings: [], summary: null, source: SOURCE,
       reason: "A link was sent, and links are not fetched. Send the code itself as the code parameter." };
@@ -176,6 +183,7 @@ export async function reviewCode(question: string, codeParam = ""): Promise<GenA
   const o = raw ? parseObject(raw) : null;
   const stated = str(o?.summary);
   if (!o || !stated) return unavailable("a review", { findings: [], summary: null });
+  if (!completeReview(o, false)) return { ...unavailable("a complete review", { findings: [], summary: null, finding_count: null }), error: "invalid_model_response" };
   const findings = normaliseFindings(o.findings);
   const verdict = reviewVerdict(str(o.verdict), findings);
   const summary = reviewSummary(stated, verdict);
@@ -231,9 +239,10 @@ export function auditSummary(summary: string, grade: RiskGrade): string {
 }
 
 export async function auditContract(question: string, contractParam = ""): Promise<GenAnswer> {
-  const source = (contractParam || question).slice(0, MAX_INPUT);
+  const source = contractParam || question;
   const none = { findings: [], summary: null, finding_count: null };
   if (!source.trim()) return missing("contract source", "contract", none);
+  if (source.length > MAX_INPUT) return oversizedReview("contract source");
   if (/^\s*(?:https?:\/\/\S+|0x[0-9a-fA-F]{40})\s*$/.test(source)) {
     return { ...none, verdict: "insufficient_input", confidence: 0, error: "source_not_fetched", source: SOURCE,
       reason: "A link or an address was sent, and neither is fetched. Send the Solidity source itself as the contract parameter." };
@@ -242,6 +251,7 @@ export async function auditContract(question: string, contractParam = ""): Promi
   const o = raw ? parseObject(raw) : null;
   const stated = str(o?.summary);
   if (!o || !stated) return unavailable("an audit", none);
+  if (!completeReview(o, true)) return { ...unavailable("a complete audit", none), error: "invalid_model_response" };
   const findings = normaliseAuditFindings(o.findings);
   const verdict = riskGrade(findings);
   const summary = auditSummary(stated, verdict);

@@ -146,6 +146,47 @@ contract Vault {
   }
 }`;
 
+test("review and audit: incomplete model findings cannot become approval", async () => {
+  const malformed = [undefined, null, {}, [null], [{ severity: "bogus", issue: "Unsafe call", fix: "Check it" }],
+    [{ severity: "critical", fix: "Check it" }], Array.from({ length: 21 }, () => ({ severity: "high", issue: "Issue", fix: "Fix" }))];
+  for (const findings of malformed) {
+    await withModel(JSON.stringify({ verdict: "Approve", summary: "Unable to analyze the supplied code.", findings }), async () => {
+      const result = await reviewCode("function f(x) { return x; }");
+      assert.equal(result.verdict, "unknown");
+      assert.equal(result.error, "invalid_model_response");
+      assert.equal(result.confidence, 0);
+    });
+    await withModel(JSON.stringify({ verdict: "No issues found", summary: "Unable to analyze the contract.", findings }), async () => {
+      const result = await auditContract(VAULT);
+      assert.equal(result.verdict, "unknown");
+      assert.equal(result.error, "invalid_model_response");
+      assert.equal(result.confidence, 0);
+    });
+  }
+});
+
+test("review and audit: a missing verdict cannot imply approval", async () => {
+  await withModel(JSON.stringify({ summary: "Unable to analyze.", findings: [] }), async () => {
+    assert.equal((await reviewCode("function f(x) { return x; }")).error, "invalid_model_response");
+    assert.equal((await auditContract(VAULT)).error, "invalid_model_response");
+  });
+});
+
+test("review and audit: refuse oversized inputs before sending a truncated prefix", async () => {
+  await withModel(JSON.stringify({ verdict: "Approve", summary: "The code is correct.", findings: [] }), async (calls) => {
+    const code = "//" + " ".repeat(8_000) + "\nunsafe_tail();";
+    for (const result of [await reviewCode(code), await reviewCode("", code), await auditContract(code), await auditContract("", code)]) {
+      assert.equal(result.error, "input_too_long");
+      assert.equal(result.confidence, 0);
+      assert.match(String(result.reason), /No code was reviewed/);
+    }
+    assert.equal(calls.length, 0);
+    assert.equal((await reviewCode("x".repeat(8_000))).verdict, "Approve", "the exact limit is accepted");
+    const sent = calls[0]!.messages as Array<{ content: string }>;
+    assert.equal(sent[sent.length - 1]!.content.length, 8_000);
+  });
+});
+
 test("audit: a planted reentrancy is graded by its finding, and the summary opens with that grade", async () => {
   const model = { verdict: "High", summary: "Overall risk is High. withdraw sends ETH before zeroing the balance.", findings: [
     { class: "Access control", function: "deposit", severity: "low", issue: "No event is emitted.", fix: "Emit Deposit." },
