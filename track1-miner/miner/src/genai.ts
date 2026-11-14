@@ -14,6 +14,7 @@
  * empty reply or text, or a review whose verdict contradicts its own findings is corrected or refused. No
  * model answer is an honest `unknown`, never an invented one.
  */
+import { currentFact } from "./currentfacts";
 import { phrase } from "./llm";
 import { completeReview } from "./review-validation";
 
@@ -160,7 +161,12 @@ export async function chat(question: string, messageParam = "", now = new Date()
   const message = (messageParam || question).trim().slice(0, MAX_INPUT);
   if (!message) return missing("message", "message", { reply: null, brief: null });
   const will = asksWillHappen(message);
-  const raw = await phrase({ system: chatSystem(now), user: message, maxTokens: 700, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
+  // An office holder or a latest release is read today, not recalled: asked "Who is the current president of the
+  // United States?" the model answered "Uncertain. As of my last update in November 2023, Joe Biden was president"
+  // (production 2026-11-14). The lookup runs only when the message asks for what is current.
+  const fact = /\b(?:current(?:ly)?|latest|newest|now|today|incumbent|reigning)\b/i.test(message) ? await currentFact(message).catch(() => null) : null;
+  const user = fact ? `${message}\n\nVerified today from a public register; state it as the answer and do not contradict it: ${fact}` : message;
+  const raw = await phrase({ system: chatSystem(now), user, maxTokens: 700, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
   const o = raw ? parseObject(raw) : null;
   const reply = plainHyphens(str(o?.reply));
   if (!o || !reply) return unavailable("a reply", { reply: null, brief: null });
@@ -172,7 +178,7 @@ export async function chat(question: string, messageParam = "", now = new Date()
   const model = plainHyphens(str(o.brief));
   const flat = reply.replace(/\s+/g, " ").trim();
   const first = opening(flat);
-  let brief = usableBrief(model, verdict) && model.length <= 80 ? model : first.length <= 80 ? first : "";
+  let brief = usableBrief(model, verdict) && model.length <= 80 ? model : first.length <= 80 && first.split(" ").length >= 4 ? first : "";
   if (!brief) {
     // The rewrite must end before the handler's 11 s watchdog, which the long call above may have nearly used.
     const two = `${first} ${opening(flat.slice(first.length))}`.trim();
