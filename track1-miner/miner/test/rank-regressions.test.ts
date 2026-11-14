@@ -156,7 +156,8 @@ test("rank regression: both CVE providers down remains an explicit availability 
 test("rank regression: an NVD rate limit is answered from the NVD record's mirror, not the CNA's score", async () => {
   const record = { id: "CVE-2020-1472", vulnStatus: "Analyzed", published: "2020-08-17T19:15:15.117",
     descriptions: [{ lang: "en", value: "An elevation of privilege vulnerability exists in Netlogon." }],
-    metrics: { cvssMetricV31: [{ source: "nvd@nist.gov", type: "Primary", cvssData: { version: "3.1", baseScore: 10, baseSeverity: "CRITICAL" } }] } };
+    metrics: { cvssMetricV31: [{ source: "secure@microsoft.com", type: "Secondary", cvssData: { version: "3.1", baseScore: 5.5, baseSeverity: "MEDIUM" } },
+      { source: "nvd@nist.gov", type: "Secondary", cvssData: { version: "3.1", baseScore: 10, baseSeverity: "CRITICAL" } }] } };
   const seen: string[] = [];
   await withFetch((async (input: unknown) => {
     const url = String(input);

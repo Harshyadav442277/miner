@@ -196,7 +196,8 @@ export function pickSeverity(metrics: Record<string, Metric[]> | undefined):
   }
   if (all.length === 0) return null;
   all.sort((a, b) =>
-    parseFloat(b.version) - parseFloat(a.version) || Number(b.primary) - Number(a.primary));
+    parseFloat(b.version) - parseFloat(a.version) || Number(b.source === "NVD") - Number(a.source === "NVD") ||
+    Number(b.primary) - Number(a.primary));
   return all[0]!;
 }
 
