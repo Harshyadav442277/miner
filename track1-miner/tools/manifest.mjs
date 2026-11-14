@@ -34,7 +34,7 @@ export const MANIFEST_PATH = join(TOOLS, "..", "miner.yaml");
  * their cases by family, so ids are folded here. A name that is already a family comes back unchanged, which is how
  * the V1-named registered YAML (2e8d1cf) is still read.
  */
-const SUFFIX = /_(?:GENERAL|CERT|CVSS|TEMPERATURE|CONVERT|USD|VERDICT)$/;
+const SUFFIX = /_(?:GENERAL|CERT|CVSS|TEMPERATURE|CONVERT|USD|VERDICT|US_EQUITY)$/;
 export function family(id) {
   return id.replace(SUFFIX, "");
 }
@@ -87,11 +87,11 @@ export function readManifest(path = MANIFEST_PATH) {
  * measuring something the network will never route to us.
  */
 /**
- * Intents cut from miner.yaml that registration 4829 still claims until the owner signs
+ * Intents cut from miner.yaml that the live registration still claims until the owner signs
  * the updateMiner that drops them. Their routes still serve, so the gates keep checking
  * them. Mirror of RETIRED in miner/test/manifest.test.ts; empty both after the signature.
  */
-export const RETIRED_INTENTS = new Set(["IP_GEOLOCATION", "NEWS_HEADLINES", "NEWS_SEARCH", "STOCK_PRICE"]);
+export const RETIRED_INTENTS = new Set(); // the four cut on 2026-11-06 are declared again since 2026-11-07
 
 export function assertCoversDeclaredIntents(covered, { label = "coverage", manifest = readManifest() } = {}) {
   const have = new Set(covered);

@@ -1,9 +1,51 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-09 ~00:10 UTC (05:40 IST) prebuilt sanctions index, branch `claude/sanctions-index` — G283–G286 (renumbered on merge: G282 was taken by request capture)
+
+- **G283 — The EU financial sanctions file could not be read, so `parseEu` is unchecked against a live file.
+  `OPEN`.** Every file URL on webgate.ec.europa.eu (XML v1.0/v1.1, CSV v1.0/v1.1, PDF, public token
+  `dG9rZW4tMjAxNw`) answered HTTP 500 with a JSON error body at 2026-11-08 20:11 and 23:44 UTC; the RSS feed
+  on the same host answered 200 and dates the files 2026-10-23. The parser follows the v1.1 layout
+  (sanctionEntity / nameAlias / citizenship / birthdate) from the published schema, not from a downloaded
+  file. Until a build succeeds, the index carries no EU list and answers name it under `lists_not_checked`.
+  Close: one builder run with the EU file read, its party count above 1,000 and a known EU name (Putin)
+  matched under the EU list.
+- **G284 — The `sanctions-data` branch does not exist yet, and the daily build cannot run from this branch.
+  `OPEN`.** GitHub runs scheduled workflows only from the default branch; `sanctions-index.yml` must be on
+  `main`, then dispatched once, before the miner's default index URL resolves. Until then a deployed miner
+  gets a 404 for the index and reads the lists directly, as before (tested fallback).
+- **G285 — Index latency was measured against a local HTTP server, not raw.githubusercontent.com from Vercel.
+  `OPEN`.** Local: first answer 0.34 s cold with the index, against 11.0 s (route watchdog fired) then 7.4 s
+  on the direct path from this machine. The production cold time adds the download of a 2.83 MB (0.79 MB
+  gzip) file from GitHub.
+- **G286 — Licence ledger over-counts the sanctions endpoints. `OPEN`.** The index host,
+  raw.githubusercontent.com, is registered as `ofac-list` (0xB10C's MIT list), so /sanctions-screen,
+  /company-registry and /sec-filings now list `ofac-list` among their upstreams. The index's data comes from
+  ofac, un-sanctions, uk-sanctions (OGL v3.0) and eu-sanctions (CC BY 4.0). A path-aware host ledger would fix it.
+
+## 2026-11-08 ~19:45 UTC — G282 request capture
+
+- **G282 — Request capture holds callers' questions, and is off until a store exists. `OPEN`, owner action.**
+  `src/capture.ts` records each answered request: route, query params, status, verdict, error, the answer's lead
+  sentence, user-agent and time taken. No IP addresses, cookies or authorisation headers. Records go to a Redis
+  list per UTC day with a 14-day expiry.
+  - **Personal data:** sanctions questions carry people's names, so the store holds personal data for up to 14
+    days. Exports from `tools/capture-pull.mjs` stay outside the repository.
+  - **Off until provisioned:** it does nothing until the owner adds a free Upstash Redis store through Vercel
+    (Storage → Upstash, which sets `KV_REST_API_URL` and `KV_REST_API_TOKEN`). Accepting Upstash's terms is the
+    owner's step.
+
+## 2026-11-07 ~19:15 UTC — G281
+
+- **G281 — Routescan intermittently omits an address's `transactionsCount`. `OPEN`.** A live test got
+  `count null` twice in a row, then passed 3 of 3, and a direct read returned 90,717,840. When it is missing,
+  /contract-activity has no fallback for Blockscout's undercount (Blockscout reports 772 transactions for the
+  Uniswap V2 router). Not caused by `8b6e4d3`.
+
 ## 2026-11-07 ~03:05 UTC (08:35 IST) uptime alarm — G280
 
-- **G280 — The 23:29 UTC uptime run failed (issue #19) on two routes this branch deleted. `OPEN` until PR #18
-  merges.** Its result: 37 of 39 routes up; `/keywords` and `/vuln-triage` returned 404. Both routes were removed
+- **G280 — The 23:29 UTC uptime run failed (issue #19) on two routes this branch deleted. `CLOSED 2026-11-07 03:32 UTC`:
+  PR #18 merged as `aad95d2`; dispatched run 42334338259 on `main` found 34/34 up, and the workflow closed #19.** Its result: 37 of 39 routes up; `/keywords` and `/vuln-triage` returned 404. Both routes were removed
   on purpose in `6aebe0f`, which went live inside `bee3f6a`, and neither is in registration 4829.
   The workflow checks out `main` and sweeps `main`'s `miner.yaml`, which is 41 commits behind production. The
   same sweep using this branch's YAML (`628ca5c`) found 34 of 34 up at 03:00 UTC. Every scheduled run will fail

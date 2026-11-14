@@ -48,12 +48,25 @@ const RPCS: Record<string, string[]> = {
   arbitrum: ["https://arb1.arbitrum.io/rpc", "https://arbitrum-one-rpc.publicnode.com"],
   optimism: ["https://mainnet.optimism.io", "https://optimism-rpc.publicnode.com"],
   polygon: ["https://polygon-bor-rpc.publicnode.com", "https://polygon.drpc.org"],
+  // Both pairs answered eth_gasPrice, eth_getBlockByNumber and eth_chainId on 2026-11-08: BSC chain id 0x38 (56),
+  // gas 0.05 Gwei with base fee 0; Avalanche C-Chain chain id 0xa86a (43114), base fee ~2.54 Gwei.
+  bsc: ["https://bsc-dataseed.bnbchain.org", "https://bsc-rpc.publicnode.com"],
+  avalanche: ["https://api.avax.network/ext/bc/C/rpc", "https://avalanche-c-chain-rpc.publicnode.com"],
 };
 
-/** The chain's own fee unit. Polygon prices gas in POL, the rest in ETH. */
+/** The chain's own fee unit. Polygon prices gas in POL, BSC in BNB, Avalanche in AVAX, the rest in ETH. */
 const COIN: Record<string, string> = {
-  ethereum: "ETH", base: "ETH", arbitrum: "ETH", optimism: "ETH", polygon: "POL",
+  ethereum: "ETH", base: "ETH", arbitrum: "ETH", optimism: "ETH", polygon: "POL", bsc: "BNB", avalanche: "AVAX",
 };
+
+/** How a chain is named in the answer, where its id is not already its name. */
+const LABEL: Record<string, string> = { bsc: "BNB Smart Chain", avalanche: "Avalanche C-Chain" };
+
+/**
+ * Test networks, named so they are refused rather than answered with their mainnet's fee: "gas on Base
+ * Sepolia" matched `base` and read Base mainnet. A testnet's gas has no market value.
+ */
+const TESTNET = /\b(sepolia|holesky|hoodi|goerli|görli|ropsten|rinkeby|kovan|amoy|mumbai|fuji|chapel|testnet)\b/i;
 
 /**
  * Chain words, most specific first.
@@ -68,14 +81,14 @@ const CHAIN_WORDS: Array<[RegExp, string]> = [
   [/\barbitrum\b|\barb\b/i, "arbitrum"],
   [/\boptimism\b|\bop\s+mainnet\b/i, "optimism"],
   [/\bpolygon\b|\bmatic\b/i, "polygon"],
+  [/\bbsc\b|\bbnb\b|\bbinance smart chain\b/i, "bsc"],
+  [/\bavalanche\b|\bavax\b|\bc-chain\b/i, "avalanche"],
   [/\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i, "ethereum"],
 ];
 
 /** Chains a question may name that we cannot read, so we say so instead of substituting one. */
 const UNREAD: Array<[RegExp, string]> = [
   [/\bsolana\b|\bsol\b/i, "Solana"],
-  [/\bbsc\b|\bbnb\b|\bbinance smart chain\b/i, "BNB Chain"],
-  [/\bavalanche\b|\bavax\b/i, "Avalanche"],
   [/\bbitcoin\b|\bbtc\b/i, "Bitcoin"],
   [/\bzksync\b/i, "zkSync"],
   [/\bscroll\b/i, "Scroll"],
@@ -134,9 +147,15 @@ export function resolveChain(
   question: string,
 ): { chain: string | null; explicit: boolean; unread: string | null } {
   const p = String(param ?? "").trim().toLowerCase();
+  const text = `${param ?? ""} ${question ?? ""}`;
+  // Before any chain word: "Base Sepolia" names Base, and Base mainnet's fee is not its fee.
+  const test = text.match(TESTNET)?.[1];
+  if (test) {
+    const name = test.toLowerCase() === "testnet" ? text.match(/\b([A-Za-z]+)\s+testnet\b/i)?.[0] ?? "A testnet" : test[0]!.toUpperCase() + test.slice(1).toLowerCase();
+    return { chain: null, explicit: true, unread: `${name} (a test network)` };
+  }
   if (p && RPCS[p]) return { chain: p, explicit: true, unread: null };
 
-  const text = `${param ?? ""} ${question ?? ""}`;
   const named = CHAIN_WORDS.find(([re]) => re.test(text))?.[1] ?? null;
   if (named) return { chain: named, explicit: true, unread: null };
 
@@ -173,9 +192,10 @@ export function fmtGwei(gwei: number): string {
   if (gwei >= 100) return gwei.toFixed(2);
   if (gwei >= 1) return gwei.toFixed(3);
   if (gwei >= 0.001) return gwei.toFixed(6).replace(/0+$/, "").replace(/\.$/, "");
-  // toPrecision keeps trailing zeros ("0.000100"), which spends scored words on
-  // digits that carry nothing. Strip them, but never the last one before the point.
-  return gwei.toPrecision(3).replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
+  // Three significant figures in fixed form, trailing zeros stripped: toPrecision switches to exponent form
+  // below 1e-6, and Avalanche's 150-wei priority fee read "1.50e-7 Gwei" (2026-11-08).
+  if (gwei <= 0) return "0";
+  return gwei.toFixed(Math.min(20, 2 - Math.floor(Math.log10(gwei)))).replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
 }
 
 /** The same figure rounded the way a person would quote it, for the other ground-truth register. */
@@ -218,6 +238,17 @@ async function readGas(chain: string): Promise<Reading | null> {
 export async function getGasPrice(chain: string | null, unread: string | null = null): Promise<GasResult> {
   const empty = { chain: null, gwei: null, base_fee_gwei: null, priority_gwei: null, block: null };
 
+  if (unread && /\(a test network\)$/.test(unread)) {
+    const name = unread.replace(/ \(a test network\)$/, "");
+    return {
+      ...empty, verdict: "unsupported_chain", confidence: 0, error: "testnet",
+      reason:
+        `${name} is a test network: its gas is not traded and has no market value, and its fee level is not read ` +
+        `here. No mainnet gas price is reported in its place, because a mainnet's fee says nothing about a testnet's. ` +
+        `The networks covered are the mainnets ${supportedChains().join(", ")}.`,
+    };
+  }
+
   if (unread) {
     return {
       ...empty, verdict: "unsupported_chain", confidence: 0,
@@ -245,6 +276,7 @@ export async function getGasPrice(chain: string | null, unread: string | null = 
 
   const { gwei, baseFee, block } = reading;
   const coin = COIN[target] ?? "ETH";
+  const named = LABEL[target] ?? target;
   const priority = baseFee !== null ? Math.max(0, gwei - baseFee) : null;
 
   /**
@@ -278,7 +310,7 @@ export async function getGasPrice(chain: string | null, unread: string | null = 
     chain: target, gwei, base_fee_gwei: baseFee, priority_gwei: priority, block,
     verdict: "gas_price", confidence: 0.95,
     reason:
-      `The current gas price on ${target} is ${exact} Gwei${both}, ` +
+      `The current gas price on ${named} is ${exact} Gwei${both}, ` +
       `as of block ${block.toLocaleString("en-US")}.${feeParts} At that rate a standard 21,000-gas ` +
       `transfer costs about ${transferCost}. This is the transaction fee level, ` +
       `not the price of ${coin}.${assumed}`,

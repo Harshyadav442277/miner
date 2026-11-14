@@ -1,0 +1,29 @@
+Sat Nov  7 21:29:53 UTC 2026
+preview https://miner-hxta9vcy2-wukong4.vercel.app (3f136ac)
+== /fact-check
+{"verdict":"False","verdict_detail":"contradicted","reasoning":"The claim \"the Eiffel Tower is in Berlin\" is contradicted by the reference source consulted. According to Wikipedia's article \"Eiffel Tower\": The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Cha
+== /event-outcome
+{"outcome":"yes","winner":"Seattle Seahawks","resolved_yes":null,"verdict":"resolved"}
+== /stock-price
+{"price_usd":342.37,"price":342.37,"currency":"USD"}
+== /financial
+{"market_cap_usd":52489583708,"volume_24h_usd":892817383,"asset":"Solana"}
+== /macro
+{"rate_pct":4.1}
+== /storm-alert
+{"risk_score":0.16,"risk_level":"LOW","window":"48 hours"}
+== /dns
+{"has_record":true,"verdict":"resolved"}
+== /papers
+{"total_matches":5,"brief":"Here are 5 papers on CRISPR gene editing."}
+== /fraud-check
+{"verdict":"LOW","verdict_detail":"no_indicators","risk_score":0.05}
+== /token-supply
+{"total_supply":46204462987.07818,"total_supply_exact":"46204462987.078181"}
+== /sanctions-screen
+{"matched":false,"match_score":0}
+== /ssl-check
+{"certificate_valid":true,"verdict":"valid"}
+== preview https://miner-al5twakln-wukong4.vercel.app (1f43311)
+{"outcome":"yes","resolved_yes":true,"winner":"Seattle Seahawks","verdict":"resolved"}
+{"verdict":"valid"}

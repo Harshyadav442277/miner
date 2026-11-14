@@ -6,14 +6,14 @@ import { alertAnswer, asksAlert, officialAlertAnswer, type AlertCheckResult } fr
 import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
 import { envelope } from "./envelope";
-import { scoredFields } from "./intent-fields";
+import { pairsBrief, scoredFields } from "./intent-fields";
 import { currentReceipt, installRecorder, readsSoFar, replayFromCache, withReceipt, type UpstreamRead } from "./receipt";
 import { MISSION_ROUTES, type MissionAnswer } from "./mission-routes";
 import { getForecast, type ForecastResult } from "./forecast";
 import { asksCurrentConditions, asksTemperatureNow, getCurrentConditions } from "./currentweather";
 import { temperatureThreshold, thresholdSentence } from "./threshold";
 import { geolocate, type GeoResult } from "./geo";
-import { extractContent } from "./content";
+import { extractContent, quotedPayload, requestedFields } from "./content";
 import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
 import { convert, normalizeCurrency, notAnFxQuestion, parseDate as parseFxDate, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
@@ -49,6 +49,7 @@ import { analyseSentimentPhrased } from "./prose-phrase";
 import { classifyText, type ClassifyResult } from "./classify";
 import { synthesise, type SynthesisResult } from "./synthesis";
 import { ledger, licensingFor } from "./sources";
+import { capture, captureEnabled, record } from "./capture";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
 const MAX_CACHE = 500;
@@ -209,7 +210,13 @@ function send(res: ServerResponse, status: number, body: unknown): void {
     "cache-control": "no-store",
   });
   res.end(payload);
+  // After the answer is written: a store that is slow or down never touches the response (capture.ts).
+  const asked = requestOf.get(res);
+  if (asked) void capture(record(asked.path, asked.params, status, body, asked.ua, asked.started));
 }
+
+/** What each request asked, kept only while request capture is configured (capture.ts). */
+const requestOf = new WeakMap<ServerResponse, { path: string; params: URLSearchParams; ua: string | null; started: number }>();
 
 /**
  * An answer exactly as the domain module produced it: every field the prose was
@@ -378,7 +385,7 @@ function upstreamUnavailable(res: ServerResponse, what: string, subject: string,
  * piece of the question we have to echo back.
  */
 function requestedWindow(url: URL): string {
-  const hours = Number(firstValue(url, "hours", "forecast_hours"));
+  const hours = Number(firstValue(url, "hours", "forecast_hours", "window_hours"));
   if (Number.isFinite(hours) && hours > 0) return `${Math.floor(hours)}-hour`;
   const days = Number(firstValue(url, "days", "forecast_days"));
   if (Number.isFinite(days) && days > 0) return `${Math.floor(days) * 24}-hour`;
@@ -511,6 +518,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   // through `send`.
   if (ENDPOINTS.includes(path)) {
     pathOf.set(res, path);
+    if (captureEnabled()) {
+      const ua = req.headers["user-agent"];
+      requestOf.set(res, { path, params: new URLSearchParams(url.searchParams), ua: typeof ua === "string" ? ua : null, started: Date.now() });
+    }
     armWatchdog(res, path, firstValue(url, "query", "q", "question", "text", "input"));
     // Preserve values and duplicate-parameter ordering: these can affect parsing.
     // Sorting parameter names allows equivalent engine requests to share work.
@@ -520,9 +531,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   }
 
   if (path === "/weather-forecast") {
+    const asked = firstValue(url, "query", "q", "question", "text", "input");
     const q =
       withSubject(
-        firstValue(url, "query", "q", "question", "text", "input"),
+        asked,
         firstRealValue(url, "location", "place", "city"),
       ) || coordsFromParams(url);
     if (!q.trim()) {
@@ -553,8 +565,9 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     // `hours=0` means the current hour — our own input_schema says so — but a
     // falsy-zero `||` here silently turned it into the 24-hour default, so a
     // "what is it right now" question was answered with a day-long range. An
-    // absent parameter is an empty string, which is what separates the two.
-    const hoursRaw = firstValue(url, "hours");
+    // absent parameter is an empty string, which is what separates the two. WEATHER_FORECAST_GENERAL names
+    // its window `window_hours` (GET /engine/v1/intents/WEATHER_FORECAST_GENERAL, read 2026-11-08 UTC).
+    const hoursRaw = firstValue(url, "hours", "window_hours");
     const hoursNum = Number(hoursRaw);
     const hours =
       hoursRaw !== "" && Number.isFinite(hoursNum)
@@ -609,7 +622,11 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      * answer opens by naming the subject and the reading, so the prefix would
      * spend the start of a ~32-word budget repeating the question.
      */
-    if (hoursRaw === "0" || (hoursRaw === "" && !daysRequested && (asksCurrentConditions(q) || asksTemperatureNow(q)))) {
+    // A place and nothing else is WEATHER_CHECK_TEMPERATURE's whole request (its one param is `location`;
+    // WEATHER_FORECAST_GENERAL requires `window_hours`): it asks for the temperature now. It was answered with a
+    // 24-hour range, so temperature_c was null (2026-11-08).
+    const placeOnly = !asked.trim() && hoursRaw === "" && !daysRequested;
+    if (hoursRaw === "0" || placeOnly || (hoursRaw === "" && !daysRequested && (asksCurrentConditions(q) || asksTemperatureNow(q)))) {
       const nowKey = `wcnow:${q.trim().toLowerCase()}`;
       const nowHit = fromCache(nowKey);
       if (nowHit) {
@@ -706,7 +723,9 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       return;
     }
     const stormDays = Number(firstValue(url, "days", "forecast_days"));
-    const stormHoursRaw = firstValue(url, "hours", "forecast_hours");
+    // STORM_ALERT_GENERAL names its window `window_hours` (GET /engine/v1/intents/STORM_ALERT_GENERAL, read
+    // 2026-11-08 UTC); it was ignored, so every window was the route's own default.
+    const stormHoursRaw = firstValue(url, "hours", "forecast_hours", "window_hours");
     const stormHours = stormHoursRaw !== "" && Number.isFinite(Number(stormHoursRaw))
       ? Number(stormHoursRaw)
       : Number.isFinite(stormDays) && stormDays > 0 ? stormDays * 24 : undefined;
@@ -1538,15 +1557,27 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     }
     const suppliedText = firstValue(url, "text", "content");
     const instruction = firstValue(url, "query", "q", "question", "input");
-    const e = suppliedText ? extractContent(instruction, suppliedText) : extractContent(q);
+    // CONTENT_EXTRACTION_GENERAL's `fields` ("merchant, date, total") names what to extract, and was ignored:
+    // the invoice in the audit was answered with a sweep of its values (2026-11-08).
+    const fieldList = firstValue(url, "fields").replace(/\s+/g, " ").trim().slice(0, 200);
+    const asked = fieldList ? `Extract ${fieldList}.` : "";
+    const e = asked ? extractContent(asked, suppliedText || quotedPayload(q))
+      : suppliedText ? extractContent(instruction, suppliedText) : extractContent(q);
+    // brief, as the schema asks: the values asked for as name: value pairs, at most 80 characters in all.
+    const pairs = (asked ? requestedFields(asked) : []).flatMap((n) => {
+      const v = e.fields[n.toLowerCase().replace(/\s+/g, "_")]?.[0];
+      return v ? [`${n}: ${v}`] : [];
+    });
     sendAnswer(res, q, {
       // The whole extraction is the answer. Its lead sentence alone dropped the dates and amounts that came
       // after "Organization: … Place: …" (audit replay 2026-11-04, row 30).
       answer: e.summary,
       verdict: e.want,
       extracted: e.fields,
+      ...(fieldList ? { fields_requested: fieldList } : {}),
       confidence: 1,
       reason: e.summary,
+      ...(pairs.length ? { brief: pairsBrief(pairs) } : {}),
     });
     return;
   }
@@ -1612,7 +1643,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       sendAnswer(res, q, hit as TranslationResult);
       return;
     }
-    translate(q)
+    translate(q, undefined, firstValue(url, "source_language", "source_lang", "from_language"))
       .then((r) => {
         toCache(key, r);
         sendAnswer(res, q, r);
@@ -1625,7 +1656,9 @@ function route(req: IncomingMessage, res: ServerResponse): void {
   if (mission) {
     const subject = mission.params.map((n) => firstValue(url, n).trim()).filter(Boolean).join(" ");
     const q = firstValue(url, "query", "q", "question", "text", "input");
-    const key = `${path}:${mission.params.map((n) => firstValue(url, n).trim().toLowerCase()).join("|")}|${q.trim().toLowerCase()}`;
+    const fold = (v: string): string => (mission.exact ? v : v.trim().toLowerCase());
+    // JSON, not a joined string: a "|" inside code or a prompt made two inputs share one key (security review, 2026-11-07).
+    const key = JSON.stringify([path, ...mission.params.map((n) => fold(firstValue(url, n))), fold(q)]);
     const hit = fromCache(key);
     if (hit) {
       sendAnswer(res, q, hit);

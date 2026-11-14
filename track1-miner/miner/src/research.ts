@@ -410,6 +410,28 @@ export function researchConcepts(question: string): { concepts: string[]; guidan
   return { concepts: [...new Set(concepts)].slice(0, 3), guidance, recent };
 }
 
+/** The title words a paper on each asked-for aspect uses: a paper on the causes of X says "drivers" as often. */
+const ASPECT_WORDS: Record<string, string[]> = {
+  cause: ["causes", "drivers", "factors", "mechanisms"], driver: ["drivers", "causes", "factors"],
+  "risk factor": ["risk factors", "causes"], mechanism: ["mechanisms", "causes"],
+  effect: ["effects", "benefits", "outcomes"], benefit: ["benefits", "effects"], risk: ["risks", "adverse effects", "safety"],
+  symptom: ["symptoms", "signs", "manifestations"], consequence: ["consequences", "effects", "impact"],
+};
+
+/**
+ * "What are the main causes of antibiotic resistance?": the subject phrase ("antibiotic resistance") and the
+ * aspect asked of it. topicOf kept every word, so the indexes were searched for "main causes antibiotic
+ * resistance", every title had to carry most of those words, and the answer was no_evidence with no source
+ * (2026-11-08). Null when the question is not of that shape, or the phrase is longer than five words. Pure.
+ */
+export function aspectOf(subject: string): { phrase: string; aspect: string[] } | null {
+  const m = String(subject ?? "").trim().match(/^(?:(?:what|which)\s+(?:are|is|were|was)\s+)?(?:the\s+)?(?:(?:main|key|major|primary|principal|leading|common|most\s+common|biggest|top|known)\s+)?(causes?|drivers?|risk\s+factors?|mechanisms?|effects?|benefits?|risks?|symptoms?|consequences?)\s+(?:of|for|behind)\s+(?:the\s+)?(.{3,80}?)[?.!\s]*$/i);
+  if (!m) return null;
+  const phrase = m[2]!.trim();
+  const aspect = ASPECT_WORDS[m[1]!.toLowerCase().replace(/\s+/g, " ").replace(/s$/, "")];
+  return aspect && phrase.split(/\s+/).length <= 5 ? { phrase, aspect } : null;
+}
+
 export interface Finding extends Citation { conclusion: string | null }
 
 /** Each content word of a concept, cut to six letters so "supplementation" meets "supplement". Pure. */
@@ -418,14 +440,34 @@ export function contentKeys(concept: string): string[] {
   return words.length ? [...new Set(words.map((w) => w.slice(0, 6)))] : [concept.toLowerCase()];
 }
 
-/** Literature that covers every concept, with each abstract's concluding sentence. */
-export async function findConceptLiterature(concepts: string[], guidance: boolean, recent: boolean): Promise<Finding[] | "unavailable"> {
-  const term = concepts.map((c) => (c.split(/\s+/).length <= 4 ? `"${c}"` : c)).join(" AND ") +
+/**
+ * A review, else any paper, whose title names the phrase and one of the aspect's words ("antibiotic resistance"
+ * with causes, drivers, factors or mechanisms). Both queries run at once, so the pair costs one timeout.
+ */
+export async function findAspectLiterature(phrase: string, aspect: string[], recent: boolean): Promise<Finding[] | "unavailable"> {
+  const words = ` AND TITLE:"${phrase}" AND TITLE:(${aspect.map((w) => (w.includes(" ") ? `"${w}"` : w)).join(" OR ")})`;
+  const [reviews, any] = await Promise.all([
+    // Newest first led with "Antibiotic resistance in Helicobacter pylori" for the causes of antibiotic
+    // resistance; most cited first leads with "Molecular mechanisms of antibiotic resistance" (2026-11-08).
+    findConceptLiterature([phrase], false, recent, `${words} AND PUB_TYPE:review`, !recent),
+    findConceptLiterature([phrase], false, recent, words, !recent),
+  ]);
+  if (Array.isArray(reviews) && reviews.length) return reviews;
+  if (Array.isArray(any) && any.length) return any;
+  return reviews === "unavailable" && any === "unavailable" ? "unavailable" : [];
+}
+
+/**
+ * Literature that covers every concept, with each abstract's concluding sentence. `extra` narrows the query;
+ * `cited` orders it by citations, so a general review leads rather than this month's narrow one.
+ */
+export async function findConceptLiterature(concepts: string[], guidance: boolean, recent: boolean, extra = "", cited = false): Promise<Finding[] | "unavailable"> {
+  const term = concepts.map((c) => (c.split(/\s+/).length <= 4 ? `"${c}"` : c)).join(" AND ") + extra +
     (guidance ? " AND (guideline OR recommendations OR consensus)" : "") +
     (recent ? ` AND PUB_YEAR:[${new Date().getUTCFullYear() - 5} TO ${new Date().getUTCFullYear()}]` : "") +
     " NOT SRC:PPR";
   try {
-    const d = (await getJson(`${EPMC}?query=${encodeURIComponent(term)}&format=json&pageSize=8&resultType=core`)) as {
+    const d = (await getJson(`${EPMC}?query=${encodeURIComponent(term)}&format=json&pageSize=8&resultType=core${cited ? "&sort=CITED%20desc" : ""}`)) as {
       resultList?: { result?: Array<{ title?: string; authorString?: string; pubYear?: string; abstractText?: string; pubTypeList?: { pubType?: string[] } }> };
     };
     // Relevance order, then: every concept in the TITLE first, and for a guidance
@@ -541,10 +583,12 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
         `A news search fits this question.`,
     };
   }
-  const topic = topicOf(subject);
+  // "the main causes of antibiotic resistance" is searched as "antibiotic resistance", its aspect apart.
+  const aspect = aspectOf(subject);
+  const topic = aspect ? aspect.phrase : topicOf(subject);
   const names = searchNames(question);
   const terms = [...names, ...(topic ? [topic] : [subject])];
-  const qualifier = qualifierOf(subject, names);
+  const qualifier = qualifierOf(aspect ? aspect.phrase : subject, names);
   // A candidate is searched together with what the question asks about it (G200).
   const withQualifier = (candidate: string): string => {
     const extra = qualifier.filter((w) => !candidate.toLowerCase().includes(w));
@@ -571,8 +615,9 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
    * Ianalumab be approved?" gets answered with a corporate profile of Novartis.
    */
   const { concepts, guidance, recent } = researchConcepts(question);
-  const conceptSearch = concepts.length >= 2 && !isForwardLooking(question)
-    ? findConceptLiterature(concepts, guidance, recent)
+  const conceptSearch = isForwardLooking(question) ? Promise.resolve(null)
+    : concepts.length >= 2 ? findConceptLiterature(concepts, guidance, recent)
+    : aspect ? findAspectLiterature(aspect.phrase, aspect.aspect, recent)
     : Promise.resolve(null);
   const probes = await Promise.all(terms.map(async (candidate) => {
     const [t, l] = await Promise.all([
@@ -686,7 +731,8 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
       ...empty, subject, verdict: "no_evidence", confidence: 0.6,
       reason:
         `No registered trial and no indexed publication on ${withQualifier(term)} was found, so nothing is claimed ` +
-        `about ${subject}. ClinicalTrials.gov and Europe PMC were both searched and both answered; ` +
+        `about ${subject}.${aspect && Array.isArray(found) ? ` Europe PMC was also searched for papers whose titles name ` +
+          `${aspect.phrase} with ${aspect.aspect.join(", ")}, and none was found.` : ""} ClinicalTrials.gov and Europe PMC were both searched and both answered; ` +
         `an absence in those two indexes is not proof that no work exists.`,
     };
   }

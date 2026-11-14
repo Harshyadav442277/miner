@@ -29,6 +29,8 @@
  * ground truths. Those are authored, not real, so they chose nothing here.
  */
 import { currentFact } from "./currentfacts";
+import { opening } from "./genai";
+import { phrase, sanitise } from "./llm";
 import { answerQuestion } from "./qa";
 import { searchNews, type Article } from "./newssearch";
 import { findEncyclopedia, namedEntity } from "./research";
@@ -115,6 +117,8 @@ export type WebSearchVerdict = "answered" | "no_results" | "out_of_scope" | "unk
 
 export interface WebSearchResult {
   articles: Article[];
+  /** The URLs the answer was read from: the cited reports' links, or the documentation page. */
+  sources: string[];
   background: string | null;
   verdict: WebSearchVerdict;
   confidence: number;
@@ -211,9 +215,42 @@ export function timeless(text: string): boolean {
     !isForwardLooking(q);
 }
 
+const ANSWER_SYSTEM = `You answer a question from news headlines only. Reply with ONE plain sentence of at most 40 words that answers the question directly, using only facts stated in the headlines below. Do not add any fact, number, name or date that is not in a headline. If the headlines do not answer the question, say in one sentence what they report about its subject instead. For a question about whether something will happen, do not predict: say what the headlines report. No preamble, no markdown, no quotation marks, never mention headlines, sources or yourself.`;
+
+/**
+ * A direct one-sentence answer read from the cited headlines, or null (no key, no time, a refusal). The
+ * leaders lead with the answer; "The most relevant current reports are …" made the scored brief a citation.
+ */
+export async function headlineAnswer(question: string, articles: Article[], ms = 3_000): Promise<string | null> {
+  // phrase() starts no model with under 1.5 s left, so a short remainder costs nothing.
+  if (ms < 1_500) return null;
+  const lines = articles.map((a, i) => `${i + 1}. ${a.title} (${a.source ?? "publisher not stated"}, ${fmtDate(a.published)})`).join("\n");
+  // 400, not 160: gpt-oss spends part of max_completion_tokens on hidden reasoning, and on production the direct
+  // answer was missing for the Fed and World Cup questions while it led for OpenAI and Tesla (2026-11-08).
+  return phrase({
+    system: ANSWER_SYSTEM, user: `Question: ${question}\nHeadlines:\n${lines}`, maxTokens: 400, deadlineMs: ms,
+    clean: (raw) => headlineSentence(raw),
+  });
+}
+
+/**
+ * The model's reply as one served sentence, or null. Pure. A reply that opens "The headlines report that …" is the
+ * answer with a preamble, so the preamble is removed rather than the answer thrown away; non-breaking hyphens
+ * ("Musk‑backed", production 2026-11-08) become plain ones.
+ */
+export function headlineSentence(raw: string): string | null {
+  const s = sanitise(String(raw ?? "").replace(/[‐‑−]/g, "-"));
+  if (!s) return null;
+  let one = opening(s).replace(/^(?:the\s+)?(?:news\s+)?(?:headlines?|reports?|coverage)\s+(?:report|say|show|indicate|state|note|suggest)s?\s*(?:that\s+)?/i, "");
+  one = one.charAt(0).toUpperCase() + one.slice(1);
+  if (one.length < 20 || one.length > 300 || /\bheadlines?\b/i.test(one)) return null;
+  return /[.!?]$/.test(one) ? one : `${one}.`;
+}
+
 export async function webSearch(question: string): Promise<WebSearchResult> {
+  const started = Date.now();
   const q = String(question ?? "").trim();
-  const empty = { articles: [] as Article[], background: null };
+  const empty = { articles: [] as Article[], sources: [] as string[], background: null };
   if (!q) {
     return {
       ...empty, verdict: "unknown", confidence: 0, error: "no_query",
@@ -235,7 +272,7 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
   const doc = await officialDocument(q);
   if (doc) {
     return {
-      ...empty, verdict: "answered", confidence: 0.9,
+      ...empty, sources: [doc.url], verdict: "answered", confidence: 0.9,
       reason: `According to ${doc.title}: ${doc.excerpt} Source: ${doc.url}`,
     };
   }
@@ -284,22 +321,27 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
   if (articles.length) {
     const current = articles.every(a => a.published && Date.now() - Date.parse(a.published) <= 30 * 86400000);
     const age = current ? "current" : "available";
-    const lead = articles.length === 1
+    const digest = articles.length === 1
       ? `The most relevant ${age} report is ${cite(articles[0] as Article)}.`
       : `The most relevant ${age} reports are ${cite(articles[0] as Article)} and ${cite(articles[1] as Article)}.`;
+    // The direct answer leads when the model gives one from the titles; the dated citations follow it.
+    // Inside the route's 11 s watchdog: two news passes can take ~9 s, so the model gets what is left of 10 s.
+    const direct = await headlineAnswer(q, articles, Math.min(3_000, 10_000 - (Date.now() - started))).catch(() => null);
     return {
-      articles, background, verdict: "answered", confidence: 0.8,
+      articles, sources: articles.map((a) => a.url).filter((u): u is string => !!u), background, verdict: "answered", confidence: 0.8,
       // No encyclopedia clause beside current reports: it would spend the
       // ~32 scored words on static background the intent is defined against.
-      reason: `${lead}${caveat} Source: Google News search.`,
+      reason: `${direct ? `${direct} ` : ""}${digest}${caveat} Source: Google News search.`,
     };
   }
 
   if (background) {
     const note = newsBarred ? " Current news was not searched, because no news index licensed for paid use is available."
       : newsDown ? " The news index did not answer, so no current reporting is included." : " No current news report on this subject was found.";
+    // The article the answer quotes is its source: "Who is the CEO of OpenAI?" came back with sources [] (2026-11-08).
+    const page = wiki && wiki !== "unavailable" ? `https://en.wikipedia.org/wiki/${encodeURIComponent(wiki.title.replace(/ /g, "_"))}` : null;
     return {
-      articles, background, verdict: "answered", confidence: 0.5,
+      articles, sources: page ? [page] : [], background, verdict: "answered", confidence: 0.5,
       reason: `According to Wikipedia: ${background}${note}${caveat}`,
     };
   }

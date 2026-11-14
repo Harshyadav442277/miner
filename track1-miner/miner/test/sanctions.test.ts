@@ -21,7 +21,7 @@ const UN = `<?xml version="1.0"?><CONSOLIDATED_LIST dateGenerated="2026-10-12T23
 </INDIVIDUALS><ENTITIES><ENTITY><DATAID>2</DATAID><FIRST_NAME>ADF</FIRST_NAME><UN_LIST_TYPE>DRC</UN_LIST_TYPE><REFERENCE_NUMBER>CDe.001</REFERENCE_NUMBER>
 <LISTED_ON>2014-06-30</LISTED_ON><ENTITY_ALIAS><QUALITY>a.k.a.</QUALITY><ALIAS_NAME>Allied Democratic Forces</ALIAS_NAME></ENTITY_ALIAS></ENTITY></ENTITIES></CONSOLIDATED_LIST>`;
 
-const lists = () => ({ parties: [...parseOfac(SDN, ALT), ...parseUn(UN)], editions: [], unavailable: [] });
+const lists = () => ({ parties: [...parseOfac(SDN, ALT), ...parseUn(UN)], editions: [], unavailable: [], not_screened: [] });
 
 test("CSV fields keep quoted commas, doubled quotes and OFAC's empty marker", () => {
   assert.deepEqual(parseCsv(`1,"A, B ""C""",-0- \r\n2,x,y`), [["1", 'A, B "C"', "-0- "], ["2", "x", "y"]]);

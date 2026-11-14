@@ -107,6 +107,21 @@ export function rankRecords(want: string, records: LeiRecord[]): LeiRecord[] {
     .filter((x) => x.n >= 0.9).map((x) => ({ r: x.r, s: x.n + bonus(x.r) })).sort((a, b) => b.s - a.s).map((x) => x.r);
 }
 
+/** The long forms a register spells out for a legal-form abbreviation at the end of a name. */
+const LONG_FORMS: Record<string, string[]> = {
+  ag: ["Aktiengesellschaft"], gmbh: ["Gesellschaft mit beschränkter Haftung"], se: ["Societas Europaea"],
+  sa: ["Société Anonyme", "Sociedad Anónima"], nv: ["Naamloze Vennootschap"], bv: ["Besloten Vennootschap"],
+  plc: ["Public Limited Company"], ltd: ["Limited"], inc: ["Incorporated"], llc: ["Limited Liability Company"],
+  spa: ["Società per Azioni"], kk: ["Kabushiki Kaisha"],
+};
+
+/** "Siemens AG" as "Siemens Aktiengesellschaft": each long form of a trailing legal-form abbreviation. Pure. */
+export function longForms(name: string): string[] {
+  const m = String(name ?? "").trim().match(/^(.+?)[\s,]+((?:[A-Za-z]\.?){2,4}|GmbH|plc|Ltd|Inc|SpA)\.?$/);
+  const key = m?.[2]?.replace(/\./g, "").toLowerCase();
+  return m && key && LONG_FORMS[key] ? LONG_FORMS[key]!.map((l) => `${m[1]!.trim()} ${l}`) : [];
+}
+
 export interface Party { name: string; lei: string }
 
 export interface RegistryResult {
@@ -199,7 +214,20 @@ export async function lookupRegistry(question: string, companyParam = "", number
   }
   const records = !found?.data ? [] : Array.isArray(found.data) ? found.data : [found.data];
   // An EDGAR filer that names its own LEI settles which record it is.
-  const ranked = s.lei || s.number ? records : rankRecords(s.name, records);
+  let ranked = s.lei || s.number ? records : rankRecords(s.name, records);
+  const exact = (want: string, r: LeiRecord | undefined): boolean =>
+    !!r && nameScore(nameTokens(want), nameTokens(r.attributes.entity.legalName.name)) >= 1;
+  if (!s.lei && !s.number && !exact(s.name, ranked[0]) && !(us?.lei && records.some((r) => r.id === us.lei))) {
+    // "Siemens AG" found Siemens Energy AG and its siblings, none of them the company; the register names it
+    // "Siemens Aktiengesellschaft" (2026-11-08). "Robert Bosch GmbH" found Robert Bosch Krankenhaus GmbH. The
+    // long forms are searched when the short one finds no record of exactly that name, and an exact one wins.
+    const longs = await Promise.all(longForms(s.name).map((n) =>
+      gleif(`lei-records?filter%5Bentity.legalName%5D=${encodeURIComponent(n.slice(0, 120))}${country}&page%5Bsize%5D=15`)
+        .then((j) => ({ n, list: rankRecords(n, ((j as { data?: LeiRecord[] } | null)?.data ?? [])) }))
+        .catch(() => ({ n, list: [] as LeiRecord[] }))));
+    const hit = longs.find((l) => exact(l.n, l.list[0])) ?? (ranked.length ? undefined : longs.find((l) => l.list.length));
+    if (hit) ranked = [...hit.list, ...ranked.filter((r) => !hit.list.includes(r))];
+  }
   const best = (us?.lei && records.find((r) => r.id === us.lei)) || ranked[0];
   if (!best) {
     if (us) {

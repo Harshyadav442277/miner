@@ -9,6 +9,7 @@
 import { lookupDns } from "./dns";
 import { monitorFilings } from "./filings";
 import { registryIntentFields, sanctionsIntentFields } from "./intent-fields";
+import { auditContract, chat, generateText, reviewCode } from "./genai";
 import { verifyOnchainMetric } from "./onchain-metric";
 import { answerQuestion } from "./qa";
 import { macroIndicators } from "./macro";
@@ -17,13 +18,18 @@ import { screenSanctions } from "./sanctions";
 import { verifyTokenSupply } from "./token-supply";
 import { urlReputation } from "./urlsafe";
 
-export interface MissionAnswer { verdict: string; confidence: number; reason: string; error?: string }
+export interface MissionAnswer { verdict?: string; confidence: number; reason: string; error?: string }
 
 export interface MissionRoute {
   /** "A sanctions screening": the watchdog's sentence when the route runs out of time. */
   what: string;
   /** Declared parameters that name the subject; they key the cache with the question. */
   params: readonly string[];
+  /**
+   * Key the cache on the exact input. Code and writing prompts are case-sensitive: lower-casing
+   * them served one snippet's review for another (commit security review, 2026-11-07).
+   */
+  exact?: boolean;
   /** `param(...names)` is the first of those parameters that carries a value, or "". */
   run: (question: string, param: (...names: string[]) => string) => Promise<MissionAnswer>;
 }
@@ -47,8 +53,8 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
   },
   "/macro": {
     what: "A macroeconomic statistic lookup",
-    params: ["indicator", "country"],
-    run: (q, p) => macroIndicators(q, p("indicator"), p("country")),
+    params: ["indicator", "country", "year"],
+    run: (q, p) => macroIndicators(q, p("indicator"), p("country"), p("year")),
   },
   "/url-reputation": {
     what: "A threat-list check",
@@ -69,6 +75,30 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
     what: "A token supply read",
     params: ["token", "contract", "address", "chain"],
     run: (q, p) => verifyTokenSupply(q, p("token", "contract", "address"), p("chain")),
+  },
+  "/chat": {
+    what: "A chat reply",
+    params: ["message"],
+    exact: true,
+    run: (q, p) => chat(q, p("message")),
+  },
+  "/code-review": {
+    what: "A code review",
+    params: ["code"],
+    exact: true,
+    run: (q, p) => reviewCode(q, p("code")),
+  },
+  "/contract-audit": {
+    what: "A smart-contract audit",
+    params: ["contract", "code", "source", "solidity"],
+    exact: true,
+    run: (q, p) => auditContract(q, p("contract", "code", "source", "solidity")),
+  },
+  "/generate": {
+    what: "The requested text",
+    params: ["prompt"],
+    exact: true,
+    run: (q, p) => generateText(q, p("prompt")),
   },
   "/onchain-metric": {
     what: "An on-chain metric read",

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { blsReading, eurostatReading, indicatorsAsked, macroIndicators, macroRegion } from "../src/macro";
+import { blsReading, eurostatReading, indicatorsAsked, macroIndicators, macroRegion, yearAsked } from "../src/macro";
 
 test("the statistics and the region are read from the question", () => {
   assert.deepEqual(indicatorsAsked("What was the latest US CPI year-over-year print, and what is the current federal funds target range?"), ["cpi", "policy_rate"]);
@@ -42,4 +42,47 @@ test("the CPI and fed funds question answers both, from BLS and the New York Fed
   const india = await macroIndicators("What is India's policy rate?");
   assert.equal(india.verdict, "not_covered");
   assert.match(india.reason, /policy rate for India is not read here/);
+});
+
+test("a stated year is that year's World Bank annual value, from the parameter or 'in YYYY' (2026-11-08)", async (t) => {
+  const original = globalThis.fetch;
+  const asked: string[] = [];
+  // Values as api.worldbank.org returned them on 2026-11-08.
+  const WDI: Record<string, number> = { "US/FP.CPI.TOTL.ZG/2023": 4.11633838374487, "DE/SL.UEM.TOTL.ZS/2022": 3.137, "IN/NY.GDP.MKTP.KD.ZG/2021": 9.68959249191741 };
+  globalThis.fetch = (async (url: string) => {
+    const u = new URL(String(url));
+    asked.push(u.hostname);
+    const m = u.pathname.match(/country\/(\w+)\/indicator\/([\w.]+)/);
+    const key = m ? `${m[1]}/${m[2]}/${u.searchParams.get("date")}` : "";
+    if (u.hostname === "api.worldbank.org") {
+      return Response.json(WDI[key] !== undefined ? [{ page: 1 }, [{ date: u.searchParams.get("date"), value: WDI[key] }]] : [{ page: 0 }, null]);
+    }
+    return new Response("", { status: 503 });
+  }) as typeof globalThis.fetch;
+  t.after(() => { globalThis.fetch = original; });
+  const us = await macroIndicators("", "inflation", "United States", "2023");
+  assert.equal(us.verdict, "reported");
+  assert.equal(us.year, 2023);
+  assert.deepEqual([us.indicators[0]!.value, us.indicators[0]!.period, us.indicators[0]!.frequency], [4.1163, "2023", "annual"]);
+  assert.match(us.reason, /^Consumer price inflation in the US was 4\.1% in 2023 \(World Bank/);
+  const de = await macroIndicators("What was the unemployment of Germany in 2022?");
+  assert.equal(de.indicators[0]!.value, 3.137);
+  const india = await macroIndicators("What was the GDP growth of India in 2021?");
+  assert.equal(india.indicators[0]!.value, 9.6896);
+  assert.ok(!asked.some((h) => h !== "api.worldbank.org"), "no latest-print publisher is read for a past year");
+  // A year with no published value is not covered, never the latest print in its place.
+  const none = await macroIndicators("What was the unemployment of Germany in 2019?");
+  assert.equal(none.verdict, "not_covered");
+  assert.match(none.reason, /unemployment rate for Germany in 2019 has no annual World Bank figure/);
+  // A past-year policy rate has no annual WDI series.
+  assert.equal((await macroIndicators("What was the Fed funds rate in 2020?")).verdict, "not_covered");
+});
+
+test("the year is read from the parameter or the question, and a future year is ignored", () => {
+  const now = new Date("2026-11-08T00:00:00Z");
+  assert.equal(yearAsked("", "2023", now), 2023);
+  assert.equal(yearAsked("What was the inflation of United States in 2023?", "", now), 2023);
+  assert.equal(yearAsked("US unemployment for 2021", "", now), 2021);
+  assert.equal(yearAsked("Will inflation fall in 2030?", "", now), null);
+  assert.equal(yearAsked("What is the latest US CPI?", "", now), null);
 });

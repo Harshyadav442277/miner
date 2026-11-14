@@ -1,0 +1,52 @@
+# Daily sanctions index build.
+#
+# Builds sanctions-index.json (OFAC SDN, OFAC non-SDN, UN, UK Sanctions List, EU FSF) with
+# track1-miner/tools/build-sanctions-index.mjs and force-pushes it, with its metadata, as the single commit of
+# the orphan branch `sanctions-data`. The miner reads it from
+# https://raw.githubusercontent.com/Harshyadav442277/miner/sanctions-data/sanctions-index.json.
+# Only that branch is ever written. A run where a core list fails writes nothing, so the last good index stays
+# up; the miner stops using an index older than 72 h and reads the lists directly.
+#
+# GitHub runs scheduled workflows from the default branch only: the cron does nothing until this file is on main.
+
+name: sanctions-index
+
+on:
+  schedule:
+    - cron: "23 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sanctions-index
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: track1-miner/miner
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - name: Build the index
+        run: node ../tools/build-sanctions-index.mjs --out "$RUNNER_TEMP/sanctions-data"
+      - name: Publish to the sanctions-data branch
+        working-directory: ${{ runner.temp }}/sanctions-data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git init -q -b sanctions-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sanctions-index.json sanctions-index.meta.json
+          git commit -q -m "Sanctions index built $(node -p "require('./sanctions-index.meta.json').built_at")"
+          git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/sanctions-data

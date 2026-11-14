@@ -1,0 +1,32 @@
+Sun Nov  8 16:00:08 UTC 2026
+preview https://miner-md17zhom4-wukong4.vercel.app (a2f911e)
+== /news-search
+{"brief":"OpenAI Hears Voters’ Overwhelming Rebuke To Data Centers, Vows to Build More","result_count":5}
+== /research
+{"verdict":"evidence","brief":"Molecular mechanisms of antibiotic resistance","source_count":3}
+== /papers
+{"brief":"Top paper: CRISPR Gene Editing in the Kidney"}
+== /sanctions-screen
+{"matched":true,"match_score":0.85,"verdict":"possible_match"}
+== /company-registry
+{"active":true,"verdict":"found"}
+== /sec-filings
+{"filing_count":18,"verdict":"filed"}
+== /weather-forecast
+{"temperature_c":29.5,"window_hours":0}
+== /storm-alert
+{"window":"36 hours","risk_level":"LOW"}
+== /macro
+{"rate_pct":4.1163,"verdict":"reported"}
+== /token-supply
+{"verdict":"not_a_token","error":"native_coin","total_supply":null}
+== /gas-price
+{"gas_price_gwei":0.05,"chain":"bsc"}
+== /crypto-price
+{"price_usd":0.00000507,"verdict":"price"}
+== /fact-check
+{"verdict":"False","answer":"False. The claim \"the Eiffel Tower is in Berlin\" is contradicted by the reference source consulted."}
+== /contract-audit
+{"verdict":"unknown","error":"upstream_unavailable"}
+== /ssl-check
+{"certificate_valid":true,"verdict":"valid"}

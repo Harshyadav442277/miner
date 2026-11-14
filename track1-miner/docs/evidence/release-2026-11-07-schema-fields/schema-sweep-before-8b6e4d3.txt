@@ -1,0 +1,42 @@
+ok      SSL_VERIFICATION_CERT                /ssl-check           
+SCORED  STORM_ALERT_GENERAL                  /storm-alert         *risk_level: missing; peak_gust_kmh: missing; precipitation_mm: missing; window: missing
+SCORED  ACADEMIC_SEARCH_GENERAL              /papers              paper_titles: missing; dois: missing; total_matches: missing; *brief: missing
+SCORED  LANGUAGE_TRANSLATION_GENERAL         /translate           source_language: missing; *brief: missing
+ok      IP_GEOLOCATION_GENERAL               /ip-geolocate        
+minor   WEATHER_FORECAST_GENERAL             /weather-forecast    when: missing; precipitation_probability_pct: missing; condition: missing
+SCORED  WEATHER_CHECK_TEMPERATURE            /weather-forecast    *temperature_c: null
+SCORED  CONTENT_EXTRACTION_GENERAL           /extract             title: missing; content: missing; url: missing; entities: missing; *brief: missing
+minor   NEWS_HEADLINES_GENERAL               /headlines           urls: missing; window: missing; top_headline: missing
+minor   WALLET_BALANCE_CHECK_GENERAL         /wallet-balance      token_symbol: missing; as_of: missing
+SCORED  ONCHAIN_TX_LOOKUP_GENERAL            /tx-lookup           tx_hash: missing; *status: missing; from: missing; to: missing; *block_number: null; value_eth: missing
+minor   CVE_LOOKUP_CVSS                      /cve                 references: missing
+SCORED  NEWS_SEARCH_GENERAL                  /news-search         result_count: missing; sources: missing; *brief: missing
+ok      CURRENCY_EXCHANGE_CONVERT            /convert             
+minor   GAS_PRICE_GENERAL                    /gas-price           transfer_fee_usd: missing; as_of: missing
+SCORED  FINANCIAL_DATA_GENERAL               /financial           asset: missing; *market_cap_usd: missing; volume_24h_usd: missing; metrics: missing; as_of: missing
+SCORED  FRAUD_DETECTION_GENERAL              /fraud-check         subject: null; *verdict: "unknown" not in [FRAUD, LIKELY_FRAUD, SUSPICIOUS, LEGITIMATE, INCONCLUSIVE, LOW, ELEVATED, HIGH]; *risk_score: missing; signals: missing; summary: missing
+minor   TOKEN_HOLDER_COUNT_GENERAL           /token-holders       token: missing; token_symbol: missing
+SCORED  RESEARCH_QUERY_GENERAL               /research            source_count: missing; sources: missing; *brief: missing
+ok      CRYPTO_PRICE_USD                     /crypto-price        
+SCORED  STOCK_PRICE_US_EQUITY                /stock-price         *price_usd: missing
+ok      CROSS_CHAIN_STATE_VERIFY_GENERAL     /cross-chain         
+SCORED  EVENT_OUTCOME_RESOLUTION_GENERAL     /event-outcome       *outcome: "Yes" not in [yes, no, unresolved]; resolved_at: missing; sources: missing
+ok      URL_SCAN_VERDICT                     /url-scan            
+SCORED  WEB_SEARCH_GENERAL                   /web-search          sources: missing; *brief: missing
+SCORED  SENTIMENT_ANALYSIS_GENERAL           /sentiment           *sentiment: missing; score: missing
+minor   TEXT_CLASSIFICATION_GENERAL          /classify            category: missing
+SCORED  RESEARCH_SYNTHESIS_GENERAL           /research-synthesis  source_count: missing; *brief: missing
+SCORED  FACT_CHECK_GENERAL                   /fact-check          *verdict: "supported" not in [True, Mostly True, Mixed, Misleading, Mostly False, False, Unverified]; reasoning: missing; sources: missing
+ok      SANCTIONS_SCREENING_MATCH_GENERAL    /sanctions-screen    
+ok      CORPORATE_REGISTRY_LOOKUP_GENERAL    /company-registry    
+SCORED  REGULATORY_FILING_MONITOR_GENERAL    /sec-filings         *filing_count: null
+ok      CRYPTO_TRANSFER_VERIFY_GENERAL       /transfer-verify     
+SCORED  MACRO_ECONOMIC_INDICATOR_GENERAL     /macro               *rate_pct: missing
+SCORED  URL_SAFE_GENERAL                     /url-reputation      *verdict: "safe" not in [Safe, Suspicious, Malicious, Unknown]; summary: missing
+ok      QUESTION_ANSWERING_GENERAL           /answer              
+SCORED  DNS_RECORD_LOOKUP_GENERAL            /dns                 *has_record: missing
+SCORED  TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL    /token-supply        *total_supply: not a number: "46204847800.771954"
+minor   CHAT_COMPLETION_GENERAL              /chat                verdict: "answered" not in [Likely, Unlikely, Uncertain]
+ok      CODE_REVIEW_GENERAL                  /code-review         
+minor   TEXT_GENERATION_GENERAL              /generate            title: empty
+SCORED  ONCHAIN_METRIC_VERIFY_GENERAL        /onchain-metric      *balance_gwei: missing; address: missing; block: missing

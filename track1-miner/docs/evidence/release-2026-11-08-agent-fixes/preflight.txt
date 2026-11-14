@@ -1,0 +1,28 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           PASS
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+test at dist-test\test\gas.test.js:151:22
+✖ every supported chain answers with a plausible fee (live) (2370.4359ms)
+  AssertionError [ERR_ASSERTION]: bsc answer does not name the chain
+      at TestContext.<anonymous> (C:\Users\hyada\tg-deploy\m-nonsdn\track1-miner\miner\dist-test\test\gas.test.js:162:26)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+6/7 gates passed — re-run the failing gate alone before believing it.

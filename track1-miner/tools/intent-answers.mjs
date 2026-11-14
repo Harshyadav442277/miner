@@ -195,10 +195,12 @@ const CHECKS = {
     const bad = [];
     // A clean result must never read as a clearance: a caller acts on it.
     const clean = await get("/fraud-check", { query: "How risky is 0x0000000000000000000000000000000000000001?" });
+    // The schema's grade (LOW, HIGH…) replaces `verdict` since 2026-11-07; the route's own word is verdict_detail.
+    const own = (b) => b.verdict_detail ?? b.verdict;
     const c = clean.body;
     if (c.error && c.error !== "no_subject") return [`errored: ${c.error}`];
     const cr = String(c.reason ?? "");
-    if (c.verdict === "no_indicators") {
+    if (own(c) === "no_indicators") {
       if (!/not the same as being safe/i.test(cr)) bad.push("a clean result does not disclaim that it means safe");
       if (!/checks performed/i.test(cr)) bad.push("a clean result does not say which checks were performed");
     }
@@ -216,14 +218,14 @@ const CHECKS = {
     if (sanctionedAddr) {
       const hit = await get("/fraud-check", { query: `Is it safe to receive funds from ${sanctionedAddr}?` });
       if (!hit.body.error) {
-        if (hit.body.verdict !== "high_risk") bad.push(`sanctioned address -> ${hit.body.verdict}, want high_risk`);
+        if (own(hit.body) !== "high_risk") bad.push(`sanctioned address -> ${own(hit.body)}, want high_risk`);
         if (!/OFAC sanctioned/.test(String(hit.body.reason ?? ""))) bad.push("a sanctions hit does not name the sanctions list");
       }
     }
 
     // Scam wording alone must raise risk.
     const scam = await get("/fraud-check", { query: "They asked me to buy gift cards to settle the invoice." });
-    if (!scam.body.error && scam.body.verdict === "no_indicators") {
+    if (!scam.body.error && own(scam.body) === "no_indicators") {
       bad.push("gift-card payment wording did not raise risk");
     }
 
@@ -505,10 +507,12 @@ const CHECKS = {
       if (g.body.verdict !== "anycast" || !/anycast/i.test(String(g.body.reason ?? ""))) {
         bad.push(`8.8.8.8 -> ${g.body.verdict}; an anycast address answered as one location`);
       }
-      // Only ip-api honours operator geofeeds and puts this in Tokyo; the
-      // ipwho.is fallback misplaces it in Mumbai. Tokyo proves the PRIMARY answered.
+      // The primary must answer, proven by the receipt rather than by a city: Google's geofeed moved this
+      // address from Tokyo (2026-10) to New Haven (ip-api from Vercel, 2026-11-07), so a pinned city goes stale.
       const geo = await get("/ip-geolocate", { ip: "142.251.42.174" });
-      if (!/tokyo|japan/i.test(geo.body.reason)) bad.push(`142.251.42.174 -> ${geo.body.verdict}; not Tokyo, so the primary provider is not answering`);
+      const primary = (geo.body.receipt?.upstream ?? []).find((u) => /ip-api\.com/.test(String(u.url)));
+      if (!primary || Number(primary.status) !== 200) bad.push(`142.251.42.174: ip-api did not answer (${primary ? `HTTP ${primary.status}` : "not called"})`);
+      if (!/google/i.test(String(geo.body.reason ?? ""))) bad.push("142.251.42.174 answer never names Google");
     }
     const priv = await get("/ip-geolocate", { ip: "192.168.1.10" });
     if (priv.body.verdict !== "private") bad.push(`192.168.1.10 -> ${priv.body.verdict}, want private`);
@@ -607,7 +611,8 @@ const CHECKS = {
     // "supported" verdict, because an article about a claim shares its whole
     // vocabulary. An earlier version rated "vaccines cause autism" supported.
     const danger = await get("/fact-check", { query: "Fact-check: vaccines cause autism." });
-    if (danger.body.verdict === "supported") bad.push("SAFETY: asserted support for a misinformation claim");
+    // FACT_CHECK's schema verdict (True…False) replaces `verdict` since 2026-11-07; the route's word is verdict_detail.
+    if ((danger.body.verdict_detail ?? danger.body.verdict) === "supported" || danger.body.verdict === "True") bad.push("SAFETY: asserted support for a misinformation claim");
     if (/\bis supported\b/i.test(String(danger.body.reason))) bad.push("SAFETY: prose asserts support");
     const r = await get("/fact-check", { query: "Is it true that the Eiffel Tower is located in Paris?" });
     if (r.body.source !== "Wikipedia") bad.push(`source ${r.body.source}, want a named reference`);
@@ -1111,10 +1116,13 @@ const CHECKS = {
     if (kim.body.verdict !== "match") bad.push(`Kim Jong Un -> ${kim.body.verdict}, want match`);
     if (kim.body.matches?.[0]?.id !== "20157") bad.push(`top match id ${kim.body.matches?.[0]?.id}, want OFAC 20157`);
     const screened = (kim.body.lists_checked ?? []).map((e) => e.list).join(" | ");
-    if (screened !== "OFAC SDN | OFAC Consolidated (non-SDN) | UN Security Council Consolidated") {
-      bad.push(`lists screened: ${screened || "none"}; want OFAC SDN, OFAC non-SDN and UN`);
+    // The three core lists always; the UK and EU lists when the prebuilt index carries them (2026-11-09).
+    const core = "OFAC SDN | OFAC Consolidated (non-SDN) | UN Security Council Consolidated";
+    if (!screened.startsWith(core) || !/^(?: \| (?:UK Sanctions List|EU Financial Sanctions Consolidated List))*$/.test(screened.slice(core.length))) {
+      bad.push(`lists screened: ${screened || "none"}; want OFAC SDN, OFAC non-SDN and UN, then UK/EU when read`);
     }
-    if (!/EU and UK lists were not screened/.test(String(kim.body.reason))) bad.push("the unscreened lists are not named");
+    const missing = kim.body.lists_not_checked ?? [];
+    if (missing.length && !/\b(?:EU|UK)\b[^.]*\bnot screened\b/.test(String(kim.body.reason))) bad.push("the unscreened lists are not named");
     const near = await get("/sanctions-screen", { query: "Is Viktor But sanctioned?" });
     if (!/^(?:match|possible_match)$/.test(String(near.body.verdict))) bad.push(`Viktor But -> ${near.body.verdict}, want a near-match on Bout`);
     // ABU TEIR, Mohammed (NS-PLC) is on OFAC's non-SDN list only; production cleared him before 192aecc (G268).
@@ -1237,6 +1245,63 @@ const CHECKS = {
     else if (Math.abs(ours - theirs) / theirs > 0.01) bad.push(`supply ${ours} differs from Blockscout's ${theirs} by more than 1%`);
     const eoa = await get("/token-supply", { token: VITALIK, chain: "ethereum" });
     if (eoa.body.verdict !== "not_a_token") bad.push(`a wallet address -> ${eoa.body.verdict}, want not_a_token`);
+    return bad;
+  },
+
+  async CHAT_COMPLETION() {
+    const bad = [];
+    const a = await get("/chat", { message: "What is the capital of Australia?" });
+    if (a.body.error === "upstream_unavailable") return ["the model did not answer (Groq quota or outage)"];
+    if (!/canberra/i.test(String(a.body.brief))) bad.push(`brief "${a.body.brief}" does not name Canberra`);
+    if (String(a.body.brief ?? "").length > 80) bad.push(`brief is ${String(a.body.brief).length} characters, over 80`);
+    if (!/canberra/i.test(String(a.body.reply))) bad.push("reply does not name Canberra");
+    const w = await get("/chat", { message: "Will the Sun rise in the east tomorrow?" });
+    if (!["Likely", "Unlikely", "Uncertain"].includes(w.body.verdict)) bad.push(`a will-question -> verdict ${w.body.verdict}`);
+    else if (w.body.verdict !== "Likely") bad.push(`sunrise tomorrow -> ${w.body.verdict}, want Likely`);
+    return bad;
+  },
+
+  async CODE_REVIEW() {
+    const bad = [];
+    const code = 'def get_user(db, uid):\n    q = "SELECT * FROM users WHERE id = " + uid\n    rows = db.execute(q)\n    for i in range(len(rows) + 1):\n        print(rows[i])\n';
+    const a = await get("/code-review", { code });
+    if (a.body.error === "upstream_unavailable") return ["the model did not answer (Groq quota or outage)"];
+    if (a.body.verdict !== "Request changes") bad.push(`planted SQL injection -> ${a.body.verdict}, want Request changes`);
+    const said = JSON.stringify(a.body.findings ?? []) + String(a.body.summary);
+    if (!/sql injection|injection/i.test(said)) bad.push("the SQL injection is not named");
+    if (!/off[- ]by[- ]one|index ?error|out of (?:range|bounds)|len\(rows\) \+ 1/i.test(said)) bad.push("the off-by-one read is not named");
+    const clean = await get("/code-review", { code: "def add(a: int, b: int) -> int:\n    return a + b\n" });
+    if (clean.body.verdict === "Request changes") bad.push("a correct two-line function -> Request changes");
+    return bad;
+  },
+
+  async SMART_CONTRACT_AUDIT() {
+    const bad = [];
+    // A planted reentrancy: the ETH is sent before the balance is zeroed.
+    const vault = "pragma solidity ^0.8.0;\ncontract Vault {\n  mapping(address => uint) public balances;\n  function deposit() external payable { balances[msg.sender] += msg.value; }\n  function withdraw() external {\n    uint amount = balances[msg.sender];\n    (bool ok, ) = msg.sender.call{value: amount}(\"\");\n    require(ok);\n    balances[msg.sender] = 0;\n  }\n}\n";
+    const a = await get("/contract-audit", { contract: vault });
+    if (a.body.error === "upstream_unavailable") return ["the model did not answer (Groq quota or outage)"];
+    if (!["Critical", "High"].includes(a.body.verdict)) bad.push(`planted reentrancy -> ${a.body.verdict}, want Critical or High`);
+    const top = (a.body.findings ?? [])[0];
+    if (!/reentr/i.test(String(top?.class) + String(top?.issue))) bad.push(`the most serious finding is not the reentrancy: ${JSON.stringify(top)}`);
+    if (!/withdraw/i.test(String(top?.function) + String(top?.issue))) bad.push("the reentrancy is not placed in withdraw");
+    if (!/^Overall risk: /.test(String(a.body.summary)) && !new RegExp(String(a.body.verdict), "i").test(String(a.body.summary).split(".")[0])) {
+      bad.push("the summary does not open with the risk grade");
+    }
+    const safe = await get("/contract-audit", { contract: "pragma solidity ^0.8.0;\ncontract Store {\n  uint256 private value;\n  function get() external view returns (uint256) { return value; }\n}\n" });
+    if (["Critical", "High"].includes(safe.body.verdict)) bad.push(`a read-only storage contract -> ${safe.body.verdict}`);
+    return bad;
+  },
+
+  async TEXT_GENERATION() {
+    const bad = [];
+    const a = await get("/generate", { prompt: "Write a 60-word product description for a solar-powered phone charger. Mention that it is waterproof." });
+    if (a.body.error === "upstream_unavailable") return ["the model did not answer (Groq quota or outage)"];
+    const n = Number(a.body.word_count);
+    if (!(n >= 51 && n <= 69)) bad.push(`asked for 60 words, got ${n} (outside 15%)`);
+    if (!/waterproof/i.test(String(a.body.text))) bad.push("the required word 'waterproof' is missing");
+    if (/^(?:here is|here's|sure|certainly)\b/i.test(String(a.body.text))) bad.push("the text opens with a preamble");
+    if (String(a.body.brief ?? "").length > 80) bad.push(`brief is ${String(a.body.brief).length} characters, over 80`);
     return bad;
   },
 
