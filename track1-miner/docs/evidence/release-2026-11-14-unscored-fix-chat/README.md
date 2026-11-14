@@ -1,12 +1,13 @@
 # Release 2026-11-14: unscored-intent fix, answer fixes, chat brief and current facts
 
-Owner: "deploy everything, merge the PRs" (2026-11-14). Three production deploys the same afternoon (UTC).
+Owner: "deploy everything, merge the PRs" (2026-11-14). Four production deploys the same afternoon (UTC).
 
 | Build | Production URL | Deployment | What |
 |---|---|---|---|
 | `a59ead4` | `miner-mo41ngruw-wukong4.vercel.app` | `dpl_9FoSc3c1eBSHTMfCzFH5NQLGVQDg` | CVE fallback (G288), web search brief and live figures (G289), no-code refusals, `jurisdiction`, YAML `494b135` |
 | `d8b68aa` | `miner-np4le3xnp-wukong4.vercel.app` | `dpl_BcqWqAfZrXfC5BioWwcT1AKVL31S` | chat: today's date in the prompt, brief always a whole sentence |
-| `d52d769` | `miner-6656v8dvn-wukong4.vercel.app` | `dpl_ETgwi6DQsUmB73cziJ548aAMuww5` | chat: office holder or latest release read from its register first. **Current production** |
+| `d52d769` | `miner-6656v8dvn-wukong4.vercel.app` | `dpl_ETgwi6DQsUmB73cziJ548aAMuww5` | chat: office holder or latest release read from its register first |
+| `697a41c` | `miner-59jvnyk6w-wukong4.vercel.app` | `dpl_HKnZTdQNemjFBLNLK3mUbHyTTHdk` | chat: the register fact goes to the model as one bounded line of data, not an instruction (commit security review). **Current production** |
 
 **Rollback target:** `miner-mo41ngruw` (`a59ead4`); before this release, `miner-o6dy8wc6k` (`b455022`).
 
@@ -18,7 +19,7 @@ deploy: `endpoint=ok 562ms (verdict=valid) activation=active`.
 
 | Gate | Result | Note |
 |---|---|---|
-| Unit | 982/982 on `a59ead4`, 987/987 on `d8b68aa` and `d52d769` | run in the deploy tree |
+| Unit | 982/982 on `a59ead4`, 987/987 on `d8b68aa`, `d52d769` and `697a41c` | run in the deploy tree |
 | Preview probes, `a59ead4` | 8/8 as expected | `preview-probes.txt`. Previews have no `GROQ_API_KEY` (Production only), so chat was probed on production |
 | Preflight on `a59ead4` | **5/7** | `preflight.txt` |
 | verify-deploy | FAIL | `/papers`: "1 papers in prose", 4–5 s. Production answered "OpenAlex was unavailable; this list covers DOAJ's open-access collection only" |

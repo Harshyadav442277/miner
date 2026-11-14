@@ -1,15 +1,15 @@
 # MEMORY.md — session continuity
 
-## 2026-11-14 ~15:30 UTC (21:00 IST): CURRENT — `d52d769` LIVE; registration 5232; `main` is current
+## 2026-11-14 ~15:30 UTC (21:00 IST): CURRENT — `697a41c` LIVE; registration 5232; `main` is current
 
 - Owner: "i have uploaded the yaml file. deploy everything, merge the PRs … focus on top 2 intents in phase 1".
-- **Production:** `d52d769`, `https://miner-6656v8dvn-wukong4.vercel.app` (`dpl_ETgwi6DQsUmB73cziJ548aAMuww5`).
+- **Production:** `697a41c`, `https://miner-59jvnyk6w-wukong4.vercel.app` (`dpl_HKnZTdQNemjFBLNLK3mUbHyTTHdk`).
   **Rollback target:** `miner-mo41ngruw` (`a59ead4`). Record: `track1-miner/docs/evidence/release-2026-11-14-unscored-fix-chat/`.
   Unit 987/987. Preflight 5/7: the two failures are NVD and OpenAlex not answering Vercel (G296), not this release.
 - **Registration 5232** `active` (YAML `494b135`, signed 14:44 UTC); repo variable `REGISTRATION_ID` = 5232;
   mission-matrix, the release skill and the README updated.
 - **Code:** PR 20 merged this branch into `main` (`c931b27`); later commits go in by a second PR (see git log).
-  Deploy trees: `C:/Users/hyada/tg-deploy/ma59ead4` and `md8b68aa` (now at `d52d769`). `tg-deploy/m-nonsdn` holds
+  Deploy trees: `C:/Users/hyada/tg-deploy/ma59ead4` and `md8b68aa` (now at `697a41c`). `tg-deploy/m-nonsdn` holds
   another session's uncommitted edits and is behind `main`.
 - **Sanctions index:** workflow on `main`, dispatched and green; 5 lists, 33,767 parties, EU read (G283, G284 closed).
 - **Phase 1 (top two intents) shipped:** CHAT_COMPLETION: date in the prompt, brief always a whole sentence,
