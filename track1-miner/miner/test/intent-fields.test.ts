@@ -207,6 +207,9 @@ test("briefs carry content, end at a word boundary and never gain a full stop", 
   assert.ok(tr.length <= 80 && !tr.endsWith("."));
 
   assert.equal(scoredFields("/web-search", { articles: [{ title: "Fed holds rates steady", source: "Reuters" }] }).brief, "Fed holds rates steady (Reuters)");
+  // The model's direct answer, when there is one, is the brief: a headline is a title, not an answer.
+  assert.equal(scoredFields("/web-search", { direct_answer: "The Fed held its target range at 3.75% to 4.00%.", articles: [{ title: "What the Fed's move means for you", source: "CNBC" }] }).brief,
+    "The Fed held its target range at 3.75% to 4.00%.");
   assert.equal(scoredFields("/web-search", { articles: [], background: "Paris is the capital of France. It has 2 million people.", reason: "According to Wikipedia: Paris." }).brief,
     "Paris is the capital of France.");
   assert.equal(scoredFields("/url-reputation", { sources: [], reason: "Safe: listed by none of 3 sources. Detail." }).summary, "Safe: listed by none of 3 sources.");

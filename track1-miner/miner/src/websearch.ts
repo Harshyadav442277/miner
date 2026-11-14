@@ -120,6 +120,8 @@ export interface WebSearchResult {
   /** The URLs the answer was read from: the cited reports' links, or the documentation page. */
   sources: string[];
   background: string | null;
+  /** The model's one-sentence answer from the report titles, when it gave one. */
+  direct_answer?: string | null;
   verdict: WebSearchVerdict;
   confidence: number;
   reason: string;
@@ -329,6 +331,7 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
     const direct = await headlineAnswer(q, articles, Math.min(3_000, 10_000 - (Date.now() - started))).catch(() => null);
     return {
       articles, sources: articles.map((a) => a.url).filter((u): u is string => !!u), background, verdict: "answered", confidence: 0.8,
+      direct_answer: direct,
       // No encyclopedia clause beside current reports: it would spend the
       // ~32 scored words on static background the intent is defined against.
       reason: `${direct ? `${direct} ` : ""}${digest}${caveat} Source: Google News search.`,

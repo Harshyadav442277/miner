@@ -197,7 +197,7 @@ const SCORED: Record<string, (b: Body) => Body> = {
   // WEB_SEARCH_GENERAL
   "/web-search": (b) => {
     const a = list(b.articles);
-    return { sources: a.map((x) => x.url ?? x.source).filter(Boolean), brief: headline(a[0]) ?? brief(b.background) ?? brief(b.reason) };
+    return { sources: a.map((x) => x.url ?? x.source).filter(Boolean), brief: brief(b.direct_answer) ?? headline(a[0]) ?? brief(b.background) ?? brief(b.reason) };
   },
   // SENTIMENT_ANALYSIS_GENERAL: the label in the schema's case, and the compound score (-1 to 1)
   "/sentiment": (b) => ({

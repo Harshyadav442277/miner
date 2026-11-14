@@ -1,5 +1,30 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-14 ~10:00 UTC (15:30 IST) repo audit, branch `PR/miner-provider-optimization-da4453` — G287–G290
+
+- **G287 — 13 of our 43 intents carry no score in `/api/miners` while other miners are scored on them. `OPEN`.**
+  Read 2026-11-14 ~09:25 UTC, registration 5152: no entry for SSL_VERIFICATION_CERT, WEATHER_CHECK_TEMPERATURE,
+  CVE_LOOKUP_CVSS, CURRENCY_EXCHANGE_CONVERT, FINANCIAL_DATA, CRYPTO_PRICE_USD, URL_SCAN_VERDICT, SANCTIONS,
+  CORPORATE_REGISTRY, REGULATORY_FILING, CRYPTO_TRANSFER, MACRO or DNS. Others were scored on each in epochs
+  2085–2087 (DNS: 2019 only). Production answered all of them with HTTP 200 in under 0.7 s when probed by hand, and
+  `tools/schema-sweep.mjs` found the scored field present for all but CVE (G288). Cause unknown: not sampled, or
+  dropped by the node. Close: an epoch that scores them again, or the organiser's answer on what removes a miner
+  from an intent's scores.
+- **G288 — The CVE fallback answered Log4Shell as "no numeric CVSS severity rating". `FIXED in 40f4795, NOT deployed`.**
+  When NVD rate-limits (no `NVD_API_KEY` is set), `cve-program.ts` read only the CNA container and returned no
+  `cvss_score` or `severity` fields. CVE-2021-44228's score (10.0 CRITICAL) is in the CISA-ADP container.
+  Production `b455022` still returns `verdict: unscored` (probed 09:25 UTC). Close: deploy, then the same probe
+  returns `cvss_score: 10`. A free NVD key would keep the primary path in use.
+- **G289 — WEB_SEARCH's scored `brief` was the first headline, not the answer. `FIXED on this branch, NOT deployed`.**
+  Epoch 2087: rank 22 of 27, 0.108. Still open inside the intent: a price or sports question gets reports that do
+  not state the answer ("What is the current price of Bitcoin?"), and the news source's licence (G189). Decide:
+  route those questions to the price and event routes, or drop the intent at the next `updateMiner`.
+- **G290 — Scores on four judgment intents do not follow correctness, so they are not chased. `OPEN`, by decision.**
+  EVENT_OUTCOME (leader 0.164, a fixed 2023 Bundesliga feed), WEATHER_FORECAST (leader returns an empty result),
+  NEWS_SEARCH and SENTIMENT (BBC feed wrappers at 0.998). Observed 2026-11-14 by calling each leader; how the
+  scorer works is inferred. One real gap: `/weather-forecast` declares `hours` where the schema says
+  `window_hours`; fix in the YAML at the next `updateMiner`.
+
 ## 2026-11-09 ~00:10 UTC (05:40 IST) prebuilt sanctions index, branch `claude/sanctions-index` — G283–G286 (renumbered on merge: G282 was taken by request capture)
 
 - **G283 — The EU financial sanctions file could not be read, so `parseEu` is unchecked against a live file.

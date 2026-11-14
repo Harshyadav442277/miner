@@ -1,5 +1,19 @@
 # MEMORY.md — session continuity
 
+## 2026-11-14 ~10:05 UTC (15:35 IST): repo audit on `PR/miner-provider-optimization-da4453` — two fixes NOT deployed
+
+- Branch = `claude/n1-v2-ids` (`05de417`) merged in, plus: the CVE fallback fix (`40f4795`, G288), the cleanup
+  (`e94bd1d`: 222 uncited evidence files deleted, `docs/openapi.json` regenerated to 42 paths, counts corrected in
+  README, ARCHITECTURE, INTEGRATE, OUTREACH) and the WEB_SEARCH brief fix (G289). Unit 982/982 in a replica at
+  `C:/Users/hyada/tg-deploy/replica-da4453` (node_modules is a junction to m-nonsdn's; remove with `rmdir`, never `rm -rf`).
+- Another session has uncommitted edits in `tg-deploy/m-nonsdn` (MEMORY.md, track1 README, mission-matrix, release
+  skill: 5135 → 5152). Its 2026-11-14 09:20 UTC block is the current production and rank record; not duplicated here.
+- Production unchanged: `b455022`. Nothing deployed, signed or pushed to `main`.
+- Findings: G287 (13 intents unscored, cause unknown), G288, G289, G290. Sanctions index stale since Nov 12.
+- Not touched: `track1-miner/README.md` (still says 36/42 intents and V1 names; the other session is editing it),
+  MEMORY/GAPS/TASKS history, `track2/`.
+- Next: owner's yes to deploy this branch; merge `sanctions-index.yml` to `main` and dispatch it; set `NVD_API_KEY`.
+
 ## 2026-11-09 ~00:40 UTC (06:10 IST): CURRENT — HANDOFF. `b455022` LIVE; registration 5135; next session starts here
 
 **Where things are**
