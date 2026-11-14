@@ -10,6 +10,23 @@
   `tools/schema-sweep.mjs` found the scored field present for all but CVE (G288). Cause unknown: not sampled, or
   dropped by the node. Close: an epoch that scores them again, or the organiser's answer on what removes a miner
   from an intent's scores.
+  **Update 2026-11-14 ~10:00 UTC, cause found for 8 of the 13 (observed):** production logs for the scoring pass
+  that began 09:45 UTC show the node calling `/macro`, `/convert`, `/sec-filings`, `/crypto-price`,
+  `/company-registry` and `/cve` with no query parameters (only our `__path` rewrite key), while `/code-review`
+  arrived with `code`. With no parameters we answer `unknown` and a null scored field. Inferred: the node fills
+  only params marked `required`; all 13 endpoints declare optional params only, the 14 endpoints with a required
+  param are scored. Not fitting: TOKEN_HOLDER, GAS and STOCK are optional-only and scored. Sanctions, SSL,
+  FINANCIAL_DATA, CRYPTO_TRANSFER and DNS were scored for nobody in epoch 2087. Fix: one YAML batch (spec params
+  marked `required`, `jurisdiction` added to `/company-registry`, `token` to `/token-holders`, `window_hours`),
+  sandbox-validated, then the owner's `updateMiner`.
+- **G291 — Token holder counts are null on every chain but Ethereum. `OPEN`.** `base.blockscout.com` answers our
+  Vercel requests 403 with a Cloudflare challenge (observed 2026-11-14 for Base, Arbitrum, Polygon). Rank 6, 0.906.
+- **G292 — Company registry misses short names and ignores the jurisdiction. `OPEN`.** "Equinor / NO" returns
+  `not_found` (GLEIF `legalName` filter); "Lehman Brothers Holdings / US" answers the GB PLC.
+- **G293 — Research finds no source on well-studied questions, and its brief is a paper title. `OPEN`.**
+  Intermittent fasting and insulin sensitivity: `source_count 0` (2026-11-14). Rank 7, 0.959.
+- **G294 — LIQUIDITY_DEPTH_VERIFY and WASH_TRADING_DETECTION are 3rd and 5th in live demand and we serve neither.
+  `OPEN`, owner decision.** An on-chain pool read matched DexScreener within 0.006% in a test; about 10 h and 6 h.
 - **G288 — The CVE fallback answered Log4Shell as "no numeric CVSS severity rating". `FIXED in 40f4795, NOT deployed`.**
   When NVD rate-limits (no `NVD_API_KEY` is set), `cve-program.ts` read only the CNA container and returned no
   `cvss_score` or `severity` fields. CVE-2021-44228's score (10.0 CRITICAL) is in the CISA-ADP container.
