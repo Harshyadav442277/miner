@@ -42,8 +42,8 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
   },
   "/company-registry": {
     what: "A company register lookup",
-    params: ["company", "company_number", "lei"],
-    run: (q, p) => lookupRegistry(q, p("company", "lei"), p("company_number")).then(registryIntentFields),
+    params: ["company", "company_number", "lei", "jurisdiction"],
+    run: (q, p) => lookupRegistry(q, p("company", "lei"), p("company_number"), p("jurisdiction")).then(registryIntentFields),
   },
   "/sec-filings": {
     what: "An SEC filing check",

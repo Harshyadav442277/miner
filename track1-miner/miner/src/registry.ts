@@ -28,12 +28,15 @@ const COUNTRY: Array<[RegExp, string]> = [
 
 export interface RegistrySubject { name: string; lei: string | null; number: string | null; country: string | null }
 
-export function registrySubject(question: string, companyParam = "", numberParam = ""): RegistrySubject {
+export function registrySubject(question: string, companyParam = "", numberParam = "", jurisdictionParam = ""): RegistrySubject {
   const q = String(question ?? "").slice(0, 600);
   const lei = (companyParam.match(/\b[A-Z0-9]{18}\d{2}\b/) ?? q.match(/\b[A-Z0-9]{18}\d{2}\b/))?.[0] ?? null;
   const number = numberParam.trim() ||
     (q.match(/\b(?:company|registration|registered|corporate|firm|incorporation)\s+(?:number|no\.?|#)\s*:?\s*([A-Z]{0,2}\d{5,10})\b/i)?.[1] ?? null);
-  const country = COUNTRY.find(([re]) => re.test(q))?.[1] ?? null;
+  // The intent sends the jurisdiction on its own: an ISO code (NO, US-DE) is used as given, a name is read like the question.
+  const j = jurisdictionParam.trim();
+  const country = (/^[A-Za-z]{2}(?:-[A-Za-z]{2})?$/.test(j) ? j.toUpperCase() : COUNTRY.find(([re]) => re.test(j))?.[1])
+    ?? COUNTRY.find(([re]) => re.test(q))?.[1] ?? null;
   const quoted = q.match(/['"‘“]([^'"’”]{2,100})['"’”]/)?.[1] ?? "";
   let name = companyParam.trim() || quoted;
   if (!name && !lei && !number) {
@@ -189,8 +192,8 @@ export function askedSentence(
   return `For ${name}, ${joined}. `;
 }
 
-export async function lookupRegistry(question: string, companyParam = "", numberParam = ""): Promise<RegistryResult> {
-  const s = registrySubject(question, companyParam, numberParam);
+export async function lookupRegistry(question: string, companyParam = "", numberParam = "", jurisdictionParam = ""): Promise<RegistryResult> {
+  const s = registrySubject(question, companyParam, numberParam, jurisdictionParam);
   const subject = s.lei ?? s.number ?? (s.name || null);
   const base = { subject, not_in_sources: NOT_IN_SOURCES, sources: [] as string[] };
   if (!subject) {

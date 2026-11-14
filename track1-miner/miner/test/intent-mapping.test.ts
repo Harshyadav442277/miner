@@ -35,7 +35,12 @@ function readMapping(): Map<string, Entry> {
       cur = { endpoint: "", output: new Map() };
       out.set(m[1]!, cur);
     } else if ((m = line.match(/^ {4}endpoint: (\/\S+)$/)) && cur) cur.endpoint = m[1]!;
-    else if (/^ {4}output:$/.test(line) && cur) continue;
+    else if (/^ {4}(?:output|input):$/.test(line) && cur) continue;
+    // input: our param <- the intent's request name. The param must be one the endpoint declares.
+    else if ((m = line.match(/^ {6}([a-z][a-z0-9_]*): \{ from: ([a-z][a-z0-9_]*) \}$/)) && cur) {
+      const block = yaml.split(/\n {2}- path: /).find((b) => b.startsWith(`${cur!.endpoint}\n`)) ?? "";
+      assert.ok(block.includes(`\n          - name: ${m[1]}\n`), `${cur.endpoint} declares no param ${m[1]}`);
+    }
     else if ((m = line.match(/^ {6}([a-z][a-z0-9_]*): \{ path: (?:"([^"]+)"|([^\s"{}]+)) \}$/)) && cur) {
       assert.ok(!cur.output.has(m[1]!), `${m[1]} is mapped twice`);
       cur.output.set(m[1]!, (m[2] ?? m[3])!);
