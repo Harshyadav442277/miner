@@ -86,10 +86,61 @@ export function asksWillHappen(message: string): boolean {
   return /^\s*(?:will|is it (?:likely|going)|are .{1,40} going to|is .{1,60} going to|could|might|what are the (?:odds|chances))\b/i.test(message);
 }
 
-const CHAT_SYSTEM = `You answer one message from a user, correctly and directly. Reply with a JSON object:
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+/**
+ * The chat prompt for the day of `now`. Without today's date the model wrote "as of 2024" on 2026-11-14
+ * (production). The date line also rotates phrase()'s system+user cache key each day. Pure.
+ */
+export function chatSystem(now: Date): string {
+  const today = `${now.getUTCDate()} ${MONTHS[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+  return `You answer one message from a user, correctly and directly. Reply with a JSON object:
 {"brief": the answer in one plain sentence of at most 80 characters, "reply": the full answer in at most 150 words, starting with that sentence, "verdict": null}
 For a question about whether something will happen, set "verdict" to "Likely", "Unlikely" or "Uncertain" and start both brief and reply with that word.
-No markdown in brief. Never refer to yourself, your training or your last update. If a fact may have changed recently, give the year it dates from, as in \"as of 2024\".`;
+No markdown in brief. Never refer to yourself, your training or your last update.
+Today is ${today} (UTC). Never state a different current year. When a fact may have changed since your information was written, say what was true and the year it dates from, without claiming it is still current.`;
+}
+
+const REPAIR_SYSTEM = "Rewrite the answer below as ONE complete plain sentence of at most 80 characters that directly answers the question. No preamble, no quotes, no ellipsis. For a forecast keep the leading verdict word and colon.";
+
+const VERDICT_LEAD = /^(?:Likely|Unlikely|Uncertain):\s+/;
+/** "While X, Y" asserts Y: the concession can go. "If X, Y" does not assert Y alone, so it is never dropped. */
+const CONCESSION = /^(?:while|although|even though|though|whereas|despite)\b[^,]*,\s+/i;
+const SUBORDINATE = /^(?:while|although|even though|though|whereas|despite|if|when|unless|because|since|as|after|before|once|until)\b/i;
+
+/**
+ * `sentence` in at most `n` characters as a complete clause ending with ".", never "…". A forecast keeps its
+ * verdict word. The brief "Uncertain: While NASA's Artemis program and private initiatives aim for Mars…" was
+ * served cut mid-sentence (production 2026-11-14). Pure.
+ */
+export function clauseBrief(sentence: string, n = 80): string {
+  let t = sentence.replace(/\s+/g, " ").trim();
+  if (t.length <= n) return t;
+  const lead = t.match(VERDICT_LEAD)?.[0] ?? "";
+  let body = t.slice(lead.length);
+  const concession = body.match(CONCESSION);
+  if (concession) {
+    const main = body.slice(concession[0].length);
+    body = lead ? main : main.charAt(0).toUpperCase() + main.slice(1);
+    t = lead + body;
+    if (t.length <= n) return t;
+  }
+  const head = t.slice(0, n - 1);
+  const words = (s: string): number => s.split(" ").filter(Boolean).length;
+  // The last clause boundary that leaves four words; the verdict's own colon is not one, nor a cut that would
+  // leave only an opening "If ..." or "Because ..." clause.
+  for (let i = head.length - 2; i >= lead.length; i--) {
+    if (![", ", "; ", ": ", " — ", " - "].some((s) => head.startsWith(s, i))) continue;
+    const out = head.slice(0, i).replace(/[.,;:!?\s—-]+$/, "");
+    if (words(out) < 4) break;
+    if (SUBORDINATE.test(body) && !out.slice(lead.length).includes(",")) continue;
+    return `${out}.`;
+  }
+  const at = head.lastIndexOf(" ");
+  let out = (at > lead.length ? head.slice(0, at) : head).replace(/[.,;:!?\s—-]+$/, "");
+  while (DANGLING.test(out)) out = out.replace(DANGLING, "").replace(/[.,;:!?\s—-]+$/, "");
+  return `${out}.`;
+}
 
 /** Non-breaking (U+2011), plain Unicode (U+2010) and minus (U+2212) hyphens as "-". Pure. */
 export const plainHyphens = (t: string): string => t.replace(/[‐‑−]/g, "-");
@@ -104,20 +155,31 @@ export function usableBrief(brief: string, verdict: string | null): boolean {
   return !verdict || bare !== verdict.toLowerCase();
 }
 
-export async function chat(question: string, messageParam = ""): Promise<GenAnswer> {
+export async function chat(question: string, messageParam = "", now = new Date()): Promise<GenAnswer> {
+  const started = Date.now();
   const message = (messageParam || question).trim().slice(0, MAX_INPUT);
   if (!message) return missing("message", "message", { reply: null, brief: null });
   const will = asksWillHappen(message);
-  const raw = await phrase({ system: CHAT_SYSTEM, user: message, maxTokens: 700, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
+  const raw = await phrase({ system: chatSystem(now), user: message, maxTokens: 700, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
   const o = raw ? parseObject(raw) : null;
   const reply = plainHyphens(str(o?.reply));
   if (!o || !reply) return unavailable("a reply", { reply: null, brief: null });
   const v = str(o.verdict);
   const verdict = will && /^(Likely|Unlikely|Uncertain)$/.test(v) ? v : will ? (reply.match(/^(Likely|Unlikely|Uncertain)\b/)?.[1] ?? "Uncertain") : null;
-  // The model's brief when it says something and fits, else the reply's own opening sentence, cut cleanly when long.
+  // The model's brief when it says something and fits, else the reply's opening sentence when it fits, else one
+  // short rewrite, else that sentence cut at a clause. Never cut() here: its "…" is not a sentence, and brief is
+  // the scored field (production 2026-11-14).
   const model = plainHyphens(str(o.brief));
-  const first = opening(reply);
-  const brief = usableBrief(model, verdict) && model.length <= 80 ? model : first.length <= 80 ? first : cut(first);
+  const flat = reply.replace(/\s+/g, " ").trim();
+  const first = opening(flat);
+  let brief = usableBrief(model, verdict) && model.length <= 80 ? model : first.length <= 80 ? first : "";
+  if (!brief) {
+    // The rewrite must end before the handler's 11 s watchdog, which the long call above may have nearly used.
+    const two = `${first} ${opening(flat.slice(first.length))}`.trim();
+    const fixed = plainHyphens(str(await phrase({ system: REPAIR_SYSTEM, user: `Question: ${message}\nAnswer: ${two}`,
+      maxTokens: 150, deadlineMs: Math.min(2_500, 10_000 - (Date.now() - started)) })));
+    brief = fixed.length <= 80 && usableBrief(fixed, verdict) && !/(?:…|\.\.\.)$/.test(fixed) ? fixed : clauseBrief(first);
+  }
   // The schema's verdict is Likely | Unlikely | Uncertain only; a question that is not a forecast carries none.
   return { reply, brief, ...(verdict ? { verdict } : {}), confidence: CONFIDENCE, source: SOURCE, reason: reply };
 }
