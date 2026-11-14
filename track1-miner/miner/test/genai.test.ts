@@ -181,7 +181,7 @@ test("review and audit: refuse oversized inputs before sending a truncated prefi
       assert.match(String(result.reason), /No code was reviewed/);
     }
     assert.equal(calls.length, 0);
-    assert.equal((await reviewCode("x".repeat(8_000))).verdict, "Approve", "the exact limit is accepted");
+    assert.equal((await reviewCode("", "x".repeat(8_000))).verdict, "Approve", "the exact limit is accepted");
     const sent = calls[0]!.messages as Array<{ content: string }>;
     assert.equal(sent[sent.length - 1]!.content.length, 8_000);
   });

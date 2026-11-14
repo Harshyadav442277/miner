@@ -179,6 +179,12 @@ export async function reviewCode(question: string, codeParam = ""): Promise<GenA
     return { verdict: "insufficient_input", confidence: 0, error: "link_not_fetched", findings: [], summary: null, source: SOURCE,
       reason: "A link was sent, and links are not fetched. Send the code itself as the code parameter." };
   }
+  // A sentence that names or links code carries none to review: "Review this PR: <link>" was answered
+  // "The code is not correct." (production 2026-11-14).
+  if (!codeParam && !/[{};=<>[\]]|\(.*\)|^\s*(?:def|class|import|from|return|if|for|while)\b/m.test(code.replace(/https?:\/\/\S+/g, ""))) {
+    return { verdict: "insufficient_input", confidence: 0, error: "no_code", findings: [], summary: null, source: SOURCE,
+      reason: "No code was found in the request, and links are not fetched, so nothing was reviewed. Send the code or diff itself as the code parameter." };
+  }
   const raw = await phrase({ system: REVIEW_SYSTEM, user: code, maxTokens: 1_400, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
   const o = raw ? parseObject(raw) : null;
   const stated = str(o?.summary);
@@ -246,6 +252,12 @@ export async function auditContract(question: string, contractParam = ""): Promi
   if (/^\s*(?:https?:\/\/\S+|0x[0-9a-fA-F]{40})\s*$/.test(source)) {
     return { ...none, verdict: "insufficient_input", confidence: 0, error: "source_not_fetched", source: SOURCE,
       reason: "A link or an address was sent, and neither is fetched. Send the Solidity source itself as the contract parameter." };
+  }
+  // A contract named or addressed in a sentence is not its source. "Audit the smart contract at 0x… on Ethereum"
+  // was answered "No issues found" (production 2026-11-14): a clean bill for code nobody read.
+  if (!contractParam && !(/\b(?:pragma|contract|function|interface|library|mapping|modifier|fn|pub|def)\b/.test(source) && /[{;]|\)\s*:/.test(source))) {
+    return { ...none, verdict: "insufficient_input", confidence: 0, error: "no_source", source: SOURCE,
+      reason: "No contract source was found in the request, and addresses and links are not fetched, so nothing was audited. Send the Solidity source itself as the contract parameter." };
   }
   const raw = await phrase({ system: AUDIT_SYSTEM, user: source, maxTokens: 1_800, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
   const o = raw ? parseObject(raw) : null;
