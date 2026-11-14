@@ -293,11 +293,20 @@ async function coinbaseSpot(base: string): Promise<Ticker | null | undefined> {
   }
 }
 
-/** The USD ticker: Bitstamp's, else Coinbase's when Bitstamp lists no pair or did not answer. */
+/**
+ * A Bitstamp market nobody is trading: no volume in 24 h, or a book more than 2% wide. Its "last" is an old
+ * trade stamped with the time of the read. 2026-11-14: APT answered $0.88 (bid 0.4441, ask 4, volume 0) while
+ * Coinbase quoted $0.47; ATOM and TIA were 6% off the same way.
+ */
+export const thinMarket = (t: { bid: number; ask: number; volume: number }): boolean =>
+  t.volume === 0 || (t.bid > 0 && t.ask > 0 && (t.ask - t.bid) / t.bid > 0.02);
+
+/** The USD ticker: Bitstamp's, else Coinbase's when Bitstamp lists no pair, did not answer, or its market is thin. */
 async function usdTicker(base: string): Promise<Ticker | null | undefined> {
   const b = await ticker(base, "USD");
-  if (b) return b;
+  if (b && !thinMarket(b)) return b;
   const c = await coinbaseSpot(base);
+  if (b) return c ?? b;
   return c ?? (b === undefined || c === undefined ? undefined : null);
 }
 

@@ -196,7 +196,8 @@ export function pickSeverity(metrics: Record<string, Metric[]> | undefined):
   }
   if (all.length === 0) return null;
   all.sort((a, b) =>
-    parseFloat(b.version) - parseFloat(a.version) || Number(b.primary) - Number(a.primary));
+    parseFloat(b.version) - parseFloat(a.version) || Number(b.source === "NVD") - Number(a.source === "NVD") ||
+    Number(b.primary) - Number(a.primary));
   return all[0]!;
 }
 
@@ -219,8 +220,34 @@ function firstSentence(text: string): string {
   return `${words.replace(/[,;:]$/, "")}…`;
 }
 
+/**
+ * NVD's own record for one CVE, from the fkie-cad mirror of the NVD API (synchronised with the NVD every two
+ * hours, same JSON as the API's `cve` object). The NVD rate-limits Vercel's shared egress on nearly every
+ * request (2026-11-14: eight of eight), and the CVE Program record that used to stand in carries the CNA's
+ * score, which is not always the NVD's: Zerologon is 5.5 from Microsoft and 10.0 in the NVD. Null when the
+ * mirror has no such file or did not answer.
+ */
+const MIRROR = "https://raw.githubusercontent.com/fkie-cad/nvd-json-data-feeds/main";
+export async function nvdMirror(id: string): Promise<Record<string, unknown> | null> {
+  const m = /^CVE-(\d{4})-(\d{4,})$/.exec(id);
+  if (!m) return null;
+  try {
+    const res = await fetch(`${MIRROR}/CVE-${m[1]}/CVE-${m[1]}-${m[2]!.slice(0, -2)}xx/${id}.json`, {
+      headers: { accept: "application/json" }, signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+    if (!res.ok) return null;
+    const j = (await res.json()) as Record<string, unknown>;
+    return j?.id === id ? j : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function lookupCve(id: string): Promise<CveResult> {
   let body: { vulnerabilities?: Array<{ cve: Record<string, unknown> }> };
+  let mirrored = false;
+  // Without a key the NVD nearly always refuses, so the mirror is read alongside it rather than after it.
+  const mirror = process.env.NVD_API_KEY ? null : nvdMirror(id);
   try {
     const headers: Record<string, string> = { accept: "application/json" };
     // NVD allows 5 requests per rolling 30 seconds anonymously and 50 with a
@@ -234,9 +261,10 @@ export async function lookupCve(id: string): Promise<CveResult> {
     // 403 and 429 are NVD's rate limit. That is our problem, not a statement
     // about the CVE, and must not be reported as "no such record".
     if (res.status === 403 || res.status === 429) {
-      const fallback = await lookupCveProgram(id);
+      const copy = await (mirror ?? nvdMirror(id));
+      const fallback = copy ? null : await lookupCveProgram(id);
       if (fallback) return fallback;
-      return {
+      if (!copy) return {
         cve_id: id, verdict: "unknown", confidence: 0,
         reason:
           `The record for ${id} could not be retrieved because the National Vulnerability ` +
@@ -244,13 +272,20 @@ export async function lookupCve(id: string): Promise<CveResult> {
           `statement about ${id}, which may well exist and be severe.`,
         error: "rate_limited",
       };
+      body = { vulnerabilities: [{ cve: copy }] };
+      mirrored = true;
+    } else {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      body = (await res.json()) as typeof body;
     }
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    body = (await res.json()) as typeof body;
   } catch {
-    const fallback = await lookupCveProgram(id);
+    const copy = await (mirror ?? nvdMirror(id));
+    const fallback = copy ? null : await lookupCveProgram(id);
     if (fallback) return fallback;
-    return {
+    if (copy) {
+      body = { vulnerabilities: [{ cve: copy }] };
+      mirrored = true;
+    } else return {
       cve_id: id, verdict: "unknown", confidence: 0,
       reason:
         `The record for ${id} could not be retrieved because the National Vulnerability Database ` +
@@ -329,7 +364,9 @@ export async function lookupCve(id: string): Promise<CveResult> {
     scored_by: sev?.source ?? null,
     affected_product: product, affected_versions: versions || null, other_products_affected: otherProducts,
     cwe, status: entry.vulnStatus ?? null, published: entry.published ?? null,
-    description, source: "National Vulnerability Database", source_url: `https://nvd.nist.gov/vuln/detail/${id}`,
+    description,
+    source: mirrored ? "National Vulnerability Database (fkie-cad mirror, synchronised every two hours)" : "National Vulnerability Database",
+    source_url: `https://nvd.nist.gov/vuln/detail/${id}`,
     reason: `${id} ${severityClause}.${versionClause} ${firstSentence(description)}${alsoClause}`,
   };
 }

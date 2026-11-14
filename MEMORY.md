@@ -1,5 +1,27 @@
 # MEMORY.md — session continuity
 
+## 2026-11-14 ~17:30 UTC (23:00 IST): CURRENT — `b18ca59` LIVE, preflight 7/7; registration 5232 scored
+
+- Owner 17:05 UTC: gave an OpenAlex key, NVD key pending, "take decision on your own".
+- **Production:** `b18ca59`, `https://miner-l8m0zwpq7-wukong4.vercel.app` (`dpl_H4cUuqxXrwbyfazpjjCLod5DbpQz`).
+  **Rollback target:** `miner-59jvnyk6w` (`697a41c`). Record:
+  `track1-miner/docs/evidence/release-2026-11-14-cve-mirror-crypto/`. Unit 989/989, preflight **7/7**.
+- `OPENALEX_API_KEY` is set in Vercel Production; `/papers` returns OpenAlex results again. No `NVD_API_KEY` yet:
+  when it arrives, add it to Production and redeploy (the mirror is then skipped).
+- **G287 closed:** epoch 2091 scored 5232 on 19 intents; CURRENCY, MACRO and CORPORATE_REGISTRY 1.0000, rank 1.
+- **Fixed from epoch 2091's low scores:** CVE (0.7017, rank 6): NVD record read from the fkie-cad mirror, NVD's
+  own score preferred. CRYPTO_PRICE (0.7650, rank 17): dead Bitstamp markets no longer quoted (APT was 87% off).
+- **Still low in epoch 2091, not touched:** EVENT_OUTCOME 0.0043 (rank 10/34), NEWS_SEARCH 0.7590 (11/19),
+  SENTIMENT 0.7705 (15/21), STORM_ALERT 0.9020 (11/19), WEATHER 0.3083 (rank 1, whole field low).
+- Deploy tree: `C:/Users/hyada/tg-deploy/md8b68aa` (detached at `b18ca59`). Vercel MCP runtime logs answer 403;
+  `vercel logs` shows parameter names only, never values, so the node's inputs stay unseen without capture (G282).
+- **Next:**
+  1. After the next epochs: CVE_LOOKUP_CVSS and CRYPTO_PRICE_USD scores for 5232; CHAT_COMPLETION, SANCTIONS and
+     WEB_SEARCH when they are first scored (rank script: read `/api/miners`, slug livecert, latest epoch).
+  2. EVENT_OUTCOME at 0.0043 is the worst scored intent: find the mapped field and what the node sends.
+  3. NEWS_SEARCH and SENTIMENT (both ~0.76); then RESEARCH_QUERY (G293), registry short names (G292).
+  4. Owner: NVD key, Upstash store for capture (G282), close PR 9, growth posts.
+
 ## 2026-11-14 ~15:30 UTC (21:00 IST): CURRENT — `697a41c` LIVE; registration 5232; `main` is current
 
 - Owner: "i have uploaded the yaml file. deploy everything, merge the PRs … focus on top 2 intents in phase 1".
