@@ -12,6 +12,16 @@
 - Findings: G287 (13 intents unscored, cause unknown), G288, G289, G290. Sanctions index stale since Nov 12.
 - Not touched: `track1-miner/README.md` (still says 36/42 intents and V1 names; the other session is editing it),
   MEMORY/GAPS/TASKS history, `track2/`.
+- **YAML to sign (prepared 2026-11-14 ~11:30 UTC, owner said "Yes, prepare YAML"):** `miner.yaml` at `494b135`,
+  SHA-256 `0x661625a3ae214362b612ded6d93684dbf1ab7a605a23b0851a2b046702a8b045`, 95,023 bytes, 43 intents.
+  URL `https://raw.githubusercontent.com/Harshyadav442277/miner/494b135ecd6330fde759ba5f7577b6f74112f707/track1-miner/miner.yaml`.
+  It marks the spec's params `required` on ten endpoints, adds `intent_mapping.<ID>.input` for 14 intents (syntax
+  read from anjoman.ai/docs/miners/yaml-config that day) and a `jurisdiction` param on `/company-registry`.
+  manifest-diff flags that added param only. Why: G287. **Deploy this branch first, then validate on Anjoman, then
+  sign**; the signature issues a new registration id (update the repo variable, mission-matrix, release skill, README).
+  Unverified until an epoch after signing scores CVE, CURRENCY, CRYPTO_PRICE and CORPORATE_REGISTRY again.
+- Also on the branch since the block above: web search answers coin-price and who-won questions from their own
+  routes (`d8d3210`); code review and contract audit refuse a request with no code (`552de49`). Unit 982/982.
 - Next: owner's yes to deploy this branch; merge `sanctions-index.yml` to `main` and dispatch it; set `NVD_API_KEY`.
 
 ## 2026-11-09 ~00:40 UTC (06:10 IST): CURRENT — HANDOFF. `b455022` LIVE; registration 5135; next session starts here
