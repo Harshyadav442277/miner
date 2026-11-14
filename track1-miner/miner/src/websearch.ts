@@ -28,7 +28,9 @@
  * 0.833, a headline list 0.167 and static knowledge ~1e-11 against authored
  * ground truths. Those are authored, not real, so they chose nothing here.
  */
+import { knownAsset, lookupCryptoPrice } from "./cryptoprice";
 import { currentFact } from "./currentfacts";
+import { findEventWinner, andList } from "./eventwinner";
 import { opening } from "./genai";
 import { phrase, sanitise } from "./llm";
 import { answerQuestion } from "./qa";
@@ -249,6 +251,36 @@ export function headlineSentence(raw: string): string | null {
   return /[.!?]$/.test(one) ? one : `${one}.`;
 }
 
+/** "What is the current price of Bitcoin?" and the like: a quote is asked for, not coverage of one. */
+export function asksPrice(text: string): boolean {
+  const s = String(text ?? "");
+  return /\b(?:price|worth|trading\s+at|how\s+much\s+(?:is|does))\b/i.test(s) &&
+    !/\b(?:why|news|headlines?|analysis|predict\w*|forecast\w*|target|outlook|history|crash\w*|surg\w*|drop\w*|fell|rose|rally\w*)\b/i.test(s) &&
+    !isForwardLooking(s);
+}
+
+/**
+ * A live figure that another route reads from its own source: a coin's price (share prices stay out: their source is not licensed for resale), or the recorded winner
+ * of a named event. Headlines about Bitcoin do not state its price (production 2026-11-14: "the reports do not
+ * state a specific price"), so the quote is read where it is struck. Null means the news path runs unchanged.
+ */
+async function liveFigure(q: string): Promise<{ reason: string; sources: string[]; confidence: number } | null> {
+  if (asksPrice(q)) {
+    if (knownAsset(q)) {
+      const r = await lookupCryptoPrice(q).catch(() => null);
+      if (r && typeof r.price === "number") return { reason: r.reason, sources: [], confidence: r.confidence };
+    }
+  }
+  if (/^\s*who\s+won\b/i.test(q)) {
+    const w = await findEventWinner(q).catch(() => null);
+    if (w?.winners.length) {
+      const when = w.ended ? `, which ended ${w.ended.length === 4 ? `in ${w.ended}` : `on ${w.ended}`}` : "";
+      return { reason: `${andList(w.winners)} won ${/^\d/.test(w.event) ? "the " : ""}${w.event}${when}, as Wikidata records it. Source: ${w.source_url}`, sources: [w.source_url], confidence: 0.85 };
+    }
+  }
+  return null;
+}
+
 export async function webSearch(question: string): Promise<WebSearchResult> {
   const started = Date.now();
   const q = String(question ?? "").trim();
@@ -266,6 +298,9 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
       reason: `This request is ${elsewhere}, not a web search, so no search was run and no answer was substituted for it.`,
     };
   }
+
+  const live = await liveFigure(q);
+  if (live) return { ...empty, sources: live.sources, verdict: "answered", confidence: live.confidence, reason: live.reason, direct_answer: opening(live.reason) };
 
   // Documentation questions are answered from a bounded allowlist before
   // current-fact and news providers. This covers canonical technical queries

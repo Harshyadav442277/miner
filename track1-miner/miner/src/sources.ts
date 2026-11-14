@@ -158,7 +158,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/cross-chain": ["4byte", "chain-rpcs", "drpc", "layerzero", "merkle", "openchain", "publicnode"],
   "/event-outcome": ["manifold", "polymarket", "wikidata"],
   "/url-scan": ["dns-resolvers"],
-  "/web-search": ["clinicaltrials", "ebi", "endoflife", "google-news", "groq", "tech-docs", "wikidata", "wikipedia"],
+  "/web-search": ["bitstamp", "clinicaltrials", "coinbase", "ebi", "ecb", "endoflife", "frankfurter", "google-news", "groq", "tech-docs", "wikidata", "wikipedia"],
   "/sentiment": ["groq"],
   "/classify": ["datamuse", "groq"],
   "/research-synthesis": ["clinicaltrials", "doaj", "ebi", "ncbi", "openalex", "wikipedia"],
