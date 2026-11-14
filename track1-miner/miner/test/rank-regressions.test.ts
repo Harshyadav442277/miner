@@ -129,6 +129,21 @@ test("rank regression: NVD rate limits fall back to the matching authoritative C
   assert.equal(programAnswer("CVE-2021-44228", CVE), null, "a different record must not be substituted");
 });
 
+test("rank regression: the CVE fallback reads a score CISA's ADP container carries when the CNA gave none", () => {
+  const r = programAnswer("CVE-2021-44228", {
+    cveMetadata: { cveId: "CVE-2021-44228", state: "PUBLISHED", assignerShortName: "apache", datePublished: "2021-12-10T00:00:00.000Z" },
+    containers: {
+      cna: { descriptions: [{ lang: "en", value: "Apache Log4j2 JNDI features do not protect against attacker controlled LDAP endpoints." }], metrics: [{ other: {} }] },
+      adp: [{ providerMetadata: { shortName: "CVE" } }, { providerMetadata: { shortName: "CISA-ADP" }, metrics: [{ cvssV3_1: { version: "3.1", baseScore: 10, baseSeverity: "CRITICAL" } }] }],
+    },
+  });
+  assert.equal(r?.verdict, "critical");
+  assert.equal(r?.cvss_score, 10);
+  assert.equal(r?.severity, "CRITICAL");
+  assert.equal(r?.scored_by, "CISA-ADP");
+  assert.match(r!.reason, /base score of 10\.0, assigned by CISA-ADP/);
+});
+
 test("rank regression: both CVE providers down remains an explicit availability failure", async () => {
   await withFetch((async () => new Response("offline", { status: 503 })) as typeof fetch, async () => {
     const r = await lookupCve("CVE-2024-3094");
