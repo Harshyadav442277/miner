@@ -8,7 +8,7 @@ Season II (H2) runs Nov 1 00:00 UTC – Dec 1 23:59 UTC 2026, on the Ethereum Se
 
 | Track | What | Start here |
 |---|---|---|
-| **Miner** | LiveCert: 36 intents, registration **4829**, <https://miner-wine.vercel.app> | [`track1-miner/README.md`](track1-miner/README.md) |
+| **Miner** | LiveCert: 43 intents on 42 endpoints, registration **5152**, <https://miner-wine.vercel.app> | [`track1-miner/README.md`](track1-miner/README.md) |
 | **Evaluators** | Season II evaluators: 31 comparators that reproduce the network's reference rule for deterministic intents, and a reward-model adapter for LLM_OUTPUT_EVALUATION | [`track2/README.md`](track2/README.md) |
 | **Apps & Agents** | Morse, a Telegram front end to the network (Season I), in its own repository | [`telegraph-morse`](https://github.com/Harshyadav442277/telegraph-morse) |
 

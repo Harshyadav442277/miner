@@ -7,6 +7,7 @@
  * is no URL to fetch. These are deterministic pattern extractions — no model
  * needed, and a wrong answer is checkable.
  */
+import { leadSentence } from "./envelope";
 
 export type Want =
   | "quantities"
@@ -258,7 +259,9 @@ function actions(s: string): string[] {
     .slice(0, 6);
 }
 
-const MONTHS = "january|february|march|april|may|june|july|august|september|october|november|december";
+// Abbreviations after the full names, so "March 3" is read whole: "on Nov 2, 2026" found no ship date (2026-11-08).
+const MONTHS = "january|february|march|april|may|june|july|august|september|october|november|december|" +
+  "jan|feb|mar|apr|jun|jul|aug|sept|sep|oct|nov|dec";
 
 function dates(s: string): string[] {
   const out: string[] = [];
@@ -269,12 +272,12 @@ function dates(s: string): string[] {
   // April 20" (GAPS G69). Day-month-year is answered in the same "Month D, YYYY"
   // form as the recorded ground truths, and its span is masked so the
   // month-day pattern cannot re-read it.
-  const dmy = new RegExp(String.raw`\b(\d{1,2})(?:st|nd|rd|th)?\s+(` + MONTHS + String.raw`)(?:,?\s+(\d{4}))?\b`, "gi");
+  const dmy = new RegExp(String.raw`\b(\d{1,2})(?:st|nd|rd|th)?\s+(` + MONTHS + String.raw`)\b\.?(?:,?\s+(\d{4}))?\b`, "gi");
   const masked = s.replace(dmy, (whole, d: string, mon: string, y?: string) => {
     out.push(y ? `${cap(mon)} ${d}, ${y}` : `${cap(mon)} ${d}`);
     return " ".repeat(whole.length);
   });
-  const re = new RegExp(String.raw`\b(` + MONTHS + String.raw`)\s+(\d{1,2})(?:st|nd|rd|th)?\b(?:,\s*(\d{4}))?`, "gi");
+  const re = new RegExp(String.raw`\b(` + MONTHS + String.raw`)\b\.?\s+(\d{1,2})(?:st|nd|rd|th)?\b(?:,\s*(\d{4}))?`, "gi");
   for (const m of masked.matchAll(re)) {
     out.push(m[3] ? `${cap(m[1]!)} ${m[2]}, ${m[3]}` : `${cap(m[1]!)} ${m[2]}`);
   }
@@ -364,7 +367,10 @@ function fieldValue(name: string, source: string, pairs: Array<[string, string]>
   if (byline && /\bauthor\b|\bwriter\b|\bdirector\b|\bartist\b|\bcreator\b|\bcomposer\b/i.test(name)) return { label, value: byline[2]!.replace(/[.,;]+$/, "") };
   const pair = pairs.find(([l]) => (syn && syn.test(l)) || words.some((w) => l.toLowerCase().includes(w.slice(0, 4))));
   if (pair) {
-    const value = /\btitle\b|\bname\b/i.test(name) ? pair[1].replace(/\s+by\s+[A-Z].*$/, "").replace(/^['"‘“]+|['"’”]+$/g, "") : pair[1];
+    // A value ends with its sentence: "Total due: $1,250.00. Contact billing@acme.com." read the total as
+    // "$1,250.00. Contact billing@acme.com" (2026-11-08). leadSentence knows "St." and "Dr.".
+    const own = leadSentence(pair[1]).replace(/(?<=\S)\.$/, "");
+    const value = /\btitle\b|\bname\b/i.test(name) ? own.replace(/\s+by\s+[A-Z].*$/, "").replace(/^['"‘“]+|['"’”]+$/g, "") : own;
     return { label: pair[0], value };
   }
   if (byline && /\btitle\b/i.test(name)) return { label, value: byline[1]!.replace(/^[^:]*:\s*/, "").replace(/^['"‘“]+|['"’”]+$/g, "") };
@@ -387,7 +393,12 @@ function fieldValue(name: string, source: string, pairs: Array<[string, string]>
     const v = after ?? source.match(/\b[A-Z]{2,6}-\d{2,}\b/)?.[0];
     return v ? { label, value: v.replace(/[.,;]+$/, "") } : null;
   }
-  if (/\bmerchant\b|\bvendor\b|\bstore\b|\bseller\b|\bcompany\b|\bbusiness\b|\bshop\b/i.test(name)) {
+  // A carrier is named after "via" or "by": "shipped via FedEx" (2026-11-08).
+  if (/\bcarrier\b|\bcourier\b|\bshipper\b/i.test(name)) {
+    const v = source.match(/\b(?:via|by|with)\s+([A-Z][\w&-]*(?:\s+[A-Z][\w&-]*){0,2})/)?.[1] ?? entities(source).orgs[0];
+    return v ? { label, value: v } : null;
+  }
+  if (/\bmerchant\b|\bvendor\b|\bstore\b|\bseller\b|\bcompany\b|\bbusiness\b|\bshop\b|\borgani[sz]ation\b|\bemployer\b|\bfirm\b/i.test(name)) {
     if (lead && lead.split(/\s+/).length <= 6) return { label, value: lead };
     const org = entities(source).orgs[0];
     return org ? { label, value: org } : null;

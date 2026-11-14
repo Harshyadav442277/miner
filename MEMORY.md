@@ -1,5 +1,193 @@
 # MEMORY.md — session continuity
 
+## 2026-11-14 ~10:05 UTC (15:35 IST): repo audit on `PR/miner-provider-optimization-da4453` — two fixes NOT deployed
+
+- Branch = `claude/n1-v2-ids` (`05de417`) merged in, plus: the CVE fallback fix (`40f4795`, G288), the cleanup
+  (`e94bd1d`: 222 uncited evidence files deleted, `docs/openapi.json` regenerated to 42 paths, counts corrected in
+  README, ARCHITECTURE, INTEGRATE, OUTREACH) and the WEB_SEARCH brief fix (G289). Unit 982/982 in a replica at
+  `C:/Users/hyada/tg-deploy/replica-da4453` (node_modules is a junction to m-nonsdn's; remove with `rmdir`, never `rm -rf`).
+- Another session has uncommitted edits in `tg-deploy/m-nonsdn` (MEMORY.md, track1 README, mission-matrix, release
+  skill: 5135 → 5152). Its 2026-11-14 09:20 UTC block is the current production and rank record; not duplicated here.
+- Production unchanged: `b455022`. Nothing deployed, signed or pushed to `main`.
+- Findings: G287 (13 intents unscored, cause unknown), G288, G289, G290. Sanctions index stale since Nov 12.
+- Not touched: `track1-miner/README.md` (still says 36/42 intents and V1 names; the other session is editing it),
+  MEMORY/GAPS/TASKS history, `track2/`.
+- **YAML to sign (prepared 2026-11-14 ~11:30 UTC, owner said "Yes, prepare YAML"):** `miner.yaml` at `494b135`,
+  SHA-256 `0x661625a3ae214362b612ded6d93684dbf1ab7a605a23b0851a2b046702a8b045`, 95,023 bytes, 43 intents.
+  URL `https://raw.githubusercontent.com/Harshyadav442277/miner/494b135ecd6330fde759ba5f7577b6f74112f707/track1-miner/miner.yaml`.
+  It marks the spec's params `required` on ten endpoints, adds `intent_mapping.<ID>.input` for 14 intents (syntax
+  read from anjoman.ai/docs/miners/yaml-config that day) and a `jurisdiction` param on `/company-registry`.
+  manifest-diff flags that added param only. Why: G287. **Deploy this branch first, then validate on Anjoman, then
+  sign**; the signature issues a new registration id (update the repo variable, mission-matrix, release skill, README).
+  Unverified until an epoch after signing scores CVE, CURRENCY, CRYPTO_PRICE and CORPORATE_REGISTRY again.
+- Also on the branch since the block above: web search answers coin-price and who-won questions from their own
+  routes (`d8d3210`); code review and contract audit refuse a request with no code (`552de49`). Unit 982/982.
+- Next: owner's yes to deploy this branch; merge `sanctions-index.yml` to `main` and dispatch it; set `NVD_API_KEY`.
+
+## 2026-11-09 ~00:40 UTC (06:10 IST): CURRENT — HANDOFF. `b455022` LIVE; registration 5135; next session starts here
+
+**Where things are**
+- **Production:** `b455022`, `https://miner-o6dy8wc6k-wukong4.vercel.app` (`dpl_CdAHxAMJdsQteSiaSmtkC5zhFnpR`),
+  aliased to miner-wine.vercel.app. **Rollback target:** `miner-ic5zvq5es` (`eb09b0a`).
+  Record: `track1-miner/docs/evidence/release-2026-11-09-index-mapping-capture/`.
+- **Code:** branch `claude/n1-v2-ids`, pushed. Working tree outside OneDrive: `C:/Users/hyada/tg-deploy/m-nonsdn`
+  (has `node_modules` and `.vercel`; deploy from `track1-miner/miner`). The main checkout's
+  `codex/rank1-14-intents` is behind this branch, and Codex has uncommitted Track 2 edits there: don't touch them.
+  - Old worktrees `tg-deploy/fixC`, `fixD`, `fixE` and `fixF` are merged and can be removed with
+    `git worktree remove` (check first that they hold no unique work).
+- **Registration:** **5135** is active (42 intents, YAML at `8b6e4d3`, signed 2026-11-07 19:52 UTC); catalog id 4433.
+  The repo variable `REGISTRATION_ID` is 5135. Check: `node track1-miner/tools/watch.mjs --registration-id 5135
+  --base-url https://miner-wine.vercel.app --once`.
+- **Ranks, epoch 2044 (19:18 UTC Nov 8):** top 3 in 14 of 26 scored.
+  - 1st: CODE_REVIEW (1.0), CVE, TOKEN_HOLDER, ONCHAIN_TX, CORPORATE_REGISTRY, CURRENCY.
+  - 3rd: RESEARCH_QUERY.
+  - SANCTIONS fell from 3rd to 4th (0.9978), cause unknown. TEXT_GENERATION fell 0.98 → 0.85.
+  - Read new epochs with the snippet in `track1-miner/docs/evidence/release-2026-11-08-agent-fixes/`
+    (`ranks-epoch2044.txt` shows the shape).
+
+**What this stretch shipped (Nov 7–9)**
+- Schema fields per intent (`src/intent-fields.ts`), with the `brief` regression fixed.
+- Fixes across 22 intents, from four agents. CHAT_COMPLETION, CODE_REVIEW and TEXT_GENERATION run on Groq
+  (`src/genai.ts`, `src/llm.ts`). The new `/contract-audit` route serves SMART_CONTRACT_AUDIT.
+- Web search's direct answer.
+- **Prebuilt sanctions index** (OFAC SDN, non-SDN, UN and UK; 0.75–1.9 s on production).
+- **intent_mapping** (38 intents, 128 fields).
+- **Request capture** (`src/capture.ts`, `tools/capture-pull.mjs`).
+- Tools: `tools/schema-sweep.mjs` checks every answer against the node's schemas.
+
+**Owner actions pending (none done yet)**
+1. **Sign the 43-intent YAML** on anjoman.ai/dashboard/earn (registration 5135):
+   - URL `https://raw.githubusercontent.com/Harshyadav442277/miner/15ecfd65dc247f265ef6a62a6784c733ee3f4290/track1-miner/miner.yaml`
+   - SHA-256 `0xb721afd72f117de397a04f991ebf13b7fbb694d9f1d2c7507d390d9c1d3b7b5a`
+   - Fee address `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`; min price 10000.
+   - Adds intent_mapping, SMART_CONTRACT_AUDIT and macro `year`. manifest-diff flags /macro CHANGED for that
+     optional param only.
+   - The signature issues a NEW registration id: find it by scanning `/api/miners/<id>` for the wallet, then set
+     the repo variable, `tools/mission-matrix.mjs`, the release skill and the README.
+2. **Merge `.github/workflows/sanctions-index.yml` into `main`** (it is on `claude/n1-v2-ids`) and dispatch it once.
+   Otherwise the index goes stale after **2026-11-12 00:03 UTC** and the miner falls back to slow direct
+   downloads. Fallback before that: rebuild by hand (`node track1-miner/tools/build-sanctions-index.mjs --out
+   <dir>` then push the two files to orphan branch `sanctions-data`; see the release record).
+3. **Add a free Upstash Redis store** in Vercel (project `miner` → Storage), so request capture starts (G282).
+4. Optional keys for more capacity and quality: a Gemini or OpenRouter key (second model provider), a Brave Search
+   key (grounded web search), a Blockscout PRO key (token holders on Base, Arbitrum and Polygon).
+5. Growth (20 points): 3+ public progress posts on separate dates; a Discord post to app teams. Submission
+   (video, summary) is due Dec 1 23:59 UTC.
+
+**Open work, in order (owner's focus: SANCTIONS, CHAT_COMPLETION, WEB_SEARCH, CODE_REVIEW)**
+1. Read the epochs after 00:19 UTC Nov 9. Did sanctions recover with the index (3rd/4th)? Did TEXT_GENERATION's
+   drop come from the new brief or title?
+2. WEB_SEARCH: the `currentfacts.ts` Wikidata branch returns `sources: []`. Make `currentFact()` return the
+   holder's Wikidata URL. Also consider a grounded search index (option 5 of the plan).
+3. CHAT and CODE_REVIEW: a multi-provider model router (Groq + Cloudflare Workers AI + Gemini) and a
+   second-pass check; static checks plus the model for code review and contract audit.
+4. SANCTIONS: EU list (G283); use request capture once on to see which names are scored.
+5. Gaps from the intent_mapping audit: storm `peak_gust_kmh` null, weather `precipitation_probability_pct` null,
+   event outcome (2022 World Cup: no winner).
+6. Flaky gates: the ONCHAIN_METRIC check fails when Blockscout doesn't answer; the paperfraud live test "a generic
+   title is not matched" fails on Crossref data. Make both tolerant of upstream outages.
+
+## 2026-11-09 ~00:15 UTC (05:45 IST): CURRENT — three big moves merged on `claude/n1-v2-ids` (`4e385e1`), NOT deployed
+
+- **Merged and pushed:**
+  - **Request capture:** `src/capture.ts` and `tools/capture-pull.mjs`. Off until the owner adds an Upstash store
+    in Vercel (G282).
+  - **`intent_mapping`:** 38 intents, 128 fields, every scored field mapped. Syntax from anjoman.ai/docs
+    yaml-config.
+  - **Prebuilt sanctions index:** OFAC SDN, non-SDN, UN and UK in one file; EU returned HTTP 500 (G283).
+  - **Fixes:** research counts its trials as sources; web search cites the Wikipedia article it quotes.
+  - Unit 976/976.
+- **Sanctions index data:** branch `sanctions-data` (`c1311f9`) published by hand. Built 2026-11-09 00:03 UTC,
+  27,476 parties, SHA-256 `ec5d7412…`.
+  - The loader ignores an index older than 72 h, so it falls back to direct reads after Nov 12 00:03 UTC unless
+    it is rebuilt.
+  - The daily rebuild needs `.github/workflows/sanctions-index.yml` merged to `main` (owner's yes), then one
+    dispatch (G284).
+- **Preview `miner-qezkjslds`:** answered from the index. Hezbollah matched (score 1) through the UK alias;
+  cold 2.2 s, warm about 1.1 s, both including `vercel curl` overhead from India.
+- **Production:** still `eb09b0a` (`miner-ic5zvq5es`).
+- **To sign after deploy:** YAML at `4e385e1`, SHA-256
+  `0xb721afd72f117de397a04f991ebf13b7fbb694d9f1d2c7507d390d9c1d3b7b5a`, 43 intents. It adds intent_mapping,
+  SMART_CONTRACT_AUDIT and macro's `year`. manifest-diff flags `/macro` CHANGED for that added param only.
+
+## 2026-11-08 ~19:20 UTC (Nov 9 00:50 IST): CURRENT — `a2f911e` LIVE (4-agent fixes, 22 intents); 43-intent YAML to sign
+
+- **Production:** `a2f911e`, `miner-4hs6cb5jh` (`dpl_ABhFVKcsHHwJiqKgG38CJBSnVpRM`).
+  - **Rollback target:** `miner-7bo22h7r8` (`1f43311`).
+  - Record: `track1-miner/docs/evidence/release-2026-11-08-agent-fixes/`.
+  - The `brief` regression from `1f43311` is fixed.
+  - New `/contract-audit` route.
+  - Unit 959/959; gates 7/7 after a live gas-test fix (`61f1046`).
+- **Owner to sign:** YAML at `61f1046`, SHA-256 `0x700aca973e3afec3bd33e51684e9cbb927fdc502e260be8bf4b3932a778e7f66`,
+  43 intents (adds SMART_CONTRACT_AUDIT_GENERAL; `/macro` gains `year`). Registration 5135 is active until then.
+- **Open:**
+  - Web search's direct answer did not fire live for "Who won the 2026 FIFA World Cup?".
+  - Token holders on Base/Arbitrum/Polygon need a Blockscout PRO key (owner).
+  - UK sanctions list not added.
+- Worktrees `tg-deploy/fixC` and `fixD` (branches `claude/fix-drops`, `claude/fix-nearmiss`) are merged and can be removed.
+
+## 2026-11-07 ~21:45 UTC (Nov 8 03:15 IST): CURRENT — schema fields LIVE (`1f43311`); registration **5135** (42 intents)
+
+- **Production:** `1f43311`, `miner-7bo22h7r8` (`dpl_9WvUyyb7o9uBqYpsXLSDz5dXjzTU`).
+  - Every answer carries its intent's format-version-3 fields (`src/intent-fields.ts`).
+  - The schema's enum words replace ours where they conflict; ours are kept in `verdict_detail`.
+  - Schema sweep: 25 ok / 6 probe artefacts, against 11 / 22 before.
+  - **Rollback target:** `miner-l6uql9dui` (`8b6e4d3`).
+  - Record: `track1-miner/docs/evidence/release-2026-11-07-schema-fields/`.
+- **Registration 5135 is active** (signed 19:52 UTC, YAML at `8b6e4d3`, 42 intents). The repository variable, the
+  tools and the release skill follow it.
+- **Ranks, epoch 2036:** top 3 in 11 of 32. Within 0.003 of third: URL scan, SSL, sanctions, text classification
+  and onchain metric.
+- **Next:**
+  - Read the epochs after 21:40 UTC for the effect of the schema fields.
+  - Then the near-misses: sanctions (EU/UK lists, P1c) and text classification.
+  - Run `tools/schema-sweep.mjs` after any schema change on the node.
+
+## 2026-11-07 ~19:20 UTC (Nov 8 00:50 IST): CURRENT — chat, code review and writing LIVE (`8b6e4d3`); 42-intent YAML ready to sign
+
+- **Production:** `8b6e4d3`, `miner-l6uql9dui` (`dpl_HZoxe8XB3iU2m1tWkXu1wGNejeHZ`).
+  - `/chat`, `/code-review` and `/generate` answer through Groq: Canberra right, both planted bugs found, a
+    60-word target met.
+  - **Rollback target:** `miner-56hisxeau` (`fa4f954`).
+  - Record: `track1-miner/docs/evidence/release-2026-11-07-genai/`.
+- **Sign next:** YAML at `8b6e4d3`, SHA-256 `0xc6515778bf0c27843f9d223d0b195ec9efa88a0f9f4985fe29bdc9230cdbaaca`,
+  42 intents. The manifest diff against 5123 passes. Registration 5123 is active (39 intents).
+- **Field:** CODE_REVIEW has only 2 of 12 miners scoring above 0, so rank 3 is open. CHAT's top 4 are RSS-feed
+  wrappers. TEXT_GENERATION's top five are 0.999–0.993.
+- **G281:** Routescan intermittently omits `transactionsCount`; one live test flaked.
+- `GROQ_API_KEY` is Production-only and Sensitive: model routes cannot be tested on a preview unless the owner
+  adds it to Preview.
+
+## 2026-11-07 ~18:40 UTC (Nov 8 00:10 IST): CURRENT — `fa4f954` LIVE; registration is now **5123**
+
+- **Production:** `fa4f954`, `miner-56hisxeau` (`dpl_HqN2jr1ddD8frUMXi1esvTtxpA1e`).
+  - Every source answers (licence gate off; owner: testnet).
+  - IP geolocation, headlines, news search and stock price are real again.
+  - Gates 7/7 after updating one stale check; 38/38 routes up, 0 refused.
+  - **Rollback target:** `miner-eh2uav8mu` (`3f33508`).
+  - Record: `track1-miner/docs/evidence/release-2026-11-07-sources-on/`.
+- **Registration 5123 is active.** The owner signed the 39-intent YAML at `fc041f4` (04:24 UTC); 4829 and 5122
+  are superseded. The repository variable `REGISTRATION_ID` is now 5123.
+  - Watch it with `watch.mjs --registration-id 5123 …`.
+  - The catalog id is still 4433.
+- **Next (owner's plan, "go in all of them"):** Phase 1, new routes for CHAT_COMPLETION, CODE_REVIEW and
+  TEXT_GENERATION on Groq, then a second `updateMiner` for 42 intents. Phase 2 closes the gaps in sanctions, fact
+  check, research, web search and filings.
+
+## 2026-11-07 ~04:00 UTC (09:30 IST): CURRENT — barred sources ON again; N1 YAML is 39 intents (`fc041f4`)
+
+- Owner: "I'm not doing their commercial use. It's on testnet currency. I'm just participating in a hackathon."
+  RULES_SEASON2 has no data-licence rule, so `permitted()` (src/sources.ts) now calls barred sources unless
+  `LICENCE_GATE=on`. The ledger stays as a record of each source's terms.
+- IP_GEOLOCATION, NEWS_HEADLINES, NEWS_SEARCH and STOCK_PRICE_US_EQUITY are back in `miner.yaml`.
+  - Unit 914/914; manifest diff PASS (36 -> 39); all 39 canonical.
+  - Local gate 37/39. Failures are environment only: translation needs production's Groq key, and ip-api is
+    unreachable from this machine (HTTP 000).
+- **NOT DEPLOYED.** Production is still `3f33508`, which refuses those four. Deploy `fc041f4` before signing, so
+  the four answer when the update lands.
+- **Hash to sign is now `0xfc08c9ac530e9c7425ae7ca289e17fd46b2350be86567f67404e4e9b2219580c`** (YAML at
+  `fc041f4`). The `0xdb6e…` hash recorded earlier is stale.
+
 ## 2026-11-07 ~03:30 UTC (09:00 IST): CURRENT — `3f33508` LIVE (threshold regex fix); PR #18 open
 
 - Owner: "Yes, deploy it" for `3f33508`, the fix for the push security review's ReDoS finding in `src/threshold.ts`.

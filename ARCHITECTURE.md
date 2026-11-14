@@ -20,7 +20,7 @@ to Season I scoring are in git history.
           GLEIF, World Bank, public chain RPCs, Groq (model phrasing only), and others
 ```
 
-One registration (4829) serves 36 intents on 35 endpoints from one deployment.
+One registration (5152) serves 43 intents on 42 endpoints from one deployment.
 
 ## A1 — Correct, sourced and licensed, per intent
 

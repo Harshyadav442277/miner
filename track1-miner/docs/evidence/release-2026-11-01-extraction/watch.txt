@@ -1,1 +1,0 @@
-[2026-11-01 08:10:19] endpoint=ok 376ms (verdict=valid)  activation=active

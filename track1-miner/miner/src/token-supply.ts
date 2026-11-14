@@ -17,7 +17,7 @@
  * says so. EVM chains only: no Solana SPL.
  */
 import { addressForSymbol, chainLabel, contractAddress, resolveChain, tokenSymbol } from "./holders";
-import { knownToken, TABLE_NOTE } from "./known-tokens";
+import { knownToken, nativeCoin, TABLE_NOTE, TOKEN_NAMES } from "./known-tokens";
 import { RPCS } from "./wallet";
 
 const TIMEOUT_MS = Number(process.env.TOKEN_SUPPLY_TIMEOUT_MS ?? 2_500);
@@ -178,14 +178,22 @@ export async function verifyTokenSupply(question: string, tokenParam = "", chain
   const named = resolveChain(chainParam, question);
   const chain = named ?? "ethereum";
   const urls = (RPCS[chain] ?? []).slice(0, 2);
-  let token = contractAddress(text);
+  const token = contractAddress(text);
   if (!token) {
     const supplyOf = question.match(/\bsupply\s+of\s+(?:the\s+)?([a-z][a-z0-9]{1,9})\b/i)?.[1];
-    const symbol = tokenParam.trim() && !/\s/.test(tokenParam.trim()) ? tokenParam.trim().toUpperCase()
+    const asked = tokenParam.trim() && !/\s/.test(tokenParam.trim()) ? tokenParam.trim().toUpperCase()
       : tokenSymbol(question) ?? (supplyOf && !/^tokens?$/i.test(supplyOf) ? supplyOf.toUpperCase() : null);
-    if (!symbol) {
+    if (!asked) {
       return empty("insufficient_input", "No token contract address or symbol was supplied, so no supply could be read. Supply a contract address (0x…) or a symbol, and the chain.", { error: "no_token" });
     }
+    const coin = nativeCoin(asked);
+    if (coin) {
+      return empty("not_a_token",
+        `${coin.symbol} is the native coin of ${coin.of}, not an ERC-20 token contract, so it has no totalSupply() to read and no figure is given. ` +
+          `${coin.note}${coin.wrapped ? ` For the wrapped token ${coin.wrapped}, whose supply is a contract value, ask for ${coin.wrapped}.` : ""}`,
+        { chain: named, symbol: coin.symbol, error: "native_coin" });
+    }
+    const symbol = TOKEN_NAMES[asked] ?? asked;
     const listed = knownToken(chain, symbol);
     if (listed) {
       const r = await readSupply(chain, listed, urls, named !== null);
@@ -205,7 +213,13 @@ export async function verifyTokenSupply(question: string, tokenParam = "", chain
     if (!found) {
       return empty("not_found", `No ${chainLabel(chain)} token trading as ${symbol} was found. Supply the contract address.`, { chain, symbol, error: "not_found" });
     }
-    token = found;
+    // A resolved contract is used only when its own symbol() is the one asked for: anything else is a guess.
+    const r = await readSupply(chain, found, urls, named !== null);
+    if (r.verdict === "verified" && r.symbol && r.symbol.toUpperCase() !== symbol) {
+      return empty("ambiguous", `The ${chainLabel(chain)} contract found for ${symbol} reports its symbol as ${r.symbol}, so it is not certain to be the token meant, and no figure is given. Supply the contract address.`,
+        { chain, symbol, token_address: found, error: "symbol_mismatch" });
+    }
+    return r;
   }
   return readSupply(chain, token, urls, named !== null);
 }

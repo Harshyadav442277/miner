@@ -1,9 +1,93 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-14 ~10:00 UTC (15:30 IST) repo audit, branch `PR/miner-provider-optimization-da4453` — G287–G290
+
+- **G287 — 13 of our 43 intents carry no score in `/api/miners` while other miners are scored on them. `OPEN`.**
+  Read 2026-11-14 ~09:25 UTC, registration 5152: no entry for SSL_VERIFICATION_CERT, WEATHER_CHECK_TEMPERATURE,
+  CVE_LOOKUP_CVSS, CURRENCY_EXCHANGE_CONVERT, FINANCIAL_DATA, CRYPTO_PRICE_USD, URL_SCAN_VERDICT, SANCTIONS,
+  CORPORATE_REGISTRY, REGULATORY_FILING, CRYPTO_TRANSFER, MACRO or DNS. Others were scored on each in epochs
+  2085–2087 (DNS: 2019 only). Production answered all of them with HTTP 200 in under 0.7 s when probed by hand, and
+  `tools/schema-sweep.mjs` found the scored field present for all but CVE (G288). Cause unknown: not sampled, or
+  dropped by the node. Close: an epoch that scores them again, or the organiser's answer on what removes a miner
+  from an intent's scores.
+  **Update 2026-11-14 ~10:00 UTC, cause found for 8 of the 13 (observed):** production logs for the scoring pass
+  that began 09:45 UTC show the node calling `/macro`, `/convert`, `/sec-filings`, `/crypto-price`,
+  `/company-registry` and `/cve` with no query parameters (only our `__path` rewrite key), while `/code-review`
+  arrived with `code`. With no parameters we answer `unknown` and a null scored field. Inferred: the node fills
+  only params marked `required`; all 13 endpoints declare optional params only, the 14 endpoints with a required
+  param are scored. Not fitting: TOKEN_HOLDER, GAS and STOCK are optional-only and scored. Sanctions, SSL,
+  FINANCIAL_DATA, CRYPTO_TRANSFER and DNS were scored for nobody in epoch 2087. Fix: one YAML batch (spec params
+  marked `required`, `jurisdiction` added to `/company-registry`, `token` to `/token-holders`, `window_hours`),
+  sandbox-validated, then the owner's `updateMiner`.
+- **G291 — Token holder counts are null on every chain but Ethereum. `OPEN`.** `base.blockscout.com` answers our
+  Vercel requests 403 with a Cloudflare challenge (observed 2026-11-14 for Base, Arbitrum, Polygon). Rank 6, 0.906.
+- **G292 — Company registry misses short names and ignores the jurisdiction. `OPEN`.** "Equinor / NO" returns
+  `not_found` (GLEIF `legalName` filter); "Lehman Brothers Holdings / US" answers the GB PLC.
+- **G293 — Research finds no source on well-studied questions, and its brief is a paper title. `OPEN`.**
+  Intermittent fasting and insulin sensitivity: `source_count 0` (2026-11-14). Rank 7, 0.959.
+- **G294 — LIQUIDITY_DEPTH_VERIFY and WASH_TRADING_DETECTION are 3rd and 5th in live demand and we serve neither.
+  `OPEN`, owner decision.** An on-chain pool read matched DexScreener within 0.006% in a test; about 10 h and 6 h.
+- **G288 — The CVE fallback answered Log4Shell as "no numeric CVSS severity rating". `FIXED in 40f4795, NOT deployed`.**
+  When NVD rate-limits (no `NVD_API_KEY` is set), `cve-program.ts` read only the CNA container and returned no
+  `cvss_score` or `severity` fields. CVE-2021-44228's score (10.0 CRITICAL) is in the CISA-ADP container.
+  Production `b455022` still returns `verdict: unscored` (probed 09:25 UTC). Close: deploy, then the same probe
+  returns `cvss_score: 10`. A free NVD key would keep the primary path in use.
+- **G289 — WEB_SEARCH's scored `brief` was the first headline, not the answer. `FIXED on this branch, NOT deployed`.**
+  Epoch 2087: rank 22 of 27, 0.108. Still open inside the intent: a price or sports question gets reports that do
+  not state the answer ("What is the current price of Bitcoin?"), and the news source's licence (G189). Decide:
+  route those questions to the price and event routes, or drop the intent at the next `updateMiner`.
+- **G290 — Scores on four judgment intents do not follow correctness, so they are not chased. `OPEN`, by decision.**
+  EVENT_OUTCOME (leader 0.164, a fixed 2023 Bundesliga feed), WEATHER_FORECAST (leader returns an empty result),
+  NEWS_SEARCH and SENTIMENT (BBC feed wrappers at 0.998). Observed 2026-11-14 by calling each leader; how the
+  scorer works is inferred. One real gap: `/weather-forecast` declares `hours` where the schema says
+  `window_hours`; fix in the YAML at the next `updateMiner`.
+
+## 2026-11-09 ~00:10 UTC (05:40 IST) prebuilt sanctions index, branch `claude/sanctions-index` — G283–G286 (renumbered on merge: G282 was taken by request capture)
+
+- **G283 — The EU financial sanctions file could not be read, so `parseEu` is unchecked against a live file.
+  `OPEN`.** Every file URL on webgate.ec.europa.eu (XML v1.0/v1.1, CSV v1.0/v1.1, PDF, public token
+  `dG9rZW4tMjAxNw`) answered HTTP 500 with a JSON error body at 2026-11-08 20:11 and 23:44 UTC; the RSS feed
+  on the same host answered 200 and dates the files 2026-10-23. The parser follows the v1.1 layout
+  (sanctionEntity / nameAlias / citizenship / birthdate) from the published schema, not from a downloaded
+  file. Until a build succeeds, the index carries no EU list and answers name it under `lists_not_checked`.
+  Close: one builder run with the EU file read, its party count above 1,000 and a known EU name (Putin)
+  matched under the EU list.
+- **G284 — The `sanctions-data` branch does not exist yet, and the daily build cannot run from this branch.
+  `OPEN`.** GitHub runs scheduled workflows only from the default branch; `sanctions-index.yml` must be on
+  `main`, then dispatched once, before the miner's default index URL resolves. Until then a deployed miner
+  gets a 404 for the index and reads the lists directly, as before (tested fallback).
+- **G285 — Index latency was measured against a local HTTP server, not raw.githubusercontent.com from Vercel.
+  `OPEN`.** Local: first answer 0.34 s cold with the index, against 11.0 s (route watchdog fired) then 7.4 s
+  on the direct path from this machine. The production cold time adds the download of a 2.83 MB (0.79 MB
+  gzip) file from GitHub.
+- **G286 — Licence ledger over-counts the sanctions endpoints. `OPEN`.** The index host,
+  raw.githubusercontent.com, is registered as `ofac-list` (0xB10C's MIT list), so /sanctions-screen,
+  /company-registry and /sec-filings now list `ofac-list` among their upstreams. The index's data comes from
+  ofac, un-sanctions, uk-sanctions (OGL v3.0) and eu-sanctions (CC BY 4.0). A path-aware host ledger would fix it.
+
+## 2026-11-08 ~19:45 UTC — G282 request capture
+
+- **G282 — Request capture holds callers' questions, and is off until a store exists. `OPEN`, owner action.**
+  `src/capture.ts` records each answered request: route, query params, status, verdict, error, the answer's lead
+  sentence, user-agent and time taken. No IP addresses, cookies or authorisation headers. Records go to a Redis
+  list per UTC day with a 14-day expiry.
+  - **Personal data:** sanctions questions carry people's names, so the store holds personal data for up to 14
+    days. Exports from `tools/capture-pull.mjs` stay outside the repository.
+  - **Off until provisioned:** it does nothing until the owner adds a free Upstash Redis store through Vercel
+    (Storage → Upstash, which sets `KV_REST_API_URL` and `KV_REST_API_TOKEN`). Accepting Upstash's terms is the
+    owner's step.
+
+## 2026-11-07 ~19:15 UTC — G281
+
+- **G281 — Routescan intermittently omits an address's `transactionsCount`. `OPEN`.** A live test got
+  `count null` twice in a row, then passed 3 of 3, and a direct read returned 90,717,840. When it is missing,
+  /contract-activity has no fallback for Blockscout's undercount (Blockscout reports 772 transactions for the
+  Uniswap V2 router). Not caused by `8b6e4d3`.
+
 ## 2026-11-07 ~03:05 UTC (08:35 IST) uptime alarm — G280
 
-- **G280 — The 23:29 UTC uptime run failed (issue #19) on two routes this branch deleted. `OPEN` until PR #18
-  merges.** Its result: 37 of 39 routes up; `/keywords` and `/vuln-triage` returned 404. Both routes were removed
+- **G280 — The 23:29 UTC uptime run failed (issue #19) on two routes this branch deleted. `CLOSED 2026-11-07 03:32 UTC`:
+  PR #18 merged as `aad95d2`; dispatched run 42334338259 on `main` found 34/34 up, and the workflow closed #19.** Its result: 37 of 39 routes up; `/keywords` and `/vuln-triage` returned 404. Both routes were removed
   on purpose in `6aebe0f`, which went live inside `bee3f6a`, and neither is in registration 4829.
   The workflow checks out `main` and sweeps `main`'s `miner.yaml`, which is 41 commits behind production. The
   same sweep using this branch's YAML (`628ca5c`) found 34 of 34 up at 03:00 UTC. Every scheduled run will fail

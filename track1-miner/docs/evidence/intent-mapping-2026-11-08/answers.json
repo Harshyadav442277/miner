@@ -1,0 +1,4171 @@
+[
+ {
+  "intent": "ACADEMIC_SEARCH_GENERAL",
+  "path": "/papers",
+  "query": "Find recent peer-reviewed papers on CRISPR gene editing",
+  "http": 200,
+  "ms": 797,
+  "fetched_at": "2026-11-08T23:45:14Z",
+  "answer": {
+   "answer": "Here are 5 peer-reviewed journal articles on CRISPR gene editing: 1) CRISPR Gene Editing in Strawberry by Seonghee Lee, Cheol-Min Yoo, Kevin M. Folta, Vance M. Whitaker (2018), cited 3 times. 2) Bypassing GMO regulations with CRISPR gene editing by Jungeun Kim, Jin‐Soo Kim (2016), cited 85 times. 3) Cas9 immunity creates challenges for CRISPR gene editing therapies by Julie M. Crudele, Jeffrey S. Chamberlain (2018), cited 269 times. 4) CRISPR gene editing by Amber Dance (2015), cited 23 times. 5) Evaluation of CRISPR gene-editing tools in zebrafish by José M. Uribe‐Salazar, Gulhan Kaya, Aadithya Sekar, KaeChandra Weyenberg (2022), cited 57 times.",
+   "topic": "CRISPR gene editing",
+   "from_date": null,
+   "to_date": null,
+   "verdict": "papers",
+   "papers": [
+    {
+     "title": "CRISPR Gene Editing in Strawberry",
+     "year": 2018,
+     "authors": [
+      "Seonghee Lee",
+      "Cheol-Min Yoo",
+      "Kevin M. Folta",
+      "Vance M. Whitaker"
+     ],
+     "citations": 3,
+     "venue": "EDIS",
+     "doi": "https://doi.org/10.32473/edis-hs1315-2018"
+    },
+    {
+     "title": "Bypassing GMO regulations with CRISPR gene editing",
+     "year": 2016,
+     "authors": [
+      "Jungeun Kim",
+      "Jin‐Soo Kim"
+     ],
+     "citations": 85,
+     "venue": "Nature Biotechnology",
+     "doi": "https://doi.org/10.1038/nbt.3680"
+    },
+    {
+     "title": "Cas9 immunity creates challenges for CRISPR gene editing therapies",
+     "year": 2018,
+     "authors": [
+      "Julie M. Crudele",
+      "Jeffrey S. Chamberlain"
+     ],
+     "citations": 269,
+     "venue": "Nature Communications",
+     "doi": "https://doi.org/10.1038/s41467-018-05843-9"
+    },
+    {
+     "title": "CRISPR gene editing",
+     "year": 2015,
+     "authors": [
+      "Amber Dance"
+     ],
+     "citations": 23,
+     "venue": "Proceedings of the National Academy of Sciences",
+     "doi": "https://doi.org/10.1073/pnas.1503840112"
+    },
+    {
+     "title": "Evaluation of CRISPR gene-editing tools in zebrafish",
+     "year": 2022,
+     "authors": [
+      "José M. Uribe‐Salazar",
+      "Gulhan Kaya",
+      "Aadithya Sekar",
+      "KaeChandra Weyenberg"
+     ],
+     "citations": 57,
+     "venue": "BMC Genomics",
+     "doi": "https://doi.org/10.1186/s12864-021-08238-1"
+    }
+   ],
+   "count": 5,
+   "confidence": 0.8,
+   "reason": "Here are 5 peer-reviewed journal articles on CRISPR gene editing: 1) CRISPR Gene Editing in Strawberry by Seonghee Lee, Cheol-Min Yoo, Kevin M. Folta, Vance M. Whitaker (2018), cited 3 times. 2) Bypassing GMO regulations with CRISPR gene editing by Jungeun Kim, Jin‐Soo Kim (2016), cited 85 times. 3) Cas9 immunity creates challenges for CRISPR gene editing therapies by Julie M. Crudele, Jeffrey S. Chamberlain (2018), cited 269 times. 4) CRISPR gene editing by Amber Dance (2015), cited 23 times. 5) Evaluation of CRISPR gene-editing tools in zebrafish by José M. Uribe‐Salazar, Gulhan Kaya, Aadithya Sekar, KaeChandra Weyenberg (2022), cited 57 times.",
+   "checked_at": "2026-11-08T23:45:14.134Z",
+   "paper_titles": [
+    "CRISPR Gene Editing in Strawberry",
+    "Bypassing GMO regulations with CRISPR gene editing",
+    "Cas9 immunity creates challenges for CRISPR gene editing therapies",
+    "CRISPR gene editing",
+    "Evaluation of CRISPR gene-editing tools in zebrafish"
+   ],
+   "dois": [
+    "https://doi.org/10.32473/edis-hs1315-2018",
+    "https://doi.org/10.1038/nbt.3680",
+    "https://doi.org/10.1038/s41467-018-05843-9",
+    "https://doi.org/10.1073/pnas.1503840112",
+    "https://doi.org/10.1186/s12864-021-08238-1"
+   ],
+   "total_matches": 5,
+   "brief": "Top paper: CRISPR Gene Editing in Strawberry",
+   "licensing": {
+    "endpoint_status": "licensed",
+    "upstreams": [
+     {
+      "source": "DOAJ",
+      "status": "licensed"
+     },
+     {
+      "source": "OpenAlex",
+      "status": "licensed"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "ACADEMIC_SEARCH_GENERAL",
+  "path": "/papers",
+  "query": "Most cited papers on transformer models since 2023",
+  "http": 200,
+  "ms": 838,
+  "fetched_at": "2026-11-08T23:45:14Z",
+  "answer": {
+   "answer": "Here are 5 papers on transformer models: 1) Transformer models in biomedicine by Sumit Madan, Manuel Lentzen, Johannes Brandt, Daniel Rueckert (2024), cited 143 times. 2) Transformer models: an introduction and catalog by Xavier Amatriain, Sankar, Ananth, Bing, Jie, Bodigutla, Praveen Kumar (2023), cited 117 times. 3) A review of transformer models in drug discovery and beyond by Jian Jiang, Long Chen, Lu Ke, Bozheng Dou (2024), cited 87 times. 4) The Antecedents of Transformer Models by Simon John Dennis, Kevin D. Shabahang, Hyungwook Yim (2024), cited 11 times. 5) Credit Card Fraud Detection Using Advanced Transformer Model by Chang Yu, Yongshun Xu, Jin Ping Cao, Ye Zhang (2024), cited 109 times.",
+   "topic": "transformer models",
+   "from_date": "2023-01-01",
+   "to_date": null,
+   "verdict": "papers",
+   "papers": [
+    {
+     "title": "Transformer models in biomedicine",
+     "year": 2024,
+     "authors": [
+      "Sumit Madan",
+      "Manuel Lentzen",
+      "Johannes Brandt",
+      "Daniel Rueckert"
+     ],
+     "citations": 143,
+     "venue": "BMC Medical Informatics and Decision Making",
+     "doi": "https://doi.org/10.1186/s12911-024-02600-5"
+    },
+    {
+     "title": "Transformer models: an introduction and catalog",
+     "year": 2023,
+     "authors": [
+      "Xavier Amatriain",
+      "Sankar, Ananth",
+      "Bing, Jie",
+      "Bodigutla, Praveen Kumar"
+     ],
+     "citations": 117,
+     "venue": "arXiv (Cornell University)",
+     "doi": "https://doi.org/10.48550/arxiv.2302.07730"
+    },
+    {
+     "title": "A review of transformer models in drug discovery and beyond",
+     "year": 2024,
+     "authors": [
+      "Jian Jiang",
+      "Long Chen",
+      "Lu Ke",
+      "Bozheng Dou"
+     ],
+     "citations": 87,
+     "venue": "Journal of Pharmaceutical Analysis",
+     "doi": "https://doi.org/10.1016/j.jpha.2024.101081"
+    },
+    {
+     "title": "The Antecedents of Transformer Models",
+     "year": 2024,
+     "authors": [
+      "Simon John Dennis",
+      "Kevin D. Shabahang",
+      "Hyungwook Yim"
+     ],
+     "citations": 11,
+     "venue": "Current Directions in Psychological Science",
+     "doi": "https://doi.org/10.1177/09637214241279504"
+    },
+    {
+     "title": "Credit Card Fraud Detection Using Advanced Transformer Model",
+     "year": 2024,
+     "authors": [
+      "Chang Yu",
+      "Yongshun Xu",
+      "Jin Ping Cao",
+      "Ye Zhang"
+     ],
+     "citations": 109,
+     "venue": "IEEE International Conference on Metaverse Computing, Networking and Applications (MetaCom)",
+     "doi": "https://doi.org/10.1109/metacom62920.2024.00064"
+    }
+   ],
+   "count": 5,
+   "confidence": 0.8,
+   "reason": "Here are 5 papers on transformer models: 1) Transformer models in biomedicine by Sumit Madan, Manuel Lentzen, Johannes Brandt, Daniel Rueckert (2024), cited 143 times. 2) Transformer models: an introduction and catalog by Xavier Amatriain, Sankar, Ananth, Bing, Jie, Bodigutla, Praveen Kumar (2023), cited 117 times. 3) A review of transformer models in drug discovery and beyond by Jian Jiang, Long Chen, Lu Ke, Bozheng Dou (2024), cited 87 times. 4) The Antecedents of Transformer Models by Simon John Dennis, Kevin D. Shabahang, Hyungwook Yim (2024), cited 11 times. 5) Credit Card Fraud Detection Using Advanced Transformer Model by Chang Yu, Yongshun Xu, Jin Ping Cao, Ye Zhang (2024), cited 109 times.",
+   "checked_at": "2026-11-08T23:45:14.141Z",
+   "paper_titles": [
+    "Transformer models in biomedicine",
+    "Transformer models: an introduction and catalog",
+    "A review of transformer models in drug discovery and beyond",
+    "The Antecedents of Transformer Models",
+    "Credit Card Fraud Detection Using Advanced Transformer Model"
+   ],
+   "dois": [
+    "https://doi.org/10.1186/s12911-024-02600-5",
+    "https://doi.org/10.48550/arxiv.2302.07730",
+    "https://doi.org/10.1016/j.jpha.2024.101081",
+    "https://doi.org/10.1177/09637214241279504",
+    "https://doi.org/10.1109/metacom62920.2024.00064"
+   ],
+   "total_matches": 5,
+   "brief": "Top paper: Transformer models in biomedicine",
+   "licensing": {
+    "endpoint_status": "licensed",
+    "upstreams": [
+     {
+      "source": "DOAJ",
+      "status": "licensed"
+     },
+     {
+      "source": "OpenAlex",
+      "status": "licensed"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CHAT_COMPLETION_GENERAL",
+  "path": "/chat",
+  "query": "Why is the sky blue?",
+  "http": 200,
+  "ms": 806,
+  "fetched_at": "2026-11-08T23:45:23Z",
+  "answer": {
+   "answer": "The sky appears blue due to Rayleigh scattering of sunlight.",
+   "reply": "The sky appears blue due to Rayleigh scattering of sunlight. Shorter blue wavelengths scatter more efficiently than longer red wavelengths when sunlight passes through Earth's atmosphere, causing the sky to look blue to our eyes. This effect is strongest when the sun is high, while at sunrise and sunset longer wavelengths dominate, giving red hues. As of 2024, this explanation remains the standard scientific understanding.",
+   "brief": "The sky appears blue due to Rayleigh scattering of sunlight.",
+   "confidence": 0.8,
+   "source": "Groq (gpt-oss-120b, falling back to qwen3.8-27b and gpt-oss-20b)",
+   "reason": "The sky appears blue due to Rayleigh scattering of sunlight. Shorter blue wavelengths scatter more efficiently than longer red wavelengths when sunlight passes through Earth's atmosphere, causing the sky to look blue to our eyes. This effect is strongest when the sun is high, while at sunrise and sunset longer wavelengths dominate, giving red hues. As of 2024, this explanation remains the standard scientific understanding.",
+   "checked_at": "2026-11-08T23:45:23.156Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Groq",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CHAT_COMPLETION_GENERAL",
+  "path": "/chat",
+  "query": "Will it be possible to land humans on Mars by 2030?",
+  "http": 200,
+  "ms": 932,
+  "fetched_at": "2026-11-08T23:45:23Z",
+  "answer": {
+   "answer": "Uncertain: landing humans on Mars by 2030 is not assured.",
+   "reply": "Uncertain: landing humans on Mars by 2030 is not assured. While NASA's Artemis program aims for lunar return by the mid-2020s and SpaceX is developing Starship for deep-space missions, technical, funding, and safety challenges remain. No official schedule guarantees a crewed Mars landing within the next decade, and timelines could shift based on budgetary and engineering factors. As of 2024, a crewed Mars mission is still projected for the 2030s, but a specific 2030 target is uncertain.",
+   "brief": "Uncertain: landing humans on Mars by 2030 is not assured",
+   "verdict": "Uncertain",
+   "confidence": 0.8,
+   "source": "Groq (gpt-oss-120b, falling back to qwen3.8-27b and gpt-oss-20b)",
+   "reason": "Uncertain: landing humans on Mars by 2030 is not assured. While NASA's Artemis program aims for lunar return by the mid-2020s and SpaceX is developing Starship for deep-space missions, technical, funding, and safety challenges remain. No official schedule guarantees a crewed Mars landing within the next decade, and timelines could shift based on budgetary and engineering factors. As of 2024, a crewed Mars mission is still projected for the 2030s, but a specific 2030 target is uncertain.",
+   "checked_at": "2026-11-08T23:45:23.531Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Groq",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CODE_REVIEW_GENERAL",
+  "path": "/code-review",
+  "query": "Review this function: def avg(xs): return sum(xs) / len(xs)",
+  "http": 200,
+  "ms": 998,
+  "fetched_at": "2026-11-08T23:45:23Z",
+  "answer": {
+   "answer": "Request changes: The code is not correct.",
+   "verdict": "Request changes",
+   "summary": "The code is not correct. It lacks a guard against division by zero, which can raise a ZeroDivisionError when xs is empty. It also does not validate that xs contains numeric types, which could cause a TypeError at runtime. Adding input validation and handling the empty case will make the function robust. Consider documenting expected input and raising a clear exception for invalid data. These changes improve correctness and usability.",
+   "findings": [
+    {
+     "severity": "high",
+     "line": 1,
+     "issue": "Missing empty sequence check (ZeroDivisionError)",
+     "fix": "def avg(xs):\n    if not xs:\n        raise ValueError(\"avg() arg is an empty sequence\")\n    return sum(xs) / len(xs)"
+    }
+   ],
+   "finding_count": 1,
+   "confidence": 0.8,
+   "source": "Groq (gpt-oss-120b, falling back to qwen3.8-27b and gpt-oss-20b)",
+   "reason": "Request changes: The code is not correct. It lacks a guard against division by zero, which can raise a ZeroDivisionError when xs is empty. It also does not validate that xs contains numeric types, which could cause a TypeError at runtime. Adding input validation and handling the empty case will make the function robust. Consider documenting expected input and raising a clear exception for invalid data. These changes improve correctness and usability. Findings: 1) high, line 1: Missing empty sequence check (ZeroDivisionError) Fix: def avg(xs):\n    if not xs:\n        raise ValueError(\"avg() arg is an empty sequence\")\n    return sum(xs) / len(xs)",
+   "checked_at": "2026-11-08T23:45:23.604Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Groq",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CONTENT_EXTRACTION_GENERAL",
+  "path": "/extract",
+  "query": "Extract the dates and amounts from this invoice: Invoice 4411 issued 3 March 2025 for $1,250.00, due 2 April 2025.",
+  "http": 200,
+  "ms": 303,
+  "fetched_at": "2026-11-08T23:45:14Z",
+  "answer": {
+   "answer": "Date: March 3, 2025, April 2, 2025. $1,250.00.",
+   "verdict": "multiple",
+   "extracted": {
+    "dates": [
+     "March 3, 2025",
+     "April 2, 2025"
+    ],
+    "events": [],
+    "places": [],
+    "values": [
+     "$1,250.00"
+    ]
+   },
+   "confidence": 1,
+   "reason": "Date: March 3, 2025, April 2, 2025. $1,250.00.",
+   "entities": [
+    "March 3, 2025",
+    "April 2, 2025",
+    "$1,250.00"
+   ],
+   "brief": "dates: March 3, 2025, April 2, 2025; values: $1,250.00",
+   "checked_at": "2026-11-08T23:45:14.228Z",
+   "licensing": {
+    "endpoint_status": "licensed",
+    "upstreams": [],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+  "path": "/company-registry",
+  "query": "What is the incorporation status and registered agent for Tesla, Inc.?",
+  "http": 200,
+  "ms": 1106,
+  "fetched_at": "2026-11-08T23:45:18Z",
+  "answer": {
+   "answer": "For TESLA, INC., its registered agent is C T Corporation System.",
+   "subject": "Tesla",
+   "not_in_sources": [
+    "directors and officers",
+    "beneficial owners (GLEIF records accounting-consolidation parents only)"
+   ],
+   "sources": [
+    "https://search.gleif.org/#/record/54930043XZGB27CTOV49",
+    "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001318605"
+   ],
+   "verdict": "found",
+   "confidence": 0.92,
+   "legal_name": "TESLA, INC.",
+   "lei": "54930043XZGB27CTOV49",
+   "entity_status": "ACTIVE",
+   "lei_registration_status": "ISSUED",
+   "jurisdiction": "US-TX",
+   "legal_form": "For-Profit Corporation",
+   "company_number": "0805587591",
+   "register": "Corporations Section (Texas Secretary of State)",
+   "registered_address": "C/O C T Corporation System, 1999 Bryan Street, Suite 900, Dallas, US-TX, 75201, US",
+   "registered_agent": "C/O C T Corporation System",
+   "headquarters_address": "1 Tesla Road, Austin, US-TX, 78725, US",
+   "incorporated": "2024-06-14",
+   "other_names": [],
+   "direct_parent": null,
+   "ultimate_parent": null,
+   "us_filer": {
+    "cik": 1318605,
+    "name": "Tesla, Inc.",
+    "tickers": [
+     "TSLA"
+    ],
+    "exchanges": [
+     "Nasdaq"
+    ],
+    "sic": "3711",
+    "sic_description": "Motor Vehicles & Passenger Car Bodies",
+    "state_of_incorporation": "TX",
+    "business_address": "1 TESLA ROAD, AUSTIN, TX, 78725",
+    "mailing_address": "1 TESLA ROAD, AUSTIN, TX, 78725",
+    "former_names": [
+     {
+      "name": "TESLA MOTORS INC",
+      "from": "2005-02-17",
+      "to": "2017-01-27"
+     }
+    ],
+    "lei": null,
+    "filer_category": "Large accelerated filer",
+    "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001318605"
+   },
+   "other_candidates": [
+    {
+     "name": "TESLA S.R.L.",
+     "lei": "8156003F886A13B54216",
+     "jurisdiction": "IT",
+     "status": "ACTIVE"
+    },
+    {
+     "name": "TESLA S.R.L.",
+     "lei": "815600C22FA6B9561F27",
+     "jurisdiction": "IT",
+     "status": "ACTIVE"
+    },
+    {
+     "name": "TESLA CORP",
+     "lei": "335800JOCG78LICU2K27",
+     "jurisdiction": "IN",
+     "status": "ACTIVE"
+    }
+   ],
+   "reason": "For TESLA, INC., its registered agent is C T Corporation System. TESLA, INC. is active, registered with Corporations Section (Texas Secretary of State) under company number 0805587591 in US-TX, incorporated 2024-06-14. Registered address: C/O C T Corporation System, 1999 Bryan Street, Suite 900, Dallas, US-TX, 75201, US; legal form For-Profit Corporation; LEI 54930043XZGB27CTOV49 (issued). GLEIF records no parent for it. SEC EDGAR lists it as incorporated in TX, industry Motor Vehicles & Passenger Car Bodies, formerly TESLA MOTORS INC. Directors and beneficial owners are not in these sources.",
+   "active": true,
+   "registration_id": "0805587591",
+   "checked_at": "2026-11-08T23:45:18.762Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "GLEIF",
+      "status": "licensed"
+     },
+     {
+      "source": "US Treasury OFAC",
+      "status": "licensed"
+     },
+     {
+      "source": "US SEC EDGAR",
+      "status": "conditional"
+     },
+     {
+      "source": "UN Security Council Consolidated List",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+  "path": "/company-registry",
+  "query": "Is Barclays Bank PLC still registered?",
+  "http": 200,
+  "ms": 3822,
+  "fetched_at": "2026-11-08T23:45:21Z",
+  "answer": {
+   "answer": "BARCLAYS BANK PLC is active, registered with Companies House under company number 01026167 in GB, incorporated 1971-10-04.",
+   "subject": "Barclays Bank PLC",
+   "not_in_sources": [
+    "directors and officers",
+    "beneficial owners (GLEIF records accounting-consolidation parents only)"
+   ],
+   "sources": [
+    "https://search.gleif.org/#/record/G5GSEF7VJP5I7OUK5573",
+    "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000312070"
+   ],
+   "verdict": "found",
+   "confidence": 0.92,
+   "legal_name": "BARCLAYS BANK PLC",
+   "lei": "G5GSEF7VJP5I7OUK5573",
+   "entity_status": "ACTIVE",
+   "lei_registration_status": "ISSUED",
+   "jurisdiction": "GB",
+   "legal_form": "Public Limited Company",
+   "company_number": "01026167",
+   "register": "Companies House",
+   "registered_address": "1 CHURCHILL PLACE, LONDON, GB-LND, E14 5HP, GB",
+   "registered_agent": null,
+   "headquarters_address": "1 CHURCHILL PLACE, LONDON, GB-LND, E14 5HP, GB",
+   "incorporated": "1971-10-04",
+   "other_names": [],
+   "direct_parent": {
+    "name": "BARCLAYS PLC",
+    "lei": "213800LBQA1Y9L22JB70"
+   },
+   "ultimate_parent": {
+    "name": "BARCLAYS PLC",
+    "lei": "213800LBQA1Y9L22JB70"
+   },
+   "us_filer": {
+    "cik": 312070,
+    "name": "BARCLAYS BANK PLC",
+    "tickers": [
+     "ATMP",
+     "BWVTF",
+     "DJP",
+     "GBUG",
+     "GRN",
+     "JJETF",
+     "TAPR",
+     "VXX",
+     "VXZ"
+    ],
+    "exchanges": [
+     "CBOE",
+     "OTC",
+     "NYSE",
+     "Nasdaq",
+     "NYSE",
+     "OTC",
+     "CBOE",
+     "CBOE",
+     "CBOE"
+    ],
+    "sic": "6029",
+    "sic_description": "Commercial Banks, NEC",
+    "state_of_incorporation": "United Kingdom",
+    "business_address": "1 CHURCHILL PLACE, CANARY WHARF, LONDON, United Kingdom, E14 5HP",
+    "mailing_address": "1 CHURCHILL PLACE, CANARY WHARF, LONDON, United Kingdom, E14 5HP",
+    "former_names": [
+     {
+      "name": "BARCLAYS BANK PLC",
+      "from": "2013-07-05",
+      "to": "2026-11-06"
+     },
+     {
+      "name": "BARCLAYS BANK PLC /ENG/",
+      "from": "2000-03-17",
+      "to": "2013-11-27"
+     }
+    ],
+    "lei": null,
+    "filer_category": "Non-accelerated filer",
+    "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000312070"
+   },
+   "other_candidates": [
+    {
+     "name": "BARCLAYS BANK UK PLC",
+     "lei": "213800UUGANOMFJ9X769",
+     "jurisdiction": "GB",
+     "status": "ACTIVE"
+    },
+    {
+     "name": "BARCLAYS BANK PLC",
+     "lei": "2549003Q5J2G7ALNU316",
+     "jurisdiction": "GB",
+     "status": "ACTIVE"
+    },
+    {
+     "name": "BARCLAYS BANK PLC PARIS BRANCH",
+     "lei": "213800BOHWWKDL36W902",
+     "jurisdiction": "GB",
+     "status": "ACTIVE"
+    }
+   ],
+   "reason": "BARCLAYS BANK PLC is active, registered with Companies House under company number 01026167 in GB, incorporated 1971-10-04. Registered address: 1 CHURCHILL PLACE, LONDON, GB-LND, E14 5HP, GB; legal form Public Limited Company; LEI G5GSEF7VJP5I7OUK5573 (issued). Its direct parent is BARCLAYS PLC. SEC EDGAR lists it as incorporated in United Kingdom, industry Commercial Banks, NEC, formerly BARCLAYS BANK PLC. Directors and beneficial owners are not in these sources.",
+   "active": true,
+   "registration_id": "01026167",
+   "checked_at": "2026-11-08T23:45:21.794Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "GLEIF",
+      "status": "licensed"
+     },
+     {
+      "source": "US Treasury OFAC",
+      "status": "licensed"
+     },
+     {
+      "source": "US SEC EDGAR",
+      "status": "conditional"
+     },
+     {
+      "source": "UN Security Council Consolidated List",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CROSS_CHAIN_STATE_VERIFY_GENERAL",
+  "path": "/cross-chain",
+  "query": "Did bridge transaction 0x8c0b5f6ae6d1a3d1fbd9fe6c4ed5d6bc5f6c21a1f6c0a2dfb4e3ca0d7c1c9e11 arrive on Base?",
+  "http": 200,
+  "ms": 330,
+  "fetched_at": "2026-11-08T23:45:16Z",
+  "answer": {
+   "answer": "No LayerZero message is indexed for 0x8c0b5f6ae6d1a3d1fbd9fe6c4ed5d6bc5f6c21a1f6c0a2dfb4e3ca0d7c1c9e11, as a transaction hash or a GUID.",
+   "verdict": "not_found",
+   "confidence": 0.6,
+   "reason": "No LayerZero message is indexed for 0x8c0b5f6ae6d1a3d1fbd9fe6c4ed5d6bc5f6c21a1f6c0a2dfb4e3ca0d7c1c9e11, as a transaction hash or a GUID. Other bridges, such as Wormhole or native rollup bridges, are not checked here.",
+   "checked_at": "2026-11-08T23:45:16.542Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "4byte.directory",
+      "status": "licensed"
+     },
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "LayerZero Scan",
+      "status": "unread"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "OpenChain signatures",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CRYPTO_PRICE_USD",
+  "path": "/crypto-price",
+  "query": "What is the price of ETH?",
+  "http": 200,
+  "ms": 341,
+  "fetched_at": "2026-11-08T23:45:15Z",
+  "answer": {
+   "answer": "Ethereum (ETH) is $2,133.49 USD, the last Bitstamp trade at 2026-11-08 23:45:14 UTC.",
+   "asset": "Ethereum",
+   "symbol": "ETH",
+   "verdict": "price",
+   "confidence": 0.9,
+   "price": 2133.49,
+   "quote": "USD",
+   "price_at": "2026-11-08T23:45:14.000Z",
+   "source": "Bitstamp",
+   "bid": 2132.23,
+   "ask": 2132.4,
+   "volume_24h": 7083.091315,
+   "reason": "Ethereum (ETH) is $2,133.49 USD, the last Bitstamp trade at 2026-11-08 23:45:14 UTC. This is a live market quote from one exchange and moves between reads.",
+   "price_usd": 2133.49,
+   "checked_at": "2026-11-08T23:45:16.128Z",
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "Bitstamp",
+      "status": "conditional"
+     },
+     {
+      "source": "Coinbase",
+      "status": "barred"
+     },
+     {
+      "source": "European Central Bank",
+      "status": "conditional"
+     },
+     {
+      "source": "Frankfurter",
+      "status": "licensed"
+     }
+    ],
+    "notices": [
+     "European Central Bank data are available free of charge at https://www.ecb.europa.eu."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CRYPTO_PRICE_USD",
+  "path": "/crypto-price",
+  "query": "What is the price of Solana in USD?",
+  "http": 200,
+  "ms": 408,
+  "fetched_at": "2026-11-08T23:45:16Z",
+  "answer": {
+   "answer": "Solana (SOL) is $86.74 USD, the last Bitstamp trade at 2026-11-08 23:45:16 UTC.",
+   "asset": "Solana",
+   "symbol": "SOL",
+   "verdict": "price",
+   "confidence": 0.9,
+   "price": 86.743,
+   "quote": "USD",
+   "price_at": "2026-11-08T23:45:16.000Z",
+   "source": "Bitstamp",
+   "bid": 86.716,
+   "ask": 86.717,
+   "volume_24h": 78786.7585,
+   "reason": "Solana (SOL) is $86.74 USD, the last Bitstamp trade at 2026-11-08 23:45:16 UTC. This is a live market quote from one exchange and moves between reads.",
+   "price_usd": 86.743,
+   "checked_at": "2026-11-08T23:45:16.208Z",
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "Bitstamp",
+      "status": "conditional"
+     },
+     {
+      "source": "Coinbase",
+      "status": "barred"
+     },
+     {
+      "source": "European Central Bank",
+      "status": "conditional"
+     },
+     {
+      "source": "Frankfurter",
+      "status": "licensed"
+     }
+    ],
+    "notices": [
+     "European Central Bank data are available free of charge at https://www.ecb.europa.eu."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+  "path": "/transfer-verify",
+  "query": "Verify transfer 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060: did it succeed and how many confirmations does it have?",
+  "http": 200,
+  "ms": 3048,
+  "fetched_at": "2026-11-08T23:45:21Z",
+  "answer": {
+   "answer": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147.",
+   "hash": "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+   "chain": "ethereum",
+   "verdict": "confirmed",
+   "confidence": 0.99,
+   "reason": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147. It moved 31,337 wei from 0xa1e4380a3b1f749673e270229993ee55f35663b4 to 0x5df9b87991262f6ba471f09758cde1c0fc1de734. It has 26,327,383 confirmations. It paid a fee of 1.05 ETH. This block predates the Byzantium fork, so the canonical receipt carries a state root rather than a status flag; inclusion in the chain is what is confirmed here.",
+   "transaction": {
+    "status": "confirmed",
+    "from": "0xa1e4380a3b1f749673e270229993ee55f35663b4",
+    "to": "0x5df9b87991262f6ba471f09758cde1c0fc1de734",
+    "value_wei": "31337",
+    "value": "0.000000000000031337",
+    "symbol": "ETH",
+    "block_number": 46147,
+    "block_hash": "0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd",
+    "receipt_status": "success",
+    "method": null,
+    "method_selector": null,
+    "contract_created": null,
+    "token_transfers": 0,
+    "gas_used": "21000",
+    "fee_wei": "1050000000000000000",
+    "confirmations": 26327383,
+    "base_fee_wei": null,
+    "base_fee_burned": null
+   },
+   "checked_at": "2026-11-08T23:45:21.778Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "4byte.directory",
+      "status": "licensed"
+     },
+     {
+      "source": "Blockscout explorers",
+      "status": "unread"
+     },
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "Public DNS resolvers (Cloudflare, Google, Quad9)",
+      "status": "unclear"
+     },
+     {
+      "source": "DOAJ",
+      "status": "licensed"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "OFAC addresses list (0xB10C, GitHub)",
+      "status": "licensed"
+     },
+     {
+      "source": "OpenAlex",
+      "status": "licensed"
+     },
+     {
+      "source": "OpenChain signatures",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     },
+     {
+      "source": "Routescan",
+      "status": "unread"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CURRENCY_EXCHANGE_CONVERT",
+  "path": "/convert",
+  "query": "Convert 100 USD to EUR",
+  "http": 200,
+  "ms": 815,
+  "fetched_at": "2026-11-08T23:45:15Z",
+  "answer": {
+   "answer": "100.00 USD is 89.57 EUR at a rate of 1 USD = 0.8957 EUR, equivalently 1 EUR = 1.1165 USD.",
+   "from": "USD",
+   "to": "EUR",
+   "amount": 100,
+   "rate": 0.8956560680698611,
+   "converted": 89.56560680698611,
+   "kind": "ecb_reference",
+   "as_of": "2026-11-06",
+   "verdict": "converted",
+   "confidence": 0.95,
+   "reason": "100.00 USD is 89.57 EUR at a rate of 1 USD = 0.8957 EUR, equivalently 1 EUR = 1.1165 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-11-06, not a live trading quote. The ECB publishes rates against the euro, so the USD rate here is computed from them.",
+   "converted_amount": 89.56560680698611,
+   "checked_at": "2026-11-08T23:45:15.703Z",
+   "licensing": {
+    "endpoint_status": "licensed",
+    "upstreams": [
+     {
+      "source": "European Central Bank",
+      "status": "conditional"
+     },
+     {
+      "source": "Frankfurter",
+      "status": "licensed"
+     }
+    ],
+    "notices": [
+     "European Central Bank data are available free of charge at https://www.ecb.europa.eu."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CURRENCY_EXCHANGE_CONVERT",
+  "path": "/convert",
+  "query": "What is 5,000 yen in dollars?",
+  "http": 200,
+  "ms": 801,
+  "fetched_at": "2026-11-08T23:45:15Z",
+  "answer": {
+   "answer": "5,000.00 JPY is 31.58 USD at a rate of 1 JPY = 0.006316 USD, equivalently 1 USD = 158.325 JPY.",
+   "from": "JPY",
+   "to": "USD",
+   "amount": 5000,
+   "rate": 0.006316116988176726,
+   "converted": 31.580584940883632,
+   "kind": "ecb_reference",
+   "as_of": "2026-11-06",
+   "verdict": "converted",
+   "confidence": 0.95,
+   "reason": "5,000.00 JPY is 31.58 USD at a rate of 1 JPY = 0.006316 USD, equivalently 1 USD = 158.325 JPY. This is the European Central Bank euro foreign exchange reference rate published for 2026-11-06, not a live trading quote. The ECB publishes rates against the euro, so the JPY rate here is computed from them.",
+   "converted_amount": 31.580584940883632,
+   "checked_at": "2026-11-08T23:45:15.793Z",
+   "licensing": {
+    "endpoint_status": "licensed",
+    "upstreams": [
+     {
+      "source": "European Central Bank",
+      "status": "conditional"
+     },
+     {
+      "source": "Frankfurter",
+      "status": "licensed"
+     }
+    ],
+    "notices": [
+     "European Central Bank data are available free of charge at https://www.ecb.europa.eu."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CVE_LOOKUP_CVSS",
+  "path": "/cve",
+  "query": "What is the CVSS score and severity of CVE-2021-44228?",
+  "http": 200,
+  "ms": 367,
+  "fetched_at": "2026-11-08T23:45:14Z",
+  "answer": {
+   "answer": "CVE-2021-44228 is rated CRITICAL with a CVSS 3.1 base score of 10.0, assigned by NVD.",
+   "cve_id": "CVE-2021-44228",
+   "verdict": "critical",
+   "confidence": 0.97,
+   "severity": "CRITICAL",
+   "cvss_score": 10,
+   "cvss_version": "3.1",
+   "scored_by": "NVD",
+   "affected_product": "apache log4j",
+   "affected_versions": "2.0, plus from 2.0.1 up to but not including 2.3.1, and from 2.4.0 up to but not including 2.12.2, and 1 further range",
+   "other_products_affected": 142,
+   "cwe": [
+    "CWE-20",
+    "CWE-400",
+    "CWE-502",
+    "CWE-917"
+   ],
+   "status": "Analyzed",
+   "published": "2021-12-10T10:15:09.143",
+   "description": "Apache Log4j2 2.0-beta9 through 2.15.0 (excluding security releases 2.12.2, 2.12.3, and 2.3.1) JNDI features used in configuration, log messages, and parameters do not protect against attacker controlled LDAP and other JNDI related endpoints. An attacker who can control log messages or log message parameters can execute arbitrary code loaded from LDAP servers when message lookup substitution is enabled. From log4j 2.15.0, this behavior has been disabled by default. From version 2.16.0 (along with 2.12.2, 2.12.3, and 2.3.1), this functionality has been completely removed. Note that this vulnerability is specific to log4j-core and does not affect log4net, log4cxx, or other Apache Logging Services projects.",
+   "source": "National Vulnerability Database",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-44228",
+   "reason": "CVE-2021-44228 is rated CRITICAL with a CVSS 3.1 base score of 10.0, assigned by NVD. It affects apache log4j 2.0, plus from 2.0.1 up to but not including 2.3.1, and from 2.4.0 up to but not including 2.12.2, and 1 further range. Apache Log4j2 2.0-beta9 through 2.15.0 (excluding security releases 2.12.2, 2.12.3, and 2.3.1) JNDI features used in configuration, log messages, and parameters do not protect against attacker… 142 other products are also listed as affected.",
+   "checked_at": "2026-11-08T23:45:14.995Z",
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "CVE Program (MITRE)",
+      "status": "conditional"
+     },
+     {
+      "source": "NIST NVD",
+      "status": "conditional"
+     }
+    ],
+    "notices": [
+     "CVE content is copyright 1999-2026 The MITRE Corporation, used under the CVE Terms of Use: https://www.cve.org/Legal/TermsOfUse",
+     "This product uses the NVD API but is not endorsed or certified by the NVD."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "CVE_LOOKUP_CVSS",
+  "path": "/cve",
+  "query": "What is the CVSS score of CVE-2023-4863?",
+  "http": 200,
+  "ms": 332,
+  "fetched_at": "2026-11-08T23:45:14Z",
+  "answer": {
+   "answer": "CVE-2023-4863 is rated HIGH with a CVSS 3.1 base score of 8.8, assigned by NVD.",
+   "cve_id": "CVE-2023-4863",
+   "verdict": "high",
+   "confidence": 0.97,
+   "severity": "HIGH",
+   "cvss_score": 8.8,
+   "cvss_version": "3.1",
+   "scored_by": "NVD",
+   "affected_product": "google chrome",
+   "affected_versions": "up to but not including 116.0.5845.187",
+   "other_products_affected": 11,
+   "cwe": [
+    "CWE-787"
+   ],
+   "status": "Analyzed",
+   "published": "2023-09-12T15:15:24.327",
+   "description": "Heap buffer overflow in libwebp in Google Chrome prior to 116.0.5845.187 and libwebp 1.3.2 allowed a remote attacker to perform an out of bounds memory write via a crafted HTML page. (Chromium security severity: Critical)",
+   "source": "National Vulnerability Database",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-4863",
+   "reason": "CVE-2023-4863 is rated HIGH with a CVSS 3.1 base score of 8.8, assigned by NVD. It affects google chrome up to but not including 116.0.5845.187. Heap buffer overflow in libwebp in Google Chrome prior to 116.0.5845.187 and libwebp 1.3.2 allowed a remote attacker to perform an out of bounds memory write via a crafted HTML page. 11 other products are also listed as affected.",
+   "checked_at": "2026-11-08T23:45:15.021Z",
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "CVE Program (MITRE)",
+      "status": "conditional"
+     },
+     {
+      "source": "NIST NVD",
+      "status": "conditional"
+     }
+    ],
+    "notices": [
+     "CVE content is copyright 1999-2026 The MITRE Corporation, used under the CVE Terms of Use: https://www.cve.org/Legal/TermsOfUse",
+     "This product uses the NVD API but is not endorsed or certified by the NVD."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "DNS_RECORD_LOOKUP_GENERAL",
+  "path": "/dns",
+  "query": "What are the MX records for github.com?",
+  "http": 200,
+  "ms": 311,
+  "fetched_at": "2026-11-08T23:45:22Z",
+  "answer": {
+   "answer": "github.com has 1 MX record: 0 github-com.mail.protection.outlook.com.",
+   "name": "github.com",
+   "record_type": "MX",
+   "resolvers": [
+    {
+     "resolver": "Cloudflare 1.1.1.1",
+     "status": "NOERROR",
+     "records": [
+      "0 github-com.mail.protection.outlook.com"
+     ],
+     "ttl": 11,
+     "dnssec_validated": false
+    },
+    {
+     "resolver": "Google Public DNS",
+     "status": "NOERROR",
+     "records": [
+      "0 github-com.mail.protection.outlook.com"
+     ],
+     "ttl": 300,
+     "dnssec_validated": false
+    }
+   ],
+   "source": "Cloudflare 1.1.1.1 and Google Public DNS, DNS-over-HTTPS",
+   "records": [
+    "0 github-com.mail.protection.outlook.com"
+   ],
+   "ttl": 11,
+   "resolvers_agree": true,
+   "cname_chain": null,
+   "verdict": "resolved",
+   "confidence": 1,
+   "reason": "github.com has 1 MX record: 0 github-com.mail.protection.outlook.com. Cloudflare 1.1.1.1 and Google Public DNS return the same set; lowest TTL 11 s.",
+   "has_record": true,
+   "checked_at": "2026-11-08T23:45:22.193Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Public DNS resolvers (Cloudflare, Google, Quad9)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "DNS_RECORD_LOOKUP_GENERAL",
+  "path": "/dns",
+  "query": "Does paypal.com publish a DMARC record?",
+  "http": 200,
+  "ms": 317,
+  "fetched_at": "2026-11-08T23:45:22Z",
+  "answer": {
+   "answer": "_dmarc.paypal.com has 1 TXT record: v=DMARC1; p=reject; rua=mailto:d@rua.agari.com,mailto:dmarc_agg@vali.email; ruf=mailto:d@ruf.agari.com,mailto:MTc4Mzcw@ruf.vali.email.",
+   "name": "_dmarc.paypal.com",
+   "record_type": "TXT",
+   "resolvers": [
+    {
+     "resolver": "Cloudflare 1.1.1.1",
+     "status": "NOERROR",
+     "records": [
+      "v=DMARC1; p=reject; rua=mailto:d@rua.agari.com,mailto:dmarc_agg@vali.email; ruf=mailto:d@ruf.agari.com,mailto:MTc4Mzcw@ruf.vali.email"
+     ],
+     "ttl": 2752,
+     "dnssec_validated": true
+    },
+    {
+     "resolver": "Google Public DNS",
+     "status": "NOERROR",
+     "records": [
+      "v=DMARC1; p=reject; rua=mailto:d@rua.agari.com,mailto:dmarc_agg@vali.email; ruf=mailto:d@ruf.agari.com,mailto:MTc4Mzcw@ruf.vali.email"
+     ],
+     "ttl": 524,
+     "dnssec_validated": true
+    }
+   ],
+   "source": "Cloudflare 1.1.1.1 and Google Public DNS, DNS-over-HTTPS",
+   "records": [
+    "v=DMARC1; p=reject; rua=mailto:d@rua.agari.com,mailto:dmarc_agg@vali.email; ruf=mailto:d@ruf.agari.com,mailto:MTc4Mzcw@ruf.vali.email"
+   ],
+   "ttl": 2752,
+   "resolvers_agree": true,
+   "cname_chain": null,
+   "verdict": "resolved",
+   "confidence": 1,
+   "reason": "_dmarc.paypal.com has 1 TXT record: v=DMARC1; p=reject; rua=mailto:d@rua.agari.com,mailto:dmarc_agg@vali.email; ruf=mailto:d@ruf.agari.com,mailto:MTc4Mzcw@ruf.vali.email. Cloudflare 1.1.1.1 and Google Public DNS return the same set; lowest TTL 2752 s.",
+   "has_record": true,
+   "checked_at": "2026-11-08T23:45:22.350Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Public DNS resolvers (Cloudflare, Google, Quad9)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+  "path": "/event-outcome",
+  "query": "Who won the 2024 US presidential election?",
+  "http": 200,
+  "ms": 547,
+  "fetched_at": "2026-11-08T23:45:16Z",
+  "answer": {
+   "answer": "Donald Trump won, according to the settled Polymarket market \"Will Donald Trump win the 2024 US Presidential Election?\".",
+   "verdict": "resolved",
+   "confidence": 0.9,
+   "outcome": "yes",
+   "winner": "Donald Trump",
+   "market": "Will Donald Trump win the 2024 US Presidential Election?",
+   "event": "Presidential Election Winner 2024",
+   "venue": "Polymarket",
+   "play_money": false,
+   "source": "Polymarket",
+   "reason": "Donald Trump won, according to the settled Polymarket market \"Will Donald Trump win the 2024 US Presidential Election?\". Resolved Yes: the Polymarket market \"Will Donald Trump win the 2024 US Presidential Election?\" has settled on Yes. It belongs to the event \"Presidential Election Winner 2024\". This is the market's settlement, which follows its own stated resolution source.",
+   "resolved_yes": true,
+   "sources": [
+    "Polymarket"
+   ],
+   "checked_at": "2026-11-08T23:45:16.912Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "Manifold Markets",
+      "status": "barred"
+     },
+     {
+      "source": "Polymarket",
+      "status": "unread"
+     },
+     {
+      "source": "Wikidata",
+      "status": "licensed"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+  "path": "/event-outcome",
+  "query": "Did Argentina win the 2022 FIFA World Cup?",
+  "http": 200,
+  "ms": 590,
+  "fetched_at": "2026-11-08T23:45:16Z",
+  "answer": {
+   "answer": "Resolved Yes: the Manifold market (a play-money market) \"Will Argentina win the 2022 FIFA World Cup?\" has settled on Yes.",
+   "verdict": "resolved",
+   "confidence": 0.7,
+   "outcome": "yes",
+   "winner": null,
+   "market": "Will Argentina win the 2022 FIFA World Cup?",
+   "event": "",
+   "venue": "Manifold",
+   "play_money": true,
+   "source": "Manifold",
+   "reason": "Resolved Yes: the Manifold market (a play-money market) \"Will Argentina win the 2022 FIFA World Cup?\" has settled on Yes. This is the market's settlement, which follows its own stated resolution source.",
+   "resolved_yes": true,
+   "sources": [
+    "Manifold"
+   ],
+   "checked_at": "2026-11-08T23:45:17.029Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "Manifold Markets",
+      "status": "barred"
+     },
+     {
+      "source": "Polymarket",
+      "status": "unread"
+     },
+     {
+      "source": "Wikidata",
+      "status": "licensed"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "FACT_CHECK_GENERAL",
+  "path": "/fact-check",
+  "query": "Is it true that the Eiffel Tower is in Paris?",
+  "http": 200,
+  "ms": 493,
+  "fetched_at": "2026-11-08T23:45:14Z",
+  "answer": {
+   "answer": "True. The claim \"the Eiffel Tower is in Paris\" is supported by the reference source consulted.",
+   "claim": "the Eiffel Tower is in Paris",
+   "verdict": "True",
+   "confidence": 0.7,
+   "source": "Wikipedia",
+   "source_url": "https://en.wikipedia.org/wiki/Eiffel_Tower",
+   "evidence": "The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris, France.",
+   "reason": "True. The claim \"the Eiffel Tower is in Paris\" is supported by the reference source consulted. According to Wikipedia's article \"Eiffel Tower\": The Eiffel Tower ( EYE-fəl; French: Tour Eiffel [tuʁ ɛfɛl] ) is a lattice tower on the Champ de Mars in Paris, France. This check consulted one encyclopaedic source and is not a full adjudication of the claim.",
+   "checked_at": "2026-11-08T23:45:14.702Z",
+   "reasoning": "The claim \"the Eiffel Tower is in Paris\" is supported by the reference source consulted.",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Eiffel_Tower"
+   ],
+   "verdict_detail": "supported",
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "Tavily",
+      "status": "licensed"
+     },
+     {
+      "source": "Wikipedia",
+      "status": "conditional"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "FACT_CHECK_GENERAL",
+  "path": "/fact-check",
+  "query": "Fact-check: the Great Wall of China is visible from the Moon with the naked eye",
+  "http": 200,
+  "ms": 878,
+  "fetched_at": "2026-11-08T23:45:15Z",
+  "answer": {
+   "answer": "Unverified. The claim \"the Great Wall of China is visible from the Moon with the naked eye\" was checked against the reference source consulted, which does not settle it either way.",
+   "claim": "the Great Wall of China is visible from the Moon with the naked eye",
+   "verdict": "Unverified",
+   "confidence": 0.3,
+   "source": "Wikipedia",
+   "source_url": "https://en.wikipedia.org/wiki/Great_Wall_of_China",
+   "evidence": "The Great Wall of China is a series of fortifications in China. They were built across the historical northern borders of ancient Chinese states and Imperial China as protection against various nomadic groups from the Eurasian Steppe. The first walls date to the 7th century BC; these were joined together in the Qin dynasty. Successive dynasties expanded the wall system; the best-known sections wer",
+   "reason": "Unverified. The claim \"the Great Wall of China is visible from the Moon with the naked eye\" was checked against the reference source consulted, which does not settle it either way. According to Wikipedia's article \"Great Wall of China\": The Great Wall of China is a series of fortifications in China. They were built across the historical northern borders of ancient Chinese states and Imperial China as protection against various nomadic groups from the Eurasian Steppe. The first walls date to t This check consulted one encyclopaedic source and is not a full adjudication of the claim.",
+   "checked_at": "2026-11-08T23:45:14.893Z",
+   "reasoning": "The claim \"the Great Wall of China is visible from the Moon with the naked eye\" was checked against the reference source consulted, which does not settle it either way.",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Great_Wall_of_China"
+   ],
+   "verdict_detail": "unverified",
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "Tavily",
+      "status": "licensed"
+     },
+     {
+      "source": "Wikipedia",
+      "status": "conditional"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "FINANCIAL_DATA_GENERAL",
+  "path": "/financial",
+  "query": "What is Solana's market cap and 24-hour volume?",
+  "http": 200,
+  "ms": 360,
+  "fetched_at": "2026-11-08T23:45:15Z",
+  "answer": {
+   "answer": "Solana (SOL) has a market capitalisation of $51,412,263,265 ($51.41 billion), 24-hour trading volume of $1,756,626,991 ($1.76 billion), a fully diluted valuation of $55,426,860,216 ($55.43 billion), a 24-hour range of $85.54 to $89.80, a 24-hour change of -2.89%.",
+   "subject": "coin",
+   "name": "Solana",
+   "chain": null,
+   "verdict": "financial_data",
+   "confidence": 0.9,
+   "reason": "Solana (SOL) has a market capitalisation of $51,412,263,265 ($51.41 billion), 24-hour trading volume of $1,756,626,991 ($1.76 billion), a fully diluted valuation of $55,426,860,216 ($55.43 billion), a 24-hour range of $85.54 to $89.80, a 24-hour change of -2.89%. It last traded at $86.98. These are market statistics for the coin, not a single quoted price.",
+   "data": {
+    "symbol": "SOL",
+    "name": "Solana",
+    "currency": "USD",
+    "price": 86.98,
+    "market_cap": 51412263265,
+    "fully_diluted_valuation": 55426860216,
+    "volume_24h": 1756626991,
+    "low_24h": 85.54,
+    "high_24h": 89.8,
+    "change_pct_24h": -2.88685,
+    "circulating_supply": 591093701.4605784,
+    "source": "coingecko",
+    "observed_at": "2026-11-08T23:43:58.000Z"
+   },
+   "asset": "Solana",
+   "market_cap_usd": 51412263265,
+   "volume_24h_usd": 1756626991,
+   "as_of": "2026-11-08T23:43:58.000Z",
+   "checked_at": "2026-11-08T23:45:15.713Z",
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "Bitstamp",
+      "status": "conditional"
+     },
+     {
+      "source": "Coinbase",
+      "status": "barred"
+     },
+     {
+      "source": "CoinGecko / GeckoTerminal",
+      "status": "barred"
+     },
+     {
+      "source": "European Central Bank",
+      "status": "conditional"
+     },
+     {
+      "source": "Frankfurter",
+      "status": "licensed"
+     },
+     {
+      "source": "US SEC EDGAR",
+      "status": "conditional"
+     },
+     {
+      "source": "Yahoo Finance",
+      "status": "barred"
+     }
+    ],
+    "notices": [
+     "European Central Bank data are available free of charge at https://www.ecb.europa.eu."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "FINANCIAL_DATA_GENERAL",
+  "path": "/financial",
+  "query": "What is Bitcoin's market cap?",
+  "http": 200,
+  "ms": 321,
+  "fetched_at": "2026-11-08T23:45:15Z",
+  "answer": {
+   "answer": "Bitcoin (BTC) has a market capitalisation of $1,509,946,554,352 ($1.51 trillion), 24-hour trading volume of $16,234,917,423 ($16.23 billion), a fully diluted valuation of $1,509,947,755,722 ($1.51 trillion), a 24-hour range of $73963.00 to $76106.00, a 24-hour change of -0.91%.",
+   "subject": "coin",
+   "name": "Bitcoin",
+   "chain": null,
+   "verdict": "financial_data",
+   "confidence": 0.9,
+   "reason": "Bitcoin (BTC) has a market capitalisation of $1,509,946,554,352 ($1.51 trillion), 24-hour trading volume of $16,234,917,423 ($16.23 billion), a fully diluted valuation of $1,509,947,755,722 ($1.51 trillion), a 24-hour range of $73963.00 to $76106.00, a 24-hour change of -0.91%. It last traded at $75086.00. These are market statistics for the coin, not a single quoted price.",
+   "data": {
+    "symbol": "BTC",
+    "name": "Bitcoin",
+    "currency": "USD",
+    "price": 75086,
+    "market_cap": 1509946554352,
+    "fully_diluted_valuation": 1509947755722,
+    "volume_24h": 16234917423,
+    "low_24h": 73963,
+    "high_24h": 76106,
+    "change_pct_24h": -0.90888,
+    "circulating_supply": 20109668,
+    "source": "coingecko",
+    "observed_at": "2026-11-08T23:42:47.000Z"
+   },
+   "asset": "Bitcoin",
+   "market_cap_usd": 1509946554352,
+   "volume_24h_usd": 16234917423,
+   "as_of": "2026-11-08T23:42:47.000Z",
+   "checked_at": "2026-11-08T23:45:15.686Z",
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "Bitstamp",
+      "status": "conditional"
+     },
+     {
+      "source": "Coinbase",
+      "status": "barred"
+     },
+     {
+      "source": "CoinGecko / GeckoTerminal",
+      "status": "barred"
+     },
+     {
+      "source": "European Central Bank",
+      "status": "conditional"
+     },
+     {
+      "source": "Frankfurter",
+      "status": "licensed"
+     },
+     {
+      "source": "US SEC EDGAR",
+      "status": "conditional"
+     },
+     {
+      "source": "Yahoo Finance",
+      "status": "barred"
+     }
+    ],
+    "notices": [
+     "European Central Bank data are available free of charge at https://www.ecb.europa.eu."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "FRAUD_DETECTION_GENERAL",
+  "path": "/fraud-check",
+  "query": "Is 0x098B716B8Aaf21512996dC57EB0615e2383E2f96 a scam address?",
+  "http": 200,
+  "ms": 374,
+  "fetched_at": "2026-11-08T23:45:15Z",
+  "answer": {
+   "answer": "This is high risk: the address 0x098b716b8aaf21512996dc57eb0615e2383e2f96 appears on the OFAC sanctioned digital-currency address list.",
+   "subject": "0x098b716b8aaf21512996dc57eb0615e2383e2f96",
+   "verdict": "HIGH",
+   "confidence": 0.95,
+   "evidence": [
+    "the address 0x098b716b8aaf21512996dc57eb0615e2383e2f96 appears on the OFAC sanctioned digital-currency address list",
+    "on chain it is an externally owned account with 38 outgoing transactions and a balance of 101.8089 ETH"
+   ],
+   "not_checked": [],
+   "sanctioned": true,
+   "flagged_hosts": [],
+   "scam_markers": [],
+   "reason": "This is high risk: the address 0x098b716b8aaf21512996dc57eb0615e2383e2f96 appears on the OFAC sanctioned digital-currency address list. Assessed on the following: the address 0x098b716b8aaf21512996dc57eb0615e2383e2f96 appears on the OFAC sanctioned digital-currency address list; on chain it is an externally owned account with 38 outgoing transactions and a balance of 101.8089 ETH.",
+   "signals": [
+    "the address 0x098b716b8aaf21512996dc57eb0615e2383e2f96 appears on the OFAC sanctioned digital-currency address list",
+    "on chain it is an externally owned account with 38 outgoing transactions and a balance of 101.8089 ETH"
+   ],
+   "summary": "This is high risk: the address 0x098b716b8aaf21512996dc57eb0615e2383e2f96 appears on the OFAC sanctioned digital-currency address list.",
+   "verdict_detail": "high_risk",
+   "risk_score": 0.85,
+   "risk_score_basis": "the grade's stated midpoint, not a calibrated probability",
+   "checked_at": "2026-11-08T23:45:15.797Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "4byte.directory",
+      "status": "licensed"
+     },
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "Public DNS resolvers (Cloudflare, Google, Quad9)",
+      "status": "unclear"
+     },
+     {
+      "source": "DOAJ",
+      "status": "licensed"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "OFAC addresses list (0xB10C, GitHub)",
+      "status": "licensed"
+     },
+     {
+      "source": "OpenAlex",
+      "status": "licensed"
+     },
+     {
+      "source": "OpenChain signatures",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "FRAUD_DETECTION_GENERAL",
+  "path": "/fraud-check",
+  "query": "This email asks me to pay an invoice in gift cards: is it fraud?",
+  "http": 200,
+  "ms": 298,
+  "fetched_at": "2026-11-08T23:45:15Z",
+  "answer": {
+   "answer": "Elevated fraud risk: this shows signs of business email compromise (CEO fraud).",
+   "subject": "business email compromise (CEO fraud)",
+   "verdict": "ELEVATED",
+   "confidence": 0.65,
+   "red_flags": [
+    "it asks for a payment or wire transfer",
+    "it asks for gift cards"
+   ],
+   "reason": "Elevated fraud risk: this shows signs of business email compromise (CEO fraud). Red flags: it asks for a payment or wire transfer; and it asks for gift cards. Confirm the request with the executive on a known phone number before any payment. This is pattern recognition on the description, not a transaction-graph or account-data assessment.",
+   "signals": [],
+   "summary": "Elevated fraud risk: this shows signs of business email compromise (CEO fraud).",
+   "verdict_detail": "elevated_risk",
+   "risk_score": 0.5,
+   "risk_score_basis": "the grade's stated midpoint, not a calibrated probability",
+   "checked_at": "2026-11-08T23:45:15.783Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "4byte.directory",
+      "status": "licensed"
+     },
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "Public DNS resolvers (Cloudflare, Google, Quad9)",
+      "status": "unclear"
+     },
+     {
+      "source": "DOAJ",
+      "status": "licensed"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "OFAC addresses list (0xB10C, GitHub)",
+      "status": "licensed"
+     },
+     {
+      "source": "OpenAlex",
+      "status": "licensed"
+     },
+     {
+      "source": "OpenChain signatures",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "GAS_PRICE_GENERAL",
+  "path": "/gas-price",
+  "query": "What is the gas price on Ethereum right now?",
+  "http": 200,
+  "ms": 330,
+  "fetched_at": "2026-11-08T23:45:15Z",
+  "answer": {
+   "answer": "The current gas price on ethereum is 0.12779 Gwei, or about 0.13 Gwei, as of block 26,373,529.",
+   "chain": "ethereum",
+   "gwei": 0.127789607,
+   "base_fee_gwei": 0.127789486,
+   "priority_gwei": 1.209999999918221e-07,
+   "block": 26373529,
+   "verdict": "gas_price",
+   "confidence": 0.95,
+   "reason": "The current gas price on ethereum is 0.12779 Gwei, or about 0.13 Gwei, as of block 26,373,529. That is a base fee of 0.127789 Gwei plus a priority fee of 0.000000121 Gwei. At that rate a standard 21,000-gas transfer costs about 0.00000268 ETH. This is the transaction fee level, not the price of ETH.",
+   "gas_price_gwei": 0.127789607,
+   "checked_at": "2026-11-08T23:45:15.353Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "GAS_PRICE_GENERAL",
+  "path": "/gas-price",
+  "query": "Gas on Base in Gwei",
+  "http": 200,
+  "ms": 346,
+  "fetched_at": "2026-11-08T23:45:15Z",
+  "answer": {
+   "answer": "The current gas price on base is 0.006007 Gwei, or about 0.006 Gwei, as of block 54,955,699.",
+   "chain": "base",
+   "gwei": 0.006007194,
+   "base_fee_gwei": 0.005007194,
+   "priority_gwei": 0.001,
+   "block": 54955699,
+   "verdict": "gas_price",
+   "confidence": 0.95,
+   "reason": "The current gas price on base is 0.006007 Gwei, or about 0.006 Gwei, as of block 54,955,699. That is a base fee of 0.005007 Gwei plus a priority fee of 0.001 Gwei. At that rate a standard 21,000-gas transfer costs about 126.15 Gwei. This is the transaction fee level, not the price of ETH.",
+   "gas_price_gwei": 0.006007194,
+   "checked_at": "2026-11-08T23:45:15.420Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "IP_GEOLOCATION_GENERAL",
+  "path": "/ip-geolocate",
+  "query": "Where is 8.8.8.8 located?",
+  "http": 200,
+  "ms": 879,
+  "fetched_at": "2026-11-08T23:45:23Z",
+  "answer": {
+   "answer": "The IP address 8.8.8.8 is an anycast address operated by Google LLC (AS15169): it is announced from many locations at once, so which server answers depends on where the request comes from, and it has no single physical location.",
+   "ip": "8.8.8.8",
+   "verdict": "anycast",
+   "city": "Ashburn",
+   "region": "Virginia",
+   "country": "United States",
+   "country_code": "US",
+   "latitude": 39.03,
+   "longitude": -77.5,
+   "timezone": "America/New_York",
+   "asn": "AS15169",
+   "organisation": "Google LLC",
+   "confidence": 0.6,
+   "anycast": true,
+   "reason": "The IP address 8.8.8.8 is an anycast address operated by Google LLC (AS15169): it is announced from many locations at once, so which server answers depends on where the request comes from, and it has no single physical location. The geolocation database places it in Ashburn, Virginia, United States, which is one of those sites or a registered address, not where every user reaches it.",
+   "checked_at": "2026-11-08T23:45:23.752Z",
+   "licensing": {
+    "endpoint_status": "barred",
+    "upstreams": [
+     {
+      "source": "ip-api.com",
+      "status": "barred"
+     },
+     {
+      "source": "IPinfo",
+      "status": "barred"
+     },
+     {
+      "source": "ipwho.is",
+      "status": "barred"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "LANGUAGE_TRANSLATION_GENERAL",
+  "path": "/translate",
+  "query": "Translate 'Good morning' into French",
+  "http": 200,
+  "ms": 463,
+  "fetched_at": "2026-11-08T23:45:14Z",
+  "answer": {
+   "answer": "Bonjour",
+   "source_text": "Good morning",
+   "target_language": "French",
+   "target_code": "fr",
+   "translation": "Bonjour",
+   "source": "Groq (open-weight model, machine translation)",
+   "verdict": "translated",
+   "confidence": 0.9,
+   "reason": "Bonjour",
+   "checked_at": "2026-11-08T23:45:14.103Z",
+   "source_language": "English",
+   "source_code": "en",
+   "source_language_basis": "detected from common English words",
+   "brief": "Bonjour",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Groq",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "LANGUAGE_TRANSLATION_GENERAL",
+  "path": "/translate",
+  "query": "Translate 'Where is the train station?' into German",
+  "http": 200,
+  "ms": 566,
+  "fetched_at": "2026-11-08T23:45:14Z",
+  "answer": {
+   "answer": "Wo ist der Bahnhof?",
+   "source_text": "Where is the train station?",
+   "target_language": "German",
+   "target_code": "de",
+   "translation": "Wo ist der Bahnhof?",
+   "source": "Groq (open-weight model, machine translation)",
+   "verdict": "translated",
+   "confidence": 0.9,
+   "reason": "Wo ist der Bahnhof?",
+   "checked_at": "2026-11-08T23:45:14.122Z",
+   "source_language": "English",
+   "source_code": "en",
+   "source_language_basis": "detected from common English words",
+   "brief": "Wo ist der Bahnhof?",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Groq",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "MACRO_ECONOMIC_INDICATOR_GENERAL",
+  "path": "/macro",
+  "query": "What was the latest US CPI year-over-year print?",
+  "http": 200,
+  "ms": 431,
+  "fetched_at": "2026-11-08T23:45:21Z",
+  "answer": {
+   "answer": "Consumer price inflation in the US was 3.7% year on year in September 2026 (US Bureau of Labor Statistics).",
+   "region": "US",
+   "year": null,
+   "verdict": "reported",
+   "confidence": 0.95,
+   "indicators": [
+    {
+     "indicator": "cpi",
+     "region": "US",
+     "value": 3.7,
+     "unit": "%",
+     "period": "2026-09",
+     "frequency": "monthly",
+     "series": "CUUR0000SA0",
+     "source": "US Bureau of Labor Statistics",
+     "source_url": "https://data.bls.gov/timeseries/CUUR0000SA0"
+    }
+   ],
+   "not_covered": [],
+   "reason": "Consumer price inflation in the US was 3.7% year on year in September 2026 (US Bureau of Labor Statistics).",
+   "rate_pct": 3.7,
+   "checked_at": "2026-11-08T23:45:21.880Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "US Bureau of Labor Statistics",
+      "status": "licensed"
+     },
+     {
+      "source": "European Central Bank",
+      "status": "conditional"
+     },
+     {
+      "source": "Eurostat",
+      "status": "unread"
+     },
+     {
+      "source": "Federal Reserve Bank of New York",
+      "status": "unread"
+     },
+     {
+      "source": "World Bank",
+      "status": "conditional"
+     }
+    ],
+    "notices": [
+     "European Central Bank data are available free of charge at https://www.ecb.europa.eu."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "MACRO_ECONOMIC_INDICATOR_GENERAL",
+  "path": "/macro",
+  "query": "What is the US unemployment rate?",
+  "http": 200,
+  "ms": 401,
+  "fetched_at": "2026-11-08T23:45:22Z",
+  "answer": {
+   "answer": "Unemployment rate in the US was 4.1% in October 2026 (US Bureau of Labor Statistics).",
+   "region": "US",
+   "year": null,
+   "verdict": "reported",
+   "confidence": 0.95,
+   "indicators": [
+    {
+     "indicator": "unemployment",
+     "region": "US",
+     "value": 4.1,
+     "unit": "%",
+     "period": "2026-10",
+     "frequency": "monthly",
+     "series": "LNS14000000",
+     "source": "US Bureau of Labor Statistics",
+     "source_url": "https://data.bls.gov/timeseries/LNS14000000"
+    }
+   ],
+   "not_covered": [],
+   "reason": "Unemployment rate in the US was 4.1% in October 2026 (US Bureau of Labor Statistics).",
+   "rate_pct": 4.1,
+   "checked_at": "2026-11-08T23:45:22.185Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "US Bureau of Labor Statistics",
+      "status": "licensed"
+     },
+     {
+      "source": "European Central Bank",
+      "status": "conditional"
+     },
+     {
+      "source": "Eurostat",
+      "status": "unread"
+     },
+     {
+      "source": "Federal Reserve Bank of New York",
+      "status": "unread"
+     },
+     {
+      "source": "World Bank",
+      "status": "conditional"
+     }
+    ],
+    "notices": [
+     "European Central Bank data are available free of charge at https://www.ecb.europa.eu."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "NEWS_HEADLINES_GENERAL",
+  "path": "/headlines",
+  "query": "What are today's technology headlines?",
+  "http": 200,
+  "ms": 717,
+  "fetched_at": "2026-11-08T23:45:23Z",
+  "answer": {
+   "answer": "The top technology headlines today, as of November 8, 2026, are: 1. Agricultural Technological Innovation Enhances Economic Resilience Across Chinese Provinces (Bioengineer.org, 2026-11-08). 2. Odfjell Technology Ltd. 2026 Q3 - Results - Earnings Call Presentation (OTCMKTS:ODTLF) 2026-11-08 (Seeking Alpha, 2026-11-08). 3. Rackspace Technology (RXT) Set to Report Q3 Earnings Amid Mixed Signals (GuruFocus, 2026-11-08). 4. Women's Fencing Upends Detroit Mercy at Drew Invitational (Stevens Institute of Technology Athletics, 2026-11-08). 5. COMMENTARY: Why Taiwan’s AI moat trumps South Korea's memory bet (Reuters, 2026-11-08). 6. Umbrella Review Finds Inconsistent Evidence Across Correlates of Children’s Technology Use (Bioengineer.org, 2026-11-08).",
+   "topic": "technology",
+   "region": null,
+   "verdict": "headlines",
+   "headlines": [
+    {
+     "title": "Agricultural Technological Innovation Enhances Economic Resilience Across Chinese Provinces",
+     "source": "Bioengineer.org",
+     "published": "2026-11-08T23:26:25.000Z"
+    },
+    {
+     "title": "Odfjell Technology Ltd. 2026 Q3 - Results - Earnings Call Presentation (OTCMKTS:ODTLF) 2026-11-08",
+     "source": "Seeking Alpha",
+     "published": "2026-11-08T23:16:00.000Z"
+    },
+    {
+     "title": "Rackspace Technology (RXT) Set to Report Q3 Earnings Amid Mixed Signals",
+     "source": "GuruFocus",
+     "published": "2026-11-08T23:14:22.000Z"
+    },
+    {
+     "title": "Women's Fencing Upends Detroit Mercy at Drew Invitational",
+     "source": "Stevens Institute of Technology Athletics",
+     "published": "2026-11-08T23:07:02.000Z"
+    },
+    {
+     "title": "COMMENTARY: Why Taiwan’s AI moat trumps South Korea's memory bet",
+     "source": "Reuters",
+     "published": "2026-11-08T23:06:56.000Z"
+    },
+    {
+     "title": "Umbrella Review Finds Inconsistent Evidence Across Correlates of Children’s Technology Use",
+     "source": "Bioengineer.org",
+     "published": "2026-11-08T23:05:26.000Z"
+    }
+   ],
+   "count": 6,
+   "confidence": 1,
+   "reason": "The top technology headlines today, as of November 8, 2026, are: 1. Agricultural Technological Innovation Enhances Economic Resilience Across Chinese Provinces (Bioengineer.org, 2026-11-08). 2. Odfjell Technology Ltd. 2026 Q3 - Results - Earnings Call Presentation (OTCMKTS:ODTLF) 2026-11-08 (Seeking Alpha, 2026-11-08). 3. Rackspace Technology (RXT) Set to Report Q3 Earnings Amid Mixed Signals (GuruFocus, 2026-11-08). 4. Women's Fencing Upends Detroit Mercy at Drew Invitational (Stevens Institute of Technology Athletics, 2026-11-08). 5. COMMENTARY: Why Taiwan’s AI moat trumps South Korea's memory bet (Reuters, 2026-11-08). 6. Umbrella Review Finds Inconsistent Evidence Across Correlates of Children’s Technology Use (Bioengineer.org, 2026-11-08).",
+   "checked_at": "2026-11-08T23:45:23.462Z",
+   "top_headline": "Agricultural Technological Innovation Enhances Economic Resilience Across Chinese Provinces",
+   "licensing": {
+    "endpoint_status": "barred",
+    "upstreams": [
+     {
+      "source": "Google News RSS",
+      "status": "barred"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "NEWS_SEARCH_GENERAL",
+  "path": "/news-search",
+  "query": "Latest news about the EU AI Act",
+  "http": 200,
+  "ms": 640,
+  "fetched_at": "2026-11-08T23:45:24Z",
+  "answer": {
+   "answer": "Recent coverage of EU AI Act from the last 30 days includes: \"EU AI Act Explained – What Is Banned and What Comes Next?\"",
+   "subject": "EU AI Act",
+   "window_days": 30,
+   "verdict": "articles",
+   "articles": [
+    {
+     "title": "EU AI Act Explained – What Is Banned and What Comes Next?",
+     "source": "The European Times",
+     "published": "2026-11-05T08:01:03.000Z",
+     "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1UOG1mWERQSU12NFVWVGZ5SVhxSDdFUHQ4eXg5YlNIVmRZdFVqdXNoZC1YVTFOazNZbDFqYjM5NVhPX0lNWVpOWVpsYkotN3hlXzhpN1p0ei1KQ05tMzBZY1V6ZHNrQUIxQnRheWxucWpWMERo?oc=5"
+    },
+    {
+     "title": "EU AI Act transparency rules show why businesses can’t afford to wait",
+     "source": "IT Security Guru",
+     "published": "2026-11-04T14:06:35.000Z",
+     "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPV1dWckRVNkNBbnhmQl90ZnQ3eVA5UTQ4c0t6QnRsb1lmMWc0cGdUMjctVURqdjB5ZkJkSjZSYXVtckNSR1pDeU9MSC1Gel9XakJlSUdBU2V0anBYOGRORHlab1k5dnRLazF1cHhSNVRSSlhtTkp5c2xsdEk5aHdQc2ZzTWFVbjVGVEh4SmUtbElmU291STA4NDB6Q29FQ1NpaHB4MzFnQXhRdkxFQ3ZmVg?oc=5"
+    },
+    {
+     "title": "The EU AI Act has entered the real world: What organizations need to do now",
+     "source": "SC Media",
+     "published": "2026-11-04T12:00:00.000Z",
+     "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOY1FvUFJ0WGR6YjFJVWl2TmRiSGFPZGU3SDNJM3p5ZnlaMlBjVjJJNTRzSDU5a0dnTFdwTW9pTU5TRDJaQXNmX2NwNUJfcmdQdXFuSEEtVzB2X0hyWUFrTG1nN0FJOFlaOU82MlRrV1BfOEc2dUVlVlFQOGRZZEcyeUVqMi1jM2Z3ODByUzZaZXk1TkxyemJSV0h5MWVYVE9VSGhnbWN0NXRZTUpJRWpN?oc=5"
+    },
+    {
+     "title": "EU AI Act Timeline: 5 Dates to 2028 [2026]",
+     "source": "shattered.io",
+     "published": "2026-11-04T11:07:46.000Z",
+     "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBXeWpSM0gyb3ctekdZWm1aTEdRZUk1Q05kTXdpTVk0QXROQ1l4ZnBvSkVPc2ttRUNWNFJtd01tdjhLZk8xa2FvMWtGQWxoYWRtWVBKVFJlV2YzZU9TaDNQSG1mWmRQV0NGYk9SSnR0S19OMGk1eWFMYmVyOUNjU2s?oc=5"
+    },
+    {
+     "title": "Euroviews. The EU KIDS Act – why its impact extends beyond social media",
+     "source": "Euronews.com",
+     "published": "2026-11-04T11:07:31.000Z",
+     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQMGdUQ2FuYjRqZ3dPTm9LTm1FNTJKWkh4c295SzB0TnFoRHprNjN5cUt1M0NQcDNTbEV0UnptcU1OUVB6Y3VBMlZJcUVkalFSdVFBNGFnUUZsbGxwWWJBM2hxeFhSY0FPTnVqQ2FORnU5MGFkMTNhX2hxMDlwNjh5aXZMeGxrTTI0TEFuVHRXdGpoaExvR3lldGhB?oc=5"
+    }
+   ],
+   "count": 5,
+   "confidence": 0.9,
+   "reason": "Recent coverage of EU AI Act from the last 30 days includes: \"EU AI Act Explained – What Is Banned and What Comes Next?\" (The European Times, 5 November 2026); \"EU AI Act transparency rules show why businesses can’t afford to wait\" (IT Security Guru, 4 November 2026); \"The EU AI Act has entered the real world: What organizations need to do now\" (SC Media, 4 November 2026); \"EU AI Act Timeline: 5 Dates to 2028 [2026]\" (shattered.io, 4 November 2026); \"Euroviews. The EU KIDS Act – why its impact extends beyond social media\" (Euronews.com, 4 November 2026). 5 articles, most recent first, each with its publisher and publication date.",
+   "result_count": 5,
+   "sources": [
+    "https://news.google.com/rss/articles/CBMidEFVX3lxTE1UOG1mWERQSU12NFVWVGZ5SVhxSDdFUHQ4eXg5YlNIVmRZdFVqdXNoZC1YVTFOazNZbDFqYjM5NVhPX0lNWVpOWVpsYkotN3hlXzhpN1p0ei1KQ05tMzBZY1V6ZHNrQUIxQnRheWxucWpWMERo?oc=5",
+    "https://news.google.com/rss/articles/CBMisAFBVV95cUxPV1dWckRVNkNBbnhmQl90ZnQ3eVA5UTQ4c0t6QnRsb1lmMWc0cGdUMjctVURqdjB5ZkJkSjZSYXVtckNSR1pDeU9MSC1Gel9XakJlSUdBU2V0anBYOGRORHlab1k5dnRLazF1cHhSNVRSSlhtTkp5c2xsdEk5aHdQc2ZzTWFVbjVGVEh4SmUtbElmU291STA4NDB6Q29FQ1NpaHB4MzFnQXhRdkxFQ3ZmVg?oc=5",
+    "https://news.google.com/rss/articles/CBMirwFBVV95cUxOY1FvUFJ0WGR6YjFJVWl2TmRiSGFPZGU3SDNJM3p5ZnlaMlBjVjJJNTRzSDU5a0dnTFdwTW9pTU5TRDJaQXNmX2NwNUJfcmdQdXFuSEEtVzB2X0hyWUFrTG1nN0FJOFlaOU82MlRrV1BfOEc2dUVlVlFQOGRZZEcyeUVqMi1jM2Z3ODByUzZaZXk1TkxyemJSV0h5MWVYVE9VSGhnbWN0NXRZTUpJRWpN?oc=5",
+    "https://news.google.com/rss/articles/CBMif0FVX3lxTFBXeWpSM0gyb3ctekdZWm1aTEdRZUk1Q05kTXdpTVk0QXROQ1l4ZnBvSkVPc2ttRUNWNFJtd01tdjhLZk8xa2FvMWtGQWxoYWRtWVBKVFJlV2YzZU9TaDNQSG1mWmRQV0NGYk9SSnR0S19OMGk1eWFMYmVyOUNjU2s?oc=5",
+    "https://news.google.com/rss/articles/CBMimgFBVV95cUxQMGdUQ2FuYjRqZ3dPTm9LTm1FNTJKWkh4c295SzB0TnFoRHprNjN5cUt1M0NQcDNTbEV0UnptcU1OUVB6Y3VBMlZJcUVkalFSdVFBNGFnUUZsbGxwWWJBM2hxeFhSY0FPTnVqQ2FORnU5MGFkMTNhX2hxMDlwNjh5aXZMeGxrTTI0TEFuVHRXdGpoaExvR3lldGhB?oc=5"
+   ],
+   "brief": "EU AI Act Explained – What Is Banned and What Comes Next? (The European Times)",
+   "checked_at": "2026-11-08T23:45:24.174Z",
+   "licensing": {
+    "endpoint_status": "barred",
+    "upstreams": [
+     {
+      "source": "Google News RSS",
+      "status": "barred"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "ONCHAIN_METRIC_VERIFY_GENERAL",
+  "path": "/onchain-metric",
+  "query": "How much ETH did 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 hold at block 21000000?",
+  "http": 200,
+  "ms": 406,
+  "fetched_at": "2026-11-08T23:45:22Z",
+  "answer": {
+   "answer": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045's ETH balance at block 21,000,000 on Ethereum is 1,146.64 ETH (exact: 1146.641417679066653164).",
+   "chain": "ethereum",
+   "metric": "native_balance",
+   "block_number": 21000000,
+   "block_anchor": "stated",
+   "address": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+   "value": "1146.641417679066653164",
+   "value_raw": "1146641417679066653164",
+   "unit": "ETH",
+   "providers": [
+    {
+     "provider": "eth.drpc.org",
+     "value_raw": "1146641417679066653164"
+    },
+    {
+     "provider": "rpc.flashbots.net",
+     "value_raw": "1146641417679066653164"
+    }
+   ],
+   "providers_agree": true,
+   "verdict": "verified",
+   "confidence": 1,
+   "source": "eth_getBalance on public chain nodes",
+   "reason": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045's ETH balance at block 21,000,000 on Ethereum is 1,146.64 ETH (exact: 1146.641417679066653164). Both providers return the same value.",
+   "balance_gwei": 1146641417679,
+   "block": "21000000",
+   "checked_at": "2026-11-08T23:45:22.597Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "1RPC (Automata)",
+      "status": "unread"
+     },
+     {
+      "source": "Blockscout explorers",
+      "status": "unread"
+     },
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "CoinGecko / GeckoTerminal",
+      "status": "barred"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "ENS Ideas API",
+      "status": "unread"
+     },
+     {
+      "source": "Flashbots Protect RPC",
+      "status": "unclear"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "ONCHAIN_METRIC_VERIFY_GENERAL",
+  "path": "/onchain-metric",
+  "query": "What was USDC's total supply at block 21000000?",
+  "http": 200,
+  "ms": 442,
+  "fetched_at": "2026-11-08T23:45:22Z",
+  "answer": {
+   "answer": "USDC's total supply (0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48) at block 21,000,000 on Ethereum (no chain was named, so Ethereum was read) is 25,822,595,541.21 USDC (exact: 25822595541.206649).",
+   "chain": "ethereum",
+   "metric": "total_supply",
+   "block_number": 21000000,
+   "block_anchor": "stated",
+   "token_address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+   "value": "25822595541.206649",
+   "value_raw": "25822595541206649",
+   "unit": "USDC",
+   "providers": [
+    {
+     "provider": "eth.drpc.org",
+     "value_raw": "25822595541206649"
+    }
+   ],
+   "providers_agree": null,
+   "verdict": "verified",
+   "confidence": 0.8,
+   "source": "eth_call on public chain nodes",
+   "reason": "USDC's total supply (0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48) at block 21,000,000 on Ethereum (no chain was named, so Ethereum was read) is 25,822,595,541.21 USDC (exact: 25822595541.206649). Read from one provider (eth.drpc.org); no second one answered for that block.",
+   "checked_at": "2026-11-08T23:45:22.754Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "1RPC (Automata)",
+      "status": "unread"
+     },
+     {
+      "source": "Blockscout explorers",
+      "status": "unread"
+     },
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "CoinGecko / GeckoTerminal",
+      "status": "barred"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "ENS Ideas API",
+      "status": "unread"
+     },
+     {
+      "source": "Flashbots Protect RPC",
+      "status": "unclear"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "ONCHAIN_TX_LOOKUP_GENERAL",
+  "path": "/tx-lookup",
+  "query": "Did transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 succeed, and who sent it to whom?",
+  "http": 200,
+  "ms": 749,
+  "fetched_at": "2026-11-08T23:45:15Z",
+  "answer": {
+   "answer": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147.",
+   "hash": "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+   "chain": "ethereum",
+   "verdict": "confirmed",
+   "confidence": 0.99,
+   "reason": "Transaction 0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060 on ethereum succeeded in block 46147. It moved 31,337 wei from 0xa1e4380a3b1f749673e270229993ee55f35663b4 to 0x5df9b87991262f6ba471f09758cde1c0fc1de734. It has 26,327,383 confirmations. It paid a fee of 1.05 ETH. This block predates the Byzantium fork, so the canonical receipt carries a state root rather than a status flag; inclusion in the chain is what is confirmed here.",
+   "transaction": {
+    "status": "confirmed",
+    "from": "0xa1e4380a3b1f749673e270229993ee55f35663b4",
+    "to": "0x5df9b87991262f6ba471f09758cde1c0fc1de734",
+    "value_wei": "31337",
+    "value": "0.000000000000031337",
+    "symbol": "ETH",
+    "block_number": 46147,
+    "block_hash": "0x4e3a3754410177e6937ef1f84bba68ea139e8d1a2258c5f85db9f1cd715a1bdd",
+    "receipt_status": "success",
+    "method": null,
+    "method_selector": null,
+    "contract_created": null,
+    "token_transfers": 0,
+    "gas_used": "21000",
+    "fee_wei": "1050000000000000000",
+    "confirmations": 26327383,
+    "base_fee_wei": null,
+    "base_fee_burned": null
+   },
+   "block_number": 46147,
+   "tx_hash": "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
+   "status": "confirmed",
+   "from": "0xa1e4380a3b1f749673e270229993ee55f35663b4",
+   "to": "0x5df9b87991262f6ba471f09758cde1c0fc1de734",
+   "value_eth": 3.1337e-14,
+   "checked_at": "2026-11-08T23:45:15.359Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "4byte.directory",
+      "status": "licensed"
+     },
+     {
+      "source": "Blockscout explorers",
+      "status": "unread"
+     },
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "Public DNS resolvers (Cloudflare, Google, Quad9)",
+      "status": "unclear"
+     },
+     {
+      "source": "DOAJ",
+      "status": "licensed"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "OFAC addresses list (0xB10C, GitHub)",
+      "status": "licensed"
+     },
+     {
+      "source": "OpenAlex",
+      "status": "licensed"
+     },
+     {
+      "source": "OpenChain signatures",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     },
+     {
+      "source": "Routescan",
+      "status": "unread"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "QUESTION_ANSWERING_GENERAL",
+  "path": "/answer",
+  "query": "Who won the 2022 FIFA World Cup and where was it held?",
+  "http": 200,
+  "ms": 1058,
+  "fetched_at": "2026-11-08T23:45:22Z",
+  "answer": {
+   "answer": "Argentina won the 2022 FIFA World Cup, which was held in Qatar [1].",
+   "question": "Who won the 2022 FIFA World Cup and where was it held?",
+   "verdict": "answered",
+   "confidence": 0.8,
+   "method": "model_phrased_from_sources",
+   "citations": [
+    {
+     "n": 1,
+     "kind": "Wikipedia",
+     "title": "2022 FIFA World Cup",
+     "url": "https://en.wikipedia.org/wiki/2022_FIFA_World_Cup"
+    },
+    {
+     "n": 2,
+     "kind": "Wikipedia",
+     "title": "2030 FIFA World Cup",
+     "url": "https://en.wikipedia.org/wiki/2030_FIFA_World_Cup"
+    },
+    {
+     "n": 3,
+     "kind": "Wikipedia",
+     "title": "2026 FIFA World Cup knockout stage",
+     "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage"
+    },
+    {
+     "n": 4,
+     "kind": "Wikipedia",
+     "title": "2022 FIFA World Cup final",
+     "url": "https://en.wikipedia.org/wiki/2022_FIFA_World_Cup_final"
+    },
+    {
+     "n": 5,
+     "kind": "Wikipedia",
+     "title": "2026 FIFA World Cup",
+     "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup"
+    }
+   ],
+   "reason": "Argentina won the 2022 FIFA World Cup, which was held in Qatar [1]. Sources: [1] Wikipedia's \"2022 FIFA World Cup\".",
+   "checked_at": "2026-11-08T23:45:22.870Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Groq",
+      "status": "unclear"
+     },
+     {
+      "source": "Wikipedia",
+      "status": "conditional"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "REGULATORY_FILING_MONITOR_GENERAL",
+  "path": "/sec-filings",
+  "query": "Did Apple file an 8-K in the last 30 days?",
+  "http": 200,
+  "ms": 353,
+  "fetched_at": "2026-11-08T23:45:18Z",
+  "answer": {
+   "answer": "Yes: Apple Inc. has filed an 8-K since 2026-10-09; the latest was filed on 2026-11-02 and accepted by EDGAR at 21:30 UTC, reporting an event dated 2026-11-02, accession 0000320193-26-000024.",
+   "company": "Apple Inc.",
+   "form_asked": "8-K",
+   "since": "2026-10-09",
+   "entity": "Apple Inc.",
+   "filing_count": 1,
+   "cik": 320193,
+   "tickers": [
+    "AAPL"
+   ],
+   "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000320193",
+   "recent_filings": [
+    {
+     "form": "8-K",
+     "filed": "2026-11-02",
+     "accepted": "2026-11-02T21:30:23.000Z",
+     "accession": "0000320193-26-000024",
+     "period": "2026-11-02",
+     "items": [
+      {
+       "item": "2.02",
+       "name": "Results of Operations and Financial Condition"
+      },
+      {
+       "item": "9.01",
+       "name": "Financial Statements and Exhibits"
+      }
+     ],
+     "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000024/aapl-20261102.htm"
+    }
+   ],
+   "filings": [
+    "8-K filed 2026-11-02, event dated 2026-11-02, items 2.02, 9.01"
+   ],
+   "urls": [
+    "https://www.sec.gov/Archives/edgar/data/320193/000032019326000024/aapl-20261102.htm"
+   ],
+   "counted_since": "2026-10-09",
+   "verdict": "filed",
+   "confidence": 0.95,
+   "filing": {
+    "form": "8-K",
+    "filed": "2026-11-02",
+    "accepted": "2026-11-02T21:30:23.000Z",
+    "accession": "0000320193-26-000024",
+    "period": "2026-11-02",
+    "items": [
+     {
+      "item": "2.02",
+      "name": "Results of Operations and Financial Condition"
+     },
+     {
+      "item": "9.01",
+      "name": "Financial Statements and Exhibits"
+     }
+    ],
+    "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000024/aapl-20261102.htm"
+   },
+   "figures": null,
+   "prior_year_figures": null,
+   "reason": "Yes: Apple Inc. has filed an 8-K since 2026-10-09; the latest was filed on 2026-11-02 and accepted by EDGAR at 21:30 UTC, reporting an event dated 2026-11-02, accession 0000320193-26-000024. It reports item 2.02 (Results of Operations and Financial Condition), item 9.01 (Financial Statements and Exhibits). Filing: https://www.sec.gov/Archives/edgar/data/320193/000032019326000024/aapl-20261102.htm",
+   "checked_at": "2026-11-08T23:45:18.731Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "US Treasury OFAC",
+      "status": "licensed"
+     },
+     {
+      "source": "US SEC EDGAR",
+      "status": "conditional"
+     },
+     {
+      "source": "UN Security Council Consolidated List",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "REGULATORY_FILING_MONITOR_GENERAL",
+  "path": "/sec-filings",
+  "query": "How many 10-Q filings has Microsoft filed in the last year?",
+  "http": 200,
+  "ms": 3069,
+  "fetched_at": "2026-11-08T23:45:21Z",
+  "answer": {
+   "answer": "MICROSOFT CORP has filed 3 10-Qs since 2025-11-08; the latest was filed on 2026-10-28 and accepted by EDGAR at 20:07 UTC, for the period ended 2026-09-30, accession 0001193125-26-436133.",
+   "company": "MICROSOFT CORP",
+   "form_asked": "10-Q",
+   "since": "2025-11-08",
+   "entity": "MICROSOFT CORP",
+   "filing_count": 3,
+   "cik": 789019,
+   "tickers": [
+    "MSFT"
+   ],
+   "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000789019",
+   "recent_filings": [
+    {
+     "form": "10-Q",
+     "filed": "2026-10-28",
+     "accepted": "2026-10-28T20:07:39.000Z",
+     "accession": "0001193125-26-436133",
+     "period": "2026-09-30",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/msft-20260930.htm"
+    },
+    {
+     "form": "10-Q",
+     "filed": "2026-04-29",
+     "accepted": "2026-04-29T20:06:24.000Z",
+     "accession": "0001193125-26-191507",
+     "period": "2026-03-31",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526191507/msft-20260331.htm"
+    },
+    {
+     "form": "10-Q",
+     "filed": "2026-01-28",
+     "accepted": "2026-01-28T21:07:34.000Z",
+     "accession": "0001193125-26-027207",
+     "period": "2025-12-31",
+     "items": [],
+     "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526027207/msft-20251231.htm"
+    }
+   ],
+   "filings": [
+    "10-Q filed 2026-10-28 for the period ended 2026-09-30",
+    "10-Q filed 2026-04-29 for the period ended 2026-03-31",
+    "10-Q filed 2026-01-28 for the period ended 2025-12-31"
+   ],
+   "urls": [
+    "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/msft-20260930.htm",
+    "https://www.sec.gov/Archives/edgar/data/789019/000119312526191507/msft-20260331.htm",
+    "https://www.sec.gov/Archives/edgar/data/789019/000119312526027207/msft-20251231.htm"
+   ],
+   "counted_since": "2025-11-08",
+   "verdict": "filed",
+   "confidence": 0.95,
+   "filing": {
+    "form": "10-Q",
+    "filed": "2026-10-28",
+    "accepted": "2026-10-28T20:07:39.000Z",
+    "accession": "0001193125-26-436133",
+    "period": "2026-09-30",
+    "items": [],
+    "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/msft-20260930.htm"
+   },
+   "figures": {
+    "period_start": "2026-07-01",
+    "period_end": "2026-09-30",
+    "revenue": 92279000000,
+    "gross_profit": 62559000000,
+    "gross_margin_pct": 67.8,
+    "operating_income": 45915000000,
+    "net_income": 36629000000
+   },
+   "prior_year_figures": {
+    "period_start": "2025-07-01",
+    "period_end": "2025-09-30",
+    "revenue": 77673000000,
+    "gross_profit": 53630000000,
+    "gross_margin_pct": 69,
+    "operating_income": 37961000000,
+    "net_income": 27747000000
+   },
+   "reason": "MICROSOFT CORP has filed 3 10-Qs since 2025-11-08; the latest was filed on 2026-10-28 and accepted by EDGAR at 20:07 UTC, for the period ended 2026-09-30, accession 0001193125-26-436133. For 2026-07-01 to 2026-09-30 it reports revenue of $92.28 billion, a gross margin of 67.8% against 69.0% a year earlier, operating income of $45.91 billion and net income of $36.63 billion, as tagged in the filing's XBRL. Filing: https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/msft-20260930.htm",
+   "checked_at": "2026-11-08T23:45:21.802Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "US Treasury OFAC",
+      "status": "licensed"
+     },
+     {
+      "source": "US SEC EDGAR",
+      "status": "conditional"
+     },
+     {
+      "source": "UN Security Council Consolidated List",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "RESEARCH_QUERY_GENERAL",
+  "path": "/research",
+  "query": "What clinical trials are testing semaglutide for Alzheimer's?",
+  "http": 200,
+  "ms": 6316,
+  "fetched_at": "2026-11-08T23:45:21Z",
+  "answer": {
+   "answer": "Alzheimer is the subject of 5 registered trials, including NCT04777396, a Phase 3 study titled \"A Research Study Investigating Semaglutide in People With Early Alzheimer's Disease (EVOKE)\", currently completed, primary completion 2025-09-16.",
+   "subject": "What clinical trials are testing semaglutide for Alzheimer's",
+   "trials": [
+    {
+     "id": "NCT04777396",
+     "title": "A Research Study Investigating Semaglutide in People With Early Alzheimer's Disease (EVOKE)",
+     "status": "completed",
+     "phase": "Phase 3",
+     "completion": "2025-09-16",
+     "conditions": [
+      "Early Alzheimer's Disease"
+     ]
+    },
+    {
+     "id": "NCT04777409",
+     "title": "A Research Study Investigating Semaglutide in People With Early Alzheimer's Disease (EVOKE Plus)",
+     "status": "completed",
+     "phase": "Phase 3",
+     "completion": "2025-09-15",
+     "conditions": [
+      "Early Alzheimer´s Disease"
+     ]
+    },
+    {
+     "id": "NCT07677865",
+     "title": "GLP-1 Receptor Agonists and Alzheimer's Disease: A Multi-National Target Trial Emulation",
+     "status": "withdrawn",
+     "phase": null,
+     "completion": "2024-12-31",
+     "conditions": [
+      "Alzheimer Disease",
+      "Diabetes Mellitus Type 2",
+      "Obesity & Overweight"
+     ]
+    },
+    {
+     "id": "NCT07651319",
+     "title": "Interleukine-2 (IL-2) Plus Semaglutide in Alzheimer's Disease",
+     "status": "recruiting",
+     "phase": "Phase 1/Phase 2",
+     "completion": "2029-06",
+     "conditions": [
+      "Alzheimer Dementia (AD)"
+     ]
+    },
+    {
+     "id": "NCT07135245",
+     "title": "Improved Treatment and Monitoring of Alzheimer's Disease",
+     "status": "not yet recruiting",
+     "phase": "Phase 2",
+     "completion": "2030-09-30",
+     "conditions": [
+      "Alzheimer Disease (AD)"
+     ]
+    }
+   ],
+   "citations": [],
+   "verdict": "evidence",
+   "confidence": 0.9,
+   "reason": "Alzheimer is the subject of 5 registered trials, including NCT04777396, a Phase 3 study titled \"A Research Study Investigating Semaglutide in People With Early Alzheimer's Disease (EVOKE)\", currently completed, primary completion 2025-09-16.",
+   "source_count": 0,
+   "sources": [],
+   "brief": "A Research Study Investigating Semaglutide in People With Early Alzheimer's",
+   "checked_at": "2026-11-08T23:45:22.031Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "ClinicalTrials.gov",
+      "status": "unclear"
+     },
+     {
+      "source": "EMBL-EBI / Europe PMC",
+      "status": "conditional"
+     },
+     {
+      "source": "Wikipedia",
+      "status": "conditional"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "RESEARCH_SYNTHESIS_GENERAL",
+  "path": "/research-synthesis",
+  "query": "Summarise the evidence on intermittent fasting and weight loss",
+  "http": 200,
+  "ms": 792,
+  "fetched_at": "2026-11-08T23:45:18Z",
+  "answer": {
+   "answer": "Across three studies on intermittent fasting and weight loss, the findings are: Welton et al. (2020, PMID 32060194): \"All 27 IF trials found weight loss of 0.8% to 13.0% of baseline weight with no serious adverse events.\"",
+   "verdict": "synthesis",
+   "confidence": 0.75,
+   "sources": [
+    "Welton et al. (2020, PMID 32060194)",
+    "Fanti et al. (2021, PMID 33512641)",
+    "Carvajal et al. (2023, PMID 37906749)"
+   ],
+   "reason": "Across three studies on intermittent fasting and weight loss, the findings are: Welton et al. (2020, PMID 32060194): \"All 27 IF trials found weight loss of 0.8% to 13.0% of baseline weight with no serious adverse events.\" Fanti et al. (2021, PMID 33512641): \"The literature suggests that many popular diets can induce weight loss but only a limited number of studies actually demonstrate long-term weight loss efficacy.\" Carvajal et al. (2023, PMID 37906749): \"Weight loss, improvement of glucose homeostasis and lipid profile, are observed in the three types of IF protocols evaluated.\" Each finding is quoted from that study's abstract; whether the studies agree is not assessed here.",
+   "source_count": 3,
+   "brief": "All 27 IF trials found weight loss of 0.8% to 13.0% of baseline weight with no",
+   "checked_at": "2026-11-08T23:45:18.375Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "ClinicalTrials.gov",
+      "status": "unclear"
+     },
+     {
+      "source": "DOAJ",
+      "status": "licensed"
+     },
+     {
+      "source": "EMBL-EBI / Europe PMC",
+      "status": "conditional"
+     },
+     {
+      "source": "NCBI E-utilities",
+      "status": "licensed"
+     },
+     {
+      "source": "OpenAlex",
+      "status": "licensed"
+     },
+     {
+      "source": "Wikipedia",
+      "status": "conditional"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+  "path": "/sanctions-screen",
+  "query": "Is Viktor Bout sanctioned?",
+  "http": 200,
+  "ms": 4174,
+  "fetched_at": "2026-11-08T23:45:21Z",
+  "answer": {
+   "answer": "Potential match: \"Viktor Bout\" matches BOUT, Viktor Anatolijevitch on the OFAC SDN list (DRCONGO, individual, born 1967 or 1970, reference 8279), score 0.95.",
+   "subject": "Viktor Bout",
+   "subject_type": null,
+   "dob_year": null,
+   "matches": [
+    {
+     "list": "OFAC SDN",
+     "id": "8279",
+     "name": "BOUT, Viktor Anatolijevitch",
+     "matched_name": "BOUT, Viktor Anatolijevitch",
+     "type": "individual",
+     "programs": [
+      "DRCONGO"
+     ],
+     "score": 0.95,
+     "dob_years": [
+      1967,
+      1970
+     ],
+     "dob_check": "not_given",
+     "nationalities": [],
+     "listed_on": null,
+     "url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=8279"
+    }
+   ],
+   "closest": {
+    "list": "OFAC SDN",
+    "id": "8279",
+    "name": "BOUT, Viktor Anatolijevitch",
+    "matched_name": "BOUT, Viktor Anatolijevitch",
+    "type": "individual",
+    "programs": [
+     "DRCONGO"
+    ],
+    "score": 0.95,
+    "dob_years": [
+     1967,
+     1970
+    ],
+    "dob_check": "not_given",
+    "nationalities": [],
+    "listed_on": null,
+    "url": "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=8279"
+   },
+   "lists_checked": [
+    {
+     "list": "OFAC SDN",
+     "published": "2026-11-05",
+     "entries": 19563
+    },
+    {
+     "list": "OFAC Consolidated (non-SDN)",
+     "published": "2026-11-05",
+     "entries": 486
+    },
+    {
+     "list": "UN Security Council Consolidated",
+     "published": "2026-11-08",
+     "entries": 1007
+    }
+   ],
+   "lists_not_checked": [
+    "EU consolidated financial sanctions list",
+    "UK HMT consolidated list"
+   ],
+   "verdict": "match",
+   "confidence": 0.95,
+   "reason": "Potential match: \"Viktor Bout\" matches BOUT, Viktor Anatolijevitch on the OFAC SDN list (DRCONGO, individual, born 1967 or 1970, reference 8279), score 0.95. A name match alone does not establish identity, so confirm it on further identifiers before acting. Screened against OFAC SDN (published 2026-11-05, 19,563 entries), OFAC Consolidated (non-SDN) (published 2026-11-05, 486 entries) and UN Security Council Consolidated (generated 2026-11-08, 1,007 entries), names and aliases; the EU and UK lists were not screened.",
+   "name": "Viktor Bout",
+   "matched": true,
+   "lists": [
+    "OFAC SDN",
+    "OFAC Consolidated (non-SDN)",
+    "UN Security Council Consolidated"
+   ],
+   "match_score": 0.95,
+   "checked_at": "2026-11-08T23:45:21.779Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "US Treasury OFAC",
+      "status": "licensed"
+     },
+     {
+      "source": "UN Security Council Consolidated List",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "SANCTIONS_SCREENING_MATCH_GENERAL",
+  "path": "/sanctions-screen",
+  "query": "Screen 'Jane Smith' against the OFAC SDN list",
+  "http": 200,
+  "ms": 3826,
+  "fetched_at": "2026-11-08T23:45:21Z",
+  "answer": {
+   "answer": "No match: \"Jane Smith\" does not closely match any name or alias on these lists.",
+   "subject": "Jane Smith",
+   "subject_type": null,
+   "dob_year": null,
+   "matches": [],
+   "closest": null,
+   "lists_checked": [
+    {
+     "list": "OFAC SDN",
+     "published": "2026-11-05",
+     "entries": 19563
+    },
+    {
+     "list": "OFAC Consolidated (non-SDN)",
+     "published": "2026-11-05",
+     "entries": 486
+    },
+    {
+     "list": "UN Security Council Consolidated",
+     "published": "2026-11-08",
+     "entries": 1007
+    }
+   ],
+   "lists_not_checked": [
+    "EU consolidated financial sanctions list",
+    "UK HMT consolidated list"
+   ],
+   "verdict": "no_match",
+   "confidence": 0.85,
+   "reason": "No match: \"Jane Smith\" does not closely match any name or alias on these lists. Screened against OFAC SDN (published 2026-11-05, 19,563 entries), OFAC Consolidated (non-SDN) (published 2026-11-05, 486 entries) and UN Security Council Consolidated (generated 2026-11-08, 1,007 entries), names and aliases; the EU and UK lists were not screened.",
+   "name": "Jane Smith",
+   "matched": false,
+   "lists": [
+    "OFAC SDN",
+    "OFAC Consolidated (non-SDN)",
+    "UN Security Council Consolidated"
+   ],
+   "match_score": 0,
+   "checked_at": "2026-11-08T23:45:21.448Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "US Treasury OFAC",
+      "status": "licensed"
+     },
+     {
+      "source": "UN Security Council Consolidated List",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "SENTIMENT_ANALYSIS_GENERAL",
+  "path": "/sentiment",
+  "query": "What is the sentiment of this review: 'The product broke after one day'?",
+  "http": 200,
+  "ms": 550,
+  "fetched_at": "2026-11-08T23:45:17Z",
+  "answer": {
+   "answer": "Negative.",
+   "verdict": "negative",
+   "compound": -0.4588,
+   "positive_words": [],
+   "negative_words": [
+    "broke"
+   ],
+   "tones": [],
+   "confidence": 0.73,
+   "reason": "Negative. The sentiment of this review is negative: The product broke after one day. It is carried by the word broke.",
+   "sentiment": "Negative",
+   "score": -0.4588,
+   "checked_at": "2026-11-08T23:45:17.603Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Groq",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "SENTIMENT_ANALYSIS_GENERAL",
+  "path": "/sentiment",
+  "query": "Sentiment of: 'Absolutely love this phone, the battery lasts forever'",
+  "http": 200,
+  "ms": 568,
+  "fetched_at": "2026-11-08T23:45:17Z",
+  "answer": {
+   "answer": "The sentiment of this text is positive.",
+   "verdict": "positive",
+   "compound": 0.6997,
+   "positive_words": [
+    "love"
+   ],
+   "negative_words": [],
+   "tones": [],
+   "confidence": 0.83,
+   "reason": "The sentiment of this text is positive. The writer expresses strong approval of the phone and satisfaction with its long battery life.",
+   "sentiment": "Positive",
+   "score": 0.6997,
+   "checked_at": "2026-11-08T23:45:17.621Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Groq",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "SMART_CONTRACT_AUDIT_GENERAL",
+  "path": "/contract-audit",
+  "query": "Audit this contract: contract Vault { mapping(address=>uint) b; function withdraw() public { (bool ok,) = msg.sender.call{value: b[msg.sender]}(\"\"); require(ok); b[msg.sender] = 0; } }",
+  "http": 200,
+  "ms": 993,
+  "fetched_at": "2026-11-08T23:45:23Z",
+  "answer": {
+   "answer": "High risk due to a reentrancy vulnerability in the withdraw function, allowing an attacker to repeatedly drain their balance before it is cleared.",
+   "verdict": "High",
+   "summary": "High risk due to a reentrancy vulnerability in the withdraw function, allowing an attacker to repeatedly drain their balance before it is cleared.",
+   "findings": [
+    {
+     "class": "reentrancy",
+     "function": "withdraw",
+     "severity": "high",
+     "issue": "The contract sends Ether to msg.sender via a low-level call before resetting the user's balance, enabling a malicious contract to re-enter withdraw and drain funds multiple times.",
+     "fix": "function withdraw() public {\n    uint amount = b[msg.sender];\n    require(amount > 0, \"nothing to withdraw\");\n    b[msg.sender] = 0; // effect before interaction\n    (bool ok,) = msg.sender.call{value: amount}(\"\");\n    require(ok, \"transfer failed\");\n}"
+    }
+   ],
+   "finding_count": 1,
+   "confidence": 0.8,
+   "source": "Groq (gpt-oss-120b, falling back to qwen3.8-27b and gpt-oss-20b)",
+   "reason": "High risk due to a reentrancy vulnerability in the withdraw function, allowing an attacker to repeatedly drain their balance before it is cleared. Findings: 1) high reentrancy in withdraw: The contract sends Ether to msg.sender via a low-level call before resetting the user's balance, enabling a malicious contract to re-enter withdraw and drain funds multiple times. Fix: function withdraw() public {\n    uint amount = b[msg.sender];\n    require(amount > 0, \"nothing to withdraw\");\n    b[msg.sender] = 0; // effect before interaction\n    (bool ok,) = msg.sender.call{value: amount}(\"\");\n    require(ok, \"transfer failed\");\n}",
+   "checked_at": "2026-11-08T23:45:23.616Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Groq",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "SSL_VERIFICATION_CERT",
+  "path": "/ssl-check",
+  "query": "Is the TLS certificate for github.com valid?",
+  "http": 200,
+  "ms": 1231,
+  "fetched_at": "2026-11-08T23:45:13Z",
+  "answer": {
+   "answer": "The TLS/SSL certificate configuration for github.com is valid.",
+   "domain": "github.com",
+   "verdict": "valid",
+   "valid": true,
+   "chain_complete": true,
+   "issuer": "Sectigo Limited",
+   "valid_to": "2027-01-27",
+   "days_remaining": 80,
+   "confidence": 1,
+   "reason": "The TLS/SSL certificate configuration for github.com is valid. Certificate validity: the certificate is currently valid, expiring in 80 days on 2027-01-27, issued by Sectigo Limited. Chain trust: the server presented a complete chain of 4 certificates including intermediates, building a trusted path to a root. Hostname verification: passes against DNS:github.com. The connection negotiated TLSv1.3.",
+   "checked_at": "2026-11-08T23:45:13.224Z",
+   "certificate_valid": true,
+   "licensing": {
+    "endpoint_status": "licensed",
+    "upstreams": [],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "SSL_VERIFICATION_CERT",
+  "path": "/ssl-check",
+  "query": "Is expired.badssl.com's certificate valid?",
+  "http": 200,
+  "ms": 1310,
+  "fetched_at": "2026-11-08T23:45:13Z",
+  "answer": {
+   "answer": "The SSL certificate for expired.badssl.com is expired and not valid, issued by COMODO CA Limited.",
+   "domain": "expired.badssl.com",
+   "verdict": "expired",
+   "valid": false,
+   "chain_complete": true,
+   "issuer": "COMODO CA Limited",
+   "valid_to": "2015-04-12",
+   "days_remaining": -4228,
+   "confidence": 1,
+   "reason": "The SSL certificate for expired.badssl.com is expired and not valid, issued by COMODO CA Limited. It expired on 2015-04-12. The server presented a complete chain of 3 certificates including intermediates.",
+   "checked_at": "2026-11-08T23:45:13.295Z",
+   "certificate_valid": false,
+   "licensing": {
+    "endpoint_status": "licensed",
+    "upstreams": [],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "STOCK_PRICE_US_EQUITY",
+  "path": "/stock-price",
+  "query": "What is Apple's share price?",
+  "http": 200,
+  "ms": 561,
+  "fetched_at": "2026-11-08T23:45:16Z",
+  "answer": {
+   "answer": "Apple Inc. (AAPL) last traded at 342.37 USD on NasdaqGS at Fri 06 Nov 2026 16:00 America/New_York.",
+   "ticker": "AAPL",
+   "name": "Apple Inc.",
+   "verdict": "price",
+   "confidence": 0.9,
+   "price": 342.37,
+   "currency": "USD",
+   "price_at": "2026-11-06T21:00:01.000Z",
+   "exchange": "NasdaqGS",
+   "market_open": false,
+   "source": "Yahoo Finance",
+   "reason": "Apple Inc. (AAPL) last traded at 342.37 USD on NasdaqGS at Fri 06 Nov 2026 16:00 America/New_York. The regular session is closed now, so this is the last session price, not a live quote.",
+   "price_usd": 342.37,
+   "checked_at": "2026-11-08T23:45:16.364Z",
+   "licensing": {
+    "endpoint_status": "barred",
+    "upstreams": [
+     {
+      "source": "Bitstamp",
+      "status": "conditional"
+     },
+     {
+      "source": "Coinbase",
+      "status": "barred"
+     },
+     {
+      "source": "CoinGecko / GeckoTerminal",
+      "status": "barred"
+     },
+     {
+      "source": "European Central Bank",
+      "status": "conditional"
+     },
+     {
+      "source": "Frankfurter",
+      "status": "licensed"
+     },
+     {
+      "source": "Nasdaq (api.nasdaq.com)",
+      "status": "barred"
+     },
+     {
+      "source": "US SEC EDGAR",
+      "status": "conditional"
+     },
+     {
+      "source": "Yahoo Finance",
+      "status": "barred"
+     }
+    ],
+    "notices": [
+     "European Central Bank data are available free of charge at https://www.ecb.europa.eu."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "STOCK_PRICE_US_EQUITY",
+  "path": "/stock-price",
+  "query": "What is the price of NVDA stock?",
+  "http": 200,
+  "ms": 437,
+  "fetched_at": "2026-11-08T23:45:16Z",
+  "answer": {
+   "answer": "NVIDIA Corporation (NVDA) last traded at 186.64 USD on NasdaqGS at Fri 06 Nov 2026 16:00 America/New_York.",
+   "ticker": "NVDA",
+   "name": "NVIDIA Corporation",
+   "verdict": "price",
+   "confidence": 0.9,
+   "price": 186.64,
+   "currency": "USD",
+   "price_at": "2026-11-06T21:00:00.000Z",
+   "exchange": "NasdaqGS",
+   "market_open": false,
+   "source": "Yahoo Finance",
+   "reason": "NVIDIA Corporation (NVDA) last traded at 186.64 USD on NasdaqGS at Fri 06 Nov 2026 16:00 America/New_York. The regular session is closed now, so this is the last session price, not a live quote.",
+   "price_usd": 186.64,
+   "checked_at": "2026-11-08T23:45:16.568Z",
+   "licensing": {
+    "endpoint_status": "barred",
+    "upstreams": [
+     {
+      "source": "Bitstamp",
+      "status": "conditional"
+     },
+     {
+      "source": "Coinbase",
+      "status": "barred"
+     },
+     {
+      "source": "CoinGecko / GeckoTerminal",
+      "status": "barred"
+     },
+     {
+      "source": "European Central Bank",
+      "status": "conditional"
+     },
+     {
+      "source": "Frankfurter",
+      "status": "licensed"
+     },
+     {
+      "source": "Nasdaq (api.nasdaq.com)",
+      "status": "barred"
+     },
+     {
+      "source": "US SEC EDGAR",
+      "status": "conditional"
+     },
+     {
+      "source": "Yahoo Finance",
+      "status": "barred"
+     }
+    ],
+    "notices": [
+     "European Central Bank data are available free of charge at https://www.ecb.europa.eu."
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "STORM_ALERT_GENERAL",
+  "path": "/storm-alert",
+  "query": "Is there a storm risk in Chennai in the next 48 hours?",
+  "http": 200,
+  "ms": 1811,
+  "fetched_at": "2026-11-08T23:45:13Z",
+  "answer": {
+   "answer": "No storm conditions are forecast for Chennai over the next 48 hours.",
+   "location": "Chennai, Tamil Nadu, India",
+   "verdict": "none",
+   "risk_score": 0.16,
+   "wind_direction": "north-east",
+   "max_wind_gust_kmh": null,
+   "max_wind_speed_kmh": 24.8,
+   "max_precipitation_mm": 0,
+   "thunderstorm": false,
+   "window_hours": 48,
+   "valid_at": null,
+   "peak_at": "2026-11-10T09:00",
+   "latitude": 13.0825,
+   "longitude": 80.275,
+   "confidence": 1,
+   "threshold_exceeded": null,
+   "threshold_hours": null,
+   "reason": "No storm conditions are forecast for Chennai over the next 48 hours. Overall risk: 0.16 on a scale of 0 to 1, graded none. This grade is computed from the forecast; it is not an official weather warning. Wind speed: sustained winds up to 24.8 km/h, which is 6.9 metres per second. Gusts: no gust forecast is published for this location, so the grade uses sustained wind. Precipitation: up to 0 mm in the wettest forecast step. Wind direction: prevailing from the north-east. Forecast data from MET Norway (CC BY 4.0).",
+   "checked_at": "2026-11-08T23:45:13.214Z",
+   "risk_level": "LOW",
+   "risk_level_rule": "risk_score under 0.25 LOW, under 0.5 MODERATE, under 0.75 HIGH, else SEVERE",
+   "peak_gust_kmh": null,
+   "window": "48 hours",
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "MET Norway",
+      "status": "conditional"
+     },
+     {
+      "source": "OpenStreetMap Nominatim",
+      "status": "conditional"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "STORM_ALERT_GENERAL",
+  "path": "/storm-alert",
+  "query": "Will gusts exceed 60 km/h in Miami tonight?",
+  "http": 200,
+  "ms": 1772,
+  "fetched_at": "2026-11-08T23:45:13Z",
+  "answer": {
+   "answer": "No storm conditions are forecast for Miami over the next 48 hours.",
+   "location": "Miami, Florida, United States",
+   "verdict": "none",
+   "risk_score": 0.13,
+   "wind_direction": "east",
+   "max_wind_gust_kmh": null,
+   "max_wind_speed_kmh": 20.5,
+   "max_precipitation_mm": 0.4,
+   "thunderstorm": false,
+   "window_hours": 48,
+   "valid_at": null,
+   "peak_at": "2026-11-10T18:00",
+   "latitude": 25.7742,
+   "longitude": -80.1936,
+   "confidence": 1,
+   "threshold_exceeded": false,
+   "threshold_hours": 0,
+   "reason": "No storm conditions are forecast for Miami over the next 48 hours. Overall risk: 0.13 on a scale of 0 to 1, graded none. This grade is computed from the forecast; it is not an official weather warning. Wind speed: sustained winds up to 20.5 km/h, which is 5.7 metres per second. Gusts: no gust forecast is published for this location, so the grade uses sustained wind. Precipitation: up to 0.4 mm in the wettest forecast step. Wind direction: prevailing from the east. No period with sustained winds above 60 kmh is forecast. Forecast data from MET Norway (CC BY 4.0).",
+   "checked_at": "2026-11-08T23:45:13.224Z",
+   "risk_level": "LOW",
+   "risk_level_rule": "risk_score under 0.25 LOW, under 0.5 MODERATE, under 0.75 HIGH, else SEVERE",
+   "peak_gust_kmh": null,
+   "window": "48 hours",
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "MET Norway",
+      "status": "conditional"
+     },
+     {
+      "source": "OpenStreetMap Nominatim",
+      "status": "conditional"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "TEXT_CLASSIFICATION_GENERAL",
+  "path": "/classify",
+  "query": "Classify this ticket as billing, technical or account: 'I was charged twice'",
+  "http": 200,
+  "ms": 509,
+  "fetched_at": "2026-11-08T23:45:17Z",
+  "answer": {
+   "answer": "Billing.",
+   "verdict": "classified",
+   "label": "billing",
+   "reason": "Billing. The statement about being charged twice directly describes a payment error.",
+   "confidence": 0.67,
+   "category": "billing",
+   "checked_at": "2026-11-08T23:45:17.582Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Datamuse",
+      "status": "licensed"
+     },
+     {
+      "source": "Groq",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "TEXT_GENERATION_GENERAL",
+  "path": "/generate",
+  "query": "Write a 60-word product description for a solar phone charger",
+  "http": 200,
+  "ms": 792,
+  "fetched_at": "2026-11-08T23:45:23Z",
+  "answer": {
+   "answer": "Harness the power of the sun with our compact solar phone charger, featuring high-efficiency photovoltaic panels and a built-in smart IC for optimal charging speed.",
+   "text": "Harness the power of the sun with our compact solar phone charger, featuring high-efficiency photovoltaic panels and a built-in smart IC for optimal charging speed. Its rugged, water-resistant design ensures durability on hikes, beach trips, or emergencies. Compatible with all USB-powered devices, it offers a reliable, eco-friendly solution for staying connected wherever sunlight shines.",
+   "title": "Solar Phone Charger Overview",
+   "brief": "Harness the power of the sun with our compact solar phone charger.",
+   "word_count": 54,
+   "requested_words": 60,
+   "verdict": "generated",
+   "confidence": 0.8,
+   "source": "Groq (gpt-oss-120b, falling back to qwen3.8-27b and gpt-oss-20b)",
+   "reason": "Harness the power of the sun with our compact solar phone charger, featuring high-efficiency photovoltaic panels and a built-in smart IC for optimal charging speed. Its rugged, water-resistant design ensures durability on hikes, beach trips, or emergencies. Compatible with all USB-powered devices, it offers a reliable, eco-friendly solution for staying connected wherever sunlight shines.",
+   "checked_at": "2026-11-08T23:45:23.547Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Groq",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "TOKEN_HOLDER_COUNT_GENERAL",
+  "path": "/token-holders",
+  "query": "How many holders does USDC have on Ethereum?",
+  "http": 200,
+  "ms": 758,
+  "fetched_at": "2026-11-08T23:45:16Z",
+  "answer": {
+   "answer": "USDC on Ethereum has 9,583,118 distinct holder addresses, read from the chain's own transfer index at contract 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48.",
+   "symbol": "USDC",
+   "name": "USDC",
+   "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+   "chain": "ethereum",
+   "holders": 9583118,
+   "top_holder_percent": null,
+   "verdict": "holder_count",
+   "confidence": 0.95,
+   "reason": "USDC on Ethereum has 9,583,118 distinct holder addresses, read from the chain's own transfer index at contract 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48. Circle's native USDC contract was read; a bridged USDC.e, where one exists, is a separate contract.",
+   "holders_count": 9583118,
+   "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+   "token_symbol": "USDC",
+   "checked_at": "2026-11-08T23:45:16.444Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "Blockscout explorers",
+      "status": "unread"
+     },
+     {
+      "source": "CoinGecko / GeckoTerminal",
+      "status": "barred"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "TOKEN_HOLDER_COUNT_GENERAL",
+  "path": "/token-holders",
+  "query": "How many holders does the SHIB token have?",
+  "http": 200,
+  "ms": 1348,
+  "fetched_at": "2026-11-08T23:45:16Z",
+  "answer": {
+   "answer": "Shiba Inu (SHIB) on Ethereum has 1,848,373 distinct holder addresses, read from the chain's own transfer index at contract 0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE.",
+   "symbol": "SHIB",
+   "name": "Shiba Inu",
+   "address": "0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE",
+   "chain": "ethereum",
+   "holders": 1848373,
+   "top_holder_percent": null,
+   "verdict": "holder_count",
+   "confidence": 0.95,
+   "reason": "Shiba Inu (SHIB) on Ethereum has 1,848,373 distinct holder addresses, read from the chain's own transfer index at contract 0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE. The indexes for Base and Polygon did not answer, so those chains were not compared.",
+   "holders_count": 1848373,
+   "token": "0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE",
+   "token_symbol": "SHIB",
+   "checked_at": "2026-11-08T23:45:17.051Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "Blockscout explorers",
+      "status": "unread"
+     },
+     {
+      "source": "CoinGecko / GeckoTerminal",
+      "status": "barred"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL",
+  "path": "/token-supply",
+  "query": "What is the total supply of USDC on Ethereum?",
+  "http": 200,
+  "ms": 444,
+  "fetched_at": "2026-11-08T23:45:22Z",
+  "answer": {
+   "answer": "USDC's total supply on Ethereum at block 26373528 is 46,179,927,824.45 USDC (exact: 46179927824.450055).",
+   "chain": "ethereum",
+   "token_address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+   "block_number": 26373528,
+   "providers": [
+    {
+     "provider": "ethereum-rpc.publicnode.com",
+     "total_supply_raw": "46179927824450055"
+    },
+    {
+     "provider": "eth.drpc.org",
+     "total_supply_raw": "46179927824450055"
+    }
+   ],
+   "symbol": "USDC",
+   "decimals": 6,
+   "total_supply": 46179927824.45006,
+   "total_supply_raw": "46179927824450055",
+   "burned": "57575.181148",
+   "burned_raw": "57575181148",
+   "burn_addresses": [
+    "0x000000000000000000000000000000000000dEaD",
+    "0x0000000000000000000000000000000000000000"
+   ],
+   "supply_net_of_burn": "46179870249.268907",
+   "providers_agree": true,
+   "source": "eth_call totalSupply(), decimals(), symbol() and balanceOf(burn addresses) on two public RPCs",
+   "verdict": "verified",
+   "confidence": 1,
+   "reason": "USDC's total supply on Ethereum at block 26373528 is 46,179,927,824.45 USDC (exact: 46179927824.450055). 57,575.18 are held at the burn addresses, leaving 46,179,870,249.27 net of burns. Both RPCs return the same value at that block. Circulating supply, which excludes treasury and locked wallets, is not computed: those wallets are not on-chain facts. Circle's native USDC contract was read; a bridged USDC.e, where one exists, is a separate contract.",
+   "total_supply_exact": "46179927824.450055",
+   "checked_at": "2026-11-08T23:45:22.614Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "1RPC (Automata)",
+      "status": "unread"
+     },
+     {
+      "source": "Blockscout explorers",
+      "status": "unread"
+     },
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "CoinGecko / GeckoTerminal",
+      "status": "barred"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "ENS Ideas API",
+      "status": "unread"
+     },
+     {
+      "source": "Flashbots Protect RPC",
+      "status": "unclear"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL",
+  "path": "/token-supply",
+  "query": "Verify the total supply of 0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE",
+  "http": 200,
+  "ms": 420,
+  "fetched_at": "2026-11-08T23:45:22Z",
+  "answer": {
+   "answer": "SHIB's total supply on Ethereum at block 26373528 (no chain was named, so Ethereum was read) is 999,982,326,580,529.4 SHIB (exact: 999982326580529.39042300029358933).",
+   "chain": "ethereum",
+   "token_address": "0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE",
+   "block_number": 26373528,
+   "providers": [
+    {
+     "provider": "ethereum-rpc.publicnode.com",
+     "total_supply_raw": "999982326580529390423000293589330"
+    },
+    {
+     "provider": "eth.drpc.org",
+     "total_supply_raw": "999982326580529390423000293589330"
+    }
+   ],
+   "symbol": "SHIB",
+   "decimals": 18,
+   "total_supply": 999982326580529.4,
+   "total_supply_raw": "999982326580529390423000293589330",
+   "burned": "49495194211.753259678039830339",
+   "burned_raw": "49495194211753259678039830339",
+   "burn_addresses": [
+    "0x000000000000000000000000000000000000dEaD",
+    "0x0000000000000000000000000000000000000000"
+   ],
+   "supply_net_of_burn": "999932831386317.637163322253758991",
+   "providers_agree": true,
+   "source": "eth_call totalSupply(), decimals(), symbol() and balanceOf(burn addresses) on two public RPCs",
+   "verdict": "verified",
+   "confidence": 1,
+   "reason": "SHIB's total supply on Ethereum at block 26373528 (no chain was named, so Ethereum was read) is 999,982,326,580,529.4 SHIB (exact: 999982326580529.39042300029358933). 49,495,194,211.75 are held at the burn addresses, leaving 999,932,831,386,317.6 net of burns. Both RPCs return the same value at that block. Circulating supply, which excludes treasury and locked wallets, is not computed: those wallets are not on-chain facts.",
+   "total_supply_exact": "999982326580529.39042300029358933",
+   "checked_at": "2026-11-08T23:45:22.605Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "1RPC (Automata)",
+      "status": "unread"
+     },
+     {
+      "source": "Blockscout explorers",
+      "status": "unread"
+     },
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "CoinGecko / GeckoTerminal",
+      "status": "barred"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "ENS Ideas API",
+      "status": "unread"
+     },
+     {
+      "source": "Flashbots Protect RPC",
+      "status": "unclear"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "URL_SAFE_GENERAL",
+  "path": "/url-reputation",
+  "query": "Is malware.testcategory.com on any blocklist?",
+  "http": 200,
+  "ms": 379,
+  "fetched_at": "2026-11-08T23:45:22Z",
+  "answer": {
+   "answer": "Listed: malware.testcategory.com is flagged as malicious by 1 of 2 threat sources checked: Cloudflare security DNS.",
+   "url": "https://malware.testcategory.com/",
+   "verdict": "Malicious",
+   "confidence": 0.95,
+   "reason": "Listed: malware.testcategory.com is flagged as malicious by 1 of 2 threat sources checked: Cloudflare security DNS. Quad9 threat-blocking DNS did not flag it.",
+   "flagged_by": [
+    "Cloudflare security DNS"
+   ],
+   "checks": {
+    "cloudflare_filter": "blocked",
+    "quad9_filter": "passed",
+    "resolves": true,
+    "tls": "valid",
+    "lookalike_markers": [],
+    "redirects": 0,
+    "final_url": "https://malware.testcategory.com/"
+   },
+   "listed": true,
+   "sources": [
+    {
+     "source": "Cloudflare security DNS",
+     "kind": "DNS blocklist",
+     "result": "listed"
+    },
+    {
+     "source": "Quad9 threat-blocking DNS",
+     "kind": "DNS blocklist",
+     "result": "not_listed"
+    }
+   ],
+   "detections": 1,
+   "summary": "Listed: malware.testcategory.com is flagged as malicious by 1 of 2 threat sources checked: Cloudflare security DNS.",
+   "verdict_detail": "unsafe",
+   "checked_at": "2026-11-08T23:45:22.176Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Public DNS resolvers (Cloudflare, Google, Quad9)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "URL_SAFE_GENERAL",
+  "path": "/url-reputation",
+  "query": "Is https://github.com safe?",
+  "http": 200,
+  "ms": 510,
+  "fetched_at": "2026-11-08T23:45:22Z",
+  "answer": {
+   "answer": "Not listed: github.com is on none of the 2 threat sources that answered: Cloudflare security DNS, Quad9 threat-blocking DNS.",
+   "url": "https://github.com/",
+   "verdict": "Safe",
+   "confidence": 0.8,
+   "reason": "Not listed: github.com is on none of the 2 threat sources that answered: Cloudflare security DNS, Quad9 threat-blocking DNS. A clean listing cannot prove a site safe; a new phishing page is often not yet on any list.",
+   "flagged_by": [],
+   "checks": {
+    "cloudflare_filter": "passed",
+    "quad9_filter": "passed",
+    "resolves": true,
+    "tls": "valid",
+    "lookalike_markers": [],
+    "redirects": 0,
+    "final_url": "https://github.com/"
+   },
+   "listed": false,
+   "sources": [
+    {
+     "source": "Cloudflare security DNS",
+     "kind": "DNS blocklist",
+     "result": "not_listed"
+    },
+    {
+     "source": "Quad9 threat-blocking DNS",
+     "kind": "DNS blocklist",
+     "result": "not_listed"
+    }
+   ],
+   "detections": 0,
+   "summary": "Not listed: github.com is on none of the 2 threat sources that answered: Cloudflare security DNS, Quad9 threat-blocking DNS.",
+   "verdict_detail": "safe",
+   "checked_at": "2026-11-08T23:45:22.310Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Public DNS resolvers (Cloudflare, Google, Quad9)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "URL_SCAN_VERDICT",
+  "path": "/url-scan",
+  "query": "Is https://example.com/offer safe to click?",
+  "http": 200,
+  "ms": 509,
+  "fetched_at": "2026-11-08T23:45:16Z",
+  "answer": {
+   "answer": "Yes, https://example.com/offer appears safe to visit.",
+   "url": "https://example.com/offer",
+   "verdict": "safe",
+   "confidence": 0.8,
+   "reason": "Yes, https://example.com/offer appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter, not blocked by Quad9's threat-blocking resolver, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.",
+   "flagged_by": [],
+   "checks": {
+    "cloudflare_filter": "passed",
+    "quad9_filter": "passed",
+    "resolves": true,
+    "tls": "valid",
+    "lookalike_markers": [],
+    "redirects": 0,
+    "final_url": "https://example.com/offer"
+   },
+   "safe": true,
+   "checked_at": "2026-11-08T23:45:17.052Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Public DNS resolvers (Cloudflare, Google, Quad9)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "URL_SCAN_VERDICT",
+  "path": "/url-scan",
+  "query": "Is https://github.com safe?",
+  "http": 200,
+  "ms": 503,
+  "fetched_at": "2026-11-08T23:45:16Z",
+  "answer": {
+   "answer": "Yes, https://github.com/ appears safe to visit.",
+   "url": "https://github.com/",
+   "verdict": "safe",
+   "confidence": 0.8,
+   "reason": "Yes, https://github.com/ appears safe to visit. It is not blocked by Cloudflare's malware and phishing filter, not blocked by Quad9's threat-blocking resolver, and no lookalike markers were found. It serves a valid TLS certificate that matches the host. No blocklist can prove a site safe.",
+   "flagged_by": [],
+   "checks": {
+    "cloudflare_filter": "passed",
+    "quad9_filter": "passed",
+    "resolves": true,
+    "tls": "valid",
+    "lookalike_markers": [],
+    "redirects": 0,
+    "final_url": "https://github.com/"
+   },
+   "safe": true,
+   "checked_at": "2026-11-08T23:45:17.072Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Public DNS resolvers (Cloudflare, Google, Quad9)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "WALLET_BALANCE_CHECK_GENERAL",
+  "path": "/wallet-balance",
+  "query": "What is the ETH balance of vitalik.eth?",
+  "http": 200,
+  "ms": 384,
+  "fetched_at": "2026-11-08T23:45:14Z",
+  "answer": {
+   "answer": "The address vitalik.eth (0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045) currently has a native-coin balance of 5.79381853 ETH on ethereum.",
+   "address": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+   "chain": "ethereum",
+   "balance_eth": 5.793818533768044,
+   "symbol": "ETH",
+   "verdict": "5.79381853 ETH",
+   "confidence": 0.98,
+   "reason": "The address vitalik.eth (0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045) currently has a native-coin balance of 5.79381853 ETH on ethereum. This was determined by querying the eth_getBalance RPC method against the ethereum network, which returns the account's balance in wei at the latest block.",
+   "checked_at": "2026-11-08T23:45:14.527Z",
+   "balance": 5.793818533768044,
+   "token_symbol": "ETH",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "1RPC (Automata)",
+      "status": "unread"
+     },
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "ENS Ideas API",
+      "status": "unread"
+     },
+     {
+      "source": "Flashbots Protect RPC",
+      "status": "unclear"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "WALLET_BALANCE_CHECK_GENERAL",
+  "path": "/wallet-balance",
+  "query": "What is the USDC balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on Ethereum?",
+  "http": 200,
+  "ms": 328,
+  "fetched_at": "2026-11-08T23:45:14Z",
+  "answer": {
+   "answer": "Current balances for 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on ethereum: 39.192124 USDC, read using eth_call balanceOf on contract 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.",
+   "address": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+   "chain": "ethereum",
+   "balance_eth": null,
+   "symbol": "ETH",
+   "verdict": "39.192124 USDC",
+   "confidence": 0.98,
+   "reason": "Current balances for 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 on ethereum: 39.192124 USDC, read using eth_call balanceOf on contract 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48. These are latest-block reads.",
+   "checked_at": "2026-11-08T23:45:14.565Z",
+   "token_balances": [
+    {
+     "symbol": "USDC",
+     "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+     "amount": "39.192124"
+    }
+   ],
+   "balance": 39.192124,
+   "token_symbol": "USDC",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "1RPC (Automata)",
+      "status": "unread"
+     },
+     {
+      "source": "Chains' own public RPCs",
+      "status": "unclear"
+     },
+     {
+      "source": "dRPC",
+      "status": "unread"
+     },
+     {
+      "source": "ENS Ideas API",
+      "status": "unread"
+     },
+     {
+      "source": "Flashbots Protect RPC",
+      "status": "unclear"
+     },
+     {
+      "source": "Merkle",
+      "status": "unread"
+     },
+     {
+      "source": "PublicNode (Allnodes)",
+      "status": "unclear"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "WEATHER_CHECK_TEMPERATURE",
+  "path": "/weather-forecast",
+  "query": "What is the temperature in Tokyo right now?",
+  "http": 200,
+  "ms": 693,
+  "fetched_at": "2026-11-08T23:45:13Z",
+  "answer": {
+   "answer": "The current temperature in Tokyo, Japan is 8.5°C, and it is heavy rain, with 1.1 mm of precipitation this hour and wind at 20.5 km/h, as of 23:00 UTC on 2026-11-08, the model value for that hour from MET Norway (CC BY 4.0).",
+   "location": "Tokyo, Japan",
+   "verdict": "heavy rain",
+   "window_hours": 0,
+   "temp_min_c": 8.5,
+   "temp_max_c": 8.5,
+   "total_precipitation_mm": 1.1,
+   "precipitation_probability_max_pct": null,
+   "max_wind_speed_kmh": 20.5,
+   "precipitation_hours": null,
+   "latitude": 35.6894,
+   "longitude": 139.6917,
+   "confidence": 1,
+   "reason": "The current temperature in Tokyo, Japan is 8.5°C, and it is heavy rain, with 1.1 mm of precipitation this hour and wind at 20.5 km/h, as of 23:00 UTC on 2026-11-08, the model value for that hour from MET Norway (CC BY 4.0).",
+   "checked_at": "2026-11-08T23:45:13.525Z",
+   "start_time": "2026-11-08T23:00Z",
+   "end_time": "2026-11-08T23:00Z",
+   "hourly_count": null,
+   "temperature_c": 8.5,
+   "when": "2026-11-08T23:00Z to 2026-11-08T23:00Z",
+   "precipitation_probability_pct": null,
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "MET Norway",
+      "status": "conditional"
+     },
+     {
+      "source": "OpenStreetMap Nominatim",
+      "status": "conditional"
+     },
+     {
+      "source": "US National Weather Service",
+      "status": "licensed"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "WEATHER_CHECK_TEMPERATURE",
+  "path": "/weather-forecast",
+  "query": "What is the current temperature in New York?",
+  "http": 200,
+  "ms": 1766,
+  "fetched_at": "2026-11-08T23:45:14Z",
+  "answer": {
+   "answer": "The current temperature in New York, United States is 11.6°C, and it is clear, with no precipitation and wind at 19.1 km/h, as of 23:00 UTC on 2026-11-08, the model value for that hour from MET Norway (CC BY 4.0); place from © OpenStreetMap contributors (ODbL).",
+   "location": "New York, United States",
+   "verdict": "clear",
+   "window_hours": 0,
+   "temp_min_c": 11.6,
+   "temp_max_c": 11.6,
+   "total_precipitation_mm": 0,
+   "precipitation_probability_max_pct": null,
+   "max_wind_speed_kmh": 19.1,
+   "precipitation_hours": null,
+   "latitude": 40.7127281,
+   "longitude": -74.0060152,
+   "confidence": 1,
+   "reason": "The current temperature in New York, United States is 11.6°C, and it is clear, with no precipitation and wind at 19.1 km/h, as of 23:00 UTC on 2026-11-08, the model value for that hour from MET Norway (CC BY 4.0); place from © OpenStreetMap contributors (ODbL).",
+   "checked_at": "2026-11-08T23:45:13.600Z",
+   "start_time": "2026-11-08T23:00Z",
+   "end_time": "2026-11-08T23:00Z",
+   "hourly_count": null,
+   "temperature_c": 11.6,
+   "when": "2026-11-08T23:00Z to 2026-11-08T23:00Z",
+   "precipitation_probability_pct": null,
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "MET Norway",
+      "status": "conditional"
+     },
+     {
+      "source": "OpenStreetMap Nominatim",
+      "status": "conditional"
+     },
+     {
+      "source": "US National Weather Service",
+      "status": "licensed"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "WEATHER_FORECAST_GENERAL",
+  "path": "/weather-forecast",
+  "query": "What is the forecast for London tomorrow?",
+  "http": 200,
+  "ms": 1766,
+  "fetched_at": "2026-11-08T23:45:13Z",
+  "answer": {
+   "answer": "A 24-hour hourly weather forecast for London, England, United Kingdom covering November 9 to November 9, 2026: hourly temperature in Celsius from 3.6°C to 9.5°C, no significant precipitation, the expected condition is fog, and a wind speed of up to 12.2 km/h, from MET Norway (CC BY 4.0).",
+   "location": "London, England, United Kingdom",
+   "verdict": "fog",
+   "window_hours": 24,
+   "span_days": null,
+   "start_time": "2026-11-09T00:00Z",
+   "end_time": "2026-11-09T23:00Z",
+   "hourly_count": 24,
+   "temp_min_c": 3.6,
+   "temp_max_c": 9.5,
+   "total_precipitation_mm": 0,
+   "precipitation_probability_max_pct": null,
+   "max_wind_speed_kmh": 12.2,
+   "precipitation_hours": 0,
+   "latitude": 51.5072,
+   "longitude": -0.1275,
+   "confidence": 1,
+   "reason": "A 24-hour hourly weather forecast for London, England, United Kingdom covering November 9 to November 9, 2026: hourly temperature in Celsius from 3.6°C to 9.5°C, no significant precipitation, the expected condition is fog, and a wind speed of up to 12.2 km/h, from MET Norway (CC BY 4.0).",
+   "checked_at": "2026-11-08T23:45:13.203Z",
+   "temperature_c": null,
+   "when": "2026-11-09T00:00Z to 2026-11-09T23:00Z",
+   "precipitation_probability_pct": null,
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "MET Norway",
+      "status": "conditional"
+     },
+     {
+      "source": "OpenStreetMap Nominatim",
+      "status": "conditional"
+     },
+     {
+      "source": "US National Weather Service",
+      "status": "licensed"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "WEATHER_FORECAST_GENERAL",
+  "path": "/weather-forecast",
+  "query": "Will it rain in Mumbai this week?",
+  "http": 200,
+  "ms": 1789,
+  "fetched_at": "2026-11-08T23:45:13Z",
+  "answer": {
+   "answer": "A 24-hour hourly weather forecast for Mumbai, Maharashtra, India covering November 8 to November 9, 2026: hourly temperature in Celsius from 24.4°C to 36.1°C, no significant precipitation, the expected condition is clear, and a wind speed of up to 18.4 km/h, from MET Norway (CC BY 4.0).",
+   "location": "Mumbai, Maharashtra, India",
+   "verdict": "clear",
+   "window_hours": 24,
+   "span_days": null,
+   "start_time": "2026-11-08T23:00Z",
+   "end_time": "2026-11-09T22:00Z",
+   "hourly_count": 24,
+   "temp_min_c": 24.4,
+   "temp_max_c": 36.1,
+   "total_precipitation_mm": 0,
+   "precipitation_probability_max_pct": null,
+   "max_wind_speed_kmh": 18.4,
+   "precipitation_hours": 0,
+   "latitude": 19.0758,
+   "longitude": 72.8775,
+   "confidence": 1,
+   "reason": "A 24-hour hourly weather forecast for Mumbai, Maharashtra, India covering November 8 to November 9, 2026: hourly temperature in Celsius from 24.4°C to 36.1°C, no significant precipitation, the expected condition is clear, and a wind speed of up to 18.4 km/h, from MET Norway (CC BY 4.0).",
+   "checked_at": "2026-11-08T23:45:13.221Z",
+   "temperature_c": null,
+   "when": "2026-11-08T23:00Z to 2026-11-09T22:00Z",
+   "precipitation_probability_pct": null,
+   "licensing": {
+    "endpoint_status": "conditional",
+    "upstreams": [
+     {
+      "source": "MET Norway",
+      "status": "conditional"
+     },
+     {
+      "source": "OpenStreetMap Nominatim",
+      "status": "conditional"
+     },
+     {
+      "source": "US National Weather Service",
+      "status": "licensed"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "WEB_SEARCH_GENERAL",
+  "path": "/web-search",
+  "query": "What is the latest news on the Fed's rate decision?",
+  "http": 200,
+  "ms": 1057,
+  "fetched_at": "2026-11-08T23:45:17Z",
+  "answer": {
+   "answer": "The Fed’s rate decision will be influenced by the upcoming October CPI data and that market analysts are watching the Fed’s decision closely.",
+   "articles": [
+    {
+     "title": "US October CPI Expected Up 0.3% Month-on-Month; A Week That Will Shape the Fed's Rate Decision",
+     "source": "BigGo Finance",
+     "published": "2026-11-07T06:35:00.000Z",
+     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9QQ2VTV0RZVHAtY3lCOXgwRDVfSm9taXpWNER5bGkxT0owSG1CZTlCdWUyajRIWmFoU21EM0dyZ2M4TnZ1cGF3V0tyVkFEZmhNVFZ1RGRxTktPc09uNjltUUNqeXdTRUhzaFBfdm56N3JTODZkMFE?oc=5"
+    },
+    {
+     "title": "Stock Market Outlook: Nvidia Earnings, Anthropic’s IPO, and the Fed Rate Decision",
+     "source": "Barron's",
+     "published": "2026-11-06T19:57:00.000Z",
+     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPdVM5RWx2cGx4U3R0Z3pJMzRzQ1NWaURpbkhvRnRXbzhPU3dVcVRmbVBuT05DOUJ4aXduWGhWYXBzQVZSbVhpU3FHVkQxdnBIWEFLSHBzNGJuc2VWR0Exb3F4dkFSazFNM0ZvQkhrYm1jMzlQcDVGVGQ0RUlYWW5ZVUIzRng1Z3YxZFZmaC1TbWUzSVhoTUJfY3Nn?oc=5"
+    }
+   ],
+   "sources": [
+    "https://news.google.com/rss/articles/CBMidkFVX3lxTE9QQ2VTV0RZVHAtY3lCOXgwRDVfSm9taXpWNER5bGkxT0owSG1CZTlCdWUyajRIWmFoU21EM0dyZ2M4TnZ1cGF3V0tyVkFEZmhNVFZ1RGRxTktPc09uNjltUUNqeXdTRUhzaFBfdm56N3JTODZkMFE?oc=5",
+    "https://news.google.com/rss/articles/CBMimgFBVV95cUxPdVM5RWx2cGx4U3R0Z3pJMzRzQ1NWaURpbkhvRnRXbzhPU3dVcVRmbVBuT05DOUJ4aXduWGhWYXBzQVZSbVhpU3FHVkQxdnBIWEFLSHBzNGJuc2VWR0Exb3F4dkFSazFNM0ZvQkhrYm1jMzlQcDVGVGQ0RUlYWW5ZVUIzRng1Z3YxZFZmaC1TbWUzSVhoTUJfY3Nn?oc=5"
+   ],
+   "background": null,
+   "verdict": "answered",
+   "confidence": 0.8,
+   "reason": "The Fed’s rate decision will be influenced by the upcoming October CPI data and that market analysts are watching the Fed’s decision closely. The most relevant current reports are \"US October CPI Expected Up 0.3% Month-on-Month; A Week That Will Shape the Fed's Rate Decision\" (BigGo Finance, 7 November 2026) and \"Stock Market Outlook: Nvidia Earnings, Anthropic’s IPO, and the Fed Rate Decision\" (Barron's, 6 November 2026). Source: Google News search.",
+   "brief": "US October CPI Expected Up 0.3% Month-on-Month; A Week That Will Shape the Fed's",
+   "checked_at": "2026-11-08T23:45:17.970Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "ClinicalTrials.gov",
+      "status": "unclear"
+     },
+     {
+      "source": "EMBL-EBI / Europe PMC",
+      "status": "conditional"
+     },
+     {
+      "source": "endoflife.date",
+      "status": "licensed"
+     },
+     {
+      "source": "Google News RSS",
+      "status": "barred"
+     },
+     {
+      "source": "Groq",
+      "status": "unclear"
+     },
+     {
+      "source": "Technical documentation sites (Python, Node.js and others)",
+      "status": "unread"
+     },
+     {
+      "source": "Wikidata",
+      "status": "licensed"
+     },
+     {
+      "source": "Wikipedia",
+      "status": "conditional"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ },
+ {
+  "intent": "WEB_SEARCH_GENERAL",
+  "path": "/web-search",
+  "query": "Who is the CEO of OpenAI?",
+  "http": 200,
+  "ms": 619,
+  "fetched_at": "2026-11-08T23:45:17Z",
+  "answer": {
+   "answer": "The current CEO of OpenAI is Sam Altman, in office since 2023.",
+   "articles": [],
+   "sources": [],
+   "background": null,
+   "verdict": "answered",
+   "confidence": 0.9,
+   "reason": "The current CEO of OpenAI is Sam Altman, in office since 2023. Source: Wikidata.",
+   "brief": "The current CEO of OpenAI is Sam Altman, in office since 2023.",
+   "checked_at": "2026-11-08T23:45:17.650Z",
+   "licensing": {
+    "endpoint_status": "unread",
+    "upstreams": [
+     {
+      "source": "ClinicalTrials.gov",
+      "status": "unclear"
+     },
+     {
+      "source": "EMBL-EBI / Europe PMC",
+      "status": "conditional"
+     },
+     {
+      "source": "endoflife.date",
+      "status": "licensed"
+     },
+     {
+      "source": "Google News RSS",
+      "status": "barred"
+     },
+     {
+      "source": "Groq",
+      "status": "unclear"
+     },
+     {
+      "source": "Technical documentation sites (Python, Node.js and others)",
+      "status": "unread"
+     },
+     {
+      "source": "Wikidata",
+      "status": "licensed"
+     },
+     {
+      "source": "Wikipedia",
+      "status": "conditional"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
+ }
+]

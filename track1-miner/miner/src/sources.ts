@@ -50,6 +50,7 @@ export const SOURCES: Source[] = [
   { id: "ecb", name: "European Central Bank", hosts: ["www.ecb.europa.eu", "data-api.ecb.europa.eu", "data.ecb.europa.eu"], status: "conditional", licence: "ECB reuse terms", terms: "https://www.ecb.europa.eu/services/disclaimer/html/index.en.html", read: R, basis: "Free use if the ECB is cited, buyers are told the data is free from the ECB, and modifications are stated.", condition: { text: "Cite the ECB, say the data is free from ecb.europa.eu, and state computed cross rates", met: "yes", notice: "European Central Bank data are available free of charge at https://www.ecb.europa.eu." } },
   { id: "frankfurter", name: "Frankfurter", hosts: ["api.frankfurter.dev"], status: "licensed", licence: "Free for commercial use (blended rates)", terms: "https://frankfurter.dev/", read: R, basis: "FAQ: blended rates are Frankfurter's own calculation and free to use commercially." },
   { id: "bitstamp", name: "Bitstamp", hosts: ["www.bitstamp.net"], status: "conditional", licence: "Commercial Data License Agreement", terms: "https://www.bitstamp.net/api/", read: R, basis: "Allows commercial redistribution under a signed Data License Agreement.", condition: { text: "Sign Bitstamp's commercial Data License Agreement", met: "no" } },
+  { id: "coinbase", name: "Coinbase", hosts: ["api.coinbase.com"], status: "barred", licence: "Coinbase market-data terms", terms: "https://www.coinbase.com/legal/market_data", read: "2026-10-24", basis: "Bars redistribution to any third party outside your organisation (recorded in cryptoprice.ts on 2026-10-24; the terms page answered 403 to a script on 2026-11-08, so the URL and wording were not re-read). Called only while LICENCE_GATE is off, as the CRYPTO_PRICE fallback where Bitstamp lists no pair." },
   { id: "coingecko", name: "CoinGecko / GeckoTerminal", hosts: ["api.coingecko.com", "api.geckoterminal.com"], status: "barred", licence: "CoinGecko API Terms", terms: "https://www.coingecko.com/en/api_terms", read: "2026-10-23", basis: "No re-distributing or syndicating API data without a signed agreement; redistribution is Enterprise-only." },
   { id: "yahoo", name: "Yahoo Finance", hosts: ["query1.finance.yahoo.com"], status: "barred", licence: "Yahoo Terms", terms: "https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html", read: "2026-10-23", basis: "No automated data collection without permission; no income from Yahoo APIs without written permission." },
   { id: "nasdaq", name: "Nasdaq (api.nasdaq.com)", hosts: ["api.nasdaq.com"], status: "barred", licence: "Nasdaq Terms", terms: "https://www.nasdaq.com/legal", read: R, basis: "Licence solely for personal, non-commercial use; no automated capture of data." },
@@ -73,12 +74,14 @@ export const SOURCES: Source[] = [
   { id: "ensideas", name: "ENS Ideas API", hosts: ["api.ensideas.com"], status: "unread", licence: "Unknown", terms: "https://api.ensideas.com/", read: null, basis: "No terms page found." },
   // Security
   { id: "nvd", name: "NIST NVD", hosts: ["services.nvd.nist.gov", "nvd.nist.gov"], status: "conditional", licence: "NVD API terms", terms: "https://nvd.nist.gov/developers/terms-of-use", read: R, basis: "Use permitted; a prominent notice is asked of services using the API.", condition: { text: "Show the NVD's requested notice", met: "yes", notice: "This product uses the NVD API but is not endorsed or certified by the NVD." } },
-  { id: "cve", name: "CVE Program (MITRE)", hosts: ["cveawg.mitre.org"], status: "conditional", licence: "CVE Terms of Use", terms: "https://www.cve.org/Legal/TermsOfUse", read: R, basis: "Perpetual, royalty-free licence to reproduce and distribute CVE.", condition: { text: "Reproduce MITRE's copyright designation and the licence; answers carry the designation and link the licence rather than reproduce it", met: "partly", notice: "CVE content is copyright 1999-2026 The MITRE Corporation, used under the CVE Terms of Use: https://www.cve.org/Legal/TermsOfUse" } },
+  { id: "cve", name: "CVE Program (MITRE)", hosts: ["cveawg.mitre.org", "www.cve.org"], status: "conditional", licence: "CVE Terms of Use", terms: "https://www.cve.org/Legal/TermsOfUse", read: R, basis: "Perpetual, royalty-free licence to reproduce and distribute CVE.", condition: { text: "Reproduce MITRE's copyright designation and the licence; answers carry the designation and link the licence rather than reproduce it", met: "partly", notice: "CVE content is copyright 1999-2026 The MITRE Corporation, used under the CVE Terms of Use: https://www.cve.org/Legal/TermsOfUse" } },
   { id: "dns-resolvers", name: "Public DNS resolvers (Cloudflare, Google, Quad9)", hosts: ["cloudflare-dns.com", "security.cloudflare-dns.com", "dns.google", "dns.quad9.net", "dns10.quad9.net"], status: "unclear", licence: "Service terms", terms: "https://developers.google.com/speed/public-dns/terms", read: R, basis: "Resolver service terms; no clause on relaying DNS answers was found." },
   { id: "ofac-list", name: "OFAC addresses list (0xB10C, GitHub)", hosts: ["raw.githubusercontent.com"], status: "licensed", licence: "MIT; data from OFAC (US Government)", terms: "https://github.com/0xB10C/ofac-sanctioned-digital-currency-addresses", read: R, basis: "MIT-licensed extract of OFAC's SDN list (GitHub API licence field)." },
   // Sanctions and registries
   { id: "ofac", name: "US Treasury OFAC", hosts: ["sanctionslistservice.ofac.treas.gov", "sanctionssearch.ofac.treas.gov"], status: "licensed", licence: "Public domain (US Government work, 17 U.S.C. 105)", terms: "https://ofac.treasury.gov/", read: R, basis: "A US federal work has no copyright; no OFAC terms page was found to say otherwise." },
   { id: "un-sanctions", name: "UN Security Council Consolidated List", hosts: ["scsanctions.un.org"], status: "unclear", licence: "UN site terms", terms: "https://www.un.org/en/about-us/terms-of-use", read: R, basis: "UN site terms allow personal use without resale; no list-specific terms were found." },
+  { id: "uk-sanctions", name: "UK Sanctions List (FCDO)", hosts: ["sanctionslist.fcdo.gov.uk"], status: "conditional", licence: "Open Government Licence v3.0", terms: "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/", read: "2026-11-08", basis: "The GOV.UK page publishing the list (gov.uk/government/publications/the-uk-sanctions-list) puts its content under OGL v3.0, which allows commercial reuse if the source is acknowledged. Read through the prebuilt index.", condition: { text: "Acknowledge the source with the OGL attribution statement", met: "yes", notice: "UK Sanctions List (FCDO): contains public sector information licensed under the Open Government Licence v3.0." } },
+  { id: "eu-sanctions", name: "EU financial sanctions consolidated list (European Commission)", hosts: ["webgate.ec.europa.eu"], status: "conditional", licence: "Commission reuse policy (Decision 2011/833/EU), CC BY 4.0", terms: "https://commission.europa.eu/legal-notice_en", read: "2026-11-08", basis: "data.europa.eu lists the file under the European Commission reuse notice; the Commission's legal notice licenses its content under CC BY 4.0: reuse allowed if credit is given and changes are indicated. Read through the prebuilt index.", condition: { text: "Credit the European Commission and say the data was changed", met: "yes", notice: "EU financial sanctions list: © European Union, reused under CC BY 4.0; names re-encoded into a search index." } },
   { id: "gleif", name: "GLEIF", hosts: ["api.gleif.org", "search.gleif.org"], status: "licensed", licence: "CC0 1.0", terms: "https://www.gleif.org/en/meta/lei-data-terms-of-use", read: R, basis: "LEI data are provided under CC0." },
   { id: "sec", name: "US SEC EDGAR", hosts: ["www.sec.gov", "data.sec.gov"], status: "conditional", licence: "Public domain (US Government); fair-access policy", terms: "https://www.sec.gov/about/developer-resources", read: R, basis: "Fair access: at most 10 requests per second; unclassified bots are blocked.", condition: { text: "At most 10 requests per second, from a declared user agent", met: "unchecked" } },
   // Research and reference
@@ -146,27 +149,33 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/news-search": ["google-news"],
   "/convert": ["ecb", "frankfurter"],
   "/gas-price": ["chain-rpcs", "drpc", "merkle", "publicnode"],
-  "/financial": ["bitstamp", "coingecko", "ecb", "frankfurter", "sec", "yahoo"],
+  "/financial": ["bitstamp", "coinbase", "coingecko", "ecb", "frankfurter", "sec", "yahoo"],
   "/fraud-check": ["4byte", "chain-rpcs", "dns-resolvers", "doaj", "drpc", "merkle", "ofac-list", "openalex", "openchain", "publicnode"],
   "/token-holders": ["blockscout", "coingecko"],
   "/research": ["clinicaltrials", "ebi", "wikipedia"],
-  "/crypto-price": ["bitstamp", "ecb", "frankfurter"],
-  "/stock-price": ["bitstamp", "coingecko", "ecb", "frankfurter", "nasdaq", "sec", "yahoo"],
+  "/crypto-price": ["bitstamp", "coinbase", "ecb", "frankfurter"],
+  "/stock-price": ["bitstamp", "coinbase", "coingecko", "ecb", "frankfurter", "nasdaq", "sec", "yahoo"],
   "/cross-chain": ["4byte", "chain-rpcs", "drpc", "layerzero", "merkle", "openchain", "publicnode"],
   "/event-outcome": ["manifold", "polymarket", "wikidata"],
   "/url-scan": ["dns-resolvers"],
-  "/web-search": ["clinicaltrials", "ebi", "endoflife", "google-news", "groq", "tech-docs", "wikidata", "wikipedia"],
+  "/web-search": ["bitstamp", "clinicaltrials", "coinbase", "ebi", "ecb", "endoflife", "frankfurter", "google-news", "groq", "tech-docs", "wikidata", "wikipedia"],
   "/sentiment": ["groq"],
   "/classify": ["datamuse", "groq"],
   "/research-synthesis": ["clinicaltrials", "doaj", "ebi", "ncbi", "openalex", "wikipedia"],
-  "/sanctions-screen": ["ofac", "un-sanctions"],
-  "/company-registry": ["gleif", "ofac", "sec", "un-sanctions"],
-  "/sec-filings": ["ofac", "sec", "un-sanctions"],
+  // The sanctions index (sanctions-index.ts) is served from raw.githubusercontent.com, the host registered for
+  // "ofac-list", so that id is listed too; the index's data comes from ofac, un-sanctions, uk-sanctions and eu-sanctions.
+  "/sanctions-screen": ["eu-sanctions", "ofac", "ofac-list", "uk-sanctions", "un-sanctions"],
+  "/company-registry": ["eu-sanctions", "gleif", "ofac", "ofac-list", "sec", "uk-sanctions", "un-sanctions"],
+  "/sec-filings": ["eu-sanctions", "ofac", "ofac-list", "sec", "uk-sanctions", "un-sanctions"],
   "/macro": ["bls", "ecb", "eurostat", "nyfed", "worldbank"],
   "/url-reputation": ["dns-resolvers"],
   "/answer": ["groq", "wikipedia"],
   "/dns": ["dns-resolvers"],
   "/token-supply": ["1rpc", "blockscout", "chain-rpcs", "coingecko", "drpc", "ensideas", "flashbots", "merkle", "publicnode"],
+  "/chat": ["groq"],
+  "/code-review": ["groq"],
+  "/contract-audit": ["groq"],
+  "/generate": ["groq"],
   "/onchain-metric": ["1rpc", "blockscout", "chain-rpcs", "coingecko", "drpc", "ensideas", "flashbots", "merkle", "publicnode"],
 };
 
@@ -187,7 +196,8 @@ export function endpointStatus(path: string): LicenceStatus {
  * The `licensing` field added to every answer: the endpoint's weakest called
  * upstream and each upstream's own status, with the full ledger at /sources.
  * It covers the upstreams the endpoint can reach, not only those this answer
- * used. A barred upstream is listed with `called: false`, because it never is.
+ * used. A barred upstream is listed with `called: false` only while LICENCE_GATE=on; with the gate off
+ * (the default since 2026-11-07) it is called, and saying otherwise would be false.
  */
 export function licensingFor(path: string): {
   endpoint_status: LicenceStatus; upstreams: Array<{ source: string; status: LicenceStatus; called?: false }>; notices?: string[]; ledger: string;
@@ -198,7 +208,7 @@ export function licensingFor(path: string): {
   const notices = used.flatMap((s) => (s.status !== "barred" && s.condition?.notice ? [s.condition.notice] : []));
   return {
     endpoint_status: endpointStatus(path),
-    upstreams: used.map((s) => (s.status === "barred" ? { source: s.name, status: s.status, called: false as const } : { source: s.name, status: s.status })),
+    upstreams: used.map((s) => (s.status === "barred" && gateOn() ? { source: s.name, status: s.status, called: false as const } : { source: s.name, status: s.status })),
     ...(notices.length ? { notices } : {}),
     ledger: "/sources",
   };
@@ -212,7 +222,9 @@ export function ledger(): unknown {
       licensed: "the terms grant it, with no condition we fail",
       conditional: "granted on a condition; `condition.met` says whether our answers meet it",
       unclear: "the terms were read and neither clearly grant nor forbid it",
-      barred: "the terms forbid it, so it is never called; an endpoint is barred only when every source it has is",
+      barred: gateOn()
+        ? "the terms forbid it, so it is never called; an endpoint is barred only when every source it has is"
+        : "the terms forbid paid resale; it is still called, because payments are testnet (LICENCE_GATE is off)",
       unread: "not read yet",
     },
     sources: SOURCES,
@@ -221,11 +233,16 @@ export function ledger(): unknown {
 }
 
 /**
- * Whether `url` may be called at all: a barred source never is, so the ledger
- * and the code cannot disagree. Changing a source's status here is the switch.
+ * Whether `url` may be called. The ledger above records what each source's terms say; it is a record, not a
+ * hackathon rule (RULES_SEASON2 sets no data-licence requirement). The owner, 2026-11-07: "I'm not doing their
+ * commercial use. It's on testnet currency." So barred sources are called by default, and LICENCE_GATE=on
+ * restores the refusals for a mainnet or commercial deployment.
  * Unknown hosts are permitted, because test/sources.test.ts already fails on them.
  */
+const gateOn = (): boolean => process.env.LICENCE_GATE === "on";
+
 export function permitted(url: string): boolean {
+  if (!gateOn()) return true;
   let host: string;
   try {
     host = new URL(url).hostname.toLowerCase();

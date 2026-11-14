@@ -1,6 +1,0 @@
-start 09:48:34
-ℹ fail 1
-ℹ pass 1002
-ℹ skipped 1
-ℹ tests 1004
-✖ the routed question reaches an answer through assessFraud (live) (293.7701ms)

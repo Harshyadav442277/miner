@@ -96,6 +96,23 @@ export const MESSAGE_TYPOLOGIES: Typology[] = [
     needs: "comparison of the booking's device, email and check-in records with the cardholder's own details",
   },
   {
+    /**
+     * "A text says my USPS parcel is held and asks me to pay a 1.99 fee at usps-redeliver.info" was answered
+     * inconclusive because the threat feed could not check the domain (comparison with the top miners,
+     * 2026-11-08). Held parcel, small fee and a link off the carrier's own site is the typology itself.
+     */
+    name: "parcel-delivery fee scam (smishing)",
+    subject: "delivery message",
+    context: /\b(?:parcel|package|shipment|delivery|redeliver\w*|courier|usps|ups|fedex|dhl|royal\s+mail|evri|hermes|canada\s+post|auspost|india\s+post)\b/i,
+    flags: [
+      { re: /\b(?:held|on\s+hold|pending\s+(?:delivery|payment)|could\s+not\s+be\s+delivered|undeliver\w*|failed\s+delivery|missed\s+delivery|delivery\s+attempt\s+failed|address\s+(?:is\s+)?(?:incomplete|incorrect|invalid)|update\s+(?:your\s+)?address)\b/i, label: "it says a parcel is held or cannot be delivered" },
+      { re: /\b\d+[.,]\d{2}\s+(?:usd\s+|gbp\s+|eur\s+)?fee\b|[$£€₹]\s?\d+(?:[.,]\d{2})?\b|\b(?:re-?delivery|redelivery|customs|shipping|handling|processing|release|small)\s+(?:fee|charge|payment)\b|\bpay\b[^.]{0,30}\bfee\b/i, label: "it asks for a small fee to release or redeliver it" },
+      { re: /\bhttps?:\/\/|\b[a-z0-9-]+\.(?:info|top|xyz|live|click|link|site|online|shop|icu|cc|buzz|vip)\b|\b(?:usps|ups|fedex|dhl|royalmail|evri|hermes)[a-z0-9]*-[a-z0-9-]+\.[a-z]{2,}\b|\bclick\b|\blink\b/i, label: "it sends you to a link or look-alike domain rather than the carrier's own site" },
+    ],
+    verify: "Track the parcel by typing the carrier's own website or app address, and pay nothing through the message's link",
+    needs: "a check of the tracking number on the carrier's own website or app, typed in rather than followed from the message",
+  },
+  {
     name: "phishing or impersonation scam",
     subject: "message",
     context: /\b(?:link|click|log\s*in|login|password|verify\s+your|package|delivery|tax|irs|hmrc|refund|prize|lottery|won)\b/i,

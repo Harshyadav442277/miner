@@ -1,0 +1,32 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      PASS
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- intent answers (correctness) ---
+  ONCHAIN_METRIC_VERIFY  FAIL
+      - Blockscout did not answer for the tx
+
+42/43 intents answering correctly.
+...
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  CHAT_COMPLETION        PASS
+  CODE_REVIEW            PASS
+  SMART_CONTRACT_AUDIT   PASS
+  TEXT_GENERATION        PASS
+  ONCHAIN_METRIC_VERIFY  FAIL
+      - Blockscout did not answer for the tx
+
+42/43 intents answering correctly.
+
+6/7 gates passed — re-run the failing gate alone before believing it.

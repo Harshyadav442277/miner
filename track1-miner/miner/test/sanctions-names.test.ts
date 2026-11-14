@@ -17,7 +17,7 @@ const SDN = [
   `25902,"MOTOJEN AUTO INDUSTRY COMPANY",-0- ,"IRAN",-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- `,
 ].join("\r\n");
 const ALT = `17018,1,"aka","SBERBANK",-0- `;
-const lists = () => ({ parties: parseOfac(SDN, ALT), editions: [], unavailable: [] });
+const lists = () => ({ parties: parseOfac(SDN, ALT), editions: [], unavailable: [], not_screened: [] });
 const top = (name: string) => screenParties({ name, dob_year: null, kind: null, wallet: null }, lists())[0];
 
 test("Cyrillic, look-alike letters, digits for letters and abbreviations fold to the list's words", () => {

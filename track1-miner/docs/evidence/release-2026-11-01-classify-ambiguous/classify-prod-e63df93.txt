@@ -1,2 +1,0 @@
-miner-jyh9t9upq-wukong4.vercel.app | ambiguous | null | 0.3 | cache false | groq [[200,350]] | This text is ambiguous: its wording leans towards operator error, but too weakly to choose a label from word r
-miner-jyh9t9upq-wukong4.vercel.app | classified | hardware fault | 0.7 | cache false | groq [[200,207]] | Hardware fault. The overheating of the left motor and the resulting stoppage of the propeller indicate a physi

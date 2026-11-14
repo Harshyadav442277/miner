@@ -16,6 +16,9 @@ test("the lead sentence ends at the first full stop that ends a sentence", () =>
   assert.equal(leadSentence("Is it raining? No, it is dry in London."), "Is it raining?");
   assert.equal(leadSentence("Бонжур"), "Бонжур");
   assert.equal(leadSentence('He said "stop." Then left.'), 'He said "stop."');
+  // A month abbreviation is not a sentence end: briefs read "SpaceX sets Nov." (2026-11-08).
+  assert.equal(leadSentence("SpaceX sets Nov. 12 launch for Starship. More."), "SpaceX sets Nov. 12 launch for Starship.");
+  assert.equal(leadSentence("Filed Sept. 3 and Jan. 9 by the board. Next."), "Filed Sept. 3 and Jan. 9 by the board.");
 });
 
 test("a numbered list stays in the sentence that introduced it (audit replay 2026-11-04)", () => {
@@ -24,6 +27,11 @@ test("a numbered list stays in the sentence that introduced it (audit replay 202
     "Here are 2 papers on X: 1) A by B (2026), cited 0 times. 2) C by D (2025), cited 3 times.",
   );
   assert.equal(leadSentence("Revenue was 4 USD. 2024 was a weak year."), "Revenue was 4 USD.");
+  // "1. 2." numbering, as /headlines writes it: the answer was "… are: 1." (2026-11-07).
+  assert.equal(
+    leadSentence("The top headlines, as of November 7, 2026, are: 1. Solar at 25 (MyChesCo, 2026-11-07). 2. AI rules (TRT World, 2026-11-07). Source: Google News."),
+    "The top headlines, as of November 7, 2026, are: 1. Solar at 25 (MyChesCo, 2026-11-07). 2. AI rules (TRT World, 2026-11-07).",
+  );
 });
 
 test("the envelope puts answer first, keeps every field and always dates the answer", () => {

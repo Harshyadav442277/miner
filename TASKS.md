@@ -5,6 +5,18 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## Handoff 2026-11-09 — next actions (MEMORY.md top block has the details)
+
+- [ ] Owner: sign the 43-intent YAML (`15ecfd6`, `0xb721afd7…3b7b5a`; the 4e385e1 YAML was too large for the validator), then update the registration id everywhere.
+- [ ] Owner: merge `.github/workflows/sanctions-index.yml` to `main` and dispatch once, before 2026-11-12 00:03 UTC.
+- [ ] Owner: add an Upstash Redis store in Vercel to switch on request capture (G282).
+- [ ] Read the epochs after 2026-11-09 00:19 UTC: sanctions with the index, text generation's drop.
+- [ ] Web search: `currentfacts.ts` answers carry no `sources` URL.
+- [ ] Chat and code review: a multi-provider router and a second-pass check (keys from the owner).
+- [ ] Sanctions: EU list once its file serves (G283).
+- [ ] Gaps: storm gust and weather rain-probability nulls; event outcome 2022 World Cup; flaky Blockscout and
+      Crossref gate checks.
+
 ## Intent push — by Anjoman's 30-day earnings, started 2026-11-06 (owner: "priortize from the highest one. leave chat completion")
 
 Ranks: devnode epoch 2026, 2026-11-06 12:40 UTC, before the `7301474` release
@@ -31,6 +43,9 @@ fix scores on the quality rubric but may not move the devnode rank.
       (`release-2026-11-06-ofac-nonsdn/`); ABU TEIR (ref 9640) now `match`, was `no_match` (G268).
 - [ ] P1c EU and UK lists: too large to read per request (18.6 MB, 16.6 MB). Build a compact name index on a
       schedule and read that. The #1 miner screens UK and EU entities.
+      Built on `claude/sanctions-index` (not merged, not deployed): builder, daily workflow, miner loads the
+      index with a fallback to direct reads. UK list in; EU file returned HTTP 500 (G283). Next: merge the
+      workflow to `main`, dispatch it once, check the `sanctions-data` branch, then deploy (G284).
 - [ ] P1d Owner sends Ahmed the G265 draft (in GAPS G265).
 - [ ] Read sanctions epochs after ~16:45 UTC and record the rank change, if any.
 - [ ] P2 WEB_SEARCH: fix G207 (wrong Wikipedia article) and G250 (manifest example is a news question).
@@ -47,8 +62,8 @@ fix scores on the quality rubric but may not move the devnode rank.
       model wrappers. Evidence: `track1-miner/docs/evidence/n1-new-intents-2026-11-07/`.
 - [x] Deploy `6aebe0f`: live in `bee3f6a` (2026-11-06). Rename the N1 YAML to V2 intent ids (G270): `5bef2be`.
 - [ ] Owner: validate the N1 YAML on anjoman.ai/dashboard/earn, then sign `updateMiner` for 4829. YAML: the
-      pushed `track1-miner/miner.yaml` at `5bef2be` or later, SHA-256 of the committed file
-      `0xdb6e08f4b2acb262654779a5dfad2cd8dd78d05509300a3aaa3d9715aa90649a` (re-hash if the file changes). 35 intents. Decide CRYPTO_PRICE (G275) first.
+      pushed `track1-miner/miner.yaml` at `fc041f4` or later, SHA-256 of the committed file
+      `0xfc08c9ac530e9c7425ae7ca289e17fd46b2350be86567f67404e4e9b2219580c` (re-hash if the file changes). 39 intents. Decide CRYPTO_PRICE (G275) first.
 - [ ] Next candidate: ASSET_RESERVE_ATTESTATION (8 builds, completes 2): read and license issuer attestation sources.
 - [ ] G274: find why academic search fell to 0.636.
 

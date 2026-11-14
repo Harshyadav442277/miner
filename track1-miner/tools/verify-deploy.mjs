@@ -167,15 +167,14 @@ try {
   // the operator and the country. Latitude and longitude are no longer served at
   // all - they were fields, never prose, and no ground truth in ip_bench asks for
   // them - so this checks the identifiers the answer actually carries.
-  // Every public-IP provider bars resale (GAPS G230), so the right answer is a
-  // refusal that names the address and the licence, with no location.
+  // The providers answer again since 2026-11-07 (licence gate off, testnet). 8.8.8.8 is anycast: one city
+  // for it is wrong, so the right answer says anycast and names Google and the United States.
   const said = `${body.verdict} ${body.reason}`;
-  const refused = body.error === "not_licensed" && body.verdict === "unknown" && !body.country &&
-    /8\.8\.8\.8/.test(said) && /does not license its data for resale/.test(said);
-  report(res.ok && refused, "8.8.8.8 -> not_licensed, address and licence named",
+  const ok = body.verdict === "anycast" && /8\.8\.8\.8/.test(said) && /google/i.test(said) && /anycast/i.test(said);
+  report(res.ok && ok, "8.8.8.8 -> anycast, Google named",
     res.ok ? `got ${String(body.error ?? body.verdict).slice(0, 40)}, ${ms}ms` : `HTTP ${res.status}`);
 } catch (e) {
-  report(false, "8.8.8.8 -> not_licensed, address and licence named", e.message);
+  report(false, "8.8.8.8 -> anycast, Google named", e.message);
 }
 try {
   const { res } = await get(`/ip-geolocate`);

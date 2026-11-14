@@ -166,6 +166,15 @@ const SENTIMENT_LABELS = new Set(["positive", "negative", "neutral", "mixed"]);
 
 const INDEX_DOWN = " The relatedness index did not respond, so only direct matches with the label words were counted.";
 
+/**
+ * An ambiguous answer given only because the configured model missed (a Groq 429 or a timeout) is marked
+ * `error: "degraded"`, so handler.ts does not cache it: cached, it served category null for a minute after the
+ * model had recovered (comparison with the top miners, 2026-11-08). Without a key nothing changes. Pure.
+ */
+export function degrade(missed: boolean, r: ClassifyResult): ClassifyResult {
+  return missed ? { ...r, error: "degraded" } : r;
+}
+
 export async function classifyText(question: string, textParam = "", labelsParam = ""): Promise<ClassifyResult> {
   const q = String(question ?? "").trim();
   const declared = splitLabels(String(labelsParam ?? ""));
@@ -200,6 +209,8 @@ export async function classifyText(question: string, textParam = "", labelsParam
    * changes. Why the register matters: prose-phrase.ts.
    */
   const phrased = wantsMultiLabel(q) ? Promise.resolve(null) : phraseClassification(noun, text, labels).catch(() => null);
+  /** A model was configured and asked, and gave no reading: a 429, a timeout or a refusal. */
+  const missed = async (): Promise<boolean> => Boolean(process.env.GROQ_API_KEY) && !wantsMultiLabel(q) && (await phrased) === null;
 
   if (labels.every((l) => SENTIMENT_LABELS.has(l.toLowerCase()))) {
     const s = analyseSentiment(`sentiment of this ${noun}`, text);
@@ -216,7 +227,7 @@ export async function classifyText(question: string, textParam = "", labelsParam
       return { verdict: "classified", label: pick, confidence: s.confidence,
         reason: `${leadLabel(pick)} This ${noun} is ${pick}: ${passageClause(text)}${carried ? ` ${carried}` : ""}` };
     }
-    return { verdict: "ambiguous", label: null, confidence: 0.3, reason: `This ${noun} reads as ${s.verdict}, which is not one of the labels offered (${labels.join(", ")}). ${s.reason}` };
+    return degrade(await missed(), { verdict: "ambiguous", label: null, confidence: 0.3, reason: `This ${noun} reads as ${s.verdict}, which is not one of the labels offered (${labels.join(", ")}). ${s.reason}` });
   }
 
   // Label words and text words are looked up together, so the whole route costs
@@ -306,10 +317,10 @@ export async function classifyText(question: string, textParam = "", labelsParam
    */
   const margin = best ? best.score - (second?.score ?? 0) : 0;
   if (best && clear && !keylessLabelHolds(margin, Boolean(process.env.GROQ_API_KEY))) {
-    return {
+    return degrade(await missed(), {
       verdict: "ambiguous", label: null, confidence: 0.3,
       reason: `This ${noun} is ambiguous: its wording leans towards ${best.label}, but too weakly to choose a label from word relatedness alone, so none is guessed.${via}`,
-    };
+    });
   }
 
   if (best && clear) {
@@ -358,10 +369,10 @@ export async function classifyText(question: string, textParam = "", labelsParam
     };
   }
   const tied = ranked.filter((r) => best && r.score > 0 && r.score >= best.score / 1.5).map((r) => r.label);
-  return {
+  return degrade(await missed(), {
     verdict: "ambiguous", label: null, confidence: 0.2,
     reason: tied.length >= 2
       ? `This ${noun} is ambiguous between ${tied.join(" and ")}: its wording relates to each, and none clears the others by a clear margin, so no single label is chosen.`
       : `This ${noun} is ambiguous: none of its words relates clearly enough to ${orList(labels)} to choose a label, so none is guessed.`,
-  };
+  });
 }
