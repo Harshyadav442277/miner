@@ -1,5 +1,23 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-14 ~17:30 UTC (23:00 IST) release `b18ca59` — states changed
+
+- **G287 CLOSED.** Epoch 2091 (scored 16:23 UTC) is the first for registration 5232: 19 intents scored, among them
+  CURRENCY_EXCHANGE_CONVERT 1.0000, MACRO_ECONOMIC_INDICATOR_GENERAL 1.0000, CORPORATE_REGISTRY_LOOKUP_GENERAL
+  1.0000 (all rank 1 by score), CVE_LOOKUP_CVSS 0.7017 and CRYPTO_PRICE_USD 0.7650. Source: `/api/miners`.
+- **G296 partly closed.** `OPENALEX_API_KEY` set in Production 17:10 UTC; `/papers` answers from OpenAlex and
+  preflight is 7/7. NVD still rate-limits every request; the answer now comes from the NVD record's mirror.
+  Open: the owner's `NVD_API_KEY`.
+- **G297 — The NVD mirror is a third party with no licence file. `OPEN`.** `cve.ts` reads
+  `fkie-cad/nvd-json-data-feeds` on GitHub when the NVD refuses. The data is the NVD's and the answer says it came
+  through the mirror, but the repository states no licence, it was last pushed 2026-11-14 01:23 UTC (not the two
+  hours it documents), and the ledger lists it under the `ofac-list` host entry. Goes away with an NVD key.
+- **G298 — What the scorer compares a CVE answer with is inferred. `OPEN`.** "The NVD's score" rests on the rank-1
+  miner being named `cve-nvd` at 1.0000. Check against the next epoch's CVE_LOOKUP_CVSS score.
+- **G299 — Five intents score low in epoch 2091 and are untouched. `OPEN`.** EVENT_OUTCOME_RESOLUTION_GENERAL
+  0.0043, NEWS_SEARCH_GENERAL 0.7590, SENTIMENT_ANALYSIS_GENERAL 0.7705, STORM_ALERT_GENERAL 0.9020,
+  WEATHER_CHECK_TEMPERATURE 0.3083 (rank 1; the field is low). The node's inputs are not visible (G282).
+
 ## 2026-11-14 ~15:30 UTC (21:00 IST) release `a59ead4`, registration 5232 — states changed
 
 - **G283 CLOSED, G284 CLOSED.** `sanctions-index.yml` is on `main` (PR 20) and was dispatched 15:04 UTC: run
