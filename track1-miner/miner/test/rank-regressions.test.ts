@@ -4,6 +4,7 @@ import { lookupTransaction, resolveChain, toCoin } from "../src/onchain";
 import { dateWindow, findPapers } from "../src/papers";
 import { lookupCve } from "../src/cve";
 import { programAnswer } from "../src/cve-program";
+import { thinMarket } from "../src/cryptoprice";
 
 const HASH = "0x" + "a".repeat(64);
 const TX = { from: "0x" + "b".repeat(40), to: "0x" + "c".repeat(40),
@@ -150,5 +151,33 @@ test("rank regression: both CVE providers down remains an explicit availability 
     assert.equal(r.verdict, "unknown");
     assert.equal(r.error, "upstream_unavailable");
   });
+});
+
+test("rank regression: an NVD rate limit is answered from the NVD record's mirror, not the CNA's score", async () => {
+  const record = { id: "CVE-2020-1472", vulnStatus: "Analyzed", published: "2020-08-17T19:15:15.117",
+    descriptions: [{ lang: "en", value: "An elevation of privilege vulnerability exists in Netlogon." }],
+    metrics: { cvssMetricV31: [{ source: "nvd@nist.gov", type: "Primary", cvssData: { version: "3.1", baseScore: 10, baseSeverity: "CRITICAL" } }] } };
+  const seen: string[] = [];
+  await withFetch((async (input: unknown) => {
+    const url = String(input);
+    seen.push(url);
+    if (url.includes("services.nvd.nist.gov")) return new Response("limited", { status: 429 });
+    if (url.endsWith("/CVE-2020/CVE-2020-14xx/CVE-2020-1472.json")) return json(record);
+    return new Response("unexpected", { status: 500 });
+  }) as typeof fetch, async () => {
+    const r = await lookupCve("CVE-2020-1472");
+    assert.equal(r.cvss_score, 10);
+    assert.equal(r.severity, "CRITICAL");
+    assert.match(String(r.source), /National Vulnerability Database \(fkie-cad mirror/);
+    assert.ok(!seen.some((u) => u.includes("cveawg.mitre.org")), "the CVE Program is not asked when the mirror answered");
+  });
+});
+
+test("rank regression: a Bitstamp market with no volume or a wide book is not quoted", () => {
+  assert.equal(thinMarket({ bid: 0.4441, ask: 4, volume: 0 }), true); // APT, 2026-11-14
+  assert.equal(thinMarket({ bid: 7.15, ask: 9.4508, volume: 19747.733 }), true); // INJ: 32% wide
+  assert.equal(thinMarket({ bid: 0, ask: 0, volume: 0 }), true); // TIA
+  assert.equal(thinMarket({ bid: 65148.67, ask: 65148.68, volume: 1496.08 }), false);
+  assert.equal(thinMarket({ bid: NaN, ask: NaN, volume: NaN }), false); // a ticker without a book is not judged
 });
 

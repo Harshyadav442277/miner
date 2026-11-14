@@ -145,7 +145,9 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/fact-check": ["tavily", "wikipedia"],
   "/tx-lookup": ["4byte", "blockscout", "chain-rpcs", "dns-resolvers", "doaj", "drpc", "merkle", "ofac-list", "openalex", "openchain", "publicnode", "routescan"],
   "/transfer-verify": ["4byte", "blockscout", "chain-rpcs", "dns-resolvers", "doaj", "drpc", "merkle", "ofac-list", "openalex", "openchain", "publicnode", "routescan"],
-  "/cve": ["cve", "nvd"],
+  // cve.ts reads the fkie-cad mirror of NVD records from raw.githubusercontent.com, the host registered for
+  // "ofac-list", so that id is listed too; the data is the NVD's.
+  "/cve": ["cve", "nvd", "ofac-list"],
   "/news-search": ["google-news"],
   "/convert": ["ecb", "frankfurter"],
   "/gas-price": ["chain-rpcs", "drpc", "merkle", "publicnode"],
