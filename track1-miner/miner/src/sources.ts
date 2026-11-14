@@ -172,10 +172,10 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/answer": ["groq", "wikipedia"],
   "/dns": ["dns-resolvers"],
   "/token-supply": ["1rpc", "blockscout", "chain-rpcs", "coingecko", "drpc", "ensideas", "flashbots", "merkle", "publicnode"],
-  "/chat": ["groq"],
-  "/code-review": ["groq"],
-  "/contract-audit": ["groq"],
-  "/generate": ["groq"],
+  "/chat": ["endoflife", "groq", "wikidata"],
+  "/code-review": ["endoflife", "groq", "wikidata"],
+  "/contract-audit": ["endoflife", "groq", "wikidata"],
+  "/generate": ["endoflife", "groq", "wikidata"],
   "/onchain-metric": ["1rpc", "blockscout", "chain-rpcs", "coingecko", "drpc", "ensideas", "flashbots", "merkle", "publicnode"],
 };
 

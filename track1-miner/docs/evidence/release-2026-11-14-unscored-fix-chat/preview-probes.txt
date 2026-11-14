@@ -1,0 +1,24 @@
+## /cve?cve_id=CVE-2021-44228
+{"answer":"CVE-2021-44228 is rated CRITICAL with a CVSS 3.1 base score of 10.0, assigned by CISA-ADP.","cve_id":"CVE-2021-44228","verdict":"critical","confidence":0.95,"severity":"CRITICAL","cvss_score":10,"cvss_version":"3.1","scored_by":"CISA-ADP","affected_versions":null,"status":"PUBLISHED","published":"2021-12-10T00:00:00.000Z","description":"Apache Log4j2 2.0-beta9 through 2.15.0 (excluding security releases 2.12.2, 2.12.3, and 2.3.1) JNDI features used in configuration, log messages, and 
+
+## /web-search?query=What%20is%20the%20current%20price%20of%20Bitcoin%3F
+{"answer":"Bitcoin (BTC) is $65,997.83 USD, the last Bitstamp trade at 2026-11-14 15:01:31 UTC.","articles":[],"sources":[],"background":null,"verdict":"answered","confidence":0.9,"reason":"Bitcoin (BTC) is $65,997.83 USD, the last Bitstamp trade at 2026-11-14 15:01:31 UTC. This is a live market quote from one exchange and moves between reads.","direct_answer":"Bitcoin (BTC) is $65,997.83 USD, the last Bitstamp trade at 2026-11-14 15:01:31 UTC.","brief":"Bitcoin (BTC) is $65,997.83 USD, the last
+
+## /web-search?query=Who%20won%20Super%20Bowl%20LIX%3F
+{"answer":"Philadelphia Eagles won Super Bowl LIX, which ended on 2025-02-09, as Wikidata records it.","articles":[],"sources":["https://www.wikidata.org/wiki/Q91157899"],"background":null,"verdict":"answered","confidence":0.85,"reason":"Philadelphia Eagles won Super Bowl LIX, which ended on 2025-02-09, as Wikidata records it. Source: https://www.wikidata.org/wiki/Q91157899","direct_answer":"Philadelphia Eagles won Super Bowl LIX, which ended on 2025-02-09, as Wikidata records it.","brief":"Phil
+
+## /contract-audit?query=Audit%20the%20smart%20contract%20at%200xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48%20on%20Ethereum
+{"answer":"No contract source was found in the request, and addresses and links are not fetched, so nothing was audited.","findings":[],"summary":null,"finding_count":null,"verdict":"insufficient_input","confidence":0,"error":"no_source","source":"Groq (gpt-oss-120b, falling back to qwen3.8-27b and gpt-oss-20b)","reason":"No contract source was found in the request, and addresses and links are not fetched, so nothing was audited. Send the Solidity source itself as the contract parameter.","check
+
+## /code-review?query=Please%20review%20this%20PR%3A%20https%3A%2F%2Fgithub.com%2Fa%2Fb%2Fpull%2F1
+{"answer":"No code was found in the request, and links are not fetched, so nothing was reviewed.","verdict":"insufficient_input","confidence":0,"error":"no_code","findings":[],"summary":null,"source":"Groq (gpt-oss-120b, falling back to qwen3.8-27b and gpt-oss-20b)","reason":"No code was found in the request, and links are not fetched, so nothing was reviewed. Send the code or diff itself as the code parameter.","checked_at":"2026-11-14T15:01:48.732Z","receipt":{"id":"e63b1058-843a-4302-9804-2b6
+
+## /company-registry?company=Lehman%20Brothers%20Holdings&jurisdiction=US
+{"answer":"LEHMAN BROTHERS HOLDINGS INC. is active, registered with Division of Corporations, Department of State under company number 2024634 in US-DE, incorporated 1983-12-29.","subject":"Lehman Brothers Holdings","not_in_sources":["directors and officers","beneficial owners (GLEIF records accounting-consolidation parents only)"],"sources":["https://search.gleif.org/#/record/549300FDK6ZP3YIHRJ47"],"verdict":"found","confidence":0.92,"legal_name":"LEHMAN BROTHERS HOLDINGS INC.","lei":"549300FDK
+
+## /ssl-check?domain=github.com
+{"answer":"The TLS/SSL certificate configuration for github.com is valid.","domain":"github.com","verdict":"valid","valid":true,"chain_complete":true,"issuer":"Sectigo Limited","valid_to":"2027-01-27","days_remaining":74,"confidence":1,"reason":"The TLS/SSL certificate configuration for github.com is valid. Certificate validity: the certificate is currently valid, expiring in 74 days on 2027-01-27, issued by Sectigo Limited. Chain trust: the server presented a complete chain of 4 certificates in
+
+## /convert?from=USD&to=EUR&amount=100
+{"answer":"100.00 USD is 90.48 EUR at a rate of 1 USD = 0.9048 EUR, equivalently 1 EUR = 1.1052 USD.","from":"USD","to":"EUR","amount":100,"rate":0.9048136083966704,"converted":90.48136083966703,"kind":"ecb_reference","as_of":"2026-11-13","verdict":"converted","confidence":0.95,"reason":"100.00 USD is 90.48 EUR at a rate of 1 USD = 0.9048 EUR, equivalently 1 EUR = 1.1052 USD. This is the European Central Bank euro foreign exchange reference rate published for 2026-11-13, not a live trading quote
+

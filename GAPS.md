@@ -1,5 +1,28 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-14 ~15:30 UTC (21:00 IST) release `a59ead4`, registration 5232 — states changed
+
+- **G283 CLOSED, G284 CLOSED.** `sanctions-index.yml` is on `main` (PR 20) and was dispatched 15:04 UTC: run
+  43608145244 succeeded. Index built 2026-11-14T15:04:24Z, 33,767 parties, `failed: []`: OFAC SDN 19,565, non-SDN
+  486, UN 1,007, UK 6,440, **EU 6,269**. Production then matched "Vladimir Putin" under OFAC SDN, the UK list and
+  the EU list (`EU.7510.16`) in 2.6 s. The workflow rebuilds daily.
+- **G288 CLOSED.** Production `a59ead4`: `/cve?cve_id=CVE-2021-44228` returns `cvss_score: 10`, `critical`.
+- **G289 partly closed.** Production answers "What is the current price of Bitcoin?" with the Bitstamp quote and
+  "Who won Super Bowl LIX?" with the recorded winner. Open: the news source's licence (G189).
+- **G287 fix registered, effect NOT yet observed.** The owner signed the YAML at `494b135`; registration **5232** is
+  `active` (2026-11-14 14:44:56 UTC, hash `0x661625a3…b045`), 5152 `superseded`. Close when an epoch scores CVE,
+  CURRENCY, CRYPTO_PRICE and CORPORATE_REGISTRY for 5232. A new registration is ranked from scratch.
+- **G296 — NVD and OpenAlex do not answer production reliably. `OPEN`, owner.** 2026-11-14 ~15:10 UTC: `/cve`
+  answered from the CVE Program fallback (correct values, no CPE version ranges) and `/papers` said "OpenAlex was
+  unavailable", returning 2 DOAJ papers with no citation counts. Two preflight gates fail on it. No `NVD_API_KEY`
+  is set; OpenAlex is called without a key or contact address. ACADEMIC_SEARCH was rank 8 in epoch 2087.
+- **G295 — A one-letter near match answers `matched: true`. `OPEN`, by decision.** "Kraken" returns
+  `possible_match` against KRAKERN LIMITED (score 0.94), and `possible_match` maps to `matched: true`
+  (`intent-fields.ts`). The answer says "potential match"; a screen that flags for review is the cautious reading,
+  and the rank-2 miner maps its REVIEW label the same way. Not changed without a scored example either way.
+- **PR 9** (`add-on-chain-request`, 2026-09-07) left open: the docs now say jobs no longer read `on_chain.request`,
+  and it edits `miner.yaml`. Recommend closing it; the owner decides.
+
 ## 2026-11-14 ~10:00 UTC (15:30 IST) repo audit, branch `PR/miner-provider-optimization-da4453` — G287–G290
 
 - **G287 — 13 of our 43 intents carry no score in `/api/miners` while other miners are scored on them. `OPEN`.**

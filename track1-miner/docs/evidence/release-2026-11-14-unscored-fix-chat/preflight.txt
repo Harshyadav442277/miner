@@ -1,0 +1,57 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      PASS
+  verify-deploy                          FAIL
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- verify-deploy ---
+  FAIL  bare topic -> real papers — 1 papers in prose, 4083ms
+  PASS  missing topic -> honest 200 — got 200
+
+  latency: median 539ms, p95 4083ms, max 4083ms
+...
+  PASS  8.8.8.8 -> anycast, Google named — got anycast, 539ms
+  PASS  missing ip -> honest 200 — got 200
+
+  translate:
+  PASS  French "good morning" -> Bonjour — got Bonjour, 401ms
+  PASS  missing text -> honest 200 — got 200
+
+  papers:
+  FAIL  bare topic -> real papers — 1 papers in prose, 4083ms
+  PASS  missing topic -> honest 200 — got 200
+
+  latency: median 539ms, p95 4083ms, max 4083ms
+
+1 CHECK(S) FAILED — fix before registering.
+
+--- intent answers (correctness) ---
+  CVE_LOOKUP             FAIL
+      - affected versions 5.6.0 and 5.6.1 not resolved from the CPE configuration
+      - severity provenance not stated
+  ONCHAIN_TX_LOOKUP      PASS
+  ACADEMIC_SEARCH        FAIL
+      - only 2 papers returned
+      - citation counts missing — the questions ask for them
+  CONTENT_EXTRACTION     PASS
+...
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  CHAT_COMPLETION        PASS
+  CODE_REVIEW            PASS
+  SMART_CONTRACT_AUDIT   PASS
+  TEXT_GENERATION        PASS
+  ONCHAIN_METRIC_VERIFY  PASS
+
+41/43 intents answering correctly.
+
+5/7 gates passed — re-run the failing gate alone before believing it.

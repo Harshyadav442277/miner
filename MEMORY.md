@@ -1,5 +1,28 @@
 # MEMORY.md — session continuity
 
+## 2026-11-14 ~15:30 UTC (21:00 IST): CURRENT — `d52d769` LIVE; registration 5232; `main` is current
+
+- Owner: "i have uploaded the yaml file. deploy everything, merge the PRs … focus on top 2 intents in phase 1".
+- **Production:** `d52d769`, `https://miner-6656v8dvn-wukong4.vercel.app` (`dpl_ETgwi6DQsUmB73cziJ548aAMuww5`).
+  **Rollback target:** `miner-mo41ngruw` (`a59ead4`). Record: `track1-miner/docs/evidence/release-2026-11-14-unscored-fix-chat/`.
+  Unit 987/987. Preflight 5/7: the two failures are NVD and OpenAlex not answering Vercel (G296), not this release.
+- **Registration 5232** `active` (YAML `494b135`, signed 14:44 UTC); repo variable `REGISTRATION_ID` = 5232;
+  mission-matrix, the release skill and the README updated.
+- **Code:** PR 20 merged this branch into `main` (`c931b27`); later commits go in by a second PR (see git log).
+  Deploy trees: `C:/Users/hyada/tg-deploy/ma59ead4` and `md8b68aa` (now at `d52d769`). `tg-deploy/m-nonsdn` holds
+  another session's uncommitted edits and is behind `main`.
+- **Sanctions index:** workflow on `main`, dispatched and green; 5 lists, 33,767 parties, EU read (G283, G284 closed).
+- **Phase 1 (top two intents) shipped:** CHAT_COMPLETION: date in the prompt, brief always a whole sentence,
+  current office holders and releases read from Wikidata and endoflife.date. SANCTIONS: all five lists again,
+  `name` required and mapped in the YAML. Replay of the 180 real inputs: 109 match, 68 no_match, 3 possible.
+- **Next:**
+  1. Read `/api/miners` after 2–3 epochs: is 5232 scored on CVE, CURRENCY, CRYPTO_PRICE, CORPORATE_REGISTRY,
+     SANCTIONS (G287)? Compare CHAT_COMPLETION with 0.9718, rank 5 (epoch 2087, registration 5152).
+  2. Owner: a free `NVD_API_KEY` and an OpenAlex key or mailto in Vercel (G296); the Upstash store for request
+     capture (G282); close PR 9 (obsolete); growth posts.
+  3. Phase 2 candidates: RESEARCH_QUERY (G293), company-registry short names (G292), token holders off Ethereum
+     (G291), LIQUIDITY_DEPTH and WASH_TRADING (G294).
+
 ## 2026-11-14 ~10:05 UTC (15:35 IST): repo audit on `PR/miner-provider-optimization-da4453` — two fixes NOT deployed
 
 - Branch = `claude/n1-v2-ids` (`05de417`) merged in, plus: the CVE fallback fix (`40f4795`, G288), the cleanup
