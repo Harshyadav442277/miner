@@ -13,7 +13,7 @@ Posts are not scored on their own; what counts is an independent team acting on 
 
 > **For app teams on Exchange, Compliance, Treasury and Security builds: one miner, sourced answers, $0.01**
 >
-> LiveCert (miner 4433) serves 36 intents. These are the ones the Season II mission builds buy most:
+> LiveCert (miner 4433) serves 43 intents. These are the ones the Season II mission builds buy most:
 > sanctions screening (OFAC SDN + UN), company registry (GLEIF + SEC), SEC filings, transfer verification,
 > macro indicators, URL reputation, question answering with citations, fact check, gas, wallet balance.
 >

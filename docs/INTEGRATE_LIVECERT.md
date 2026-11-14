@@ -1,6 +1,6 @@
 # Call LiveCert from an app
 
-LiveCert is miner **4433** (slug `livecert`, registration 4829) on `devnode.telegraphprotocol.com`.
+LiveCert is miner **4433** (slug `livecert`, registration 5152) on `devnode.telegraphprotocol.com`.
 Callers need no API key. A call costs $0.01 USDC (`min_price_usdc: 10000`), paid per request over x402
 in Telegraph's test USDC on **Ethereum Sepolia** (`0xcc194e1a843B658526D0D5C431f670028582Ae17`, from the
 anjoman.ai faucet), or from escrow. Payment details: https://anjoman.ai/docs/using/x402-inference (read
@@ -14,7 +14,7 @@ marked *refuses* below. Do not buy them for those questions.
 
 ## Machine-readable description
 
-[`docs/openapi.json`](openapi.json) is an OpenAPI 3.1 description of all 35 endpoints and the 36 intents they
+[`docs/openapi.json`](openapi.json) is an OpenAPI 3.1 description of all 42 endpoints and the 43 intents they
 serve: every query parameter, the shared answer fields and the receipt. It is generated from `miner.yaml` by
 `track1-miner/tools/openapi.py`. Each route's own fields are typed from a real production answer and marked
 `x-observed`: they describe one answer, not every case. Load the file into any OpenAPI client generator.
