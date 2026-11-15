@@ -4,6 +4,15 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G43 — EMAIL_SECURITY lane: how pool rows render a request is unknown (2026-11-15) — `OPEN`
+
+The pool's 651 rows are not public, so our holdout's prompt rendering is a guess. The gated rows put the plain
+question and the request JSON together; a report-only copy uses the bare JSON
+([adapter/email_security/](adapter/email_security/README.md) rule 8). If the champion lands near chance on our
+holdout, or swings between the two renderings, suspect the rendering before calling the champion weak. Also open:
+the holdout's answers come from each miner's public service called as its YAML declares, not from the paid
+engine route, which may phrase or map the request differently.
+
 ## G42 — QUESTION_ANSWERING v1 fails on bare answers; no scorer beats chance on the benchmark pairs (2026-11-15) — `OPEN`
 
 Evidence: `C:/Users/hyada/tg-eval/runs-v2/qa_holdout/holdout-*.json` and `report-*.json` (node runtime, per-pair
