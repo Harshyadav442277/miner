@@ -1,0 +1,47 @@
+{
+ "started_at": "2026-11-08T03:33:01.461788+00:00",
+ "argv": [
+  "measure_v2.py",
+  "--pairs",
+  "h1=C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_v2\\holdout.jsonl",
+  "--pairs",
+  "probe=C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_probe16.jsonl",
+  "--pairs",
+  "h2=C:\\Users\\hyada\\tg-eval\\urlscan-h2-r1\\pairs.jsonl",
+  "--package",
+  "generic=C:/Users/hyada/tg-eval/dl/generic_900005/adapter-GENERIC-dc4f8bd55442.safetensors=dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+  "--out",
+  "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-a1db5c9a99b1aabc7\\track2\\adapter\\url_scan\\evidence\\generic-900005"
+ ],
+ "pairs_sha256": {
+  "h1": "06747f29dcd392f7217899c8b4f19c799f681156cbf73fa85443a1e7b5d8a388",
+  "probe": "a3d13a3f14beba1e49e2058e98a02e2eaf955835e71511f054d7de318bb68805",
+  "h2": "e38bcdae0ab293f740d902bbe8a3c43c8e87d87cefbab7f3ada62b160c3563e9"
+ },
+ "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+ "engine_hash": "77643d6e1176ab8744801cef93ccb844d0136ed32b8daa865d541f37d13292de",
+ "packages": {
+  "generic": {
+   "package": "generic",
+   "path": "C:\\Users\\hyada\\tg-eval\\dl\\generic_900005\\adapter-GENERIC-dc4f8bd55442.safetensors",
+   "sha256": "e42b553315b32f4fb61600df2e86de7b48efdd28d2de03c59689c67d5dbec7e4",
+   "keccak256": "dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+   "runtime_reported_keccak": true,
+   "max_tokens": 512,
+   "identity": {
+    "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+    "adapter_hash": "dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+    "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+   },
+   "verify_input_bits": "0x3f059cb7",
+   "unique_texts": 496,
+   "seconds": 961.0,
+   "wins": {
+    "h1": "108/200",
+    "probe": "8/16",
+    "h2": "36/62"
+   }
+  }
+ },
+ "finished_at": "2026-11-08T03:49:02.747397+00:00"
+}

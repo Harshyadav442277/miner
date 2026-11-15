@@ -1,0 +1,51 @@
+{
+ "started_at": "2026-11-08T10:33:23.876352+00:00",
+ "argv": [
+  "measure_v2.py",
+  "--pairs",
+  "h1=C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_v3\\holdout.jsonl",
+  "--pairs",
+  "probe=C:\\Users\\hyada\\tg-eval\\pairs\\urlscan_probe16.jsonl",
+  "--pairs",
+  "h2=C:\\Users\\hyada\\tg-eval\\urlscan-h2-r1\\pairs.jsonl",
+  "--pairs",
+  "h3=C:\\Users\\hyada\\tg-eval\\urlscan-h3-r1\\pairs.jsonl",
+  "--package",
+  "candidate=C:\\Users\\hyada\\tg-eval\\runs-v2\\URL_SCAN_v3\\URL_SCAN.safetensors=0xe2da6fac0bb72ace0d48d27e80c06de9f53c91397aca2502eee0ae624f10ba7c",
+  "--out",
+  "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-a1db5c9a99b1aabc7\\track2\\adapter\\url_scan\\evidence\\url_scan_v3"
+ ],
+ "pairs_sha256": {
+  "h1": "06747f29dcd392f7217899c8b4f19c799f681156cbf73fa85443a1e7b5d8a388",
+  "probe": "a3d13a3f14beba1e49e2058e98a02e2eaf955835e71511f054d7de318bb68805",
+  "h2": "e38bcdae0ab293f740d902bbe8a3c43c8e87d87cefbab7f3ada62b160c3563e9",
+  "h3": "458b1ef2cd71320bc8dd8e7486865c615d89ee0ff7da732a2249fcbe90e581c2"
+ },
+ "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+ "engine_hash": "77643d6e1176ab8744801cef93ccb844d0136ed32b8daa865d541f37d13292de",
+ "packages": {
+  "candidate": {
+   "package": "candidate",
+   "path": "C:\\Users\\hyada\\tg-eval\\runs-v2\\URL_SCAN_v3\\URL_SCAN.safetensors",
+   "sha256": "0ede1a880d077141d06b1e7108735082b3c554b5b009c64c30f07cd12f2b534f",
+   "keccak256": "e2da6fac0bb72ace0d48d27e80c06de9f53c91397aca2502eee0ae624f10ba7c",
+   "runtime_reported_keccak": true,
+   "max_tokens": 512,
+   "identity": {
+    "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+    "adapter_hash": "e2da6fac0bb72ace0d48d27e80c06de9f53c91397aca2502eee0ae624f10ba7c",
+    "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+   },
+   "verify_input_bits": "0xbfa49c10",
+   "unique_texts": 584,
+   "seconds": 1189.7,
+   "wins": {
+    "h1": "135/200",
+    "probe": "5/16",
+    "h2": "14/62",
+    "h3": "31/78"
+   }
+  }
+ },
+ "finished_at": "2026-11-08T10:53:13.879550+00:00"
+}

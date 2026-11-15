@@ -1,0 +1,582 @@
+{
+ "h1": {
+  "all": {
+   "length": {
+    "wins": 103,
+    "n": 200,
+    "wilson95_lower": 0.44610724474630287
+   },
+   "bag-of-words": {
+    "wins": 128,
+    "n": 200,
+    "wilson95_lower": 0.5714139956562683
+   },
+   "candidate": {
+    "wins": 135,
+    "n": 200,
+    "wilson95_lower": 0.6073185684304498
+   },
+   "generic": {
+    "wins": 108,
+    "n": 200,
+    "wilson95_lower": 0.4708216309361468
+   }
+  },
+  "kind:wrong_url": {
+   "length": {
+    "wins": 16,
+    "n": 39,
+    "wilson95_lower": 0.2707908943540048
+   },
+   "bag-of-words": {
+    "wins": 17,
+    "n": 39,
+    "wilson95_lower": 0.2930452416170466
+   },
+   "candidate": {
+    "wins": 25,
+    "n": 39,
+    "wilson95_lower": 0.484178631846895
+   },
+   "generic": {
+    "wins": 25,
+    "n": 39,
+    "wilson95_lower": 0.484178631846895
+   }
+  },
+  "formats:unseen": {
+   "length": {
+    "wins": 60,
+    "n": 113,
+    "wilson95_lower": 0.43946105198257673
+   },
+   "bag-of-words": {
+    "wins": 65,
+    "n": 113,
+    "wilson95_lower": 0.4830833737524277
+   },
+   "candidate": {
+    "wins": 78,
+    "n": 113,
+    "wilson95_lower": 0.5999350263379167
+   },
+   "generic": {
+    "wins": 58,
+    "n": 113,
+    "wilson95_lower": 0.42220637468328037
+   }
+  },
+  "kind:false_safe_prior": {
+   "length": {
+    "wins": 11,
+    "n": 22,
+    "wilson95_lower": 0.3072180469247956
+   },
+   "bag-of-words": {
+    "wins": 22,
+    "n": 22,
+    "wilson95_lower": 0.8513404742740388
+   },
+   "candidate": {
+    "wins": 15,
+    "n": 22,
+    "wilson95_lower": 0.4731822278283934
+   },
+   "generic": {
+    "wins": 17,
+    "n": 22,
+    "wilson95_lower": 0.5655964393704065
+   }
+  },
+  "kind:false_unsafe_prior": {
+   "length": {
+    "wins": 7,
+    "n": 20,
+    "wilson95_lower": 0.1811895478679446
+   },
+   "bag-of-words": {
+    "wins": 0,
+    "n": 20,
+    "wilson95_lower": -1.1641658116749259e-17
+   },
+   "candidate": {
+    "wins": 5,
+    "n": 20,
+    "wilson95_lower": 0.11186005278940306
+   },
+   "generic": {
+    "wins": 8,
+    "n": 20,
+    "wilson95_lower": 0.21880396741419272
+   }
+  },
+  "formats:seen": {
+   "length": {
+    "wins": 43,
+    "n": 87,
+    "wilson95_lower": 0.39168097748132213
+   },
+   "bag-of-words": {
+    "wins": 63,
+    "n": 87,
+    "wilson95_lower": 0.6222603074671171
+   },
+   "candidate": {
+    "wins": 57,
+    "n": 87,
+    "wilson95_lower": 0.550645767576964
+   },
+   "generic": {
+    "wins": 50,
+    "n": 87,
+    "wilson95_lower": 0.4698369712299657
+   }
+  },
+  "kind:false_unsafe_contradiction": {
+   "length": {
+    "wins": 21,
+    "n": 30,
+    "wilson95_lower": 0.5212387898833981
+   },
+   "bag-of-words": {
+    "wins": 1,
+    "n": 30,
+    "wilson95_lower": 0.005908437994857381
+   },
+   "candidate": {
+    "wins": 12,
+    "n": 30,
+    "wilson95_lower": 0.24590394326083398
+   },
+   "generic": {
+    "wins": 5,
+    "n": 30,
+    "wilson95_lower": 0.07336434240351682
+   }
+  },
+  "kind:false_safe_weak": {
+   "length": {
+    "wins": 14,
+    "n": 27,
+    "wilson95_lower": 0.33985324586210425
+   },
+   "bag-of-words": {
+    "wins": 26,
+    "n": 27,
+    "wilson95_lower": 0.8171614606584349
+   },
+   "candidate": {
+    "wins": 24,
+    "n": 27,
+    "wilson95_lower": 0.7194181745602705
+   },
+   "generic": {
+    "wins": 17,
+    "n": 27,
+    "wilson95_lower": 0.442289046234463
+   }
+  },
+  "kind:false_safe_contradiction": {
+   "length": {
+    "wins": 8,
+    "n": 18,
+    "wilson95_lower": 0.24559231101389123
+   },
+   "bag-of-words": {
+    "wins": 18,
+    "n": 18,
+    "wilson95_lower": 0.8241154494176252
+   },
+   "candidate": {
+    "wins": 12,
+    "n": 18,
+    "wilson95_lower": 0.4374906934425036
+   },
+   "generic": {
+    "wins": 12,
+    "n": 18,
+    "wilson95_lower": 0.4374906934425036
+   }
+  },
+  "kind:false_unsafe_weak": {
+   "length": {
+    "wins": 19,
+    "n": 30,
+    "wilson95_lower": 0.4551324643360493
+   },
+   "bag-of-words": {
+    "wins": 30,
+    "n": 30,
+    "wilson95_lower": 0.886482908609522
+   },
+   "candidate": {
+    "wins": 29,
+    "n": 30,
+    "wilson95_lower": 0.8332924860304112
+   },
+   "generic": {
+    "wins": 15,
+    "n": 30,
+    "wilson95_lower": 0.3315385122717376
+   }
+  },
+  "kind:stale": {
+   "length": {
+    "wins": 1,
+    "n": 2,
+    "wilson95_lower": 0.09452865480086611
+   },
+   "bag-of-words": {
+    "wins": 2,
+    "n": 2,
+    "wilson95_lower": 0.3423719528896193
+   },
+   "candidate": {
+    "wins": 1,
+    "n": 2,
+    "wilson95_lower": 0.09452865480086611
+   },
+   "generic": {
+    "wins": 1,
+    "n": 2,
+    "wilson95_lower": 0.09452865480086611
+   }
+  },
+  "kind:unsupported": {
+   "length": {
+    "wins": 4,
+    "n": 7,
+    "wilson95_lower": 0.2504542304090258
+   },
+   "bag-of-words": {
+    "wins": 7,
+    "n": 7,
+    "wilson95_lower": 0.6456611570247934
+   },
+   "candidate": {
+    "wins": 7,
+    "n": 7,
+    "wilson95_lower": 0.6456611570247934
+   },
+   "generic": {
+    "wins": 4,
+    "n": 7,
+    "wilson95_lower": 0.2504542304090258
+   }
+  },
+  "kind:non_answer": {
+   "length": {
+    "wins": 2,
+    "n": 5,
+    "wilson95_lower": 0.11761823115925325
+   },
+   "bag-of-words": {
+    "wins": 5,
+    "n": 5,
+    "wilson95_lower": 0.565508505247919
+   },
+   "candidate": {
+    "wins": 5,
+    "n": 5,
+    "wilson95_lower": 0.565508505247919
+   },
+   "generic": {
+    "wins": 4,
+    "n": 5,
+    "wilson95_lower": 0.37552826411853885
+   }
+  }
+ },
+ "probe": {
+  "all": {
+   "length": {
+    "wins": 8,
+    "n": 16,
+    "wilson95_lower": 0.2799923761135083
+   },
+   "bag-of-words": {
+    "wins": 8,
+    "n": 16,
+    "wilson95_lower": 0.2799923761135083
+   },
+   "candidate": {
+    "wins": 5,
+    "n": 16,
+    "wilson95_lower": 0.14164435051961052
+   },
+   "generic": {
+    "wins": 8,
+    "n": 16,
+    "wilson95_lower": 0.2799923761135083
+   }
+  },
+  "kind:verdict flip": {
+   "length": {
+    "wins": 4,
+    "n": 8,
+    "wilson95_lower": 0.2152125268244419
+   },
+   "bag-of-words": {
+    "wins": 4,
+    "n": 8,
+    "wilson95_lower": 0.2152125268244419
+   },
+   "candidate": {
+    "wins": 4,
+    "n": 8,
+    "wilson95_lower": 0.2152125268244419
+   },
+   "generic": {
+    "wins": 3,
+    "n": 8,
+    "wilson95_lower": 0.13684175946152105
+   }
+  },
+  "kind:wrong URL": {
+   "length": {
+    "wins": 4,
+    "n": 8,
+    "wilson95_lower": 0.2152125268244419
+   },
+   "bag-of-words": {
+    "wins": 4,
+    "n": 8,
+    "wilson95_lower": 0.2152125268244419
+   },
+   "candidate": {
+    "wins": 1,
+    "n": 8,
+    "wilson95_lower": 0.02241690886329618
+   },
+   "generic": {
+    "wins": 5,
+    "n": 8,
+    "wilson95_lower": 0.3057378545838018
+   }
+  }
+ },
+ "h2": {
+  "all": {
+   "length": {
+    "wins": 30,
+    "n": 62,
+    "wilson95_lower": 0.3640965420650529
+   },
+   "bag-of-words": {
+    "wins": 19,
+    "n": 62,
+    "wilson95_lower": 0.20581430019850633
+   },
+   "candidate": {
+    "wins": 14,
+    "n": 62,
+    "wilson95_lower": 0.13955057139297952
+   },
+   "generic": {
+    "wins": 36,
+    "n": 62,
+    "wilson95_lower": 0.45665361737846166
+   }
+  },
+  "kind:decision": {
+   "length": {
+    "wins": 24,
+    "n": 25,
+    "wilson95_lower": 0.8045552759497747
+   },
+   "bag-of-words": {
+    "wins": 15,
+    "n": 25,
+    "wilson95_lower": 0.4073912778512734
+   },
+   "candidate": {
+    "wins": 4,
+    "n": 25,
+    "wilson95_lower": 0.06403347608577989
+   },
+   "generic": {
+    "wins": 24,
+    "n": 25,
+    "wilson95_lower": 0.8045552759497747
+   }
+  },
+  "templated:decision": {
+   "length": {
+    "wins": 24,
+    "n": 25,
+    "wilson95_lower": 0.8045552759497747
+   },
+   "bag-of-words": {
+    "wins": 15,
+    "n": 25,
+    "wilson95_lower": 0.4073912778512734
+   },
+   "candidate": {
+    "wins": 4,
+    "n": 25,
+    "wilson95_lower": 0.06403347608577989
+   },
+   "generic": {
+    "wins": 24,
+    "n": 25,
+    "wilson95_lower": 0.8045552759497747
+   }
+  },
+  "kind:constructed_wrong_query": {
+   "length": {
+    "wins": 6,
+    "n": 37,
+    "wilson95_lower": 0.07651103235297099
+   },
+   "bag-of-words": {
+    "wins": 4,
+    "n": 37,
+    "wilson95_lower": 0.04285120520506268
+   },
+   "candidate": {
+    "wins": 10,
+    "n": 37,
+    "wilson95_lower": 0.15397298246990687
+   },
+   "generic": {
+    "wins": 12,
+    "n": 37,
+    "wilson95_lower": 0.1963307782081548
+   }
+  },
+  "templated:constructed_wrong_query": {
+   "length": {
+    "wins": 6,
+    "n": 37,
+    "wilson95_lower": 0.07651103235297099
+   },
+   "bag-of-words": {
+    "wins": 4,
+    "n": 37,
+    "wilson95_lower": 0.04285120520506268
+   },
+   "candidate": {
+    "wins": 10,
+    "n": 37,
+    "wilson95_lower": 0.15397298246990687
+   },
+   "generic": {
+    "wins": 12,
+    "n": 37,
+    "wilson95_lower": 0.1963307782081548
+   }
+  }
+ },
+ "h3": {
+  "all": {
+   "length": {
+    "wins": 46,
+    "n": 78,
+    "wilson95_lower": 0.4788794806670461
+   },
+   "bag-of-words": {
+    "wins": 34,
+    "n": 78,
+    "wilson95_lower": 0.3314306271296353
+   },
+   "candidate": {
+    "wins": 31,
+    "n": 78,
+    "wilson95_lower": 0.29611695255788584
+   },
+   "generic": {
+    "wins": 51,
+    "n": 78,
+    "wilson95_lower": 0.5432998724955743
+   }
+  },
+  "kind:decision": {
+   "length": {
+    "wins": 32,
+    "n": 33,
+    "wilson95_lower": 0.8468093832683193
+   },
+   "bag-of-words": {
+    "wins": 19,
+    "n": 33,
+    "wilson95_lower": 0.4080697369146003
+   },
+   "candidate": {
+    "wins": 9,
+    "n": 33,
+    "wilson95_lower": 0.1506727265632281
+   },
+   "generic": {
+    "wins": 32,
+    "n": 33,
+    "wilson95_lower": 0.8468093832683193
+   }
+  },
+  "templated:decision": {
+   "length": {
+    "wins": 32,
+    "n": 33,
+    "wilson95_lower": 0.8468093832683193
+   },
+   "bag-of-words": {
+    "wins": 19,
+    "n": 33,
+    "wilson95_lower": 0.4080697369146003
+   },
+   "candidate": {
+    "wins": 9,
+    "n": 33,
+    "wilson95_lower": 0.1506727265632281
+   },
+   "generic": {
+    "wins": 32,
+    "n": 33,
+    "wilson95_lower": 0.8468093832683193
+   }
+  },
+  "kind:constructed_wrong_query": {
+   "length": {
+    "wins": 14,
+    "n": 45,
+    "wilson95_lower": 0.19528525463541907
+   },
+   "bag-of-words": {
+    "wins": 15,
+    "n": 45,
+    "wilson95_lower": 0.21358692207276764
+   },
+   "candidate": {
+    "wins": 22,
+    "n": 45,
+    "wilson95_lower": 0.3495678935302451
+   },
+   "generic": {
+    "wins": 19,
+    "n": 45,
+    "wilson95_lower": 0.2896848798168782
+   }
+  },
+  "templated:constructed_wrong_query": {
+   "length": {
+    "wins": 14,
+    "n": 45,
+    "wilson95_lower": 0.19528525463541907
+   },
+   "bag-of-words": {
+    "wins": 15,
+    "n": 45,
+    "wilson95_lower": 0.21358692207276764
+   },
+   "candidate": {
+    "wins": 22,
+    "n": 45,
+    "wilson95_lower": 0.3495678935302451
+   },
+   "generic": {
+    "wins": 19,
+    "n": 45,
+    "wilson95_lower": 0.2896848798168782
+   }
+  }
+ }
+}

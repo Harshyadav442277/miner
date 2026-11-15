@@ -1,0 +1,122 @@
+[
+  {
+    "case": "certpl-0",
+    "url": "https://investragpt-system.com/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-1",
+    "url": "https://lexicdetra.store/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-2",
+    "url": "https://c9q.am6pxz.qpon/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-3",
+    "url": "https://mq5.wazny-komunikat.pl/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-4",
+    "url": "https://vexonexio-shop.pages.dev/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-5",
+    "url": "https://setvfront.escondidoweekly.com/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-6",
+    "url": "https://aerospsico.cyou/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-7",
+    "url": "https://xoveniq.org/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-8",
+    "url": "https://allegrolokalnie.809395.lat/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-9",
+    "url": "https://www.trendmarket.club/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-10",
+    "url": "https://vectoretan.jaideephardikar.com/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-11",
+    "url": "https://gloatflage.cyou/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "safe-12",
+    "url": "https://theadvocate.com/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-13",
+    "url": "https://tver.jp/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-14",
+    "url": "https://vogue.co.uk/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-15",
+    "url": "https://platts.com/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-16",
+    "url": "https://orenobl.ru/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-17",
+    "url": "https://educ.ar/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-18",
+    "url": "https://radio-locator.com/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-19",
+    "url": "https://freiburg.de/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  }
+]

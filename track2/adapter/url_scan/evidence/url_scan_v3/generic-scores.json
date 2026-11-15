@@ -1,0 +1,4484 @@
+{
+ "package": "generic",
+ "path": "C:\\Users\\hyada\\tg-eval\\dl\\generic_900005\\adapter-GENERIC-dc4f8bd55442.safetensors",
+ "sha256": "e42b553315b32f4fb61600df2e86de7b48efdd28d2de03c59689c67d5dbec7e4",
+ "keccak256": "dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+ "runtime_reported_keccak": true,
+ "max_tokens": 512,
+ "identity": {
+  "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "adapter_hash": "dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+  "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+ },
+ "verify_input_bits": "0x3f059cb7",
+ "unique_texts": 496,
+ "seconds": 961.0,
+ "sets": {
+  "h1": {
+   "pairs": 200,
+   "wins": 108,
+   "rows": [
+    {
+     "kind": "wrong_url",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1075106457,
+      "value": 2.3253538608551025
+     },
+     "rejected": {
+      "bits": 1074222318,
+      "value": 2.114558696746826
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3222878578,
+      "value": -2.3941311836242676
+     },
+     "rejected": {
+      "bits": 3208063896,
+      "value": -0.7155089378356934
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "signal|prose",
+     "chosen": {
+      "bits": 3180381304,
+      "value": -0.07068723440170288
+     },
+     "rejected": {
+      "bits": 3223841282,
+      "value": -2.623657703399658
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "prose|sentence_json",
+     "chosen": {
+      "bits": 1056956292,
+      "value": 0.4997521638870239
+     },
+     "rejected": {
+      "bits": 1071247149,
+      "value": 1.7026115655899048
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "sentence_json|markdown",
+     "chosen": {
+      "bits": 1076490070,
+      "value": 2.6552329063415527
+     },
+     "rejected": {
+      "bits": 1060502752,
+      "value": 0.7108898162841797
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "kv|kv",
+     "chosen": {
+      "bits": 3205555712,
+      "value": -0.566009521484375
+     },
+     "rejected": {
+      "bits": 1068432730,
+      "value": 1.3671066761016846
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1070606694,
+      "value": 1.6262633800506592
+     },
+     "rejected": {
+      "bits": 3202291251,
+      "value": -0.4357162415981293
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1052883410,
+      "value": 0.37837082147598267
+     },
+     "rejected": {
+      "bits": 1081672564,
+      "value": 3.890835762023926
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "signal|flat",
+     "chosen": {
+      "bits": 1059573798,
+      "value": 0.6555198431015015
+     },
+     "rejected": {
+      "bits": 1042670700,
+      "value": 0.16200417280197144
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1068509564,
+      "value": 1.3762660026550293
+     },
+     "rejected": {
+      "bits": 1076030296,
+      "value": 2.545614242553711
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "answer_first|nested",
+     "chosen": {
+      "bits": 1058770109,
+      "value": 0.6076162457466125
+     },
+     "rejected": {
+      "bits": 3214449662,
+      "value": -1.192260503768921
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1055776826,
+      "value": 0.4646013379096985
+     },
+     "rejected": {
+      "bits": 1076845834,
+      "value": 2.740053653717041
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3215373235,
+      "value": -1.3023589849472046
+     },
+     "rejected": {
+      "bits": 1065238514,
+      "value": 0.9931632280349731
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3206439200,
+      "value": -0.6186695098876953
+     },
+     "rejected": {
+      "bits": 1066344582,
+      "value": 1.1181800365447998
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "kv|kv",
+     "chosen": {
+      "bits": 1046667540,
+      "value": 0.2215617299079895
+     },
+     "rejected": {
+      "bits": 1065649559,
+      "value": 1.0353268384933472
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1057203742,
+      "value": 0.5142534971237183
+     },
+     "rejected": {
+      "bits": 1077554831,
+      "value": 2.9090917110443115
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "answer_first|answer_first",
+     "chosen": {
+      "bits": 3207153369,
+      "value": -0.6612372994422913
+     },
+     "rejected": {
+      "bits": 1051505774,
+      "value": 0.33731406927108765
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1083617440,
+      "value": 4.7090606689453125
+     },
+     "rejected": {
+      "bits": 1067784120,
+      "value": 1.2897863388061523
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1075591835,
+      "value": 2.4410769939422607
+     },
+     "rejected": {
+      "bits": 1060997508,
+      "value": 0.7403795719146729
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "prose|prose",
+     "chosen": {
+      "bits": 3213958736,
+      "value": -1.133737564086914
+     },
+     "rejected": {
+      "bits": 3206562825,
+      "value": -0.626038134098053
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "stale",
+     "format": "answer_first|answer_first",
+     "chosen": {
+      "bits": 1078699398,
+      "value": 3.1819777488708496
+     },
+     "rejected": {
+      "bits": 1072955087,
+      "value": 1.906213641166687
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1067726046,
+      "value": 1.2828633785247803
+     },
+     "rejected": {
+      "bits": 1070291208,
+      "value": 1.5886545181274414
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "kv|kv",
+     "chosen": {
+      "bits": 3173865456,
+      "value": -0.042320191860198975
+     },
+     "rejected": {
+      "bits": 3214799778,
+      "value": -1.2339975833892822
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "signal|sentence_json",
+     "chosen": {
+      "bits": 1067914354,
+      "value": 1.3053114414215088
+     },
+     "rejected": {
+      "bits": 1063654540,
+      "value": 0.8987510204315186
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1079990307,
+      "value": 3.4897544384002686
+     },
+     "rejected": {
+      "bits": 1058593439,
+      "value": 0.5970858931541443
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "signal|nested",
+     "chosen": {
+      "bits": 1062203420,
+      "value": 0.8122575283050537
+     },
+     "rejected": {
+      "bits": 1058358561,
+      "value": 0.5830860733985901
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "signal|sentence_json",
+     "chosen": {
+      "bits": 1048679556,
+      "value": 0.2530862092971802
+     },
+     "rejected": {
+      "bits": 1048587366,
+      "value": 0.25033873319625854
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1068783027,
+      "value": 1.4088653326034546
+     },
+     "rejected": {
+      "bits": 1078245329,
+      "value": 3.0737192630767822
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 3199572692,
+      "value": -0.3546968698501587
+     },
+     "rejected": {
+      "bits": 3224632828,
+      "value": -2.8123769760131836
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "prose|sentence_json",
+     "chosen": {
+      "bits": 1076223972,
+      "value": 2.591790199279785
+     },
+     "rejected": {
+      "bits": 1086480216,
+      "value": 6.074138641357422
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "unsupported",
+     "format": "checks|checks",
+     "chosen": {
+      "bits": 1082646686,
+      "value": 4.246169090270996
+     },
+     "rejected": {
+      "bits": 1078451144,
+      "value": 3.1227893829345703
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1057577228,
+      "value": 0.5365149974822998
+     },
+     "rejected": {
+      "bits": 1068908222,
+      "value": 1.4237897396087646
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3221588056,
+      "value": -2.086446762084961
+     },
+     "rejected": {
+      "bits": 3218918056,
+      "value": -1.7249345779418945
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1072167895,
+      "value": 1.8123730421066284
+     },
+     "rejected": {
+      "bits": 1069325596,
+      "value": 1.4735445976257324
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1073990604,
+      "value": 2.0593137741088867
+     },
+     "rejected": {
+      "bits": 3203199633,
+      "value": -0.4627881348133087
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "checks|nested",
+     "chosen": {
+      "bits": 1066055085,
+      "value": 1.0836693048477173
+     },
+     "rejected": {
+      "bits": 1062265262,
+      "value": 0.8159435987472534
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "sentence_json|nested",
+     "chosen": {
+      "bits": 3197546932,
+      "value": -0.29432451725006104
+     },
+     "rejected": {
+      "bits": 1073386804,
+      "value": 1.9576783180236816
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1069242138,
+      "value": 1.4635956287384033
+     },
+     "rejected": {
+      "bits": 1066106026,
+      "value": 1.0897419452667236
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1082730570,
+      "value": 4.286168098449707
+     },
+     "rejected": {
+      "bits": 1065522426,
+      "value": 1.0201714038848877
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "sentence_json|answer_first",
+     "chosen": {
+      "bits": 1066901961,
+      "value": 1.1846247911453247
+     },
+     "rejected": {
+      "bits": 1072928848,
+      "value": 1.903085708618164
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "kv|kv",
+     "chosen": {
+      "bits": 1009428736,
+      "value": 0.010416269302368164
+     },
+     "rejected": {
+      "bits": 3187740812,
+      "value": -0.12603968381881714
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "sentence_json|nested",
+     "chosen": {
+      "bits": 1087157136,
+      "value": 6.396919250488281
+     },
+     "rejected": {
+      "bits": 1079381494,
+      "value": 3.344602108001709
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1073758292,
+      "value": 2.0039262771606445
+     },
+     "rejected": {
+      "bits": 3203164659,
+      "value": -0.46174582839012146
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "kv|kv",
+     "chosen": {
+      "bits": 1063653280,
+      "value": 0.8986759185791016
+     },
+     "rejected": {
+      "bits": 3210767030,
+      "value": -0.8766282796859741
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|sentence_json",
+     "chosen": {
+      "bits": 1074852805,
+      "value": 2.264878511428833
+     },
+     "rejected": {
+      "bits": 3210652012,
+      "value": -0.8697726726531982
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "signal|signal",
+     "chosen": {
+      "bits": 3213636464,
+      "value": -1.0953197479248047
+     },
+     "rejected": {
+      "bits": 1071003143,
+      "value": 1.6735237836837769
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "signal|sentence_json",
+     "chosen": {
+      "bits": 3206123156,
+      "value": -0.5998318195343018
+     },
+     "rejected": {
+      "bits": 1077034964,
+      "value": 2.7851457595825195
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "kv|kv",
+     "chosen": {
+      "bits": 3215186396,
+      "value": -1.2800860404968262
+     },
+     "rejected": {
+      "bits": 1054321971,
+      "value": 0.421243280172348
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1073391052,
+      "value": 1.9581847190856934
+     },
+     "rejected": {
+      "bits": 1069276384,
+      "value": 1.4676780700683594
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 3213777173,
+      "value": -1.1120935678482056
+     },
+     "rejected": {
+      "bits": 1074104507,
+      "value": 2.086470365524292
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3192412610,
+      "value": -0.19565489888191223
+     },
+     "rejected": {
+      "bits": 1062489888,
+      "value": 0.8293323516845703
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|checks",
+     "chosen": {
+      "bits": 1061755202,
+      "value": 0.7855416536331177
+     },
+     "rejected": {
+      "bits": 1071473910,
+      "value": 1.7296435832977295
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 3202988436,
+      "value": -0.45649397373199463
+     },
+     "rejected": {
+      "bits": 3214820486,
+      "value": -1.2364661693572998
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "answer_first|answer_first",
+     "chosen": {
+      "bits": 1078354830,
+      "value": 3.0998263359069824
+     },
+     "rejected": {
+      "bits": 1066632006,
+      "value": 1.1524436473846436
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "unsupported",
+     "format": "markdown|answer_first",
+     "chosen": {
+      "bits": 3205796930,
+      "value": -0.5803872346878052
+     },
+     "rejected": {
+      "bits": 3202638683,
+      "value": -0.44607052206993103
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1042256860,
+      "value": 0.15583747625350952
+     },
+     "rejected": {
+      "bits": 1049101358,
+      "value": 0.26565688848495483
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "stale",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1077876399,
+      "value": 2.9857594966888428
+     },
+     "rejected": {
+      "bits": 1083742075,
+      "value": 4.768491268157959
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3207363874,
+      "value": -0.6737843751907349
+     },
+     "rejected": {
+      "bits": 1062089578,
+      "value": 0.8054720163345337
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "status|status",
+     "chosen": {
+      "bits": 1062029524,
+      "value": 0.8018925189971924
+     },
+     "rejected": {
+      "bits": 3201224537,
+      "value": -0.40392568707466125
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 3206914006,
+      "value": -0.6469701528549194
+     },
+     "rejected": {
+      "bits": 1060756962,
+      "value": 0.7260419130325317
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1066518295,
+      "value": 1.1388882398605347
+     },
+     "rejected": {
+      "bits": 1069437926,
+      "value": 1.4869353771209717
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "signal|signal",
+     "chosen": {
+      "bits": 3212728460,
+      "value": -0.9935386180877686
+     },
+     "rejected": {
+      "bits": 3193026816,
+      "value": -0.20480728149414062
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "sentence_json|signal",
+     "chosen": {
+      "bits": 1064476582,
+      "value": 0.9477485418319702
+     },
+     "rejected": {
+      "bits": 1077069190,
+      "value": 2.7933058738708496
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1074220690,
+      "value": 2.114170551300049
+     },
+     "rejected": {
+      "bits": 1083672699,
+      "value": 4.735410213470459
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "status|status",
+     "chosen": {
+      "bits": 1078692886,
+      "value": 3.1804251670837402
+     },
+     "rejected": {
+      "bits": 3194041382,
+      "value": -0.21992549300193787
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1052843591,
+      "value": 0.377184122800827
+     },
+     "rejected": {
+      "bits": 3206475228,
+      "value": -0.6208169460296631
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1064923228,
+      "value": 0.9743707180023193
+     },
+     "rejected": {
+      "bits": 3219752264,
+      "value": -1.8243799209594727
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "sentence_json|signal",
+     "chosen": {
+      "bits": 1061355850,
+      "value": 0.7617384195327759
+     },
+     "rejected": {
+      "bits": 3193985304,
+      "value": -0.21908986568450928
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "checks|checks",
+     "chosen": {
+      "bits": 1085202262,
+      "value": 5.4647626876831055
+     },
+     "rejected": {
+      "bits": 1074953500,
+      "value": 2.288886070251465
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1054579002,
+      "value": 0.42890340089797974
+     },
+     "rejected": {
+      "bits": 3193470404,
+      "value": -0.21141725778579712
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "non_answer",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1068375844,
+      "value": 1.3603253364562988
+     },
+     "rejected": {
+      "bits": 1052895213,
+      "value": 0.37872257828712463
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "signal|signal",
+     "chosen": {
+      "bits": 3207564348,
+      "value": -0.6857335567474365
+     },
+     "rejected": {
+      "bits": 3203661767,
+      "value": -0.4765608012676239
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3196260288,
+      "value": -0.2559795379638672
+     },
+     "rejected": {
+      "bits": 3213418452,
+      "value": -1.0693306922912598
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "markdown|sentence_json",
+     "chosen": {
+      "bits": 3185947208,
+      "value": -0.1121564507484436
+     },
+     "rejected": {
+      "bits": 3206149740,
+      "value": -0.6014163494110107
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3204083130,
+      "value": -0.48911839723587036
+     },
+     "rejected": {
+      "bits": 3218444462,
+      "value": -1.6684777736663818
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1050419053,
+      "value": 0.304927259683609
+     },
+     "rejected": {
+      "bits": 1066111750,
+      "value": 1.0904242992401123
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1077258918,
+      "value": 2.838540554046631
+     },
+     "rejected": {
+      "bits": 3190056512,
+      "value": -0.16054630279541016
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3221857210,
+      "value": -2.150618076324463
+     },
+     "rejected": {
+      "bits": 3196244908,
+      "value": -0.25552117824554443
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "status|sentence_json",
+     "chosen": {
+      "bits": 1060520571,
+      "value": 0.7119519114494324
+     },
+     "rejected": {
+      "bits": 1060656724,
+      "value": 0.7200672626495361
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1070101357,
+      "value": 1.566022515296936
+     },
+     "rejected": {
+      "bits": 1082290676,
+      "value": 4.076410293579102
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "prose|prose",
+     "chosen": {
+      "bits": 3208904191,
+      "value": -0.7655944228172302
+     },
+     "rejected": {
+      "bits": 3190155792,
+      "value": -0.16202569007873535
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3201153578,
+      "value": -0.4018109440803528
+     },
+     "rejected": {
+      "bits": 1063523843,
+      "value": 0.8909608721733093
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 3198537263,
+      "value": -0.3238386809825897
+     },
+     "rejected": {
+      "bits": 1068044166,
+      "value": 1.3207862377166748
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "answer_first|answer_first",
+     "chosen": {
+      "bits": 3199151037,
+      "value": -0.342130571603775
+     },
+     "rejected": {
+      "bits": 1062821246,
+      "value": 0.8490828275680542
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "checks|checks",
+     "chosen": {
+      "bits": 1082430044,
+      "value": 4.142866134643555
+     },
+     "rejected": {
+      "bits": 1074354476,
+      "value": 2.1460676193237305
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "signal|signal",
+     "chosen": {
+      "bits": 1076771591,
+      "value": 2.7223527431488037
+     },
+     "rejected": {
+      "bits": 1063098497,
+      "value": 0.865608274936676
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1079793054,
+      "value": 3.442725658416748
+     },
+     "rejected": {
+      "bits": 1062879772,
+      "value": 0.8525712490081787
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1083019654,
+      "value": 4.424014091491699
+     },
+     "rejected": {
+      "bits": 1056627892,
+      "value": 0.4899650812149048
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1041556368,
+      "value": 0.1453993320465088
+     },
+     "rejected": {
+      "bits": 3212976074,
+      "value": -1.0165951251983643
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1071504786,
+      "value": 1.7333242893218994
+     },
+     "rejected": {
+      "bits": 3225780750,
+      "value": -3.0860629081726074
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "markdown|sentence_json",
+     "chosen": {
+      "bits": 1066445380,
+      "value": 1.1301960945129395
+     },
+     "rejected": {
+      "bits": 1057787659,
+      "value": 0.54905766248703
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1045546997,
+      "value": 0.20486433804035187
+     },
+     "rejected": {
+      "bits": 1069856561,
+      "value": 1.536840558052063
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "status|sentence_json",
+     "chosen": {
+      "bits": 1073875012,
+      "value": 2.031754493713379
+     },
+     "rejected": {
+      "bits": 3201037255,
+      "value": -0.3983442485332489
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|markdown",
+     "chosen": {
+      "bits": 1070845492,
+      "value": 1.6547303199768066
+     },
+     "rejected": {
+      "bits": 3214756372,
+      "value": -1.228823184967041
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1056914342,
+      "value": 0.4985019564628601
+     },
+     "rejected": {
+      "bits": 1064831604,
+      "value": 0.968909502029419
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "flat|sentence_json",
+     "chosen": {
+      "bits": 1026533680,
+      "value": 0.04288595914840698
+     },
+     "rejected": {
+      "bits": 1070282084,
+      "value": 1.58756685256958
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1055490722,
+      "value": 0.4560747742652893
+     },
+     "rejected": {
+      "bits": 1074418505,
+      "value": 2.1613333225250244
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1081064912,
+      "value": 3.745960235595703
+     },
+     "rejected": {
+      "bits": 1050925120,
+      "value": 0.3200092315673828
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1068242760,
+      "value": 1.3444604873657227
+     },
+     "rejected": {
+      "bits": 1065610740,
+      "value": 1.0306992530822754
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1068078689,
+      "value": 1.3249017000198364
+     },
+     "rejected": {
+      "bits": 1078164489,
+      "value": 3.054445505142212
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "signal|signal",
+     "chosen": {
+      "bits": 1033079776,
+      "value": 0.07204413414001465
+     },
+     "rejected": {
+      "bits": 3217470328,
+      "value": -1.552351951599121
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1026900672,
+      "value": 0.04425311088562012
+     },
+     "rejected": {
+      "bits": 1056988608,
+      "value": 0.5014305114746094
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1073123166,
+      "value": 1.9262502193450928
+     },
+     "rejected": {
+      "bits": 1063889885,
+      "value": 0.9127786755561829
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1054127012,
+      "value": 0.41543304920196533
+     },
+     "rejected": {
+      "bits": 1072098331,
+      "value": 1.8040803670883179
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3219540308,
+      "value": -1.7991127967834473
+     },
+     "rejected": {
+      "bits": 1016544336,
+      "value": 0.018461376428604126
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1060471712,
+      "value": 0.7090396881103516
+     },
+     "rejected": {
+      "bits": 1056047068,
+      "value": 0.47265517711639404
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1067347372,
+      "value": 1.2377219200134277
+     },
+     "rejected": {
+      "bits": 1075267364,
+      "value": 2.3637170791625977
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1045720602,
+      "value": 0.2074512541294098
+     },
+     "rejected": {
+      "bits": 1059806164,
+      "value": 0.6693699359893799
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1065911962,
+      "value": 1.0666077136993408
+     },
+     "rejected": {
+      "bits": 1066963772,
+      "value": 1.191993236541748
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1056858736,
+      "value": 0.4968447685241699
+     },
+     "rejected": {
+      "bits": 3209296240,
+      "value": -0.7889623641967773
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1000060608,
+      "value": 0.004752010107040405
+     },
+     "rejected": {
+      "bits": 1064834789,
+      "value": 0.9690993428230286
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "kv|kv",
+     "chosen": {
+      "bits": 3211355158,
+      "value": -0.9116834402084351
+     },
+     "rejected": {
+      "bits": 1082040458,
+      "value": 3.978548526763916
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "kv|kv",
+     "chosen": {
+      "bits": 1056395695,
+      "value": 0.4830450713634491
+     },
+     "rejected": {
+      "bits": 3199924191,
+      "value": -0.3651723563671112
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1067182446,
+      "value": 1.2180612087249756
+     },
+     "rejected": {
+      "bits": 1064900526,
+      "value": 0.9730175733566284
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "sentence_json|signal",
+     "chosen": {
+      "bits": 1054348780,
+      "value": 0.42204225063323975
+     },
+     "rejected": {
+      "bits": 3176528656,
+      "value": -0.052241384983062744
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "unsupported",
+     "format": "kv|kv",
+     "chosen": {
+      "bits": 1062512765,
+      "value": 0.8306959271430969
+     },
+     "rejected": {
+      "bits": 3227689774,
+      "value": -3.5412096977233887
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "unsupported",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1081943010,
+      "value": 3.955315113067627
+     },
+     "rejected": {
+      "bits": 1088864099,
+      "value": 7.210862636566162
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "answer_first|checks",
+     "chosen": {
+      "bits": 1074091310,
+      "value": 2.0833239555358887
+     },
+     "rejected": {
+      "bits": 1076267148,
+      "value": 2.602084159851074
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1066350532,
+      "value": 1.118889331817627
+     },
+     "rejected": {
+      "bits": 1081371296,
+      "value": 3.8190078735351562
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1066832785,
+      "value": 1.1763783693313599
+     },
+     "rejected": {
+      "bits": 1069842194,
+      "value": 1.535127878189087
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "sentence_json|markdown",
+     "chosen": {
+      "bits": 3209491894,
+      "value": -0.8006242513656616
+     },
+     "rejected": {
+      "bits": 1069513577,
+      "value": 1.4959536790847778
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "nested|status",
+     "chosen": {
+      "bits": 1061731898,
+      "value": 0.784152626991272
+     },
+     "rejected": {
+      "bits": 3212950176,
+      "value": -1.0135078430175781
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "status|status",
+     "chosen": {
+      "bits": 1071111898,
+      "value": 1.686488389968872
+     },
+     "rejected": {
+      "bits": 1057348318,
+      "value": 0.5228708982467651
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "non_answer",
+     "format": "signal|markdown",
+     "chosen": {
+      "bits": 1065458114,
+      "value": 1.0125048160552979
+     },
+     "rejected": {
+      "bits": 3206183734,
+      "value": -0.6034425497055054
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 3196297980,
+      "value": -0.2571028470993042
+     },
+     "rejected": {
+      "bits": 1061873394,
+      "value": 0.7925864458084106
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1079330130,
+      "value": 3.3323559761047363
+     },
+     "rejected": {
+      "bits": 3184258392,
+      "value": -0.09957379102706909
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "unsupported",
+     "format": "flat|sentence_json",
+     "chosen": {
+      "bits": 1063913881,
+      "value": 0.9142089486122131
+     },
+     "rejected": {
+      "bits": 3211089840,
+      "value": -0.895869255065918
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1075197884,
+      "value": 2.347151756286621
+     },
+     "rejected": {
+      "bits": 1073734120,
+      "value": 1.9990816116333008
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1079744877,
+      "value": 3.431239366531372
+     },
+     "rejected": {
+      "bits": 1058398804,
+      "value": 0.5854847431182861
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "kv|kv",
+     "chosen": {
+      "bits": 3209759003,
+      "value": -0.8165451884269714
+     },
+     "rejected": {
+      "bits": 3219521782,
+      "value": -1.7969043254852295
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1070487029,
+      "value": 1.611998200416565
+     },
+     "rejected": {
+      "bits": 1058938848,
+      "value": 0.6176738739013672
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1068356987,
+      "value": 1.3580774068832397
+     },
+     "rejected": {
+      "bits": 1061870682,
+      "value": 0.7924247980117798
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1066466197,
+      "value": 1.132677674293518
+     },
+     "rejected": {
+      "bits": 1073223313,
+      "value": 1.9381886720657349
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1078516788,
+      "value": 3.1384401321411133
+     },
+     "rejected": {
+      "bits": 1083900745,
+      "value": 4.844151020050049
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1063175904,
+      "value": 0.8702220916748047
+     },
+     "rejected": {
+      "bits": 1074427246,
+      "value": 2.163417339324951
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "sentence_json|prose",
+     "chosen": {
+      "bits": 1066637000,
+      "value": 1.1530389785766602
+     },
+     "rejected": {
+      "bits": 1061621612,
+      "value": 0.7775790691375732
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1068244824,
+      "value": 1.3447065353393555
+     },
+     "rejected": {
+      "bits": 1074938432,
+      "value": 2.2852935791015625
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "non_answer",
+     "format": "status|sentence_json",
+     "chosen": {
+      "bits": 1066656882,
+      "value": 1.1554090976715088
+     },
+     "rejected": {
+      "bits": 3210263110,
+      "value": -0.8465923070907593
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1069656874,
+      "value": 1.5130360126495361
+     },
+     "rejected": {
+      "bits": 1076682171,
+      "value": 2.701033353805542
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "status|status",
+     "chosen": {
+      "bits": 1051994819,
+      "value": 0.3518887460231781
+     },
+     "rejected": {
+      "bits": 3217218012,
+      "value": -1.5222735404968262
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "sentence_json|markdown",
+     "chosen": {
+      "bits": 1070223600,
+      "value": 1.5805950164794922
+     },
+     "rejected": {
+      "bits": 1073003068,
+      "value": 1.911933422088623
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1075947734,
+      "value": 2.5259299278259277
+     },
+     "rejected": {
+      "bits": 1068551037,
+      "value": 1.3812099695205688
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1063877131,
+      "value": 0.9120184779167175
+     },
+     "rejected": {
+      "bits": 3195070972,
+      "value": -0.23526757955551147
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "status|nested",
+     "chosen": {
+      "bits": 1066506169,
+      "value": 1.137442708015442
+     },
+     "rejected": {
+      "bits": 1063149594,
+      "value": 0.8686538934707642
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "prose|prose",
+     "chosen": {
+      "bits": 3216443808,
+      "value": -1.4299812316894531
+     },
+     "rejected": {
+      "bits": 3215823414,
+      "value": -1.3560245037078857
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1074601381,
+      "value": 2.2049343585968018
+     },
+     "rejected": {
+      "bits": 3213161208,
+      "value": -1.0386648178100586
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1079459830,
+      "value": 3.363278865814209
+     },
+     "rejected": {
+      "bits": 1075270951,
+      "value": 2.364572286605835
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1060030472,
+      "value": 0.6827397346496582
+     },
+     "rejected": {
+      "bits": 1060960125,
+      "value": 0.7381513714790344
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 3221239487,
+      "value": -2.0033414363861084
+     },
+     "rejected": {
+      "bits": 3220820324,
+      "value": -1.95170259475708
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "non_answer",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 3215177265,
+      "value": -1.278997540473938
+     },
+     "rejected": {
+      "bits": 3197935936,
+      "value": -0.30591773986816406
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1052245054,
+      "value": 0.35934633016586304
+     },
+     "rejected": {
+      "bits": 1074585594,
+      "value": 2.2011704444885254
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "flat|sentence_json",
+     "chosen": {
+      "bits": 3206215921,
+      "value": -0.6053610444068909
+     },
+     "rejected": {
+      "bits": 1073786241,
+      "value": 2.010589838027954
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "unsupported",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3184694128,
+      "value": -0.10282027721405029
+     },
+     "rejected": {
+      "bits": 3222924441,
+      "value": -2.4050657749176025
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1076448728,
+      "value": 2.645376205444336
+     },
+     "rejected": {
+      "bits": 3215708892,
+      "value": -1.3423724174499512
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "status|status",
+     "chosen": {
+      "bits": 1051781208,
+      "value": 0.3455226421356201
+     },
+     "rejected": {
+      "bits": 1021393920,
+      "value": 0.027494430541992188
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "non_answer",
+     "format": "prose|prose",
+     "chosen": {
+      "bits": 3213425208,
+      "value": -1.0701360702514648
+     },
+     "rejected": {
+      "bits": 3217379572,
+      "value": -1.5415329933166504
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1076413184,
+      "value": 2.63690185546875
+     },
+     "rejected": {
+      "bits": 3204828166,
+      "value": -0.5226444005966187
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "sentence_json|prose",
+     "chosen": {
+      "bits": 1049645144,
+      "value": 0.2818629741668701
+     },
+     "rejected": {
+      "bits": 3212307630,
+      "value": -0.9684551954269409
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1059586194,
+      "value": 0.6562587022781372
+     },
+     "rejected": {
+      "bits": 1066590287,
+      "value": 1.1474703550338745
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1085482698,
+      "value": 5.598484992980957
+     },
+     "rejected": {
+      "bits": 1076894573,
+      "value": 2.751673936843872
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1066366530,
+      "value": 1.1207964420318604
+     },
+     "rejected": {
+      "bits": 1047789560,
+      "value": 0.23828113079071045
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1076599121,
+      "value": 2.6812326908111572
+     },
+     "rejected": {
+      "bits": 1060941308,
+      "value": 0.7370297908782959
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1083163471,
+      "value": 4.492591381072998
+     },
+     "rejected": {
+      "bits": 1074121323,
+      "value": 2.090479612350464
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "sentence_json|flat",
+     "chosen": {
+      "bits": 3172083492,
+      "value": -0.03568185865879059
+     },
+     "rejected": {
+      "bits": 3189197608,
+      "value": -0.14774763584136963
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "markdown|prose",
+     "chosen": {
+      "bits": 3206714161,
+      "value": -0.6350584626197815
+     },
+     "rejected": {
+      "bits": 3223124550,
+      "value": -2.452775478363037
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3216419458,
+      "value": -1.4270784854888916
+     },
+     "rejected": {
+      "bits": 1075721439,
+      "value": 2.4719769954681396
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "sentence_json|answer_first",
+     "chosen": {
+      "bits": 3221311042,
+      "value": -2.0204014778137207
+     },
+     "rejected": {
+      "bits": 1067975442,
+      "value": 1.312593698501587
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "checks|checks",
+     "chosen": {
+      "bits": 1071767766,
+      "value": 1.7646739482879639
+     },
+     "rejected": {
+      "bits": 1072047859,
+      "value": 1.7980636358261108
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "markdown|status",
+     "chosen": {
+      "bits": 1071824527,
+      "value": 1.7714403867721558
+     },
+     "rejected": {
+      "bits": 3211722400,
+      "value": -0.9335727691650391
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "status|status",
+     "chosen": {
+      "bits": 1067953064,
+      "value": 1.3099260330200195
+     },
+     "rejected": {
+      "bits": 1066426186,
+      "value": 1.1279079914093018
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1078165026,
+      "value": 3.0545735359191895
+     },
+     "rejected": {
+      "bits": 1080298219,
+      "value": 3.563166379928589
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "unsupported",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1067987402,
+      "value": 1.3140194416046143
+     },
+     "rejected": {
+      "bits": 1078625922,
+      "value": 3.164459705352783
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "answer_first|nested",
+     "chosen": {
+      "bits": 1080490023,
+      "value": 3.608896017074585
+     },
+     "rejected": {
+      "bits": 1082404374,
+      "value": 4.1306257247924805
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "sentence_json|prose",
+     "chosen": {
+      "bits": 1088294112,
+      "value": 6.9390716552734375
+     },
+     "rejected": {
+      "bits": 1079048120,
+      "value": 3.2651195526123047
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 3206133724,
+      "value": -0.6004617214202881
+     },
+     "rejected": {
+      "bits": 1065684596,
+      "value": 1.039503574371338
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1068603883,
+      "value": 1.3875097036361694
+     },
+     "rejected": {
+      "bits": 1054545023,
+      "value": 0.42789074778556824
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1076325360,
+      "value": 2.6159629821777344
+     },
+     "rejected": {
+      "bits": 1054802825,
+      "value": 0.43557384610176086
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "prose|prose",
+     "chosen": {
+      "bits": 1087170533,
+      "value": 6.4033074378967285
+     },
+     "rejected": {
+      "bits": 1074530824,
+      "value": 2.188112258911133
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 3205914635,
+      "value": -0.5874029994010925
+     },
+     "rejected": {
+      "bits": 1052131116,
+      "value": 0.3559507131576538
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "kv|kv",
+     "chosen": {
+      "bits": 1065629008,
+      "value": 1.032876968383789
+     },
+     "rejected": {
+      "bits": 1055505074,
+      "value": 0.4565024971961975
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1065777583,
+      "value": 1.0505884885787964
+     },
+     "rejected": {
+      "bits": 3205265368,
+      "value": -0.548703670501709
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "signal|signal",
+     "chosen": {
+      "bits": 1084010473,
+      "value": 4.896473407745361
+     },
+     "rejected": {
+      "bits": 1073036068,
+      "value": 1.9158673286437988
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_prior",
+     "format": "nested|nested",
+     "chosen": {
+      "bits": 1080275711,
+      "value": 3.557800054550171
+     },
+     "rejected": {
+      "bits": 1075605905,
+      "value": 2.4444315433502197
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "status|status",
+     "chosen": {
+      "bits": 1065472601,
+      "value": 1.01423180103302
+     },
+     "rejected": {
+      "bits": 3210362763,
+      "value": -0.8525320887565613
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "flat|flat",
+     "chosen": {
+      "bits": 1085016811,
+      "value": 5.376332759857178
+     },
+     "rejected": {
+      "bits": 1055918745,
+      "value": 0.4688308537006378
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "answer_first|answer_first",
+     "chosen": {
+      "bits": 1074525270,
+      "value": 2.1867880821228027
+     },
+     "rejected": {
+      "bits": 1075728206,
+      "value": 2.47359037399292
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "prose|prose",
+     "chosen": {
+      "bits": 1080492401,
+      "value": 3.6094629764556885
+     },
+     "rejected": {
+      "bits": 1043112320,
+      "value": 0.16858482360839844
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "status|status",
+     "chosen": {
+      "bits": 1064759972,
+      "value": 0.9646399021148682
+     },
+     "rejected": {
+      "bits": 1058878776,
+      "value": 0.6140933036804199
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_weak",
+     "format": "sentence_json|status",
+     "chosen": {
+      "bits": 3208825003,
+      "value": -0.7608744502067566
+     },
+     "rejected": {
+      "bits": 1063997962,
+      "value": 0.9192205667495728
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "markdown|markdown",
+     "chosen": {
+      "bits": 1046363955,
+      "value": 0.21703796088695526
+     },
+     "rejected": {
+      "bits": 3209105198,
+      "value": -0.7775753736495972
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "prose|markdown",
+     "chosen": {
+      "bits": 3218123444,
+      "value": -1.6302094459533691
+     },
+     "rejected": {
+      "bits": 1071369721,
+      "value": 1.7172232866287231
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_weak",
+     "format": "checks|nested",
+     "chosen": {
+      "bits": 1067059986,
+      "value": 1.203462839126587
+     },
+     "rejected": {
+      "bits": 1029815568,
+      "value": 0.05511194467544556
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "status|status",
+     "chosen": {
+      "bits": 3190016732,
+      "value": -0.1599535346031189
+     },
+     "rejected": {
+      "bits": 1076272649,
+      "value": 2.603395700454712
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "status|status",
+     "chosen": {
+      "bits": 1067115176,
+      "value": 1.2100419998168945
+     },
+     "rejected": {
+      "bits": 1039979424,
+      "value": 0.12345051765441895
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong_url",
+     "format": "nested|markdown",
+     "chosen": {
+      "bits": 1069224851,
+      "value": 1.461534857749939
+     },
+     "rejected": {
+      "bits": 1058094368,
+      "value": 0.5673389434814453
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3205107358,
+      "value": -0.5392855405807495
+     },
+     "rejected": {
+      "bits": 1078702775,
+      "value": 3.1827828884124756
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_prior",
+     "format": "checks|checks",
+     "chosen": {
+      "bits": 1069510620,
+      "value": 1.4956011772155762
+     },
+     "rejected": {
+      "bits": 1072807559,
+      "value": 1.8886269330978394
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "checks|checks",
+     "chosen": {
+      "bits": 1071354063,
+      "value": 1.715356707572937
+     },
+     "rejected": {
+      "bits": 1075380497,
+      "value": 2.3906900882720947
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_unsafe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 3214819927,
+      "value": -1.236399531364441
+     },
+     "rejected": {
+      "bits": 1073876881,
+      "value": 2.0322000980377197
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "false_safe_contradiction",
+     "format": "sentence_json|sentence_json",
+     "chosen": {
+      "bits": 1089942880,
+      "value": 7.7252655029296875
+     },
+     "rejected": {
+      "bits": 1089952725,
+      "value": 7.729959964752197
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    }
+   ]
+  },
+  "probe": {
+   "pairs": 16,
+   "wins": 8,
+   "rows": [
+    {
+     "kind": "verdict flip",
+     "format": null,
+     "chosen": {
+      "bits": 1081443916,
+      "value": 3.8363218307495117
+     },
+     "rejected": {
+      "bits": 1081550096,
+      "value": 3.8616371154785156
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong URL",
+     "format": null,
+     "chosen": {
+      "bits": 1081443916,
+      "value": 3.8363218307495117
+     },
+     "rejected": {
+      "bits": 1083687007,
+      "value": 4.742232799530029
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "verdict flip",
+     "format": null,
+     "chosen": {
+      "bits": 1084900988,
+      "value": 5.321104049682617
+     },
+     "rejected": {
+      "bits": 1084919502,
+      "value": 5.32993221282959
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong URL",
+     "format": null,
+     "chosen": {
+      "bits": 1084900988,
+      "value": 5.321104049682617
+     },
+     "rejected": {
+      "bits": 1084604807,
+      "value": 5.179873943328857
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "verdict flip",
+     "format": null,
+     "chosen": {
+      "bits": 1053864264,
+      "value": 0.40760254859924316
+     },
+     "rejected": {
+      "bits": 1053529723,
+      "value": 0.3976324498653412
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong URL",
+     "format": null,
+     "chosen": {
+      "bits": 1053864264,
+      "value": 0.40760254859924316
+     },
+     "rejected": {
+      "bits": 1055937676,
+      "value": 0.4693950414657593
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "verdict flip",
+     "format": null,
+     "chosen": {
+      "bits": 1053338104,
+      "value": 0.3919217586517334
+     },
+     "rejected": {
+      "bits": 1051414394,
+      "value": 0.33459073305130005
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong URL",
+     "format": null,
+     "chosen": {
+      "bits": 1053338104,
+      "value": 0.3919217586517334
+     },
+     "rejected": {
+      "bits": 3178759264,
+      "value": -0.06055104732513428
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "verdict flip",
+     "format": null,
+     "chosen": {
+      "bits": 1076550194,
+      "value": 2.669567584991455
+     },
+     "rejected": {
+      "bits": 1076812508,
+      "value": 2.7321081161499023
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong URL",
+     "format": null,
+     "chosen": {
+      "bits": 1076550194,
+      "value": 2.669567584991455
+     },
+     "rejected": {
+      "bits": 1072424740,
+      "value": 1.8429913520812988
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "verdict flip",
+     "format": null,
+     "chosen": {
+      "bits": 1069534887,
+      "value": 1.498494029045105
+     },
+     "rejected": {
+      "bits": 1070151380,
+      "value": 1.5719857215881348
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong URL",
+     "format": null,
+     "chosen": {
+      "bits": 1069534887,
+      "value": 1.498494029045105
+     },
+     "rejected": {
+      "bits": 1068764550,
+      "value": 1.4066627025604248
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "verdict flip",
+     "format": null,
+     "chosen": {
+      "bits": 1038693832,
+      "value": 0.11387211084365845
+     },
+     "rejected": {
+      "bits": 1043794098,
+      "value": 0.1787441074848175
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong URL",
+     "format": null,
+     "chosen": {
+      "bits": 1038693832,
+      "value": 0.11387211084365845
+     },
+     "rejected": {
+      "bits": 3186920632,
+      "value": -0.11940902471542358
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "verdict flip",
+     "format": null,
+     "chosen": {
+      "bits": 1070236738,
+      "value": 1.5821611881256104
+     },
+     "rejected": {
+      "bits": 1070063913,
+      "value": 1.5615588426589966
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "wrong URL",
+     "format": null,
+     "chosen": {
+      "bits": 1070236738,
+      "value": 1.5821611881256104
+     },
+     "rejected": {
+      "bits": 1070375938,
+      "value": 1.598755121231079
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    }
+   ]
+  },
+  "h2": {
+   "pairs": 62,
+   "wins": 36,
+   "rows": [
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090788064,
+      "value": 8.256561279296875
+     },
+     "rejected": {
+      "bits": 1082502523,
+      "value": 4.177426815032959
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1084553312,
+      "value": 5.1553192138671875
+     },
+     "rejected": {
+      "bits": 1082502523,
+      "value": 4.177426815032959
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1090788064,
+      "value": 8.256561279296875
+     },
+     "rejected": {
+      "bits": 1092945926,
+      "value": 10.314458847045898
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1084553312,
+      "value": 5.1553192138671875
+     },
+     "rejected": {
+      "bits": 1092945926,
+      "value": 10.314458847045898
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1092949076,
+      "value": 10.317462921142578
+     },
+     "rejected": {
+      "bits": 1082332762,
+      "value": 4.096478462219238
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1087946970,
+      "value": 6.773541450500488
+     },
+     "rejected": {
+      "bits": 1082332762,
+      "value": 4.096478462219238
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1092949076,
+      "value": 10.317462921142578
+     },
+     "rejected": {
+      "bits": 1090581632,
+      "value": 8.0596923828125
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1087946970,
+      "value": 6.773541450500488
+     },
+     "rejected": {
+      "bits": 1090581632,
+      "value": 8.0596923828125
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1088756445,
+      "value": 7.159529209136963
+     },
+     "rejected": {
+      "bits": 1077523864,
+      "value": 2.9017086029052734
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1081376332,
+      "value": 3.8202085494995117
+     },
+     "rejected": {
+      "bits": 1077523864,
+      "value": 2.9017086029052734
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1088756445,
+      "value": 7.159529209136963
+     },
+     "rejected": {
+      "bits": 1089157466,
+      "value": 7.350750923156738
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1081376332,
+      "value": 3.8202085494995117
+     },
+     "rejected": {
+      "bits": 1089157466,
+      "value": 7.350750923156738
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090302208,
+      "value": 7.8966064453125
+     },
+     "rejected": {
+      "bits": 1081219934,
+      "value": 3.7829203605651855
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1082401082,
+      "value": 4.129055976867676
+     },
+     "rejected": {
+      "bits": 1081219934,
+      "value": 3.7829203605651855
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1090302208,
+      "value": 7.8966064453125
+     },
+     "rejected": {
+      "bits": 1090189124,
+      "value": 7.842683792114258
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1082401082,
+      "value": 4.129055976867676
+     },
+     "rejected": {
+      "bits": 1090189124,
+      "value": 7.842683792114258
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1091317895,
+      "value": 8.761847496032715
+     },
+     "rejected": {
+      "bits": 1086094018,
+      "value": 5.889985084533691
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1091317895,
+      "value": 8.761847496032715
+     },
+     "rejected": {
+      "bits": 1081044489,
+      "value": 3.741091012954712
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1091317895,
+      "value": 8.761847496032715
+     },
+     "rejected": {
+      "bits": 1090567821,
+      "value": 8.046521186828613
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090429998,
+      "value": 7.957541465759277
+     },
+     "rejected": {
+      "bits": 1078595026,
+      "value": 3.1570935249328613
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090520368,
+      "value": 8.001266479492188
+     },
+     "rejected": {
+      "bits": 1078595026,
+      "value": 3.1570935249328613
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1090429998,
+      "value": 7.957541465759277
+     },
+     "rejected": {
+      "bits": 1090115702,
+      "value": 7.807673454284668
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1090520368,
+      "value": 8.001266479492188
+     },
+     "rejected": {
+      "bits": 1090115702,
+      "value": 7.807673454284668
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1092256443,
+      "value": 9.656916618347168
+     },
+     "rejected": {
+      "bits": 1082367304,
+      "value": 4.112949371337891
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1088014252,
+      "value": 6.805624008178711
+     },
+     "rejected": {
+      "bits": 1082367304,
+      "value": 4.112949371337891
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1092256443,
+      "value": 9.656916618347168
+     },
+     "rejected": {
+      "bits": 1090262625,
+      "value": 7.877731800079346
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1088014252,
+      "value": 6.805624008178711
+     },
+     "rejected": {
+      "bits": 1090262625,
+      "value": 7.877731800079346
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090892211,
+      "value": 8.355883598327637
+     },
+     "rejected": {
+      "bits": 1084107786,
+      "value": 4.942875862121582
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1090892211,
+      "value": 8.355883598327637
+     },
+     "rejected": {
+      "bits": 1081300931,
+      "value": 3.802231550216675
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1090892211,
+      "value": 8.355883598327637
+     },
+     "rejected": {
+      "bits": 1090695985,
+      "value": 8.168747901916504
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1091434552,
+      "value": 8.873100280761719
+     },
+     "rejected": {
+      "bits": 1079782788,
+      "value": 3.4402780532836914
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1082813788,
+      "value": 4.325849533081055
+     },
+     "rejected": {
+      "bits": 1079782788,
+      "value": 3.4402780532836914
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1091434552,
+      "value": 8.873100280761719
+     },
+     "rejected": {
+      "bits": 1090083719,
+      "value": 7.792422771453857
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1082813788,
+      "value": 4.325849533081055
+     },
+     "rejected": {
+      "bits": 1090083719,
+      "value": 7.792422771453857
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1092599380,
+      "value": 9.983966827392578
+     },
+     "rejected": {
+      "bits": 1081803670,
+      "value": 3.9220938682556152
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1088437178,
+      "value": 7.007290840148926
+     },
+     "rejected": {
+      "bits": 1081803670,
+      "value": 3.9220938682556152
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1092599380,
+      "value": 9.983966827392578
+     },
+     "rejected": {
+      "bits": 1090721900,
+      "value": 8.193462371826172
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1088437178,
+      "value": 7.007290840148926
+     },
+     "rejected": {
+      "bits": 1090721900,
+      "value": 8.193462371826172
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1091327486,
+      "value": 8.770994186401367
+     },
+     "rejected": {
+      "bits": 1081955302,
+      "value": 3.9582457542419434
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1088376665,
+      "value": 6.97843599319458
+     },
+     "rejected": {
+      "bits": 1081955302,
+      "value": 3.9582457542419434
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1091327486,
+      "value": 8.770994186401367
+     },
+     "rejected": {
+      "bits": 1090209620,
+      "value": 7.852457046508789
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1088376665,
+      "value": 6.97843599319458
+     },
+     "rejected": {
+      "bits": 1090209620,
+      "value": 7.852457046508789
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1092318666,
+      "value": 9.716257095336914
+     },
+     "rejected": {
+      "bits": 1082200417,
+      "value": 4.033371448516846
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1087472232,
+      "value": 6.547168731689453
+     },
+     "rejected": {
+      "bits": 1082200417,
+      "value": 4.033371448516846
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1092318666,
+      "value": 9.716257095336914
+     },
+     "rejected": {
+      "bits": 1090614636,
+      "value": 8.091167449951172
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": true,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1087472232,
+      "value": 6.547168731689453
+     },
+     "rejected": {
+      "bits": 1090614636,
+      "value": 8.091167449951172
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": true
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1089768205,
+      "value": 7.641973972320557
+     },
+     "rejected": {
+      "bits": 1084396594,
+      "value": 5.08059024810791
+     },
+     "win": true,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1080348890,
+      "value": 3.575247287750244
+     },
+     "rejected": {
+      "bits": 1084396594,
+      "value": 5.08059024810791
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1084430070,
+      "value": 5.096552848815918
+     },
+     "rejected": {
+      "bits": 1088620977,
+      "value": 7.094933032989502
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1078838938,
+      "value": 3.2152466773986816
+     },
+     "rejected": {
+      "bits": 1088620977,
+      "value": 7.094933032989502
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1084950156,
+      "value": 5.344549179077148
+     },
+     "rejected": {
+      "bits": 1089108478,
+      "value": 7.327391624450684
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1082171760,
+      "value": 4.019706726074219
+     },
+     "rejected": {
+      "bits": 1089108478,
+      "value": 7.327391624450684
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1087795618,
+      "value": 6.701371192932129
+     },
+     "rejected": {
+      "bits": 1089548546,
+      "value": 7.537232398986816
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1080228590,
+      "value": 3.546565532684326
+     },
+     "rejected": {
+      "bits": 1089548546,
+      "value": 7.537232398986816
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1084259150,
+      "value": 5.01505184173584
+     },
+     "rejected": {
+      "bits": 1088755274,
+      "value": 7.158970832824707
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1080616442,
+      "value": 3.6390366554260254
+     },
+     "rejected": {
+      "bits": 1088755274,
+      "value": 7.158970832824707
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "decision",
+     "format": null,
+     "chosen": {
+      "bits": 1082003449,
+      "value": 3.9697248935699463
+     },
+     "rejected": {
+      "bits": 1083926908,
+      "value": 4.856626510620117
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1082003449,
+      "value": 3.9697248935699463
+     },
+     "rejected": {
+      "bits": 1089283659,
+      "value": 7.410924434661865
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1085006595,
+      "value": 5.371461391448975
+     },
+     "rejected": {
+      "bits": 1088859670,
+      "value": 7.2087507247924805
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1079534364,
+      "value": 3.381049156188965
+     },
+     "rejected": {
+      "bits": 1088859670,
+      "value": 7.2087507247924805
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1088507576,
+      "value": 7.040859222412109
+     },
+     "rejected": {
+      "bits": 1088960244,
+      "value": 7.256708145141602
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    },
+    {
+     "kind": "constructed_wrong_query",
+     "format": null,
+     "chosen": {
+      "bits": 1079865348,
+      "value": 3.4599618911743164
+     },
+     "rejected": {
+      "bits": 1088960244,
+      "value": 7.256708145141602
+     },
+     "win": false,
+     "tie": false,
+     "chosen_at_limit": false,
+     "rejected_at_limit": false
+    }
+   ]
+  }
+ }
+}

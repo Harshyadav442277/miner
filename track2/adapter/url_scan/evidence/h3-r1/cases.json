@@ -1,0 +1,146 @@
+[
+  {
+    "case": "certpl-0",
+    "url": "https://fisios4-vel72.sbs/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-1",
+    "url": "https://talrplix.site/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-2",
+    "url": "https://spikeflarexnx.pro/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-3",
+    "url": "https://adlerforge.com/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-4",
+    "url": "https://verify-netflixapp-dashboard.98-70-24-105.cpanel.site/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-5",
+    "url": "https://plsaway-quality.sbs/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-6",
+    "url": "https://senumimarlik.com/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-7",
+    "url": "https://squamparke.autos/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-8",
+    "url": "https://placedwarf.brestelbucar.com/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-9",
+    "url": "https://mapocca.sbs/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-10",
+    "url": "https://teleteachp.club/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-11",
+    "url": "https://arriscanni.cyou/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-12",
+    "url": "https://finlab3-quidem6.sbs/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-13",
+    "url": "https://xogila.homes/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-14",
+    "url": "https://07981542.lat/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "certpl-15",
+    "url": "https://buk-mienitek.com/",
+    "expected_safe": false,
+    "source": "https://hole.cert.pl/domains/v2/domains.txt"
+  },
+  {
+    "case": "safe-16",
+    "url": "https://saby.ru/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-17",
+    "url": "https://n4g.com/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-18",
+    "url": "https://bjgp.org/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-19",
+    "url": "https://u-bordeaux.fr/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-20",
+    "url": "https://selectra.info/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-21",
+    "url": "https://morinaga.co.jp/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-22",
+    "url": "https://offerup.com/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  },
+  {
+    "case": "safe-23",
+    "url": "https://kokuchpro.com/",
+    "expected_safe": true,
+    "source": "https://downloads.majestic.com/majestic_million.csv"
+  }
+]

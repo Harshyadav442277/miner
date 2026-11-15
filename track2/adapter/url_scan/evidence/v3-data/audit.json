@@ -1,0 +1,56 @@
+{
+ "splits": {
+  "train": {
+   "pairs": 5000,
+   "registrable_domains": 5423
+  },
+  "val": {
+   "pairs": 400,
+   "registrable_domains": 445
+  },
+  "test": {
+   "pairs": 400,
+   "registrable_domains": 417
+  },
+  "holdout": {
+   "pairs": 200,
+   "registrable_domains": 230
+  }
+ },
+ "overlaps": {
+  "train|val": [],
+  "train|test": [],
+  "train|holdout": [],
+  "val|test": [],
+  "val|holdout": [],
+  "test|holdout": []
+ },
+ "reserved_hits": {
+  "train": [],
+  "val": [],
+  "test": [],
+  "holdout": []
+ },
+ "ignored_citation_domains": [
+  "cert.pl",
+  "cloudflare-dns.com",
+  "dns.google",
+  "majestic.com"
+ ],
+ "reserved": [
+  "brave-earnings.com",
+  "cert.pl",
+  "eicar.org",
+  "example.com",
+  "example.net",
+  "example.org",
+  "gudamispr.store",
+  "iana.org",
+  "microsoft.com",
+  "msft.net",
+  "oferta6213123451512.cfd",
+  "passtro.com",
+  "testsafebrowsing.appspot.com"
+ ],
+ "pass": true
+}

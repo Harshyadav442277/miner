@@ -1,0 +1,21 @@
+{
+  "cwd": "C:\\Users\\hyada\\tg-eval\\kit-v2",
+  "at": "2026-11-08T03:06:36Z",
+  "arguments": [
+    "-m",
+    "float_runtime.export_adapter",
+    "--adapter",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\URL_SCAN_v2\\adapter",
+    "--intent",
+    "URL_SCAN",
+    "--class",
+    "hybrid",
+    "--foundation",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation.json",
+    "--max-tokens",
+    "512",
+    "--out",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\URL_SCAN_v2\\URL_SCAN.safetensors"
+  ],
+  "executable": "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe"
+}

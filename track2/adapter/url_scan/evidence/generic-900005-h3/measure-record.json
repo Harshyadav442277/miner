@@ -1,0 +1,39 @@
+{
+ "started_at": "2026-11-08T10:29:01.464263+00:00",
+ "argv": [
+  "measure_v2.py",
+  "--pairs",
+  "h3=C:\\Users\\hyada\\tg-eval\\urlscan-h3-r1\\pairs.jsonl",
+  "--package",
+  "generic=C:/Users/hyada/tg-eval/dl/generic_900005/adapter-GENERIC-dc4f8bd55442.safetensors=dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+  "--out",
+  "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-a1db5c9a99b1aabc7\\track2\\adapter\\url_scan\\evidence\\generic-900005-h3"
+ ],
+ "pairs_sha256": {
+  "h3": "458b1ef2cd71320bc8dd8e7486865c615d89ee0ff7da732a2249fcbe90e581c2"
+ },
+ "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+ "engine_hash": "77643d6e1176ab8744801cef93ccb844d0136ed32b8daa865d541f37d13292de",
+ "packages": {
+  "generic": {
+   "package": "generic",
+   "path": "C:\\Users\\hyada\\tg-eval\\dl\\generic_900005\\adapter-GENERIC-dc4f8bd55442.safetensors",
+   "sha256": "e42b553315b32f4fb61600df2e86de7b48efdd28d2de03c59689c67d5dbec7e4",
+   "keccak256": "dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+   "runtime_reported_keccak": true,
+   "max_tokens": 512,
+   "identity": {
+    "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+    "adapter_hash": "dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+    "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456"
+   },
+   "verify_input_bits": "0x3f059cb7",
+   "unique_texts": 88,
+   "seconds": 261.4,
+   "wins": {
+    "h3": "51/78"
+   }
+  }
+ },
+ "finished_at": "2026-11-08T10:33:23.049264+00:00"
+}
