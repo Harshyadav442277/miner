@@ -100,6 +100,13 @@ func main() {
 		}
 		return
 	}
+	if len(os.Args) >= 3 && os.Args[1] == "suite" {
+		if err := suiteMain(os.Args[2], os.Args[3:]); err != nil {
+			fmt.Println("FAIL:", err)
+			os.Exit(1)
+		}
+		return
+	}
 	if len(os.Args) != 2 {
 		fmt.Fprintln(os.Stderr, "usage: verify <module.wasm> | verify pack <base.wasm> <out-dir> INTENT,...")
 		os.Exit(2)

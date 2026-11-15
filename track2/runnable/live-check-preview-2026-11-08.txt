@@ -1,0 +1,13 @@
+# VERCEL_CURL=1 node live-check.js https://livecert-comparator-26zsvagif-wukong4.vercel.app
+# Run from C:/Users/hyada/tg-deploy/runnable, 2026-11-08 ~19:35-19:45 UTC. Preview of branch claude/high-demand-comparators
+# track2/runnable (protected by Vercel Authentication; anonymous GET -> 302 sso-api). Latencies include ~4 s of vercel curl overhead.
+OK   FX_NOW: hosted sha256 = pin | GET 200 sha256 = hosted | POST 600/600, 0 batches differ | slowest 5135 ms
+OK   CRYPTO_PRICE: hosted sha256 = pin | GET 200 sha256 = hosted | POST 600/600, 0 batches differ | slowest 4582 ms
+OK   WEATHER_CHECK: hosted sha256 = pin | GET 200 sha256 = hosted | POST 600/600, 0 batches differ | slowest 4430 ms
+OK   REGULATORY_FILING_MONITOR: hosted sha256 = pin | GET 200 sha256 = hosted | POST 600/600, 0 batches differ | slowest 4892 ms
+OK   CORPORATE_REGISTRY_LOOKUP: hosted sha256 = pin | GET 200 sha256 = hosted | POST 600/600, 0 batches differ | slowest 5515 ms
+OK   LIQUIDITY_DEPTH_VERIFY: hosted sha256 = pin | GET 200 sha256 = hosted | POST 600/600, 0 batches differ | slowest 5052 ms
+OK   GRID_POWER_PRICE: hosted sha256 = pin | GET 200 sha256 = hosted | POST 600/600, 0 batches differ | slowest 4361 ms
+OK   MINING_HASHPRICE_VERIFY: hosted sha256 = pin | GET 200 sha256 = hosted | POST 600/600, 0 batches differ | slowest 4831 ms
+OK   FINANCIAL_DATA: hosted sha256 = pin | GET 200 sha256 = hosted | POST 600/600, 0 batches differ | slowest 4118 ms
+old single form -> 400 | base https://livecert-comparator-26zsvagif-wukong4.vercel.app | ALL OK
