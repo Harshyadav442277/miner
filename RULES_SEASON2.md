@@ -77,6 +77,11 @@ The rubric weights, minimums and award counts are unchanged.
    material.
 5. Accurate claims: state the network used and what was verified. "Testnet, production, internal testing,
    and real customer demand are different things."
+6. **Star the bounties repo (new; seen 2026-11-15 ~19:50 UTC, not in the 2026-11-06 read):** "Star the Telegraph
+   bounties repository on GitHub (github.com/telegraphprotocol/bounties). This is required for every track and
+   is part of your entry." §08 project details now ask for "the GitHub username that starred the bounties
+   repository". At 19:56 UTC `gh api user/starred/telegraphprotocol/bounties` returned 404 for
+   `Harshyadav442277`: not starred. Starring is the owner's action.
 
 **Miners / Providers:** "Your service must answer real calls for a supported Intent. Judges will check
 correctness, independently measured quality, uptime, capacity, speed, costs, useful Intent coverage, and
@@ -97,6 +102,11 @@ sale using the supported Telegraph flow". A supported testnet implementation can
 **Re-read 2026-11-06 ~22:00 UTC** at hackathon.telegraphprotocol.com/rules, Miners and Evaluators tabs: weights,
 consumption points and §07 unchanged from the tables here. Still there: "Each claimed Intent must pass its own
 relevant tests" and "Creating lots of Intents or generating meaningless traffic does not earn extra points."
+
+**Re-read 2026-11-15 ~19:50 UTC**, Evaluators track selected (browser pane): Evaluator weights, the 28/40 minimum,
+the validity sentence and the §05/§08 Evaluator text are unchanged. Changed: §05 adds item 6 (star the bounties
+repo, below) and §08 asks for the starring GitHub username. Apps & Agents now reads 35 / 25 commercial / 10
+adoption / 5 integration / 5 reproducibility / 20 growth (the Apps line below is the older table).
 
 **Miners / Providers**, minimum 24/35 on quality. **Re-read live 2026-11-05 ~09:40 UTC** at
 https://anjoman.ai/dashboard/hackathon/season-2/rules (Miners tab in §05, §06 and §08). The weights changed
