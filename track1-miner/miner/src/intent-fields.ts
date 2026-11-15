@@ -262,11 +262,15 @@ const MORE: Record<string, (b: Body) => Body> = {
  * Where the schema contradicts a field the route already sets, by value or by type. The route's own word is kept
  * under `verdict_detail` (or `total_supply_exact`), so nothing it said is lost.
  */
+const FACT_RATINGS = ["True", "Mostly True", "Mixed", "Misleading", "Mostly False", "False", "Unverified"];
+
 const OVERRIDE: Record<string, (b: Body) => Body> = {
   // FACT_CHECK_GENERAL: True | Mostly True | Mixed | Misleading | Mostly False | False | Unverified
   // The reason and the answer open with that word ("False. The claim ..."), as the schema's verdict reads.
   "/fact-check": (b) => {
-    const m = mapped(b, { supported: "True", contradicted: "False", unverified: "Unverified", unknown: "Unverified" });
+    // The model's seven-way rating when it gave one (factcheck.ts), else the word rules' three-way verdict.
+    const rated = typeof b.rating === "string" && FACT_RATINGS.includes(b.rating) ? { verdict: b.rating, verdict_detail: b.verdict } : null;
+    const m = rated ?? mapped(b, { supported: "True", contradicted: "False", unverified: "Unverified", unknown: "Unverified" });
     const word = m.verdict as string | undefined;
     const reason = str(b.reason);
     if (!word || !reason || reason.startsWith(`${word}.`)) return m;
