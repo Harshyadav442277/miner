@@ -10,9 +10,16 @@
 
 name: scores
 
+# GitHub drops most scheduled events on this repository: uptime.yml, set to every 30 minutes, started 30 times in
+# 8 days (Nov 7–15), and this file's hourly schedule never started in its first 3 hours. Six attempts an hour and a
+# run after each uptime run give more chances; a local recorder (C:\Users\hyada\tg-deploy\scores\record.cmd) is the
+# primary when the owner's machine is on.
 on:
   schedule:
-    - cron: "23 * * * *"
+    - cron: "3,13,23,33,43,53 * * * *"
+  workflow_run:
+    workflows: [uptime]
+    types: [completed]
   workflow_dispatch:
 
 concurrency:
@@ -42,6 +49,8 @@ jobs:
           fi
           wc -l track1-miner/docs/score-history.jsonl 2>/dev/null || echo "starting a new history"
       - name: Record this hour
+        env:
+          LEADERBOARD_DIR: track1-miner/docs/leaderboards
         run: node track1-miner/tools/record-scores.mjs
       - name: Keep the history
         uses: actions/upload-artifact@v4
@@ -50,6 +59,13 @@ jobs:
           path: track1-miner/docs/score-history.jsonl
           retention-days: 90
           if-no-files-found: error
+      - name: Keep this epoch's whole field
+        uses: actions/upload-artifact@v4
+        with:
+          name: leaderboard-${{ github.run_id }}
+          path: track1-miner/docs/leaderboards
+          retention-days: 30
+          if-no-files-found: warn
       - name: Say so when recording fails
         if: failure()
         uses: actions/github-script@v7

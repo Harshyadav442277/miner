@@ -41,6 +41,22 @@ if (scores.length === 0) {
 }
 
 const epoch = Math.max(...scores.map((s) => s.epoch_id));
+
+// The whole field per intent, overwritten on every run so the file for an epoch ends as its last read. Our row
+// alone cannot say whether a score moved because of us or because the field did.
+if (process.env.LEADERBOARD_DIR) {
+  try {
+    const lb = await fetch(`${NODE}/leaderboard/miners`, { signal: AbortSignal.timeout(25_000) });
+    if (lb.ok) {
+      const text = await lb.text();
+      const e = JSON.parse(text).epoch ?? epoch;
+      await mkdir(process.env.LEADERBOARD_DIR, { recursive: true });
+      await writeFile(`${process.env.LEADERBOARD_DIR}/leaderboard-${e}.json`, text);
+    }
+  } catch (err) {
+    console.error(`leaderboard not saved: ${err}`);
+  }
+}
 // Every intent our registration serves — intents score at different moments
 // inside an epoch, so this list must not be hard-coded to a subset.
 const INTENTS = us.supported_intents ?? [...new Set(scores.map((s) => s.intent_id))];
