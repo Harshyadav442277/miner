@@ -36,8 +36,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow scores.yml --status success -L 1 --json databaseId -q '.[0].databaseId')
+          # A failed download must fail the run: carrying on would upload a one-row history as the latest.
           if [ -n "$id" ]; then
-            gh run download "$id" --repo "$GITHUB_REPOSITORY" -n score-history -D track1-miner/docs || echo "no history artifact on run $id"
+            gh run download "$id" --repo "$GITHUB_REPOSITORY" -n score-history -D track1-miner/docs
           fi
           wc -l track1-miner/docs/score-history.jsonl 2>/dev/null || echo "starting a new history"
       - name: Record this hour

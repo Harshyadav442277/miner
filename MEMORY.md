@@ -1,5 +1,17 @@
 # MEMORY.md — session continuity
 
+## 2026-11-15 ~18:05 UTC (23:35 IST): CURRENT — `7182410` LIVE; fact-check rating, paper-fraud fix, hourly scores
+
+- Owner: "yes add it" (hourly score recorder), "keep focus on the quality of miner".
+- **Production:** `7182410`, `miner-712vfn5wr` (`dpl_6njMDuDGKqj19C55AjRB6xeHJMTa`). **Rollback:** `miner-9l26rqk6f`
+  (`69afe87`). Unit 1014/1014, preflight 7/7. Record: `track1-miner/docs/evidence/release-2026-11-15-fact-check-rating/`.
+- `scores.yml` on `main` (PR 25): hourly at :23, history in the `score-history` artifact. Only the 17:08 dispatch had
+  run by 17:59; check that scheduled runs start and keep earlier rows.
+- Post-69afe87 scores for SENTIMENT/NEWS/EVENT were lost (G300). CVE gap undiagnosable without inputs (G303, G282).
+- YAML: matches the registration byte for byte; EVENT_OUTCOME description is stale (G308), batch with G305.
+- **Next:** read `score-history` after epochs 2100–2102 for FACT_CHECK (0.8432), SENTIMENT, NEWS, EVENT; owner:
+  Upstash store for capture (G282), which would settle CVE.
+
 ## 2026-11-15 ~01:00 UTC (06:30 IST): CURRENT — `69afe87` LIVE; sentiment, event outcome and news brief changed
 
 - Owner's brief 00:30 UTC: fix the three lowest of epoch 2093 (EVENT_OUTCOME 0.0032 rank 12/35, SENTIMENT 0.5446

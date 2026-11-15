@@ -1,5 +1,33 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-15 ~17:45 UTC (23:15 IST) score recorder; FACT_CHECK rating release — states changed; G306–G309 new
+
+- **G300 updated — the post-release scores were lost, not measured. `OPEN`.** `/api/miners` keeps only each
+  miner's latest scored epoch. The field was scored on EVENT_OUTCOME in epoch 2095 and on SENTIMENT and NEWS_SEARCH
+  in 2097, both after `69afe87`, and our values were overwritten before anyone read them. Epoch 2099 (read 17:00
+  UTC) did not include the three. `scores.yml` (PR 25, `main`) now records every hour at :23; the first dispatched
+  run (43739439867) succeeded with a `score-history` artifact. Unverified: that the carry-forward keeps earlier
+  rows, until a second run has run.
+- **G303 updated — CVE 0.70166665 in epoch 2099 is shared by three miners that answer differently.** txlens quotes
+  CIRCL's vendor scores (CVE-2020-1472 5.5, CVE-2021-26855 9.1, CVE-2018-13379 9.1); a1-preflight and we quote the
+  NVD's own (10, 9.8, 9.8). All three scored exactly 0.70166665, and the raw NVD and deps.dev miners 1.0. Our
+  answer equals the NVD record's first-listed score on 29 of 32 CVEs checked 2026-11-15 (22 well-known, 10
+  published 1–14 Nov). So the vendor-vs-NVD choice is not the gap, and the cause cannot be found without the
+  node's inputs (G282). Not changed.
+- **G306 — FACT_CHECK verdicts are now the model's rating against retrieved evidence. `OPEN` until scored.**
+  Epoch 2099: 0.8432, rank 11/19 (txlens 0.9975). On 15 claims with known answers we went from 6/15 to 13/15
+  (`track1-miner/docs/evidence/release-2026-11-15-fact-check-rating/`). The expected labels are the author's, not a
+  scorer's. A rating with no quote from the source is labelled as knowledge-based (confidence 0.65) and `sources`
+  names the model first.
+- **G307 — `/fact-check` is slower.** 0.9–2.0 s per claim against 0.5–1.1 s before (single probes). Same
+  question as G301: whether latency is scored is not known.
+- **G308 — The YAML on chain matches `main` byte for byte, but its EVENT_OUTCOME description is out of date.
+  `OPEN`, needs the owner's signature.** It says outcomes come only from settled markets and "where no matching
+  market exists the answer says so"; since `69afe87` they also come from Wikidata and model recall. Batch it with
+  G305 into the next YAML the owner signs.
+- **G309 — The fact-check `sources` field names the model when a rating rests on knowledge.** Honest, but the
+  schema's reward model may score a non-URL source differently. Unmeasured.
+
 ## 2026-11-15 ~00:55 UTC (06:25 IST) release `69afe87` — states changed; G300–G305 new
 
 - **G299 partly acted on.** EVENT_OUTCOME (0.0032, rank 12/35 in epoch 2093), SENTIMENT (0.5446, 15/21) and

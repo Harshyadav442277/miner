@@ -218,7 +218,11 @@ const SCORED: Record<string, (b: Body) => Body> = {
   },
   // FACT_CHECK_GENERAL
   // reasoning is the explanation in short: the reason's lead sentence, not the whole reason with its caveats
-  "/fact-check": (b) => ({ reasoning: brief(b.reason, 240), sources: typeof b.source_url === "string" ? [b.source_url] : [] }),
+  // A rating from general knowledge names the model first: the article consulted did not state it.
+  "/fact-check": (b) => ({ reasoning: brief(b.reason, 240), sources: [
+    ...(b.rating_basis === "knowledge" ? ["Groq-hosted language model (general knowledge)"] : []),
+    ...(typeof b.source_url === "string" ? [b.source_url] : []),
+  ] }),
   // MACRO_ECONOMIC_INDICATOR_GENERAL: the first percentage reported
   "/macro": (b) => ({ rate_pct: num(list(b.indicators).find((i) => i.unit === "%")?.value) }),
   // DNS_RECORD_LOOKUP_GENERAL: at least one record, or none (NXDOMAIN or an empty answer); null when unread
@@ -262,11 +266,15 @@ const MORE: Record<string, (b: Body) => Body> = {
  * Where the schema contradicts a field the route already sets, by value or by type. The route's own word is kept
  * under `verdict_detail` (or `total_supply_exact`), so nothing it said is lost.
  */
+const FACT_RATINGS = ["True", "Mostly True", "Mixed", "Misleading", "Mostly False", "False", "Unverified"];
+
 const OVERRIDE: Record<string, (b: Body) => Body> = {
   // FACT_CHECK_GENERAL: True | Mostly True | Mixed | Misleading | Mostly False | False | Unverified
   // The reason and the answer open with that word ("False. The claim ..."), as the schema's verdict reads.
   "/fact-check": (b) => {
-    const m = mapped(b, { supported: "True", contradicted: "False", unverified: "Unverified", unknown: "Unverified" });
+    // The model's seven-way rating when it gave one (factcheck.ts), else the word rules' three-way verdict.
+    const rated = typeof b.rating === "string" && FACT_RATINGS.includes(b.rating) ? { verdict: b.rating, verdict_detail: b.verdict } : null;
+    const m = rated ?? mapped(b, { supported: "True", contradicted: "False", unverified: "Unverified", unknown: "Unverified" });
     const word = m.verdict as string | undefined;
     const reason = str(b.reason);
     if (!word || !reason || reason.startsWith(`${word}.`)) return m;

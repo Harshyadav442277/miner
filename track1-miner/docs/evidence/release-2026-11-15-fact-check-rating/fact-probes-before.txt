@@ -1,0 +1,19 @@
+# https://miner-wine.vercel.app, build 69afe87, 2026-11-15 ~17:15 UTC. GET /fact-check?claim=<claim>, one request each.
+# Columns: expected verdict (author's label), ours, our latency, txlens's and a1-preflight's verdicts on the same claim
+# ("?" = no verdict field in their reply). Script: factcmp.mjs (session scratchpad, not kept).
+True       ours True           557ms | txlens True         | a1 True         | The Eiffel Tower is in Paris.
+False      ours Unverified     948ms | txlens ?            | a1 Unverified   | The Great Wall of China is visible from the Moon w
+True       ours Unverified     709ms | txlens ?            | a1 True         | Water boils at 100 degrees Celsius at sea level.
+True       ours True           625ms | txlens Mostly True  | a1 True         | Albert Einstein won the Nobel Prize in Physics in
+Mixed      ours Unverified    1135ms | txlens False        | a1 Unverified   | The Amazon is the longest river in the world.
+False      ours False          925ms | txlens False        | a1 False        | Humans only use 10 percent of their brains.
+True       ours True           524ms | txlens ?            | a1 True         | Bitcoin was created by Satoshi Nakamoto.
+False      ours Unverified     917ms | txlens False        | a1 False        | The COVID-19 vaccines contain microchips.
+True       ours True           605ms | txlens True         | a1 True         | Mount Everest is the tallest mountain on Earth abo
+Misleading ours True           477ms | txlens Mostly False | a1 Mostly False | Thomas Edison invented the light bulb.
+False      ours Unverified     816ms | txlens ?            | a1 Unverified   | Napoleon Bonaparte was unusually short.
+True       ours Unverified     954ms | txlens True         | a1 True         | The Pacific is the largest ocean on Earth.
+False      ours Unverified     758ms | txlens ?            | a1 False        | Vaccines cause autism.
+True       ours True           524ms | txlens True         | a1 True         | Canberra is the capital of Australia.
+False      ours Unverified     812ms | txlens False        | a1 Unverified   | Goldfish have a three-second memory.
+ours matches the expected verdict on 6/15
