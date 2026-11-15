@@ -118,6 +118,19 @@ function titleMatches(asked: string, found: string): boolean {
   return want.size >= 6 && phrase(found).includes(phrase(asked));
 }
 
+/** "Retraction—X", "Retraction notice: X", "Notice of retraction: X", "Retracted: X", "RETRACTED ARTICLE: X". */
+const NOTICE = /^\s*(?:retraction(?:\s+notice)?(?:\s+(?:to|of|for))?|notice\s+of\s+retraction|retracted(?:\s+article)?)\s*(?:[:—–-]|\s)\s*/i;
+
+/** Whether a work's title is a retraction notice for another work. Pure. */
+export function isNotice(name: string): boolean {
+  return NOTICE.test(name) && name.replace(NOTICE, "").trim().length >= 12;
+}
+
+/** The retracted work's title inside a notice's title. Pure. */
+export function stripNotice(name: string): string {
+  return name.replace(NOTICE, "").replace(/^["“]+|["”]+$/g, "").trim();
+}
+
 export async function assessPaperFraud(text: string): Promise<PaperFraudResult> {
   const title = quotedTitle(text) ?? "";
   const empty = {
@@ -132,7 +145,7 @@ export async function assessPaperFraud(text: string): Promise<PaperFraudResult> 
   let works: Work[];
   try {
     const url = openAlexUrl(
-      `${API}?search=${encodeURIComponent(title)}&per-page=3` +
+      `${API}?search=${encodeURIComponent(title)}&per-page=8` +
       `&select=display_name,is_retracted,publication_year,cited_by_count,primary_location`,
     );
     const r = await fetch(url, {
@@ -151,7 +164,14 @@ export async function assessPaperFraud(text: string): Promise<PaperFraudResult> 
     };
   }
 
-  const hit = works.find((w) => titleMatches(title, w.display_name ?? ""));
+  // A journal's retraction notice is indexed as its own work, titled "Retraction—<the paper's title>". On
+  // 2026-11-15 OpenAlex ranked the Lancet's 2010 notice above the 1998 paper it retracts, and the notice (not
+  // itself retracted) was reported as "not flagged as retracted". The paper is preferred; a notice for the same
+  // title is evidence of the retraction in its own right.
+  const named = (w: Work) => w.display_name ?? "";
+  const notices = works.filter((w) => isNotice(named(w)) && titleMatches(title, stripNotice(named(w))));
+  const paper = works.find((w) => !isNotice(named(w)) && titleMatches(title, named(w)));
+  const hit = paper ?? notices[0];
   if (!hit) {
     return {
       ...empty, verdict: "unknown", confidence: 0.3,
@@ -162,8 +182,25 @@ export async function assessPaperFraud(text: string): Promise<PaperFraudResult> 
     };
   }
 
-  const matched = hit.display_name ?? title;
-  const retracted = hit.is_retracted === true;
+  const notice = notices[0];
+  const matched = paper ? named(paper) || title : stripNotice(named(hit)) || title;
+  const flagged = paper?.is_retracted === true;
+  const retracted = flagged || notice !== undefined;
+  const noticeNote = notice
+    ? ` A retraction notice for it is indexed as well: "${named(notice)}"${notice.publication_year ? ` (${notice.publication_year})` : ""}.`
+    : "";
+  if (retracted && !flagged) {
+    // The paper itself is not flagged, or not indexed; the notice is the documented finding.
+    const v = paper?.primary_location?.source?.display_name ?? notice!.primary_location?.source?.display_name ?? null;
+    return {
+      title, matched, retracted: true, year: paper?.publication_year ?? null, venue: v,
+      citations: Number.isFinite(paper?.cited_by_count) ? (paper!.cited_by_count as number) : null,
+      verdict: "high_risk", confidence: 0.9,
+      reason: `"${matched}"${v ? ` in ${v}` : ""} is RETRACTED: the OpenAlex scholarly index holds a retraction notice for ` +
+        `it, "${named(notice!)}"${notice!.publication_year ? ` (${notice!.publication_year})` : ""}. A retraction is a documented ` +
+        `finding against the work itself, which makes this high risk. ${notChecked}`,
+    };
+  }
   const year = hit.publication_year ?? null;
   const venue = hit.primary_location?.source?.display_name ?? null;
   const citations = Number.isFinite(hit.cited_by_count) ? (hit.cited_by_count as number) : null;
@@ -180,7 +217,7 @@ export async function assessPaperFraud(text: string): Promise<PaperFraudResult> 
     reason: retracted
       ? `"${matched}"${when}${where} is flagged as RETRACTED in the OpenAlex scholarly index. A ` +
         `retraction is a documented finding against the work itself, which makes this high risk.` +
-        `${cited} ${notChecked}`
+        `${noticeNote}${cited} ${notChecked}`
       : `"${matched}"${when}${where} is not flagged as retracted in the OpenAlex scholarly index, ` +
         `which is the one indicator of the four that is documented there.${cited} ${notChecked}`,
   };
