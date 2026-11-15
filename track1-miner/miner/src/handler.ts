@@ -1300,7 +1300,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     }
     resolveEvent(q)
       .then((r) => {
-        if (r.verdict === "resolved") toCache(key, r);
+        if (r.verdict === "resolved" || r.verdict === "recalled") toCache(key, r);
         sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "An event outcome resolution", q.slice(0, 60) || "this request", q));

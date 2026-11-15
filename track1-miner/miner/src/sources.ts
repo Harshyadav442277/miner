@@ -148,7 +148,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   // cve.ts reads the fkie-cad mirror of NVD records from raw.githubusercontent.com, the host registered for
   // "ofac-list", so that id is listed too; the data is the NVD's.
   "/cve": ["cve", "nvd", "ofac-list"],
-  "/news-search": ["google-news"],
+  "/news-search": ["endoflife", "google-news", "groq", "wikidata"],
   "/convert": ["ecb", "frankfurter"],
   "/gas-price": ["chain-rpcs", "drpc", "merkle", "publicnode"],
   "/financial": ["bitstamp", "coinbase", "coingecko", "ecb", "frankfurter", "sec", "yahoo"],
@@ -158,7 +158,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/crypto-price": ["bitstamp", "coinbase", "ecb", "frankfurter"],
   "/stock-price": ["bitstamp", "coinbase", "coingecko", "ecb", "frankfurter", "nasdaq", "sec", "yahoo"],
   "/cross-chain": ["4byte", "chain-rpcs", "drpc", "layerzero", "merkle", "openchain", "publicnode"],
-  "/event-outcome": ["manifold", "polymarket", "wikidata"],
+  "/event-outcome": ["groq", "manifold", "polymarket", "wikidata"],
   "/url-scan": ["dns-resolvers"],
   "/web-search": ["bitstamp", "clinicaltrials", "coinbase", "ebi", "ecb", "endoflife", "frankfurter", "google-news", "groq", "tech-docs", "wikidata", "wikipedia"],
   "/sentiment": ["groq"],
