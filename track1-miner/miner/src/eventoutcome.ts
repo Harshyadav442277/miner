@@ -33,6 +33,8 @@ const TIMEOUT_MS = Number(process.env.EVENT_TIMEOUT_MS ?? 5_000);
 const GAMMA = "https://gamma-api.polymarket.com/public-search";
 const MANIFOLD = "https://api.manifold.markets/v0";
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
+/** The question length read, and the length handler.ts keys its event cache on. */
+export const MAX_QUESTION = 300;
 
 /**
  * resolved: a settled market or a public record (Wikidata) gives the outcome. recalled: no market or record
@@ -318,8 +320,10 @@ export function namesEvent(text: string): boolean {
  * shape. Pure.
  */
 export function didWin(question: string): { party: string; event: string } | null {
-  const m = String(question ?? "").trim()
-    .match(/^(?:.*?:\s*)?(?:did|has|have)\s+(?:the\s+)?(.+?)\s+(?:win|won)\s+(?:the\s+)?(.+?)\s*\??$/i);
+  // Bounded input and a bounded prefix, so a long request cannot make the lazy groups backtrack at length.
+  const s = String(question ?? "").trim().slice(0, MAX_QUESTION);
+  if (/[\r\n]/.test(s)) return null;
+  const m = s.match(/^(?:[^:]{0,80}:\s*)?(?:did|has|have)\s+(?:the\s+)?([^?]{1,120}?)\s+(?:win|won)\s+(?:the\s+)?([^?]{1,160}?)\s*\??$/i);
   const party = m?.[1]?.trim();
   const event = m?.[2]?.trim();
   return party && event && event.length >= 4 ? { party, event } : null;
@@ -397,7 +401,7 @@ const RECALL_MS = 2_500;
 const RECALL_BY_MS = 9_500;
 
 async function recall(q: string, now: Date, started: number): Promise<{ answer: "yes" | "no" | "unresolved"; basis: string | null } | null> {
-  const question = dataValue(q, 600);
+  const question = dataValue(q, MAX_QUESTION);
   if (!question) return null;
   const raw = await phrase({ system: recallSystem(now), user: JSON.stringify({ question }), maxTokens: 300, json: true,
     deadlineMs: Math.min(RECALL_MS, RECALL_BY_MS - (Date.now() - started)), clean: (r) => (parseRecall(r) ? r : null) });
@@ -406,7 +410,9 @@ async function recall(q: string, now: Date, started: number): Promise<{ answer: 
 
 export async function resolveEvent(question: string, now = new Date()): Promise<EventOutcomeResult> {
   const started = Date.now();
-  const q = foldCountries(String(question ?? "").trim());
+  // Only the part of the question the handler's cache key covers is read, so two questions that share a key
+  // cannot get different answers, nor one the other's.
+  const q = foldCountries(String(question ?? "").trim().slice(0, MAX_QUESTION));
   const term = searchTerm(q);
   if (asksPrediction(q)) {
     return { verdict: "unknown", confidence: 0, error: "prediction_requested",

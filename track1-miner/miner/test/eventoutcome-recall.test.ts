@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  didWin, namesFutureYear, parseRecall, recallSystem, recordAnswer, resolveEvent, sameParty,
+  MAX_QUESTION, didWin, namesFutureYear, parseRecall, recallSystem, recordAnswer, resolveEvent, sameParty,
 } from "../src/eventoutcome";
 import { scoredFields } from "../src/intent-fields";
 import { resetPhraseState } from "../src/llm";
@@ -16,6 +16,17 @@ test("didWin: the party and the event of a did-X-win question", () => {
     { party: "Oppenheimer", event: "Best Picture at the 2024 Oscars" });
   assert.equal(didWin("Who won Super Bowl LIX?"), null);
   assert.equal(didWin("Did the Fed cut rates in September 2025?"), null);
+});
+
+test("didWin reads at most MAX_QUESTION characters, one line, and returns fast on a long hostile input", () => {
+  const hostile = `Did ${"a ".repeat(20_000)}win${" x".repeat(20_000)}`;
+  const t = Date.now();
+  assert.equal(didWin(hostile), null);
+  assert.equal(didWin(`${":".repeat(5_000)} did ${"won ".repeat(5_000)}`), null);
+  assert.ok(Date.now() - t < 200, `took ${Date.now() - t} ms`);
+  assert.equal(didWin("Did the Chiefs
+win Super Bowl LIX?"), null);
+  assert.equal(MAX_QUESTION, 300);
 });
 
 test("sameParty: a contained name matches, a different one does not, a partial overlap is not settled", () => {

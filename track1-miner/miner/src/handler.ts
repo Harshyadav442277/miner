@@ -41,7 +41,7 @@ import { answerResearch, type ResearchResult } from "./research";
 import { lookupCryptoPrice, type CryptoPriceResult } from "./cryptoprice";
 import { lookupStockPrice, type StockPriceResult } from "./stockprice";
 import { verifyCrossChain, type CrossChainResult } from "./crosschain";
-import { resolveEvent, type EventOutcomeResult } from "./eventoutcome";
+import { MAX_QUESTION, resolveEvent, type EventOutcomeResult } from "./eventoutcome";
 import { scanUrl, type UrlScanResult } from "./urlscan";
 import { webSearch, type WebSearchResult } from "./websearch";
 import { analyseSentiment, type SentimentResult } from "./sentiment";
@@ -1292,7 +1292,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       firstValue(url, "query", "q", "question", "text", "input"),
       firstValue(url, "event", "market"),
     );
-    const key = `event:${q.trim().toLowerCase().slice(0, 300)}`;
+    const key = `event:${q.trim().toLowerCase().slice(0, MAX_QUESTION)}`;
     const hit = fromCache(key);
     if (hit) {
       sendAnswer(res, q, hit);
