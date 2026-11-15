@@ -1,0 +1,25 @@
+{
+ "file": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\evaluator-submission-track-2-4d21b7\\track2\\adapter\\question_answering\\holdout\\holdout_report.jsonl",
+ "kind": "pairs",
+ "sha256": "7c0d2a9b822b4a60eaf19319ab4aba3e64b627f619273bab0eb66e64040f3f9b",
+ "rows": 334,
+ "family": "QUESTION_ANSWERING",
+ "sources": "real miner answers captured 2026-11-15",
+ "note": "report-only strata",
+ "created_at": "2026-11-15T17:05:17.335717+00:00",
+ "git_head": "583e17caa1581e75397c7f65c504a8d7175214fc",
+ "by_kind": {
+  "wrong_answer": 331,
+  "no_answer": 3
+ },
+ "by_format": {
+  "body": 198,
+  "text": 136
+ },
+ "by_source": {
+  "miners": 334
+ },
+ "related_party_rows": 176,
+ "longer_chosen": 76,
+ "shorter_chosen": 258
+}

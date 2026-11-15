@@ -1,0 +1,29 @@
+{
+ "file": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\evaluator-submission-track-2-4d21b7\\track2\\adapter\\question_answering\\holdout\\holdout.jsonl",
+ "kind": "pairs",
+ "sha256": "b9028f266d9fc6311c844456ac918005ea040bec28d24a7c5b57bbca2daf9a2b",
+ "rows": 362,
+ "family": "QUESTION_ANSWERING",
+ "sources": "TruthfulQA 150, HaluEval 150 (length-stratified), plus one text pair per NQ-open dev question from real miner answers captured 2026-11-15 (no LiveCert pairs)",
+ "note": "Gated set. Frozen before any QUESTION_ANSWERING adapter was trained. holdout_report.jsonl (body rows, related-party rows, extra system pairs) is reported by stratum and never gated. Rank and alpha are chosen on val.jsonl; one package is scored here. Miner labels were made by a model reading each answer against the NQ gold (review.tsv, review-auto.tsv).",
+ "created_at": "2026-11-15T17:05:17.004512+00:00",
+ "git_head": "583e17caa1581e75397c7f65c504a8d7175214fc",
+ "by_kind": {
+  "misconception": 150,
+  "hallucinated": 150,
+  "wrong_answer": 61,
+  "no_answer": 1
+ },
+ "by_format": {
+  "bare": 300,
+  "text": 62
+ },
+ "by_source": {
+  "truthfulqa": 150,
+  "halueval": 150,
+  "miners": 62
+ },
+ "related_party_rows": 0,
+ "longer_chosen": 167,
+ "shorter_chosen": 187
+}

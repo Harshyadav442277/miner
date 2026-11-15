@@ -1,0 +1,36 @@
+{
+ "seed": 20261115,
+ "gated_rows": 362,
+ "report_rows": 334,
+ "gated_by_source": {
+  "truthfulqa": 150,
+  "halueval": 150,
+  "miners": 62
+ },
+ "gated_miner_system_pairs": {
+  "zk-text>a1-preflight": 36,
+  "zk-text>txlens": 12,
+  "txlens>a1-preflight": 7,
+  "txlens>zk-text": 6,
+  "a1-preflight>txlens": 1
+ },
+ "gated_longer_chosen": {
+  "truthfulqa": [
+   85,
+   150
+  ],
+  "halueval": [
+   75,
+   150
+  ],
+  "miners": [
+   7,
+   62
+  ]
+ },
+ "report_by_format": {
+  "body": 198,
+  "text": 136
+ },
+ "report_related_party": 176
+}
