@@ -1,5 +1,27 @@
 # MEMORY.md — session continuity
 
+## 2026-11-15 ~01:00 UTC (06:30 IST): CURRENT — `69afe87` LIVE; sentiment, event outcome and news brief changed
+
+- Owner's brief 00:30 UTC: fix the three lowest of epoch 2093 (EVENT_OUTCOME 0.0032 rank 12/35, SENTIMENT 0.5446
+  15/21, NEWS_SEARCH 0.7293 14/19); build, commit, push, PR, merge and deploy authorised. Worked in worktree
+  `livecert-miner-optimization-08caa3`, branch `PR/livecert-miner-optimization-08caa3` (the brief named the
+  `da4453` worktree; this one was at the same `df537c7`).
+- **Production:** `69afe87`, `https://miner-9l26rqk6f-wukong4.vercel.app` (`dpl_4pisNXVPK9JYMbhv7fzUx8VSkkjY`).
+  **Rollback target:** `miner-l8m0zwpq7` (`b18ca59`). Record: `track1-miner/docs/evidence/release-2026-11-15-sentiment-event-news/`.
+  Unit 1004/1004, tsc clean, preflight **7/7** (run 00:44–00:51 UTC, `preflight.txt`).
+- **Changed:** SENTIMENT label chosen by the model (JSON, 2.5 s, word list as fallback and evidence). EVENT_OUTCOME
+  with no market: "Did X win Y?" from Wikidata's recorded winner, else dated model recall (`verdict: recalled`,
+  confidence 0.6, never a future year); mapper sets `resolved_yes` for both. NEWS_SEARCH `brief` written by the
+  model from the top three headlines. Security-review fixes in `be493af` (cache key vs question length, bounded regex).
+- Registration 5232 unchanged; no YAML change. Deploy tree `C:/Users/hyada/tg-deploy/md8b68aa` detached at `69afe87`.
+- **Next:**
+  1. After 2–3 epochs: EVENT_OUTCOME, SENTIMENT, NEWS_SEARCH against 0.0032 / 0.5446 / 0.7293 (G300); CHAT_COMPLETION
+     against 0.9303 (watch only).
+  2. If latency counts, `/sentiment` now takes ~0.6–1.1 s (G301).
+  3. Not acted on: CVE plateau (G303), CRYPTO_PRICE CoinGecko fallback (G304), YAML input mappings for the owner's
+     next signature (G305). F1 seasons lack P1346 on Wikidata (G302).
+  4. Owner: NVD key, Upstash store for capture (G282), close PR 9, growth posts.
+
 ## 2026-11-14 ~17:30 UTC (23:00 IST): CURRENT — `b18ca59` LIVE, preflight 7/7; registration 5232 scored
 
 - Owner 17:05 UTC: gave an OpenAlex key, NVD key pending, "take decision on your own".

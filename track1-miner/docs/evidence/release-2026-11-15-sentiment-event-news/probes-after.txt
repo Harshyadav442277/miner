@@ -1,0 +1,32 @@
+# https://miner-wine.vercel.app, build 69afe87 (miner-9l26rqk6f), read 2026-11-15 ~00:45 UTC (curl -4, one request each)
+
+GET /event-outcome event=Did the Kansas City Chiefs win Super Bowl LIX?
+{"verdict":"resolved","outcome":"no","resolved_yes":false,"confidence":0.8,"source":"https://www.wikidata.org/wiki/Q91157899","reason":"No: Philadelphia Eagles won Super Bowl LIX, which ended 2025-02-09, not Kansas City Chiefs. The recorded winner is Philadelphia Eagles, on the event's Wikidata item (Q91157899, https://www.wikidata.org/wiki/Q91157899). This is a public record, not a settled prediction market. No prediction market matching this event was found on Polymarket or Manifold."}
+
+GET /event-outcome event=Did Max Verstappen win the 2024 Formula One World Championship?
+{"verdict":"no_market_found","outcome":"unresolved","resolved_yes":null,"confidence":0.4,"reason":"No prediction market matching this event was found on Polymarket or Manifold, so no outcome is reported and none is guessed. A language model asked with today's date could not confirm that it has happened and been decided. Official sources such as flight trackers, election authorities and league results are not read here."}
+
+GET /event-outcome event=Did Oppenheimer win Best Picture at the 2024 Oscars?
+{"verdict":"recalled","outcome":"yes","resolved_yes":true,"confidence":0.6,"source":"language model recall (Groq: gpt-oss-20b, gpt-oss-120b or qwen3.8-27b); no market or record was read","reason":"Yes: Oppenheimer won Best Picture at the 2024 Oscars, announced on March 10, 2024. This answer is from a language model's recall, not a settled prediction market or a record read today, so its confidence is lower. No prediction market matching this event was found on Polymarket or Manifold."}
+
+GET /event-outcome event=Will the Fed cut rates at its December 2027 meeting?
+{"verdict":"no_market_found","outcome":"unresolved","resolved_yes":null,"confidence":0.4,"reason":"No prediction market matching this event was found on Polymarket or Manifold, so no outcome is reported and none is guessed. Official sources such as flight trackers, election authorities and league results are not read here."}
+
+GET /news-search query=SpaceX Starship launch
+{"verdict":"articles","confidence":0.9,"brief":"SpaceX Starship landed, caught by launch tower arms.","reason":"Recent coverage of SpaceX Starship launch includes: \"Starship has landed: SpaceX catches returning spacecraft from orbit in launch tower arms; Musk hails feat\" (ANI News, 15 November 2026); \"SpaceX Starship Launch\" (TelegraphHerald.com, 15 November 2026); \"SpaceX Starship returns to Earth in dramatic catch by launch pad arms, in photos\" (Springfield News-Sun, 14 November 2026); \"SpaceX makes history as Starship spacecraft caught by launch tower for first time\" (Fox Business, 14 November 2026); \"🎥 Dramatic first: SpaceX’s Starship returns, captured by launch pad arms\" (Salina Post, 14 November 2026). 5 articles, most recent first, each with its publisher and publication date."}
+
+GET /news-search query=Nvidia earnings
+{"verdict":"articles","confidence":0.9,"brief":"Nvidia earnings are imminent, affecting market outlook and investor sentiment.","reason":"Recent coverage of Nvidia earnings includes: \"Nvidia CEO's Exit Clouds KOSPI Outlook as Earnings Loom\" (Seoul Economic Daily, 14 November 2026); \"How to Read Nvidia Earnings: Hyperscalers at 51%\" (shattered.io, 14 November 2026); \"Nvidia earnings, Anthropic IPO and US-China summit to test rebound hopes\" (Chosunbiz, 14 November 2026); \"AMD Just Had Its Biggest Run Against Nvidia Since 1999. Can It Survive Earnings?\" (Yahoo Finance, 14 November 2026); \"Nvidia Leadership Crisis Raises Concerns Over AI Semiconductor Earnings and US Export Restrictions\" (Yahoo Finance, 14 November 2026). 5 articles, most recent first, each with its publisher and publication date."}
+
+GET /sentiment text=Tesla shares slumped 12% after the company missed delivery estimates and cut its outlook.
+{"verdict":"negative","confidence":0.89,"sentiment":"Negative","reason":"Negative. The sentiment of this text is negative. Shares slumped 12% after missing delivery estimates and cutting outlook, indicating a clearly unfavourable outcome. Word-list evidence: negative slumped, missed and cut (word-list reading: negative)."}
+
+GET /sentiment text=The new update is fantastic, battery life is way better and the app finally feels fast.
+{"verdict":"positive","confidence":0.91,"sentiment":"Positive","reason":"Positive. The sentiment of this text is positive. The passage praises improved battery life and faster app performance. Word-list evidence: positive fantastic, better and fast (word-list reading: positive)."}
+
+GET /sentiment text=The central bank held interest rates at 4.5% on Wednesday.
+{"verdict":"neutral","confidence":0.8,"sentiment":"Neutral","reason":"Neutral. The sentiment of this text is neutral. The statement reports a factual action by the central bank without expressing approval or criticism. The word list found no opinion word in it."}
+
+GET /sentiment text=Great camera, but the battery dies by noon and support never answered.
+{"verdict":"mixed","confidence":0.7,"sentiment":"Mixed","reason":"Mixed. The sentiment of this text is mixed. The user praises the camera as great but criticizes the battery life and unresponsive support. Word-list evidence: positive great; negative dies and never answered (word-list reading: negative)."}
+
