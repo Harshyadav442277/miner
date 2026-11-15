@@ -1,0 +1,49 @@
+{
+ "seed": 20261115,
+ "sources": {
+  "truthfulqa": {
+   "url": "https://raw.githubusercontent.com/sylinrl/TruthfulQA/main/TruthfulQA.csv",
+   "sha256": "b8d8ef1e12f98b4f2a9f47abc9765da0640b182b6c5d9b92f0c1a1f2f1e02e5c",
+   "licence_url": "https://raw.githubusercontent.com/sylinrl/TruthfulQA/main/LICENSE",
+   "licence_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+   "licence": "Apache License Version 2.0",
+   "columns_used": [
+    "Question",
+    "Best Answer",
+    "Incorrect Answers (split on '; ')"
+   ],
+   "source_rows": 790,
+   "sampled": 150,
+   "dropped_unusable": 0,
+   "rows": 150,
+   "longer_chosen": 85,
+   "shorter_chosen": 58,
+   "equal_length": 7
+  },
+  "halueval": {
+   "url": "https://raw.githubusercontent.com/RUCAIBox/HaluEval/main/data/qa_data.json",
+   "sha256": "89ed139ec5e3a3169a0b30e45569ac1283846f76f27f7bb5e908ee6deed57e88",
+   "licence_url": "https://raw.githubusercontent.com/RUCAIBox/HaluEval/main/LICENSE",
+   "licence_sha256": "2c33dad5fede86236b54db22e0be64e72095d151f324bcadd354ab88f40c52fe",
+   "licence": "MIT License",
+   "columns_used": [
+    "question",
+    "right_answer",
+    "hallucinated_answer"
+   ],
+   "source_rows": 10000,
+   "sampled": 150,
+   "dropped_unusable": 0,
+   "rows": 150,
+   "longer_chosen": 7,
+   "shorter_chosen": 142,
+   "equal_length": 1
+  }
+ },
+ "rows_total": 300,
+ "benchmark_questions_lines": 420,
+ "outputs_sha256": {
+  "benchmarks.jsonl": "83f6f232b06c2c4bb61137c4741513bcf78f6af0eafbad9b471fe901f10ea6b8",
+  "benchmark_questions.txt": "603f686b80c48a0bfaa8f7826e8b4fc88a6ac84db4c683784bae446386edc675"
+ }
+}

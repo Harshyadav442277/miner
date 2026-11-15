@@ -1,0 +1,52 @@
+{
+ "source_url": "https://raw.githubusercontent.com/google-research-datasets/natural-questions/master/nq_open/NQ-open.dev.jsonl",
+ "source_sha256": "f15567f38099f3615f5b8a685c0aef449c11ad90d3da3735e8d1b98115b40616",
+ "seed": 20261115,
+ "id_rule": "nq-<zero-based line index in NQ-open.dev.jsonl>",
+ "filters": {
+  "time_sensitive_words": "\\b(current|currently|now|latest|newest|recent|recently|last|this year|today|still|so far|next|upcoming|reigning|as of|who is the|who are the)\\b",
+  "running_count": "\\bhow many\\b.*\\b(have|has)\\b",
+  "season_episode": "\\b(seasons?|episodes?)\\b",
+  "sports_record": "\\b(most|all time|all-time|record|records)\\b",
+  "year_at_least": 2015,
+  "gold_answers": "1-3, each 1-5 words, each >= 2 chars",
+  "question_length_chars": "20-120 after adding capital and question mark"
+ },
+ "counts": {
+  "source_rows": 3610,
+  "after_time_sensitivity_filter": 2875,
+  "after_gold_answer_filter": 2631,
+  "after_length_filter": 2631,
+  "after_duplicate_filter": 2631,
+  "sampled": 120
+ },
+ "licence_urls": {
+  "repo_LICENSE": "https://raw.githubusercontent.com/google-research-datasets/natural-questions/master/LICENSE",
+  "nq_open_LICENSE": "https://raw.githubusercontent.com/google-research-datasets/natural-questions/master/nq_open/LICENSE",
+  "nq_open_README": "https://raw.githubusercontent.com/google-research-datasets/natural-questions/master/nq_open/README.md"
+ },
+ "licence_facts": {
+  "repo_LICENSE": {
+   "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+   "bytes": 11358,
+   "title": "Apache License Version 2.0"
+  },
+  "nq_open_LICENSE": {
+   "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+   "bytes": 14,
+   "note": "file does not exist in the repository (HTTP 404 body)"
+  },
+  "nq_open_README": {
+   "sha256": "8b675521da3fa142ac6bda38c9bcfcc8cff0e2d6128be53a062ed55fb53f7b87",
+   "bytes": 5712,
+   "lines_mentioning_licence": [
+    "[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) license."
+   ]
+  }
+ },
+ "licence_summary": "Repository-root LICENSE is Apache License 2.0; nq_open/LICENSE does not exist; nq_open/README.md says all Natural Questions data is released under CC BY-SA 3.0. The two statements differ in scope (code vs data); the README's is the one that names the data. Treat the data as CC BY-SA 3.0 (attribution, share-alike).",
+ "outputs_sha256": {
+  "queries.json": "3b33d5eb1224873dd79b2545ce8211ceeedc96cfae77c25b10b91bf325034b92",
+  "queries.gold.json": "de907a3d2a9d7b901d80a56fd42f5b53d99eece61d6a03bd565a8c747ab9fa77"
+ }
+}
