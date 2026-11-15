@@ -1,0 +1,52 @@
+{
+ "holdout": {
+  "pairs": 200,
+  "length": 0.515,
+  "length_by_kind": {
+   "code_quality": "11/13",
+   "false_no_issues": "23/23",
+   "false_positive": "0/33",
+   "generic": "10/14",
+   "hallucinated_cve": "1/16",
+   "missed_critical": "30/31",
+   "wrong_location": "10/38",
+   "wrong_severity": "18/32"
+  },
+  "bow": 0.73,
+  "bow_by_kind": {
+   "code_quality": "13/13",
+   "false_no_issues": "16/23",
+   "false_positive": "16/33",
+   "generic": "14/14",
+   "hallucinated_cve": "13/16",
+   "missed_critical": "31/31",
+   "wrong_location": "24/38",
+   "wrong_severity": "19/32"
+  }
+ },
+ "oot": {
+  "pairs": 30,
+  "length": 0.4667,
+  "length_by_kind": {
+   "code_quality": "0/3",
+   "false_no_issues": "3/4",
+   "false_positive": "4/4",
+   "generic": "1/3",
+   "hallucinated_cve": "1/4",
+   "missed_critical": "0/4",
+   "wrong_location": "2/4",
+   "wrong_severity": "3/4"
+  },
+  "bow": 0.7667,
+  "bow_by_kind": {
+   "code_quality": "3/3",
+   "false_no_issues": "4/4",
+   "false_positive": "2/4",
+   "generic": "3/3",
+   "hallucinated_cve": "2/4",
+   "missed_critical": "3/4",
+   "wrong_location": "2/4",
+   "wrong_severity": "4/4"
+  }
+ }
+}

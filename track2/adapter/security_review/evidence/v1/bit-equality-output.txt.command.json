@@ -1,0 +1,25 @@
+{
+ "argv": [
+  "C:/Users/hyada/tg-eval/.venv/Scripts/python.exe",
+  "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/.claude/worktrees/agent-ab157a6de2e63631c/track2/adapter/security_review/bit_equality.py",
+  "--home",
+  "C:/Users/hyada/tg-eval",
+  "--package",
+  "C:/Users/hyada/tg-eval/runs-v2/SECURITY_REVIEW_v1/SECURITY_REVIEW.safetensors",
+  "--scores",
+  "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/.claude/worktrees/agent-ab157a6de2e63631c/track2/adapter/security_review/evidence/v1/node-scores.json",
+  "--name",
+  "v1",
+  "--pairs",
+  "C:/Users/hyada/tg-eval/pairs/security_review_v1/holdout.jsonl",
+  "--n",
+  "4",
+  "--out",
+  "C:/Users/hyada/OneDrive/Documents/Work-Related/Hackathons/Telegraph/.claude/worktrees/agent-ab157a6de2e63631c/track2/adapter/security_review/evidence/v1/bit-equality.json"
+ ],
+ "cwd": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-ab157a6de2e63631c\\track2\\adapter\\security_review",
+ "env_set": {},
+ "started_at": "2026-11-08T08:53:41.708324+00:00",
+ "exit_code": 0,
+ "finished_at": "2026-11-08T08:54:33.471643+00:00"
+}

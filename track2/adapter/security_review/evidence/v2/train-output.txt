@@ -1,0 +1,135 @@
+15:18:48 INFO: C:/Users/hyada/tg-eval/pairs/security_review_v2/train.jsonl: 4001 pairs
+15:18:48 INFO: C:/Users/hyada/tg-eval/pairs/security_review_v2/val.jsonl: 400 pairs
+15:18:55 INFO: hyperparameters: Hyperparams(max_length=512, batch_size=2, grad_accum=8, grad_checkpointing=True, lora_rank=8, lora_alpha=32, lora_dropout=0.1, epochs=3, lr=0.0001, weight_decay=0.01, eval_split=0.15, seed=42, eval_batch=2, gate_min_acc=0.65, gate_min_margin_over_baseline=0.1, early_stopping=True, es_metric='val_loss', es_patience=1, es_min_delta=0.001, loss_floor=0.0001)
+15:19:02 INFO: tokenizer matches the node (88 vectors)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+dataset gate: PASS (4001 pairs)
+  unique negatives    100.0%
+  largest single neg  0.0%
+  length shortcut     52.8%
+  held-out leak       0.0%
+  surface probe       50.4%  (50% = no tell)
+  mean length         chosen 462 / rejected 460 characters
+
+Loading weights:   0%|          | 0/136 [00:00<?, ?it/s]
+Loading weights:  24%|##4       | 33/136 [00:00<00:00, 328.33it/s]
+Loading weights:  51%|#####     | 69/136 [00:00<00:00, 333.16it/s]
+Loading weights:  81%|########  | 110/136 [00:00<00:00, 359.39it/s]
+Loading weights: 100%|##########| 136/136 [00:00<00:00, 358.50it/s]
+[transformers] [1mModernBertForSequenceClassification LOAD REPORT[0m from: answerdotai/ModernBERT-base
+Key               | Status     | 
+------------------+------------+-
+decoder.bias      | UNEXPECTED | 
+classifier.bias   | MISSING    | 
+classifier.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+15:19:03 INFO: answerdotai/ModernBERT-base | trainable 1,690,369 / 151,296,002 parameters
+15:19:03 INFO: device: cuda (NVIDIA GeForce RTX 3050 Laptop GPU)
+15:19:33 INFO: epoch 0 step 10/750 loss 0.6928
+15:20:03 INFO: epoch 0 step 20/750 loss 0.6959
+15:20:33 INFO: epoch 0 step 30/750 loss 0.6990
+15:21:04 INFO: epoch 0 step 40/750 loss 0.6982
+15:21:35 INFO: epoch 0 step 50/750 loss 0.6961
+15:22:04 INFO: epoch 0 step 60/750 loss 0.6964
+15:22:34 INFO: epoch 0 step 70/750 loss 0.6961
+15:23:06 INFO: epoch 0 step 80/750 loss 0.6963
+15:23:36 INFO: epoch 0 step 90/750 loss 0.6963
+15:24:06 INFO: epoch 0 step 100/750 loss 0.6962
+15:24:34 INFO: epoch 0 step 110/750 loss 0.6961
+15:25:04 INFO: epoch 0 step 120/750 loss 0.6960
+15:25:34 INFO: epoch 0 step 130/750 loss 0.6957
+15:26:03 INFO: epoch 0 step 140/750 loss 0.6950
+15:26:34 INFO: epoch 0 step 150/750 loss 0.6950
+15:27:07 INFO: epoch 0 step 160/750 loss 0.6948
+15:27:36 INFO: epoch 0 step 170/750 loss 0.6951
+15:28:06 INFO: epoch 0 step 180/750 loss 0.6950
+15:28:34 INFO: epoch 0 step 190/750 loss 0.6947
+15:29:05 INFO: epoch 0 step 200/750 loss 0.6951
+15:29:35 INFO: epoch 0 step 210/750 loss 0.6951
+15:30:05 INFO: epoch 0 step 220/750 loss 0.6950
+15:30:37 INFO: epoch 0 step 230/750 loss 0.6951
+15:31:08 INFO: epoch 0 step 240/750 loss 0.6948
+15:31:38 INFO: epoch 0 step 250/750 loss 0.6946
+15:31:38 INFO: epoch 0 done: train loss 0.6946
+15:32:01 INFO: epoch 0 validation: accuracy 0.5600, loss 0.6889
+C:\Users\hyada\tg-eval\.venv\Lib\site-packages\peft\utils\save_and_load.py:313: UserWarning: Could not find a config file in answerdotai/ModernBERT-base - will assume that the vocabulary was not modified.
+  warnings.warn(
+15:32:01 INFO: epoch 0: new best val_loss 0.6889, adapter saved
+15:32:31 INFO: epoch 1 step 260/750 loss 0.6899
+15:33:00 INFO: epoch 1 step 270/750 loss 0.6892
+15:33:31 INFO: epoch 1 step 280/750 loss 0.6907
+15:33:59 INFO: epoch 1 step 290/750 loss 0.6889
+15:34:31 INFO: epoch 1 step 300/750 loss 0.6900
+15:35:04 INFO: epoch 1 step 310/750 loss 0.6896
+15:35:33 INFO: epoch 1 step 320/750 loss 0.6900
+15:36:03 INFO: epoch 1 step 330/750 loss 0.6903
+15:36:31 INFO: epoch 1 step 340/750 loss 0.6892
+15:37:01 INFO: epoch 1 step 350/750 loss 0.6889
+15:37:31 INFO: epoch 1 step 360/750 loss 0.6890
+15:38:02 INFO: epoch 1 step 370/750 loss 0.6893
+15:38:34 INFO: epoch 1 step 380/750 loss 0.6888
+15:39:06 INFO: epoch 1 step 390/750 loss 0.6885
+15:39:35 INFO: epoch 1 step 400/750 loss 0.6888
+15:40:05 INFO: epoch 1 step 410/750 loss 0.6887
+15:40:34 INFO: epoch 1 step 420/750 loss 0.6889
+15:41:03 INFO: epoch 1 step 430/750 loss 0.6893
+15:41:33 INFO: epoch 1 step 440/750 loss 0.6893
+15:42:03 INFO: epoch 1 step 450/750 loss 0.6892
+15:42:33 INFO: epoch 1 step 460/750 loss 0.6887
+15:43:05 INFO: epoch 1 step 470/750 loss 0.6882
+15:43:34 INFO: epoch 1 step 480/750 loss 0.6882
+15:44:04 INFO: epoch 1 step 490/750 loss 0.6882
+15:44:34 INFO: epoch 1 step 500/750 loss 0.6879
+15:44:34 INFO: epoch 1 done: train loss 0.6880
+15:44:57 INFO: epoch 1 validation: accuracy 0.5300, loss 0.6779
+15:44:57 INFO: epoch 1: new best val_loss 0.6779, adapter saved
+15:45:27 INFO: epoch 2 step 510/750 loss 0.6868
+15:45:56 INFO: epoch 2 step 520/750 loss 0.6857
+15:46:24 INFO: epoch 2 step 530/750 loss 0.6867
+15:46:56 INFO: epoch 2 step 540/750 loss 0.6850
+15:47:26 INFO: epoch 2 step 550/750 loss 0.6860
+15:47:56 INFO: epoch 2 step 560/750 loss 0.6835
+15:48:26 INFO: epoch 2 step 570/750 loss 0.6830
+15:48:55 INFO: epoch 2 step 580/750 loss 0.6815
+15:49:25 INFO: epoch 2 step 590/750 loss 0.6814
+15:49:55 INFO: epoch 2 step 600/750 loss 0.6815
+15:50:24 INFO: epoch 2 step 610/750 loss 0.6805
+15:50:54 INFO: epoch 2 step 620/750 loss 0.6791
+15:51:25 INFO: epoch 2 step 630/750 loss 0.6788
+15:51:54 INFO: epoch 2 step 640/750 loss 0.6764
+15:52:24 INFO: epoch 2 step 650/750 loss 0.6760
+15:52:53 INFO: epoch 2 step 660/750 loss 0.6748
+15:53:23 INFO: epoch 2 step 670/750 loss 0.6736
+15:53:52 INFO: epoch 2 step 680/750 loss 0.6747
+15:54:22 INFO: epoch 2 step 690/750 loss 0.6747
+15:54:51 INFO: epoch 2 step 700/750 loss 0.6732
+15:55:22 INFO: epoch 2 step 710/750 loss 0.6737
+15:55:52 INFO: epoch 2 step 720/750 loss 0.6735
+15:56:22 INFO: epoch 2 step 730/750 loss 0.6723
+15:56:52 INFO: epoch 2 step 740/750 loss 0.6714
+15:57:21 INFO: epoch 2 step 750/750 loss 0.6715
+15:57:21 INFO: epoch 2 done: train loss 0.6715
+15:57:44 INFO: epoch 2 validation: accuracy 0.6050, loss 0.6566
+15:57:44 INFO: epoch 2: new best val_loss 0.6566, adapter saved
+15:58:07 ERROR: evaluation gate FAILED: accuracy 0.6050 is below --gate-min-acc 0.65
+{
+  "intent": "SECURITY_REVIEW",
+  "base_model": "answerdotai/ModernBERT-base",
+  "base_model_sha256": "340ac08b74eef0d7bdec2d7981a6a3d4249bf0e6aab60634b72ad02c2b8023a9",
+  "tokenizer_sha256": "9fd55248d51d33976b324fc11592e28071da7d41e0e9401dfb7082e30574b7b1",
+  "adapter_dir": "C:\\Users\\hyada\\tg-eval\\runs-v2\\SECURITY_REVIEW_v2\\adapter",
+  "reward_head": "C:\\Users\\hyada\\tg-eval\\runs-v2\\SECURITY_REVIEW_v2\\adapter\\reward_head.pt",
+  "train_pairs": 4001,
+  "gate_split": "validation",
+  "n_eval": 400,
+  "pairwise_accuracy": 0.605,
+  "val_loss": 0.656559,
+  "length_baseline": 0.5475,
+  "beats_length_baseline": false,
+  "verdict": "FAIL",
+  "negative_memorisation": 0.0,
+  "fail_reason": "accuracy 0.6050 is below --gate-min-acc 0.65"
+}

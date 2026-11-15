@@ -1,0 +1,25 @@
+{
+ "argv": [
+  "C:/Users/hyada/tg-eval/.venv/Scripts/python.exe",
+  "-m",
+  "float_runtime.export_adapter",
+  "--adapter",
+  "C:/Users/hyada/tg-eval/runs-v2/SECURITY_REVIEW_v1/adapter",
+  "--intent",
+  "SECURITY_REVIEW",
+  "--class",
+  "judgment",
+  "--foundation",
+  "C:/Users/hyada/tg-eval/foundation/foundation.json",
+  "--out",
+  "C:/Users/hyada/tg-eval/runs-v2/SECURITY_REVIEW_v1/SECURITY_REVIEW.safetensors"
+ ],
+ "cwd": "C:/Users/hyada/tg-eval/kit-v2",
+ "env_set": {
+  "HF_HOME": "C:/Users/hyada/tg-eval/hf",
+  "HF_HUB_OFFLINE": "1"
+ },
+ "started_at": "2026-11-08T04:05:22.805992+00:00",
+ "exit_code": 0,
+ "finished_at": "2026-11-08T04:05:33.306573+00:00"
+}

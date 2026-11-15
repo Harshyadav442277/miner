@@ -1,0 +1,98 @@
+{
+ "val": {
+  "pairs": 400,
+  "length": 0.54,
+  "length_by_kind": {
+   "code_quality": "9/10",
+   "false_no_issues": "28/28",
+   "false_positive": "0/90",
+   "false_positive_clean": "0/28",
+   "generic": "13/13",
+   "hallucinated_cve": "0/5",
+   "missed_finding": "90/90",
+   "wrong_location": "52/100",
+   "wrong_severity": "24/36"
+  },
+  "bow": 0.55,
+  "bow_by_kind": {
+   "code_quality": "10/10",
+   "false_no_issues": "9/28",
+   "false_positive": "43/90",
+   "false_positive_clean": "19/28",
+   "generic": "13/13",
+   "hallucinated_cve": "0/5",
+   "missed_finding": "47/90",
+   "wrong_location": "49/100",
+   "wrong_severity": "30/36"
+  }
+ },
+ "holdout": {
+  "pairs": 240,
+  "length": 0.5,
+  "length_by_kind": {
+   "false_no_issues": "68/68",
+   "false_positive": "0/48",
+   "false_positive_clean": "0/68",
+   "missed_finding": "48/48",
+   "wrong_location": "4/8"
+  },
+  "bow": 0.5,
+  "bow_by_kind": {
+   "false_no_issues": "21/68",
+   "false_positive": "26/48",
+   "false_positive_clean": "47/68",
+   "missed_finding": "22/48",
+   "wrong_location": "4/8"
+  }
+ },
+ "v1holdout": {
+  "pairs": 200,
+  "length": 0.515,
+  "length_by_kind": {
+   "code_quality": "11/13",
+   "false_no_issues": "23/23",
+   "false_positive": "0/33",
+   "generic": "10/14",
+   "hallucinated_cve": "1/16",
+   "missed_critical": "30/31",
+   "wrong_location": "10/38",
+   "wrong_severity": "18/32"
+  },
+  "bow": 0.575,
+  "bow_by_kind": {
+   "code_quality": "13/13",
+   "false_no_issues": "9/23",
+   "false_positive": "17/33",
+   "generic": "14/14",
+   "hallucinated_cve": "1/16",
+   "missed_critical": "28/31",
+   "wrong_location": "14/38",
+   "wrong_severity": "19/32"
+  }
+ },
+ "oot": {
+  "pairs": 30,
+  "length": 0.4667,
+  "length_by_kind": {
+   "code_quality": "0/3",
+   "false_no_issues": "3/4",
+   "false_positive": "4/4",
+   "generic": "1/3",
+   "hallucinated_cve": "1/4",
+   "missed_critical": "0/4",
+   "wrong_location": "2/4",
+   "wrong_severity": "3/4"
+  },
+  "bow": 0.6333,
+  "bow_by_kind": {
+   "code_quality": "2/3",
+   "false_no_issues": "3/4",
+   "false_positive": "1/4",
+   "generic": "3/3",
+   "hallucinated_cve": "1/4",
+   "missed_critical": "4/4",
+   "wrong_location": "1/4",
+   "wrong_severity": "4/4"
+  }
+ }
+}

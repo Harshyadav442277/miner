@@ -1,0 +1,1 @@
+{"holdout": {"pairs": 200, "length": 0.515, "bow": 0.73}, "oot": {"pairs": 30, "length": 0.4667, "bow": 0.7667}}

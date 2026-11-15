@@ -1,0 +1,4 @@
+v1 {'holdout': (0.68, {'code_quality': '13/13', 'false_no_issues': '12/23', 'false_positive': '14/33', 'generic': '14/14', 'hallucinated_cve': '15/16', 'missed_critical': '22/31', 'wrong_location': '26/38', 'wrong_severity': '20/32'}), 'oot': (0.6333, {'code_quality': '2/3', 'false_no_issues': '3/4', 'false_positive': '1/4', 'generic': '3/3', 'hallucinated_cve': '3/4', 'missed_critical': '3/4', 'wrong_location': '1/4', 'wrong_severity': '3/4'})}
+generic {'holdout': (0.585, {'code_quality': '10/13', 'false_no_issues': '21/23', 'false_positive': '11/33', 'generic': '10/14', 'hallucinated_cve': '11/16', 'missed_critical': '13/31', 'wrong_location': '24/38', 'wrong_severity': '17/32'}), 'oot': (0.6333, {'code_quality': '2/3', 'false_no_issues': '2/4', 'false_positive': '1/4', 'generic': '2/3', 'hallucinated_cve': '3/4', 'missed_critical': '4/4', 'wrong_location': '2/4', 'wrong_severity': '3/4'})}
+length baseline holdout 0.515
+length baseline oot 0.4667

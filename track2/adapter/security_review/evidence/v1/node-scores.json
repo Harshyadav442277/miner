@@ -1,0 +1,4760 @@
+{
+ "pairs": {
+  "holdout": {
+   "path": "C:/Users/hyada/tg-eval/pairs/security_review_v1/holdout.jsonl",
+   "sha256": "0ea88ee74d64223028811cb1187cb0076c5d9d78635b15cff1fc084823089adf",
+   "pairs": 200,
+   "longer_is_chosen": 0.515
+  },
+  "oot": {
+   "path": "C:/Users/hyada/tg-eval/pairs/security_review_oot_v1/oot.jsonl",
+   "sha256": "0632ec8ccfd8fe8b786b1eee695dbdf427dbdfa0deeb5c00be0ca142f4da2c5a",
+   "pairs": 30,
+   "longer_is_chosen": 0.4667
+  }
+ },
+ "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+ "engine_hash": "77643d6e1176ab8744801cef93ccb844d0136ed32b8daa865d541f37d13292de",
+ "packages": {
+  "v1": {
+   "package": "C:\\Users\\hyada\\tg-eval\\runs-v2\\SECURITY_REVIEW_v1\\SECURITY_REVIEW.safetensors",
+   "package_sha256": "ba8ad282f7fe35056da441a3cd967c93d240096498a408d471eb7c3f09a4c4b7",
+   "adapter_hash_echo": "c55267d518686c117b26c3f420d4b447b513c5af65a5d143bcc08c286892baf1",
+   "metadata": {
+    "intent": "SECURITY_REVIEW",
+    "class": "judgment",
+    "rank": "8",
+    "max_tokens": "512"
+   },
+   "texts": 460,
+   "unique_texts": 460,
+   "seconds": 1098.3,
+   "sets": {
+    "holdout": {
+     "pairs": 200,
+     "correct": 136,
+     "accuracy": 0.68,
+     "wilson95": [
+      0.6125,
+      0.7407
+     ],
+     "truncated_pairs": 0,
+     "by_kind": {
+      "code_quality": "13/13",
+      "false_no_issues": "12/23",
+      "false_positive": "14/33",
+      "generic": "14/14",
+      "hallucinated_cve": "15/16",
+      "missed_critical": "22/31",
+      "wrong_location": "26/38",
+      "wrong_severity": "20/32"
+     },
+     "by_format": {
+      "json": "24/31",
+      "md": "47/71",
+      "plain": "25/38",
+      "prose": "21/28",
+      "table": "19/32"
+     },
+     "rows": [
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 3241635816,
+       "rejected_bits": 3246465373,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 3236801322,
+       "rejected_bits": 3240124848,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code+config",
+       "format": "plain",
+       "chosen_bits": 3223303922,
+       "rejected_bits": 3223973614,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 3217793813,
+       "rejected_bits": 3215504124,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 3243802610,
+       "rejected_bits": 3241563974,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 3223535676,
+       "rejected_bits": 3233262986,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 3241968142,
+       "rejected_bits": 3241764238,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code+config",
+       "format": "plain",
+       "chosen_bits": 3219136792,
+       "rejected_bits": 3222477320,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config+dependency",
+       "format": "md",
+       "chosen_bits": 3240000813,
+       "rejected_bits": 3240310546,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 3242112618,
+       "rejected_bits": 3240123390,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 3230083821,
+       "rejected_bits": 3239963758,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 3237782925,
+       "rejected_bits": 3237350614,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 3243543526,
+       "rejected_bits": 3243664160,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 3239980248,
+       "rejected_bits": 3241375852,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 3241514694,
+       "rejected_bits": 3240372872,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "secret",
+       "format": "table",
+       "chosen_bits": 3228170153,
+       "rejected_bits": 3235308041,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3243605588,
+       "rejected_bits": 3244240114,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code+config",
+       "format": "md",
+       "chosen_bits": 3222819495,
+       "rejected_bits": 3231691262,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 3220471254,
+       "rejected_bits": 3237121535,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 3238597010,
+       "rejected_bits": 3245739516,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 3241506754,
+       "rejected_bits": 3242350698,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "secret",
+       "format": "plain",
+       "chosen_bits": 3244275088,
+       "rejected_bits": 3244032438,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 3241150567,
+       "rejected_bits": 3238489560,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 3242438533,
+       "rejected_bits": 3244315942,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 3242371740,
+       "rejected_bits": 3243065904,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code+secret",
+       "format": "prose",
+       "chosen_bits": 3233267718,
+       "rejected_bits": 3231263918,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 3196821765,
+       "rejected_bits": 3219704194,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 3231736928,
+       "rejected_bits": 3238651163,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3241534046,
+       "rejected_bits": 3243352810,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1038910628,
+       "rejected_bits": 3178659760,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 3205772862,
+       "rejected_bits": 3228926654,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3241667710,
+       "rejected_bits": 3242308955,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code+secret",
+       "format": "json",
+       "chosen_bits": 3233700743,
+       "rejected_bits": 3236801121,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config+code",
+       "format": "table",
+       "chosen_bits": 3236006186,
+       "rejected_bits": 3239806223,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 3200210202,
+       "rejected_bits": 3195940302,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "code+secret",
+       "format": "md",
+       "chosen_bits": 3229923222,
+       "rejected_bits": 3241247570,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3238955005,
+       "rejected_bits": 3239686707,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config+dependency",
+       "format": "md",
+       "chosen_bits": 3239032628,
+       "rejected_bits": 3240036598,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "secret",
+       "format": "json",
+       "chosen_bits": 3234229350,
+       "rejected_bits": 3242661102,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 3235347660,
+       "rejected_bits": 3232825300,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 3234493396,
+       "rejected_bits": 3236244744,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code",
+       "format": "prose",
+       "chosen_bits": 3231008534,
+       "rejected_bits": 3236230562,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3240727446,
+       "rejected_bits": 3240287607,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 3241723722,
+       "rejected_bits": 3240467338,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 3238859479,
+       "rejected_bits": 3239088214,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 3217398007,
+       "rejected_bits": 3216362921,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3238607642,
+       "rejected_bits": 3235896934,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3239248912,
+       "rejected_bits": 3240731160,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "secret",
+       "format": "json",
+       "chosen_bits": 3226647824,
+       "rejected_bits": 3233833314,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 3233365994,
+       "rejected_bits": 3232467962,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3224094516,
+       "rejected_bits": 3232405418,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 3237100812,
+       "rejected_bits": 3244933866,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 3239397280,
+       "rejected_bits": 3243236774,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "table",
+       "chosen_bits": 3238220816,
+       "rejected_bits": 3236088936,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 3239175836,
+       "rejected_bits": 3237937799,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3235616175,
+       "rejected_bits": 3243213738,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 3220897290,
+       "rejected_bits": 3217087940,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 3230818169,
+       "rejected_bits": 3236634692,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3238237565,
+       "rejected_bits": 3239074192,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 3232364944,
+       "rejected_bits": 3236266776,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 3203716880,
+       "rejected_bits": 3222130058,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "prose",
+       "chosen_bits": 3222120304,
+       "rejected_bits": 3232216754,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "secret",
+       "format": "plain",
+       "chosen_bits": 3202694036,
+       "rejected_bits": 3212486507,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3240711780,
+       "rejected_bits": 3245415806,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 3239192459,
+       "rejected_bits": 3239346781,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "secret+config",
+       "format": "md",
+       "chosen_bits": 3239616569,
+       "rejected_bits": 3240001932,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "secret",
+       "format": "json",
+       "chosen_bits": 3228544610,
+       "rejected_bits": 3233040296,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "prose",
+       "chosen_bits": 3234349504,
+       "rejected_bits": 3232001418,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3230231694,
+       "rejected_bits": 3226318633,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency+config",
+       "format": "prose",
+       "chosen_bits": 3238278818,
+       "rejected_bits": 3240006690,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "secret",
+       "format": "plain",
+       "chosen_bits": 3226044215,
+       "rejected_bits": 3239412588,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code+secret",
+       "format": "json",
+       "chosen_bits": 3235484091,
+       "rejected_bits": 3234611845,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config+code",
+       "format": "md",
+       "chosen_bits": 3213617168,
+       "rejected_bits": 3219343180,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 3238438369,
+       "rejected_bits": 3240786384,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3231917997,
+       "rejected_bits": 3230770713,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3230691008,
+       "rejected_bits": 3230673034,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 3240957940,
+       "rejected_bits": 3240051533,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 3242276168,
+       "rejected_bits": 3243904118,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 3228921475,
+       "rejected_bits": 3238820089,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code+config",
+       "format": "md",
+       "chosen_bits": 3229791227,
+       "rejected_bits": 3228804532,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3229692310,
+       "rejected_bits": 3241487170,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "code+config",
+       "format": "plain",
+       "chosen_bits": 3213734164,
+       "rejected_bits": 3239985776,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 3232709240,
+       "rejected_bits": 3232055242,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "config+code",
+       "format": "md",
+       "chosen_bits": 3226022907,
+       "rejected_bits": 3222849638,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3236301307,
+       "rejected_bits": 3238480608,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 3221228572,
+       "rejected_bits": 3209494048,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 3222931372,
+       "rejected_bits": 3223962313,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "prose",
+       "chosen_bits": 3232957595,
+       "rejected_bits": 3217465474,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 3240231356,
+       "rejected_bits": 3240766614,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3236157890,
+       "rejected_bits": 3240653156,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3240886984,
+       "rejected_bits": 3243664886,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code+config",
+       "format": "plain",
+       "chosen_bits": 3222750204,
+       "rejected_bits": 3229486190,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 3208420588,
+       "rejected_bits": 3210642696,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 3240144777,
+       "rejected_bits": 3241367795,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 3237667166,
+       "rejected_bits": 3237377642,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 3238294360,
+       "rejected_bits": 3238195907,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3239919452,
+       "rejected_bits": 3243826376,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 1042218140,
+       "rejected_bits": 3182362152,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3236329014,
+       "rejected_bits": 3240487880,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 3230992098,
+       "rejected_bits": 3233354626,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 3242006542,
+       "rejected_bits": 3242053006,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "prose",
+       "chosen_bits": 3227256591,
+       "rejected_bits": 3234532928,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3240448949,
+       "rejected_bits": 3240380740,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 3242147798,
+       "rejected_bits": 3242462636,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency+code",
+       "format": "table",
+       "chosen_bits": 3241696773,
+       "rejected_bits": 3240338405,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 3241318213,
+       "rejected_bits": 3241058517,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 3231949859,
+       "rejected_bits": 3235013684,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3233915888,
+       "rejected_bits": 3233733946,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 3201164870,
+       "rejected_bits": 1027687416,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency+code",
+       "format": "plain",
+       "chosen_bits": 3242276962,
+       "rejected_bits": 3242968231,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 3232250493,
+       "rejected_bits": 3235054766,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "secret",
+       "format": "plain",
+       "chosen_bits": 3232710150,
+       "rejected_bits": 3234759289,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 3216031580,
+       "rejected_bits": 3239585493,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3240193204,
+       "rejected_bits": 3240855538,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 3234169534,
+       "rejected_bits": 3231625744,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 3240135102,
+       "rejected_bits": 3240203833,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "prose",
+       "chosen_bits": 3223614443,
+       "rejected_bits": 3211459664,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 3234958086,
+       "rejected_bits": 3239130532,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 3215630735,
+       "rejected_bits": 3214811772,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency+secret",
+       "format": "md",
+       "chosen_bits": 3243582436,
+       "rejected_bits": 3242578948,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 3241228991,
+       "rejected_bits": 3241081120,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 3240704860,
+       "rejected_bits": 3240744885,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3234888746,
+       "rejected_bits": 3239931952,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 3224466950,
+       "rejected_bits": 3226307612,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 3227790805,
+       "rejected_bits": 3222767282,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "secret",
+       "format": "json",
+       "chosen_bits": 3226190555,
+       "rejected_bits": 3238576047,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code+config",
+       "format": "table",
+       "chosen_bits": 3239177557,
+       "rejected_bits": 3241895230,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3243163383,
+       "rejected_bits": 3246050297,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "dependency+config",
+       "format": "md",
+       "chosen_bits": 3240640614,
+       "rejected_bits": 3243086706,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code+config",
+       "format": "table",
+       "chosen_bits": 3226076190,
+       "rejected_bits": 3225628878,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3242614394,
+       "rejected_bits": 3242589704,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 3219880844,
+       "rejected_bits": 3218888841,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 3229901377,
+       "rejected_bits": 3228294549,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency+config",
+       "format": "json",
+       "chosen_bits": 3241866642,
+       "rejected_bits": 3240912314,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 3240456379,
+       "rejected_bits": 3239086334,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency+code",
+       "format": "table",
+       "chosen_bits": 3236220598,
+       "rejected_bits": 3237007248,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3240630088,
+       "rejected_bits": 3239736046,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 3233328807,
+       "rejected_bits": 3235767558,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3239962227,
+       "rejected_bits": 3241367158,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3242469858,
+       "rejected_bits": 3241493382,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "secret+code",
+       "format": "plain",
+       "chosen_bits": 3229079028,
+       "rejected_bits": 3235081097,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 3238730531,
+       "rejected_bits": 3241089503,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "prose",
+       "chosen_bits": 3226723353,
+       "rejected_bits": 3228238122,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3243192953,
+       "rejected_bits": 3244399338,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 3221648759,
+       "rejected_bits": 3232719140,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code+config",
+       "format": "plain",
+       "chosen_bits": 3231566135,
+       "rejected_bits": 3237321200,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 3187866998,
+       "rejected_bits": 3210877595,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "prose",
+       "chosen_bits": 3221841894,
+       "rejected_bits": 3223253125,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency+config",
+       "format": "md",
+       "chosen_bits": 3236057094,
+       "rejected_bits": 3238345139,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 3237309012,
+       "rejected_bits": 3239843145,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3233535646,
+       "rejected_bits": 3232970082,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 3238880918,
+       "rejected_bits": 3241198688,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency+config",
+       "format": "json",
+       "chosen_bits": 3239674603,
+       "rejected_bits": 3240203282,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3241339420,
+       "rejected_bits": 3241574422,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 3241020232,
+       "rejected_bits": 3240179486,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 3236357399,
+       "rejected_bits": 3238385304,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 3211168582,
+       "rejected_bits": 3221799102,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "table",
+       "chosen_bits": 3236914156,
+       "rejected_bits": 3240128018,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 3222300705,
+       "rejected_bits": 3242765245,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 3224525266,
+       "rejected_bits": 3225670994,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 3241654983,
+       "rejected_bits": 3242753628,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 3240667470,
+       "rejected_bits": 3241401148,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "config",
+       "format": "table",
+       "chosen_bits": 3230041314,
+       "rejected_bits": 3228151233,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3240465712,
+       "rejected_bits": 3240588156,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 3240250234,
+       "rejected_bits": 3240580542,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 3227979856,
+       "rejected_bits": 3235178913,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 3241796138,
+       "rejected_bits": 3242216584,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 3223801004,
+       "rejected_bits": 3233024866,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 3238540536,
+       "rejected_bits": 3239615137,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 3232640819,
+       "rejected_bits": 3235789660,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "prose",
+       "chosen_bits": 3231695670,
+       "rejected_bits": 3234990271,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "secret+code",
+       "format": "table",
+       "chosen_bits": 3231952768,
+       "rejected_bits": 3239421775,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 3226611486,
+       "rejected_bits": 3219460318,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 3232846038,
+       "rejected_bits": 3242140229,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 3228482656,
+       "rejected_bits": 3239340624,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3236299047,
+       "rejected_bits": 3232975830,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3232354917,
+       "rejected_bits": 3232523022,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 3234244318,
+       "rejected_bits": 3233421502,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 3231085444,
+       "rejected_bits": 3235440534,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 3238699767,
+       "rejected_bits": 3238885092,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 3236095419,
+       "rejected_bits": 3237252228,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 3241725628,
+       "rejected_bits": 3240940778,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency+config",
+       "format": "table",
+       "chosen_bits": 3241961190,
+       "rejected_bits": 3241870972,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3243856221,
+       "rejected_bits": 3243137790,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3243933284,
+       "rejected_bits": 3245613536,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 3217543087,
+       "rejected_bits": 3222009938,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 3219478266,
+       "rejected_bits": 3219710722,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "dependency+config",
+       "format": "table",
+       "chosen_bits": 3233282954,
+       "rejected_bits": 3238998300,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 3226011018,
+       "rejected_bits": 3235586490,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config+secret",
+       "format": "plain",
+       "chosen_bits": 3237908468,
+       "rejected_bits": 3245116644,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 3226201839,
+       "rejected_bits": 3244715730,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 3241644604,
+       "rejected_bits": 3241887402,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 3197585693,
+       "rejected_bits": 3225860132,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "secret+code",
+       "format": "plain",
+       "chosen_bits": 3222793990,
+       "rejected_bits": 3220917726,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 3243576340,
+       "rejected_bits": 3241448864,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 3225987106,
+       "rejected_bits": 3225700798,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 3241826240,
+       "rejected_bits": 3241721622,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 3233075292,
+       "rejected_bits": 3234390740,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 3147850560,
+       "rejected_bits": 3223806138,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 3232639820,
+       "rejected_bits": 3235573286,
+       "correct": true,
+       "truncated": false
+      }
+     ]
+    },
+    "oot": {
+     "pairs": 30,
+     "correct": 19,
+     "accuracy": 0.6333,
+     "wilson95": [
+      0.4551,
+      0.7813
+     ],
+     "truncated_pairs": 0,
+     "by_kind": {
+      "code_quality": "2/3",
+      "false_no_issues": "3/4",
+      "false_positive": "1/4",
+      "generic": "3/3",
+      "hallucinated_cve": "3/4",
+      "missed_critical": "3/4",
+      "wrong_location": "1/4",
+      "wrong_severity": "3/4"
+     },
+     "by_format": {
+      "unseen-oot": "19/30"
+     },
+     "rows": [
+      {
+       "id": "oot01",
+       "kind": "missed_critical",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3242311954,
+       "rejected_bits": 3242180829,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot02",
+       "kind": "hallucinated_cve",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3222138018,
+       "rejected_bits": 3222702732,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot03",
+       "kind": "wrong_severity",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3214129905,
+       "rejected_bits": 3223284812,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot04",
+       "kind": "wrong_location",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3236199468,
+       "rejected_bits": 3231257218,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot05",
+       "kind": "false_no_issues",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3229877669,
+       "rejected_bits": 3232971188,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot06",
+       "kind": "code_quality",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3203104850,
+       "rejected_bits": 3194784608,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot07",
+       "kind": "generic",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1074223918,
+       "rejected_bits": 3215949331,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot08",
+       "kind": "false_positive",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1071975782,
+       "rejected_bits": 1076356206,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot09",
+       "kind": "missed_critical",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1043322494,
+       "rejected_bits": 3235682496,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot10",
+       "kind": "wrong_severity",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1076601405,
+       "rejected_bits": 1074582925,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot11",
+       "kind": "hallucinated_cve",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3189896216,
+       "rejected_bits": 3198240683,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot12",
+       "kind": "false_no_issues",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3230757579,
+       "rejected_bits": 3238057470,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot13",
+       "kind": "wrong_location",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3238056480,
+       "rejected_bits": 3237959276,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot14",
+       "kind": "code_quality",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1075210871,
+       "rejected_bits": 3177844920,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot15",
+       "kind": "generic",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1062844740,
+       "rejected_bits": 3224117560,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot16",
+       "kind": "false_positive",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1060319180,
+       "rejected_bits": 3201707836,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot17",
+       "kind": "missed_critical",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1066034608,
+       "rejected_bits": 3223031966,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot18",
+       "kind": "wrong_severity",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1080379176,
+       "rejected_bits": 1081067460,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot19",
+       "kind": "false_no_issues",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3213412904,
+       "rejected_bits": 3218081986,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot20",
+       "kind": "hallucinated_cve",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3224559553,
+       "rejected_bits": 3223590171,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot21",
+       "kind": "generic",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1075409589,
+       "rejected_bits": 3215970130,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot22",
+       "kind": "wrong_location",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1073755384,
+       "rejected_bits": 1073137063,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot23",
+       "kind": "false_positive",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1062154978,
+       "rejected_bits": 1067951135,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot24",
+       "kind": "code_quality",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1073405656,
+       "rejected_bits": 1067428952,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot25",
+       "kind": "missed_critical",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3222687512,
+       "rejected_bits": 3228303236,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot26",
+       "kind": "wrong_severity",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1077966568,
+       "rejected_bits": 1075847737,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot27",
+       "kind": "false_no_issues",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3231182520,
+       "rejected_bits": 3226326018,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot28",
+       "kind": "hallucinated_cve",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3213325780,
+       "rejected_bits": 3230036394,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot29",
+       "kind": "false_positive",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1072123393,
+       "rejected_bits": 1076592555,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot30",
+       "kind": "wrong_location",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1068704839,
+       "rejected_bits": 1069921913,
+       "correct": false,
+       "truncated": false
+      }
+     ]
+    }
+   }
+  },
+  "generic": {
+   "package": "C:\\Users\\hyada\\tg-eval\\runs-v2\\SECURITY_REVIEW_ref_generic\\GENERIC.safetensors",
+   "package_sha256": "e42b553315b32f4fb61600df2e86de7b48efdd28d2de03c59689c67d5dbec7e4",
+   "adapter_hash_echo": "dc4f8bd55442407c9a7cc29b892d22ad136e326e07e21d37ed7e0f94adc2e2b1",
+   "metadata": {
+    "intent": "GENERIC",
+    "class": "judgment",
+    "rank": "8",
+    "max_tokens": "512"
+   },
+   "texts": 460,
+   "unique_texts": 460,
+   "seconds": 806.4,
+   "sets": {
+    "holdout": {
+     "pairs": 200,
+     "correct": 117,
+     "accuracy": 0.585,
+     "wilson95": [
+      0.5157,
+      0.6511
+     ],
+     "truncated_pairs": 0,
+     "by_kind": {
+      "code_quality": "10/13",
+      "false_no_issues": "21/23",
+      "false_positive": "11/33",
+      "generic": "10/14",
+      "hallucinated_cve": "11/16",
+      "missed_critical": "13/31",
+      "wrong_location": "24/38",
+      "wrong_severity": "17/32"
+     },
+     "by_format": {
+      "json": "16/31",
+      "md": "46/71",
+      "plain": "21/38",
+      "prose": "15/28",
+      "table": "19/32"
+     },
+     "rows": [
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 1085012411,
+       "rejected_bits": 1072152660,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 1089896222,
+       "rejected_bits": 1090423934,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code+config",
+       "format": "plain",
+       "chosen_bits": 1091730471,
+       "rejected_bits": 1091881032,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1096492552,
+       "rejected_bits": 1095920510,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 1086158230,
+       "rejected_bits": 1085940692,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 1091088458,
+       "rejected_bits": 1088358795,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 1085587611,
+       "rejected_bits": 1086058547,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code+config",
+       "format": "plain",
+       "chosen_bits": 1091496448,
+       "rejected_bits": 1092036768,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config+dependency",
+       "format": "md",
+       "chosen_bits": 1090184065,
+       "rejected_bits": 1090912781,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 1082806137,
+       "rejected_bits": 1084780813,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 1093415114,
+       "rejected_bits": 1093432385,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 1096326119,
+       "rejected_bits": 1096096491,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 1092774860,
+       "rejected_bits": 1093147576,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 1089879224,
+       "rejected_bits": 1089303768,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 1091824724,
+       "rejected_bits": 1090669125,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "secret",
+       "format": "table",
+       "chosen_bits": 1088411959,
+       "rejected_bits": 1086292066,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1090891182,
+       "rejected_bits": 1087724090,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code+config",
+       "format": "md",
+       "chosen_bits": 1091681422,
+       "rejected_bits": 1091571250,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 1091307048,
+       "rejected_bits": 1086881120,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 1091005025,
+       "rejected_bits": 1085626538,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 1088382442,
+       "rejected_bits": 1087409352,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "secret",
+       "format": "plain",
+       "chosen_bits": 1087397254,
+       "rejected_bits": 1082493461,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 1091767525,
+       "rejected_bits": 1088392206,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 1087183311,
+       "rejected_bits": 1086666811,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 1083583848,
+       "rejected_bits": 1089011018,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code+secret",
+       "format": "prose",
+       "chosen_bits": 1089781108,
+       "rejected_bits": 1089424929,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 1095800256,
+       "rejected_bits": 1094479172,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 1092308900,
+       "rejected_bits": 1090898019,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1090120097,
+       "rejected_bits": 1090027720,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1087942350,
+       "rejected_bits": 1087853925,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 1094909147,
+       "rejected_bits": 1094371727,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1084515558,
+       "rejected_bits": 1085011027,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code+secret",
+       "format": "json",
+       "chosen_bits": 1089197613,
+       "rejected_bits": 1088655054,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config+code",
+       "format": "table",
+       "chosen_bits": 1084093960,
+       "rejected_bits": 1084555769,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1090387706,
+       "rejected_bits": 1092577024,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "code+secret",
+       "format": "md",
+       "chosen_bits": 1085599224,
+       "rejected_bits": 1081057612,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1084307878,
+       "rejected_bits": 1083519575,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config+dependency",
+       "format": "md",
+       "chosen_bits": 1091538192,
+       "rejected_bits": 1092326647,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "secret",
+       "format": "json",
+       "chosen_bits": 1083440569,
+       "rejected_bits": 1066463388,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 1095825686,
+       "rejected_bits": 1096024710,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 1074290274,
+       "rejected_bits": 1074255430,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code",
+       "format": "prose",
+       "chosen_bits": 1093619081,
+       "rejected_bits": 1092967891,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1093447908,
+       "rejected_bits": 1091646804,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 1081592343,
+       "rejected_bits": 1086394112,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 1092180096,
+       "rejected_bits": 1092245256,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1085792074,
+       "rejected_bits": 1084967868,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1083877854,
+       "rejected_bits": 1087317007,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1093073517,
+       "rejected_bits": 1093825288,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "secret",
+       "format": "json",
+       "chosen_bits": 1087625597,
+       "rejected_bits": 1086909328,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 1091758172,
+       "rejected_bits": 1091748193,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1095832325,
+       "rejected_bits": 1095047819,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 1093969227,
+       "rejected_bits": 1092722722,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 1089875453,
+       "rejected_bits": 1089221144,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "table",
+       "chosen_bits": 1094765385,
+       "rejected_bits": 1093801490,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 1090379154,
+       "rejected_bits": 1089000674,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1084059087,
+       "rejected_bits": 1086352312,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1091344912,
+       "rejected_bits": 1090806106,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 1092419888,
+       "rejected_bits": 1092451052,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1087828048,
+       "rejected_bits": 1087177250,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 1092828231,
+       "rejected_bits": 1093809617,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 1094264373,
+       "rejected_bits": 1093783227,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "prose",
+       "chosen_bits": 1095785973,
+       "rejected_bits": 1095713157,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "secret",
+       "format": "plain",
+       "chosen_bits": 1081834891,
+       "rejected_bits": 1081558788,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1089983758,
+       "rejected_bits": 1083912502,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 1090918031,
+       "rejected_bits": 1090995807,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "secret+config",
+       "format": "md",
+       "chosen_bits": 1088902987,
+       "rejected_bits": 1086190308,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "secret",
+       "format": "json",
+       "chosen_bits": 1087174268,
+       "rejected_bits": 1087461708,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "prose",
+       "chosen_bits": 1090348070,
+       "rejected_bits": 1090668133,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1088526238,
+       "rejected_bits": 1089563736,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency+config",
+       "format": "prose",
+       "chosen_bits": 1091725274,
+       "rejected_bits": 1094193587,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "secret",
+       "format": "plain",
+       "chosen_bits": 1076579277,
+       "rejected_bits": 1064569756,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code+secret",
+       "format": "json",
+       "chosen_bits": 1085397690,
+       "rejected_bits": 1084589754,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config+code",
+       "format": "md",
+       "chosen_bits": 1092222952,
+       "rejected_bits": 1091635015,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 1075937140,
+       "rejected_bits": 1074266390,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1091248649,
+       "rejected_bits": 1087612505,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1079596385,
+       "rejected_bits": 1079482158,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 1092635867,
+       "rejected_bits": 1089742946,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 1090536003,
+       "rejected_bits": 1091383772,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 1093386000,
+       "rejected_bits": 1092423856,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code+config",
+       "format": "md",
+       "chosen_bits": 1088836017,
+       "rejected_bits": 1088072170,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1095300033,
+       "rejected_bits": 1093296529,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "code+config",
+       "format": "plain",
+       "chosen_bits": 1090807854,
+       "rejected_bits": 1089729387,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1091572328,
+       "rejected_bits": 1091633442,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "config+code",
+       "format": "md",
+       "chosen_bits": 1089049266,
+       "rejected_bits": 1088137579,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1084270650,
+       "rejected_bits": 1082384108,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 1099116838,
+       "rejected_bits": 1099311249,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 1089561730,
+       "rejected_bits": 1089349803,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "prose",
+       "chosen_bits": 1097458249,
+       "rejected_bits": 1098493610,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 1089965856,
+       "rejected_bits": 1090257314,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1093801995,
+       "rejected_bits": 1094108730,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1090186044,
+       "rejected_bits": 1090734924,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code+config",
+       "format": "plain",
+       "chosen_bits": 1095355398,
+       "rejected_bits": 1095875220,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1094248713,
+       "rejected_bits": 1094253232,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 1091264222,
+       "rejected_bits": 1090099559,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 1087982460,
+       "rejected_bits": 1088771633,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 1091269938,
+       "rejected_bits": 1091566121,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1091447472,
+       "rejected_bits": 1091169160,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 1083903295,
+       "rejected_bits": 1083703533,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1087010482,
+       "rejected_bits": 1090000734,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 1092535111,
+       "rejected_bits": 1091866475,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 1093872428,
+       "rejected_bits": 1093535208,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "prose",
+       "chosen_bits": 1094300732,
+       "rejected_bits": 1093365235,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1074535614,
+       "rejected_bits": 1085609666,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 1076717392,
+       "rejected_bits": 1078828074,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency+code",
+       "format": "table",
+       "chosen_bits": 1087064657,
+       "rejected_bits": 1091063010,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 1093111908,
+       "rejected_bits": 1093042385,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 1080468941,
+       "rejected_bits": 1074866453,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1093941816,
+       "rejected_bits": 1093965054,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 1080466415,
+       "rejected_bits": 1081392141,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency+code",
+       "format": "plain",
+       "chosen_bits": 1090613509,
+       "rejected_bits": 1087042838,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 1093368384,
+       "rejected_bits": 1092989379,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "secret",
+       "format": "plain",
+       "chosen_bits": 1073120357,
+       "rejected_bits": 1079824430,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 1086917878,
+       "rejected_bits": 1079850537,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1092135914,
+       "rejected_bits": 1091239116,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 1092831870,
+       "rejected_bits": 1090552375,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 1092244185,
+       "rejected_bits": 1092316205,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "prose",
+       "chosen_bits": 1095181803,
+       "rejected_bits": 1098695088,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 1074458095,
+       "rejected_bits": 1074850072,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 1088248964,
+       "rejected_bits": 1088010939,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency+secret",
+       "format": "md",
+       "chosen_bits": 1093571430,
+       "rejected_bits": 1088013652,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 1090834543,
+       "rejected_bits": 1090665780,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 1092205721,
+       "rejected_bits": 1093561032,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1085875627,
+       "rejected_bits": 1085764333,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 1094411024,
+       "rejected_bits": 1094334555,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 1094563352,
+       "rejected_bits": 1094985785,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "secret",
+       "format": "json",
+       "chosen_bits": 1083252971,
+       "rejected_bits": 1081053214,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code+config",
+       "format": "table",
+       "chosen_bits": 1093330690,
+       "rejected_bits": 1093056799,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1093770126,
+       "rejected_bits": 1086975027,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "dependency+config",
+       "format": "md",
+       "chosen_bits": 1091830393,
+       "rejected_bits": 1090582794,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code+config",
+       "format": "table",
+       "chosen_bits": 1089520930,
+       "rejected_bits": 1089823928,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1082609673,
+       "rejected_bits": 1083287432,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1082116608,
+       "rejected_bits": 1082558402,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1091136102,
+       "rejected_bits": 1090943282,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency+config",
+       "format": "json",
+       "chosen_bits": 1090868416,
+       "rejected_bits": 1090502312,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 1089175365,
+       "rejected_bits": 1092269565,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency+code",
+       "format": "table",
+       "chosen_bits": 1091985066,
+       "rejected_bits": 1091488568,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1086963277,
+       "rejected_bits": 1087692270,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 1090698217,
+       "rejected_bits": 1091732646,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1091058720,
+       "rejected_bits": 1090993211,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1084161203,
+       "rejected_bits": 1090616736,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "secret+code",
+       "format": "plain",
+       "chosen_bits": 1093470470,
+       "rejected_bits": 1093449208,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 1079682508,
+       "rejected_bits": 1085798820,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "prose",
+       "chosen_bits": 1099032303,
+       "rejected_bits": 1099021029,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1091341401,
+       "rejected_bits": 1086792196,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 1096107076,
+       "rejected_bits": 1094789989,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code+config",
+       "format": "plain",
+       "chosen_bits": 1097342744,
+       "rejected_bits": 1095119120,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 1091853171,
+       "rejected_bits": 1091966564,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "prose",
+       "chosen_bits": 1096383244,
+       "rejected_bits": 1097435384,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency+config",
+       "format": "md",
+       "chosen_bits": 1091082746,
+       "rejected_bits": 1093514702,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 1078811404,
+       "rejected_bits": 1085122535,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1087738184,
+       "rejected_bits": 1087653576,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 1086908928,
+       "rejected_bits": 1090371932,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency+config",
+       "format": "json",
+       "chosen_bits": 1087763700,
+       "rejected_bits": 1087199588,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1088539492,
+       "rejected_bits": 1088410452,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "json",
+       "chosen_bits": 1086370487,
+       "rejected_bits": 1091117217,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 1090942610,
+       "rejected_bits": 1090238056,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1094261419,
+       "rejected_bits": 1092819347,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "table",
+       "chosen_bits": 1092405256,
+       "rejected_bits": 1092235413,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 1089431050,
+       "rejected_bits": 1087052100,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "plain",
+       "chosen_bits": 1095877068,
+       "rejected_bits": 1096052912,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 1081134351,
+       "rejected_bits": 1088782160,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 1089235427,
+       "rejected_bits": 1088727683,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "config",
+       "format": "table",
+       "chosen_bits": 1093499050,
+       "rejected_bits": 1093748045,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1087402623,
+       "rejected_bits": 1091214816,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 1092641822,
+       "rejected_bits": 1091925715,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 1094054332,
+       "rejected_bits": 1093690491,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "prose",
+       "chosen_bits": 1093010310,
+       "rejected_bits": 1092827856,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 1090455804,
+       "rejected_bits": 1090860043,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 1088590892,
+       "rejected_bits": 1087981112,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 1090625420,
+       "rejected_bits": 1090075054,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "prose",
+       "chosen_bits": 1095252394,
+       "rejected_bits": 1093598230,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "secret+code",
+       "format": "table",
+       "chosen_bits": 1084756053,
+       "rejected_bits": 1080786408,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 1091933346,
+       "rejected_bits": 1092793327,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "secret",
+       "format": "prose",
+       "chosen_bits": 1090491462,
+       "rejected_bits": 1084055546,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 1090555644,
+       "rejected_bits": 1088756560,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1094381338,
+       "rejected_bits": 1094488707,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1076544295,
+       "rejected_bits": 1076541787,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 1088162474,
+       "rejected_bits": 1090340521,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "config",
+       "format": "plain",
+       "chosen_bits": 1093578146,
+       "rejected_bits": 1093824135,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 1069364252,
+       "rejected_bits": 1062949285,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 1088860798,
+       "rejected_bits": 1091958393,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 1091459248,
+       "rejected_bits": 1092031991,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "dependency+config",
+       "format": "table",
+       "chosen_bits": 1086530370,
+       "rejected_bits": 1086991957,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1091675106,
+       "rejected_bits": 1090596646,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1094558890,
+       "rejected_bits": 1093729512,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 1091039742,
+       "rejected_bits": 1086592451,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "config",
+       "format": "md",
+       "chosen_bits": 1092528794,
+       "rejected_bits": 1092565331,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "code_quality",
+       "category": "dependency+config",
+       "format": "table",
+       "chosen_bits": 1093482578,
+       "rejected_bits": 1093522418,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "hallucinated_cve",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1093097338,
+       "rejected_bits": 1092033872,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "config+secret",
+       "format": "plain",
+       "chosen_bits": 1086078126,
+       "rejected_bits": 1084915147,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "generic",
+       "category": "secret",
+       "format": "md",
+       "chosen_bits": 1091848202,
+       "rejected_bits": 1092309802,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "missed_critical",
+       "category": "dependency",
+       "format": "plain",
+       "chosen_bits": 1087207802,
+       "rejected_bits": 1090685763,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "code",
+       "format": "md",
+       "chosen_bits": 1097865990,
+       "rejected_bits": 1097585206,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "secret+code",
+       "format": "plain",
+       "chosen_bits": 1085543248,
+       "rejected_bits": 1086058008,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "dependency",
+       "format": "md",
+       "chosen_bits": 1091879401,
+       "rejected_bits": 1086563914,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_location",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 1094636636,
+       "rejected_bits": 1094565238,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "wrong_severity",
+       "category": "dependency",
+       "format": "table",
+       "chosen_bits": 1088855114,
+       "rejected_bits": 1089861677,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "code",
+       "format": "json",
+       "chosen_bits": 1090843401,
+       "rejected_bits": 1091703499,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_no_issues",
+       "category": "code",
+       "format": "table",
+       "chosen_bits": 1094243669,
+       "rejected_bits": 1093259554,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": null,
+       "kind": "false_positive",
+       "category": "config",
+       "format": "json",
+       "chosen_bits": 1086038606,
+       "rejected_bits": 1088379864,
+       "correct": false,
+       "truncated": false
+      }
+     ]
+    },
+    "oot": {
+     "pairs": 30,
+     "correct": 19,
+     "accuracy": 0.6333,
+     "wilson95": [
+      0.4551,
+      0.7813
+     ],
+     "truncated_pairs": 0,
+     "by_kind": {
+      "code_quality": "2/3",
+      "false_no_issues": "2/4",
+      "false_positive": "1/4",
+      "generic": "2/3",
+      "hallucinated_cve": "3/4",
+      "missed_critical": "4/4",
+      "wrong_location": "2/4",
+      "wrong_severity": "3/4"
+     },
+     "by_format": {
+      "unseen-oot": "19/30"
+     },
+     "rows": [
+      {
+       "id": "oot01",
+       "kind": "missed_critical",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1085920153,
+       "rejected_bits": 1083443600,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot02",
+       "kind": "hallucinated_cve",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1093204739,
+       "rejected_bits": 1092683126,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot03",
+       "kind": "wrong_severity",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1089107149,
+       "rejected_bits": 1087712006,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot04",
+       "kind": "wrong_location",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1083077788,
+       "rejected_bits": 1085990197,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot05",
+       "kind": "false_no_issues",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1094356497,
+       "rejected_bits": 1095212784,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot06",
+       "kind": "code_quality",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1083635624,
+       "rejected_bits": 1073604984,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot07",
+       "kind": "generic",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1077337927,
+       "rejected_bits": 1070164072,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot08",
+       "kind": "false_positive",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1084521256,
+       "rejected_bits": 1087074601,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot09",
+       "kind": "missed_critical",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1083591240,
+       "rejected_bits": 3188828896,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot10",
+       "kind": "wrong_severity",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1089077454,
+       "rejected_bits": 1089084511,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot11",
+       "kind": "hallucinated_cve",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1094281212,
+       "rejected_bits": 1091507137,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot12",
+       "kind": "false_no_issues",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1093806676,
+       "rejected_bits": 1087709078,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot13",
+       "kind": "wrong_location",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1087246262,
+       "rejected_bits": 1086558918,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot14",
+       "kind": "code_quality",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1072719391,
+       "rejected_bits": 1079146684,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot15",
+       "kind": "generic",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1090916460,
+       "rejected_bits": 1085415519,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot16",
+       "kind": "false_positive",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1080244001,
+       "rejected_bits": 1087414788,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot17",
+       "kind": "missed_critical",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1094181181,
+       "rejected_bits": 1090929672,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot18",
+       "kind": "wrong_severity",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1086989211,
+       "rejected_bits": 1086417455,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot19",
+       "kind": "false_no_issues",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1086772431,
+       "rejected_bits": 1074871962,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot20",
+       "kind": "hallucinated_cve",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1085934615,
+       "rejected_bits": 1086869079,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot21",
+       "kind": "generic",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1085919646,
+       "rejected_bits": 1087198168,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot22",
+       "kind": "wrong_location",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1083605548,
+       "rejected_bits": 1084544500,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot23",
+       "kind": "false_positive",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3210403382,
+       "rejected_bits": 1054831281,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot24",
+       "kind": "code_quality",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1086988130,
+       "rejected_bits": 1078360717,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot25",
+       "kind": "missed_critical",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1087054438,
+       "rejected_bits": 1084041818,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot26",
+       "kind": "wrong_severity",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1091520886,
+       "rejected_bits": 1091073910,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot27",
+       "kind": "false_no_issues",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 3208773085,
+       "rejected_bits": 1091386054,
+       "correct": false,
+       "truncated": false
+      },
+      {
+       "id": "oot28",
+       "kind": "hallucinated_cve",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1100124498,
+       "rejected_bits": 1098853399,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot29",
+       "kind": "false_positive",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1073755075,
+       "rejected_bits": 1070278224,
+       "correct": true,
+       "truncated": false
+      },
+      {
+       "id": "oot30",
+       "kind": "wrong_location",
+       "category": null,
+       "format": "unseen-oot",
+       "chosen_bits": 1082674754,
+       "rejected_bits": 1082430253,
+       "correct": true,
+       "truncated": false
+      }
+     ]
+    }
+   }
+  }
+ }
+}

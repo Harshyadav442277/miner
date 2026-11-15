@@ -1,0 +1,25 @@
+{
+ "argv": [
+  "C:/Users/hyada/tg-eval/.venv/Scripts/python.exe",
+  "build_pairs.py",
+  "--ghsa",
+  "C:/Users/hyada/tg-eval/pairs/security_review_src/ghsa/advisories.jsonl",
+  "--out",
+  "C:/Users/hyada/tg-eval/pairs/security_review_v1",
+  "--tokenizer",
+  "C:/Users/hyada/tg-eval/foundation/tokenizer.json",
+  "--reserve",
+  "oot_packages.txt",
+  "--n-train",
+  "3600",
+  "--n-val",
+  "360",
+  "--n-holdout",
+  "200"
+ ],
+ "cwd": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-ab157a6de2e63631c\\track2\\adapter\\security_review",
+ "env_set": {},
+ "started_at": "2026-11-08T02:41:22.326724+00:00",
+ "exit_code": 0,
+ "finished_at": "2026-11-08T02:41:29.903606+00:00"
+}
