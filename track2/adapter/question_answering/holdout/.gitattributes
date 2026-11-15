@@ -1,0 +1,5 @@
+# Frozen data: the hashes in *.freeze.json and the manifests are over these exact bytes.
+*.json -text
+*.jsonl -text
+*.txt -text
+*.tsv -text
