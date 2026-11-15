@@ -63,7 +63,10 @@ def candidates(tranco):
 
 
 def select(cands, truth):
-    by_id = {t["query_id"]: t for t in truth}
+    by_id = {}
+    for t in truth:  # several truth files may cover one query: a status conflict drops it
+        old = by_id.get(t["query_id"])
+        by_id[t["query_id"]] = t if old is None or old["status"] == t["status"] else {**t, "lookup_ok": None}
     rng = random.Random(SEED + 1)
     usable = [c for c in cands if by_id.get(c["id"], {}).get("lookup_ok") is not None]
     hold = [c for c in usable if c["bucket"] < 10]
@@ -109,7 +112,7 @@ def main():
     c.add_argument("--out", type=Path, required=True)
     s = sub.add_parser("select")
     s.add_argument("candidates", type=Path)
-    s.add_argument("truth", type=Path)
+    s.add_argument("truth", type=Path, nargs="+")
     s.add_argument("--tranco", type=Path, required=True)
     s.add_argument("--out-dir", type=Path, required=True)
     a = ap.parse_args()
@@ -119,7 +122,7 @@ def main():
         print(json.dumps({"candidates": len(rows), "holdout_bucket": sum(r["bucket"] < 10 for r in rows)}))
         return
     cands = json.loads(a.candidates.read_text(encoding="utf-8"))
-    truth = [json.loads(l) for l in a.truth.read_text(encoding="utf-8").splitlines() if l.strip()]
+    truth = [json.loads(l) for p in a.truth for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
     chosen, pilot = select(cands, truth)
     a.out_dir.mkdir(parents=True, exist_ok=True)
     keep = ("id", "query", "params", "registrable", "tranco_rank", "template", "truth_precheck")
