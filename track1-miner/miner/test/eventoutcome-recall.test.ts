@@ -24,8 +24,7 @@ test("didWin reads at most MAX_QUESTION characters, one line, and returns fast o
   assert.equal(didWin(hostile), null);
   assert.equal(didWin(`${":".repeat(5_000)} did ${"won ".repeat(5_000)}`), null);
   assert.ok(Date.now() - t < 200, `took ${Date.now() - t} ms`);
-  assert.equal(didWin("Did the Chiefs
-win Super Bowl LIX?"), null);
+  assert.equal(didWin("Did the Chiefs\nwin Super Bowl LIX?"), null);
   assert.equal(MAX_QUESTION, 300);
 });
 
