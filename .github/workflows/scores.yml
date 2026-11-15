@@ -1,0 +1,67 @@
+# Score history, captured every hour.
+#
+# /api/miners keeps only each miner's latest scored epoch, and intents are scored at different times inside a
+# three-hour epoch. The scores for SENTIMENT, NEWS_SEARCH and EVENT_OUTCOME in epochs 2095 and 2097 were lost that
+# way on 2026-11-15 (GAPS G300). This run reads the catalog every hour, appends what is new to the history kept
+# from the previous run, and keeps the result as an artifact. No commits.
+#
+# Read the latest history with:
+#   gh run download "$(gh run list --workflow scores.yml --status success -L 1 --json databaseId -q '.[0].databaseId')" -n score-history
+
+name: scores
+
+on:
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: scores
+  cancel-in-progress: false
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Fetch the history the previous run kept
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow scores.yml --status success -L 1 --json databaseId -q '.[0].databaseId')
+          if [ -n "$id" ]; then
+            gh run download "$id" --repo "$GITHUB_REPOSITORY" -n score-history -D track1-miner/docs || echo "no history artifact on run $id"
+          fi
+          wc -l track1-miner/docs/score-history.jsonl 2>/dev/null || echo "starting a new history"
+      - name: Record this hour
+        run: node track1-miner/tools/record-scores.mjs
+      - name: Keep the history
+        uses: actions/upload-artifact@v4
+        with:
+          name: score-history
+          path: track1-miner/docs/score-history.jsonl
+          retention-days: 90
+          if-no-files-found: error
+      - name: Say so when recording fails
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'Score recording failed';
+            const { data: open } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'scores',
+            });
+            const body = `Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId} at ${new Date().toISOString()}. ` +
+              'A score not read before the next epoch replaces it is lost.';
+            if (open.length) {
+              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: open[0].number, body });
+            } else {
+              await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title, body, labels: ['scores'] });
+            }
