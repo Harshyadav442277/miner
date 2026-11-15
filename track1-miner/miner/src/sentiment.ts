@@ -29,6 +29,8 @@ export interface SentimentResult {
   confidence: number;
   reason: string;
   compound: number | null;
+  /** SENTIMENT_ANALYSIS's `score` (-1 to 1), set when the model chose the label; agrees with it. */
+  score?: number;
   error?: string;
   /** The lexicon words that carried each side, strongest first; up to three each. */
   positive_words?: string[];
