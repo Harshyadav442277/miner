@@ -8,40 +8,26 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-15 ~07:50 UTC (13:20 IST) · QUESTION_ANSWERING LANE: HOLDOUT NOT YET FROZEN, NOTHING TRAINED
+## CURRENT — 2026-11-15 ~17:10 UTC (22:40 IST) · QUESTION_ANSWERING: HOLDOUT FROZEN, TRAINING CHAIN RUNNING DETACHED
 
-Branch `PR/evaluator-submission-track-2-4d21b7`, nothing pushed, signed or registered. Two sessions died mid-lane;
-everything below is on disk.
+Branch `PR/evaluator-submission-track-2-4d21b7`, nothing pushed, signed or registered.
 
-- **Committed:** [harness/](harness/README.md) (19 tests OK); [adapter/question_answering/](adapter/question_answering/README.md)
-  (pair builder, audit PASS, `train.ps1` and `finish.ps1` never run); `holdout/`: 120 frozen NQ-open dev questions
-  (`queries.freeze.json`, sha256 `3b33d5eb…`), 300 benchmark pairs (150 TruthfulQA, 150 HaluEval length-stratified),
-  `label.py`. Training pairs: `C:/Users/hyada/tg-eval/pairs/question_answering_v1` (9,000 / 900 / 900).
-- **Capture done:** `C:/Users/hyada/tg-eval/captures/qa-2026-11-15-r1` (05:33 to 06:01 UTC): txlens 100/120,
-  zk-qa-claims 120, a1-preflight 120, livecert 120 (related party). Auto labels in `…-r1-labels/`: 128 gold
-  string matches, 332 rows to read.
-- **Running when this was written (check, do not assume):**
-  - a Sonnet subagent filling `review.tsv` and `review-auto.tsv` in the labels folder; it saves `verdicts.json`
-    after each batch, so a restart resumes from that file. These verdicts are a model's reading, not a person's.
-  - a detached `pwsh` running `C:/Users/hyada/tg-eval/runs-v2/qa_holdout/run-measure.ps1`: champion #301 and
-    GENERIC on the benchmark pairs. Finished when `benchmarks.done` exists; results `benchmarks-QA301.json`,
-    `benchmarks-GENERIC.json`. Rerunning skips finished packages.
-- **Uncommitted:** `holdout/label.py` (a reviewer's `incorrect` or `skip` now demotes an auto-matched answer;
-  `--review` takes several files). Tests 13 OK.
-- **Before freezing the holdout (decide and write in the freeze note, before any candidate score exists):**
-  1. Rows are not independent: each judgement appears as `body` and `text`, and one question gives several
-     system pairs. Gate on one row per judgement and resample by `prompt`, or the Wilson bound and the 30-pair
-     estimate are too tight.
-  2. System identity may predict the label on `body` rows (a1-preflight is mostly the rejected side; the
-     champion's author runs zk-qa-claims). Print system-pair counts. Gate `text` rows plus benchmarks; report
-     `body` rows only.
-  3. Report with and without `related_party` rows; the gate must hold without LiveCert.
-  4. Do not pick rank or alpha on the holdout. Pick the variant on `val.jsonl`, score one package on the holdout.
-- **Then:** `python label.py pairs labels.jsonl --review review.tsv review-auto.tsv --capture <capture> --out
-  holdout_miners.jsonl`; join with `benchmarks.jsonl`; `harness/freeze.py`; commit; only then `train.ps1`
-  (check for a stale `C:/Users/hyada/tg-eval/GPU.lock` first), `finish.ps1`, `harness/measure.py` one package
-  per call (about 3 min per 150 pairs), `compare.py`, `gate.py`. No registration unless the gate prints PASS;
-  the owner signs.
+- **Holdout frozen and committed (`3658ecd`), before any training:** `adapter/question_answering/holdout/`.
+  - Gated `holdout.jsonl`, 362 rows: 150 TruthfulQA, 150 HaluEval (length-stratified), 62 real-answer pairs (one
+    `text` pair per question, no LiveCert pairs).
+  - Report-only `holdout_report.jsonl`, 334 rows: `body` rows, related-party rows, extra system pairs.
+  - Known weakness: in the 62 miner pairs the shorter answer is right 55 times, and 36 are zk-text over a1-preflight.
+    Read that stratum next to the shorter-wins baseline, never alone.
+  - Labels: 460 answers read by a Sonnet subagent against the NQ gold (`review.tsv`, `review-auto.tsv`,
+    `review-notes.md`); I spot-checked 19. A model's reading, not a person's.
+- **Champion #301 on the 300 benchmark pairs (node runtime): 127/300 = 42.3%** (HaluEval 41/150, TruthfulQA 86/150).
+  `C:/Users/hyada/tg-eval/runs-v2/qa_holdout/benchmarks-QA301.json`.
+- **Detached chain** `C:/Users/hyada/tg-eval/runs-v2/qa_holdout/run-chain.ps1` (progress in `chain.log`): waits for
+  the GENERIC benchmark run, then `train.ps1` (rank 8, alpha 32, 384 tokens), `finish.ps1`, then measures QA301,
+  GENERIC and OURS on `holdout.jsonl` and `holdout_report.jsonl` (`holdout-<name>.json`, `report-<name>.json`).
+  Rerunning it skips finished steps. Only rank 8 is trained; no variant was selected on the holdout.
+- **Then:** merge the three `holdout-*.json` results for `harness/compare.py` and `gate.py` (they expect one results
+  file; check their input shape first), report PASS or FAIL per stratum. No registration unless PASS; the owner signs.
 - **After QUESTION_ANSWERING:** EMAIL_SECURITY (champion #315, 71.43%), FACT_CHECK, then the closed-lane
   pipeline deletion and `SUBMISSION_S2.md` for the five entries.
 
