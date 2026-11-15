@@ -54,14 +54,23 @@ def halueval_rows(path, rng):
     need = {"question", "right_answer", "hallucinated_answer"}
     if not need <= set(records[0]):
         raise SystemExit(f"HaluEval columns changed: {list(records[0])}")
-    rows, dropped = [], 0
-    for i in sorted(rng.sample(range(len(records)), N)):
-        r = records[i]
+    # HaluEval's wrong answers are usually the longer side (a plain sample had the shorter answer
+    # right in 142 of 150 pairs), so "prefer shorter" would nearly solve it. Sample half the rows
+    # from pairs whose right answer is longer and half from pairs where it is shorter. The strata
+    # use text length only and were fixed on 2026-11-15, before any model was scored on the set.
+    strata, dropped = {"longer": [], "shorter": []}, 0
+    for i, r in enumerate(records):
         q, c, w = r["question"].strip(), r["right_answer"].strip(), r["hallucinated_answer"].strip()
-        if usable(q, c, w):
-            rows.append(mk(q, c, w, "hallucinated", "halueval"))
-        else:
+        if not usable(q, c, w):
             dropped += 1
+        elif len(c) != len(w):
+            strata["longer" if len(c) > len(w) else "shorter"].append(i)
+    picked = sorted(rng.sample(strata["longer"], N // 2) + rng.sample(strata["shorter"], N - N // 2))
+    rows = []
+    for i in picked:
+        r = records[i]
+        rows.append(mk(r["question"].strip(), r["right_answer"].strip(), r["hallucinated_answer"].strip(),
+                       "hallucinated", "halueval"))
     return rows, len(records), dropped
 
 

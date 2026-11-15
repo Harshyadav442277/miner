@@ -35,15 +35,15 @@
    "sampled": 150,
    "dropped_unusable": 0,
    "rows": 150,
-   "longer_chosen": 7,
-   "shorter_chosen": 142,
-   "equal_length": 1
+   "longer_chosen": 75,
+   "shorter_chosen": 75,
+   "equal_length": 0
   }
  },
  "rows_total": 300,
  "benchmark_questions_lines": 420,
  "outputs_sha256": {
-  "benchmarks.jsonl": "83f6f232b06c2c4bb61137c4741513bcf78f6af0eafbad9b471fe901f10ea6b8",
-  "benchmark_questions.txt": "603f686b80c48a0bfaa8f7826e8b4fc88a6ac84db4c683784bae446386edc675"
+  "benchmarks.jsonl": "0d38c1608a040559393bd056a3216dff311dc8c5968bf9d7a93c1f5e3b7d99d1",
+  "benchmark_questions.txt": "206fa49d914e2b5cabfb21ead73516377e97bf374944f6e6980b24bd20f4e956"
  }
 }

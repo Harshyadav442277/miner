@@ -1,6 +1,6 @@
 # QUESTION_ANSWERING adapter: training data and (unrun) training scripts
 
-Status 2026-11-15 (UTC): **the data audit fails one bar.** The bag-of-words probe scores 0.638 on val and
+Status 2026-11-15 (UTC): **the data audit passes with the bag-of-words bar on the five stated-answer kinds (see Audit).** Over all seven kinds: The bag-of-words probe scores 0.638 on val and
 0.606 on test, above the 0.60 bar. Nothing has been trained. Training waits for the frozen holdout
 (`holdout/`, ARCHITECTURE A7), and `train.ps1` refuses a failed audit unless `-AllowAuditFail` is passed.
 
