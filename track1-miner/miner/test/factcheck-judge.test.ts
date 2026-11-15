@@ -89,6 +89,8 @@ test("checkFact: a knowledge-based rating says so, at lower confidence", async (
     assert.equal(r.rating_basis, "knowledge", "no quote from the source, so the basis is knowledge");
     assert.equal(r.confidence, 0.65);
     assert.match(r.reason, /does not state it; this rating rests on well-established knowledge\./);
+    // The stub's only article does not match this claim, so no article is consulted and the model is the source.
+    assert.deepEqual(scoredFields("/fact-check", r).sources, ["Groq-hosted language model (general knowledge)"]);
   });
 });
 

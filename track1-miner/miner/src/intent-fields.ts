@@ -218,7 +218,11 @@ const SCORED: Record<string, (b: Body) => Body> = {
   },
   // FACT_CHECK_GENERAL
   // reasoning is the explanation in short: the reason's lead sentence, not the whole reason with its caveats
-  "/fact-check": (b) => ({ reasoning: brief(b.reason, 240), sources: typeof b.source_url === "string" ? [b.source_url] : [] }),
+  // A rating from general knowledge names the model first: the article consulted did not state it.
+  "/fact-check": (b) => ({ reasoning: brief(b.reason, 240), sources: [
+    ...(b.rating_basis === "knowledge" ? ["Groq-hosted language model (general knowledge)"] : []),
+    ...(typeof b.source_url === "string" ? [b.source_url] : []),
+  ] }),
   // MACRO_ECONOMIC_INDICATOR_GENERAL: the first percentage reported
   "/macro": (b) => ({ rate_pct: num(list(b.indicators).find((i) => i.unit === "%")?.value) }),
   // DNS_RECORD_LOOKUP_GENERAL: at least one record, or none (NXDOMAIN or an empty answer); null when unread
