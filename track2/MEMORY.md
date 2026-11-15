@@ -8,7 +8,24 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-15 ~17:10 UTC (22:40 IST) · QUESTION_ANSWERING: v1 TRAINED AND FAILS THE GATE (42.0% vs champion 45.3%)
+## CURRENT — 2026-11-15 ~20:30 UTC (Nov 16 02:00 IST) · EMAIL_SECURITY LANE BUILDING THE HOLDOUT; TWO SONNET LANES RUNNING
+
+Branch `PR/track2-email-security-evaluator-303326` (worktree `.claude/worktrees/track2-email-security-evaluator-303326`),
+reset onto `e181b96` (the `PR/evaluator-submission-track-2-4d21b7` tip; that branch had no commits of its own here).
+Nothing pushed, signed or registered.
+
+- Rules re-read 2026-11-15 ~19:50 UTC (`2b27a17`): Evaluator rubric unchanged; **new: star
+  github.com/telegraphprotocol/bounties, required for every track**. `Harshyadav442277` has not starred it (owner's action).
+- `harness/capture.py` sends structured request params (`99c7d93`): YAML query/body params filled by name or alias.
+- EMAIL_SECURITY: gating rules fixed in [adapter/email_security/README.md](adapter/email_security/README.md)
+  (`77ed687`), before any answer. Champion #315 fetched (keccak matches). Truth = NextDNS + DNS.SB (non-miners).
+  Candidates in `C:/Users/hyada/tg-eval/data/email_security/`. Next: select + freeze queries, 3-query pilot, capture.
+- Owner asked (2026-11-15 ~20:00 UTC) for two more evaluators trained by Sonnet agents with Opus as advisor: lanes
+  WEATHER_FORECAST_VERIFY (champion #445, 0.70) on `claude/weather-forecast-verify-lane` and VULNERABILITY_TRIAGE
+  (champion #367, 0.793) on `claude/vulnerability-triage-lane`, each in its own agent worktree from `2b27a17`. They
+  stop at checkpoints A–D (`CHECKPOINT.md` in their lane folder) for review. They share `tg-eval/GPU.lock`.
+
+## 2026-11-15 ~17:10 UTC (22:40 IST) · QUESTION_ANSWERING: v1 TRAINED AND FAILS THE GATE (42.0% vs champion 45.3%)
 
 Branch `PR/evaluator-submission-track-2-4d21b7`, nothing pushed, signed or registered.
 
