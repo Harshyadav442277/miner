@@ -9,9 +9,12 @@ All of it remains in git history.
 
 ## Current state (2026-11-15)
 
-No module of ours is active on the network; [MEMORY.md](MEMORY.md) has the registry read and the five planned
-entries. Earlier adapters passed tests we wrote ourselves and then failed on answers we did not write. So nothing
-is registered now until it passes the gate in [harness/](harness/README.md).
+No module of ours is active on the network. Nothing is registered until it passes the gate in
+[harness/](harness/README.md), because earlier adapters passed tests we wrote ourselves and then failed on
+answers we did not write. The first lane run under that rule, QUESTION_ANSWERING v1, **failed the gate**
+(42.0% on the frozen holdout against the champion's 45.3%) and was not registered:
+[adapter/question_answering/](adapter/question_answering/README.md). [MEMORY.md](MEMORY.md) has the registry
+read, the five planned entries and the next action.
 
 ## What is here
 
@@ -23,9 +26,10 @@ is registered now until it passes the gate in [harness/](harness/README.md).
 | [comparator/](comparator/README.md), [comparator/evaluation/](comparator/evaluation/README.md) | The exact comparators and the frozen adversarial suite that checks them against the champions and the kit reference |
 | [runnable/](runnable/) | The V2 runnable endpoint serving nine comparator families (`livecert-comparator.vercel.app`) |
 | [material/](material/README.md) | Evaluation material: 144 LANGUAGE_TRANSLATION preference pairs and the pool row checker |
+| [adapter/question_answering/](adapter/question_answering/README.md) | QUESTION_ANSWERING lane: pair builder, shortcut audit, train and export scripts, and the frozen holdout (`holdout/`) with its labels. v1 failed the gate |
 | [adapter/fact_check/](adapter/fact_check/README.md) | FACT_CHECK pair generator from FEVER (hard negatives, split by article) |
-| [adapter/score_pairs.py](adapter/score_pairs.py), [adapter/check_executor.py](adapter/check_executor.py), [adapter/fanout_exec.py](adapter/fanout_exec.py), [adapter/live_class/](adapter/live_class/) | V2 adapter tools: pair scoring through an executor, the validator-style executor check, the batch fan-out, the live-class shim for `adapterbuild` |
-| [adapter/url_scan/](adapter/url_scan/README.md), [adapter/security_review/](adapter/security_review/README.md), [adapter/sanctions/](adapter/sanctions/README.md), [adapter/sanctions_pool/](adapter/sanctions_pool/README.md), [adapter/event_outcome/](adapter/event_outcome/) | Closed lanes, kept as measured-failure records |
+| [adapter/score_pairs.py](adapter/score_pairs.py), [adapter/check_executor.py](adapter/check_executor.py), [adapter/fanout_exec.py](adapter/fanout_exec.py), [adapter/check_tokenizer_parity.py](adapter/check_tokenizer_parity.py), [adapter/live_class/](adapter/live_class/) | V2 adapter tools: pair scoring through an executor, the validator-style executor check, the batch fan-out, the live-class shim for `adapterbuild` |
+| [adapter/url_scan/](adapter/url_scan/README.md), [adapter/security_review/](adapter/security_review/README.md), [adapter/sanctions/](adapter/sanctions/README.md), [adapter/sanctions_pool/](adapter/sanctions_pool/README.md) | Closed lanes: the result record and evidence only; pipeline scripts are in git history |
 | [SIGN_S2.md](SIGN_S2.md) | What is registered and what is ready to sign (nothing) |
 | [SUBMISSION_S2.md](SUBMISSION_S2.md), [OUTREACH_S2.md](OUTREACH_S2.md) | The Nov 2 entry draft (sanctions only; to be rewritten for the five entries) and unsent outreach plans |
 

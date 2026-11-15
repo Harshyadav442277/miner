@@ -128,3 +128,5 @@ Advance only if V3 reaches ≥80% on H1 and at least matches GENERIC on H2 decis
 - V1 captures (Nov 7) used the old collector, which followed redirects without validation;
   SSRF there cannot be excluded after the fact. Ids and YAML URLs were numeric/https.
 - Nothing is hosted, signed or registered. A durable runnable-URL host is still needed.
+
+> **2026-11-15:** this lane is closed. Its pipeline scripts were removed from the tree; they are at commit `cf97e74` (`git show cf97e74:track2/adapter/url_scan/<file>`). The results above and the files in `evidence/` are the record.

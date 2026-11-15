@@ -1,8 +1,17 @@
 # QUESTION_ANSWERING adapter: training data and (unrun) training scripts
 
-Status 2026-11-15 (UTC): **the data audit passes with the bag-of-words bar on the five stated-answer kinds (see Audit).** Over all seven kinds: The bag-of-words probe scores 0.638 on val and
-0.606 on test, above the 0.60 bar. Nothing has been trained. Training waits for the frozen holdout
-(`holdout/`, ARCHITECTURE A7), and `train.ps1` refuses a failed audit unless `-AllowAuditFail` is passed.
+Status 2026-11-15 (UTC): **v1 trained, exported and failed the gate. Not registered.**
+
+| Scorer | Gated holdout (362) | TruthfulQA (150) | HaluEval (150) | Miner pairs (62) | Report-only set (334) |
+|---|---|---|---|---|---|
+| Ours v1 (rank 8, alpha 32, 384 tokens) | 152 = 42.0% | 46 | 50 | 56 | 294 = 88.0% |
+| Champion #301 | 164 = 45.3% | 86 | 41 | 37 | 93 = 27.8% |
+| GENERIC #900005 | 159 = 43.9% | 58 | 74 | 27 | 117 = 35.0% |
+| Longer answer wins / shorter answer wins | 46.1% / 51.7% | | | shorter wins 55 | 22.8% / 77.3% |
+
+All numbers are from the node runtime (`harness/measure.py`), on the holdout frozen in `holdout/` before training.
+The data audit passed and the training run's own test split passed; neither predicted this. Details and limits:
+[../../GAPS.md](../../GAPS.md) G42. The rest of this file describes how v1 was built.
 
 ## Sources and licences
 

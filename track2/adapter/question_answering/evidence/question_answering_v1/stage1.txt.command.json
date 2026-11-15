@@ -1,0 +1,22 @@
+{
+  "executable": "C:\\Users\\hyada\\tg-eval\\bin-v2\\adapterbuild-live.exe",
+  "arguments": [
+    "lora",
+    "--intent",
+    "QUESTION_ANSWERING",
+    "--class",
+    "judgment",
+    "--package",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\QUESTION_ANSWERING_v1\\QUESTION_ANSWERING.safetensors",
+    "--out",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\QUESTION_ANSWERING_v1",
+    "--foundation",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation.json",
+    "--foundation-onnx",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation_lora_fp32.onnx",
+    "--engine",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation_engine.wasm"
+  ],
+  "at": "2026-11-15T18:48:29Z",
+  "cwd": "C:\\Users\\hyada\\tg-eval\\kit-v2"
+}

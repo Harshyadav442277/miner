@@ -78,3 +78,5 @@ Rebalance so that answer-only cues cannot win:
 - train 3 epochs.
 
 By the kill criterion, a v2 that does not beat both baselines by 5 or more points ends the lane.
+
+> **2026-11-15:** this lane is closed. Its pipeline scripts were removed from the tree; they are at commit `cf97e74` (`git show cf97e74:track2/adapter/security_review/<file>`). The results above and the files in `evidence/` are the record.

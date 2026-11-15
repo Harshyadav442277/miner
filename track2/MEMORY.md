@@ -41,9 +41,17 @@ Branch `PR/evaluator-submission-track-2-4d21b7`, nothing pushed, signed or regis
   training `result.json` says PASS on our own test split, which again did not predict text we did not write.
   `compare.py` and `gate.py` were not run (the point estimates already fail every rule). The report-set
   measurement (`report-*.json`) was still running at 19:23 UTC.
+- **Report-only set (334 rows, finished 19:35 UTC):** ours 294 (88.0%), champion 93, GENERIC 117; shorter-answer-wins
+  77.3%. Not independent and includes LiveCert pairs: recorded in GAPS G42, not a claim.
 - **Reading (mine, not measured):** telling a right bare answer from a plausible wrong one needs the fact itself;
   a ModernBERT reward head has no evidence to check it against (same as G38). One iteration is left under the
   two-iteration rule. Do not register v1.
+- **Tree cleaned 2026-11-15:** the URL Scan, SECURITY_REVIEW and EVENT_OUTCOME pipeline scripts are removed (each
+  README names the commit that holds them); `check_tokenizer_parity.py` moved to `adapter/`. Harness tests 19 OK.
+- **Next action:** owner chooses between the last QUESTION_ANSWERING iteration (train on answers with their
+  supporting evidence) and starting EMAIL_SECURITY (champion #315 at 71.43%; truth is checkable from DNS). Reuse
+  `harness/` and the `adapter/question_answering/` layout for the new lane. Still owed: `SUBMISSION_S2.md` for the
+  five entries, the growth posts and tutorial, a rules-page re-read (last 2026-11-06).
 - **After QUESTION_ANSWERING:** EMAIL_SECURITY (champion #315, 71.43%), FACT_CHECK, then the closed-lane
   pipeline deletion and `SUBMISSION_S2.md` for the five entries.
 

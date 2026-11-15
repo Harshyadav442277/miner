@@ -22,7 +22,6 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-sys.path.insert(0, str(HERE.parent / "adapter" / "security_review"))
 import netguard  # noqa: E402
 import registry  # noqa: E402
 from keccak import keccak256  # noqa: E402

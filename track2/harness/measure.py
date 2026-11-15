@@ -1,6 +1,6 @@
 """Score pair files with adapter packages in the node runtime (the kit's adapterexec), as a validator does.
 
-Family-agnostic version of ../adapter/security_review/measure_node.py. Each answer is rendered
+Family-agnostic node-runtime scorer (it replaced the SECURITY_REVIEW lane script). Each answer is rendered
 "### Task:\\n{prompt}\\n\\n### Answer:\\n{answer}", tokenised with the pinned tokenizer, truncated to the
 package's own max_tokens, and scored alone by adapterexec workers that this script starts on free
 loopback ports and always stops. Identity echo and input_root are checked on every batch; the f32
@@ -29,7 +29,6 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / "adapter"))
-sys.path.insert(0, str(HERE.parent / "adapter" / "security_review"))
 from check_executor import batch_input_root  # noqa: E402
 from compare import wilson  # noqa: E402
 from fetch_champion import read_header_file  # noqa: E402

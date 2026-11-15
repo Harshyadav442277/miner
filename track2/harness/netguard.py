@@ -1,6 +1,6 @@
 """Fetch untrusted URLs (registry fields, miner YAML, miner services) without SSRF or argv injection.
 
-The approach of ../adapter/url_scan/safe_fetch.py, widened to http as well as https (the GENERIC
+The approach of the URL Scan lane fetch guard, widened to http as well as https (the GENERIC
 baseline is served over plain http from a public IP):
 - every URL and every redirect hop is parsed with urllib.parse; only http and https; the host must be
   plain ASCII letters, digits, dots and hyphens (no userinfo, IDN, percent-encoding or IPv6 literals);

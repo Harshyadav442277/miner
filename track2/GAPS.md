@@ -4,6 +4,28 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G42 — QUESTION_ANSWERING v1 fails on bare answers; no scorer beats chance on the benchmark pairs (2026-11-15) — `OPEN`
+
+Evidence: `C:/Users/hyada/tg-eval/runs-v2/qa_holdout/holdout-*.json` and `report-*.json` (node runtime, per-pair
+f32 bits); holdout frozen at `3658ecd` before training; package keccak `0xa3880bf3…7443`, Stage 1 passed.
+
+| Scorer | Gated holdout (362) | TruthfulQA (150) | HaluEval (150) | Miner pairs (62) | Report-only set (334) |
+|---|---|---|---|---|---|
+| Ours v1 (rank 8, alpha 32, 384 tokens) | 152 = 42.0% | 46 | 50 | 56 | 294 = 88.0% |
+| Champion #301 | 164 = 45.3% | 86 | 41 | 37 | 93 = 27.8% |
+| GENERIC #900005 | 159 = 43.9% | 58 | 74 | 27 | 117 = 35.0% |
+| Longer answer wins / shorter answer wins | 46.1% / 51.7% | | | shorter wins 55 | 22.8% / 77.3% |
+
+- Gate: FAIL. Ours is below the champion overall and below chance on the 300 benchmark pairs (96/300).
+- The training run's own test split passed. It did not predict text we did not write, for the fourth time.
+- The miner-pair and report-set wins are not usable evidence. Shorter-answer-wins scores 55/62 and 77.3% there;
+  the report set repeats questions, holds whole response bodies and includes our own miner's answers.
+  The 10.7-point lead over shorter-wins on the report set is the only sign of signal, and it is not independent.
+- The champion scores 23/198 on whole response bodies: it prefers the longer body almost every time.
+- Inferred, not measured: ranking a right bare answer over a plausible wrong one needs the fact, and the model
+  has no evidence to check it against (same as G38). The 62 miner labels are a model's reading, 19 spot-checked.
+- One iteration remains under the two-iteration rule. Not registered; do not register v1.
+
 ## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
 
 Evidence: `adapter/sanctions/evidence/2026-11-01-miners-r1/`. Frozen 32-name queries, 15 YAML routes,

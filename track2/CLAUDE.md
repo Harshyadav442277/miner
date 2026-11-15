@@ -13,6 +13,7 @@ uploaded to the pool; see [README.md](README.md). Goal file:
 - [README.md](README.md) — what is here, and where the Season II work lives.
 - [MEMORY.md](MEMORY.md) — session state. [GAPS.md](GAPS.md) — open gaps.
 - [ARCHITECTURE.md](ARCHITECTURE.md) — Season II design decisions. Conform, or update it before deviating.
+- [harness/README.md](harness/README.md) — the pre-registration gate (A7). No adapter is registered without a PASS.
 
 ## Hard rules
 

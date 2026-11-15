@@ -1,0 +1,18 @@
+{
+  "executable": "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "arguments": [
+    "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\evaluator-submission-track-2-4d21b7\\track2\\adapter\\question_answering\\..\\security_review\\check_tokenizer_parity.py",
+    "--trained",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\QUESTION_ANSWERING_v1\\adapter\\tokenizer.json",
+    "--pinned",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\tokenizer.json",
+    "--pairs",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\question_answering_v1/train.jsonl",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\question_answering_v1/val.jsonl",
+    "C:\\Users\\hyada\\tg-eval\\pairs\\question_answering_v1/test.jsonl",
+    "--out",
+    "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\evaluator-submission-track-2-4d21b7\\track2\\adapter\\question_answering\\evidence\\question_answering_v1\\tokenizer-parity.json"
+  ],
+  "at": "2026-11-15T18:48:16Z",
+  "cwd": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\evaluator-submission-track-2-4d21b7\\track2\\adapter\\question_answering"
+}

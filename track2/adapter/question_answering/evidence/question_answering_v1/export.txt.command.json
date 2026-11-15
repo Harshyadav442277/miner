@@ -1,0 +1,21 @@
+{
+  "executable": "C:\\Users\\hyada\\tg-eval\\.venv\\Scripts\\python.exe",
+  "arguments": [
+    "-m",
+    "float_runtime.export_adapter",
+    "--adapter",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\QUESTION_ANSWERING_v1\\adapter",
+    "--intent",
+    "QUESTION_ANSWERING",
+    "--class",
+    "judgment",
+    "--foundation",
+    "C:\\Users\\hyada\\tg-eval\\foundation\\foundation.json",
+    "--max-tokens",
+    "384",
+    "--out",
+    "C:\\Users\\hyada\\tg-eval\\runs-v2\\QUESTION_ANSWERING_v1\\QUESTION_ANSWERING.safetensors"
+  ],
+  "at": "2026-11-15T18:48:21Z",
+  "cwd": "C:\\Users\\hyada\\tg-eval\\kit-v2"
+}

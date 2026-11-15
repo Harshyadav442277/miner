@@ -1,5 +1,15 @@
 # MEMORY.md — session continuity
 
+## 2026-11-15 ~19:40 UTC (Nov 16 01:10 IST): Track 2 — branches consolidated, gate built, QUESTION_ANSWERING v1 failed
+
+- Branch `PR/evaluator-submission-track-2-4d21b7` (not pushed). Full record: [track2/MEMORY.md](track2/MEMORY.md).
+- No module of ours is active on the network (registry read 2026-11-15). Evaluator branches merged into one;
+  dead adapter tooling and closed-lane pipelines removed.
+- New: `track2/harness/` (freeze, capture, champion fetch, node-runtime measure, compare, gate) and decision A7:
+  no registration without a PASS.
+- QUESTION_ANSWERING v1: 42.0% on the frozen holdout, champion #301 45.3%. Gate failed, nothing registered (track2 G42).
+- Next: the owner picks the last QUESTION_ANSWERING iteration or EMAIL_SECURITY. The miner in `track1-miner/` was not touched.
+
 ## 2026-11-14 ~17:30 UTC (23:00 IST): CURRENT — `b18ca59` LIVE, preflight 7/7; registration 5232 scored
 
 - Owner 17:05 UTC: gave an OpenAlex key, NVD key pending, "take decision on your own".

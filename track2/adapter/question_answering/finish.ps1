@@ -19,7 +19,7 @@ $foundation = Join-Path $EvalRoot 'foundation/foundation.json'
 $onnx = Join-Path $EvalRoot 'foundation/foundation_lora_fp32.onnx'
 $engine = Join-Path $EvalRoot 'foundation/foundation_engine.wasm'
 $adapterbuild = Join-Path $EvalRoot 'bin-v2/adapterbuild-live.exe'
-$parity = Join-Path $here '../security_review/check_tokenizer_parity.py'
+$parity = Join-Path $here '../check_tokenizer_parity.py'
 $pkg = Join-Path $runDir 'QUESTION_ANSWERING.safetensors'
 $lock = Join-Path $EvalRoot 'GPU.lock'
 
