@@ -8,7 +8,7 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-15 ~17:10 UTC (22:40 IST) · QUESTION_ANSWERING: HOLDOUT FROZEN, TRAINING CHAIN RUNNING DETACHED
+## CURRENT — 2026-11-15 ~17:10 UTC (22:40 IST) · QUESTION_ANSWERING: v1 TRAINED AND FAILS THE GATE (42.0% vs champion 45.3%)
 
 Branch `PR/evaluator-submission-track-2-4d21b7`, nothing pushed, signed or registered.
 
@@ -26,8 +26,24 @@ Branch `PR/evaluator-submission-track-2-4d21b7`, nothing pushed, signed or regis
   the GENERIC benchmark run, then `train.ps1` (rank 8, alpha 32, 384 tokens), `finish.ps1`, then measures QA301,
   GENERIC and OURS on `holdout.jsonl` and `holdout_report.jsonl` (`holdout-<name>.json`, `report-<name>.json`).
   Rerunning it skips finished steps. Only rank 8 is trained; no variant was selected on the holdout.
-- **Then:** merge the three `holdout-*.json` results for `harness/compare.py` and `gate.py` (they expect one results
-  file; check their input shape first), report PASS or FAIL per stratum. No registration unless PASS; the owner signs.
+- **RESULT 2026-11-15 19:04 UTC: v1 FAILS the gate.** Gated holdout, node runtime, 362 pairs
+  (`C:/Users/hyada/tg-eval/runs-v2/qa_holdout/holdout-*.json`; package keccak `0xa3880bf3…7443`, Stage 1 passed):
+
+  | Scorer | All 362 | TruthfulQA 150 | HaluEval 150 | Miner pairs 62 |
+  |---|---|---|---|---|
+  | OURS v1 (rank 8) | 152 = 42.0% | 46 | 50 | 56 |
+  | Champion #301 | 164 = 45.3% | 86 | 41 | 37 |
+  | GENERIC #900005 | 159 = 43.9% | 58 | 74 | 27 |
+  | Longer / shorter answer wins | 46.1% / 51.7% | | | shorter wins 55 of 62 |
+
+  No scorer beats chance on the benchmark pairs, and ours is well below it (96/300): on bare short answers it
+  prefers the wrong one. Its 56/62 on miner pairs is not evidence: "prefer shorter" scores 55/62 there. The
+  training `result.json` says PASS on our own test split, which again did not predict text we did not write.
+  `compare.py` and `gate.py` were not run (the point estimates already fail every rule). The report-set
+  measurement (`report-*.json`) was still running at 19:23 UTC.
+- **Reading (mine, not measured):** telling a right bare answer from a plausible wrong one needs the fact itself;
+  a ModernBERT reward head has no evidence to check it against (same as G38). One iteration is left under the
+  two-iteration rule. Do not register v1.
 - **After QUESTION_ANSWERING:** EMAIL_SECURITY (champion #315, 71.43%), FACT_CHECK, then the closed-lane
   pipeline deletion and `SUBMISSION_S2.md` for the five entries.
 
