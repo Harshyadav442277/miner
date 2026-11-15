@@ -65,6 +65,10 @@ def validate_queries(rows):
         if not isinstance(r, dict) or not isinstance(r.get("query"), str) or not r["query"].strip():
             errors.append(f"query {i}: needs a non-empty string `query`")
             continue
+        params = r.get("params")
+        if params is not None and not (isinstance(params, dict) and all(
+                isinstance(k, str) and k and isinstance(v, str) for k, v in params.items())):
+            errors.append(f"query {i}: `params` must map non-empty names to strings")
         if r["query"] in seen:
             errors.append(f"query {i}: duplicate")
         seen.add(r["query"])

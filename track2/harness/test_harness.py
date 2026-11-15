@@ -314,6 +314,34 @@ class Capture(unittest.TestCase):
         with self.assertRaises(FileExistsError):
             capture.run("QUESTION_ANSWERING_GENERAL", q, d / "out", node=self.node)
 
+    def test_structured_params(self):
+        intent = "EMAIL_SECURITY_GENERAL"
+        q = {"query": "What are the MX records for gmail.com?", "params": {"domain": "gmail.com", "record_type": "MX"}}
+        req = lambda name, tags=("*",): {"name": name, "intents": list(tags)}
+        doh = {"base_url": "https://dns.example", "endpoints": [{"external_path": "/resolve", "method": "GET",
+               "intents": ["EMAIL_SECURITY"], "params": {"query": {"required": [req("name"), req("type")]}}}]}
+        url, method, body, missing = capture.build_request(capture.plan({}, doh, intent), q, intent, capture.ALIASES)
+        self.assertEqual((url, method, body, missing), ("https://dns.example/resolve?name=gmail.com&type=MX", "GET", None, []))
+        post = {"base_url": "https://v.example", "endpoints": [{"path": "/v1/intent", "method": "POST",
+                "intents": ["FACT_CHECK_GENERAL", intent], "params": {"body": {"required": [
+                    req("intent"), req("claim", ["FACT_CHECK_GENERAL"]), req("domain", [intent]),
+                    req("record_type", [intent])]}}}]}
+        url, method, body, missing = capture.build_request(capture.plan({}, post, intent), q, intent, capture.ALIASES)
+        self.assertEqual((url, method, missing), ("https://v.example/v1/intent", "POST", []))
+        self.assertEqual(body, {"intent": intent, "domain": "gmail.com", "record_type": "MX"})
+        opt = {"base_url": "https://p.example", "endpoints": [{"path": "/dns", "method": "GET", "intents": [intent],
+               "params": {"query": {"required": [req("query")], "optional": [req("domain"), req("type"), req("text")]}}}]}
+        url, _, _, _ = capture.build_request(capture.plan({}, opt, intent), q, intent, capture.ALIASES)
+        self.assertEqual(urllib.parse.parse_qs(urllib.parse.urlsplit(url).query),
+                         {"query": [q["query"]], "domain": ["gmail.com"], "type": ["MX"]})
+        need = {"base_url": "https://n.example", "endpoints": [{"path": "/x", "method": "GET", "intents": [intent],
+                "params": {"query": {"required": [req("selector")]}}}]}
+        self.assertEqual(capture.build_request(capture.plan({}, need, intent), q, intent, capture.ALIASES)[3], ["selector"])
+        url, _, _, missing = capture.build_request(capture.plan({}, need, intent), q, intent, {"selector": ("domain",)})
+        self.assertEqual((url, missing), ("https://n.example/x?selector=gmail.com", []))
+        self.assertEqual(freeze.validate_queries([{"query": "x", "params": {"domain": 3}}]),
+                         ["query 1: `params` must map non-empty names to strings"])
+
     def test_cap_and_retries(self):
         calls = []
         fake = lambda url, **kw: calls.append(url) or {"status": 503, "seconds": 0, "error": "", "raw": b""}

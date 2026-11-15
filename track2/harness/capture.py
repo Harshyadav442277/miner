@@ -5,7 +5,11 @@
 Refuses to run unless queries.json has a valid queries.freeze.json next to it (freeze.py --queries),
 so the questions are fixed before any answer is seen. Then it reads the intent's live miner list from
 /engine/v1/intents/<id>, each miner's catalog entry and YAML, and calls each miner's public endpoint
-once per query: at most one request per second per host (slower if the YAML asks), bounded retries,
+once per query. A query may carry structured `params` (the intent's request fields, e.g. domain and
+record_type): each YAML parameter declared for the intent (query or body section) is filled from them by
+name or alias (ALIASES, --alias), `intent` gets the intent id, and a required question-like parameter
+gets the plain-language `query`. Required parameters that cannot be filled are recorded per response.
+At most one request per second per host (slower if the YAML asks), bounded retries,
 a hard cap on total requests, no auth headers, a generic User-Agent, IPv4 only. No paid engine route
 is used. Every raw response is stored with URL, status, timing and sha256.
 
@@ -32,6 +36,9 @@ import netguard  # noqa: E402
 NODE = "https://devnode.telegraphprotocol.com"
 RELATED_PARTY_SLUGS = {"livecert"}
 QUERY_PARAMS = ("query", "q", "question", "prompt", "text", "input", "claim", "name", "search")
+# A miner's YAML parameter name -> request-param names (the intent's own) that may fill it, in order.
+# DoH resolvers declare `name`/`type` for the intent's `domain`/`record_type`. Extend with --alias.
+ALIASES = {"name": ("domain",), "type": ("record_type",), "domain": ("name",), "record_type": ("type",)}
 MIN_INTERVAL = 1.0      # seconds between requests to one host, at least
 MAX_RETRIES = 2         # retries after a 429, a 5xx or a transport failure
 DEFAULT_CAP = 600       # hard cap on all HTTP requests in one run
@@ -89,31 +96,83 @@ def load_frozen_queries(path):
     return json.loads(path.read_text(encoding="utf-8")), record
 
 
+def applies(param, intent):
+    """A YAML parameter applies when its `intents` list is absent, has "*", or names this intent's family."""
+    family = intent.removesuffix("_GENERAL")
+    tags = param.get("intents") or ["*"]
+    return any(str(t) == "*" or str(t).removesuffix("_GENERAL") == family for t in tags)
+
+
+def declared(endpoint, intent):
+    """Every query- or body-section parameter the endpoint declares for this intent."""
+    params = endpoint.get("params") if isinstance(endpoint.get("params"), dict) else {}
+    out = []
+    for section in ("query", "body"):
+        block = params.get(section) if isinstance(params.get(section), dict) else {}
+        for required, key in ((True, "required"), (False, "optional")):
+            for v in block.get(key) or []:
+                if isinstance(v, dict) and v.get("name") and applies(v, intent):
+                    out.append({"in": section, "name": str(v["name"]), "required": required})
+    return out
+
+
+def fill(name, query, intent, aliases, required):
+    """The value for one YAML parameter: the intent id for `intent`, else the query's structured
+    `params` by exact name or alias, else (required parameters only) the plain-language question."""
+    if name == "intent":
+        return intent
+    given = query.get("params") or {}
+    for key in (name, *aliases.get(name, ())):
+        if key in given:
+            return str(given[key])
+    if required and name in QUERY_PARAMS:
+        return query["query"]
+    return None
+
+
 def plan(miner, doc, intent):
-    """Which endpoint, method and parameter carry the query, from the miner's own YAML."""
+    """Which endpoint, method and parameters carry the query, from the miner's own YAML."""
     family = intent.removesuffix("_GENERAL")
     eps = [e for e in doc.get("endpoints") or [] if isinstance(e, dict)
            and any(str(i).removesuffix("_GENERAL") == family for i in e.get("intents") or [])]
     if len(eps) != 1:
         return {"error": f"YAML lists {len(eps)} endpoints for {intent}, need exactly 1"}
     e = eps[0]
-    params = ((e.get("params") or {}).get("query") or {}) if isinstance(e.get("params"), dict) else {}
-    required = [str(v.get("name")) for v in params.get("required") or [] if isinstance(v, dict)]
-    dynamic = [p for p in required if p in QUERY_PARAMS]
-    props = (doc.get("input_schema") or {}).get("properties") or {}
-    if not dynamic:
-        dynamic = [p for p in QUERY_PARAMS if p in props][:1] or ["query"]
+    method = str(e.get("method") or "GET").upper()
+    params = declared(e, intent)
+    if not params:  # nothing declared: the first query-like name in input_schema, else `query`
+        props = (doc.get("input_schema") or {}).get("properties") or {}
+        name = ([p for p in QUERY_PARAMS if p in props][:1] or ["query"])[0]
+        params = [{"in": "body" if method == "POST" else "query", "name": name, "required": True}]
     try:
         rate = float(doc.get("rate_limit_per_sec") or 1)
     except (TypeError, ValueError):
         rate = 1.0
     base = str(doc.get("base_url") or miner.get("base_url") or "")
     return {"base_url": base, "path": str(e.get("external_path") or e.get("path") or "/"),
-            "method": str(e.get("method") or "GET").upper(), "parameters": dynamic,
+            "method": method, "parameters": params,
             "min_interval_seconds": max(MIN_INTERVAL, 1.0 / rate if rate > 0 else MIN_INTERVAL)}
 
 
-def capture_miner(client, m, catalog_entry, intent, queries, out):
+def build_request(p, query, intent, aliases):
+    """URL, method, JSON body and any required parameters that could not be filled."""
+    url_params, body, missing = {}, {}, []
+    for prm in p["parameters"]:
+        value = fill(prm["name"], query, intent, aliases, prm["required"])
+        if value is None:
+            if prm["required"]:
+                missing.append(prm["name"])
+            continue
+        (body if prm["in"] == "body" and p["method"] == "POST" else url_params)[prm["name"]] = value
+    url = p["base_url"].rstrip("/") + "/" + p["path"].lstrip("/")
+    if url_params:
+        url += ("&" if "?" in url else "?") + urllib.parse.urlencode(url_params)
+    method = p["method"] if p["method"] in netguard.METHODS else "GET"
+    return url, method, (body if method == "POST" else None), missing
+
+
+def capture_miner(client, m, catalog_entry, intent, queries, out, aliases=None):
+    aliases = {**ALIASES, **(aliases or {})}
     mid, slug = netguard.safe_name(m.get("id"), "miner id"), str(m.get("slug", ""))
     record = {"miner_id": mid, "slug": slug, "related_party": slug in RELATED_PARTY_SLUGS,
               "base_url": m.get("base_url"), "yaml_url": (catalog_entry or {}).get("yaml_url")}
@@ -132,14 +191,10 @@ def capture_miner(client, m, catalog_entry, intent, queries, out):
     if "error" not in record["plan"]:
         p = record["plan"]
         for q in queries:
-            params = {name: q["query"] for name in p["parameters"]}
-            url = p["base_url"].rstrip("/") + "/" + p["path"].lstrip("/")
-            body = params if p["method"] == "POST" else None
-            if body is None:
-                url += ("&" if "?" in url else "?") + urllib.parse.urlencode(params)
-            r = client.get(url, method=p["method"] if p["method"] in netguard.METHODS else "GET", body=body,
-                           interval=p["min_interval_seconds"])
-            responses.append({"query_id": q.get("id"), "query": q["query"], **text(r)})
+            url, method, body, missing = build_request(p, q, intent, aliases)
+            r = client.get(url, method=method, body=body, interval=p["min_interval_seconds"])
+            responses.append({"query_id": q.get("id"), "query": q["query"], "params": q.get("params"),
+                              "missing_required": missing, **text(r)})
     record["responses"] = responses
     path.write_text(json.dumps(record, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     return {"miner_id": mid, "slug": slug, "related_party": record["related_party"],
@@ -147,7 +202,8 @@ def capture_miner(client, m, catalog_entry, intent, queries, out):
             "http_200": sum(r["status"] == 200 for r in responses)}
 
 
-def run(intent, queries_path, out, node=NODE, cap=DEFAULT_CAP, fetcher=netguard.fetch, sleep=time.sleep, only=None):
+def run(intent, queries_path, out, node=NODE, cap=DEFAULT_CAP, fetcher=netguard.fetch, sleep=time.sleep, only=None,
+        aliases=None):
     netguard.safe_name(intent, "intent id")
     queries, frozen = load_frozen_queries(queries_path)
     out = Path(out)
@@ -169,7 +225,8 @@ def run(intent, queries_path, out, node=NODE, cap=DEFAULT_CAP, fetcher=netguard.
                 summary["skipped"].append({"miner": str(m.get("id"))[:80], "reason": "not in --only"})
                 continue
             try:
-                summary["miners"].append(capture_miner(client, m, by_id.get(str(m.get("id"))), intent, queries, out))
+                summary["miners"].append(capture_miner(client, m, by_id.get(str(m.get("id"))), intent, queries, out,
+                                                       aliases))
             except netguard.UnsafeURL as exc:
                 summary["skipped"].append({"miner": str(m.get("id"))[:80], "reason": str(exc)})
     except Capped as exc:
@@ -187,9 +244,18 @@ def main():
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--cap", type=int, default=DEFAULT_CAP, help="hard cap on total HTTP requests")
     ap.add_argument("--only", help="comma-separated miner slugs to call; the rest are listed as skipped")
+    ap.add_argument("--alias", action="append", default=[], metavar="YAML_NAME=REQUEST_NAME",
+                    help="fill a miner YAML parameter from a query's params entry; repeatable")
     a = ap.parse_args()
+    aliases = {}
+    for item in a.alias:
+        name, sep, target = item.partition("=")
+        if not (sep and name and target):
+            sys.exit(f"REFUSED: --alias needs YAML_NAME=REQUEST_NAME, got {item!r}")
+        aliases[name] = (*aliases.get(name, ()), target)
     try:
-        s = run(a.intent, a.queries, a.out, cap=a.cap, only=set(a.only.split(",")) if a.only else None)
+        s = run(a.intent, a.queries, a.out, cap=a.cap, only=set(a.only.split(",")) if a.only else None,
+                aliases=aliases)
     except (freezer.FreezeError, netguard.UnsafeURL, FileExistsError) as exc:
         sys.exit(f"REFUSED: {exc}")
     print(json.dumps(s, indent=1))
