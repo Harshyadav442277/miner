@@ -231,13 +231,18 @@ const SCORED: Record<string, (b: Body) => Body> = {
   "/onchain-metric": (b) => b.metric === "native_balance" && typeof b.value_raw === "string" && /^\d+$/.test(b.value_raw)
     ? { balance_gwei: Number(BigInt(b.value_raw) / 1_000_000_000n), block: b.block_number === null ? null : String(b.block_number) }
     : {},
-  // STORM_ALERT_GENERAL. risk_level is a stated rule on risk_score, the only derived value here: under 0.25 LOW,
-  // under 0.5 MODERATE, under 0.75 HIGH, else SEVERE.
+  // STORM_ALERT_GENERAL. risk_level is the grade the route states in its reason (storm.ts gradeRisk: none and low
+  // are LOW). A separate cut-off rule on risk_score served "graded low" beside MODERATE for Miami at 0.27
+  // (production 2026-11-15). precipitation_mm is the window's total, as the schema states, not one step's peak.
   "/storm-alert": (b) => {
-    const r = num(b.risk_score);
-    return { risk_level: r === null ? null : r < 0.25 ? "LOW" : r < 0.5 ? "MODERATE" : r < 0.75 ? "HIGH" : "SEVERE",
-      risk_level_rule: "risk_score under 0.25 LOW, under 0.5 MODERATE, under 0.75 HIGH, else SEVERE",
-      peak_gust_kmh: num(b.max_wind_gust_kmh), window: num(b.window_hours) === null ? null : `${b.window_hours} hours` };
+    const grade: Record<string, string> = { none: "LOW", low: "LOW", moderate: "MODERATE", high: "HIGH", severe: "SEVERE" };
+    const asked = num(b.requested_window_hours);
+    const covered = num(b.window_hours);
+    return { risk_level: typeof b.verdict === "string" ? grade[b.verdict] ?? null : null,
+      risk_level_rule: "the route's grade: risk_score from 0.2 low, 0.4 moderate, 0.65 high, 0.85 severe; none and low are LOW",
+      peak_gust_kmh: num(b.max_wind_gust_kmh), precipitation_mm: num(b.total_precipitation_mm),
+      window: asked !== null ? `${asked} hours${covered !== null && covered !== asked ? ` (forecast steps cover ${covered} hours)` : ""}`
+        : covered === null ? null : `${covered} hours` };
   },
 };
 

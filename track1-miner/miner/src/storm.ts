@@ -41,8 +41,12 @@ export interface StormResult {
   max_wind_gust_kmh: number | null;
   max_wind_speed_kmh: number | null;
   max_precipitation_mm: number | null;
+  /** Precipitation summed over every forecast step in the window (STORM_ALERT's `precipitation_mm`). */
+  total_precipitation_mm?: number | null;
   thunderstorm: boolean;
   window_hours: number;
+  /** The window the request named, when it named one; `window_hours` is what the forecast steps cover. */
+  requested_window_hours?: number | null;
   peak_at: string | null;
   latitude: number | null;
   longitude: number | null;
@@ -296,8 +300,10 @@ export async function checkStorm(
     max_wind_gust_kmh: maxGust === null ? null : Math.round(maxGust * 10) / 10,
     max_wind_speed_kmh: Math.round(maxWind * 10) / 10,
     max_precipitation_mm: Math.round(maxPrecip * 10) / 10,
+    total_precipitation_mm: Math.round(precip.reduce((a, p) => a + p, 0) * 10) / 10,
     thunderstorm: thunder,
     window_hours: coveredWindow,
+    requested_window_hours: requestedHours ?? null,
     valid_at: mode === "point" ? (times[peakIdx] ?? null) : null,
     peak_at: mode === "window" ? (times[peakIdx] ?? null) : null,
     latitude: place.latitude,
