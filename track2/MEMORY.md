@@ -38,6 +38,19 @@ Deadline Dec 1 23:59 UTC (Dec 2 05:29 IST). Owner's goal: submit five evaluators
 - **Method change:** no registration without the gate in [harness/](harness/README.md): a holdout of answers we did
   not write, frozen before training, on which the candidate beats the champion's own file and the length
   baselines in the node runtime.
+- **What `zkasuran/telegraph-catalog-miners` shows (read 2026-11-15 by a subagent; nothing run from it):**
+  - It hosts built files only: 94 adapter deltas, 102 comparators, ~360 miner YAMLs. No training code, no pair
+    data, no runnable server, no registration or pool scripts. Its licence (source-available, no derivatives)
+    allows reading and benchmarking and forbids copying or redeploying: take methods, never files.
+  - Adapter headers (82 parsed): almost all `max_tokens` 384, not the kit's 512; rank 8 or 16; alpha 32 or 64;
+    3 to 17 variants per family. No hold-out, data source or score history is visible.
+  - Three FX_NOW comparator versions differ only in the bytes of a version string; the logic is identical. Its
+    FX_NOW, CRYPTO_PRICE and WEATHER_CHECK files were re-committed about every 12 h on Nov 4 to 8. Why is not
+    stated; the effect is that an identical module takes the champion slot again.
+  - The trainer its manifest names is the organiser kit's `float_runtime/train_adapter.py`, which we already use.
+    Its dataset gate (length baseline ≤ 0.65, bag-of-words probe ≤ 0.65, unique negatives) is the same idea as A7.
+  - To try in our lanes: `max_tokens` 384 in both training and the package; a rank 8/16 and alpha 32/64 sweep
+    judged on the frozen holdout.
 - **Not verified:** the rules page since 2026-11-06; whether the translation material was ever signed; why #273
   to #278 stay blocked while their `_GENERAL` pools have snapshots.
 - **Next:** freeze the QUESTION_ANSWERING query set and capture real miner answers (`harness/capture.py`), label
