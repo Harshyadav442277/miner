@@ -147,7 +147,7 @@ def capture_miner(client, m, catalog_entry, intent, queries, out):
             "http_200": sum(r["status"] == 200 for r in responses)}
 
 
-def run(intent, queries_path, out, node=NODE, cap=DEFAULT_CAP, fetcher=netguard.fetch, sleep=time.sleep):
+def run(intent, queries_path, out, node=NODE, cap=DEFAULT_CAP, fetcher=netguard.fetch, sleep=time.sleep, only=None):
     netguard.safe_name(intent, "intent id")
     queries, frozen = load_frozen_queries(queries_path)
     out = Path(out)
@@ -165,6 +165,9 @@ def run(intent, queries_path, out, node=NODE, cap=DEFAULT_CAP, fetcher=netguard.
         miners = json.loads(live["raw"]).get("miners") or []
         by_id = {str(c.get("id")): c for c in json.loads(catalog["raw"]) if isinstance(c, dict)}
         for m in miners:
+            if only and str(m.get("slug")) not in only:
+                summary["skipped"].append({"miner": str(m.get("id"))[:80], "reason": "not in --only"})
+                continue
             try:
                 summary["miners"].append(capture_miner(client, m, by_id.get(str(m.get("id"))), intent, queries, out))
             except netguard.UnsafeURL as exc:
@@ -183,9 +186,10 @@ def main():
     ap.add_argument("queries", type=Path, help="frozen JSON list of {query, id?}")
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--cap", type=int, default=DEFAULT_CAP, help="hard cap on total HTTP requests")
+    ap.add_argument("--only", help="comma-separated miner slugs to call; the rest are listed as skipped")
     a = ap.parse_args()
     try:
-        s = run(a.intent, a.queries, a.out, cap=a.cap)
+        s = run(a.intent, a.queries, a.out, cap=a.cap, only=set(a.only.split(",")) if a.only else None)
     except (freezer.FreezeError, netguard.UnsafeURL, FileExistsError) as exc:
         sys.exit(f"REFUSED: {exc}")
     print(json.dumps(s, indent=1))
