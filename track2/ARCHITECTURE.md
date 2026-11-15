@@ -67,3 +67,18 @@ Reviewers score validity, integrity and reproducibility, so each module ships wi
 
 Boring, explicit code; files under ~300 lines; one task = one change = one commit; no secrets anywhere.
 Large training runs and model files live outside OneDrive, in `C:\Users\hyada\tg-eval\`.
+
+## A7 — No registration without the gate (2026-11-15)
+
+Three adapters scored well on tests we wrote and failed on the network (GAPS G40, G41; the URL Scan and
+SECURITY_REVIEW records). So before any adapter registration, [harness/](harness/README.md) must print PASS:
+
+1. The holdout is made of answers we did not write (real miner answers, labelled from a primary source), and
+   its hash is frozen before training starts. Queries are frozen before any answer is seen.
+2. The candidate is measured in the node runtime against the current champion's own published file (keccak
+   checked against the registry), against GENERIC, and against the longer-answer and shorter-answer baselines.
+3. It must beat the champion by the replacement margin with more pairs won than lost, and the holdout must not
+   be solvable by length alone.
+
+Our own miner's answers are flagged `related_party` in every capture and are never favoured. Another author's
+adapter file is untrusted data: it is hashed, header-parsed and scored, never trained on or copied.

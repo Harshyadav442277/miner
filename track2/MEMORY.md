@@ -8,7 +8,42 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT FX_NOW and funding — 2026-11-01 18:45 UTC (Nov 2 00:15 IST), Claude session
+## CURRENT — 2026-11-15 ~02:00 UTC (07:30 IST) · NO ACTIVE EVALUATOR; BRANCHES CONSOLIDATED; HARNESS FIRST
+
+Branch `PR/evaluator-submission-track-2-4d21b7` (worktree `.claude/worktrees/evaluator-submission-track-2-4d21b7`).
+Deadline Dec 1 23:59 UTC (Dec 2 05:29 IST). Owner's goal: submit five evaluators and win the track.
+
+- **Live registry** (`/api/wasm`, read 2026-11-15 ~00:40 UTC; table in [SIGN_S2.md](SIGN_S2.md)):
+  - our comparators #267, #268, #269 passed the gate and were superseded by identical-scoring re-registrations;
+  - #273 to #278 are `pending`, `awaiting_compatible_material`, since 2026-11-08;
+  - sanctions #46 is deregistered. **We hold no champion.**
+  - `0x8b2247…` (zkasuran) holds 19 of 25 champions from 276 registrations.
+- **Every adapter lane so far failed on answers we did not write:** sanctions 7/15 at the remote check (G40, G41);
+  URL Scan V3 lost to GENERIC on real answers ([adapter/url_scan/](adapter/url_scan/README.md)); SECURITY_REVIEW v2
+  failed its training gate ([adapter/security_review/](adapter/security_review/README.md)); EVENT_OUTCOME_RESOLUTION
+  lost the first-canonical race to #39. LLM_OUTPUT_EVALUATION is closed: the built-in #900002 scores 100% there.
+- **Consolidated here on 2026-11-15:** merged `claude/high-demand-comparators` (contains `comparator-validity`),
+  `claude/url-scan-adapter`, `claude/security-review-adapter`, `claude/sanctions-pool-measured`. From
+  `claude/evaluators-status-a51518`: the docs, the V2 adapter tools and the miner-capture tools, **not** its 29 MB
+  of sanctions evidence (289 files; they stay on that branch). `codex/sanctions-benchmark-v7` is not merged
+  (1,266 files; sanctions v7 to v34, baseline never beaten).
+- **Deleted:** the full-model WASM adapter tooling (`verify_wide`, `eval_deployed.py`, `export_tokens.py`, the
+  LLM_OUTPUT_EVALUATION recipe and manifest) and the superseded sign-list sections. All in git history.
+- **The five entries (owner asked for five; picks proposed 2026-11-15, not yet confirmed one by one):**
+  1. the comparator pack (9 families) with its adversarial suite ([comparator/evaluation/](comparator/evaluation/README.md));
+  2. a QUESTION_ANSWERING adapter (champion #301 at 70.00%, the floor; pool open, 6 submitters);
+  3. an EMAIL_SECURITY adapter (champion #315 at 71.43%; 10 submitters);
+  4. a FACT_CHECK adapter plus material (no champion; 2 of 5 submitters; FEVER pairs in `tg-eval/pairs/fact_check_v1`);
+  5. LANGUAGE_TRANSLATION material ([material/](material/README.md); pool had 3 submitters and 338 rows).
+- **Method change:** no registration without the gate in [harness/](harness/README.md): a holdout of answers we did
+  not write, frozen before training, on which the candidate beats the champion's own file and the length
+  baselines in the node runtime.
+- **Not verified:** the rules page since 2026-11-06; whether the translation material was ever signed; why #273
+  to #278 stay blocked while their `_GENERAL` pools have snapshots.
+- **Next:** freeze the QUESTION_ANSWERING query set and capture real miner answers (`harness/capture.py`), label
+  them from a primary source, fetch champion #301, then build pairs and train. One GPU job at a time (`GPU.lock`).
+
+## FX_NOW and funding — 2026-11-01 18:45 UTC (Nov 2 00:15 IST), Claude session
 
 Runs alongside the Codex sanctions session (block below), in the same worktree. The two sessions commit only their own paths.
 
@@ -41,7 +76,7 @@ Runs alongside the Codex sanctions session (block below), in the same worktree. 
 - **No real money:** everything is on Sepolia (test ETH, test MACHINA, test USDC). Real money is only prizes.
 - **Live Evaluator rubric:** 40/15/10/10/5 plus growth 20 (RULES_SEASON2.md, commit 6b09093).
 
-## CURRENT sanctions work — 2026-11-01 19:13 UTC (Nov 2 IST): measurements complete; no ready adapter
+## Sanctions work — 2026-11-01 19:13 UTC (Nov 2 IST): measurements complete; no ready adapter
 
 User supplied the handoff and authorized feature-branch commits/pushes. Work remains in
 `claude/evaluators-status-a51518`, `.claude/worktrees/evaluators-status-a51518`. Another active session
@@ -88,7 +123,7 @@ sanctions measurement and documentation, not that session's wallet/funding/FX_NO
   with core.autocrlf=true and identical pair hashes. All raw hashes/route mappings/score arithmetic pass;
   local measurement ports 18081–18083 have zero listeners after cleanup. Author replay is not activation.
 
-## CURRENT — 2026-11-01 ~07:15 UTC · V2 PIPELINE PROVEN; EVENT_OUTCOME_RESOLUTION ADAPTER TRAINING
+## 2026-11-01 ~07:15 UTC · V2 PIPELINE PROVEN; EVENT_OUTCOME_RESOLUTION ADAPTER TRAINING
 
 Owner: "start building whatever this track requires. do the work in phases". Worktree branch
 `claude/evaluators-status-a51518`, moved to `codex/rank1-14-intents` HEAD `130e16c` before any edit.

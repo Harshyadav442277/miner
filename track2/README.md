@@ -7,26 +7,27 @@ Season I's `rank_answer` scorer, its harness, fixtures, recon and release toolin
 2026-10-23. The node no longer accepts that module kind, and none of it was used by the Season II work.
 All of it remains in git history.
 
-## Current sanctions contribution — 2026-11-01 UTC (Nov 2 IST)
+## Current state (2026-11-15)
 
-Start with the [honest write-up](SUBMISSION_S2.md) and [reproduction tutorial](adapter/sanctions/README.md).
-Two public captures contain 464 responses. V6's synthetic test passes at 90.18%, but it scores 79.17%
-on fresh real-answer pairs; v3 scores 83.33%, while the length baseline scores 100%. These narrow,
-one-sided samples and the own-format wrong-query failures do not establish readiness. No new sanctions
-registration was prepared. Raw captures, exact scores, source hashes, training inputs and experimental
-packages are available for review. See G41 and the sanctions section of SIGN_S2. Other families have
-their own dated runbook/status; this is not a blanket signing recommendation for them.
+No module of ours is active on the network; [MEMORY.md](MEMORY.md) has the registry read and the five planned
+entries. Earlier adapters passed tests we wrote ourselves and then failed on answers we did not write. So nothing
+is registered now until it passes the gate in [harness/](harness/README.md).
 
 ## What is here
 
 | Path | What it is |
 |---|---|
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Season II design decisions: comparators, wide adapters, node-reproduced proof |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Season II design decisions: comparators, adapter deltas, node-reproduced proof, the pre-registration gate |
 | [GAPS.md](GAPS.md), [MEMORY.md](MEMORY.md) | Open gaps and session state |
-| [adapter/score_pairs.py](adapter/score_pairs.py) | Scores preference pairs through a runnable-URL executor (the kit's `adapterexec`) exactly as the node orders them; per-type accuracy and the length baseline |
-| [adapter/event_outcome/](adapter/event_outcome/) | EVENT_OUTCOME_RESOLUTION training data: Wikidata fetch and the pair builder |
-| [adapter/sanctions/](adapter/sanctions/README.md) | Public-source training, real-miner capture/labels, node-runtime measurement and frozen reproducibility artifacts |
-| [SUBMISSION_S2.md](SUBMISSION_S2.md), [OUTREACH_S2.md](OUTREACH_S2.md) | Honest entry draft and unsent education/activation plans |
+| [harness/](harness/README.md) | The pre-registration gate: freeze a holdout, capture real miner answers, fetch the champion's file, measure in the node runtime, compare, decide |
+| [comparator/](comparator/README.md), [comparator/evaluation/](comparator/evaluation/README.md) | The exact comparators and the frozen adversarial suite that checks them against the champions and the kit reference |
+| [runnable/](runnable/) | The V2 runnable endpoint serving nine comparator families (`livecert-comparator.vercel.app`) |
+| [material/](material/README.md) | Evaluation material: 144 LANGUAGE_TRANSLATION preference pairs and the pool row checker |
+| [adapter/fact_check/](adapter/fact_check/README.md) | FACT_CHECK pair generator from FEVER (hard negatives, split by article) |
+| [adapter/score_pairs.py](adapter/score_pairs.py), [adapter/check_executor.py](adapter/check_executor.py), [adapter/fanout_exec.py](adapter/fanout_exec.py), [adapter/live_class/](adapter/live_class/) | V2 adapter tools: pair scoring through an executor, the validator-style executor check, the batch fan-out, the live-class shim for `adapterbuild` |
+| [adapter/url_scan/](adapter/url_scan/README.md), [adapter/security_review/](adapter/security_review/README.md), [adapter/sanctions/](adapter/sanctions/README.md), [adapter/sanctions_pool/](adapter/sanctions_pool/README.md), [adapter/event_outcome/](adapter/event_outcome/) | Closed lanes, kept as measured-failure records |
+| [SIGN_S2.md](SIGN_S2.md) | What is registered and what is ready to sign (nothing) |
+| [SUBMISSION_S2.md](SUBMISSION_S2.md), [OUTREACH_S2.md](OUTREACH_S2.md) | The Nov 2 entry draft (sanctions only; to be rewritten for the five entries) and unsent outreach plans |
 
 `calibration/dist/text_authenticity_v2.wasm` (registration 1882, Season I) was deleted on 2026-10-29. Devnode's
 V2 `/api/wasm` no longer lists 1882 or TEXT_AUTHENTICITY_CHECK: 7 families, with registration ids restarted.
@@ -50,11 +51,7 @@ V2 `/api/wasm` no longer lists 1882 or TEXT_AUTHENTICITY_CHECK: 7 families, with
 
 ## Where the Season II work is
 
-- **In this tree** (branch `claude/wasm-track-2-quality-e21db3`, merged 2026-10-29):
-  - the 31 comparators ([comparator/](comparator/README.md));
-  - the LLM_OUTPUT_EVALUATION adapter recipe ([adapter/](adapter/llm_output_eval/README.md));
-  - the sign list ([SIGN_S2.md](SIGN_S2.md)). Use its dated, family-specific status notes; the sanctions
-    adapter remains gated, and historical tables/tunnels are not current signing values.
+- **In this tree:** see the table above. Sanctions evidence (289 files) is on `claude/evaluators-status-a51518`.
 - **Published releases:** in [`telegraph-factscore`](https://github.com/Harshyadav442277/telegraph-factscore),
   branch `season2-evaluators`.
 - **Training data, models and builds:** in `C:\Users\hyada\tg-eval\`, outside OneDrive.
