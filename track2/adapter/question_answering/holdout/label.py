@@ -135,13 +135,14 @@ def run_label(args):
           "response per (system, query)")
 
 
-def read_review(path):
+def read_review(paths):
+    """One or more review files; a later file's verdict for the same (query, system) wins."""
     verdicts = {}
-    lines = Path(path).read_text(encoding="utf-8").splitlines()
-    for ln in lines[1:]:
-        cols = ln.split("\t")
-        if len(cols) >= 8 and cols[7].strip():
-            verdicts[(cols[0], cols[3])] = cols[7].strip().lower()
+    for path in [paths] if isinstance(paths, (str, Path)) else paths:
+        for ln in Path(path).read_text(encoding="utf-8").splitlines()[1:]:
+            cols = ln.split("\t")
+            if len(cols) >= 8 and cols[7].strip():
+                verdicts[(cols[0], cols[3])] = cols[7].strip().lower()
     return verdicts
 
 
@@ -150,9 +151,11 @@ def sides(rows, verdicts):
     good, bad = {}, {}
     for r in rows:
         v = verdicts.get((r["query_id"], r["system"]))
-        if r["label"] == "correct" or v == "correct":
+        # a reviewer's incorrect or skip also demotes an auto-matched answer: a wrong answer can
+        # contain a gold string (short golds such as a number or one common word)
+        if v == "correct" or (r["label"] == "correct" and v not in ("incorrect", "skip")):
             good.setdefault(r["query_id"], []).append(r)
-        elif r["label"] == "needs_review" and v == "incorrect":
+        elif r["label"] in ("needs_review", "correct") and v == "incorrect":
             bad.setdefault(r["query_id"], []).append((r, "wrong_answer"))
         elif r["label"] == "no_answer" and v != "skip":
             bad.setdefault(r["query_id"], []).append((r, "no_answer"))
@@ -202,7 +205,7 @@ def main(argv):
         ap = argparse.ArgumentParser(prog="label.py pairs")
         ap.add_argument("pairs")
         ap.add_argument("labels")
-        ap.add_argument("--review", required=True)
+        ap.add_argument("--review", required=True, nargs="+")
         ap.add_argument("--capture", required=True)
         ap.add_argument("--out", required=True)
         run_pairs(ap.parse_args(argv))

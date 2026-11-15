@@ -8,7 +8,44 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-15 ~02:00 UTC (07:30 IST) · NO ACTIVE EVALUATOR; BRANCHES CONSOLIDATED; HARNESS FIRST
+## CURRENT — 2026-11-15 ~07:50 UTC (13:20 IST) · QUESTION_ANSWERING LANE: HOLDOUT NOT YET FROZEN, NOTHING TRAINED
+
+Branch `PR/evaluator-submission-track-2-4d21b7`, nothing pushed, signed or registered. Two sessions died mid-lane;
+everything below is on disk.
+
+- **Committed:** [harness/](harness/README.md) (19 tests OK); [adapter/question_answering/](adapter/question_answering/README.md)
+  (pair builder, audit PASS, `train.ps1` and `finish.ps1` never run); `holdout/`: 120 frozen NQ-open dev questions
+  (`queries.freeze.json`, sha256 `3b33d5eb…`), 300 benchmark pairs (150 TruthfulQA, 150 HaluEval length-stratified),
+  `label.py`. Training pairs: `C:/Users/hyada/tg-eval/pairs/question_answering_v1` (9,000 / 900 / 900).
+- **Capture done:** `C:/Users/hyada/tg-eval/captures/qa-2026-11-15-r1` (05:33 to 06:01 UTC): txlens 100/120,
+  zk-qa-claims 120, a1-preflight 120, livecert 120 (related party). Auto labels in `…-r1-labels/`: 128 gold
+  string matches, 332 rows to read.
+- **Running when this was written (check, do not assume):**
+  - a Sonnet subagent filling `review.tsv` and `review-auto.tsv` in the labels folder; it saves `verdicts.json`
+    after each batch, so a restart resumes from that file. These verdicts are a model's reading, not a person's.
+  - a detached `pwsh` running `C:/Users/hyada/tg-eval/runs-v2/qa_holdout/run-measure.ps1`: champion #301 and
+    GENERIC on the benchmark pairs. Finished when `benchmarks.done` exists; results `benchmarks-QA301.json`,
+    `benchmarks-GENERIC.json`. Rerunning skips finished packages.
+- **Uncommitted:** `holdout/label.py` (a reviewer's `incorrect` or `skip` now demotes an auto-matched answer;
+  `--review` takes several files). Tests 13 OK.
+- **Before freezing the holdout (decide and write in the freeze note, before any candidate score exists):**
+  1. Rows are not independent: each judgement appears as `body` and `text`, and one question gives several
+     system pairs. Gate on one row per judgement and resample by `prompt`, or the Wilson bound and the 30-pair
+     estimate are too tight.
+  2. System identity may predict the label on `body` rows (a1-preflight is mostly the rejected side; the
+     champion's author runs zk-qa-claims). Print system-pair counts. Gate `text` rows plus benchmarks; report
+     `body` rows only.
+  3. Report with and without `related_party` rows; the gate must hold without LiveCert.
+  4. Do not pick rank or alpha on the holdout. Pick the variant on `val.jsonl`, score one package on the holdout.
+- **Then:** `python label.py pairs labels.jsonl --review review.tsv review-auto.tsv --capture <capture> --out
+  holdout_miners.jsonl`; join with `benchmarks.jsonl`; `harness/freeze.py`; commit; only then `train.ps1`
+  (check for a stale `C:/Users/hyada/tg-eval/GPU.lock` first), `finish.ps1`, `harness/measure.py` one package
+  per call (about 3 min per 150 pairs), `compare.py`, `gate.py`. No registration unless the gate prints PASS;
+  the owner signs.
+- **After QUESTION_ANSWERING:** EMAIL_SECURITY (champion #315, 71.43%), FACT_CHECK, then the closed-lane
+  pipeline deletion and `SUBMISSION_S2.md` for the five entries.
+
+## 2026-11-15 ~02:00 UTC (07:30 IST) · NO ACTIVE EVALUATOR; BRANCHES CONSOLIDATED; HARNESS FIRST
 
 Branch `PR/evaluator-submission-track-2-4d21b7` (worktree `.claude/worktrees/evaluator-submission-track-2-4d21b7`).
 Deadline Dec 1 23:59 UTC (Dec 2 05:29 IST). Owner's goal: submit five evaluators and win the track.
