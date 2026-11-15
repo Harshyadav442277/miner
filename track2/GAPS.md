@@ -4,7 +4,141 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
-## G34 — the adapter format changed again: safetensors deltas on a shared Foundation Model (2026-10-31) — `OPEN, blocked on Telegraph`
+## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
+
+Evidence: `adapter/sanctions/evidence/2026-11-01-miners-r1/`. Frozen 32-name queries, 15 YAML routes,
+232 responses; 32 unchanged answer pairs from 8 listed names. No negative-name pairs can be labeled
+defensibly from observed disagreements. LiveCert is our related miner, disclosed throughout.
+
+Node runtime: v3 29/32 (90.625%), v4 12/32 (37.5%), v5 24/32 (75%); length baseline **32/32**. All wrong
+decisions come from one short-response OFAC service. V3 wins every comparison on only 5/8 names; its
+diagnostic name-level Wilson 95% lower bound is 30.6%. This is not an 80% result with a defensible margin
+on a representative set. It cannot justify sanctions registration. The exploratory 24-pair run is separate.
+
+The snapshot proves exact-name membership/absence, not identity or all-list/fuzzy clearance. Labels
+assess a decision only; narrative/evidence fields are not comprehensively verified. Other-list/fuzzy
+positive alerts, transport errors, unknown status, wrong echoed names and conflicting verdicts abstain.
+Raw responses, labels and agreement denominators are replayable. Engine ids differ from registration
+ids; some detail API responses are missing or unrelated. Routing uses the catalog YAML's external_path
+and parameter mapping. v4/v5 are now hosted as experimental packages, not ready-to-sign candidates.
+
+V6 pilot completed: longer synthetic formats, 5,958/795/794 pairs, measured names/ids excluded, entity,
+alias and query splits audited. Kit test 90.18% on 794 pairs; export/Stage 1 PASS. Actual node runtime:
+22/32 (68.75%) on the initial set; 19/24 (79.17%) on a fresh 32-name capture (6 names contribute pairs).
+V3 scores 20/24 (83.33%) there, but length alone scores 24/24. Both sets remain one-sided/source-confounded.
+Since the initial capture informed v6 design, its results are development evidence. The fresh capture
+was frozen while v6's configuration was fixed, with no training/model changes from its answers.
+A readiness claim needs new independent answers, more names, both labels and source/length-balanced
+mistakes. Synthetic exact-absence labels also do not ground-truth every fuzzy-alert threshold.
+
+Wrong-query controls: v6 16/20 (80%), listed 10/10, absent 6/10; our LiveCert-format controls 3/4.
+For the Bank of America question, a deliberately paired Bank of India response outranks the correct
+answer (9.643579 vs 3.596127). This is a synthetic relevance failure, not an actual miner mistake.
+The v6 builder's wrong-entity negatives always use listed replacements, leaving two-no-match swaps
+untaught. No causal claim is established. These controls are not training or a registration gate.
+No v6 claim of robust factual discrimination, safe own-style rejection or readiness is supported.
+
+Concurrent session commit `33b692a` records owner deregistration of #46 and a released bond unlock at
+2026-11-03 18:36:48 UTC. This measurement run did not independently repeat that chain read. Preserve
+the current SIGN_S2 FX_NOW flow; this gap applies to sanctions adapters only.
+
+## G40 — the first SANCTIONS_SCREENING_MATCH adapter only judged our own answer shapes (2026-11-01) — `OPEN: v3 REJECTED at 7/15`
+
+**Registration 46 (v3) rejected, 16:25:59 UTC:** "at its runnable URL the adapter ordered 7 of 15 public pairs
+correctly (46.7%), below the 70% floor". The node sent one batch of 30 texts, the longest 279 tokens; we answered in
+54.4 s with the right identity, so the infrastructure worked and the judgement failed. **Our 72.5% probe did not
+predict the pool**: we wrote the probe ourselves, so it shares our assumptions. Pool texts run longer than anything
+we trained on (training p99 154 tokens, pool max 279). `0x3035…` scored 9/15 on the same check. Do not register
+again on a self-written probe. First get a measurement whose answers we did not write: real sanctions miners'
+responses, or another public source. Bond 4.835 MACHINA stays locked until the owner deregisters 46.
+
+**v4 and v5 (not hosted):**
+- **v4** (name-shape cue removed) scored 60.0% on the probe.
+- **v5** (every SDN entity, twice, 77,936 pairs; keccak `0xddfdfcd0…a43e`) scored a 93.7% kit test. That is recall,
+  since every test entity is in training. Its probe score was **53.75%**: it calls nearly every name listed
+  (listed 87.5%, real unlisted names 12.5–37.5%).
+
+None of v1–v5 is fit to register. **Sanctions is paused** until a measurement exists on answers we did not write.
+
+**v3 (18:51 IST, keccak `0x49de4107…f2f0`, not hosted):** probe **72.5%** (80 pairs; one cell still 0/8: an
+unlisted name's detailed "no entries found" lost to a bare "Match"); held-out 200 pairs 93.0%, 0 ties, length
+50.5%. But bare verdicts on never-seen names scored 8/8, which knowledge cannot explain: name shape alone (word
+count, capitals) predicted "listed" 71.7% on the v3 test set, because unlisted people were built as 2-word
+names. v4 builds every unlisted name from a listed template, word for word, and gives both classes the same
+25% typo rate. The words+caps+length rule now predicts listed 58.3% (the remainder is aliases); gate PASS.
+v3's 93% is not a judgement number.
+
+**v2 (17:30 IST, keccak `0x7cf777b7…562a`, not hosted):** kit test 91.2%, but the probe (now 80 pairs, with
+mixed shapes) gave **57.5%**. With one detailed and one short answer it always preferred the detailed one:
+right-detailed 100%, right-short 0%. Every v2 pair kept both answers in one shape, and the adapter scores each
+answer alone, so it never learned a scale shared across shapes. Bare and one-word verdicts on listed names
+stayed at chance (50%, 12.5%): it does not know which names are listed. v3 draws the worse answer's
+shape independently in half the pairs (`CROSS_SHARE`; gate PASS, length 52.1%, surface 57.3%).
+One `adapterexec` worker died silently mid-run (`exec_8083_died.log`, no error line): the fan-out then answers 502.
+Before registering, watch the worker count during the remote check.
+
+v1 (`pairs/sanctions_v1`, keccak `0x23bbe60e…7145`, not hosted or registered) scored 95.1% on the kit test gate and
+96.0% on 200 held-out pairs in `adapterexec` (flipped 89.6%, the other kinds 100%). On 48 pairs written in
+shapes the builder never produced (`adapter/sanctions/ood_probe.py`: schema JSON with string `matches`,
+`{"matched": bool}`, one-word verdicts; 8 SDN-listed and 8 unlisted names) it scored **60.4%**. It preferred
+"no match" whenever an answer carried no nearest entry: listed names scored 0% on bare and one-word answers. That
+is the 60% that got `0x3035…` rejected on the 15 public pairs. v2 adds those shapes (prose 30%, full JSON 25%,
+thin JSON 20%, bare 10%, word 15%; dataset gate PASS, surface 57.9%). On a bare verdict about a name it
+never saw, the adapter can only guess: measure held-out and probe results by format before hosting.
+The public pairs themselves are not readable from any devnode endpoint tried (`/api/evalpool/status` shows
+416 eligible rows from 7 submitters, snapshot `1d53d852…`).
+
+## G39 — no public tunnel for the executor yet (2026-11-01) — `WORKAROUND 14:50 IST`
+
+**Update:** owner chose cloudflared (winget, 2026.10.7, installer hash verified). A quick tunnel has a 100 s
+response cap: one `adapterexec` took 126 s on a worst-case 30-text batch (HTTP 524). `track2/adapter/fanout_exec.py`
+splits the batch over 3 workers: 74 s, 200. Remaining risks: the quick-tunnel URL is ephemeral (a restart gives a new
+one, which would not match a signed registration); 3 workers leave ~1.2 GB RAM free; a larger pool text than 256
+tokens is truncated by the node too, so 74 s is the ceiling on this CPU. The original text follows.
+
+The account's one ngrok domain (`grippelike-foliiferous-richie.ngrok-free.dev`) is already online from another
+machine, serving "The Archive of Constantinople"; ngrok refuses a second agent (ERR_NGROK_334). Not touched.
+Options: install Cloudflare's `cloudflared` for a quick tunnel; stop the other ngrok agent for the registration
+window; or a VM. The validator needs a public https URL, no redirect, for about 1.5 h.
+
+## G38 — the EVENT_OUTCOME_RESOLUTION adapter cannot verify facts about events it never saw (2026-11-01) — `OPEN, the main risk`
+
+Node runtime, 200 test pairs from event series held out of training (`runs-v2\EVENT_OUTCOME_RESOLUTION\
+node_scores_test200.json`): 75.5% overall, 0 ties, length baseline 0.42. By failure type: contradiction 12/12,
+prediction 17/17, unresolved 13/13, wrong_event 61/61, **flipped 51.9% (52), wrong_winner 46.7% (45)**. The kit's
+own test gate: 74.7% on 2,566 pairs. So the model checks form, internal consistency and relevance, not who
+actually won; a 150M encoder cannot know unseen outcomes. Whether it clears 70% on the hidden pool depends on how
+many of the pool's worse answers are factual flips, which we cannot see. Not yet measured: the famous-event
+subset (high sitelinks), where pretraining may know the answer. Say this limitation wherever the adapter is
+claimed.
+
+## G37 — which text does a judgment adapter see for a ranked miner answer: prose or the response JSON? (2026-11-01) — `OPEN`
+
+The docs say a hybrid adapter sees "the miner's whole response"; for judgment intents they say only "a miner's
+answer". Pool rows are contributor prose. Our EVENT_OUTCOME_RESOLUTION data renders 40% of pairs as the intent's
+response JSON and 60% as prose, so either reading is covered. Close it by asking Telegraph, or from a ranked
+epoch's record if one is ever published.
+
+## G36 — the kit's compiled class list disagrees with the live node (2026-11-01) — `OPEN, workaround in use`
+
+`pkg/scoring/catalog` lists EVENT_OUTCOME_RESOLUTION and SANCTIONS_SCREENING_MATCH as hybrid;
+`/engine/v1/intents/<INTENT>_GENERAL` says `judgment` for both, and registration 30 (another author) was rejected
+`class_mismatch: class "hybrid", the intent needs "judgment"`. We export with the live class (ARCHITECTURE A1).
+Worth reporting to Telegraph: it will cost every adapter author a bond cycle.
+
+## G35 — the tokenizer saved with our October run differs from the pinned one (2026-11-01) — `CLOSED`
+
+`export_adapter` refused `runs/LLM_OUTPUT_EVALUATION/adapter/tokenizer.json` (sha256 `a4285a69…`, pinned
+`67bc76f8…`). The only difference is `truncation.max_length` (256 saved by training, 1536 pinned); token ids are
+identical on all 22,800 rendered training texts. The pinned file was copied into the export copy
+(`C:\Users\hyada\tg-eval\runs-v2\`), not the original run. Export, Stage 1 and the foundation load then passed.
+
+## G34 — the adapter format changed again: safetensors deltas on a shared Foundation Model (2026-10-31) — `UNBLOCKED 2026-11-01`
+
+**Update 2026-11-01:** Telegraph published `telegraphprotocol/telegraph-foundation` release
+`modernbert-base-lora16-v1` (2026-10-31 18:19 UTC; all four sha256 checked `OK`) and the reference executor
+`cmd/adapterexec` (kit `main` `1ed063e`). Our LLM_OUTPUT_EVALUATION delta is exported and passes Stage 1 and the
+foundation load (track2 MEMORY, 2026-11-01). The original text follows.
 
 `/docs/scoring/upgrade-shared-foundation` (updated 2026-10-31): an adapter is a LoRA delta plus a reward head in a
 safetensors file; full-model `.wasm` is refused (`legacy_full_model`). Devnode already runs it (seeds 900001–900004
