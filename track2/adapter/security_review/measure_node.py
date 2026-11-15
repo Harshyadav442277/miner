@@ -25,6 +25,8 @@ from pathlib import Path
 from tokenizers import Tokenizer
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "harness"))
 from check_executor import batch_input_root  # noqa: E402
 from keccak import keccak256  # noqa: E402
 

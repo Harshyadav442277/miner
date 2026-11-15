@@ -1,5 +1,7 @@
 # Sanctions evaluator: reproduce the measurement
 
+> **2026-11-15:** this lane is closed. The capture, label, measure and verify scripts and the evidence folders named below are on branch `claude/evaluators-status-a51518`, not in this tree. Capture is now `track2/harness/capture.py`, which adds URL and filename guards.
+
 This Season II Evaluator experiment uses the shared Telegraph foundation and node runtime.
 It has **not established registration readiness**. Registration #46 (v3) failed 7/15 at
 the remote check. No pool questions or answers are in this directory or training data.
