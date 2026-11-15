@@ -182,6 +182,29 @@ export function sanitise(raw: string): string | null {
  */
 export const plainHyphens = (text: string): string => text.replace(/[‐‑]/g, "-");
 
+/** The first JSON object in a reply, or null. Pure. */
+export function parseObject(raw: string): Record<string, unknown> | null {
+  const s = String(raw ?? "");
+  const a = s.indexOf("{"), b = s.lastIndexOf("}");
+  if (a < 0 || b <= a) return null;
+  try {
+    const v = JSON.parse(s.slice(a, b + 1)) as unknown;
+    return v && typeof v === "object" && !Array.isArray(v) ? (v as Record<string, unknown>) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Text from a request, made safe to hand a model as a JSON value: control characters out, whitespace
+ * collapsed, at most `n` characters. JSON.stringify of the result is what the prompt carries, so the text is
+ * data and never an instruction line of its own. Pure.
+ */
+export function dataValue(text: string, n = 2_000): string {
+  return String(text ?? "").replace(/[\u0000-\u001f\u007f-\u009f\u200b-\u200f\u2028-\u202e\u2060-\u2064\ufeff]/g, " ")
+    .replace(/\s+/g, " ").trim().slice(0, n);
+}
+
 /**
  * A 400 ends this model's attempt at once, and the caller moves to the next model. With `json`, Groq answers
  * 400 `json_validate_failed` only AFTER the model has written its whole reply, and returns that reply as

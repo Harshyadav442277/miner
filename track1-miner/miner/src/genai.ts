@@ -15,8 +15,10 @@
  * model answer is an honest `unknown`, never an invented one.
  */
 import { currentFact } from "./currentfacts";
-import { phrase } from "./llm";
+import { parseObject, phrase } from "./llm";
 import { completeReview } from "./review-validation";
+
+export { parseObject };
 
 export interface GenAnswer { verdict?: string; confidence: number; reason: string; error?: string; [k: string]: unknown }
 
@@ -25,19 +27,6 @@ const SOURCE = "Groq (gpt-oss-120b, falling back to qwen3.8-27b and gpt-oss-20b)
 const CONFIDENCE = 0.8;
 /** About 2K tokens: with the reply, one call stays well under one model's 8K tokens a minute. */
 const MAX_INPUT = 8_000;
-
-/** The first JSON object in a reply, or null. Pure. */
-export function parseObject(raw: string): Record<string, unknown> | null {
-  const s = String(raw ?? "");
-  const a = s.indexOf("{"), b = s.lastIndexOf("}");
-  if (a < 0 || b <= a) return null;
-  try {
-    const v = JSON.parse(s.slice(a, b + 1)) as unknown;
-    return v && typeof v === "object" && !Array.isArray(v) ? (v as Record<string, unknown>) : null;
-  } catch {
-    return null;
-  }
-}
 
 const str = (v: unknown): string => (typeof v === "string" ? v.trim() : "");
 

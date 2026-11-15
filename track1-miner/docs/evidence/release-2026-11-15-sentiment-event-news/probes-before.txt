@@ -1,0 +1,32 @@
+# https://miner-wine.vercel.app, build b18ca59, read 2026-11-15 ~00:35 UTC (curl -4, one request each)
+
+GET /event-outcome event=Did the Kansas City Chiefs win Super Bowl LIX?
+{"verdict":"no_market_found","outcome":"unresolved","resolved_yes":null,"confidence":0.4,"reason":"No prediction market matching this event was found on Polymarket or Manifold, so no outcome is reported and none is guessed. Official sources such as flight trackers, election authorities and league results are not read here."}
+
+GET /event-outcome event=Did Max Verstappen win the 2024 Formula One World Championship?
+{"verdict":"no_market_found","outcome":"unresolved","resolved_yes":null,"confidence":0.4,"reason":"No prediction market matching this event was found on Polymarket or Manifold, so no outcome is reported and none is guessed. Official sources such as flight trackers, election authorities and league results are not read here."}
+
+GET /event-outcome event=Did Oppenheimer win Best Picture at the 2024 Oscars?
+{"verdict":"no_market_found","outcome":"unresolved","resolved_yes":null,"confidence":0.4,"reason":"No prediction market matching this event was found on Polymarket or Manifold, so no outcome is reported and none is guessed. Official sources such as flight trackers, election authorities and league results are not read here."}
+
+GET /event-outcome event=Will the Fed cut rates at its December 2027 meeting?
+{"verdict":"no_market_found","outcome":"unresolved","resolved_yes":null,"confidence":0.4,"reason":"No prediction market matching this event was found on Polymarket or Manifold, so no outcome is reported and none is guessed. Official sources such as flight trackers, election authorities and league results are not read here."}
+
+GET /news-search query=SpaceX Starship launch
+{"verdict":"articles","confidence":0.9,"brief":"SpaceX Starship Launch (TelegraphHerald.com)","reason":"Recent coverage of SpaceX Starship launch includes: \"SpaceX Starship Launch\" (TelegraphHerald.com, 15 November 2026); \"SpaceX Starship returns to Earth in dramatic catch by launch pad arms, in photos\" (Springfield News-Sun, 14 November 2026); \"SpaceX makes history as Starship spacecraft caught by launch tower for first time\" (Fox Business, 14 November 2026); \"🎥 Dramatic first: SpaceX’s Starship returns, captured by launch pad arms\" (Salina Post, 14 November 2026); \"Historic Catch! SpaceX Starship Captured by Launch Tower After Reentry\" (Yahoo, 14 November 2026). 5 articles, most recent first, each with its publisher and publication date."}
+
+GET /news-search query=Nvidia earnings
+{"verdict":"articles","confidence":0.9,"brief":"Nvidia CEO's Exit Clouds KOSPI Outlook as Earnings Loom (Seoul Economic Daily)","reason":"Recent coverage of Nvidia earnings includes: \"Nvidia CEO's Exit Clouds KOSPI Outlook as Earnings Loom\" (Seoul Economic Daily, 14 November 2026); \"How to Read Nvidia Earnings: Hyperscalers at 51%\" (shattered.io, 14 November 2026); \"Nvidia earnings, Anthropic IPO and US-China summit to test rebound hopes\" (Chosunbiz, 14 November 2026); \"AMD Just Had Its Biggest Run Against Nvidia Since 1999. Can It Survive Earnings?\" (Yahoo Finance, 14 November 2026); \"Nvidia Leadership Crisis Raises Concerns Over AI Semiconductor Earnings and US Export Restrictions\" (Yahoo Finance, 14 November 2026). 5 articles, most recent first, each with its publisher and publication date."}
+
+GET /sentiment text=Tesla shares slumped 12% after the company missed delivery estimates and cut its outlook.
+{"verdict":"negative","confidence":0.89,"sentiment":"Negative","reason":"Negative. The sentiment of this text is negative: Tesla shares slumped 12% after the company missed delivery estimates and cut its outlook. It is carried by the words slumped, missed and cut."}
+
+GET /sentiment text=The new update is fantastic, battery life is way better and the app finally feels fast.
+{"verdict":"positive","confidence":0.91,"sentiment":"Positive","reason":"Positive. The sentiment of this text is positive: The new update is fantastic, battery life is way better and the app finally feels fast. It is carried by the words fantastic, better and fast."}
+
+GET /sentiment text=The central bank held interest rates at 4.5% on Wednesday.
+{"verdict":"neutral","confidence":0.6,"sentiment":"Neutral","reason":"Neutral. The sentiment of this text is neutral: The central bank held interest rates at 4.5% on Wednesday. It contains no word that carries positive or negative sentiment. This is a word-list reading, so sarcasm, irony and words outside the list are not detected."}
+
+GET /sentiment text=Great camera, but the battery dies by noon and support never answered.
+{"verdict":"mixed","confidence":0.7,"sentiment":"Mixed","reason":"The sentiment of this text is mixed. The writer praises the camera quality but criticizes the poor battery life and unresponsive support."}
+

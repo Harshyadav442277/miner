@@ -99,6 +99,11 @@ const firstQuote = (reason: unknown): string | null => {
   const q = str(reason)?.match(/"([^"]{12,})"/)?.[1];
   return q ? clip(q) : null;
 };
+/**
+ * An event outcome that answers: settled by a market or a record ("resolved"), or recalled by the model when
+ * neither exists ("recalled", stated as such in its reason and source, at lower confidence).
+ */
+const eventAnswered = (b: Body): boolean => b.verdict === "resolved" || b.verdict === "recalled";
 const amount = (v: unknown): number | null => (typeof v === "string" && /^\d+(?:\.\d+)?$/.test(v) ? Number(v) : num(v));
 
 /**
@@ -126,9 +131,9 @@ const SCORED: Record<string, (b: Body) => Body> = {
     const tokens = Array.isArray(b.token_balances) ? (b.token_balances as Body[]) : [];
     return { balance: tokens.length === 1 ? amount(tokens[0]!.amount) : num(b.balance_eth) };
   },
-  // EVENT_OUTCOME_RESOLUTION_GENERAL: a settled Yes or No only; a named winner is not a yes/no
+  // EVENT_OUTCOME_RESOLUTION_GENERAL: a Yes or No from a market, a record or the model's recall; a named winner is not a yes/no
   "/event-outcome": (b) => ({
-    resolved_yes: b.verdict === "resolved" ? (b.outcome === "Yes" ? true : b.outcome === "No" ? false : null) : null,
+    resolved_yes: eventAnswered(b) ? (b.outcome === "Yes" ? true : b.outcome === "No" ? false : null) : null,
   }),
   // URL_SCAN_VERDICT
   "/url-scan": (b) => ({
@@ -278,9 +283,9 @@ const OVERRIDE: Record<string, (b: Body) => Body> = {
   },
   // EVENT_OUTCOME_RESOLUTION_GENERAL: yes | no | unresolved; a named winner stays in `winner`
   "/event-outcome": (b) => ({
-    outcome: b.verdict === "resolved" ? (b.outcome === "No" ? "no" : "yes") : "unresolved",
+    outcome: eventAnswered(b) ? (b.outcome === "No" ? "no" : "yes") : "unresolved",
     // Kept in step with outcome: a resolved event with a named winner happened, so it resolved YES (2026-11-07).
-    resolved_yes: b.verdict === "resolved" ? b.outcome !== "No" : null,
+    resolved_yes: eventAnswered(b) ? b.outcome !== "No" : null,
     ...(typeof b.outcome === "string" && !/^(?:Yes|No)$/.test(b.outcome) ? { winner: b.winner ?? b.outcome } : {}),
   }),
   // TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL: a number in whole tokens; the exact decimal string is kept beside it

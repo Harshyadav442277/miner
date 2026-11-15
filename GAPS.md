@@ -1,5 +1,35 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-15 ~00:55 UTC (06:25 IST) release `69afe87` — states changed; G300–G305 new
+
+- **G299 partly acted on.** EVENT_OUTCOME (0.0032, rank 12/35 in epoch 2093), SENTIMENT (0.5446, 15/21) and
+  NEWS_SEARCH (0.7293, 14/19) were changed in `69afe87`
+  (`track1-miner/docs/evidence/release-2026-11-15-sentiment-event-news/`). STORM_ALERT and WEATHER untouched.
+- **G300 — The score effect of `69afe87` is unmeasured. `OPEN`.** Production probes show the intended answers
+  (Super Bowl LIX No from Wikidata, Oppenheimer Yes from model recall, model-chosen sentiment labels, whole-sentence
+  news briefs). Whether EVENT_OUTCOME, SENTIMENT and NEWS_SEARCH scores move needs the next 2–3 epochs. Compare with
+  epoch 2093: 0.0032, 0.5446, 0.7293. CHAT_COMPLETION 0.9303 (rank 6/16, was 0.9718 under 5152): watched, not changed.
+- **G301 — `/sentiment` and `/news-search` are slower. `OPEN`.** The model call (2.5 s deadline) made `/sentiment`
+  answer in 0.63–1.13 s and `/news-search` in about 1.0 s (single probes, 2026-11-15). The site's SENTIMENT target
+  is under 300 ms (G209). Whether latency is scored, and how, is not known here.
+- **G302 — Model recall answers event outcomes at confidence 0.6, accuracy unmeasured. `OPEN`.** `verdict:
+  recalled` is labelled as model recall in `reason` and `source`, but no measurement of its accuracy on real node
+  questions exists. The model answered "unresolved" for "Did Max Verstappen win the 2024 Formula One World
+  Championship?", and Wikidata's item Q113628886 has no winner claim (P1346 empty, read 2026-11-15), so that
+  question still answers null. Season items without P1346 are a data gap; a P1346-less fallback (e.g. the season's
+  drivers' championship item) is a candidate, not built.
+- G303–G305 come from the 2026-11-15 00:30 UTC brief and were not re-read from `/api/miners` or `miner.yaml` in
+  this session.
+- **G303 — CVE_LOOKUP_CVSS 0.776 is a plateau shared by seven miners. `OPEN`, not acted on.** Only `cve-nvd`,
+  `cve-depsdev` and `cve-nvd-keyword` score 1.0. The mirror fix (G297) lifted us from 0.70 to the plateau.
+- **G304 — CRYPTO_PRICE_USD 0.735 did not move after the dead-market fix. `OPEN`, not acted on.** Exchange-based
+  ordinary miners sit at 0.73–0.75; CoinGecko-based ones reach 0.89. Unlisted tickers (for example XMR) answer
+  null. Candidate fix: a CoinGecko fallback by exact ticker. Check CoinGecko's row in `src/sources.ts` before using it.
+- **G305 — 30 of 43 intents have no `input` mapping or declare node-required params optional. `OPEN`, needs the
+  owner's signature.** Examples: TRANSLATION; WALLET_BALANCE chain/token; TOKEN_HOLDER token/chain; STOCK_PRICE
+  `ticker` against our `symbol`. Most still score well, so the node matches some names itself. Batch the fixes into
+  the next YAML the owner signs; a YAML change is a new on-chain registration.
+
 ## 2026-11-14 ~17:30 UTC (23:00 IST) release `b18ca59` — states changed
 
 - **G287 CLOSED.** Epoch 2091 (scored 16:23 UTC) is the first for registration 5232: 19 intents scored, among them
