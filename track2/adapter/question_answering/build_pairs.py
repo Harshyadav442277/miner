@@ -81,15 +81,14 @@ def pick_pair(cands_c, cands_r, rng):
     return best
 
 
-def build_split(name, items, forbidden, target, seed, tok, max_tokens, titles):
+def build_split(name, items, forbidden, target, seed, tok, max_tokens, titles, kinds=qa_kinds.KINDS):
     rng = random.Random(f"{seed}|{name}")
     index = make_index(items)
     squad = [i for i in items if i["title"]]
     nq = [i for i in items if not i["title"]]
     rng.shuffle(squad)
     rng.shuffle(nq)
-    per_kind = {k: target // len(qa_kinds.KINDS) + (1 if j < target % len(qa_kinds.KINDS) else 0)
-                for j, k in enumerate(qa_kinds.KINDS)}
+    per_kind = {k: target // len(kinds) + (1 if j < target % len(kinds) else 0) for j, k in enumerate(kinds)}
     counts, rows, metas, drops = Counter(), [], [], Counter()
     si = ni = 0
     while len(rows) < target and (si < len(squad) or ni < len(nq)):
@@ -98,9 +97,9 @@ def build_split(name, items, forbidden, target, seed, tok, max_tokens, titles):
             it, si = squad[si], si + 1
         else:
             it, ni = nq[ni], ni + 1
-        kinds = [k for k in qa_kinds.feasible(it) if counts[k] < per_kind[k]]
-        kinds.sort(key=lambda k: (counts[k] / per_kind[k], rng.random()))
-        for kind in kinds[:2]:
+        kinds_now = [k for k in qa_kinds.feasible(it, kinds) if counts[k] < per_kind[k]]
+        kinds_now.sort(key=lambda k: (counts[k] / per_kind[k], rng.random()))
+        for kind in kinds_now[:2]:
             made = qa_kinds.build(kind, it, index, rng, forbidden)
             if made is None:
                 drops[f"no_{kind}"] += 1
@@ -155,6 +154,7 @@ def main(argv=None):
     ap.add_argument("--val", type=int, default=900)
     ap.add_argument("--test", type=int, default=900)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--negation", action="store_true", help="v2: add the two negation kinds (qa_kinds.NEGATION_KINDS)")
     ap.add_argument("--squad", default="squad-train-v1.1.json")
     ap.add_argument("--nq", default="NQ-open.train.jsonl")
     a = ap.parse_args(argv)
@@ -182,11 +182,13 @@ def main(argv=None):
     if src_man.exists():
         manifest["sources"] = [{k: s[k] for k in ("name", "url", "sha256", "licence")}
                                for s in json.loads(src_man.read_text(encoding="utf-8"))["sources"]]
+    kinds = qa_kinds.KINDS + (qa_kinds.NEGATION_KINDS if a.negation else [])
+    manifest["kinds"] = kinds
     used_wrong = set()
     for name, target in (("train", a.train), ("val", a.val), ("test", a.test)):
         titles = sorted({i["title"] for i in by_split[name] if i["title"]})
         rows, metas, rep = build_split(name, by_split[name], forbidden[name] | used_wrong, target, a.seed, tok,
-                                       a.max_tokens, titles)
+                                       a.max_tokens, titles, kinds)
         used_wrong |= {m["r_ans"] for m in metas if m["r_ans"]}  # later splits never reuse a wrong answer
         h = write_jsonl(a.out / f"{name}.jsonl", rows)
         write_jsonl(a.out / f"{name}.meta.jsonl", metas)

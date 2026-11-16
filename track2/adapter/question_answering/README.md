@@ -9,6 +9,40 @@ Status 2026-11-15 (UTC): **v1 trained, exported and failed the gate. Not registe
 | GENERIC #900005 | 159 = 43.9% | 58 | 74 | 27 | 117 = 35.0% |
 | Longer answer wins / shorter answer wins | 46.1% / 51.7% | | | shorter wins 55 | 22.8% / 77.3% |
 
+## v2: the last iteration. Design fixed 2026-11-16 before any v2 data was built
+
+- **Diagnosis, on the v1 val split, not the holdout** (`bias_probes.py`; scores in
+  `C:/Users/hyada/tg-eval/runs-v2/qa_v2_probes/`; 60 pairs each):
+
+  | Probe | v1 | #301 |
+  |---|---|---|
+  | A1: "It is not {wrong}." vs "It is {wrong}." | 1/60 | 19/60 |
+  | A2: "It is {gold}." vs "It is not {gold}." | 60/60 | 43/60 |
+  | B1: bare gold vs full wrong sentence | 38/60 | 0/60 |
+  | B2: full gold sentence vs bare wrong | 51/60 | 60/60 |
+  | C: bare gold vs bare wrong | 45/60 | 45/60 |
+
+  v1 picks the non-negated statement whatever the facts (A1 + A2). The bare-versus-sentence effect is mild in v1
+  (the champion has it fully).
+- **Change, and only this:** two new kinds, `true_negation` ("not {wrong}" beats "{wrong}") and `false_negation`
+  ("{gold}" beats "not {gold}"), in equal numbers, from the same SQuAD/NQ items with the same splits and
+  exclusions. That makes nine kinds at about 1,000 train pairs each. The audit gains a negation-word probe
+  (≤ 0.60 on every split). Refusals still lose (A3 rule 1).
+- **Why not "answers with supporting evidence"**, the plan in MEMORY: the probes point at a wording bias, not at
+  missing evidence, and the holdout's benchmark pairs carry no evidence to use.
+- **Run:** one variant, rank 8, alpha 32, 384 tokens, 3 epochs, seed 42 (as v1). Pairs in
+  `tg-eval/pairs/question_answering_v2`, run `QUESTION_ANSWERING_v2`, chain in `runs-v2/qa_v2/`. The audit must pass
+  without `-AllowAuditFail`.
+- **Gate thresholds on the frozen 362-pair holdout, fixed now:**
+  - beat champion #301 + 2 points: ≥ 172/362;
+  - beat shorter-wins + 5 points: ≥ 206/362;
+  - Wilson lower bound ≥ 0.70: **≥ 271/362 (74.9%)**.
+  The champion's holdout scores are reused: #301's hash is unchanged (`707dc6d4…1e25`, checked 2026-11-16).
+- **v1's holdout results informed this design**, so a v2 score on this holdout is second-look evidence (like G41's
+  first capture). A PASS would still need a fresh frozen set before any signing.
+
+## v1 result
+
 All numbers are from the node runtime (`harness/measure.py`), on the holdout frozen in `holdout/` before training.
 The data audit passed and the training run's own test split passed; neither predicted this. Details and limits:
 [../../GAPS.md](../../GAPS.md) G42. The rest of this file describes how v1 was built.

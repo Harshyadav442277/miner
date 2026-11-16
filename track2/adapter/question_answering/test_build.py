@@ -3,6 +3,7 @@ no tokenizer). Run: C:/Users/hyada/tg-eval/.venv/Scripts/python.exe -m unittest 
 """
 import json
 import random
+import re
 import sys
 import tempfile
 import unittest
@@ -131,6 +132,21 @@ class BuildTest(unittest.TestCase):
                     self.assertIsNone(m["r_ans"])
                     self.assertFalse(qt.contains_answer(r["rejected"], [m["gold_text"]]), r["rejected"])
         self.assertGreater(n_ref, 0)
+
+    def test_negation_kinds_are_balanced(self):
+        """v2: equal numbers of true and false negations; the negation template sits on the chosen side in
+        one kind and on the rejected side in the other, so negation alone never decides."""
+        out = Path(self.tmp.name) / "pairs-neg"
+        build_pairs.main(self.args + ["--exclusions", str(Path(self.tmp.name) / "excl.txt"), "--out", str(out), "--negation"])
+        rows = [json.loads(l) for l in (out / "train.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+        kinds = Counter(r["kind"] for r in rows)
+        self.assertGreater(kinds["true_negation"], 0)
+        self.assertLessEqual(abs(kinds["true_negation"] - kinds["false_negation"]), 1)
+        neg = re.compile(r"\bnot\b|\bisn't\b", re.I)
+        pairs = [r for r in rows if r["kind"] in ("true_negation", "false_negation")]
+        score = sum(0.5 if bool(neg.search(r["chosen"])) == bool(neg.search(r["rejected"]))
+                    else float(not neg.search(r["chosen"])) for r in pairs) / len(pairs)
+        self.assertTrue(0.35 <= score <= 0.65, score)  # "prefer the non-negated side" is near chance
 
     def test_byte_reproducible(self):
         out2 = Path(self.tmp.name) / "pairs2"

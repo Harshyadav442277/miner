@@ -16,6 +16,13 @@ ANSWER_SENTENCES = [
     "The best supported answer is {a}.", "Based on the source, {a}.", "It was {a}.",
     "{a} - that is what the record shows.", "The reported answer: {a}.",
 ]
+# v2: a negated answer. True when it negates a wrong answer, false when it negates the gold one; the two
+# kinds that use it are built in equal numbers, so negation alone never marks a side (qa_kinds.NEGATION_KINDS).
+NEG_SENTENCES = [
+    "It is not {a}.", "The answer is not {a}.", "It was not {a}.", "That is not {a}.", "Not {a}.",
+    "{a} is not the answer.", "{a} is not correct.", "No, it is not {a}.", "It isn't {a}.", "The source does not give {a}.",
+]
+NEG_BARE = ["Not {a}", "not {a}", "Not {a}.", "No - not {a}"]
 REFUSAL_SHORT = ["Unknown.", "N/A", "Not found.", "No answer.", "No answer found.", "I don't know.",
                  "Unclear.", "No result.", "Cannot answer.", "No data.", "Unanswerable.", "None found.",
                  "No answer available.", "Answer not found.", "Unable to answer.", "Not available.", "Unanswered.",
@@ -76,6 +83,8 @@ def _sentence(c, q, rng):
     k = c["kind"]
     if k == "answer":
         body = rng.choice(ANSWER_SENTENCES).format(a=c["ans"].rstrip(" ."))
+    elif k == "neg":
+        body = rng.choice(NEG_SENTENCES).format(a=c["ans"].rstrip(" ."))
     elif k == "stmt":
         body = c["stmt"]
     elif k == "refusal":  # half the time an answer template filled with a non-answer
@@ -99,6 +108,8 @@ def _bare(c, q, rng):
         body = c["ans"] + ("." if rng.random() < 0.3 and not c["ans"].endswith(".") else "")
         lead = (c.get("deco") or {}).get("lead")
         return (BARE_LEADS[LEAD_INS.index(lead)].format(q=_q(q)) + body) if lead else body
+    if k == "neg":
+        return rng.choice(NEG_BARE).format(a=c["ans"].rstrip(" ."))
     if k == "refusal":
         return rng.choice(REFUSAL_SHORT)
     if k == "echo":

@@ -8,15 +8,19 @@ a wrong answer in either direction.
 import qa_text as qt
 
 KINDS = ["wrong_entity", "wrong_number_or_date", "nonresponsive", "contradicted", "refusal", "off_topic", "echo"]
+# v2 (2026-11-16): bias probes on the v1 val split showed v1 prefers the non-negated statement 60/60 and
+# 59/60 whatever the facts. These two kinds, built in equal numbers, put the same negation template on the
+# chosen side once and on the rejected side once, so only the fact decides (ARCHITECTURE A3 rule 2).
+NEGATION_KINDS = ["true_negation", "false_negation"]
 SQUAD_ONLY = {"nonresponsive", "contradicted"}
 ALL_FORMATS = ["bare", "sentence", "supported", "json"]
 NQ_FORMATS = ["bare", "sentence", "json"]
 INNER_ALL = ["bare", "sentence", "supported"]
 
 
-def feasible(it):
-    out = [k for k in KINDS if not (k in SQUAD_ONLY and it["title"] is None)]
-    if it["atype"] not in ("date", "number"):
+def feasible(it, kinds=KINDS):
+    out = [k for k in kinds if not (k in SQUAD_ONLY and it["title"] is None)]
+    if it["atype"] not in ("date", "number") and "wrong_number_or_date" in out:
         out.remove("wrong_number_or_date")
     return out
 
@@ -108,6 +112,16 @@ def build(kind, it, index, rng, forbidden):
         if not w or not _ok_wrong(w, it, forbidden):
             return None
         return chosen, {"kind": "answer", "ans": w, "support": gold_sup}, ["supported", "json"], ["supported"], w
+    if kind == "true_negation":  # "not <wrong>" beats "<wrong>"
+        d = _distractor(it, index, rng, forbidden)
+        if d is None:
+            return None
+        sup = fill(2)
+        return ({"kind": "neg", "ans": d["gold"], "support": sup}, {"kind": "answer", "ans": d["gold"], "support": sup},
+                NQ_FORMATS, ["bare", "sentence"], d["gold"])
+    if kind == "false_negation":  # "<gold>" beats "not <gold>"
+        return ({**chosen, "support": gold_sup}, {"kind": "neg", "ans": it["gold"], "support": gold_sup},
+                NQ_FORMATS, ["bare", "sentence"], None)
     if kind == "refusal":
         return chosen, {"kind": "refusal", "support": fill(2)}, fmts, inner, None
     if kind == "echo":

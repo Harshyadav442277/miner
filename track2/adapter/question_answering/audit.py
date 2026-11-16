@@ -28,6 +28,7 @@ import qa_text as qt  # noqa: E402
 
 BAR = 0.60
 MIN_CELL = 100
+NEG_RE = re.compile(r"\b(not|no|never|none|nothing|cannot|can't|don't|doesn't|isn't|wasn't|n/a|unknown|unclear)\b", re.I)
 SPLITS = ("train", "val", "test")
 
 
@@ -150,7 +151,19 @@ def main():
         for s in ("val", "test"):
             if res[s] > BAR:
                 problems.append(f"{s}: format-only probe [{name}] {res[s]}; features {res['top_features']}")
-    out["chosen_missing_gold"] = {s: sum(not qt.contains_answer(r["chosen"], [m["gold_text"]])
+    # v2: answer-only negation probe. "Prefer the side with no negation word" must not predict the label
+    # (v1 preferred the non-negated statement 60/60 and 59/60 on the val-split bias probes, 2026-11-16).
+    neg = lambda t: bool(NEG_RE.search(t))
+    neg_acc = lambda rs: round(sum(0.5 if neg(r["chosen"]) == neg(r["rejected"]) else float(not neg(r["chosen"]))
+                                   for r in rs) / len(rs), 4) if rs else None
+    out["negation_probe"] = {s: neg_acc(rows[s]) for s in SPLITS}
+    out["negation_probe_by_kind"] = {s: {k: neg_acc([r for r in rows[s] if r["kind"] == k])
+                                         for k in sorted({r["kind"] for r in rows[s]})} for s in ("val",)}
+    for s in SPLITS:
+        if out["negation_probe"][s] > BAR:
+            problems.append(f"{s}: negation-word probe {out['negation_probe'][s]}")
+    # a true negation ("not <wrong answer>") is right without stating the gold answer
+    out["chosen_missing_gold"] = {s: sum(r["kind"] != "true_negation" and not qt.contains_answer(r["chosen"], [m["gold_text"]])
                                          for r, m in zip(rows[s], metas[s])) for s in SPLITS}
     # the question itself may contain the answer ("encourage or discourage?"), so it is removed first
     # and only the stated text counts, not a citation title ("Athanasius of Alexandria")
