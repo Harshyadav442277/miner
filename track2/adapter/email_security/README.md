@@ -13,11 +13,13 @@ Status 2026-11-16 ~02:00 UTC: **STOPPED by rule 6 before training. 65 gated pair
   - Resolvers (dns.google, AliDNS, AdGuard, DNSPod), zk-email-dns and a1-preflight are right on 300/300 or close
     (AdGuard 5 wrong, DNSPod 3 wrong).
   - **verity is the only steady source of wrong answers: 61.** It reports NXDOMAIN as `lookup_ok: true` ("the lookup
-    completed successfully; the requested DNS name does not exist"). It returned HTTP 422 on 116 queries, mostly
-    underscore names.
+    completed successfully; the requested DNS name does not exist"). It returned HTTP 422 on 116 queries, all of
+    them underscore names.
 - One pair per query gives **65 gated pairs**. 61 of them have verity as the rejected side and 32 have the
   champion author's zk-email-dns as the chosen side. Longer-wins 0.508, shorter-wins 0.492, **identity probe 0.954**.
-  Both conditions of rule 6 fail, so the lane stops; no training data was built.
+  Both conditions of rule 6 fail, so the lane stops; no training data was built. Gate rule 2 (≥ 100 pairs)
+  would fail on any candidate anyway. Counting chainsight and txlens would not help: both are wrong on every query,
+  which would push the identity probe toward 1.0. `compare.py` and `gate.py` were not run: there is no candidate.
 - Report-only measurement on those 65 pairs (node runtime, `harness/measure.py`, `evidence/2026-11-16/`), **not a gate**:
 
   | Scorer | Rendering 1 (question + request JSON) | Rendering 2 (bare request JSON) |
@@ -55,7 +57,9 @@ snapshot `b40c2c48…`); not public.
 1. **Queries.** Real registrable domains from the Tranco list `947V2` (generated 2026-11-14,
    https://tranco-list.eu/list/947V2, zip sha256 `b5722de4…a2d5`; the site asks users to cite its paper).
    - Every domain is bucketed by sha256("es-split-v1:" + domain) mod 100: 0–9 holdout, 10 pilot, 11–99 training.
-     The training builder must refuse any domain listed in `holdout/holdout_domains.txt` (buckets 0–10).
+     A training builder must refuse every domain in buckets 0–10 (recompute the hash; the full 110,185-domain list
+     is `C:/Users/hyada/tg-eval/data/email_security/bucket0-10_domains.txt`) and the 303 domains in
+     `holdout/exclude_domains.txt` (holdout and pilot queries).
    - Rank bands 1–1k, 1k–10k, 10k–100k, 100k–1M. One query per holdout domain. Names come from
      email-security templates: apex MX/TXT/CAA/NS/SOA/A/AAAA, `_dmarc`, DKIM selectors under `_domainkey`,
      `_mta-sts`, `_smtp._tls`, SRV for submission/IMAPS/autodiscover, `mail.`, `www.` MX, `autodiscover.` CNAME,
@@ -100,7 +104,21 @@ snapshot `b40c2c48…`); not public.
 
 | File | What |
 |---|---|
-| `make_queries.py` | candidates from Tranco, then the truth-balanced selection; writes `holdout/queries.json`, `holdout/pilot.json`, `holdout/holdout_domains.txt` |
+| `make_queries.py` | candidates from Tranco, then the truth-balanced selection; writes `holdout/queries.json`, `holdout/pilot.json` and the bucket 0–10 domain list (moved to tg-eval: 110,185 lines) |
+| `build_holdout.py` | labels every captured answer from DNS truth, one seeded pair per query, length and identity probes |
+| `evidence/2026-11-16/` | the 65 pairs, both renderings, stats and the report-only champion/GENERIC scores. **Not a frozen holdout**: no freeze, no gate. |
+
+## Pilot decisions (2026-11-16, `holdout/pilot.json`, before the full capture)
+
+- Both Cloudflare miners (56009, 56010) answer HTTP 400 to the YAML-declared call (no `accept` header): not captured.
+- guardwire-email-security (7354) declares no endpoint for the intent: nothing to call.
+- The eight `dns.google` miners call one URL: one captured (56001).
+- chainsight-oracle and txlens answer an email-posture report for a mangled domain, not the requested name and type:
+  captured, labelled `ignores_query`, never gated.
+- verity answers HTTP 422 to every underscore name (116 of 116 of its call failures in the full capture).
+- Resolver errors in the full capture: AdGuard answered NOERROR-empty for 5 names that do not exist, among them
+  tracker domains such as `autodiscover.demdex.net` (filtering is inferred, not checked); DNSPod answered NXDOMAIN for 3
+  names that exist, and HTTP 400 on CAA (81 call failures).
 | `dnstruth.py` | DNS truth from NextDNS + DNS.SB, resumable |
 
 Bulk data lives in `C:/Users/hyada/tg-eval/data/email_security/` (Tranco, candidates, truth) and

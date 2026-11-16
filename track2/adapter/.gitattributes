@@ -1,0 +1,5 @@
+# Frozen query sets, holdouts and evidence: the hashes in *.freeze.json are over these exact bytes.
+*.json -text
+*.jsonl -text
+*.txt -text
+*.tsv -text

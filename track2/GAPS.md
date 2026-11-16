@@ -19,20 +19,20 @@ Evidence: [adapter/email_security/](adapter/email_security/README.md) (rules fix
 - Reopen only if more than two services start making `lookup_ok` errors, or if real pool pairs become readable.
 
 ## G44 — WEATHER_FORECAST_VERIFY lane stopped at checkpoint B (2026-11-16) — CLOSED
->
-> Evidence: `track2/adapter/weather_forecast_verify/` (README, CHECKPOINT.md, `holdout/queries.freeze.json`, `holdout/holdout.audit.json`);
-> captures `C:/Users/hyada/tg-eval/captures/weather-20261116-*`; branch `claude/weather-forecast-verify-lane`. Not pushed.
->
-> - Result: no clean real-answer holdout. 56 gated pairs from 678 queries (bar 100); service-identity probe 0.696 and answer-shape probe
->   0.786 against 0.65. 122 of 133 wrong verdicts come from a1-preflight, txlens and chainsight-oracle; the other services are right on
->   54 to 61% of queries and mostly agree within the right band; 38% of answers fall in the dropped 1.5 to 3.0 degC band.
-> - Not done by decision: champion and GENERIC measurement, training data, training, compare and gate. No adapter, nothing registered,
->   no GPU time used.
-> - Limits: nearest station within 25 km with no observation-time correction; possible transient geocoder or ERA5 drops; prompt
->   rendering assumed; champion accuracy on this family unknown.
-> - Reopen only if the miners that return wrong values change (a1-preflight, txlens and chainsight-oracle stop being the only source
->   of wrong answers, or more independent services answer location and date), or if real pool pairs become readable. Then re-run the
->   pilot first.
+
+Evidence: `track2/adapter/weather_forecast_verify/` (README, CHECKPOINT.md, `holdout/queries.freeze.json`, `holdout/holdout.audit.json`);
+captures `C:/Users/hyada/tg-eval/captures/weather-20261116-*`; branch `claude/weather-forecast-verify-lane`. Not pushed.
+
+- Result: no clean real-answer holdout. 56 gated pairs from 678 queries (bar 100); service-identity probe 0.696 and answer-shape probe
+  0.786 against 0.65. 122 of 133 wrong verdicts come from a1-preflight, txlens and chainsight-oracle; the other services are right on
+  54 to 61% of queries and mostly agree within the right band; 38% of answers fall in the dropped 1.5 to 3.0 degC band.
+- Not done by decision: champion and GENERIC measurement, training data, training, compare and gate. No adapter, nothing registered,
+  no GPU time used.
+- Limits: nearest station within 25 km with no observation-time correction; possible transient geocoder or ERA5 drops; prompt
+  rendering assumed; champion accuracy on this family unknown.
+- Reopen only if the miners that return wrong values change (a1-preflight, txlens and chainsight-oracle stop being the only source
+  of wrong answers, or more independent services answer location and date), or if real pool pairs become readable. Then re-run the
+  pilot first.
 
 ## G45 — VULNERABILITY_TRIAGE lane stopped at checkpoint B (2026-11-16) — CLOSED
 

@@ -8,7 +8,8 @@ check asks about, balanced on DNS truth. Seeded and byte-reproducible.
 Split: every Tranco domain goes to one bucket by sha256("es-split-v1:" + domain) mod 100:
 0-9 holdout, 10 pilot, 11-99 training. One query per holdout domain. `select` writes queries.json
 (balanced: half lookup_ok true, half false, record types spread), pilot.json (3 queries: data, NODATA,
-NXDOMAIN) and holdout_domains.txt (every holdout-bucket domain in the list: the training exclusion).
+NXDOMAIN) and holdout_domains.txt (every domain in buckets 0-10: the training exclusion; it is 110,185 lines, so
+the committed lane keeps it in tg-eval as bucket0-10_domains.txt and commits only holdout/exclude_domains.txt).
 """
 import argparse
 import csv
