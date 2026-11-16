@@ -107,7 +107,7 @@ def declared(endpoint, intent):
     """Every query- or body-section parameter the endpoint declares for this intent."""
     params = endpoint.get("params") if isinstance(endpoint.get("params"), dict) else {}
     out = []
-    for section in ("query", "body"):
+    for section in ("path", "query", "body"):
         block = params.get(section) if isinstance(params.get(section), dict) else {}
         for required, key in ((True, "required"), (False, "optional")):
             for v in block.get(key) or []:
@@ -156,15 +156,18 @@ def plan(miner, doc, intent):
 
 def build_request(p, query, intent, aliases):
     """URL, method, JSON body and any required parameters that could not be filled."""
-    url_params, body, missing = {}, {}, []
+    url_params, body, missing, path = {}, {}, [], p["path"]
     for prm in p["parameters"]:
-        value = fill(prm["name"], query, intent, aliases, prm["required"])
+        value = fill(prm["name"], query, intent, aliases, prm["required"] or prm["in"] == "path")
         if value is None:
-            if prm["required"]:
+            if prm["required"] or prm["in"] == "path":
                 missing.append(prm["name"])
             continue
-        (body if prm["in"] == "body" and p["method"] == "POST" else url_params)[prm["name"]] = value
-    url = p["base_url"].rstrip("/") + "/" + p["path"].lstrip("/")
+        if prm["in"] == "path":  # `{name}` in the endpoint path, URL-quoted
+            path = path.replace("{" + prm["name"] + "}", urllib.parse.quote(value, safe=""))
+        else:
+            (body if prm["in"] == "body" and p["method"] == "POST" else url_params)[prm["name"]] = value
+    url = p["base_url"].rstrip("/") + "/" + path.lstrip("/")
     if url_params:
         url += ("&" if "?" in url else "?") + urllib.parse.urlencode(url_params)
     method = p["method"] if p["method"] in netguard.METHODS else "GET"

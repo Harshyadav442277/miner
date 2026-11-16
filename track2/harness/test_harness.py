@@ -339,6 +339,12 @@ class Capture(unittest.TestCase):
         self.assertEqual(capture.build_request(capture.plan({}, need, intent), q, intent, capture.ALIASES)[3], ["selector"])
         url, _, _, missing = capture.build_request(capture.plan({}, need, intent), q, intent, {"selector": ("domain",)})
         self.assertEqual((url, missing), ("https://n.example/x?selector=gmail.com", []))
+        cveq = {"query": "What is the CVSS of CVE-2021-44228?", "params": {"cve_id": "CVE-2021-44228"}}
+        pathy = {"base_url": "https://o.example", "endpoints": [{"external_path": "/v1/vulns/{cve_id}", "method": "GET",
+                 "intents": ["VULNERABILITY_TRIAGE_GENERAL"], "params": {"path": {"required": [req("cve_id")]}}}]}
+        vi = "VULNERABILITY_TRIAGE_GENERAL"
+        self.assertEqual(capture.build_request(capture.plan({}, pathy, vi), cveq, vi, capture.ALIASES)[:2],
+                         ("https://o.example/v1/vulns/CVE-2021-44228", "GET"))
         self.assertEqual(freeze.validate_queries([{"query": "x", "params": {"domain": 3}}]),
                          ["query 1: `params` must map non-empty names to strings"])
 
