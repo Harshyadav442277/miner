@@ -1,0 +1,36 @@
+version: "1"
+kind: miner
+id: 9000003
+slug: truth-beacon-publicnode-finalized
+name: PublicNode Beacon REST, finalized validator effective balance (truth source)
+description: >
+  Ethereum consensus-layer state from the keyless PublicNode Beacon REST API (the standard beacon-node API).
+  effective_balance is data.validator.effective_balance, in gwei, read from the finalized state.
+base_url: https://ethereum-beacon-api.publicnode.com
+auth:
+  type: none
+endpoints:
+  - path: /eth/v1/beacon/states/finalized/validators/{validator_index}
+    external_path: /eth/v1/beacon/states/finalized/validators/{validator_index}
+    method: GET
+    description: Read data.validator.effective_balance (gwei) for one beacon validator index from the finalized state.
+    intents: [VALIDATOR_PERFORMANCE_VERIFY_GENERAL]
+    params:
+      path:
+        required:
+          - name: validator_index
+            type: integer
+            intents: [VALIDATOR_PERFORMANCE_VERIFY_GENERAL]
+            description: Ethereum beacon validator index, integer from 0 to 1000000000.
+intent_mapping:
+  VALIDATOR_PERFORMANCE_VERIFY_GENERAL:
+    endpoint: /eth/v1/beacon/states/finalized/validators/{validator_index}
+    input:
+      validator_index:
+        from: validator_index
+    output:
+      effective_balance:
+        path: data.validator.effective_balance
+        unit: gwei
+semantics:
+  supported_intents: [VALIDATOR_PERFORMANCE_VERIFY_GENERAL]
