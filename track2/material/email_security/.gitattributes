@@ -1,0 +1,2 @@
+# Signed upload bytes: the sha256 in README.md is over this exact file.
+*.jsonl -text
