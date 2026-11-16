@@ -55,6 +55,21 @@ test("chat: a call is charged what Groq says it used, so the long budget is not 
   }
 });
 
+test("chat: the phrasing-path fallback has its own bucket, so a burst cannot use up the shared quota", async () => {
+  const { fallbackAllowed } = await import("../src/llm");
+  resetPhraseState();
+  process.env.LLM_FALLBACK_PER_MIN = "2";
+  try {
+    assert.equal(fallbackAllowed(1_000_000), true);
+    assert.equal(fallbackAllowed(1_000_001), true);
+    assert.equal(fallbackAllowed(1_000_002), false, "the third fallback in a minute is refused");
+    assert.equal(fallbackAllowed(1_061_000), true, "a minute later it is allowed again");
+  } finally {
+    delete process.env.LLM_FALLBACK_PER_MIN;
+    resetPhraseState();
+  }
+});
+
 test("chat: when the long budget refuses, the phrasing path answers instead of upstream_unavailable", async () => {
   process.env.LLM_LONG_TOKENS_PER_MIN = "100"; // smaller than any chat estimate
   await withReplies([JSON.stringify({ brief: "Canberra is the capital of Australia.", reply: "Canberra is the capital of Australia.", verdict: null })], async (calls) => {

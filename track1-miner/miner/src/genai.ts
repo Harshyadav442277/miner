@@ -15,7 +15,7 @@
  * model answer is an honest `unknown`, never an invented one.
  */
 import { currentFact } from "./currentfacts";
-import { longAvailable, parseObject, phrase, type PhraseRequest } from "./llm";
+import { fallbackAllowed, longAvailable, parseObject, phrase, type PhraseRequest } from "./llm";
 import { completeReview } from "./review-validation";
 
 export { parseObject };
@@ -168,7 +168,8 @@ export async function chat(question: string, messageParam = "", now = new Date()
   const req: PhraseRequest = { system: chatSystem(now), user, maxTokens: 700, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) };
   // When the long budget or its cooldown would refuse the call, the phrasing path answers instead (its own model
   // rotation and quota), with a shorter cap, rather than serving no reply.
-  const raw = await phrase(longAvailable(req) ? req : { ...req, long: false, maxTokens: 500, deadlineMs: 4_500 });
+  const via = longAvailable(req) ? req : fallbackAllowed() ? { ...req, long: false, maxTokens: 500, deadlineMs: 4_500 } : null;
+  const raw = via ? await phrase(via) : null;
   const o = raw ? parseObject(raw) : null;
   const reply = plainHyphens(str(o?.reply));
   if (!o || !reply) return unavailable("a reply", { reply: null, brief: null });

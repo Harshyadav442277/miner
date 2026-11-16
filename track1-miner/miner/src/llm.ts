@@ -123,6 +123,21 @@ function spendLong(tokens: number, now = Date.now()): { at: number; tokens: numb
 export function longAvailable(r: PhraseRequest): boolean {
   return Date.now() >= longCooldownUntil && longFits(estimateTokens(r));
 }
+
+const fallbacks: number[] = [];
+/**
+ * Whether a long route may answer through the phrasing path now, and records it when it may. The phrasing path
+ * serves sentiment, fact-check, news briefs and classification, so a burst of chat must not use its quota up: at
+ * most LLM_FALLBACK_PER_MIN (6) such calls a minute, and none while the long path is cooling down after every
+ * model refused (commit security review, 2026-11-16).
+ */
+export function fallbackAllowed(now = Date.now()): boolean {
+  if (now < longCooldownUntil) return false;
+  while (fallbacks.length && now - fallbacks[0]! > 60_000) fallbacks.shift();
+  if (fallbacks.length >= envNumber("LLM_FALLBACK_PER_MIN", 6)) return false;
+  fallbacks.push(now);
+  return true;
+}
 /** After every model has refused for rate, stop asking for a minute. */
 const COOLDOWN_MS = 60_000;
 const CACHE_TTL_MS = 10 * 60_000;
@@ -163,6 +178,7 @@ export function resetPhraseState(): void {
   cooldownUntil = 0;
   longCooldownUntil = 0;
   longSpend.length = 0;
+  fallbacks.length = 0;
   nextModel = 0;
 }
 
