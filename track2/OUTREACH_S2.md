@@ -20,8 +20,10 @@ incentive, so every draft does. Three updates must go out on separate dates.
 > NVD, weather stations), and frozen before training. On QUESTION_ANSWERING, two iterations scored 42.0% and 43.4%
 > against the champion's 45.3%. Our own test splits had passed.
 >
-> In 4 more families, real wrong answers came from just 1–3 services. A scorer could "win" by recognising a
-> service's format. We refuse such a holdout (identity probe > 0.65), so those lanes stopped before training.
+> In 4 more families, right and wrong split almost entirely by service. Wrong answers came from 1–3 services
+> (EMAIL_SECURITY, weather), right ones from a single service (VULNERABILITY_TRIAGE), or there were no wrong numbers
+> at all (OPTIMAL_EXECUTION_ROUTE). A scorer could "win" there by recognising a service's format. We refuse such a
+> holdout (identity probe > 0.65), so those lanes stopped before training.
 >
 > Method, gate and every verdict: <repo link to track2/harness/README.md and GAPS.md>
 
