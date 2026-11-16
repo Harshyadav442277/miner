@@ -8,7 +8,36 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-16 ~10:05 UTC (15:35 IST) · QA v2 FAILS THE GATE; NO ADAPTER LANE IS OPEN
+## CURRENT — 2026-11-16 ~18:30 UTC (Nov 17 00:00 IST) · OPPORTUNITY REVIEW: NO REGISTRATION IS SUPPORTED
+
+Owner asked (2026-11-16) for a critical review of both Sonnet lanes, the reasons for every failure, and a ranking of what
+is left by realistic chance of beating a champion. Evidence: registry `wasm-20261116T163719Z.json`, `/api/miners`,
+`/api/evalpool/status`, and the docs note [research/](research/docs-comparator-truth-2026-11-16.md).
+
+**Why every adapter lane failed (G40–G48):** two causes, both seen on real miner answers.
+1. Wrong answers come from one to three services, so service identity predicts the label. This held for EMAIL_SECURITY
+   (61 of 69 from verity), WEATHER (3 services), VULN (only the champion author's miner is right where CNA ≠ NVD) and
+   ROUTE (no wrong answers at all). A real-answer holdout cannot show that a scorer reads content.
+2. Where pairs do turn on content (QA's TruthfulQA and HaluEval), they turn on world facts that a ModernBERT-base head with
+   a rank-8 adapter does not hold. v1 and v2 stayed at 42–43% against the champion's 45%. Our own test splits passed
+   every time and predicted nothing.
+
+**Ranking, ordinal, by evidence:**
+1. **None of the adapter families is an opening.** All seven champions under 0.90 have been tried: QA 0.70, WEATHER 0.70,
+   EMAIL 0.714, ROUTE 0.733, SANCTIONS 0.786, VULN 0.793, SECURITY_REVIEW 0.815. The rest sit at ≥ 0.93. Champion-less
+   judgment families wait on 5 contributors. Do not train again without a new kind of evidence.
+2. **Comparators: no measurable advantage by design** (G49). Exact comparators tie, and scoring runs without them. The
+   `_GENERAL` snapshot mismatch blocks about 30 registrations. Reporting it is the owner's send and earns, at most, a
+   canonical label.
+3. **Best remaining lead: the DNS_RECORD_LOOKUP_GENERAL reference** (G50). The intent has been unranked for about 11 days,
+   and its last table looks like a wrong reference. It is measurable on the network (`last_scored_epoch` moves after an
+   upload), but three reads are outstanding, our livecert serves the intent (related party), and an upload needs the
+   owner's signature.
+4. **Material:** real, DNS-labelled EMAIL_SECURITY pairs that catch verity's NXDOMAIN-as-success error (65 pairs,
+   `adapter/email_security/evidence/`). An owner-signed upload. Credit is recorded per signer, but there is no public
+   endpoint for it.
+
+## 2026-11-16 ~10:05 UTC (15:35 IST) · QA v2 FAILS THE GATE; NO ADAPTER LANE IS OPEN
 
 - **QUESTION_ANSWERING v2: FAIL** (G47). 157/362 = 43.4% vs champion 164; PASS needed 271. Both iterations are used,
   and the lane is closed. The val probes show the negation bias shrank (A1 1 → 22/60), but TruthfulQA did not move.

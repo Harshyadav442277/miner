@@ -60,6 +60,52 @@ holdout, or swings between the two renderings, suspect the rendering before call
 the holdout's answers come from each miner's public service called as its YAML declares, not from the paid
 engine route, which may phrase or map the request differently.
 
+## G50 — DNS_RECORD_LOOKUP_GENERAL is unranked since epoch 2019 (2026-11-05); cause unknown (2026-11-16) — `OPEN`
+
+Evidence: `/api/miners` scores read 2026-11-16 ~18:00 UTC; 25 of 27 `ready` deterministic intents were scored at epochs
+2105–2107. DNS_RECORD_LOOKUP_GENERAL's last scores are at epoch 2019 (about 11 days ago at ~3 h per epoch), and
+VALIDATOR_PERFORMANCE_VERIFY_GENERAL's at 2032. The docs say an intent with no reference for any question "is not
+ranked that epoch: its miners keep their previous ranking" ([research/](research/docs-comparator-truth-2026-11-16.md)).
+
+- The epoch-2019 DNS table looks like a wrong reference, not a good one. The champion author's guardwire scored 0.99 and
+  the dns.google wrappers about 0.92, while the Cloudflare, DNS.SB, NextDNS, AdGuard and AliDNS wrappers scored 0.
+  On our own EMAIL_SECURITY capture those resolvers agreed on almost every name.
+- Not known:
+  - whether the pool holds a truth source at all (rows are never shown back);
+  - whether a single uploaded row can land in the ranking half (`ranking_split_bps` 5000);
+  - how the node locates `has_record` in a source's response (the only existing DNS wrappers are a third party's
+    `/truth/dns-has`).
+- **Related party: our `livecert` serves DNS_RECORD_LOOKUP.** Any truth source we contribute sets the reference that
+  scores our miner. It must be a neutral public API, never a wrapper we deploy, and it must be disclosed.
+- livecert does not serve VALIDATOR_PERFORMANCE_VERIFY. Its epoch-2032 table also looks odd: the beacon-node wrappers
+  scored 0.18–0.38. Unverified.
+- Next, all reads and no build: the docs' truth-source example (how the scored field is located), the ranking-half rule,
+  then an owner decision on a signed upload.
+
+## G49 — about 30 comparator registrations wait on a pool snapshot that exists only under the `_GENERAL` id (2026-11-16) — `OPEN`
+
+Evidence: registry snapshot `wasm-20261116T163719Z.json`. Re-evaluated 2026-11-16 15:45 UTC, 31 champion-less families
+still read `awaiting_compatible_material: ... eval-pool: no published snapshot`. `/api/evalpool/status` has a published
+snapshot under `X_GENERAL` for 29 of them and none under the family id. The docs say a comparator is asked 100 cases
+from its correctness battery, not pool rows (anjoman.ai/docs/scoring/build-a-scoring-module, read 2026-11-16).
+30 of the 31 are deterministic families; CODE_PATCH_VERIFY is judgment (too few submitters).
+
+- Reading (inferred): a platform mismatch between a family-id lookup and an intent-id pool. A report to the organiser
+  is the owner's send.
+- **It changes no ranking for us.** Those families' miners are scored now, without a champion comparator, because a
+  comparator is not needed for scoring. Every exact comparator reproduces the same network rule. Our #273–#278 can at
+  most carry a canonical label; who is promoted when the blocker clears is not stated for comparators.
+
+## G48 — OPTIMAL_EXECUTION_ROUTE pilot: no wrong answers to build a holdout from (2026-11-16) — CLOSED
+
+Evidence: [adapter/optimal_execution_route/PILOT.md](adapter/optimal_execution_route/PILOT.md) (pilot frozen at
+`251e771` before capture); capture `C:/Users/hyada/tg-eval/captures/route-pilot-20261116`.
+
+- The intent allows one pair (ETH/USDC). The capture got 126 answers from 42 miners: 48 right (all within 0.25% of the
+  best public aggregator quote), **0 wrong**, 33 with no value and 45 call failures. Each service repeated its outcome.
+- No right-versus-wrong holdout exists, and an identity probe on right-versus-no-value scores 1.00. Champion #417's
+  accuracy was not measured. Reopen only if miners start returning wrong `amount_out`, or the intent allows more pairs.
+
 ## G47 — QUESTION_ANSWERING v2, the last iteration, fails the gate: 43.4% vs champion 45.3% (2026-11-16) — CLOSED
 
 Evidence: [adapter/question_answering/](adapter/question_answering/README.md) v2 section (design fixed at `b0e7168`

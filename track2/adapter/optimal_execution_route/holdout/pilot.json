@@ -1,0 +1,5 @@
+[
+  {"id": "r1", "query": "Sell exactly 1 ETH for USDC on Ethereum: how much USDC is received, in USDC base units?", "params": {"pair": "ETH/USDC"}},
+  {"id": "r2", "query": "What is the best route to sell exactly 1 ETH for USDC on Ethereum, and the amount_out in USDC base units (6 decimals)?", "params": {"pair": "ETH/USDC"}},
+  {"id": "r3", "query": "Route a swap of exactly 1 ETH into USDC on Ethereum mainnet; report the USDC received.", "params": {"pair": "ETH/USDC"}}
+]
