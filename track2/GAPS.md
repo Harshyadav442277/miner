@@ -4,6 +4,23 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G45 — VULNERABILITY_TRIAGE lane stopped at checkpoint B (2026-11-16) — CLOSED
+
+Evidence: `track2/adapter/vulnerability_triage/` (README, CHECKPOINT.md, `holdout/queries.freeze.json`); pilot capture
+`C:/Users/hyada/tg-eval/captures/vuln-pilot-20261116/`; branch `claude/vulnerability-triage-lane`, commits `d1412e9`
+(queries frozen) and `517803a` (pilot record). Not pushed.
+
+- Result: no clean, real-answer holdout exists for this family. On CNA != NVD queries only zk-cve-triage (champion
+  author `0x8b224783…`) is right and 12 miners return the CNA score, so identity predicts the label (about 1.0 vs the 0.65
+  bar); on CNA = NVD queries wrong answers come only from epss and chainsight. Constructed same-template pairs would be
+  answers we wrote (A7 point 1), so none were built.
+- Not done by decision: full capture, champion/GENERIC measurement, training data, training, compare and gate. No adapter,
+  nothing registered, no GPU time used.
+- Limits: a 3-query pilot (single observations per service); identity and length bars estimated, not measured; prompt
+  rendering is an assumption; champion accuracy on this family unknown.
+- Reopen only if a service other than zk-cve-triage starts returning the NVD primary score, or if real pool pairs become
+  readable. Then rerun the pilot first.
+
 ## G43 — EMAIL_SECURITY lane: how pool rows render a request is unknown (2026-11-15) — `OPEN`
 
 The pool's 651 rows are not public, so our holdout's prompt rendering is a guess. The gated rows put the plain
