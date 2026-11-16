@@ -3,6 +3,12 @@ import assert from "node:assert/strict";
 import { agreeingTones, analyseSentimentPhrased, labelScore, scoreFits } from "../src/prose-phrase";
 import { scoredFields } from "../src/intent-fields";
 import { isRelevant, subjectNames } from "../src/newssearch";
+import { GAS_CACHE_MS } from "../src/handler";
+
+test("a gas reading is reused for less than one 12 s Ethereum block", () => {
+  // eth_gasPrice moved 7.5% within a minute on 2026-11-16; a one-minute cache served a value several blocks old.
+  assert.ok(GAS_CACHE_MS > 0 && GAS_CACHE_MS < 12_000, String(GAS_CACHE_MS));
+});
 
 test("news: a subject that names something needs that name in the headline", () => {
   assert.deepEqual(subjectNames("Tesla recall"), ["tesla"]);
