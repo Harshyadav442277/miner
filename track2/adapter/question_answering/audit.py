@@ -48,12 +48,16 @@ def kit_gate(kit, py, path):
             "surface_probe_pct": get("surface probe"), "output": text.strip().splitlines()}
 
 
+PROSE_SOURCE = re.compile(r'( \(Source: Wikipedia, "[^"]*"\)| \[1\]\nSources: \[1\] \S+| Source: .+ \(Wikipedia\)\.)$')
+
+
 def stated_text(answer):
-    """The answer's text fields when it is a JSON body, else the whole answer."""
+    """The answer's text fields when it is a JSON body, else the whole answer without the trailing
+    prose source note (qa_render._prose_source): a citation title is not a stated answer."""
     try:
         obj = json.loads(answer)
     except ValueError:
-        return answer
+        return PROSE_SOURCE.sub("", answer)
     if not isinstance(obj, dict):
         return answer
     return " ".join(str(obj.get(k) or "") for k in ("answer", "summary", "result", "question"))

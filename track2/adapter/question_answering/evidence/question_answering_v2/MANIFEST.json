@@ -1,0 +1,185 @@
+{
+ "builder": "track2/adapter/question_answering/build_pairs.py",
+ "seed": 42,
+ "max_tokens": 384,
+ "exclusions": {
+  "applied": true,
+  "file": "benchmark_questions.txt",
+  "lines": 420,
+  "keys": 497,
+  "sha256": "206fa49d914e2b5cabfb21ead73516377e97bf374944f6e6980b24bd20f4e956"
+ },
+ "split_report": {
+  "excluded_benchmark": 1,
+  "dropped_question_cross_split": 12,
+  "dropped_answer_cross_split": 48642,
+  "items": {
+   "test": 16798,
+   "val": 15465,
+   "train": 85506
+  }
+ },
+ "files": {
+  "train": {
+   "pairs": 9000,
+   "sha256": "0bd1734ba45ca2569ea62fa3e33a86c360b5fdddd1a9b9cf98f7f989c4994cb9",
+   "kinds": {
+    "off_topic": 1000,
+    "wrong_entity": 1000,
+    "false_negation": 1000,
+    "echo": 1000,
+    "refusal": 1000,
+    "true_negation": 1000,
+    "contradicted": 1000,
+    "nonresponsive": 1000,
+    "wrong_number_or_date": 1000
+   },
+   "drops": {
+    "no_contradicted": 100,
+    "no_nonresponsive": 139,
+    "no_refusal": 66,
+    "no_wrong_entity": 67,
+    "no_off_topic": 41,
+    "no_false_negation": 72,
+    "no_echo": 63,
+    "no_wrong_number_or_date": 49,
+    "no_true_negation": 47
+   },
+   "items_used": 9292,
+   "formats": {
+    "bare-vs-bare": 699,
+    "bare-vs-json": 634,
+    "bare-vs-sentence": 669,
+    "bare-vs-supported": 141,
+    "json-vs-bare": 629,
+    "json-vs-json": 990,
+    "json-vs-sentence": 785,
+    "json-vs-supported": 512,
+    "sentence-vs-bare": 691,
+    "sentence-vs-json": 838,
+    "sentence-vs-sentence": 767,
+    "sentence-vs-supported": 235,
+    "supported-vs-bare": 121,
+    "supported-vs-json": 550,
+    "supported-vs-sentence": 256,
+    "supported-vs-supported": 483
+   }
+  },
+  "val": {
+   "pairs": 900,
+   "sha256": "89d28b0127a3b511ac443fc25020b6d8d6480c6fd9dcf5d385c1e5964568650a",
+   "kinds": {
+    "refusal": 100,
+    "off_topic": 100,
+    "wrong_entity": 100,
+    "contradicted": 100,
+    "false_negation": 100,
+    "echo": 100,
+    "true_negation": 100,
+    "nonresponsive": 100,
+    "wrong_number_or_date": 100
+   },
+   "drops": {
+    "no_true_negation": 6,
+    "no_contradicted": 12,
+    "no_wrong_entity": 5,
+    "no_nonresponsive": 22,
+    "no_wrong_number_or_date": 9,
+    "no_refusal": 8,
+    "no_off_topic": 7,
+    "no_echo": 5,
+    "no_false_negation": 4
+   },
+   "items_used": 937,
+   "formats": {
+    "bare-vs-bare": 65,
+    "bare-vs-json": 67,
+    "bare-vs-sentence": 62,
+    "bare-vs-supported": 20,
+    "json-vs-bare": 75,
+    "json-vs-json": 103,
+    "json-vs-sentence": 80,
+    "json-vs-supported": 51,
+    "sentence-vs-bare": 62,
+    "sentence-vs-json": 69,
+    "sentence-vs-sentence": 82,
+    "sentence-vs-supported": 26,
+    "supported-vs-bare": 20,
+    "supported-vs-json": 42,
+    "supported-vs-sentence": 23,
+    "supported-vs-supported": 53
+   }
+  },
+  "test": {
+   "pairs": 900,
+   "sha256": "12cabc8022b88111d4f66b00740c86d7305f7101e0290d43f8826cbf1b4ed3f4",
+   "kinds": {
+    "wrong_entity": 100,
+    "contradicted": 100,
+    "off_topic": 100,
+    "echo": 100,
+    "true_negation": 100,
+    "nonresponsive": 100,
+    "refusal": 100,
+    "false_negation": 100,
+    "wrong_number_or_date": 100
+   },
+   "drops": {
+    "no_off_topic": 6,
+    "no_nonresponsive": 20,
+    "no_wrong_number_or_date": 3,
+    "no_contradicted": 14,
+    "no_false_negation": 9,
+    "no_wrong_entity": 7,
+    "no_true_negation": 5,
+    "no_echo": 5,
+    "no_refusal": 4
+   },
+   "items_used": 935,
+   "formats": {
+    "bare-vs-bare": 58,
+    "bare-vs-json": 82,
+    "bare-vs-sentence": 77,
+    "bare-vs-supported": 4,
+    "json-vs-bare": 69,
+    "json-vs-json": 104,
+    "json-vs-sentence": 79,
+    "json-vs-supported": 54,
+    "sentence-vs-bare": 61,
+    "sentence-vs-json": 67,
+    "sentence-vs-sentence": 85,
+    "sentence-vs-supported": 26,
+    "supported-vs-bare": 18,
+    "supported-vs-json": 40,
+    "supported-vs-sentence": 21,
+    "supported-vs-supported": 55
+   }
+  }
+ },
+ "tokenizer_sha256": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+ "sources": [
+  {
+   "name": "squad_v1.1_train",
+   "url": "https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json",
+   "sha256": "3527663986b8295af4f7fcdff1ba1ff3f72d07d61a20f487cb238a6ef92fd955",
+   "licence": "CC BY-SA 4.0"
+  },
+  {
+   "name": "nq_open_train",
+   "url": "https://raw.githubusercontent.com/google-research-datasets/natural-questions/master/nq_open/NQ-open.train.jsonl",
+   "sha256": "0c93aaf13b12f855628489665e4ef85ffb8573ad444646f11f4fabdc57a0aabf",
+   "licence": "CC BY-SA 3.0"
+  }
+ ],
+ "kinds": [
+  "wrong_entity",
+  "wrong_number_or_date",
+  "nonresponsive",
+  "contradicted",
+  "refusal",
+  "off_topic",
+  "echo",
+  "true_negation",
+  "false_negation"
+ ]
+}
