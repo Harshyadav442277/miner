@@ -1,0 +1,28 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           PASS
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+  }
+
+test at dist-test\test\storm.test.js:89:26
+✖ a point answer describes the real hour asked for, not a local-clock lookalike (5420.0608ms)
+  [TypeError: fetch failed] {
+    [cause]: Error [SocketError]: other side closed
+        at TLSSocket.onHttpSocketEnd (node:internal/deps/undici/undici:7833:26)
+        at TLSSocket.emit (node:events:521:24)
+        at endReadableNT (node:internal/streams/readable:1736:12)
+        at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+      code: 'UND_ERR_SOCKET',
+      socket: { localAddress: '172.16.38.108', localPort: 46317, remoteAddress: '157.249.81.141', remotePort: 443, remoteFamily: 'IPv4', timeout: undefined, bytesWritten: 1205, bytesRead: 15748 }
+    }
+  }
+
+6/7 gates passed — re-run the failing gate alone before believing it.
