@@ -348,6 +348,15 @@ class Capture(unittest.TestCase):
         self.assertEqual(freeze.validate_queries([{"query": "x", "params": {"domain": 3}}]),
                          ["query 1: `params` must map non-empty names to strings"])
 
+    def test_merge_results(self):
+        import merge_results
+        doc = lambda name, sha="a": {"pairs": {"h": {"sha256": sha}}, "baselines": {"h": {}}, "foundation_hash": "f",
+                                      "engine_hash": "e", "packages": {name: {"sets": {}}}}
+        self.assertEqual(sorted(merge_results.merge([doc("A"), doc("B")])["packages"]), ["A", "B"])
+        for bad in ([doc("A"), doc("A")], [doc("A"), doc("B", sha="b")], [doc("A"), {**doc("B"), "engine_hash": "x"}]):
+            with self.assertRaises(merge_results.MergeError):
+                merge_results.merge(bad)
+
     def test_cap_and_retries(self):
         calls = []
         fake = lambda url, **kw: calls.append(url) or {"status": 503, "seconds": 0, "error": "", "raw": b""}

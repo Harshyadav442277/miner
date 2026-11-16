@@ -81,6 +81,20 @@ f32 bits); holdout frozen at `3658ecd` before training; package keccak `0xa3880b
 - Inferred, not measured: ranking a right bare answer over a plausible wrong one needs the fact, and the model
   has no evidence to check it against (same as G38). The 62 miner labels are a model's reading, 19 spot-checked.
 - One iteration remains under the two-iteration rule. Not registered; do not register v1.
+- **Gate run 2026-11-16** (first time `compare.py`/`gate.py` ran in any lane; `harness/merge_results.py` joined the
+  per-package files into `C:/Users/hyada/tg-eval/runs-v2/qa_holdout/holdout-all-v1.json`):
+
+  ```
+  [holdout] OURS 0.4199 [0.3701, 0.4713] vs QA301 0.4530 [0.4025, 0.5045] n=362 | both_right=89 both_wrong=135 cand_only=63 base_only=75 | McNemar p=0.349115 | diff=-0.0331 CI95=[-0.0967, 0.0304] | P(pass on 30 pairs)=0.0016
+  note: length baselines: longer-wins 0.4613, shorter-wins 0.5166
+  FAIL: candidate 0.4199 < QA301 0.4530 + 0.02
+  FAIL: candidate-only-right 63 <= QA301-only-right 75
+  FAIL: candidate Wilson lower bound 0.3701 < 0.7
+  FAIL: candidate 0.4199 < longer-answer-wins 0.4613 + 0.05
+  FAIL: candidate 0.4199 < shorter-answer-wins 0.5166 + 0.05
+  FAIL: P(pass a 30-pair round vs QA301) = 0.0016 < 0.6
+  FAIL
+  ```
 
 ## G41 — real-answer sanctions measurement exposes source/length confounding (2026-11-01) — `OPEN`
 
