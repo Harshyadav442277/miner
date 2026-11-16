@@ -1,4 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { createHash } from "node:crypto";
 import { Inflight } from "./inflight";
 import { checkCertificate, normalizeTarget, type SslResult } from "./ssl";
 import { checkStorm, type StormResult } from "./storm";
@@ -1374,7 +1375,9 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const targetParam = firstValue(url, "target", "code", "package", "url", "site");
     const asked = firstValue(url, "query", "q", "question", "input");
     const q = targetParam || asked;
-    const key = `secrev:${q.trim().slice(0, 2_000)}`;
+    // The whole target, hashed: two code samples that share their first 2,000 characters are different reviews
+    // (commit security review, 2026-11-16).
+    const key = `secrev:${createHash("sha256").update(`${asked.trim()}\n${targetParam.trim()}`).digest("hex")}`;
     const hit = fromCache(key);
     if (hit) {
       sendAnswer(res, q, hit);
