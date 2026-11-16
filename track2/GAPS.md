@@ -79,8 +79,16 @@ ranked that epoch: its miners keep their previous ranking" ([research/](research
   scores our miner. It must be a neutral public API, never a wrapper we deploy, and it must be disclosed.
 - livecert does not serve VALIDATOR_PERFORMANCE_VERIFY. Its epoch-2032 table also looks odd: the beacon-node wrappers
   scored 0.18–0.38. Unverified.
-- Next, all reads and no build: the docs' truth-source example (how the scored field is located), the ranking-half rule,
-  then an owner decision on a signed upload.
+- **Reads done 2026-11-16 ~19:00 UTC (contribute-evaluation-data, yaml-config, validation-api):**
+  - The node reads a source's value "with the node's response parser and the intent's answer format". Without an
+    `intent_mapping`, that is a parser model reading the whole answer, so raw DoH JSON can serve.
+  - Each pool row lands in a ranking or a testing half that the contributor does not choose. Sources in the testing
+    half are unused.
+  - The validation API answers 404 (stated on its own page).
+  - DNS.SB and NextDNS return JSON to a plain GET with no header.
+- **Prepared, not uploaded:** two neutral truth sources in
+  [material/dns_truth/](material/dns_truth/README.md), sha256 `ccc8e992…0123`. Upload is the owner's signature.
+  Success shows only as DNS_RECORD_LOOKUP_GENERAL scores with an `epoch_id` after the upload.
 
 ## G49 — about 30 comparator registrations wait on a pool snapshot that exists only under the `_GENERAL` id (2026-11-16) — `OPEN`
 

@@ -1,0 +1,34 @@
+version: "1"
+kind: miner
+id: 9000002
+slug: truth-dns-nextdns
+name: NextDNS public DoH (truth source)
+description: >
+  Public, keyless DNS-over-HTTPS JSON resolver (NextDNS, DNSSEC-validating). Returns the DNS answer for the
+  requested name and record type. has_record is true when Status is 0 (NOERROR) and the Answer list holds at
+  least one record of the requested type; NXDOMAIN (Status 3), SERVFAIL (Status 2) or no Answer of that type
+  means false.
+base_url: https://dns.nextdns.io
+auth:
+  type: none
+endpoints:
+  - path: /dns-query
+    external_path: /dns-query
+    method: GET
+    description: DNS lookup of one name and one record type, answered as DoH JSON.
+    intents: [DNS_RECORD_LOOKUP_GENERAL]
+    params:
+      query:
+        required:
+          - name: name
+            type: string
+            intents: ["*"]
+            description: Domain name to look up, exactly as asked.
+          - name: record_type
+            type: string
+            intents: ["*"]
+            description: DNS record type, one of A, AAAA, CNAME, MX, NS, TXT, SOA, CAA, SRV, PTR.
+    param_map:
+      record_type: type
+semantics:
+  supported_intents: [DNS_RECORD_LOOKUP_GENERAL]

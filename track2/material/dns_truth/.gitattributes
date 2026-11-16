@@ -1,0 +1,3 @@
+# Signed upload bytes: the sha256 in README.md is over these exact files.
+*.jsonl -text
+*.yaml -text
