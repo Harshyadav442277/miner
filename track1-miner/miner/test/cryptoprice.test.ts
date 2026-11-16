@@ -112,7 +112,9 @@ test("(live) the current BTC price carries a figure, a venue and a UTC time", as
   if (r.error === "upstream_unavailable") return;
   assert.equal(r.verdict, "price");
   assert.match(r.reason, /^Bitcoin \(BTC\) is \$[\d,]+\.\d{2} USD, /);
-  assert.match(r.reason, /the last Bitstamp trade at/);
+  // Bitstamp's last trade, or Coinbase's spot price when Bitstamp's market is not trading or does not answer (since
+  // b18ca59); from this laptop on 2026-11-16 the route chose Coinbase while production chose Bitstamp.
+  assert.match(r.reason, /the last Bitstamp trade at|Coinbase's spot price read at/);
   assert.match(r.reason, /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} UTC/);
   const n = Number(r.reason.match(/\$([\d,]+\.\d{2})/)?.[1]?.replace(/,/g, ""));
   assert.ok(n > 1000 && n < 10_000_000, `implausible BTC price ${n}`);
