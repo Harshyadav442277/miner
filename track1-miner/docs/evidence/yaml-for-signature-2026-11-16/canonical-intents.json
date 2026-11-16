@@ -1,0 +1,273 @@
+{
+ "checked_at": "2026-11-16T14:21:21.412Z",
+ "rpc": "https://sepolia.base.org",
+ "diamond": "0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8",
+ "block": 59584938,
+ "catalog": "https://devnode.telegraphprotocol.com/engine/v1/intents/<id>",
+ "results": [
+  {
+   "id": "SSL_VERIFICATION_CERT",
+   "family": "SSL_VERIFICATION",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "STORM_ALERT_GENERAL",
+   "family": "STORM_ALERT",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "WEATHER_FORECAST_GENERAL",
+   "family": "WEATHER_FORECAST",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "LANGUAGE_TRANSLATION_GENERAL",
+   "family": "LANGUAGE_TRANSLATION",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "ACADEMIC_SEARCH_GENERAL",
+   "family": "ACADEMIC_SEARCH",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "CONTENT_EXTRACTION_GENERAL",
+   "family": "CONTENT_EXTRACTION",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "WALLET_BALANCE_CHECK_GENERAL",
+   "family": "WALLET_BALANCE_CHECK",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "WEATHER_CHECK_TEMPERATURE",
+   "family": "WEATHER_CHECK",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "FACT_CHECK_GENERAL",
+   "family": "FACT_CHECK",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "ONCHAIN_TX_LOOKUP_GENERAL",
+   "family": "ONCHAIN_TX_LOOKUP",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "CVE_LOOKUP_CVSS",
+   "family": "CVE_LOOKUP",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "CURRENCY_EXCHANGE_CONVERT",
+   "family": "CURRENCY_EXCHANGE",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "GAS_PRICE_GENERAL",
+   "family": "GAS_PRICE",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "FINANCIAL_DATA_GENERAL",
+   "family": "FINANCIAL_DATA",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "FRAUD_DETECTION_GENERAL",
+   "family": "FRAUD_DETECTION",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "TOKEN_HOLDER_COUNT_GENERAL",
+   "family": "TOKEN_HOLDER_COUNT",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "RESEARCH_QUERY_GENERAL",
+   "family": "RESEARCH_QUERY",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "CRYPTO_PRICE_USD",
+   "family": "CRYPTO_PRICE",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "CROSS_CHAIN_STATE_VERIFY_GENERAL",
+   "family": "CROSS_CHAIN_STATE_VERIFY",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+   "family": "EVENT_OUTCOME_RESOLUTION",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "URL_SCAN_VERDICT",
+   "family": "URL_SCAN",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "WEB_SEARCH_GENERAL",
+   "family": "WEB_SEARCH",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "SENTIMENT_ANALYSIS_GENERAL",
+   "family": "SENTIMENT_ANALYSIS",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "TEXT_CLASSIFICATION_GENERAL",
+   "family": "TEXT_CLASSIFICATION",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "RESEARCH_SYNTHESIS_GENERAL",
+   "family": "RESEARCH_SYNTHESIS",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "SANCTIONS_SCREENING_MATCH_GENERAL",
+   "family": "SANCTIONS_SCREENING_MATCH",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+   "family": "CORPORATE_REGISTRY_LOOKUP",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "REGULATORY_FILING_MONITOR_GENERAL",
+   "family": "REGULATORY_FILING_MONITOR",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+   "family": "CRYPTO_TRANSFER_VERIFY",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "MACRO_ECONOMIC_INDICATOR_GENERAL",
+   "family": "MACRO_ECONOMIC_INDICATOR",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "URL_SAFE_GENERAL",
+   "family": "URL_SAFE",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "QUESTION_ANSWERING_GENERAL",
+   "family": "QUESTION_ANSWERING",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "DNS_RECORD_LOOKUP_GENERAL",
+   "family": "DNS_RECORD_LOOKUP",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL",
+   "family": "TOKEN_TOTAL_SUPPLY_VERIFY",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "ONCHAIN_METRIC_VERIFY_GENERAL",
+   "family": "ONCHAIN_METRIC_VERIFY",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "CHAT_COMPLETION_GENERAL",
+   "family": "CHAT_COMPLETION",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "CODE_REVIEW_GENERAL",
+   "family": "CODE_REVIEW",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "SECURITY_REVIEW_GENERAL",
+   "family": "SECURITY_REVIEW",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "SMART_CONTRACT_AUDIT_GENERAL",
+   "family": "SMART_CONTRACT_AUDIT",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "TEXT_GENERATION_GENERAL",
+   "family": "TEXT_GENERATION",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "IP_GEOLOCATION_GENERAL",
+   "family": "IP_GEOLOCATION",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "NEWS_HEADLINES_GENERAL",
+   "family": "NEWS_HEADLINES",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "NEWS_SEARCH_GENERAL",
+   "family": "NEWS_SEARCH",
+   "in_catalog": true,
+   "family_canonical": true
+  },
+  {
+   "id": "STOCK_PRICE_US_EQUITY",
+   "family": "STOCK_PRICE",
+   "in_catalog": true,
+   "family_canonical": true
+  }
+ ]
+}

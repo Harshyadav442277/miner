@@ -1,0 +1,20 @@
+# Preflight against https://miner-wine.vercel.app, build fa9b231, finished 2026-11-16 14:29 UTC
+
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           PASS
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+
+# The failed gate re-run alone (npm test, deploy tree at 04c0e9f, finished 2026-11-16 14:37 UTC).
+First failure: the gas live test, 'gnosis answer does not name the chain'. The test expected the id "gnosis";
+the answer says "Gnosis Chain". The re-run also exposed '2.6e-8 Gwei' and 'costs about 0.00 Gwei', both fixed in 04c0e9f.
+Re-run: gas tests pass. Two currentfacts live tests (UN Secretary-General, Python release) returned empty after
+2.5 s and passed when re-run alone (pass 125, fail 0); endoflife.date and Wikidata answered in under 0.5 s.

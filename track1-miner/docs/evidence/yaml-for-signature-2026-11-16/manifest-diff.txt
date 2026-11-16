@@ -1,0 +1,67 @@
+
+=== Identity scalars must not change ===
+  ok    version = "1"
+  ok    kind = miner
+  ok    id = 4433
+  ok    slug = livecert
+  ok    protocol = generic
+  ok    base_url = https://miner-wine.vercel.app
+  ok    rate_limit_per_sec = 20
+  ok    auth_type = none
+
+=== Every registered endpoint survives, byte-identical in shape ===
+  ok    /ssl-check         GET SSL_VERIFICATION (2 params) unchanged
+  ok    /storm-alert       GET STORM_ALERT (5 params) unchanged
+  ok    /papers            GET ACADEMIC_SEARCH (2 params) unchanged
+  ok    /translate         GET LANGUAGE_TRANSLATION (4 params) unchanged
+  ok    /ip-geolocate      GET IP_GEOLOCATION (2 params) unchanged
+  ok    /weather-forecast  GET WEATHER_FORECAST,WEATHER_CHECK (6 params) unchanged
+  ok    /extract           GET CONTENT_EXTRACTION (2 params) unchanged
+  ok    /headlines         GET NEWS_HEADLINES (2 params) unchanged
+  ok    /wallet-balance    param chain added on purpose (--allow-added-params); nothing else changed
+  ok    /tx-lookup         GET ONCHAIN_TX_LOOKUP (3 params) unchanged
+  ok    /cve               GET CVE_LOOKUP (2 params) unchanged
+  ok    /news-search       GET NEWS_SEARCH (3 params) unchanged
+  ok    /convert           GET CURRENCY_EXCHANGE (4 params) unchanged
+  ok    /gas-price         GET GAS_PRICE (2 params) unchanged
+  ok    /financial         GET FINANCIAL_DATA (3 params) unchanged
+  ok    /fraud-check       GET FRAUD_DETECTION (2 params) unchanged
+  ok    /token-holders     GET TOKEN_HOLDER_COUNT (4 params) unchanged
+  ok    /research          GET RESEARCH_QUERY (2 params) unchanged
+  ok    /crypto-price      GET CRYPTO_PRICE (2 params) unchanged
+  ok    /stock-price       GET STOCK_PRICE (2 params) unchanged
+  ok    /cross-chain       GET CROSS_CHAIN_STATE_VERIFY (4 params) unchanged
+  ok    /event-outcome     GET EVENT_OUTCOME_RESOLUTION (2 params) unchanged
+  ok    /url-scan          GET URL_SCAN (2 params) unchanged
+  ok    /web-search        GET WEB_SEARCH (2 params) unchanged
+  ok    /sentiment         GET SENTIMENT_ANALYSIS (2 params) unchanged
+  ok    /classify          GET TEXT_CLASSIFICATION (3 params) unchanged
+  ok    /research-synthesis GET RESEARCH_SYNTHESIS (2 params) unchanged
+  ok    /fact-check        GET FACT_CHECK (2 params) unchanged
+  ok    /sanctions-screen  GET SANCTIONS_SCREENING_MATCH (3 params) unchanged
+  ok    /company-registry  GET CORPORATE_REGISTRY_LOOKUP (4 params) unchanged
+  ok    /sec-filings       param period added on purpose (--allow-added-params); nothing else changed
+  ok    /transfer-verify   GET CRYPTO_TRANSFER_VERIFY (3 params) unchanged
+  ok    /macro             GET MACRO_ECONOMIC_INDICATOR (4 params) unchanged
+  ok    /url-reputation    GET URL_SAFE (2 params) unchanged
+  ok    /answer            GET QUESTION_ANSWERING (2 params) unchanged
+  ok    /dns               GET DNS_RECORD_LOOKUP (3 params) unchanged
+  ok    /token-supply      GET TOKEN_TOTAL_SUPPLY_VERIFY (3 params) unchanged
+  ok    /chat              GET CHAT_COMPLETION (2 params) unchanged
+  ok    /code-review       GET CODE_REVIEW (2 params) unchanged
+  ok    /contract-audit    GET SMART_CONTRACT_AUDIT (2 params) unchanged
+  ok    /generate          GET TEXT_GENERATION (2 params) unchanged
+  ok    /onchain-metric    GET ONCHAIN_METRIC_VERIFY (5 params) unchanged
+
+=== New endpoints ===
+  ok    /security-review   GET SECURITY_REVIEW (2 params) NEW
+
+=== supported_intents ===
+  ok    all 43 registered intents preserved
+  ok    added: SECURITY_REVIEW
+  registered 43 -> pending 44
+
+=== pending ids are V2 intents, not families ===
+  ok    all 44 carry an intent suffix; check each with isCanonicalIntent before signing
+
+PASS — nothing registered today is lost or altered.
