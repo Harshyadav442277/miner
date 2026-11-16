@@ -5,6 +5,11 @@
 - **G313 — Chat was refused after ~12 calls a minute by our own budget. `FIXED` in `95b8c03`, score unmeasured.**
   18-message burst: 11/18 valid before, 17/18 after (`track1-miner/docs/evidence/release-2026-11-16-chat-budget/`).
   CHAT_COMPLETION 0.9693, rank 6/16 in epoch 2103.
+- **G314 updated (2026-11-16 ~11:00 UTC) — `/security-review` is committed and live in `a118570`; not yet routed.**
+  On the owner's "commit and deploy", the route and its `miner.yaml` entry are on `main`. Production probe: 10/10
+  labelled verdicts (`track1-miner/docs/evidence/release-2026-11-16-security-review/`). The intent reaches us only
+  after the owner validates the new YAML on Anjoman and signs it; batch with G305 (input mappings) and G308 (stale
+  EVENT_OUTCOME description), which that YAML does not yet fix.
 - **G314 — SECURITY_REVIEW_GENERAL is not served; a route is built and waits for the owner. `OPEN`.** 29 miners
   serve it (epoch 2103 top 0.9858, second 0.9258). `/security-review` (OSV.dev for package versions, headers for
   sites, a model for code) passed 1033/1033 unit tests and preview probes (lodash@4.17.15 Insecure, 5 CVEs;

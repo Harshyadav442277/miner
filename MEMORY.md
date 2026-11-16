@@ -1,5 +1,16 @@
 # MEMORY.md — session continuity
 
+## 2026-11-16 ~11:00 UTC (16:30 IST): CURRENT — `a118570` LIVE; `/security-review` served, not yet registered
+
+- **Production:** `a118570`, `miner-5vd4jwu4e` (`dpl_9DbYac9otZFY7eA6BXPoeS6zTKzC`). **Rollback:** `miner-8s4mxzd6g`
+  (`95b8c03`). Record: `track1-miner/docs/evidence/release-2026-11-16-security-review/`. Unit 1037/1037.
+- `/security-review` (OSV, headers, model) live: 10/10 on labelled production probes. `miner.yaml` on `main` declares
+  it (owner said "commit and deploy"); registration 5232 still points at `494b135`, so SECURITY_REVIEW needs the
+  owner to validate on Anjoman and sign. That signature should also carry G305 and G308.
+- Chat briefs name every item asked for and end with a mark; 17/18 on the burst probe. Sanctions unchanged (tie).
+- **Next:** read CHAT, GAS, EVENT, SENTIMENT in epochs 2104+ (local recorder every 30 min); prepare the YAML for
+  signature (SHA-256 of `main`'s `miner.yaml` at the merge commit) once G305/G308 are folded in.
+
 ## 2026-11-16 ~10:00 UTC (15:30 IST): CURRENT — `95b8c03` LIVE; chat budget fixed; SECURITY_REVIEW built, parked
 
 - **Production:** `95b8c03`, `miner-8s4mxzd6g` (`dpl_86UMLg8FutFqQTebhmvjpmdXF25R`). **Rollback:** `miner-2yrp4fuh8`

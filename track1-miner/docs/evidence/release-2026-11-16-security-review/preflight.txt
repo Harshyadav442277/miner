@@ -1,0 +1,20 @@
+# Preflight against https://miner-wine.vercel.app, build a118570, finished 2026-11-16 09:54 UTC
+
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          FAIL
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+COVERAGE FAILURE: declared in miner.yaml but not covered by intent-answers.mjs: SECURITY_REVIEW
+
+# Each failed gate re-run alone after adding the SECURITY_REVIEW checker and fixing one live test (live suite finished 2026-11-16 10:07 UTC):
+intent answers: 44/44 intents answering correctly (SECURITY_REVIEW PASS)
+verify-deploy:  ALL CHECKS PASSED (first run: wrong.host.badssl.com timed out; it timed out from this machine too, 15 s with curl -k)
+unit + live:    tests 1164, pass 1162, fail 0
