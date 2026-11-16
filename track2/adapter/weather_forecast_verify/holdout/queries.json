@@ -1,0 +1,5426 @@
+[
+ {
+  "id": "w0001",
+  "query": "What was the high temperature in Singapore on 2022-05-09?",
+  "params": {
+   "location": "Singapore",
+   "date": "2022-05-09"
+  }
+ },
+ {
+  "id": "w0002",
+  "query": "What was the high temperature in Kuala Lumpur, Malaysia on 2022-10-25?",
+  "params": {
+   "location": "Kuala Lumpur, Malaysia",
+   "date": "2022-10-25"
+  }
+ },
+ {
+  "id": "w0003",
+  "query": "What was the high temperature in Kuala Lumpur, Malaysia on 2025-05-28?",
+  "params": {
+   "location": "Kuala Lumpur, Malaysia",
+   "date": "2025-05-28"
+  }
+ },
+ {
+  "id": "w0004",
+  "query": "What was the high temperature in Bangkok, Thailand on 2019-08-14?",
+  "params": {
+   "location": "Bangkok, Thailand",
+   "date": "2019-08-14"
+  }
+ },
+ {
+  "id": "w0005",
+  "query": "What was the high temperature in Bangkok, Thailand on 2020-10-15?",
+  "params": {
+   "location": "Bangkok, Thailand",
+   "date": "2020-10-15"
+  }
+ },
+ {
+  "id": "w0006",
+  "query": "What was the high temperature in Bangkok, Thailand on 2022-12-25?",
+  "params": {
+   "location": "Bangkok, Thailand",
+   "date": "2022-12-25"
+  }
+ },
+ {
+  "id": "w0007",
+  "query": "What was the high temperature in Manila, National Capital Region, Philippines on 2024-01-21?",
+  "params": {
+   "location": "Manila, National Capital Region, Philippines",
+   "date": "2024-01-21"
+  }
+ },
+ {
+  "id": "w0008",
+  "query": "What was the high temperature in Manila, National Capital Region, Philippines on 2022-07-10?",
+  "params": {
+   "location": "Manila, National Capital Region, Philippines",
+   "date": "2022-07-10"
+  }
+ },
+ {
+  "id": "w0009",
+  "query": "What was the high temperature in Manila, National Capital Region, Philippines on 2024-05-28?",
+  "params": {
+   "location": "Manila, National Capital Region, Philippines",
+   "date": "2024-05-28"
+  }
+ },
+ {
+  "id": "w0010",
+  "query": "What was the high temperature in Jakarta, Jakarta Special Capital Region, Indonesia on 2023-11-17?",
+  "params": {
+   "location": "Jakarta, Jakarta Special Capital Region, Indonesia",
+   "date": "2023-11-17"
+  }
+ },
+ {
+  "id": "w0011",
+  "query": "What was the high temperature in Jakarta, Jakarta Special Capital Region, Indonesia on 2022-11-26?",
+  "params": {
+   "location": "Jakarta, Jakarta Special Capital Region, Indonesia",
+   "date": "2022-11-26"
+  }
+ },
+ {
+  "id": "w0012",
+  "query": "What was the high temperature in Jakarta, Jakarta Special Capital Region, Indonesia on 2021-08-23?",
+  "params": {
+   "location": "Jakarta, Jakarta Special Capital Region, Indonesia",
+   "date": "2021-08-23"
+  }
+ },
+ {
+  "id": "w0013",
+  "query": "What was the high temperature in Chennai, Tamil Nadu, India on 2024-01-05?",
+  "params": {
+   "location": "Chennai, Tamil Nadu, India",
+   "date": "2024-01-05"
+  }
+ },
+ {
+  "id": "w0014",
+  "query": "What was the high temperature in Chennai, Tamil Nadu, India on 2019-01-20?",
+  "params": {
+   "location": "Chennai, Tamil Nadu, India",
+   "date": "2019-01-20"
+  }
+ },
+ {
+  "id": "w0015",
+  "query": "What was the high temperature in Chennai, Tamil Nadu, India on 2024-04-11?",
+  "params": {
+   "location": "Chennai, Tamil Nadu, India",
+   "date": "2024-04-11"
+  }
+ },
+ {
+  "id": "w0016",
+  "query": "What was the high temperature in Kolkata, West Bengal, India on 2022-08-25?",
+  "params": {
+   "location": "Kolkata, West Bengal, India",
+   "date": "2022-08-25"
+  }
+ },
+ {
+  "id": "w0017",
+  "query": "What was the high temperature in Kolkata, West Bengal, India on 2022-09-13?",
+  "params": {
+   "location": "Kolkata, West Bengal, India",
+   "date": "2022-09-13"
+  }
+ },
+ {
+  "id": "w0018",
+  "query": "What was the high temperature in Kolkata, West Bengal, India on 2019-12-23?",
+  "params": {
+   "location": "Kolkata, West Bengal, India",
+   "date": "2019-12-23"
+  }
+ },
+ {
+  "id": "w0019",
+  "query": "What was the high temperature in Colombo, Western Province, Sri Lanka on 2021-01-28?",
+  "params": {
+   "location": "Colombo, Western Province, Sri Lanka",
+   "date": "2021-01-28"
+  }
+ },
+ {
+  "id": "w0020",
+  "query": "What was the high temperature in Colombo, Western Province, Sri Lanka on 2023-07-20?",
+  "params": {
+   "location": "Colombo, Western Province, Sri Lanka",
+   "date": "2023-07-20"
+  }
+ },
+ {
+  "id": "w0021",
+  "query": "What was the high temperature in Colombo, Western Province, Sri Lanka on 2021-08-14?",
+  "params": {
+   "location": "Colombo, Western Province, Sri Lanka",
+   "date": "2021-08-14"
+  }
+ },
+ {
+  "id": "w0022",
+  "query": "What was the high temperature in Dhaka, Dhaka Division, Bangladesh on 2019-12-11?",
+  "params": {
+   "location": "Dhaka, Dhaka Division, Bangladesh",
+   "date": "2019-12-11"
+  }
+ },
+ {
+  "id": "w0023",
+  "query": "What was the high temperature in Lagos, Nigeria on 2022-06-23?",
+  "params": {
+   "location": "Lagos, Nigeria",
+   "date": "2022-06-23"
+  }
+ },
+ {
+  "id": "w0024",
+  "query": "What was the high temperature in Lagos, Nigeria on 2024-06-23?",
+  "params": {
+   "location": "Lagos, Nigeria",
+   "date": "2024-06-23"
+  }
+ },
+ {
+  "id": "w0025",
+  "query": "What was the high temperature in Lagos, Nigeria on 2025-07-12?",
+  "params": {
+   "location": "Lagos, Nigeria",
+   "date": "2025-07-12"
+  }
+ },
+ {
+  "id": "w0026",
+  "query": "What was the high temperature in Accra, Greater Accra Region, Ghana on 2020-10-17?",
+  "params": {
+   "location": "Accra, Greater Accra Region, Ghana",
+   "date": "2020-10-17"
+  }
+ },
+ {
+  "id": "w0027",
+  "query": "What was the high temperature in Accra, Greater Accra Region, Ghana on 2023-06-24?",
+  "params": {
+   "location": "Accra, Greater Accra Region, Ghana",
+   "date": "2023-06-24"
+  }
+ },
+ {
+  "id": "w0028",
+  "query": "What was the high temperature in Accra, Greater Accra Region, Ghana on 2020-07-19?",
+  "params": {
+   "location": "Accra, Greater Accra Region, Ghana",
+   "date": "2020-07-19"
+  }
+ },
+ {
+  "id": "w0029",
+  "query": "What was the high temperature in Kinshasa, Kinshasa City, Democratic Republic of Congo on 2021-01-23?",
+  "params": {
+   "location": "Kinshasa, Kinshasa City, Democratic Republic of Congo",
+   "date": "2021-01-23"
+  }
+ },
+ {
+  "id": "w0030",
+  "query": "What was the high temperature in Kinshasa, Kinshasa City, Democratic Republic of Congo on 2025-05-03?",
+  "params": {
+   "location": "Kinshasa, Kinshasa City, Democratic Republic of Congo",
+   "date": "2025-05-03"
+  }
+ },
+ {
+  "id": "w0031",
+  "query": "What was the high temperature in Kinshasa, Kinshasa City, Democratic Republic of Congo on 2025-06-19?",
+  "params": {
+   "location": "Kinshasa, Kinshasa City, Democratic Republic of Congo",
+   "date": "2025-06-19"
+  }
+ },
+ {
+  "id": "w0032",
+  "query": "What was the high temperature in Dar es Salaam, Dar es Salaam Region, Tanzania on 2020-01-07?",
+  "params": {
+   "location": "Dar es Salaam, Dar es Salaam Region, Tanzania",
+   "date": "2020-01-07"
+  }
+ },
+ {
+  "id": "w0033",
+  "query": "What was the high temperature in Dar es Salaam, Dar es Salaam Region, Tanzania on 2021-10-23?",
+  "params": {
+   "location": "Dar es Salaam, Dar es Salaam Region, Tanzania",
+   "date": "2021-10-23"
+  }
+ },
+ {
+  "id": "w0034",
+  "query": "What was the high temperature in Dar es Salaam, Dar es Salaam Region, Tanzania on 2025-03-15?",
+  "params": {
+   "location": "Dar es Salaam, Dar es Salaam Region, Tanzania",
+   "date": "2025-03-15"
+  }
+ },
+ {
+  "id": "w0035",
+  "query": "What was the high temperature in Miami, Florida, United States on 2019-07-22?",
+  "params": {
+   "location": "Miami, Florida, United States",
+   "date": "2019-07-22"
+  }
+ },
+ {
+  "id": "w0036",
+  "query": "What was the high temperature in Miami, Florida, United States on 2019-07-21?",
+  "params": {
+   "location": "Miami, Florida, United States",
+   "date": "2019-07-21"
+  }
+ },
+ {
+  "id": "w0037",
+  "query": "What was the high temperature in Miami, Florida, United States on 2026-09-09?",
+  "params": {
+   "location": "Miami, Florida, United States",
+   "date": "2026-09-09"
+  }
+ },
+ {
+  "id": "w0038",
+  "query": "What was the high temperature in Honolulu, Hawaii, United States on 2025-02-23?",
+  "params": {
+   "location": "Honolulu, Hawaii, United States",
+   "date": "2025-02-23"
+  }
+ },
+ {
+  "id": "w0039",
+  "query": "What was the high temperature in Honolulu, Hawaii, United States on 2023-03-15?",
+  "params": {
+   "location": "Honolulu, Hawaii, United States",
+   "date": "2023-03-15"
+  }
+ },
+ {
+  "id": "w0040",
+  "query": "What was the high temperature in Honolulu, Hawaii, United States on 2019-06-14?",
+  "params": {
+   "location": "Honolulu, Hawaii, United States",
+   "date": "2019-06-14"
+  }
+ },
+ {
+  "id": "w0041",
+  "query": "What was the high temperature in San Juan on 2020-08-12?",
+  "params": {
+   "location": "San Juan",
+   "date": "2020-08-12"
+  }
+ },
+ {
+  "id": "w0042",
+  "query": "What was the high temperature in San Juan on 2022-03-01?",
+  "params": {
+   "location": "San Juan",
+   "date": "2022-03-01"
+  }
+ },
+ {
+  "id": "w0043",
+  "query": "What was the high temperature in San Juan on 2025-04-09?",
+  "params": {
+   "location": "San Juan",
+   "date": "2025-04-09"
+  }
+ },
+ {
+  "id": "w0044",
+  "query": "What was the high temperature in Panama City, Provincia de Panamá, Panama on 2025-03-19?",
+  "params": {
+   "location": "Panama City, Provincia de Panamá, Panama",
+   "date": "2025-03-19"
+  }
+ },
+ {
+  "id": "w0045",
+  "query": "What was the high temperature in Panama City, Provincia de Panamá, Panama on 2025-04-08?",
+  "params": {
+   "location": "Panama City, Provincia de Panamá, Panama",
+   "date": "2025-04-08"
+  }
+ },
+ {
+  "id": "w0046",
+  "query": "What was the high temperature in Panama City, Provincia de Panamá, Panama on 2025-02-02?",
+  "params": {
+   "location": "Panama City, Provincia de Panamá, Panama",
+   "date": "2025-02-02"
+  }
+ },
+ {
+  "id": "w0047",
+  "query": "What was the high temperature in Bogotá, Bogota D.C., Colombia on 2019-11-19?",
+  "params": {
+   "location": "Bogotá, Bogota D.C., Colombia",
+   "date": "2019-11-19"
+  }
+ },
+ {
+  "id": "w0048",
+  "query": "What was the high temperature in Bogotá, Bogota D.C., Colombia on 2020-03-07?",
+  "params": {
+   "location": "Bogotá, Bogota D.C., Colombia",
+   "date": "2020-03-07"
+  }
+ },
+ {
+  "id": "w0049",
+  "query": "What was the high temperature in Bogotá, Bogota D.C., Colombia on 2020-07-07?",
+  "params": {
+   "location": "Bogotá, Bogota D.C., Colombia",
+   "date": "2020-07-07"
+  }
+ },
+ {
+  "id": "w0050",
+  "query": "What was the high temperature in Rio de Janeiro, Brazil on 2025-01-24?",
+  "params": {
+   "location": "Rio de Janeiro, Brazil",
+   "date": "2025-01-24"
+  }
+ },
+ {
+  "id": "w0051",
+  "query": "What was the high temperature in Darwin, Northern Territory, Australia on 2020-04-13?",
+  "params": {
+   "location": "Darwin, Northern Territory, Australia",
+   "date": "2020-04-13"
+  }
+ },
+ {
+  "id": "w0052",
+  "query": "What was the high temperature in Darwin, Northern Territory, Australia on 2021-01-10?",
+  "params": {
+   "location": "Darwin, Northern Territory, Australia",
+   "date": "2021-01-10"
+  }
+ },
+ {
+  "id": "w0053",
+  "query": "What was the high temperature in Darwin, Northern Territory, Australia on 2020-11-24?",
+  "params": {
+   "location": "Darwin, Northern Territory, Australia",
+   "date": "2020-11-24"
+  }
+ },
+ {
+  "id": "w0054",
+  "query": "What was the high temperature in Cairns, Queensland, Australia on 2022-05-05?",
+  "params": {
+   "location": "Cairns, Queensland, Australia",
+   "date": "2022-05-05"
+  }
+ },
+ {
+  "id": "w0055",
+  "query": "What was the high temperature in Cairns, Queensland, Australia on 2023-12-13?",
+  "params": {
+   "location": "Cairns, Queensland, Australia",
+   "date": "2023-12-13"
+  }
+ },
+ {
+  "id": "w0056",
+  "query": "What was the high temperature in Cairns, Queensland, Australia on 2024-09-18?",
+  "params": {
+   "location": "Cairns, Queensland, Australia",
+   "date": "2024-09-18"
+  }
+ },
+ {
+  "id": "w0057",
+  "query": "What was the high temperature in Hanoi, Vietnam on 2020-04-14?",
+  "params": {
+   "location": "Hanoi, Vietnam",
+   "date": "2020-04-14"
+  }
+ },
+ {
+  "id": "w0058",
+  "query": "What was the high temperature in Hanoi, Vietnam on 2024-03-25?",
+  "params": {
+   "location": "Hanoi, Vietnam",
+   "date": "2024-03-25"
+  }
+ },
+ {
+  "id": "w0059",
+  "query": "What was the high temperature in Hanoi, Vietnam on 2021-06-04?",
+  "params": {
+   "location": "Hanoi, Vietnam",
+   "date": "2021-06-04"
+  }
+ },
+ {
+  "id": "w0060",
+  "query": "What was the high temperature in Phnom Penh, Cambodia on 2023-12-27?",
+  "params": {
+   "location": "Phnom Penh, Cambodia",
+   "date": "2023-12-27"
+  }
+ },
+ {
+  "id": "w0061",
+  "query": "What was the high temperature in Yangon, Myanmar on 2019-10-10?",
+  "params": {
+   "location": "Yangon, Myanmar",
+   "date": "2019-10-10"
+  }
+ },
+ {
+  "id": "w0062",
+  "query": "What was the high temperature in Yangon, Myanmar on 2021-03-13?",
+  "params": {
+   "location": "Yangon, Myanmar",
+   "date": "2021-03-13"
+  }
+ },
+ {
+  "id": "w0063",
+  "query": "What was the high temperature in Yangon, Myanmar on 2019-07-23?",
+  "params": {
+   "location": "Yangon, Myanmar",
+   "date": "2019-07-23"
+  }
+ },
+ {
+  "id": "w0064",
+  "query": "What was the high temperature in Abidjan, Abidjan Autonomous District, Ivory Coast on 2024-08-04?",
+  "params": {
+   "location": "Abidjan, Abidjan Autonomous District, Ivory Coast",
+   "date": "2024-08-04"
+  }
+ },
+ {
+  "id": "w0065",
+  "query": "What was the high temperature in Abidjan, Abidjan Autonomous District, Ivory Coast on 2022-01-02?",
+  "params": {
+   "location": "Abidjan, Abidjan Autonomous District, Ivory Coast",
+   "date": "2022-01-02"
+  }
+ },
+ {
+  "id": "w0066",
+  "query": "What was the high temperature in Abidjan, Abidjan Autonomous District, Ivory Coast on 2022-12-17?",
+  "params": {
+   "location": "Abidjan, Abidjan Autonomous District, Ivory Coast",
+   "date": "2022-12-17"
+  }
+ },
+ {
+  "id": "w0067",
+  "query": "What was the high temperature in Santo Domingo, Nacional, Dominican Republic on 2019-04-22?",
+  "params": {
+   "location": "Santo Domingo, Nacional, Dominican Republic",
+   "date": "2019-04-22"
+  }
+ },
+ {
+  "id": "w0068",
+  "query": "What was the high temperature in Santo Domingo, Nacional, Dominican Republic on 2019-08-12?",
+  "params": {
+   "location": "Santo Domingo, Nacional, Dominican Republic",
+   "date": "2019-08-12"
+  }
+ },
+ {
+  "id": "w0069",
+  "query": "What was the high temperature in Santo Domingo, Nacional, Dominican Republic on 2023-05-25?",
+  "params": {
+   "location": "Santo Domingo, Nacional, Dominican Republic",
+   "date": "2023-05-25"
+  }
+ },
+ {
+  "id": "w0070",
+  "query": "What was the high temperature in Hyderabad, Telangana, India on 2021-09-12?",
+  "params": {
+   "location": "Hyderabad, Telangana, India",
+   "date": "2021-09-12"
+  }
+ },
+ {
+  "id": "w0071",
+  "query": "What was the high temperature in Hyderabad, Telangana, India on 2023-11-10?",
+  "params": {
+   "location": "Hyderabad, Telangana, India",
+   "date": "2023-11-10"
+  }
+ },
+ {
+  "id": "w0072",
+  "query": "What was the high temperature in Hyderabad, Telangana, India on 2024-12-20?",
+  "params": {
+   "location": "Hyderabad, Telangana, India",
+   "date": "2024-12-20"
+  }
+ },
+ {
+  "id": "w0073",
+  "query": "What was the high temperature in Bengaluru, Karnataka, India on 2022-09-11?",
+  "params": {
+   "location": "Bengaluru, Karnataka, India",
+   "date": "2022-09-11"
+  }
+ },
+ {
+  "id": "w0074",
+  "query": "What was the high temperature in Bengaluru, Karnataka, India on 2023-12-14?",
+  "params": {
+   "location": "Bengaluru, Karnataka, India",
+   "date": "2023-12-14"
+  }
+ },
+ {
+  "id": "w0075",
+  "query": "What was the high temperature in Bengaluru, Karnataka, India on 2026-08-11?",
+  "params": {
+   "location": "Bengaluru, Karnataka, India",
+   "date": "2026-08-11"
+  }
+ },
+ {
+  "id": "w0076",
+  "query": "What was the high temperature in Phoenix, Arizona, United States on 2022-04-05?",
+  "params": {
+   "location": "Phoenix, Arizona, United States",
+   "date": "2022-04-05"
+  }
+ },
+ {
+  "id": "w0077",
+  "query": "What was the high temperature in Phoenix, Arizona, United States on 2019-02-01?",
+  "params": {
+   "location": "Phoenix, Arizona, United States",
+   "date": "2019-02-01"
+  }
+ },
+ {
+  "id": "w0078",
+  "query": "What was the high temperature in Phoenix, Arizona, United States on 2024-09-06?",
+  "params": {
+   "location": "Phoenix, Arizona, United States",
+   "date": "2024-09-06"
+  }
+ },
+ {
+  "id": "w0079",
+  "query": "What was the high temperature in Las Vegas, Nevada, United States on 2022-12-01?",
+  "params": {
+   "location": "Las Vegas, Nevada, United States",
+   "date": "2022-12-01"
+  }
+ },
+ {
+  "id": "w0080",
+  "query": "What was the high temperature in Las Vegas, Nevada, United States on 2026-03-22?",
+  "params": {
+   "location": "Las Vegas, Nevada, United States",
+   "date": "2026-03-22"
+  }
+ },
+ {
+  "id": "w0081",
+  "query": "What was the high temperature in Las Vegas, Nevada, United States on 2026-04-20?",
+  "params": {
+   "location": "Las Vegas, Nevada, United States",
+   "date": "2026-04-20"
+  }
+ },
+ {
+  "id": "w0082",
+  "query": "What was the high temperature in Tucson, Arizona, United States on 2021-12-13?",
+  "params": {
+   "location": "Tucson, Arizona, United States",
+   "date": "2021-12-13"
+  }
+ },
+ {
+  "id": "w0083",
+  "query": "What was the high temperature in Tucson, Arizona, United States on 2026-01-12?",
+  "params": {
+   "location": "Tucson, Arizona, United States",
+   "date": "2026-01-12"
+  }
+ },
+ {
+  "id": "w0084",
+  "query": "What was the high temperature in Tucson, Arizona, United States on 2021-02-10?",
+  "params": {
+   "location": "Tucson, Arizona, United States",
+   "date": "2021-02-10"
+  }
+ },
+ {
+  "id": "w0085",
+  "query": "What was the high temperature in El Paso, Texas, United States on 2023-10-02?",
+  "params": {
+   "location": "El Paso, Texas, United States",
+   "date": "2023-10-02"
+  }
+ },
+ {
+  "id": "w0086",
+  "query": "What was the high temperature in El Paso, Texas, United States on 2021-03-01?",
+  "params": {
+   "location": "El Paso, Texas, United States",
+   "date": "2021-03-01"
+  }
+ },
+ {
+  "id": "w0087",
+  "query": "What was the high temperature in El Paso, Texas, United States on 2025-01-21?",
+  "params": {
+   "location": "El Paso, Texas, United States",
+   "date": "2025-01-21"
+  }
+ },
+ {
+  "id": "w0088",
+  "query": "What was the high temperature in Albuquerque, New Mexico, United States on 2023-12-14?",
+  "params": {
+   "location": "Albuquerque, New Mexico, United States",
+   "date": "2023-12-14"
+  }
+ },
+ {
+  "id": "w0089",
+  "query": "What was the high temperature in Albuquerque, New Mexico, United States on 2019-03-16?",
+  "params": {
+   "location": "Albuquerque, New Mexico, United States",
+   "date": "2019-03-16"
+  }
+ },
+ {
+  "id": "w0090",
+  "query": "What was the high temperature in Albuquerque, New Mexico, United States on 2019-03-20?",
+  "params": {
+   "location": "Albuquerque, New Mexico, United States",
+   "date": "2019-03-20"
+  }
+ },
+ {
+  "id": "w0091",
+  "query": "What was the high temperature in Dubai, United Arab Emirates on 2020-10-14?",
+  "params": {
+   "location": "Dubai, United Arab Emirates",
+   "date": "2020-10-14"
+  }
+ },
+ {
+  "id": "w0092",
+  "query": "What was the high temperature in Dubai, United Arab Emirates on 2021-01-16?",
+  "params": {
+   "location": "Dubai, United Arab Emirates",
+   "date": "2021-01-16"
+  }
+ },
+ {
+  "id": "w0093",
+  "query": "What was the high temperature in Dubai, United Arab Emirates on 2025-01-27?",
+  "params": {
+   "location": "Dubai, United Arab Emirates",
+   "date": "2025-01-27"
+  }
+ },
+ {
+  "id": "w0094",
+  "query": "What was the high temperature in Doha, Baladiyat ad Dawhah, Qatar on 2025-01-07?",
+  "params": {
+   "location": "Doha, Baladiyat ad Dawhah, Qatar",
+   "date": "2025-01-07"
+  }
+ },
+ {
+  "id": "w0095",
+  "query": "What was the high temperature in Doha, Baladiyat ad Dawhah, Qatar on 2021-08-08?",
+  "params": {
+   "location": "Doha, Baladiyat ad Dawhah, Qatar",
+   "date": "2021-08-08"
+  }
+ },
+ {
+  "id": "w0096",
+  "query": "What was the high temperature in Doha, Baladiyat ad Dawhah, Qatar on 2022-07-24?",
+  "params": {
+   "location": "Doha, Baladiyat ad Dawhah, Qatar",
+   "date": "2022-07-24"
+  }
+ },
+ {
+  "id": "w0097",
+  "query": "What was the high temperature in Kuwait City, Al Asimah, Kuwait on 2019-11-05?",
+  "params": {
+   "location": "Kuwait City, Al Asimah, Kuwait",
+   "date": "2019-11-05"
+  }
+ },
+ {
+  "id": "w0098",
+  "query": "What was the high temperature in Kuwait City, Al Asimah, Kuwait on 2022-04-13?",
+  "params": {
+   "location": "Kuwait City, Al Asimah, Kuwait",
+   "date": "2022-04-13"
+  }
+ },
+ {
+  "id": "w0099",
+  "query": "What was the high temperature in Kuwait City, Al Asimah, Kuwait on 2023-01-15?",
+  "params": {
+   "location": "Kuwait City, Al Asimah, Kuwait",
+   "date": "2023-01-15"
+  }
+ },
+ {
+  "id": "w0100",
+  "query": "What was the high temperature in Tehran, Iran on 2023-07-25?",
+  "params": {
+   "location": "Tehran, Iran",
+   "date": "2023-07-25"
+  }
+ },
+ {
+  "id": "w0101",
+  "query": "What was the high temperature in Tehran, Iran on 2023-10-02?",
+  "params": {
+   "location": "Tehran, Iran",
+   "date": "2023-10-02"
+  }
+ },
+ {
+  "id": "w0102",
+  "query": "What was the high temperature in Tehran, Iran on 2022-05-24?",
+  "params": {
+   "location": "Tehran, Iran",
+   "date": "2022-05-24"
+  }
+ },
+ {
+  "id": "w0103",
+  "query": "What was the high temperature in Aswān, Aswan Governorate, Egypt on 2023-02-20?",
+  "params": {
+   "location": "Aswān, Aswan Governorate, Egypt",
+   "date": "2023-02-20"
+  }
+ },
+ {
+  "id": "w0104",
+  "query": "What was the high temperature in Aswān, Aswan Governorate, Egypt on 2022-06-20?",
+  "params": {
+   "location": "Aswān, Aswan Governorate, Egypt",
+   "date": "2022-06-20"
+  }
+ },
+ {
+  "id": "w0105",
+  "query": "What was the high temperature in Aswān, Aswan Governorate, Egypt on 2025-01-27?",
+  "params": {
+   "location": "Aswān, Aswan Governorate, Egypt",
+   "date": "2025-01-27"
+  }
+ },
+ {
+  "id": "w0106",
+  "query": "What was the high temperature in Alice Springs, Northern Territory, Australia on 2022-12-16?",
+  "params": {
+   "location": "Alice Springs, Northern Territory, Australia",
+   "date": "2022-12-16"
+  }
+ },
+ {
+  "id": "w0107",
+  "query": "What was the high temperature in Alice Springs, Northern Territory, Australia on 2024-02-02?",
+  "params": {
+   "location": "Alice Springs, Northern Territory, Australia",
+   "date": "2024-02-02"
+  }
+ },
+ {
+  "id": "w0108",
+  "query": "What was the high temperature in Alice Springs, Northern Territory, Australia on 2019-08-14?",
+  "params": {
+   "location": "Alice Springs, Northern Territory, Australia",
+   "date": "2019-08-14"
+  }
+ },
+ {
+  "id": "w0109",
+  "query": "What was the high temperature in Perth, Western Australia, Australia on 2019-01-16?",
+  "params": {
+   "location": "Perth, Western Australia, Australia",
+   "date": "2019-01-16"
+  }
+ },
+ {
+  "id": "w0110",
+  "query": "What was the high temperature in Perth, Western Australia, Australia on 2022-04-09?",
+  "params": {
+   "location": "Perth, Western Australia, Australia",
+   "date": "2022-04-09"
+  }
+ },
+ {
+  "id": "w0111",
+  "query": "What was the high temperature in Perth, Western Australia, Australia on 2024-12-18?",
+  "params": {
+   "location": "Perth, Western Australia, Australia",
+   "date": "2024-12-18"
+  }
+ },
+ {
+  "id": "w0112",
+  "query": "What was the high temperature in Windhoek, Khomas Region, Namibia on 2019-12-25?",
+  "params": {
+   "location": "Windhoek, Khomas Region, Namibia",
+   "date": "2019-12-25"
+  }
+ },
+ {
+  "id": "w0113",
+  "query": "What was the high temperature in Windhoek, Khomas Region, Namibia on 2022-06-21?",
+  "params": {
+   "location": "Windhoek, Khomas Region, Namibia",
+   "date": "2022-06-21"
+  }
+ },
+ {
+  "id": "w0114",
+  "query": "What was the high temperature in Windhoek, Khomas Region, Namibia on 2024-10-13?",
+  "params": {
+   "location": "Windhoek, Khomas Region, Namibia",
+   "date": "2024-10-13"
+  }
+ },
+ {
+  "id": "w0115",
+  "query": "What was the high temperature in Lima, Lima Province, Peru on 2023-05-27?",
+  "params": {
+   "location": "Lima, Lima Province, Peru",
+   "date": "2023-05-27"
+  }
+ },
+ {
+  "id": "w0116",
+  "query": "What was the high temperature in Antofagasta, Chile on 2024-03-04?",
+  "params": {
+   "location": "Antofagasta, Chile",
+   "date": "2024-03-04"
+  }
+ },
+ {
+  "id": "w0117",
+  "query": "What was the high temperature in Antofagasta, Chile on 2022-06-19?",
+  "params": {
+   "location": "Antofagasta, Chile",
+   "date": "2022-06-19"
+  }
+ },
+ {
+  "id": "w0118",
+  "query": "What was the high temperature in Antofagasta, Chile on 2019-06-20?",
+  "params": {
+   "location": "Antofagasta, Chile",
+   "date": "2019-06-20"
+  }
+ },
+ {
+  "id": "w0119",
+  "query": "What was the high temperature in Karachi, Sindh, Pakistan on 2024-12-25?",
+  "params": {
+   "location": "Karachi, Sindh, Pakistan",
+   "date": "2024-12-25"
+  }
+ },
+ {
+  "id": "w0120",
+  "query": "What was the high temperature in Karachi, Sindh, Pakistan on 2024-05-26?",
+  "params": {
+   "location": "Karachi, Sindh, Pakistan",
+   "date": "2024-05-26"
+  }
+ },
+ {
+  "id": "w0121",
+  "query": "What was the high temperature in Karachi, Sindh, Pakistan on 2022-11-21?",
+  "params": {
+   "location": "Karachi, Sindh, Pakistan",
+   "date": "2022-11-21"
+  }
+ },
+ {
+  "id": "w0122",
+  "query": "What was the high temperature in Jodhpur, Rajasthan, India on 2019-12-28?",
+  "params": {
+   "location": "Jodhpur, Rajasthan, India",
+   "date": "2019-12-28"
+  }
+ },
+ {
+  "id": "w0123",
+  "query": "What was the high temperature in Jodhpur, Rajasthan, India on 2020-01-10?",
+  "params": {
+   "location": "Jodhpur, Rajasthan, India",
+   "date": "2020-01-10"
+  }
+ },
+ {
+  "id": "w0124",
+  "query": "What was the high temperature in Jodhpur, Rajasthan, India on 2024-04-05?",
+  "params": {
+   "location": "Jodhpur, Rajasthan, India",
+   "date": "2024-04-05"
+  }
+ },
+ {
+  "id": "w0125",
+  "query": "What was the high temperature in Tashkent, Uzbekistan on 2022-09-24?",
+  "params": {
+   "location": "Tashkent, Uzbekistan",
+   "date": "2022-09-24"
+  }
+ },
+ {
+  "id": "w0126",
+  "query": "What was the high temperature in Tashkent, Uzbekistan on 2020-05-28?",
+  "params": {
+   "location": "Tashkent, Uzbekistan",
+   "date": "2020-05-28"
+  }
+ },
+ {
+  "id": "w0127",
+  "query": "What was the high temperature in Tashkent, Uzbekistan on 2020-02-10?",
+  "params": {
+   "location": "Tashkent, Uzbekistan",
+   "date": "2020-02-10"
+  }
+ },
+ {
+  "id": "w0128",
+  "query": "What was the high temperature in Ulaanbaatar, Mongolia on 2019-03-28?",
+  "params": {
+   "location": "Ulaanbaatar, Mongolia",
+   "date": "2019-03-28"
+  }
+ },
+ {
+  "id": "w0129",
+  "query": "What was the high temperature in Niamey, Niger on 2020-09-02?",
+  "params": {
+   "location": "Niamey, Niger",
+   "date": "2020-09-02"
+  }
+ },
+ {
+  "id": "w0130",
+  "query": "What was the high temperature in Niamey, Niger on 2022-02-19?",
+  "params": {
+   "location": "Niamey, Niger",
+   "date": "2022-02-19"
+  }
+ },
+ {
+  "id": "w0131",
+  "query": "What was the high temperature in Niamey, Niger on 2020-01-13?",
+  "params": {
+   "location": "Niamey, Niger",
+   "date": "2020-01-13"
+  }
+ },
+ {
+  "id": "w0132",
+  "query": "What was the high temperature in Marrakesh, Marrakesh-Safi, Morocco on 2022-01-06?",
+  "params": {
+   "location": "Marrakesh, Marrakesh-Safi, Morocco",
+   "date": "2022-01-06"
+  }
+ },
+ {
+  "id": "w0133",
+  "query": "What was the high temperature in Marrakesh, Marrakesh-Safi, Morocco on 2019-04-09?",
+  "params": {
+   "location": "Marrakesh, Marrakesh-Safi, Morocco",
+   "date": "2019-04-09"
+  }
+ },
+ {
+  "id": "w0134",
+  "query": "What was the high temperature in Lubbock, Texas, United States on 2020-05-25?",
+  "params": {
+   "location": "Lubbock, Texas, United States",
+   "date": "2020-05-25"
+  }
+ },
+ {
+  "id": "w0135",
+  "query": "What was the high temperature in Lubbock, Texas, United States on 2024-06-08?",
+  "params": {
+   "location": "Lubbock, Texas, United States",
+   "date": "2024-06-08"
+  }
+ },
+ {
+  "id": "w0136",
+  "query": "What was the high temperature in Lubbock, Texas, United States on 2023-11-18?",
+  "params": {
+   "location": "Lubbock, Texas, United States",
+   "date": "2023-11-18"
+  }
+ },
+ {
+  "id": "w0137",
+  "query": "What was the high temperature in Amarillo, Texas, United States on 2026-09-19?",
+  "params": {
+   "location": "Amarillo, Texas, United States",
+   "date": "2026-09-19"
+  }
+ },
+ {
+  "id": "w0138",
+  "query": "What was the high temperature in Amarillo, Texas, United States on 2019-03-02?",
+  "params": {
+   "location": "Amarillo, Texas, United States",
+   "date": "2019-03-02"
+  }
+ },
+ {
+  "id": "w0139",
+  "query": "What was the high temperature in Amarillo, Texas, United States on 2019-11-18?",
+  "params": {
+   "location": "Amarillo, Texas, United States",
+   "date": "2019-11-18"
+  }
+ },
+ {
+  "id": "w0140",
+  "query": "What was the high temperature in Fresno, California, United States on 2019-09-17?",
+  "params": {
+   "location": "Fresno, California, United States",
+   "date": "2019-09-17"
+  }
+ },
+ {
+  "id": "w0141",
+  "query": "What was the high temperature in Fresno, California, United States on 2022-07-07?",
+  "params": {
+   "location": "Fresno, California, United States",
+   "date": "2022-07-07"
+  }
+ },
+ {
+  "id": "w0142",
+  "query": "What was the high temperature in Boise, Idaho, United States on 2024-01-15?",
+  "params": {
+   "location": "Boise, Idaho, United States",
+   "date": "2024-01-15"
+  }
+ },
+ {
+  "id": "w0143",
+  "query": "What was the high temperature in Boise, Idaho, United States on 2025-11-15?",
+  "params": {
+   "location": "Boise, Idaho, United States",
+   "date": "2025-11-15"
+  }
+ },
+ {
+  "id": "w0144",
+  "query": "What was the high temperature in Boise, Idaho, United States on 2024-08-20?",
+  "params": {
+   "location": "Boise, Idaho, United States",
+   "date": "2024-08-20"
+  }
+ },
+ {
+  "id": "w0145",
+  "query": "What was the high temperature in Salt Lake City, Utah, United States on 2020-03-23?",
+  "params": {
+   "location": "Salt Lake City, Utah, United States",
+   "date": "2020-03-23"
+  }
+ },
+ {
+  "id": "w0146",
+  "query": "What was the high temperature in Salt Lake City, Utah, United States on 2022-10-19?",
+  "params": {
+   "location": "Salt Lake City, Utah, United States",
+   "date": "2022-10-19"
+  }
+ },
+ {
+  "id": "w0147",
+  "query": "What was the high temperature in Salt Lake City, Utah, United States on 2019-07-22?",
+  "params": {
+   "location": "Salt Lake City, Utah, United States",
+   "date": "2019-07-22"
+  }
+ },
+ {
+  "id": "w0148",
+  "query": "What was the high temperature in Los Angeles, California, United States on 2022-09-10?",
+  "params": {
+   "location": "Los Angeles, California, United States",
+   "date": "2022-09-10"
+  }
+ },
+ {
+  "id": "w0149",
+  "query": "What was the high temperature in Los Angeles, California, United States on 2024-07-04?",
+  "params": {
+   "location": "Los Angeles, California, United States",
+   "date": "2024-07-04"
+  }
+ },
+ {
+  "id": "w0150",
+  "query": "What was the high temperature in Los Angeles, California, United States on 2020-02-18?",
+  "params": {
+   "location": "Los Angeles, California, United States",
+   "date": "2020-02-18"
+  }
+ },
+ {
+  "id": "w0151",
+  "query": "What was the high temperature in San Diego, California, United States on 2026-06-19?",
+  "params": {
+   "location": "San Diego, California, United States",
+   "date": "2026-06-19"
+  }
+ },
+ {
+  "id": "w0152",
+  "query": "What was the high temperature in San Diego, California, United States on 2020-10-16?",
+  "params": {
+   "location": "San Diego, California, United States",
+   "date": "2020-10-16"
+  }
+ },
+ {
+  "id": "w0153",
+  "query": "What was the high temperature in San Francisco, California, United States on 2022-01-10?",
+  "params": {
+   "location": "San Francisco, California, United States",
+   "date": "2022-01-10"
+  }
+ },
+ {
+  "id": "w0154",
+  "query": "What was the high temperature in San Francisco, California, United States on 2019-12-18?",
+  "params": {
+   "location": "San Francisco, California, United States",
+   "date": "2019-12-18"
+  }
+ },
+ {
+  "id": "w0155",
+  "query": "What was the high temperature in San Francisco, California, United States on 2021-04-12?",
+  "params": {
+   "location": "San Francisco, California, United States",
+   "date": "2021-04-12"
+  }
+ },
+ {
+  "id": "w0156",
+  "query": "What was the high temperature in Sacramento, California, United States on 2023-05-15?",
+  "params": {
+   "location": "Sacramento, California, United States",
+   "date": "2023-05-15"
+  }
+ },
+ {
+  "id": "w0157",
+  "query": "What was the high temperature in Sacramento, California, United States on 2024-08-26?",
+  "params": {
+   "location": "Sacramento, California, United States",
+   "date": "2024-08-26"
+  }
+ },
+ {
+  "id": "w0158",
+  "query": "What was the high temperature in Sacramento, California, United States on 2020-03-27?",
+  "params": {
+   "location": "Sacramento, California, United States",
+   "date": "2020-03-27"
+  }
+ },
+ {
+  "id": "w0159",
+  "query": "What was the high temperature in Barcelona, Catalonia, Spain on 2024-10-10?",
+  "params": {
+   "location": "Barcelona, Catalonia, Spain",
+   "date": "2024-10-10"
+  }
+ },
+ {
+  "id": "w0160",
+  "query": "What was the high temperature in Barcelona, Catalonia, Spain on 2025-11-25?",
+  "params": {
+   "location": "Barcelona, Catalonia, Spain",
+   "date": "2025-11-25"
+  }
+ },
+ {
+  "id": "w0161",
+  "query": "What was the high temperature in Madrid, Spain on 2023-03-15?",
+  "params": {
+   "location": "Madrid, Spain",
+   "date": "2023-03-15"
+  }
+ },
+ {
+  "id": "w0162",
+  "query": "What was the high temperature in Seville, Andalusia, Spain on 2021-05-12?",
+  "params": {
+   "location": "Seville, Andalusia, Spain",
+   "date": "2021-05-12"
+  }
+ },
+ {
+  "id": "w0163",
+  "query": "What was the high temperature in Lisbon, Lisbon District, Portugal on 2019-05-14?",
+  "params": {
+   "location": "Lisbon, Lisbon District, Portugal",
+   "date": "2019-05-14"
+  }
+ },
+ {
+  "id": "w0164",
+  "query": "What was the high temperature in Rome, Lazio, Italy on 2022-07-07?",
+  "params": {
+   "location": "Rome, Lazio, Italy",
+   "date": "2022-07-07"
+  }
+ },
+ {
+  "id": "w0165",
+  "query": "What was the high temperature in Split, Split-Dalmatia County, Croatia on 2020-12-26?",
+  "params": {
+   "location": "Split, Split-Dalmatia County, Croatia",
+   "date": "2020-12-26"
+  }
+ },
+ {
+  "id": "w0166",
+  "query": "What was the high temperature in Izmir, İzmir Province, Republic of Türkiye on 2023-11-16?",
+  "params": {
+   "location": "Izmir, İzmir Province, Republic of Türkiye",
+   "date": "2023-11-16"
+  }
+ },
+ {
+  "id": "w0167",
+  "query": "What was the high temperature in London, England, United Kingdom on 2022-05-10?",
+  "params": {
+   "location": "London, England, United Kingdom",
+   "date": "2022-05-10"
+  }
+ },
+ {
+  "id": "w0168",
+  "query": "What was the high temperature in London, England, United Kingdom on 2024-07-05?",
+  "params": {
+   "location": "London, England, United Kingdom",
+   "date": "2024-07-05"
+  }
+ },
+ {
+  "id": "w0169",
+  "query": "What was the high temperature in Paris, Île-de-France Region, France on 2026-03-13?",
+  "params": {
+   "location": "Paris, Île-de-France Region, France",
+   "date": "2026-03-13"
+  }
+ },
+ {
+  "id": "w0170",
+  "query": "What was the high temperature in Paris, Île-de-France Region, France on 2022-05-17?",
+  "params": {
+   "location": "Paris, Île-de-France Region, France",
+   "date": "2022-05-17"
+  }
+ },
+ {
+  "id": "w0171",
+  "query": "What was the high temperature in Paris, Île-de-France Region, France on 2024-10-22?",
+  "params": {
+   "location": "Paris, Île-de-France Region, France",
+   "date": "2024-10-22"
+  }
+ },
+ {
+  "id": "w0172",
+  "query": "What was the high temperature in Berlin, State of Berlin, Germany on 2019-07-15?",
+  "params": {
+   "location": "Berlin, State of Berlin, Germany",
+   "date": "2019-07-15"
+  }
+ },
+ {
+  "id": "w0173",
+  "query": "What was the high temperature in Berlin, State of Berlin, Germany on 2023-01-18?",
+  "params": {
+   "location": "Berlin, State of Berlin, Germany",
+   "date": "2023-01-18"
+  }
+ },
+ {
+  "id": "w0174",
+  "query": "What was the high temperature in Berlin, State of Berlin, Germany on 2019-06-28?",
+  "params": {
+   "location": "Berlin, State of Berlin, Germany",
+   "date": "2019-06-28"
+  }
+ },
+ {
+  "id": "w0175",
+  "query": "What was the high temperature in Hamburg, Free and Hanseatic City of Hamburg, Germany on 2024-12-03?",
+  "params": {
+   "location": "Hamburg, Free and Hanseatic City of Hamburg, Germany",
+   "date": "2024-12-03"
+  }
+ },
+ {
+  "id": "w0176",
+  "query": "What was the high temperature in Hamburg, Free and Hanseatic City of Hamburg, Germany on 2023-07-07?",
+  "params": {
+   "location": "Hamburg, Free and Hanseatic City of Hamburg, Germany",
+   "date": "2023-07-07"
+  }
+ },
+ {
+  "id": "w0177",
+  "query": "What was the high temperature in Hamburg, Free and Hanseatic City of Hamburg, Germany on 2023-12-07?",
+  "params": {
+   "location": "Hamburg, Free and Hanseatic City of Hamburg, Germany",
+   "date": "2023-12-07"
+  }
+ },
+ {
+  "id": "w0178",
+  "query": "What was the high temperature in Munich, Bavaria, Germany on 2026-03-25?",
+  "params": {
+   "location": "Munich, Bavaria, Germany",
+   "date": "2026-03-25"
+  }
+ },
+ {
+  "id": "w0179",
+  "query": "What was the high temperature in Munich, Bavaria, Germany on 2025-12-12?",
+  "params": {
+   "location": "Munich, Bavaria, Germany",
+   "date": "2025-12-12"
+  }
+ },
+ {
+  "id": "w0180",
+  "query": "What was the high temperature in Munich, Bavaria, Germany on 2019-01-23?",
+  "params": {
+   "location": "Munich, Bavaria, Germany",
+   "date": "2019-01-23"
+  }
+ },
+ {
+  "id": "w0181",
+  "query": "What was the high temperature in Amsterdam, North Holland, The Netherlands on 2024-04-18?",
+  "params": {
+   "location": "Amsterdam, North Holland, The Netherlands",
+   "date": "2024-04-18"
+  }
+ },
+ {
+  "id": "w0182",
+  "query": "What was the high temperature in Amsterdam, North Holland, The Netherlands on 2019-08-21?",
+  "params": {
+   "location": "Amsterdam, North Holland, The Netherlands",
+   "date": "2019-08-21"
+  }
+ },
+ {
+  "id": "w0183",
+  "query": "What was the high temperature in Amsterdam, North Holland, The Netherlands on 2024-04-21?",
+  "params": {
+   "location": "Amsterdam, North Holland, The Netherlands",
+   "date": "2024-04-21"
+  }
+ },
+ {
+  "id": "w0184",
+  "query": "What was the high temperature in Brussels, Brussels Capital, Belgium on 2023-02-02?",
+  "params": {
+   "location": "Brussels, Brussels Capital, Belgium",
+   "date": "2023-02-02"
+  }
+ },
+ {
+  "id": "w0185",
+  "query": "What was the high temperature in Brussels, Brussels Capital, Belgium on 2025-04-04?",
+  "params": {
+   "location": "Brussels, Brussels Capital, Belgium",
+   "date": "2025-04-04"
+  }
+ },
+ {
+  "id": "w0186",
+  "query": "What was the high temperature in Brussels, Brussels Capital, Belgium on 2026-07-19?",
+  "params": {
+   "location": "Brussels, Brussels Capital, Belgium",
+   "date": "2026-07-19"
+  }
+ },
+ {
+  "id": "w0187",
+  "query": "What was the high temperature in Dublin, Leinster, Ireland on 2019-08-16?",
+  "params": {
+   "location": "Dublin, Leinster, Ireland",
+   "date": "2019-08-16"
+  }
+ },
+ {
+  "id": "w0188",
+  "query": "What was the high temperature in Dublin, Leinster, Ireland on 2019-07-08?",
+  "params": {
+   "location": "Dublin, Leinster, Ireland",
+   "date": "2019-07-08"
+  }
+ },
+ {
+  "id": "w0189",
+  "query": "What was the high temperature in Dublin, Leinster, Ireland on 2022-08-23?",
+  "params": {
+   "location": "Dublin, Leinster, Ireland",
+   "date": "2022-08-23"
+  }
+ },
+ {
+  "id": "w0190",
+  "query": "What was the high temperature in Edinburgh, Scotland, United Kingdom on 2020-09-20?",
+  "params": {
+   "location": "Edinburgh, Scotland, United Kingdom",
+   "date": "2020-09-20"
+  }
+ },
+ {
+  "id": "w0191",
+  "query": "What was the high temperature in Edinburgh, Scotland, United Kingdom on 2022-07-11?",
+  "params": {
+   "location": "Edinburgh, Scotland, United Kingdom",
+   "date": "2022-07-11"
+  }
+ },
+ {
+  "id": "w0192",
+  "query": "What was the high temperature in Edinburgh, Scotland, United Kingdom on 2023-03-04?",
+  "params": {
+   "location": "Edinburgh, Scotland, United Kingdom",
+   "date": "2023-03-04"
+  }
+ },
+ {
+  "id": "w0193",
+  "query": "What was the high temperature in Vienna, State of Vienna, Austria on 2024-06-17?",
+  "params": {
+   "location": "Vienna, State of Vienna, Austria",
+   "date": "2024-06-17"
+  }
+ },
+ {
+  "id": "w0194",
+  "query": "What was the high temperature in Vienna, State of Vienna, Austria on 2026-05-11?",
+  "params": {
+   "location": "Vienna, State of Vienna, Austria",
+   "date": "2026-05-11"
+  }
+ },
+ {
+  "id": "w0195",
+  "query": "What was the high temperature in Vienna, State of Vienna, Austria on 2019-12-02?",
+  "params": {
+   "location": "Vienna, State of Vienna, Austria",
+   "date": "2019-12-02"
+  }
+ },
+ {
+  "id": "w0196",
+  "query": "What was the high temperature in Zurich, Canton of Zurich, Switzerland on 2024-06-08?",
+  "params": {
+   "location": "Zurich, Canton of Zurich, Switzerland",
+   "date": "2024-06-08"
+  }
+ },
+ {
+  "id": "w0197",
+  "query": "What was the high temperature in Zurich, Canton of Zurich, Switzerland on 2026-09-21?",
+  "params": {
+   "location": "Zurich, Canton of Zurich, Switzerland",
+   "date": "2026-09-21"
+  }
+ },
+ {
+  "id": "w0198",
+  "query": "What was the high temperature in Zurich, Canton of Zurich, Switzerland on 2022-06-24?",
+  "params": {
+   "location": "Zurich, Canton of Zurich, Switzerland",
+   "date": "2022-06-24"
+  }
+ },
+ {
+  "id": "w0199",
+  "query": "What was the high temperature in Prague, Czechia on 2024-11-05?",
+  "params": {
+   "location": "Prague, Czechia",
+   "date": "2024-11-05"
+  }
+ },
+ {
+  "id": "w0200",
+  "query": "What was the high temperature in Prague, Czechia on 2025-08-27?",
+  "params": {
+   "location": "Prague, Czechia",
+   "date": "2025-08-27"
+  }
+ },
+ {
+  "id": "w0201",
+  "query": "What was the high temperature in Prague, Czechia on 2020-06-11?",
+  "params": {
+   "location": "Prague, Czechia",
+   "date": "2020-06-11"
+  }
+ },
+ {
+  "id": "w0202",
+  "query": "What was the high temperature in Budapest, Hungary on 2023-03-18?",
+  "params": {
+   "location": "Budapest, Hungary",
+   "date": "2023-03-18"
+  }
+ },
+ {
+  "id": "w0203",
+  "query": "What was the high temperature in Budapest, Hungary on 2021-11-03?",
+  "params": {
+   "location": "Budapest, Hungary",
+   "date": "2021-11-03"
+  }
+ },
+ {
+  "id": "w0204",
+  "query": "What was the high temperature in Budapest, Hungary on 2023-03-04?",
+  "params": {
+   "location": "Budapest, Hungary",
+   "date": "2023-03-04"
+  }
+ },
+ {
+  "id": "w0205",
+  "query": "What was the high temperature in Warsaw, Mazovia, Poland on 2023-09-15?",
+  "params": {
+   "location": "Warsaw, Mazovia, Poland",
+   "date": "2023-09-15"
+  }
+ },
+ {
+  "id": "w0206",
+  "query": "What was the high temperature in Warsaw, Mazovia, Poland on 2021-05-02?",
+  "params": {
+   "location": "Warsaw, Mazovia, Poland",
+   "date": "2021-05-02"
+  }
+ },
+ {
+  "id": "w0207",
+  "query": "What was the high temperature in Warsaw, Mazovia, Poland on 2019-05-13?",
+  "params": {
+   "location": "Warsaw, Mazovia, Poland",
+   "date": "2019-05-13"
+  }
+ },
+ {
+  "id": "w0208",
+  "query": "What was the high temperature in Seattle, Washington, United States on 2023-01-11?",
+  "params": {
+   "location": "Seattle, Washington, United States",
+   "date": "2023-01-11"
+  }
+ },
+ {
+  "id": "w0209",
+  "query": "What was the high temperature in Seattle, Washington, United States on 2019-05-05?",
+  "params": {
+   "location": "Seattle, Washington, United States",
+   "date": "2019-05-05"
+  }
+ },
+ {
+  "id": "w0210",
+  "query": "What was the high temperature in Seattle, Washington, United States on 2023-01-05?",
+  "params": {
+   "location": "Seattle, Washington, United States",
+   "date": "2023-01-05"
+  }
+ },
+ {
+  "id": "w0211",
+  "query": "What was the high temperature in Portland, Oregon, United States on 2019-06-25?",
+  "params": {
+   "location": "Portland, Oregon, United States",
+   "date": "2019-06-25"
+  }
+ },
+ {
+  "id": "w0212",
+  "query": "What was the high temperature in Portland, Oregon, United States on 2022-02-24?",
+  "params": {
+   "location": "Portland, Oregon, United States",
+   "date": "2022-02-24"
+  }
+ },
+ {
+  "id": "w0213",
+  "query": "What was the high temperature in Portland, Oregon, United States on 2023-03-08?",
+  "params": {
+   "location": "Portland, Oregon, United States",
+   "date": "2023-03-08"
+  }
+ },
+ {
+  "id": "w0214",
+  "query": "What was the high temperature in Vancouver, British Columbia, Canada on 2019-04-02?",
+  "params": {
+   "location": "Vancouver, British Columbia, Canada",
+   "date": "2019-04-02"
+  }
+ },
+ {
+  "id": "w0215",
+  "query": "What was the high temperature in Vancouver, British Columbia, Canada on 2020-06-12?",
+  "params": {
+   "location": "Vancouver, British Columbia, Canada",
+   "date": "2020-06-12"
+  }
+ },
+ {
+  "id": "w0216",
+  "query": "What was the high temperature in Vancouver, British Columbia, Canada on 2024-01-12?",
+  "params": {
+   "location": "Vancouver, British Columbia, Canada",
+   "date": "2024-01-12"
+  }
+ },
+ {
+  "id": "w0217",
+  "query": "What was the high temperature in Sydney, New South Wales, Australia on 2025-08-01?",
+  "params": {
+   "location": "Sydney, New South Wales, Australia",
+   "date": "2025-08-01"
+  }
+ },
+ {
+  "id": "w0218",
+  "query": "What was the high temperature in Sydney, New South Wales, Australia on 2022-04-21?",
+  "params": {
+   "location": "Sydney, New South Wales, Australia",
+   "date": "2022-04-21"
+  }
+ },
+ {
+  "id": "w0219",
+  "query": "What was the high temperature in Sydney, New South Wales, Australia on 2020-10-05?",
+  "params": {
+   "location": "Sydney, New South Wales, Australia",
+   "date": "2020-10-05"
+  }
+ },
+ {
+  "id": "w0220",
+  "query": "What was the high temperature in Melbourne, Victoria, Australia on 2023-01-25?",
+  "params": {
+   "location": "Melbourne, Victoria, Australia",
+   "date": "2023-01-25"
+  }
+ },
+ {
+  "id": "w0221",
+  "query": "What was the high temperature in Melbourne, Victoria, Australia on 2020-11-10?",
+  "params": {
+   "location": "Melbourne, Victoria, Australia",
+   "date": "2020-11-10"
+  }
+ },
+ {
+  "id": "w0222",
+  "query": "What was the high temperature in Melbourne, Victoria, Australia on 2022-06-22?",
+  "params": {
+   "location": "Melbourne, Victoria, Australia",
+   "date": "2022-06-22"
+  }
+ },
+ {
+  "id": "w0223",
+  "query": "What was the high temperature in Brisbane, Queensland, Australia on 2022-07-24?",
+  "params": {
+   "location": "Brisbane, Queensland, Australia",
+   "date": "2022-07-24"
+  }
+ },
+ {
+  "id": "w0224",
+  "query": "What was the high temperature in Brisbane, Queensland, Australia on 2026-01-25?",
+  "params": {
+   "location": "Brisbane, Queensland, Australia",
+   "date": "2026-01-25"
+  }
+ },
+ {
+  "id": "w0225",
+  "query": "What was the high temperature in Brisbane, Queensland, Australia on 2019-11-20?",
+  "params": {
+   "location": "Brisbane, Queensland, Australia",
+   "date": "2019-11-20"
+  }
+ },
+ {
+  "id": "w0226",
+  "query": "What was the high temperature in Auckland, New Zealand on 2023-10-08?",
+  "params": {
+   "location": "Auckland, New Zealand",
+   "date": "2023-10-08"
+  }
+ },
+ {
+  "id": "w0227",
+  "query": "What was the high temperature in Auckland, New Zealand on 2024-08-21?",
+  "params": {
+   "location": "Auckland, New Zealand",
+   "date": "2024-08-21"
+  }
+ },
+ {
+  "id": "w0228",
+  "query": "What was the high temperature in Auckland, New Zealand on 2022-05-21?",
+  "params": {
+   "location": "Auckland, New Zealand",
+   "date": "2022-05-21"
+  }
+ },
+ {
+  "id": "w0229",
+  "query": "What was the high temperature in Wellington, Wellington Region, New Zealand on 2019-03-04?",
+  "params": {
+   "location": "Wellington, Wellington Region, New Zealand",
+   "date": "2019-03-04"
+  }
+ },
+ {
+  "id": "w0230",
+  "query": "What was the high temperature in Wellington, Wellington Region, New Zealand on 2019-10-17?",
+  "params": {
+   "location": "Wellington, Wellington Region, New Zealand",
+   "date": "2019-10-17"
+  }
+ },
+ {
+  "id": "w0231",
+  "query": "What was the high temperature in Wellington, Wellington Region, New Zealand on 2020-03-05?",
+  "params": {
+   "location": "Wellington, Wellington Region, New Zealand",
+   "date": "2020-03-05"
+  }
+ },
+ {
+  "id": "w0232",
+  "query": "What was the high temperature in Christchurch, Canterbury, New Zealand on 2023-08-10?",
+  "params": {
+   "location": "Christchurch, Canterbury, New Zealand",
+   "date": "2023-08-10"
+  }
+ },
+ {
+  "id": "w0233",
+  "query": "What was the high temperature in Christchurch, Canterbury, New Zealand on 2021-08-16?",
+  "params": {
+   "location": "Christchurch, Canterbury, New Zealand",
+   "date": "2021-08-16"
+  }
+ },
+ {
+  "id": "w0234",
+  "query": "What was the high temperature in Christchurch, Canterbury, New Zealand on 2023-08-17?",
+  "params": {
+   "location": "Christchurch, Canterbury, New Zealand",
+   "date": "2023-08-17"
+  }
+ },
+ {
+  "id": "w0235",
+  "query": "What was the high temperature in Buenos Aires, Buenos Aires F.D., Argentina on 2021-05-13?",
+  "params": {
+   "location": "Buenos Aires, Buenos Aires F.D., Argentina",
+   "date": "2021-05-13"
+  }
+ },
+ {
+  "id": "w0236",
+  "query": "What was the high temperature in Buenos Aires, Buenos Aires F.D., Argentina on 2020-02-09?",
+  "params": {
+   "location": "Buenos Aires, Buenos Aires F.D., Argentina",
+   "date": "2020-02-09"
+  }
+ },
+ {
+  "id": "w0237",
+  "query": "What was the high temperature in Montevideo, Montevideo Department, Uruguay on 2023-06-11?",
+  "params": {
+   "location": "Montevideo, Montevideo Department, Uruguay",
+   "date": "2023-06-11"
+  }
+ },
+ {
+  "id": "w0238",
+  "query": "What was the high temperature in Montevideo, Montevideo Department, Uruguay on 2023-07-10?",
+  "params": {
+   "location": "Montevideo, Montevideo Department, Uruguay",
+   "date": "2023-07-10"
+  }
+ },
+ {
+  "id": "w0239",
+  "query": "What was the high temperature in São Paulo, Brazil on 2022-03-19?",
+  "params": {
+   "location": "São Paulo, Brazil",
+   "date": "2022-03-19"
+  }
+ },
+ {
+  "id": "w0240",
+  "query": "What was the high temperature in São Paulo, Brazil on 2020-04-11?",
+  "params": {
+   "location": "São Paulo, Brazil",
+   "date": "2020-04-11"
+  }
+ },
+ {
+  "id": "w0241",
+  "query": "What was the high temperature in São Paulo, Brazil on 2022-03-11?",
+  "params": {
+   "location": "São Paulo, Brazil",
+   "date": "2022-03-11"
+  }
+ },
+ {
+  "id": "w0242",
+  "query": "What was the high temperature in Tokyo, Japan on 2020-02-19?",
+  "params": {
+   "location": "Tokyo, Japan",
+   "date": "2020-02-19"
+  }
+ },
+ {
+  "id": "w0243",
+  "query": "What was the high temperature in Tokyo, Japan on 2020-01-14?",
+  "params": {
+   "location": "Tokyo, Japan",
+   "date": "2020-01-14"
+  }
+ },
+ {
+  "id": "w0244",
+  "query": "What was the high temperature in Tokyo, Japan on 2020-01-09?",
+  "params": {
+   "location": "Tokyo, Japan",
+   "date": "2020-01-09"
+  }
+ },
+ {
+  "id": "w0245",
+  "query": "What was the high temperature in Osaka, Japan on 2019-12-07?",
+  "params": {
+   "location": "Osaka, Japan",
+   "date": "2019-12-07"
+  }
+ },
+ {
+  "id": "w0246",
+  "query": "What was the high temperature in Osaka, Japan on 2025-06-26?",
+  "params": {
+   "location": "Osaka, Japan",
+   "date": "2025-06-26"
+  }
+ },
+ {
+  "id": "w0247",
+  "query": "What was the high temperature in Osaka, Japan on 2026-02-19?",
+  "params": {
+   "location": "Osaka, Japan",
+   "date": "2026-02-19"
+  }
+ },
+ {
+  "id": "w0248",
+  "query": "What was the high temperature in Seoul, South Korea on 2022-05-12?",
+  "params": {
+   "location": "Seoul, South Korea",
+   "date": "2022-05-12"
+  }
+ },
+ {
+  "id": "w0249",
+  "query": "What was the high temperature in Shanghai, Shanghai Municipality, China on 2020-12-09?",
+  "params": {
+   "location": "Shanghai, Shanghai Municipality, China",
+   "date": "2020-12-09"
+  }
+ },
+ {
+  "id": "w0250",
+  "query": "What was the high temperature in Shanghai, Shanghai Municipality, China on 2020-11-12?",
+  "params": {
+   "location": "Shanghai, Shanghai Municipality, China",
+   "date": "2020-11-12"
+  }
+ },
+ {
+  "id": "w0251",
+  "query": "What was the high temperature in Shanghai, Shanghai Municipality, China on 2023-11-16?",
+  "params": {
+   "location": "Shanghai, Shanghai Municipality, China",
+   "date": "2023-11-16"
+  }
+ },
+ {
+  "id": "w0252",
+  "query": "What was the high temperature in Atlanta, Georgia, United States on 2021-10-21?",
+  "params": {
+   "location": "Atlanta, Georgia, United States",
+   "date": "2021-10-21"
+  }
+ },
+ {
+  "id": "w0253",
+  "query": "What was the high temperature in Atlanta, Georgia, United States on 2022-12-08?",
+  "params": {
+   "location": "Atlanta, Georgia, United States",
+   "date": "2022-12-08"
+  }
+ },
+ {
+  "id": "w0254",
+  "query": "What was the high temperature in Atlanta, Georgia, United States on 2024-08-03?",
+  "params": {
+   "location": "Atlanta, Georgia, United States",
+   "date": "2024-08-03"
+  }
+ },
+ {
+  "id": "w0255",
+  "query": "What was the high temperature in Nashville, Tennessee, United States on 2021-03-28?",
+  "params": {
+   "location": "Nashville, Tennessee, United States",
+   "date": "2021-03-28"
+  }
+ },
+ {
+  "id": "w0256",
+  "query": "What was the high temperature in Nashville, Tennessee, United States on 2025-04-12?",
+  "params": {
+   "location": "Nashville, Tennessee, United States",
+   "date": "2025-04-12"
+  }
+ },
+ {
+  "id": "w0257",
+  "query": "What was the high temperature in Nashville, Tennessee, United States on 2019-07-18?",
+  "params": {
+   "location": "Nashville, Tennessee, United States",
+   "date": "2019-07-18"
+  }
+ },
+ {
+  "id": "w0258",
+  "query": "What was the high temperature in Charlotte, North Carolina, United States on 2021-02-02?",
+  "params": {
+   "location": "Charlotte, North Carolina, United States",
+   "date": "2021-02-02"
+  }
+ },
+ {
+  "id": "w0259",
+  "query": "What was the high temperature in Charlotte, North Carolina, United States on 2024-04-02?",
+  "params": {
+   "location": "Charlotte, North Carolina, United States",
+   "date": "2024-04-02"
+  }
+ },
+ {
+  "id": "w0260",
+  "query": "What was the high temperature in Charlotte, North Carolina, United States on 2024-03-25?",
+  "params": {
+   "location": "Charlotte, North Carolina, United States",
+   "date": "2024-03-25"
+  }
+ },
+ {
+  "id": "w0261",
+  "query": "What was the high temperature in New Orleans, Louisiana, United States on 2022-02-22?",
+  "params": {
+   "location": "New Orleans, Louisiana, United States",
+   "date": "2022-02-22"
+  }
+ },
+ {
+  "id": "w0262",
+  "query": "What was the high temperature in New Orleans, Louisiana, United States on 2021-09-13?",
+  "params": {
+   "location": "New Orleans, Louisiana, United States",
+   "date": "2021-09-13"
+  }
+ },
+ {
+  "id": "w0263",
+  "query": "What was the high temperature in New Orleans, Louisiana, United States on 2020-11-06?",
+  "params": {
+   "location": "New Orleans, Louisiana, United States",
+   "date": "2020-11-06"
+  }
+ },
+ {
+  "id": "w0264",
+  "query": "What was the high temperature in Houston, Texas, United States on 2021-02-28?",
+  "params": {
+   "location": "Houston, Texas, United States",
+   "date": "2021-02-28"
+  }
+ },
+ {
+  "id": "w0265",
+  "query": "What was the high temperature in Houston, Texas, United States on 2020-03-16?",
+  "params": {
+   "location": "Houston, Texas, United States",
+   "date": "2020-03-16"
+  }
+ },
+ {
+  "id": "w0266",
+  "query": "What was the high temperature in Houston, Texas, United States on 2020-06-23?",
+  "params": {
+   "location": "Houston, Texas, United States",
+   "date": "2020-06-23"
+  }
+ },
+ {
+  "id": "w0267",
+  "query": "What was the high temperature in Dallas, Texas, United States on 2021-01-17?",
+  "params": {
+   "location": "Dallas, Texas, United States",
+   "date": "2021-01-17"
+  }
+ },
+ {
+  "id": "w0268",
+  "query": "What was the high temperature in Dallas, Texas, United States on 2023-02-27?",
+  "params": {
+   "location": "Dallas, Texas, United States",
+   "date": "2023-02-27"
+  }
+ },
+ {
+  "id": "w0269",
+  "query": "What was the high temperature in Dallas, Texas, United States on 2019-10-08?",
+  "params": {
+   "location": "Dallas, Texas, United States",
+   "date": "2019-10-08"
+  }
+ },
+ {
+  "id": "w0270",
+  "query": "What was the high temperature in Johannesburg, Gauteng, South Africa on 2020-01-08?",
+  "params": {
+   "location": "Johannesburg, Gauteng, South Africa",
+   "date": "2020-01-08"
+  }
+ },
+ {
+  "id": "w0271",
+  "query": "What was the high temperature in Durban, KwaZulu-Natal, South Africa on 2019-04-20?",
+  "params": {
+   "location": "Durban, KwaZulu-Natal, South Africa",
+   "date": "2019-04-20"
+  }
+ },
+ {
+  "id": "w0272",
+  "query": "What was the high temperature in Durban, KwaZulu-Natal, South Africa on 2022-11-11?",
+  "params": {
+   "location": "Durban, KwaZulu-Natal, South Africa",
+   "date": "2022-11-11"
+  }
+ },
+ {
+  "id": "w0273",
+  "query": "What was the high temperature in Durban, KwaZulu-Natal, South Africa on 2023-09-17?",
+  "params": {
+   "location": "Durban, KwaZulu-Natal, South Africa",
+   "date": "2023-09-17"
+  }
+ },
+ {
+  "id": "w0274",
+  "query": "What was the high temperature in Kunming, Yunnan, China on 2020-01-11?",
+  "params": {
+   "location": "Kunming, Yunnan, China",
+   "date": "2020-01-11"
+  }
+ },
+ {
+  "id": "w0275",
+  "query": "What was the high temperature in Kunming, Yunnan, China on 2020-01-26?",
+  "params": {
+   "location": "Kunming, Yunnan, China",
+   "date": "2020-01-26"
+  }
+ },
+ {
+  "id": "w0276",
+  "query": "What was the high temperature in Kunming, Yunnan, China on 2025-04-26?",
+  "params": {
+   "location": "Kunming, Yunnan, China",
+   "date": "2025-04-26"
+  }
+ },
+ {
+  "id": "w0277",
+  "query": "What was the high temperature in Mexico City, Mexico on 2023-10-05?",
+  "params": {
+   "location": "Mexico City, Mexico",
+   "date": "2023-10-05"
+  }
+ },
+ {
+  "id": "w0278",
+  "query": "What was the high temperature in Mexico City, Mexico on 2022-03-10?",
+  "params": {
+   "location": "Mexico City, Mexico",
+   "date": "2022-03-10"
+  }
+ },
+ {
+  "id": "w0279",
+  "query": "What was the high temperature in Mexico City, Mexico on 2024-05-23?",
+  "params": {
+   "location": "Mexico City, Mexico",
+   "date": "2024-05-23"
+  }
+ },
+ {
+  "id": "w0280",
+  "query": "What was the high temperature in Guadalajara, Jalisco, Mexico on 2019-04-17?",
+  "params": {
+   "location": "Guadalajara, Jalisco, Mexico",
+   "date": "2019-04-17"
+  }
+ },
+ {
+  "id": "w0281",
+  "query": "What was the high temperature in Guadalajara, Jalisco, Mexico on 2022-01-07?",
+  "params": {
+   "location": "Guadalajara, Jalisco, Mexico",
+   "date": "2022-01-07"
+  }
+ },
+ {
+  "id": "w0282",
+  "query": "What was the high temperature in Guadalajara, Jalisco, Mexico on 2025-02-03?",
+  "params": {
+   "location": "Guadalajara, Jalisco, Mexico",
+   "date": "2025-02-03"
+  }
+ },
+ {
+  "id": "w0283",
+  "query": "What was the high temperature in Monterrey, Nuevo León, Mexico on 2025-03-06?",
+  "params": {
+   "location": "Monterrey, Nuevo León, Mexico",
+   "date": "2025-03-06"
+  }
+ },
+ {
+  "id": "w0284",
+  "query": "What was the high temperature in Monterrey, Nuevo León, Mexico on 2022-10-21?",
+  "params": {
+   "location": "Monterrey, Nuevo León, Mexico",
+   "date": "2022-10-21"
+  }
+ },
+ {
+  "id": "w0285",
+  "query": "What was the high temperature in Monterrey, Nuevo León, Mexico on 2024-05-06?",
+  "params": {
+   "location": "Monterrey, Nuevo León, Mexico",
+   "date": "2024-05-06"
+  }
+ },
+ {
+  "id": "w0286",
+  "query": "What was the high temperature in Hobart, Tasmania, Australia on 2026-01-04?",
+  "params": {
+   "location": "Hobart, Tasmania, Australia",
+   "date": "2026-01-04"
+  }
+ },
+ {
+  "id": "w0287",
+  "query": "What was the high temperature in Hobart, Tasmania, Australia on 2021-03-19?",
+  "params": {
+   "location": "Hobart, Tasmania, Australia",
+   "date": "2021-03-19"
+  }
+ },
+ {
+  "id": "w0288",
+  "query": "What was the high temperature in Hobart, Tasmania, Australia on 2020-12-11?",
+  "params": {
+   "location": "Hobart, Tasmania, Australia",
+   "date": "2020-12-11"
+  }
+ },
+ {
+  "id": "w0289",
+  "query": "What was the high temperature in Chicago, Illinois, United States on 2021-05-05?",
+  "params": {
+   "location": "Chicago, Illinois, United States",
+   "date": "2021-05-05"
+  }
+ },
+ {
+  "id": "w0290",
+  "query": "What was the high temperature in Chicago, Illinois, United States on 2025-01-22?",
+  "params": {
+   "location": "Chicago, Illinois, United States",
+   "date": "2025-01-22"
+  }
+ },
+ {
+  "id": "w0291",
+  "query": "What was the high temperature in Chicago, Illinois, United States on 2019-09-10?",
+  "params": {
+   "location": "Chicago, Illinois, United States",
+   "date": "2019-09-10"
+  }
+ },
+ {
+  "id": "w0292",
+  "query": "What was the high temperature in New York, United States on 2024-12-23?",
+  "params": {
+   "location": "New York, United States",
+   "date": "2024-12-23"
+  }
+ },
+ {
+  "id": "w0293",
+  "query": "What was the high temperature in New York, United States on 2020-12-11?",
+  "params": {
+   "location": "New York, United States",
+   "date": "2020-12-11"
+  }
+ },
+ {
+  "id": "w0294",
+  "query": "What was the high temperature in New York, United States on 2019-07-18?",
+  "params": {
+   "location": "New York, United States",
+   "date": "2019-07-18"
+  }
+ },
+ {
+  "id": "w0295",
+  "query": "What was the high temperature in Boston, Massachusetts, United States on 2021-06-04?",
+  "params": {
+   "location": "Boston, Massachusetts, United States",
+   "date": "2021-06-04"
+  }
+ },
+ {
+  "id": "w0296",
+  "query": "What was the high temperature in Boston, Massachusetts, United States on 2024-03-11?",
+  "params": {
+   "location": "Boston, Massachusetts, United States",
+   "date": "2024-03-11"
+  }
+ },
+ {
+  "id": "w0297",
+  "query": "What was the high temperature in Boston, Massachusetts, United States on 2020-03-10?",
+  "params": {
+   "location": "Boston, Massachusetts, United States",
+   "date": "2020-03-10"
+  }
+ },
+ {
+  "id": "w0298",
+  "query": "What was the high temperature in Philadelphia, Pennsylvania, United States on 2023-08-13?",
+  "params": {
+   "location": "Philadelphia, Pennsylvania, United States",
+   "date": "2023-08-13"
+  }
+ },
+ {
+  "id": "w0299",
+  "query": "What was the high temperature in Philadelphia, Pennsylvania, United States on 2021-03-23?",
+  "params": {
+   "location": "Philadelphia, Pennsylvania, United States",
+   "date": "2021-03-23"
+  }
+ },
+ {
+  "id": "w0300",
+  "query": "What was the high temperature in Philadelphia, Pennsylvania, United States on 2022-08-14?",
+  "params": {
+   "location": "Philadelphia, Pennsylvania, United States",
+   "date": "2022-08-14"
+  }
+ },
+ {
+  "id": "w0301",
+  "query": "What was the high temperature in Detroit, Michigan, United States on 2023-06-01?",
+  "params": {
+   "location": "Detroit, Michigan, United States",
+   "date": "2023-06-01"
+  }
+ },
+ {
+  "id": "w0302",
+  "query": "What was the high temperature in Detroit, Michigan, United States on 2024-05-21?",
+  "params": {
+   "location": "Detroit, Michigan, United States",
+   "date": "2024-05-21"
+  }
+ },
+ {
+  "id": "w0303",
+  "query": "What was the high temperature in Detroit, Michigan, United States on 2024-03-27?",
+  "params": {
+   "location": "Detroit, Michigan, United States",
+   "date": "2024-03-27"
+  }
+ },
+ {
+  "id": "w0304",
+  "query": "What was the high temperature in Cleveland, Ohio, United States on 2019-04-26?",
+  "params": {
+   "location": "Cleveland, Ohio, United States",
+   "date": "2019-04-26"
+  }
+ },
+ {
+  "id": "w0305",
+  "query": "What was the high temperature in Cleveland, Ohio, United States on 2022-11-11?",
+  "params": {
+   "location": "Cleveland, Ohio, United States",
+   "date": "2022-11-11"
+  }
+ },
+ {
+  "id": "w0306",
+  "query": "What was the high temperature in Cleveland, Ohio, United States on 2019-02-28?",
+  "params": {
+   "location": "Cleveland, Ohio, United States",
+   "date": "2019-02-28"
+  }
+ },
+ {
+  "id": "w0307",
+  "query": "What was the high temperature in Minneapolis, Minnesota, United States on 2022-06-22?",
+  "params": {
+   "location": "Minneapolis, Minnesota, United States",
+   "date": "2022-06-22"
+  }
+ },
+ {
+  "id": "w0308",
+  "query": "What was the high temperature in Minneapolis, Minnesota, United States on 2024-01-11?",
+  "params": {
+   "location": "Minneapolis, Minnesota, United States",
+   "date": "2024-01-11"
+  }
+ },
+ {
+  "id": "w0309",
+  "query": "What was the high temperature in Minneapolis, Minnesota, United States on 2023-08-08?",
+  "params": {
+   "location": "Minneapolis, Minnesota, United States",
+   "date": "2023-08-08"
+  }
+ },
+ {
+  "id": "w0310",
+  "query": "What was the high temperature in Kansas City, Missouri, United States on 2024-04-20?",
+  "params": {
+   "location": "Kansas City, Missouri, United States",
+   "date": "2024-04-20"
+  }
+ },
+ {
+  "id": "w0311",
+  "query": "What was the high temperature in Kansas City, Missouri, United States on 2019-11-28?",
+  "params": {
+   "location": "Kansas City, Missouri, United States",
+   "date": "2019-11-28"
+  }
+ },
+ {
+  "id": "w0312",
+  "query": "What was the high temperature in Kansas City, Missouri, United States on 2024-10-14?",
+  "params": {
+   "location": "Kansas City, Missouri, United States",
+   "date": "2024-10-14"
+  }
+ },
+ {
+  "id": "w0313",
+  "query": "What was the high temperature in Omaha, Nebraska, United States on 2023-10-02?",
+  "params": {
+   "location": "Omaha, Nebraska, United States",
+   "date": "2023-10-02"
+  }
+ },
+ {
+  "id": "w0314",
+  "query": "What was the high temperature in Omaha, Nebraska, United States on 2021-05-27?",
+  "params": {
+   "location": "Omaha, Nebraska, United States",
+   "date": "2021-05-27"
+  }
+ },
+ {
+  "id": "w0315",
+  "query": "What was the high temperature in Omaha, Nebraska, United States on 2025-01-03?",
+  "params": {
+   "location": "Omaha, Nebraska, United States",
+   "date": "2025-01-03"
+  }
+ },
+ {
+  "id": "w0316",
+  "query": "What was the high temperature in Oklahoma City, Oklahoma, United States on 2025-09-22?",
+  "params": {
+   "location": "Oklahoma City, Oklahoma, United States",
+   "date": "2025-09-22"
+  }
+ },
+ {
+  "id": "w0317",
+  "query": "What was the high temperature in Oklahoma City, Oklahoma, United States on 2023-11-12?",
+  "params": {
+   "location": "Oklahoma City, Oklahoma, United States",
+   "date": "2023-11-12"
+  }
+ },
+ {
+  "id": "w0318",
+  "query": "What was the high temperature in Oklahoma City, Oklahoma, United States on 2022-04-16?",
+  "params": {
+   "location": "Oklahoma City, Oklahoma, United States",
+   "date": "2022-04-16"
+  }
+ },
+ {
+  "id": "w0319",
+  "query": "What was the high temperature in Toronto, Ontario, Canada on 2024-07-21?",
+  "params": {
+   "location": "Toronto, Ontario, Canada",
+   "date": "2024-07-21"
+  }
+ },
+ {
+  "id": "w0320",
+  "query": "What was the high temperature in Toronto, Ontario, Canada on 2024-12-01?",
+  "params": {
+   "location": "Toronto, Ontario, Canada",
+   "date": "2024-12-01"
+  }
+ },
+ {
+  "id": "w0321",
+  "query": "What was the high temperature in Toronto, Ontario, Canada on 2021-04-12?",
+  "params": {
+   "location": "Toronto, Ontario, Canada",
+   "date": "2021-04-12"
+  }
+ },
+ {
+  "id": "w0322",
+  "query": "What was the high temperature in Montreal, Quebec, Canada on 2019-11-07?",
+  "params": {
+   "location": "Montreal, Quebec, Canada",
+   "date": "2019-11-07"
+  }
+ },
+ {
+  "id": "w0323",
+  "query": "What was the high temperature in Montreal, Quebec, Canada on 2026-01-27?",
+  "params": {
+   "location": "Montreal, Quebec, Canada",
+   "date": "2026-01-27"
+  }
+ },
+ {
+  "id": "w0324",
+  "query": "What was the high temperature in Montreal, Quebec, Canada on 2024-05-19?",
+  "params": {
+   "location": "Montreal, Quebec, Canada",
+   "date": "2024-05-19"
+  }
+ },
+ {
+  "id": "w0325",
+  "query": "What was the high temperature in Ottawa, Ontario, Canada on 2021-01-13?",
+  "params": {
+   "location": "Ottawa, Ontario, Canada",
+   "date": "2021-01-13"
+  }
+ },
+ {
+  "id": "w0326",
+  "query": "What was the high temperature in Ottawa, Ontario, Canada on 2025-09-15?",
+  "params": {
+   "location": "Ottawa, Ontario, Canada",
+   "date": "2025-09-15"
+  }
+ },
+ {
+  "id": "w0327",
+  "query": "What was the high temperature in Ottawa, Ontario, Canada on 2026-03-16?",
+  "params": {
+   "location": "Ottawa, Ontario, Canada",
+   "date": "2026-03-16"
+  }
+ },
+ {
+  "id": "w0328",
+  "query": "What was the high temperature in Winnipeg, Manitoba, Canada on 2023-05-08?",
+  "params": {
+   "location": "Winnipeg, Manitoba, Canada",
+   "date": "2023-05-08"
+  }
+ },
+ {
+  "id": "w0329",
+  "query": "What was the high temperature in Winnipeg, Manitoba, Canada on 2021-07-28?",
+  "params": {
+   "location": "Winnipeg, Manitoba, Canada",
+   "date": "2021-07-28"
+  }
+ },
+ {
+  "id": "w0330",
+  "query": "What was the high temperature in Winnipeg, Manitoba, Canada on 2021-02-28?",
+  "params": {
+   "location": "Winnipeg, Manitoba, Canada",
+   "date": "2021-02-28"
+  }
+ },
+ {
+  "id": "w0331",
+  "query": "What was the high temperature in Calgary, Alberta, Canada on 2024-03-19?",
+  "params": {
+   "location": "Calgary, Alberta, Canada",
+   "date": "2024-03-19"
+  }
+ },
+ {
+  "id": "w0332",
+  "query": "What was the high temperature in Calgary, Alberta, Canada on 2025-06-02?",
+  "params": {
+   "location": "Calgary, Alberta, Canada",
+   "date": "2025-06-02"
+  }
+ },
+ {
+  "id": "w0333",
+  "query": "What was the high temperature in Calgary, Alberta, Canada on 2023-01-08?",
+  "params": {
+   "location": "Calgary, Alberta, Canada",
+   "date": "2023-01-08"
+  }
+ },
+ {
+  "id": "w0334",
+  "query": "What was the high temperature in Edmonton, Alberta, Canada on 2022-10-22?",
+  "params": {
+   "location": "Edmonton, Alberta, Canada",
+   "date": "2022-10-22"
+  }
+ },
+ {
+  "id": "w0335",
+  "query": "What was the high temperature in Edmonton, Alberta, Canada on 2020-05-18?",
+  "params": {
+   "location": "Edmonton, Alberta, Canada",
+   "date": "2020-05-18"
+  }
+ },
+ {
+  "id": "w0336",
+  "query": "What was the high temperature in Edmonton, Alberta, Canada on 2023-05-13?",
+  "params": {
+   "location": "Edmonton, Alberta, Canada",
+   "date": "2023-05-13"
+  }
+ },
+ {
+  "id": "w0337",
+  "query": "What was the high temperature in Moscow, Russia on 2021-09-01?",
+  "params": {
+   "location": "Moscow, Russia",
+   "date": "2021-09-01"
+  }
+ },
+ {
+  "id": "w0338",
+  "query": "What was the high temperature in Kyiv, Kyiv City, Ukraine on 2019-04-27?",
+  "params": {
+   "location": "Kyiv, Kyiv City, Ukraine",
+   "date": "2019-04-27"
+  }
+ },
+ {
+  "id": "w0339",
+  "query": "What was the high temperature in Kyiv, Kyiv City, Ukraine on 2021-05-13?",
+  "params": {
+   "location": "Kyiv, Kyiv City, Ukraine",
+   "date": "2021-05-13"
+  }
+ },
+ {
+  "id": "w0340",
+  "query": "What was the high temperature in Kyiv, Kyiv City, Ukraine on 2020-10-26?",
+  "params": {
+   "location": "Kyiv, Kyiv City, Ukraine",
+   "date": "2020-10-26"
+  }
+ },
+ {
+  "id": "w0341",
+  "query": "What was the high temperature in Minsk, Minsk City, Belarus on 2024-02-18?",
+  "params": {
+   "location": "Minsk, Minsk City, Belarus",
+   "date": "2024-02-18"
+  }
+ },
+ {
+  "id": "w0342",
+  "query": "What was the high temperature in Minsk, Minsk City, Belarus on 2024-02-16?",
+  "params": {
+   "location": "Minsk, Minsk City, Belarus",
+   "date": "2024-02-16"
+  }
+ },
+ {
+  "id": "w0343",
+  "query": "What was the high temperature in Minsk, Minsk City, Belarus on 2021-11-02?",
+  "params": {
+   "location": "Minsk, Minsk City, Belarus",
+   "date": "2021-11-02"
+  }
+ },
+ {
+  "id": "w0344",
+  "query": "What was the high temperature in Bucharest, Romania on 2023-08-14?",
+  "params": {
+   "location": "Bucharest, Romania",
+   "date": "2023-08-14"
+  }
+ },
+ {
+  "id": "w0345",
+  "query": "What was the high temperature in Bucharest, Romania on 2024-09-02?",
+  "params": {
+   "location": "Bucharest, Romania",
+   "date": "2024-09-02"
+  }
+ },
+ {
+  "id": "w0346",
+  "query": "What was the high temperature in Bucharest, Romania on 2023-08-05?",
+  "params": {
+   "location": "Bucharest, Romania",
+   "date": "2023-08-05"
+  }
+ },
+ {
+  "id": "w0347",
+  "query": "What was the high temperature in Sofia, Sofia-Capital, Bulgaria on 2019-03-23?",
+  "params": {
+   "location": "Sofia, Sofia-Capital, Bulgaria",
+   "date": "2019-03-23"
+  }
+ },
+ {
+  "id": "w0348",
+  "query": "What was the high temperature in Sofia, Sofia-Capital, Bulgaria on 2021-11-04?",
+  "params": {
+   "location": "Sofia, Sofia-Capital, Bulgaria",
+   "date": "2021-11-04"
+  }
+ },
+ {
+  "id": "w0349",
+  "query": "What was the high temperature in Sofia, Sofia-Capital, Bulgaria on 2020-08-12?",
+  "params": {
+   "location": "Sofia, Sofia-Capital, Bulgaria",
+   "date": "2020-08-12"
+  }
+ },
+ {
+  "id": "w0350",
+  "query": "What was the high temperature in Belgrade, Central Serbia, Serbia on 2019-04-14?",
+  "params": {
+   "location": "Belgrade, Central Serbia, Serbia",
+   "date": "2019-04-14"
+  }
+ },
+ {
+  "id": "w0351",
+  "query": "What was the high temperature in Belgrade, Central Serbia, Serbia on 2026-03-12?",
+  "params": {
+   "location": "Belgrade, Central Serbia, Serbia",
+   "date": "2026-03-12"
+  }
+ },
+ {
+  "id": "w0352",
+  "query": "What was the high temperature in Belgrade, Central Serbia, Serbia on 2022-08-05?",
+  "params": {
+   "location": "Belgrade, Central Serbia, Serbia",
+   "date": "2022-08-05"
+  }
+ },
+ {
+  "id": "w0353",
+  "query": "What was the high temperature in Beijing, Beijing Municipality, China on 2024-11-27?",
+  "params": {
+   "location": "Beijing, Beijing Municipality, China",
+   "date": "2024-11-27"
+  }
+ },
+ {
+  "id": "w0354",
+  "query": "What was the high temperature in Beijing, Beijing Municipality, China on 2022-02-09?",
+  "params": {
+   "location": "Beijing, Beijing Municipality, China",
+   "date": "2022-02-09"
+  }
+ },
+ {
+  "id": "w0355",
+  "query": "What was the high temperature in Beijing, Beijing Municipality, China on 2025-07-22?",
+  "params": {
+   "location": "Beijing, Beijing Municipality, China",
+   "date": "2025-07-22"
+  }
+ },
+ {
+  "id": "w0356",
+  "query": "What was the high temperature in Harbin, Heilongjiang, China on 2022-03-24?",
+  "params": {
+   "location": "Harbin, Heilongjiang, China",
+   "date": "2022-03-24"
+  }
+ },
+ {
+  "id": "w0357",
+  "query": "What was the high temperature in Harbin, Heilongjiang, China on 2021-07-27?",
+  "params": {
+   "location": "Harbin, Heilongjiang, China",
+   "date": "2021-07-27"
+  }
+ },
+ {
+  "id": "w0358",
+  "query": "What was the high temperature in Harbin, Heilongjiang, China on 2024-05-03?",
+  "params": {
+   "location": "Harbin, Heilongjiang, China",
+   "date": "2024-05-03"
+  }
+ },
+ {
+  "id": "w0359",
+  "query": "What was the high temperature in Shenyang, Liaoning, China on 2021-09-15?",
+  "params": {
+   "location": "Shenyang, Liaoning, China",
+   "date": "2021-09-15"
+  }
+ },
+ {
+  "id": "w0360",
+  "query": "What was the high temperature in Shenyang, Liaoning, China on 2022-06-10?",
+  "params": {
+   "location": "Shenyang, Liaoning, China",
+   "date": "2022-06-10"
+  }
+ },
+ {
+  "id": "w0361",
+  "query": "What was the high temperature in Shenyang, Liaoning, China on 2022-02-20?",
+  "params": {
+   "location": "Shenyang, Liaoning, China",
+   "date": "2022-02-20"
+  }
+ },
+ {
+  "id": "w0362",
+  "query": "What was the high temperature in Almaty, Kazakhstan on 2025-03-13?",
+  "params": {
+   "location": "Almaty, Kazakhstan",
+   "date": "2025-03-13"
+  }
+ },
+ {
+  "id": "w0363",
+  "query": "What was the high temperature in Almaty, Kazakhstan on 2023-03-03?",
+  "params": {
+   "location": "Almaty, Kazakhstan",
+   "date": "2023-03-03"
+  }
+ },
+ {
+  "id": "w0364",
+  "query": "What was the high temperature in Almaty, Kazakhstan on 2026-05-19?",
+  "params": {
+   "location": "Almaty, Kazakhstan",
+   "date": "2026-05-19"
+  }
+ },
+ {
+  "id": "w0365",
+  "query": "What was the high temperature in Astana, Kazakhstan on 2021-01-04?",
+  "params": {
+   "location": "Astana, Kazakhstan",
+   "date": "2021-01-04"
+  }
+ },
+ {
+  "id": "w0366",
+  "query": "What was the high temperature in Astana, Kazakhstan on 2021-01-21?",
+  "params": {
+   "location": "Astana, Kazakhstan",
+   "date": "2021-01-21"
+  }
+ },
+ {
+  "id": "w0367",
+  "query": "What was the high temperature in Astana, Kazakhstan on 2019-05-03?",
+  "params": {
+   "location": "Astana, Kazakhstan",
+   "date": "2019-05-03"
+  }
+ },
+ {
+  "id": "w0368",
+  "query": "What was the high temperature in Lahore, Punjab, Pakistan on 2025-12-09?",
+  "params": {
+   "location": "Lahore, Punjab, Pakistan",
+   "date": "2025-12-09"
+  }
+ },
+ {
+  "id": "w0369",
+  "query": "What was the high temperature in Lahore, Punjab, Pakistan on 2025-10-12?",
+  "params": {
+   "location": "Lahore, Punjab, Pakistan",
+   "date": "2025-10-12"
+  }
+ },
+ {
+  "id": "w0370",
+  "query": "What was the high temperature in Helsinki, Uusimaa, Finland on 2023-07-04?",
+  "params": {
+   "location": "Helsinki, Uusimaa, Finland",
+   "date": "2023-07-04"
+  }
+ },
+ {
+  "id": "w0371",
+  "query": "What was the high temperature in Helsinki, Uusimaa, Finland on 2022-08-27?",
+  "params": {
+   "location": "Helsinki, Uusimaa, Finland",
+   "date": "2022-08-27"
+  }
+ },
+ {
+  "id": "w0372",
+  "query": "What was the high temperature in Helsinki, Uusimaa, Finland on 2024-08-28?",
+  "params": {
+   "location": "Helsinki, Uusimaa, Finland",
+   "date": "2024-08-28"
+  }
+ },
+ {
+  "id": "w0373",
+  "query": "What was the high temperature in Stockholm, Stockholm County, Sweden on 2019-06-01?",
+  "params": {
+   "location": "Stockholm, Stockholm County, Sweden",
+   "date": "2019-06-01"
+  }
+ },
+ {
+  "id": "w0374",
+  "query": "What was the high temperature in Stockholm, Stockholm County, Sweden on 2025-10-05?",
+  "params": {
+   "location": "Stockholm, Stockholm County, Sweden",
+   "date": "2025-10-05"
+  }
+ },
+ {
+  "id": "w0375",
+  "query": "What was the high temperature in Stockholm, Stockholm County, Sweden on 2022-11-12?",
+  "params": {
+   "location": "Stockholm, Stockholm County, Sweden",
+   "date": "2022-11-12"
+  }
+ },
+ {
+  "id": "w0376",
+  "query": "What was the high temperature in Oslo, Norway on 2021-09-05?",
+  "params": {
+   "location": "Oslo, Norway",
+   "date": "2021-09-05"
+  }
+ },
+ {
+  "id": "w0377",
+  "query": "What was the high temperature in Oslo, Norway on 2022-02-12?",
+  "params": {
+   "location": "Oslo, Norway",
+   "date": "2022-02-12"
+  }
+ },
+ {
+  "id": "w0378",
+  "query": "What was the high temperature in Oslo, Norway on 2024-12-22?",
+  "params": {
+   "location": "Oslo, Norway",
+   "date": "2024-12-22"
+  }
+ },
+ {
+  "id": "w0379",
+  "query": "What was the high temperature in Tallinn, Harju, Estonia on 2020-05-14?",
+  "params": {
+   "location": "Tallinn, Harju, Estonia",
+   "date": "2020-05-14"
+  }
+ },
+ {
+  "id": "w0380",
+  "query": "What was the high temperature in Tallinn, Harju, Estonia on 2025-09-24?",
+  "params": {
+   "location": "Tallinn, Harju, Estonia",
+   "date": "2025-09-24"
+  }
+ },
+ {
+  "id": "w0381",
+  "query": "What was the high temperature in Tallinn, Harju, Estonia on 2021-04-06?",
+  "params": {
+   "location": "Tallinn, Harju, Estonia",
+   "date": "2021-04-06"
+  }
+ },
+ {
+  "id": "w0382",
+  "query": "What was the high temperature in Sapporo, Hokkaido, Japan on 2019-03-17?",
+  "params": {
+   "location": "Sapporo, Hokkaido, Japan",
+   "date": "2019-03-17"
+  }
+ },
+ {
+  "id": "w0383",
+  "query": "What was the high temperature in Vladivostok, Primorskiy (Maritime) Kray, Russia on 2020-07-02?",
+  "params": {
+   "location": "Vladivostok, Primorskiy (Maritime) Kray, Russia",
+   "date": "2020-07-02"
+  }
+ },
+ {
+  "id": "w0384",
+  "query": "What was the high temperature in Vladivostok, Primorskiy (Maritime) Kray, Russia on 2020-09-15?",
+  "params": {
+   "location": "Vladivostok, Primorskiy (Maritime) Kray, Russia",
+   "date": "2020-09-15"
+  }
+ },
+ {
+  "id": "w0385",
+  "query": "What was the high temperature in Vladivostok, Primorskiy (Maritime) Kray, Russia on 2025-05-04?",
+  "params": {
+   "location": "Vladivostok, Primorskiy (Maritime) Kray, Russia",
+   "date": "2025-05-04"
+  }
+ },
+ {
+  "id": "w0386",
+  "query": "What was the high temperature in Cincinnati, Ohio, United States on 2022-04-17?",
+  "params": {
+   "location": "Cincinnati, Ohio, United States",
+   "date": "2022-04-17"
+  }
+ },
+ {
+  "id": "w0387",
+  "query": "What was the high temperature in Cincinnati, Ohio, United States on 2024-06-05?",
+  "params": {
+   "location": "Cincinnati, Ohio, United States",
+   "date": "2024-06-05"
+  }
+ },
+ {
+  "id": "w0388",
+  "query": "What was the high temperature in Cincinnati, Ohio, United States on 2023-10-08?",
+  "params": {
+   "location": "Cincinnati, Ohio, United States",
+   "date": "2023-10-08"
+  }
+ },
+ {
+  "id": "w0389",
+  "query": "What was the high temperature in Milwaukee, Wisconsin, United States on 2021-06-02?",
+  "params": {
+   "location": "Milwaukee, Wisconsin, United States",
+   "date": "2021-06-02"
+  }
+ },
+ {
+  "id": "w0390",
+  "query": "What was the high temperature in Milwaukee, Wisconsin, United States on 2019-05-18?",
+  "params": {
+   "location": "Milwaukee, Wisconsin, United States",
+   "date": "2019-05-18"
+  }
+ },
+ {
+  "id": "w0391",
+  "query": "What was the high temperature in Milwaukee, Wisconsin, United States on 2019-01-01?",
+  "params": {
+   "location": "Milwaukee, Wisconsin, United States",
+   "date": "2019-01-01"
+  }
+ },
+ {
+  "id": "w0392",
+  "query": "What was the high temperature in Indianapolis, Indiana, United States on 2024-04-08?",
+  "params": {
+   "location": "Indianapolis, Indiana, United States",
+   "date": "2024-04-08"
+  }
+ },
+ {
+  "id": "w0393",
+  "query": "What was the high temperature in Indianapolis, Indiana, United States on 2023-01-14?",
+  "params": {
+   "location": "Indianapolis, Indiana, United States",
+   "date": "2023-01-14"
+  }
+ },
+ {
+  "id": "w0394",
+  "query": "What was the high temperature in Indianapolis, Indiana, United States on 2025-09-23?",
+  "params": {
+   "location": "Indianapolis, Indiana, United States",
+   "date": "2025-09-23"
+  }
+ },
+ {
+  "id": "w0395",
+  "query": "What was the high temperature in Anchorage, Alaska, United States on 2024-10-03?",
+  "params": {
+   "location": "Anchorage, Alaska, United States",
+   "date": "2024-10-03"
+  }
+ },
+ {
+  "id": "w0396",
+  "query": "What was the high temperature in Anchorage, Alaska, United States on 2022-10-13?",
+  "params": {
+   "location": "Anchorage, Alaska, United States",
+   "date": "2022-10-13"
+  }
+ },
+ {
+  "id": "w0397",
+  "query": "What was the high temperature in Anchorage, Alaska, United States on 2026-02-12?",
+  "params": {
+   "location": "Anchorage, Alaska, United States",
+   "date": "2026-02-12"
+  }
+ },
+ {
+  "id": "w0398",
+  "query": "What was the high temperature in Fairbanks, Alaska, United States on 2022-08-07?",
+  "params": {
+   "location": "Fairbanks, Alaska, United States",
+   "date": "2022-08-07"
+  }
+ },
+ {
+  "id": "w0399",
+  "query": "What was the high temperature in Fairbanks, Alaska, United States on 2026-01-24?",
+  "params": {
+   "location": "Fairbanks, Alaska, United States",
+   "date": "2026-01-24"
+  }
+ },
+ {
+  "id": "w0400",
+  "query": "What was the high temperature in Fairbanks, Alaska, United States on 2023-06-05?",
+  "params": {
+   "location": "Fairbanks, Alaska, United States",
+   "date": "2023-06-05"
+  }
+ },
+ {
+  "id": "w0401",
+  "query": "What was the high temperature in Juneau, Alaska, United States on 2024-02-01?",
+  "params": {
+   "location": "Juneau, Alaska, United States",
+   "date": "2024-02-01"
+  }
+ },
+ {
+  "id": "w0402",
+  "query": "What was the high temperature in Juneau, Alaska, United States on 2025-08-10?",
+  "params": {
+   "location": "Juneau, Alaska, United States",
+   "date": "2025-08-10"
+  }
+ },
+ {
+  "id": "w0403",
+  "query": "What was the high temperature in Juneau, Alaska, United States on 2021-04-03?",
+  "params": {
+   "location": "Juneau, Alaska, United States",
+   "date": "2021-04-03"
+  }
+ },
+ {
+  "id": "w0404",
+  "query": "What was the high temperature in Murmansk, Russia on 2023-08-02?",
+  "params": {
+   "location": "Murmansk, Russia",
+   "date": "2023-08-02"
+  }
+ },
+ {
+  "id": "w0405",
+  "query": "What was the high temperature in Murmansk, Russia on 2019-01-06?",
+  "params": {
+   "location": "Murmansk, Russia",
+   "date": "2019-01-06"
+  }
+ },
+ {
+  "id": "w0406",
+  "query": "What was the high temperature in Murmansk, Russia on 2022-01-10?",
+  "params": {
+   "location": "Murmansk, Russia",
+   "date": "2022-01-10"
+  }
+ },
+ {
+  "id": "w0407",
+  "query": "What was the high temperature in Yakutsk, Sakha, Russia on 2025-05-09?",
+  "params": {
+   "location": "Yakutsk, Sakha, Russia",
+   "date": "2025-05-09"
+  }
+ },
+ {
+  "id": "w0408",
+  "query": "What was the high temperature in Yakutsk, Sakha, Russia on 2024-08-25?",
+  "params": {
+   "location": "Yakutsk, Sakha, Russia",
+   "date": "2024-08-25"
+  }
+ },
+ {
+  "id": "w0409",
+  "query": "What was the high temperature in Yakutsk, Sakha, Russia on 2022-05-16?",
+  "params": {
+   "location": "Yakutsk, Sakha, Russia",
+   "date": "2022-05-16"
+  }
+ },
+ {
+  "id": "w0410",
+  "query": "What was the high temperature in Whitehorse, Yukon, Canada on 2020-07-08?",
+  "params": {
+   "location": "Whitehorse, Yukon, Canada",
+   "date": "2020-07-08"
+  }
+ },
+ {
+  "id": "w0411",
+  "query": "What was the high temperature in Whitehorse, Yukon, Canada on 2023-02-22?",
+  "params": {
+   "location": "Whitehorse, Yukon, Canada",
+   "date": "2023-02-22"
+  }
+ },
+ {
+  "id": "w0412",
+  "query": "What was the high temperature in Whitehorse, Yukon, Canada on 2023-11-27?",
+  "params": {
+   "location": "Whitehorse, Yukon, Canada",
+   "date": "2023-11-27"
+  }
+ },
+ {
+  "id": "w0413",
+  "query": "What was the high temperature in Yellowknife, Northwest Territories, Canada on 2023-03-16?",
+  "params": {
+   "location": "Yellowknife, Northwest Territories, Canada",
+   "date": "2023-03-16"
+  }
+ },
+ {
+  "id": "w0414",
+  "query": "What was the high temperature in Yellowknife, Northwest Territories, Canada on 2026-05-10?",
+  "params": {
+   "location": "Yellowknife, Northwest Territories, Canada",
+   "date": "2026-05-10"
+  }
+ },
+ {
+  "id": "w0415",
+  "query": "What was the high temperature in Yellowknife, Northwest Territories, Canada on 2023-07-26?",
+  "params": {
+   "location": "Yellowknife, Northwest Territories, Canada",
+   "date": "2023-07-26"
+  }
+ },
+ {
+  "id": "w0416",
+  "query": "What was the high temperature in Iqaluit, Nunavut, Canada on 2020-06-26?",
+  "params": {
+   "location": "Iqaluit, Nunavut, Canada",
+   "date": "2020-06-26"
+  }
+ },
+ {
+  "id": "w0417",
+  "query": "What was the high temperature in Iqaluit, Nunavut, Canada on 2025-03-13?",
+  "params": {
+   "location": "Iqaluit, Nunavut, Canada",
+   "date": "2025-03-13"
+  }
+ },
+ {
+  "id": "w0418",
+  "query": "What was the high temperature in Iqaluit, Nunavut, Canada on 2023-09-28?",
+  "params": {
+   "location": "Iqaluit, Nunavut, Canada",
+   "date": "2023-09-28"
+  }
+ },
+ {
+  "id": "w0419",
+  "query": "What was the high temperature in Nuuk, Sermersooq on 2024-09-05?",
+  "params": {
+   "location": "Nuuk, Sermersooq",
+   "date": "2024-09-05"
+  }
+ },
+ {
+  "id": "w0420",
+  "query": "What was the high temperature in Nuuk, Sermersooq on 2024-06-25?",
+  "params": {
+   "location": "Nuuk, Sermersooq",
+   "date": "2024-06-25"
+  }
+ },
+ {
+  "id": "w0421",
+  "query": "What was the high temperature in Nuuk, Sermersooq on 2021-01-04?",
+  "params": {
+   "location": "Nuuk, Sermersooq",
+   "date": "2021-01-04"
+  }
+ },
+ {
+  "id": "w0422",
+  "query": "What was the high temperature in Longyearbyen, Svalbard on 2020-03-24?",
+  "params": {
+   "location": "Longyearbyen, Svalbard",
+   "date": "2020-03-24"
+  }
+ },
+ {
+  "id": "w0423",
+  "query": "What was the high temperature in Longyearbyen, Svalbard on 2022-03-16?",
+  "params": {
+   "location": "Longyearbyen, Svalbard",
+   "date": "2022-03-16"
+  }
+ },
+ {
+  "id": "w0424",
+  "query": "What was the high temperature in Longyearbyen, Svalbard on 2019-03-15?",
+  "params": {
+   "location": "Longyearbyen, Svalbard",
+   "date": "2019-03-15"
+  }
+ },
+ {
+  "id": "w0425",
+  "query": "What was the high temperature in Cheyenne, Wyoming, United States on 2024-10-02?",
+  "params": {
+   "location": "Cheyenne, Wyoming, United States",
+   "date": "2024-10-02"
+  }
+ },
+ {
+  "id": "w0426",
+  "query": "What was the high temperature in Cheyenne, Wyoming, United States on 2023-07-10?",
+  "params": {
+   "location": "Cheyenne, Wyoming, United States",
+   "date": "2023-07-10"
+  }
+ },
+ {
+  "id": "w0427",
+  "query": "What was the high temperature in Cheyenne, Wyoming, United States on 2020-10-02?",
+  "params": {
+   "location": "Cheyenne, Wyoming, United States",
+   "date": "2020-10-02"
+  }
+ },
+ {
+  "id": "w0428",
+  "query": "What was the high temperature in Addis Ababa, Ethiopia on 2023-04-28?",
+  "params": {
+   "location": "Addis Ababa, Ethiopia",
+   "date": "2023-04-28"
+  }
+ },
+ {
+  "id": "w0429",
+  "query": "What was the high temperature in Lhasa, Tibet, China on 2022-11-27?",
+  "params": {
+   "location": "Lhasa, Tibet, China",
+   "date": "2022-11-27"
+  }
+ },
+ {
+  "id": "w0430",
+  "query": "What was the high temperature in Lhasa, Tibet, China on 2023-02-21?",
+  "params": {
+   "location": "Lhasa, Tibet, China",
+   "date": "2023-02-21"
+  }
+ },
+ {
+  "id": "w0431",
+  "query": "What was the high temperature in Lhasa, Tibet, China on 2020-07-18?",
+  "params": {
+   "location": "Lhasa, Tibet, China",
+   "date": "2020-07-18"
+  }
+ },
+ {
+  "id": "w0432",
+  "query": "What was the high temperature in Kathmandu, Bagmati Province, Nepal on 2019-03-03?",
+  "params": {
+   "location": "Kathmandu, Bagmati Province, Nepal",
+   "date": "2019-03-03"
+  }
+ },
+ {
+  "id": "w0433",
+  "query": "What was the high temperature in Bishkek, Kyrgyzstan on 2023-08-13?",
+  "params": {
+   "location": "Bishkek, Kyrgyzstan",
+   "date": "2023-08-13"
+  }
+ },
+ {
+  "id": "w0434",
+  "query": "What was the high temperature in Bishkek, Kyrgyzstan on 2023-07-01?",
+  "params": {
+   "location": "Bishkek, Kyrgyzstan",
+   "date": "2023-07-01"
+  }
+ },
+ {
+  "id": "w0435",
+  "query": "What was the high temperature in Bishkek, Kyrgyzstan on 2025-09-12?",
+  "params": {
+   "location": "Bishkek, Kyrgyzstan",
+   "date": "2025-09-12"
+  }
+ },
+ {
+  "id": "w0436",
+  "query": "What was the high temperature in Innsbruck, Tyrol, Austria on 2026-08-10?",
+  "params": {
+   "location": "Innsbruck, Tyrol, Austria",
+   "date": "2026-08-10"
+  }
+ },
+ {
+  "id": "w0437",
+  "query": "What was the high temperature in Innsbruck, Tyrol, Austria on 2019-09-06?",
+  "params": {
+   "location": "Innsbruck, Tyrol, Austria",
+   "date": "2019-09-06"
+  }
+ },
+ {
+  "id": "w0438",
+  "query": "What was the high temperature in Innsbruck, Tyrol, Austria on 2021-05-04?",
+  "params": {
+   "location": "Innsbruck, Tyrol, Austria",
+   "date": "2021-05-04"
+  }
+ },
+ {
+  "id": "w0439",
+  "query": "What was the high temperature in Bozeman, Montana, United States on 2025-07-19?",
+  "params": {
+   "location": "Bozeman, Montana, United States",
+   "date": "2025-07-19"
+  }
+ },
+ {
+  "id": "w0440",
+  "query": "What was the high temperature in Bozeman, Montana, United States on 2025-04-25?",
+  "params": {
+   "location": "Bozeman, Montana, United States",
+   "date": "2025-04-25"
+  }
+ },
+ {
+  "id": "w0441",
+  "query": "What was the high temperature in Bozeman, Montana, United States on 2025-07-22?",
+  "params": {
+   "location": "Bozeman, Montana, United States",
+   "date": "2025-07-22"
+  }
+ },
+ {
+  "id": "w0442",
+  "query": "What was the high temperature in Flagstaff, Arizona, United States on 2020-08-07?",
+  "params": {
+   "location": "Flagstaff, Arizona, United States",
+   "date": "2020-08-07"
+  }
+ },
+ {
+  "id": "w0443",
+  "query": "What was the high temperature in Flagstaff, Arizona, United States on 2022-10-12?",
+  "params": {
+   "location": "Flagstaff, Arizona, United States",
+   "date": "2022-10-12"
+  }
+ },
+ {
+  "id": "w0444",
+  "query": "What was the high temperature in Flagstaff, Arizona, United States on 2019-10-08?",
+  "params": {
+   "location": "Flagstaff, Arizona, United States",
+   "date": "2019-10-08"
+  }
+ },
+ {
+  "id": "w0445",
+  "query": "What was the high temperature in Leadville, Colorado, United States on 2025-01-19?",
+  "params": {
+   "location": "Leadville, Colorado, United States",
+   "date": "2025-01-19"
+  }
+ },
+ {
+  "id": "w0446",
+  "query": "What was the high temperature in Leadville, Colorado, United States on 2024-03-11?",
+  "params": {
+   "location": "Leadville, Colorado, United States",
+   "date": "2024-03-11"
+  }
+ },
+ {
+  "id": "w0447",
+  "query": "What was the high temperature in Leadville, Colorado, United States on 2026-05-01?",
+  "params": {
+   "location": "Leadville, Colorado, United States",
+   "date": "2026-05-01"
+  }
+ },
+ {
+  "id": "w0448",
+  "query": "What was the high temperature in Ushuaia, Tierra del Fuego, Argentina on 2021-11-12?",
+  "params": {
+   "location": "Ushuaia, Tierra del Fuego, Argentina",
+   "date": "2021-11-12"
+  }
+ },
+ {
+  "id": "w0449",
+  "query": "What was the high temperature in Paris, Texas, United States on 2022-03-15?",
+  "params": {
+   "location": "Paris, Texas, United States",
+   "date": "2022-03-15"
+  }
+ },
+ {
+  "id": "w0450",
+  "query": "What was the high temperature in Paris, Texas, United States on 2022-07-27?",
+  "params": {
+   "location": "Paris, Texas, United States",
+   "date": "2022-07-27"
+  }
+ },
+ {
+  "id": "w0451",
+  "query": "What was the high temperature in Paris, Texas, United States on 2019-12-13?",
+  "params": {
+   "location": "Paris, Texas, United States",
+   "date": "2019-12-13"
+  }
+ },
+ {
+  "id": "w0452",
+  "query": "What was the high temperature in London, Ontario, Canada on 2025-11-18?",
+  "params": {
+   "location": "London, Ontario, Canada",
+   "date": "2025-11-18"
+  }
+ },
+ {
+  "id": "w0453",
+  "query": "What was the high temperature in London, Ontario, Canada on 2026-06-24?",
+  "params": {
+   "location": "London, Ontario, Canada",
+   "date": "2026-06-24"
+  }
+ },
+ {
+  "id": "w0454",
+  "query": "What was the high temperature in London, Ontario, Canada on 2022-09-06?",
+  "params": {
+   "location": "London, Ontario, Canada",
+   "date": "2022-09-06"
+  }
+ },
+ {
+  "id": "w0455",
+  "query": "What was the high temperature in Birmingham, Alabama, United States on 2021-11-08?",
+  "params": {
+   "location": "Birmingham, Alabama, United States",
+   "date": "2021-11-08"
+  }
+ },
+ {
+  "id": "w0456",
+  "query": "What was the high temperature in Birmingham, Alabama, United States on 2025-12-13?",
+  "params": {
+   "location": "Birmingham, Alabama, United States",
+   "date": "2025-12-13"
+  }
+ },
+ {
+  "id": "w0457",
+  "query": "What was the high temperature in Birmingham, Alabama, United States on 2026-04-12?",
+  "params": {
+   "location": "Birmingham, Alabama, United States",
+   "date": "2026-04-12"
+  }
+ },
+ {
+  "id": "w0458",
+  "query": "What was the high temperature in Richmond, Virginia, United States on 2023-11-05?",
+  "params": {
+   "location": "Richmond, Virginia, United States",
+   "date": "2023-11-05"
+  }
+ },
+ {
+  "id": "w0459",
+  "query": "What was the high temperature in Richmond, Virginia, United States on 2023-04-15?",
+  "params": {
+   "location": "Richmond, Virginia, United States",
+   "date": "2023-04-15"
+  }
+ },
+ {
+  "id": "w0460",
+  "query": "What was the high temperature in Richmond, Virginia, United States on 2021-08-16?",
+  "params": {
+   "location": "Richmond, Virginia, United States",
+   "date": "2021-08-16"
+  }
+ },
+ {
+  "id": "w0461",
+  "query": "What was the high temperature in Portland, Maine, United States on 2021-08-25?",
+  "params": {
+   "location": "Portland, Maine, United States",
+   "date": "2021-08-25"
+  }
+ },
+ {
+  "id": "w0462",
+  "query": "What was the high temperature in Portland, Maine, United States on 2021-05-06?",
+  "params": {
+   "location": "Portland, Maine, United States",
+   "date": "2021-05-06"
+  }
+ },
+ {
+  "id": "w0463",
+  "query": "What was the high temperature in Portland, Maine, United States on 2022-08-09?",
+  "params": {
+   "location": "Portland, Maine, United States",
+   "date": "2022-08-09"
+  }
+ },
+ {
+  "id": "w0464",
+  "query": "What was the high temperature in Springfield, Massachusetts, United States on 2020-04-24?",
+  "params": {
+   "location": "Springfield, Massachusetts, United States",
+   "date": "2020-04-24"
+  }
+ },
+ {
+  "id": "w0465",
+  "query": "What was the high temperature in Springfield, Massachusetts, United States on 2023-11-22?",
+  "params": {
+   "location": "Springfield, Massachusetts, United States",
+   "date": "2023-11-22"
+  }
+ },
+ {
+  "id": "w0466",
+  "query": "What was the high temperature in Springfield, Massachusetts, United States on 2025-08-14?",
+  "params": {
+   "location": "Springfield, Massachusetts, United States",
+   "date": "2025-08-14"
+  }
+ },
+ {
+  "id": "w0467",
+  "query": "What was the high temperature in Springfield, Missouri, United States on 2019-04-20?",
+  "params": {
+   "location": "Springfield, Missouri, United States",
+   "date": "2019-04-20"
+  }
+ },
+ {
+  "id": "w0468",
+  "query": "What was the high temperature in Springfield, Missouri, United States on 2022-01-26?",
+  "params": {
+   "location": "Springfield, Missouri, United States",
+   "date": "2022-01-26"
+  }
+ },
+ {
+  "id": "w0469",
+  "query": "What was the high temperature in Springfield, Missouri, United States on 2019-02-21?",
+  "params": {
+   "location": "Springfield, Missouri, United States",
+   "date": "2019-02-21"
+  }
+ },
+ {
+  "id": "w0470",
+  "query": "What was the high temperature in Columbia, South Carolina, United States on 2022-12-11?",
+  "params": {
+   "location": "Columbia, South Carolina, United States",
+   "date": "2022-12-11"
+  }
+ },
+ {
+  "id": "w0471",
+  "query": "What was the high temperature in Columbia, South Carolina, United States on 2020-05-05?",
+  "params": {
+   "location": "Columbia, South Carolina, United States",
+   "date": "2020-05-05"
+  }
+ },
+ {
+  "id": "w0472",
+  "query": "What was the high temperature in Columbia, South Carolina, United States on 2023-12-03?",
+  "params": {
+   "location": "Columbia, South Carolina, United States",
+   "date": "2023-12-03"
+  }
+ },
+ {
+  "id": "w0473",
+  "query": "What was the high temperature in Columbia, Missouri, United States on 2023-01-16?",
+  "params": {
+   "location": "Columbia, Missouri, United States",
+   "date": "2023-01-16"
+  }
+ },
+ {
+  "id": "w0474",
+  "query": "What was the high temperature in Columbia, Missouri, United States on 2021-07-27?",
+  "params": {
+   "location": "Columbia, Missouri, United States",
+   "date": "2021-07-27"
+  }
+ },
+ {
+  "id": "w0475",
+  "query": "What was the high temperature in Columbia, Missouri, United States on 2019-08-03?",
+  "params": {
+   "location": "Columbia, Missouri, United States",
+   "date": "2019-08-03"
+  }
+ },
+ {
+  "id": "w0476",
+  "query": "What was the high temperature in Alexandria, Virginia, United States on 2021-10-10?",
+  "params": {
+   "location": "Alexandria, Virginia, United States",
+   "date": "2021-10-10"
+  }
+ },
+ {
+  "id": "w0477",
+  "query": "What was the high temperature in Alexandria, Virginia, United States on 2019-12-01?",
+  "params": {
+   "location": "Alexandria, Virginia, United States",
+   "date": "2019-12-01"
+  }
+ },
+ {
+  "id": "w0478",
+  "query": "What was the high temperature in Alexandria, Virginia, United States on 2024-11-23?",
+  "params": {
+   "location": "Alexandria, Virginia, United States",
+   "date": "2024-11-23"
+  }
+ },
+ {
+  "id": "w0479",
+  "query": "What was the high temperature in Victoria, British Columbia, Canada on 2020-03-07?",
+  "params": {
+   "location": "Victoria, British Columbia, Canada",
+   "date": "2020-03-07"
+  }
+ },
+ {
+  "id": "w0480",
+  "query": "What was the high temperature in Victoria, British Columbia, Canada on 2023-12-20?",
+  "params": {
+   "location": "Victoria, British Columbia, Canada",
+   "date": "2023-12-20"
+  }
+ },
+ {
+  "id": "w0481",
+  "query": "What was the high temperature in Victoria, British Columbia, Canada on 2026-06-08?",
+  "params": {
+   "location": "Victoria, British Columbia, Canada",
+   "date": "2026-06-08"
+  }
+ },
+ {
+  "id": "w0482",
+  "query": "What was the high temperature in San Jose, California, United States on 2024-02-18?",
+  "params": {
+   "location": "San Jose, California, United States",
+   "date": "2024-02-18"
+  }
+ },
+ {
+  "id": "w0483",
+  "query": "What was the high temperature in San Jose, California, United States on 2022-07-11?",
+  "params": {
+   "location": "San Jose, California, United States",
+   "date": "2022-07-11"
+  }
+ },
+ {
+  "id": "w0484",
+  "query": "What was the high temperature in San Jose, California, United States on 2021-08-01?",
+  "params": {
+   "location": "San Jose, California, United States",
+   "date": "2021-08-01"
+  }
+ },
+ {
+  "id": "w0485",
+  "query": "What was the high temperature in Rochester, Minnesota, United States on 2024-07-20?",
+  "params": {
+   "location": "Rochester, Minnesota, United States",
+   "date": "2024-07-20"
+  }
+ },
+ {
+  "id": "w0486",
+  "query": "What was the high temperature in Rochester, Minnesota, United States on 2020-04-13?",
+  "params": {
+   "location": "Rochester, Minnesota, United States",
+   "date": "2020-04-13"
+  }
+ },
+ {
+  "id": "w0487",
+  "query": "What was the high temperature in Rochester, Minnesota, United States on 2021-09-11?",
+  "params": {
+   "location": "Rochester, Minnesota, United States",
+   "date": "2021-09-11"
+  }
+ },
+ {
+  "id": "w0488",
+  "query": "What was the high temperature in Cambridge, Massachusetts, United States on 2021-07-10?",
+  "params": {
+   "location": "Cambridge, Massachusetts, United States",
+   "date": "2021-07-10"
+  }
+ },
+ {
+  "id": "w0489",
+  "query": "What was the high temperature in Cambridge, Massachusetts, United States on 2024-02-18?",
+  "params": {
+   "location": "Cambridge, Massachusetts, United States",
+   "date": "2024-02-18"
+  }
+ },
+ {
+  "id": "w0490",
+  "query": "What was the high temperature in Cambridge, Massachusetts, United States on 2026-06-16?",
+  "params": {
+   "location": "Cambridge, Massachusetts, United States",
+   "date": "2026-06-16"
+  }
+ },
+ {
+  "id": "w0491",
+  "query": "What was the high temperature in Newcastle, New South Wales, Australia on 2020-05-22?",
+  "params": {
+   "location": "Newcastle, New South Wales, Australia",
+   "date": "2020-05-22"
+  }
+ },
+ {
+  "id": "w0492",
+  "query": "What was the high temperature in Newcastle, New South Wales, Australia on 2026-07-27?",
+  "params": {
+   "location": "Newcastle, New South Wales, Australia",
+   "date": "2026-07-27"
+  }
+ },
+ {
+  "id": "w0493",
+  "query": "What was the high temperature in Newcastle, New South Wales, Australia on 2023-02-12?",
+  "params": {
+   "location": "Newcastle, New South Wales, Australia",
+   "date": "2023-02-12"
+  }
+ },
+ {
+  "id": "w0494",
+  "query": "What was the high temperature in Hamilton, Ontario, Canada on 2019-10-21?",
+  "params": {
+   "location": "Hamilton, Ontario, Canada",
+   "date": "2019-10-21"
+  }
+ },
+ {
+  "id": "w0495",
+  "query": "What was the high temperature in Hamilton, Ontario, Canada on 2020-11-22?",
+  "params": {
+   "location": "Hamilton, Ontario, Canada",
+   "date": "2020-11-22"
+  }
+ },
+ {
+  "id": "w0496",
+  "query": "What was the high temperature in Hamilton, Ontario, Canada on 2020-08-01?",
+  "params": {
+   "location": "Hamilton, Ontario, Canada",
+   "date": "2020-08-01"
+  }
+ },
+ {
+  "id": "w0497",
+  "query": "What was the high temperature in Lincoln, Nebraska, United States on 2020-02-13?",
+  "params": {
+   "location": "Lincoln, Nebraska, United States",
+   "date": "2020-02-13"
+  }
+ },
+ {
+  "id": "w0498",
+  "query": "What was the high temperature in Lincoln, Nebraska, United States on 2023-09-16?",
+  "params": {
+   "location": "Lincoln, Nebraska, United States",
+   "date": "2023-09-16"
+  }
+ },
+ {
+  "id": "w0499",
+  "query": "What was the high temperature in Lincoln, Nebraska, United States on 2022-02-04?",
+  "params": {
+   "location": "Lincoln, Nebraska, United States",
+   "date": "2022-02-04"
+  }
+ },
+ {
+  "id": "w0500",
+  "query": "What was the high temperature in Kingston, Ontario, Canada on 2024-12-20?",
+  "params": {
+   "location": "Kingston, Ontario, Canada",
+   "date": "2024-12-20"
+  }
+ },
+ {
+  "id": "w0501",
+  "query": "What was the high temperature in Kingston, Ontario, Canada on 2021-03-14?",
+  "params": {
+   "location": "Kingston, Ontario, Canada",
+   "date": "2021-03-14"
+  }
+ },
+ {
+  "id": "w0502",
+  "query": "What was the high temperature in Kingston, Ontario, Canada on 2026-09-21?",
+  "params": {
+   "location": "Kingston, Ontario, Canada",
+   "date": "2026-09-21"
+  }
+ },
+ {
+  "id": "w0503",
+  "query": "What was the high temperature in Salem, Oregon, United States on 2022-07-27?",
+  "params": {
+   "location": "Salem, Oregon, United States",
+   "date": "2022-07-27"
+  }
+ },
+ {
+  "id": "w0504",
+  "query": "What was the high temperature in Salem, Oregon, United States on 2024-03-03?",
+  "params": {
+   "location": "Salem, Oregon, United States",
+   "date": "2024-03-03"
+  }
+ },
+ {
+  "id": "w0505",
+  "query": "What was the high temperature in Salem, Oregon, United States on 2020-11-13?",
+  "params": {
+   "location": "Salem, Oregon, United States",
+   "date": "2020-11-13"
+  }
+ },
+ {
+  "id": "w0506",
+  "query": "What was the high temperature in Athens, Georgia, United States on 2019-09-10?",
+  "params": {
+   "location": "Athens, Georgia, United States",
+   "date": "2019-09-10"
+  }
+ },
+ {
+  "id": "w0507",
+  "query": "What was the high temperature in Athens, Georgia, United States on 2024-06-16?",
+  "params": {
+   "location": "Athens, Georgia, United States",
+   "date": "2024-06-16"
+  }
+ },
+ {
+  "id": "w0508",
+  "query": "What was the high temperature in Athens, Georgia, United States on 2021-06-09?",
+  "params": {
+   "location": "Athens, Georgia, United States",
+   "date": "2021-06-09"
+  }
+ },
+ {
+  "id": "w0509",
+  "query": "What was the high temperature in Córdoba, Cordoba, Argentina on 2023-12-19?",
+  "params": {
+   "location": "Córdoba, Cordoba, Argentina",
+   "date": "2023-12-19"
+  }
+ },
+ {
+  "id": "w0510",
+  "query": "What was the high temperature in Córdoba, Cordoba, Argentina on 2025-03-02?",
+  "params": {
+   "location": "Córdoba, Cordoba, Argentina",
+   "date": "2025-03-02"
+  }
+ },
+ {
+  "id": "w0511",
+  "query": "What was the high temperature in Windsor, Ontario, Canada on 2019-11-14?",
+  "params": {
+   "location": "Windsor, Ontario, Canada",
+   "date": "2019-11-14"
+  }
+ },
+ {
+  "id": "w0512",
+  "query": "What was the high temperature in Windsor, Ontario, Canada on 2020-01-04?",
+  "params": {
+   "location": "Windsor, Ontario, Canada",
+   "date": "2020-01-04"
+  }
+ },
+ {
+  "id": "w0513",
+  "query": "What was the high temperature in Windsor, Ontario, Canada on 2026-04-14?",
+  "params": {
+   "location": "Windsor, Ontario, Canada",
+   "date": "2026-04-14"
+  }
+ },
+ {
+  "id": "w0514",
+  "query": "What was the high temperature in Madison, Wisconsin, United States on 2025-08-08?",
+  "params": {
+   "location": "Madison, Wisconsin, United States",
+   "date": "2025-08-08"
+  }
+ },
+ {
+  "id": "w0515",
+  "query": "What was the high temperature in Madison, Wisconsin, United States on 2020-05-23?",
+  "params": {
+   "location": "Madison, Wisconsin, United States",
+   "date": "2020-05-23"
+  }
+ },
+ {
+  "id": "w0516",
+  "query": "What was the high temperature in Madison, Wisconsin, United States on 2022-08-14?",
+  "params": {
+   "location": "Madison, Wisconsin, United States",
+   "date": "2022-08-14"
+  }
+ },
+ {
+  "id": "w0517",
+  "query": "What was the high temperature in Oxford, Mississippi, United States on 2022-05-02?",
+  "params": {
+   "location": "Oxford, Mississippi, United States",
+   "date": "2022-05-02"
+  }
+ },
+ {
+  "id": "w0518",
+  "query": "What was the high temperature in Oxford, Mississippi, United States on 2023-04-10?",
+  "params": {
+   "location": "Oxford, Mississippi, United States",
+   "date": "2023-04-10"
+  }
+ },
+ {
+  "id": "w0519",
+  "query": "What was the high temperature in Oxford, Mississippi, United States on 2021-08-21?",
+  "params": {
+   "location": "Oxford, Mississippi, United States",
+   "date": "2021-08-21"
+  }
+ },
+ {
+  "id": "w0520",
+  "query": "What was the high temperature in Plymouth, Massachusetts, United States on 2024-03-10?",
+  "params": {
+   "location": "Plymouth, Massachusetts, United States",
+   "date": "2024-03-10"
+  }
+ },
+ {
+  "id": "w0521",
+  "query": "What was the high temperature in Plymouth, Massachusetts, United States on 2024-05-19?",
+  "params": {
+   "location": "Plymouth, Massachusetts, United States",
+   "date": "2024-05-19"
+  }
+ },
+ {
+  "id": "w0522",
+  "query": "What was the high temperature in Plymouth, Massachusetts, United States on 2019-03-05?",
+  "params": {
+   "location": "Plymouth, Massachusetts, United States",
+   "date": "2019-03-05"
+  }
+ },
+ {
+  "id": "w0523",
+  "query": "What was the high temperature in Dover, Delaware, United States on 2026-06-11?",
+  "params": {
+   "location": "Dover, Delaware, United States",
+   "date": "2026-06-11"
+  }
+ },
+ {
+  "id": "w0524",
+  "query": "What was the high temperature in Dover, Delaware, United States on 2022-07-08?",
+  "params": {
+   "location": "Dover, Delaware, United States",
+   "date": "2022-07-08"
+  }
+ },
+ {
+  "id": "w0525",
+  "query": "What was the high temperature in Bristol, Tennessee, United States on 2019-08-09?",
+  "params": {
+   "location": "Bristol, Tennessee, United States",
+   "date": "2019-08-09"
+  }
+ },
+ {
+  "id": "w0526",
+  "query": "What was the high temperature in Bristol, Tennessee, United States on 2023-12-18?",
+  "params": {
+   "location": "Bristol, Tennessee, United States",
+   "date": "2023-12-18"
+  }
+ },
+ {
+  "id": "w0527",
+  "query": "What was the high temperature in Bristol, Tennessee, United States on 2021-03-04?",
+  "params": {
+   "location": "Bristol, Tennessee, United States",
+   "date": "2021-03-04"
+  }
+ },
+ {
+  "id": "w0528",
+  "query": "What was the high temperature in Naples, Florida, United States on 2024-07-28?",
+  "params": {
+   "location": "Naples, Florida, United States",
+   "date": "2024-07-28"
+  }
+ },
+ {
+  "id": "w0529",
+  "query": "What was the high temperature in Naples, Florida, United States on 2023-02-17?",
+  "params": {
+   "location": "Naples, Florida, United States",
+   "date": "2023-02-17"
+  }
+ },
+ {
+  "id": "w0530",
+  "query": "What was the high temperature in Naples, Florida, United States on 2022-05-02?",
+  "params": {
+   "location": "Naples, Florida, United States",
+   "date": "2022-05-02"
+  }
+ },
+ {
+  "id": "w0531",
+  "query": "What was the high temperature in Troy, New York, United States on 2024-04-13?",
+  "params": {
+   "location": "Troy, New York, United States",
+   "date": "2024-04-13"
+  }
+ },
+ {
+  "id": "w0532",
+  "query": "What was the high temperature in Troy, New York, United States on 2021-08-02?",
+  "params": {
+   "location": "Troy, New York, United States",
+   "date": "2021-08-02"
+  }
+ },
+ {
+  "id": "w0533",
+  "query": "What was the high temperature in Troy, New York, United States on 2022-11-13?",
+  "params": {
+   "location": "Troy, New York, United States",
+   "date": "2022-11-13"
+  }
+ },
+ {
+  "id": "w0534",
+  "query": "What was the high temperature in Moscow, Idaho, United States on 2022-03-07?",
+  "params": {
+   "location": "Moscow, Idaho, United States",
+   "date": "2022-03-07"
+  }
+ },
+ {
+  "id": "w0535",
+  "query": "What was the high temperature in Moscow, Idaho, United States on 2023-02-27?",
+  "params": {
+   "location": "Moscow, Idaho, United States",
+   "date": "2023-02-27"
+  }
+ },
+ {
+  "id": "w0536",
+  "query": "What was the high temperature in Moscow, Idaho, United States on 2019-11-22?",
+  "params": {
+   "location": "Moscow, Idaho, United States",
+   "date": "2019-11-22"
+  }
+ },
+ {
+  "id": "w0537",
+  "query": "What was the high temperature in Odessa, Texas, United States on 2020-06-27?",
+  "params": {
+   "location": "Odessa, Texas, United States",
+   "date": "2020-06-27"
+  }
+ },
+ {
+  "id": "w0538",
+  "query": "What was the high temperature in Odessa, Texas, United States on 2024-07-10?",
+  "params": {
+   "location": "Odessa, Texas, United States",
+   "date": "2024-07-10"
+  }
+ },
+ {
+  "id": "w0539",
+  "query": "What was the high temperature in Odessa, Texas, United States on 2026-03-02?",
+  "params": {
+   "location": "Odessa, Texas, United States",
+   "date": "2026-03-02"
+  }
+ },
+ {
+  "id": "w0540",
+  "query": "What was the high temperature in Georgetown, Texas, United States on 2021-01-23?",
+  "params": {
+   "location": "Georgetown, Texas, United States",
+   "date": "2021-01-23"
+  }
+ },
+ {
+  "id": "w0541",
+  "query": "What was the high temperature in Georgetown, Texas, United States on 2024-05-11?",
+  "params": {
+   "location": "Georgetown, Texas, United States",
+   "date": "2024-05-11"
+  }
+ },
+ {
+  "id": "w0542",
+  "query": "What was the high temperature in Georgetown, Texas, United States on 2024-01-24?",
+  "params": {
+   "location": "Georgetown, Texas, United States",
+   "date": "2024-01-24"
+  }
+ },
+ {
+  "id": "w0543",
+  "query": "What was the high temperature in Aurora, Colorado, United States on 2019-07-06?",
+  "params": {
+   "location": "Aurora, Colorado, United States",
+   "date": "2019-07-06"
+  }
+ },
+ {
+  "id": "w0544",
+  "query": "What was the high temperature in Aurora, Colorado, United States on 2020-06-27?",
+  "params": {
+   "location": "Aurora, Colorado, United States",
+   "date": "2020-06-27"
+  }
+ },
+ {
+  "id": "w0545",
+  "query": "What was the high temperature in Aurora, Colorado, United States on 2025-08-20?",
+  "params": {
+   "location": "Aurora, Colorado, United States",
+   "date": "2025-08-20"
+  }
+ },
+ {
+  "id": "w0546",
+  "query": "What was the high temperature in Franklin, Tennessee, United States on 2019-10-08?",
+  "params": {
+   "location": "Franklin, Tennessee, United States",
+   "date": "2019-10-08"
+  }
+ },
+ {
+  "id": "w0547",
+  "query": "What was the high temperature in Franklin, Tennessee, United States on 2020-07-07?",
+  "params": {
+   "location": "Franklin, Tennessee, United States",
+   "date": "2020-07-07"
+  }
+ },
+ {
+  "id": "w0548",
+  "query": "What was the high temperature in Franklin, Tennessee, United States on 2025-10-09?",
+  "params": {
+   "location": "Franklin, Tennessee, United States",
+   "date": "2025-10-09"
+  }
+ },
+ {
+  "id": "w0549",
+  "query": "What was the high temperature in Manchester, New Hampshire, United States on 2019-12-26?",
+  "params": {
+   "location": "Manchester, New Hampshire, United States",
+   "date": "2019-12-26"
+  }
+ },
+ {
+  "id": "w0550",
+  "query": "What was the high temperature in Manchester, New Hampshire, United States on 2026-04-17?",
+  "params": {
+   "location": "Manchester, New Hampshire, United States",
+   "date": "2026-04-17"
+  }
+ },
+ {
+  "id": "w0551",
+  "query": "What was the high temperature in Manchester, New Hampshire, United States on 2026-01-13?",
+  "params": {
+   "location": "Manchester, New Hampshire, United States",
+   "date": "2026-01-13"
+  }
+ },
+ {
+  "id": "w0552",
+  "query": "What was the high temperature in Lima, Ohio, United States on 2025-03-16?",
+  "params": {
+   "location": "Lima, Ohio, United States",
+   "date": "2025-03-16"
+  }
+ },
+ {
+  "id": "w0553",
+  "query": "What was the high temperature in Lima, Ohio, United States on 2023-03-18?",
+  "params": {
+   "location": "Lima, Ohio, United States",
+   "date": "2023-03-18"
+  }
+ },
+ {
+  "id": "w0554",
+  "query": "What was the high temperature in Lima, Ohio, United States on 2023-12-26?",
+  "params": {
+   "location": "Lima, Ohio, United States",
+   "date": "2023-12-26"
+  }
+ },
+ {
+  "id": "w0555",
+  "query": "What was the high temperature in Syracuse, New York, United States on 2022-03-25?",
+  "params": {
+   "location": "Syracuse, New York, United States",
+   "date": "2022-03-25"
+  }
+ },
+ {
+  "id": "w0556",
+  "query": "What was the high temperature in Syracuse, New York, United States on 2022-08-27?",
+  "params": {
+   "location": "Syracuse, New York, United States",
+   "date": "2022-08-27"
+  }
+ },
+ {
+  "id": "w0557",
+  "query": "What was the high temperature in Syracuse, New York, United States on 2025-08-10?",
+  "params": {
+   "location": "Syracuse, New York, United States",
+   "date": "2025-08-10"
+  }
+ },
+ {
+  "id": "w0558",
+  "query": "What was the high temperature in Springfield on 2022-03-02?",
+  "params": {
+   "location": "Springfield",
+   "date": "2022-03-02"
+  }
+ },
+ {
+  "id": "w0559",
+  "query": "What was the high temperature in Springfield on 2021-11-09?",
+  "params": {
+   "location": "Springfield",
+   "date": "2021-11-09"
+  }
+ },
+ {
+  "id": "w0560",
+  "query": "What was the high temperature in Springfield on 2021-08-28?",
+  "params": {
+   "location": "Springfield",
+   "date": "2021-08-28"
+  }
+ },
+ {
+  "id": "w0561",
+  "query": "What was the high temperature in Portland on 2020-11-18?",
+  "params": {
+   "location": "Portland",
+   "date": "2020-11-18"
+  }
+ },
+ {
+  "id": "w0562",
+  "query": "What was the high temperature in Portland on 2024-12-13?",
+  "params": {
+   "location": "Portland",
+   "date": "2024-12-13"
+  }
+ },
+ {
+  "id": "w0563",
+  "query": "What was the high temperature in Portland on 2024-09-18?",
+  "params": {
+   "location": "Portland",
+   "date": "2024-09-18"
+  }
+ },
+ {
+  "id": "w0564",
+  "query": "What was the high temperature in Richmond on 2020-02-03?",
+  "params": {
+   "location": "Richmond",
+   "date": "2020-02-03"
+  }
+ },
+ {
+  "id": "w0565",
+  "query": "What was the high temperature in Richmond on 2023-05-10?",
+  "params": {
+   "location": "Richmond",
+   "date": "2023-05-10"
+  }
+ },
+ {
+  "id": "w0566",
+  "query": "What was the high temperature in Richmond on 2025-02-09?",
+  "params": {
+   "location": "Richmond",
+   "date": "2025-02-09"
+  }
+ },
+ {
+  "id": "w0567",
+  "query": "What was the high temperature in Columbia on 2020-12-04?",
+  "params": {
+   "location": "Columbia",
+   "date": "2020-12-04"
+  }
+ },
+ {
+  "id": "w0568",
+  "query": "What was the high temperature in Columbia on 2025-04-03?",
+  "params": {
+   "location": "Columbia",
+   "date": "2025-04-03"
+  }
+ },
+ {
+  "id": "w0569",
+  "query": "What was the high temperature in Columbia on 2024-11-16?",
+  "params": {
+   "location": "Columbia",
+   "date": "2024-11-16"
+  }
+ },
+ {
+  "id": "w0570",
+  "query": "What was the high temperature in Georgetown on 2025-02-16?",
+  "params": {
+   "location": "Georgetown",
+   "date": "2025-02-16"
+  }
+ },
+ {
+  "id": "w0571",
+  "query": "What was the high temperature in Georgetown on 2024-09-15?",
+  "params": {
+   "location": "Georgetown",
+   "date": "2024-09-15"
+  }
+ },
+ {
+  "id": "w0572",
+  "query": "What was the high temperature in Georgetown on 2023-07-17?",
+  "params": {
+   "location": "Georgetown",
+   "date": "2023-07-17"
+  }
+ },
+ {
+  "id": "w0573",
+  "query": "What was the high temperature in Alexandria on 2026-06-03?",
+  "params": {
+   "location": "Alexandria",
+   "date": "2026-06-03"
+  }
+ },
+ {
+  "id": "w0574",
+  "query": "What was the high temperature in Alexandria on 2022-01-07?",
+  "params": {
+   "location": "Alexandria",
+   "date": "2022-01-07"
+  }
+ },
+ {
+  "id": "w0575",
+  "query": "What was the high temperature in Alexandria on 2020-04-17?",
+  "params": {
+   "location": "Alexandria",
+   "date": "2020-04-17"
+  }
+ },
+ {
+  "id": "w0576",
+  "query": "What was the high temperature in Victoria on 2025-12-02?",
+  "params": {
+   "location": "Victoria",
+   "date": "2025-12-02"
+  }
+ },
+ {
+  "id": "w0577",
+  "query": "What was the high temperature in Victoria on 2026-03-07?",
+  "params": {
+   "location": "Victoria",
+   "date": "2026-03-07"
+  }
+ },
+ {
+  "id": "w0578",
+  "query": "What was the high temperature in Victoria on 2023-11-12?",
+  "params": {
+   "location": "Victoria",
+   "date": "2023-11-12"
+  }
+ },
+ {
+  "id": "w0579",
+  "query": "What was the high temperature in Valencia on 2020-01-05?",
+  "params": {
+   "location": "Valencia",
+   "date": "2020-01-05"
+  }
+ },
+ {
+  "id": "w0580",
+  "query": "What was the high temperature in Valencia on 2024-10-12?",
+  "params": {
+   "location": "Valencia",
+   "date": "2024-10-12"
+  }
+ },
+ {
+  "id": "w0581",
+  "query": "What was the high temperature in Valencia on 2022-12-14?",
+  "params": {
+   "location": "Valencia",
+   "date": "2022-12-14"
+  }
+ },
+ {
+  "id": "w0582",
+  "query": "What was the high temperature in Santiago on 2020-05-09?",
+  "params": {
+   "location": "Santiago",
+   "date": "2020-05-09"
+  }
+ },
+ {
+  "id": "w0583",
+  "query": "What was the high temperature in San Jose on 2020-07-24?",
+  "params": {
+   "location": "San Jose",
+   "date": "2020-07-24"
+  }
+ },
+ {
+  "id": "w0584",
+  "query": "What was the high temperature in San Jose on 2021-12-22?",
+  "params": {
+   "location": "San Jose",
+   "date": "2021-12-22"
+  }
+ },
+ {
+  "id": "w0585",
+  "query": "What was the high temperature in San Jose on 2025-04-02?",
+  "params": {
+   "location": "San Jose",
+   "date": "2025-04-02"
+  }
+ },
+ {
+  "id": "w0586",
+  "query": "What was the high temperature in Rochester on 2024-02-20?",
+  "params": {
+   "location": "Rochester",
+   "date": "2024-02-20"
+  }
+ },
+ {
+  "id": "w0587",
+  "query": "What was the high temperature in Rochester on 2022-12-02?",
+  "params": {
+   "location": "Rochester",
+   "date": "2022-12-02"
+  }
+ },
+ {
+  "id": "w0588",
+  "query": "What was the high temperature in Rochester on 2025-07-18?",
+  "params": {
+   "location": "Rochester",
+   "date": "2025-07-18"
+  }
+ },
+ {
+  "id": "w0589",
+  "query": "What was the high temperature in Cambridge on 2025-04-23?",
+  "params": {
+   "location": "Cambridge",
+   "date": "2025-04-23"
+  }
+ },
+ {
+  "id": "w0590",
+  "query": "What was the high temperature in Cambridge on 2023-08-07?",
+  "params": {
+   "location": "Cambridge",
+   "date": "2023-08-07"
+  }
+ },
+ {
+  "id": "w0591",
+  "query": "What was the high temperature in Cambridge on 2022-10-07?",
+  "params": {
+   "location": "Cambridge",
+   "date": "2022-10-07"
+  }
+ },
+ {
+  "id": "w0592",
+  "query": "What was the high temperature in Birmingham on 2023-06-27?",
+  "params": {
+   "location": "Birmingham",
+   "date": "2023-06-27"
+  }
+ },
+ {
+  "id": "w0593",
+  "query": "What was the high temperature in Birmingham on 2021-06-05?",
+  "params": {
+   "location": "Birmingham",
+   "date": "2021-06-05"
+  }
+ },
+ {
+  "id": "w0594",
+  "query": "What was the high temperature in Birmingham on 2022-10-02?",
+  "params": {
+   "location": "Birmingham",
+   "date": "2022-10-02"
+  }
+ },
+ {
+  "id": "w0595",
+  "query": "What was the high temperature in Newcastle on 2023-05-25?",
+  "params": {
+   "location": "Newcastle",
+   "date": "2023-05-25"
+  }
+ },
+ {
+  "id": "w0596",
+  "query": "What was the high temperature in Newcastle on 2023-08-21?",
+  "params": {
+   "location": "Newcastle",
+   "date": "2023-08-21"
+  }
+ },
+ {
+  "id": "w0597",
+  "query": "What was the high temperature in Newcastle on 2020-05-19?",
+  "params": {
+   "location": "Newcastle",
+   "date": "2020-05-19"
+  }
+ },
+ {
+  "id": "w0598",
+  "query": "What was the high temperature in Hamilton on 2024-12-23?",
+  "params": {
+   "location": "Hamilton",
+   "date": "2024-12-23"
+  }
+ },
+ {
+  "id": "w0599",
+  "query": "What was the high temperature in Hamilton on 2024-05-27?",
+  "params": {
+   "location": "Hamilton",
+   "date": "2024-05-27"
+  }
+ },
+ {
+  "id": "w0600",
+  "query": "What was the high temperature in Hamilton on 2019-09-27?",
+  "params": {
+   "location": "Hamilton",
+   "date": "2019-09-27"
+  }
+ },
+ {
+  "id": "w0601",
+  "query": "What was the high temperature in London on 2023-01-13?",
+  "params": {
+   "location": "London",
+   "date": "2023-01-13"
+  }
+ },
+ {
+  "id": "w0602",
+  "query": "What was the high temperature in London on 2024-05-01?",
+  "params": {
+   "location": "London",
+   "date": "2024-05-01"
+  }
+ },
+ {
+  "id": "w0603",
+  "query": "What was the high temperature in London on 2024-10-02?",
+  "params": {
+   "location": "London",
+   "date": "2024-10-02"
+  }
+ },
+ {
+  "id": "w0604",
+  "query": "What was the high temperature in Paris on 2025-01-23?",
+  "params": {
+   "location": "Paris",
+   "date": "2025-01-23"
+  }
+ },
+ {
+  "id": "w0605",
+  "query": "What was the high temperature in Paris on 2024-04-22?",
+  "params": {
+   "location": "Paris",
+   "date": "2024-04-22"
+  }
+ },
+ {
+  "id": "w0606",
+  "query": "What was the high temperature in Paris on 2021-04-28?",
+  "params": {
+   "location": "Paris",
+   "date": "2021-04-28"
+  }
+ },
+ {
+  "id": "w0607",
+  "query": "What was the high temperature in Lincoln on 2023-08-16?",
+  "params": {
+   "location": "Lincoln",
+   "date": "2023-08-16"
+  }
+ },
+ {
+  "id": "w0608",
+  "query": "What was the high temperature in Lincoln on 2023-10-23?",
+  "params": {
+   "location": "Lincoln",
+   "date": "2023-10-23"
+  }
+ },
+ {
+  "id": "w0609",
+  "query": "What was the high temperature in Lincoln on 2020-01-27?",
+  "params": {
+   "location": "Lincoln",
+   "date": "2020-01-27"
+  }
+ },
+ {
+  "id": "w0610",
+  "query": "What was the high temperature in Kingston on 2025-07-14?",
+  "params": {
+   "location": "Kingston",
+   "date": "2025-07-14"
+  }
+ },
+ {
+  "id": "w0611",
+  "query": "What was the high temperature in Kingston on 2021-09-27?",
+  "params": {
+   "location": "Kingston",
+   "date": "2021-09-27"
+  }
+ },
+ {
+  "id": "w0612",
+  "query": "What was the high temperature in Kingston on 2022-05-21?",
+  "params": {
+   "location": "Kingston",
+   "date": "2022-05-21"
+  }
+ },
+ {
+  "id": "w0613",
+  "query": "What was the high temperature in Salem on 2024-12-17?",
+  "params": {
+   "location": "Salem",
+   "date": "2024-12-17"
+  }
+ },
+ {
+  "id": "w0614",
+  "query": "What was the high temperature in Salem on 2020-07-02?",
+  "params": {
+   "location": "Salem",
+   "date": "2020-07-02"
+  }
+ },
+ {
+  "id": "w0615",
+  "query": "What was the high temperature in Salem on 2022-05-19?",
+  "params": {
+   "location": "Salem",
+   "date": "2022-05-19"
+  }
+ },
+ {
+  "id": "w0616",
+  "query": "What was the high temperature in Auburn on 2022-07-25?",
+  "params": {
+   "location": "Auburn",
+   "date": "2022-07-25"
+  }
+ },
+ {
+  "id": "w0617",
+  "query": "What was the high temperature in Auburn on 2023-08-13?",
+  "params": {
+   "location": "Auburn",
+   "date": "2023-08-13"
+  }
+ },
+ {
+  "id": "w0618",
+  "query": "What was the high temperature in Auburn on 2020-03-26?",
+  "params": {
+   "location": "Auburn",
+   "date": "2020-03-26"
+  }
+ },
+ {
+  "id": "w0619",
+  "query": "What was the high temperature in Athens on 2019-06-27?",
+  "params": {
+   "location": "Athens",
+   "date": "2019-06-27"
+  }
+ },
+ {
+  "id": "w0620",
+  "query": "What was the high temperature in Athens on 2020-02-27?",
+  "params": {
+   "location": "Athens",
+   "date": "2020-02-27"
+  }
+ },
+ {
+  "id": "w0621",
+  "query": "What was the high temperature in Athens on 2023-01-22?",
+  "params": {
+   "location": "Athens",
+   "date": "2023-01-22"
+  }
+ },
+ {
+  "id": "w0622",
+  "query": "What was the high temperature in Córdoba on 2019-11-19?",
+  "params": {
+   "location": "Córdoba",
+   "date": "2019-11-19"
+  }
+ },
+ {
+  "id": "w0623",
+  "query": "What was the high temperature in Córdoba on 2023-04-12?",
+  "params": {
+   "location": "Córdoba",
+   "date": "2023-04-12"
+  }
+ },
+ {
+  "id": "w0624",
+  "query": "What was the high temperature in Córdoba on 2025-09-10?",
+  "params": {
+   "location": "Córdoba",
+   "date": "2025-09-10"
+  }
+ },
+ {
+  "id": "w0625",
+  "query": "What was the high temperature in Perth on 2020-03-08?",
+  "params": {
+   "location": "Perth",
+   "date": "2020-03-08"
+  }
+ },
+ {
+  "id": "w0626",
+  "query": "What was the high temperature in Perth on 2024-12-14?",
+  "params": {
+   "location": "Perth",
+   "date": "2024-12-14"
+  }
+ },
+ {
+  "id": "w0627",
+  "query": "What was the high temperature in Perth on 2026-06-13?",
+  "params": {
+   "location": "Perth",
+   "date": "2026-06-13"
+  }
+ },
+ {
+  "id": "w0628",
+  "query": "What was the high temperature in Windsor on 2021-08-25?",
+  "params": {
+   "location": "Windsor",
+   "date": "2021-08-25"
+  }
+ },
+ {
+  "id": "w0629",
+  "query": "What was the high temperature in Windsor on 2020-05-05?",
+  "params": {
+   "location": "Windsor",
+   "date": "2020-05-05"
+  }
+ },
+ {
+  "id": "w0630",
+  "query": "What was the high temperature in Windsor on 2023-10-04?",
+  "params": {
+   "location": "Windsor",
+   "date": "2023-10-04"
+  }
+ },
+ {
+  "id": "w0631",
+  "query": "What was the high temperature in Aurora on 2024-11-06?",
+  "params": {
+   "location": "Aurora",
+   "date": "2024-11-06"
+  }
+ },
+ {
+  "id": "w0632",
+  "query": "What was the high temperature in Aurora on 2024-06-18?",
+  "params": {
+   "location": "Aurora",
+   "date": "2024-06-18"
+  }
+ },
+ {
+  "id": "w0633",
+  "query": "What was the high temperature in Aurora on 2021-09-03?",
+  "params": {
+   "location": "Aurora",
+   "date": "2021-09-03"
+  }
+ },
+ {
+  "id": "w0634",
+  "query": "What was the high temperature in Franklin on 2021-12-04?",
+  "params": {
+   "location": "Franklin",
+   "date": "2021-12-04"
+  }
+ },
+ {
+  "id": "w0635",
+  "query": "What was the high temperature in Franklin on 2022-11-05?",
+  "params": {
+   "location": "Franklin",
+   "date": "2022-11-05"
+  }
+ },
+ {
+  "id": "w0636",
+  "query": "What was the high temperature in Franklin on 2024-02-10?",
+  "params": {
+   "location": "Franklin",
+   "date": "2024-02-10"
+  }
+ },
+ {
+  "id": "w0637",
+  "query": "What was the high temperature in Clinton on 2021-07-11?",
+  "params": {
+   "location": "Clinton",
+   "date": "2021-07-11"
+  }
+ },
+ {
+  "id": "w0638",
+  "query": "What was the high temperature in Clinton on 2026-04-13?",
+  "params": {
+   "location": "Clinton",
+   "date": "2026-04-13"
+  }
+ },
+ {
+  "id": "w0639",
+  "query": "What was the high temperature in Clinton on 2024-11-21?",
+  "params": {
+   "location": "Clinton",
+   "date": "2024-11-21"
+  }
+ },
+ {
+  "id": "w0640",
+  "query": "What was the high temperature in Madison on 2022-12-19?",
+  "params": {
+   "location": "Madison",
+   "date": "2022-12-19"
+  }
+ },
+ {
+  "id": "w0641",
+  "query": "What was the high temperature in Madison on 2025-11-19?",
+  "params": {
+   "location": "Madison",
+   "date": "2025-11-19"
+  }
+ },
+ {
+  "id": "w0642",
+  "query": "What was the high temperature in Madison on 2021-03-01?",
+  "params": {
+   "location": "Madison",
+   "date": "2021-03-01"
+  }
+ },
+ {
+  "id": "w0643",
+  "query": "What was the high temperature in Oxford on 2024-12-04?",
+  "params": {
+   "location": "Oxford",
+   "date": "2024-12-04"
+  }
+ },
+ {
+  "id": "w0644",
+  "query": "What was the high temperature in Oxford on 2021-09-22?",
+  "params": {
+   "location": "Oxford",
+   "date": "2021-09-22"
+  }
+ },
+ {
+  "id": "w0645",
+  "query": "What was the high temperature in Oxford on 2023-10-15?",
+  "params": {
+   "location": "Oxford",
+   "date": "2023-10-15"
+  }
+ },
+ {
+  "id": "w0646",
+  "query": "What was the high temperature in Plymouth on 2022-10-06?",
+  "params": {
+   "location": "Plymouth",
+   "date": "2022-10-06"
+  }
+ },
+ {
+  "id": "w0647",
+  "query": "What was the high temperature in Plymouth on 2021-12-14?",
+  "params": {
+   "location": "Plymouth",
+   "date": "2021-12-14"
+  }
+ },
+ {
+  "id": "w0648",
+  "query": "What was the high temperature in Plymouth on 2026-02-12?",
+  "params": {
+   "location": "Plymouth",
+   "date": "2026-02-12"
+  }
+ },
+ {
+  "id": "w0649",
+  "query": "What was the high temperature in Dover on 2024-07-09?",
+  "params": {
+   "location": "Dover",
+   "date": "2024-07-09"
+  }
+ },
+ {
+  "id": "w0650",
+  "query": "What was the high temperature in Dover on 2021-10-01?",
+  "params": {
+   "location": "Dover",
+   "date": "2021-10-01"
+  }
+ },
+ {
+  "id": "w0651",
+  "query": "What was the high temperature in Dover on 2025-05-03?",
+  "params": {
+   "location": "Dover",
+   "date": "2025-05-03"
+  }
+ },
+ {
+  "id": "w0652",
+  "query": "What was the high temperature in Bristol on 2023-11-19?",
+  "params": {
+   "location": "Bristol",
+   "date": "2023-11-19"
+  }
+ },
+ {
+  "id": "w0653",
+  "query": "What was the high temperature in Bristol on 2022-01-20?",
+  "params": {
+   "location": "Bristol",
+   "date": "2022-01-20"
+  }
+ },
+ {
+  "id": "w0654",
+  "query": "What was the high temperature in Bristol on 2019-01-23?",
+  "params": {
+   "location": "Bristol",
+   "date": "2019-01-23"
+  }
+ },
+ {
+  "id": "w0655",
+  "query": "What was the high temperature in Naples on 2021-07-19?",
+  "params": {
+   "location": "Naples",
+   "date": "2021-07-19"
+  }
+ },
+ {
+  "id": "w0656",
+  "query": "What was the high temperature in Naples on 2019-03-25?",
+  "params": {
+   "location": "Naples",
+   "date": "2019-03-25"
+  }
+ },
+ {
+  "id": "w0657",
+  "query": "What was the high temperature in Naples on 2026-09-20?",
+  "params": {
+   "location": "Naples",
+   "date": "2026-09-20"
+  }
+ },
+ {
+  "id": "w0658",
+  "query": "What was the high temperature in Troy on 2022-03-28?",
+  "params": {
+   "location": "Troy",
+   "date": "2022-03-28"
+  }
+ },
+ {
+  "id": "w0659",
+  "query": "What was the high temperature in Troy on 2024-02-11?",
+  "params": {
+   "location": "Troy",
+   "date": "2024-02-11"
+  }
+ },
+ {
+  "id": "w0660",
+  "query": "What was the high temperature in Troy on 2025-12-27?",
+  "params": {
+   "location": "Troy",
+   "date": "2025-12-27"
+  }
+ },
+ {
+  "id": "w0661",
+  "query": "What was the high temperature in Moscow on 2022-01-15?",
+  "params": {
+   "location": "Moscow",
+   "date": "2022-01-15"
+  }
+ },
+ {
+  "id": "w0662",
+  "query": "What was the high temperature in Moscow on 2021-07-11?",
+  "params": {
+   "location": "Moscow",
+   "date": "2021-07-11"
+  }
+ },
+ {
+  "id": "w0663",
+  "query": "What was the high temperature in Moscow on 2021-05-09?",
+  "params": {
+   "location": "Moscow",
+   "date": "2021-05-09"
+  }
+ },
+ {
+  "id": "w0664",
+  "query": "What was the high temperature in Granada on 2025-12-12?",
+  "params": {
+   "location": "Granada",
+   "date": "2025-12-12"
+  }
+ },
+ {
+  "id": "w0665",
+  "query": "What was the high temperature in Granada on 2023-08-21?",
+  "params": {
+   "location": "Granada",
+   "date": "2023-08-21"
+  }
+ },
+ {
+  "id": "w0666",
+  "query": "What was the high temperature in Granada on 2019-12-04?",
+  "params": {
+   "location": "Granada",
+   "date": "2019-12-04"
+  }
+ },
+ {
+  "id": "w0667",
+  "query": "What was the high temperature in Medina on 2025-10-17?",
+  "params": {
+   "location": "Medina",
+   "date": "2025-10-17"
+  }
+ },
+ {
+  "id": "w0668",
+  "query": "What was the high temperature in Medina on 2025-05-22?",
+  "params": {
+   "location": "Medina",
+   "date": "2025-05-22"
+  }
+ },
+ {
+  "id": "w0669",
+  "query": "What was the high temperature in Medina on 2022-09-27?",
+  "params": {
+   "location": "Medina",
+   "date": "2022-09-27"
+  }
+ },
+ {
+  "id": "w0670",
+  "query": "What was the high temperature in Arlington on 2022-09-18?",
+  "params": {
+   "location": "Arlington",
+   "date": "2022-09-18"
+  }
+ },
+ {
+  "id": "w0671",
+  "query": "What was the high temperature in Arlington on 2024-01-22?",
+  "params": {
+   "location": "Arlington",
+   "date": "2024-01-22"
+  }
+ },
+ {
+  "id": "w0672",
+  "query": "What was the high temperature in Arlington on 2025-11-27?",
+  "params": {
+   "location": "Arlington",
+   "date": "2025-11-27"
+  }
+ },
+ {
+  "id": "w0673",
+  "query": "What was the high temperature in Fairfield on 2024-01-24?",
+  "params": {
+   "location": "Fairfield",
+   "date": "2024-01-24"
+  }
+ },
+ {
+  "id": "w0674",
+  "query": "What was the high temperature in Fairfield on 2023-07-17?",
+  "params": {
+   "location": "Fairfield",
+   "date": "2023-07-17"
+  }
+ },
+ {
+  "id": "w0675",
+  "query": "What was the high temperature in Fairfield on 2025-06-03?",
+  "params": {
+   "location": "Fairfield",
+   "date": "2025-06-03"
+  }
+ },
+ {
+  "id": "w0676",
+  "query": "What was the high temperature in Greenville on 2023-01-02?",
+  "params": {
+   "location": "Greenville",
+   "date": "2023-01-02"
+  }
+ },
+ {
+  "id": "w0677",
+  "query": "What was the high temperature in Greenville on 2025-11-04?",
+  "params": {
+   "location": "Greenville",
+   "date": "2025-11-04"
+  }
+ },
+ {
+  "id": "w0678",
+  "query": "What was the high temperature in Greenville on 2022-01-20?",
+  "params": {
+   "location": "Greenville",
+   "date": "2022-01-20"
+  }
+ }
+]

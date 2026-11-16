@@ -1,0 +1,11 @@
+{
+ "file": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-a08450d7f4d55c4f2\\track2\\adapter\\weather_forecast_verify\\holdout\\pilot_queries.json",
+ "kind": "queries",
+ "sha256": "4a425d3018e01827ea0a5ee07e759bbfd9333ac04415d434e50d35721c17608a",
+ "rows": 3,
+ "family": "WEATHER_FORECAST_VERIFY",
+ "sources": "hand-written pilot queries; places and dates are excluded from the main query set",
+ "note": "3-query pilot to find which miners answer location+date; answers are not used for labels, training or gating",
+ "created_at": "2026-11-15T20:15:15.023195+00:00",
+ "git_head": "ae364cdb10515d9da6ceaa0db3e00a47469c4dfd"
+}

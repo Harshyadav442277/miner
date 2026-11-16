@@ -1,0 +1,11 @@
+{
+ "file": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\agent-a08450d7f4d55c4f2\\track2\\adapter\\weather_forecast_verify\\holdout\\queries.json",
+ "kind": "queries",
+ "sha256": "d9a93dbe4c64fc7d0873d3d5f1393830dd258b04fd155a07be1339b7acaef031",
+ "rows": 678,
+ "family": "WEATHER_FORECAST_VERIFY",
+ "sources": "hand-written place lists (places.py) x seeded dates 2019-01-01..2026-09-30; ground truth GHCN-Daily TMAX (NODD, CC0) cross-checked with Open-Meteo ERA5; see FREEZE_NOTE.md",
+ "note": "Query set drawn only where truth exists; no miner answer to these queries had been read; label rule in FREEZE_NOTE.md",
+ "created_at": "2026-11-15T20:29:16.374311+00:00",
+ "git_head": "ae364cdb10515d9da6ceaa0db3e00a47469c4dfd"
+}

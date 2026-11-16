@@ -1,0 +1,4 @@
+# Frozen data: the hashes in *.freeze.json are over these exact bytes.
+*.json -text
+*.jsonl -text
+*.txt -text

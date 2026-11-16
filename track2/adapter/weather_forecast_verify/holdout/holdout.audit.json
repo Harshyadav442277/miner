@@ -1,0 +1,28 @@
+{
+ "pairs": 56,
+ "bar": 0.65,
+ "ties": "count half",
+ "longer": 0.5804,
+ "shape": 0.7857,
+ "service": 0.6964,
+ "service_pairs": {
+  "a1-preflight > chainsight-oracle": 12,
+  "chainsight-oracle > a1-preflight": 10,
+  "counterproof-weather-verify > a1-preflight": 10,
+  "chainsight-oracle > txlens": 9,
+  "counterproof-weather-verify > txlens": 6,
+  "txlens > chainsight-oracle": 5,
+  "counterproof-weather-verify > chainsight-oracle": 4
+ },
+ "value": 0.4107,
+ "kinds": {
+  "near_wrong": 28,
+  "far_wrong": 22,
+  "gross_wrong": 6
+ },
+ "problems": [
+  "service probe 0.6964 > 0.65",
+  "shape probe 0.7857 > 0.65"
+ ],
+ "verdict": "FAIL"
+}

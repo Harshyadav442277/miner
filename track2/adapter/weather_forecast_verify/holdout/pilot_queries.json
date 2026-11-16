@@ -1,0 +1,5 @@
+[
+ {"id": "pilot-1", "query": "What was the high temperature in Reykjavik, Iceland on 2025-02-14?", "params": {"location": "Reykjavik, Iceland", "date": "2025-02-14"}},
+ {"id": "pilot-2", "query": "What was the high temperature in Nairobi, Kenya on 2024-09-03?", "params": {"location": "Nairobi, Kenya", "date": "2024-09-03"}},
+ {"id": "pilot-3", "query": "What was the high temperature in Denver, Colorado, United States on 2025-06-21?", "params": {"location": "Denver, Colorado, United States", "date": "2025-06-21"}}
+]
