@@ -107,6 +107,8 @@ test("gwei formatting suits the magnitude and drops noise zeros", () => {
   // The rounded register collapses onto the exact one when they are the same
   // number, so the answer never says one thing twice.
   assert.equal(roundedGwei(0.006), "0.006");
+  assert.equal(roundedGwei(2.6e-8), "0.000000026", "Gnosis: fixed form, never 2.6e-8");
+  assert.equal(roundedGwei(0.149893), "0.15");
   assert.equal(roundedGwei(272.55), "273");
   assert.equal(roundedGwei(12.43), "12.4");
 });
@@ -190,7 +192,10 @@ test("every supported chain answers with a plausible fee (live)", async () => {
       assert.ok(r.priority_gwei >= 0, `${chain} negative priority fee`);
     }
     // BSC and Avalanche are named by their proper names ("BNB Smart Chain", "Avalanche C-Chain"), not the id.
-    const name = ({ bsc: "BNB Smart Chain", avalanche: "Avalanche C-Chain" } as Record<string, string>)[chain] ?? chain;
+    const name = ({ bsc: "BNB Smart Chain", avalanche: "Avalanche C-Chain", gnosis: "Gnosis Chain", zksync: "zkSync Era" } as Record<string, string>)[chain] ?? chain;
     assert.ok(r.reason.includes(name), `${chain} answer does not name the chain`);
+    // No exponent notation and no zero cost: Gnosis's 2.6e-8 Gwei read "about 2.6e-8 Gwei" and "costs about 0.00 Gwei".
+    assert.doesNotMatch(r.reason, /\de-\d/, `${chain}: exponent notation in "${r.reason}"`);
+    assert.doesNotMatch(r.reason, /costs about 0(?:\.0+)? (?:Gwei|[A-Z]+)\./, `${chain}: a zero transfer cost`);
   }
 });

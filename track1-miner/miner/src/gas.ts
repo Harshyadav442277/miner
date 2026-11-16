@@ -235,7 +235,9 @@ export function roundedGwei(gwei: number): string {
   if (gwei >= 1) return gwei.toFixed(2);
   // Trailing zeros stripped so this collapses onto the exact form when the two
   // are the same number — "0.006 Gwei, or about 0.0060 Gwei" says one thing twice.
-  return gwei.toPrecision(2).replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
+  // Two significant figures in fixed form: toPrecision gave "2.6e-8" for Gnosis (2026-11-16).
+  if (gwei <= 0) return "0";
+  return gwei.toFixed(Math.min(20, 1 - Math.floor(Math.log10(gwei)))).replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
 }
 
 interface Reading { gwei: number; baseFee: number | null; block: number }
@@ -320,7 +322,8 @@ export async function getGasPrice(chain: string | null, unread: string | null = 
   const costCoin = (gwei * 21_000) / 1e9;
   const transferCost = costCoin >= 1e-6
     ? `${costCoin.toFixed(8).replace(/0+$/, "").replace(/\.$/, "")} ${coin}`
-    : `${(gwei * 21_000).toFixed(2)} Gwei`;
+    // fmtGwei, not toFixed(2): Gnosis at 2.6e-8 Gwei a gas made a transfer read "0.00 Gwei" (2026-11-16).
+    : `${fmtGwei(gwei * 21_000)} Gwei`;
 
   const assumed = chain === null
     ? " No network was named in the request, so this is the Ethereum mainnet figure."
