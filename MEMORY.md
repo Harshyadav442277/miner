@@ -6,8 +6,9 @@
   (`7182410`). Record: `track1-miner/docs/evidence/release-2026-11-16-consistency-gas/`. Unit 1020/1020.
 - **Measured (epoch 2103):** FACT_CHECK 0.8432 → 0.9871 (rank 11 → 4); STORM 0.8835 → 0.9633 (12 → 7); SENTIMENT
   0.7632 (rank 14); NEWS 0.9176. GAS_PRICE 0 → cache cut to 5 s (G310), unscored yet.
-- **Score capture:** `scores.yml` six tries an hour + after uptime; still gaps to 5.6 h (G311). Local copy:
-  `C:\Users\hyada\tg-deploy\scores\` (history, per-epoch leaderboards). Owner to register the local task.
+- **Score capture:** Windows task "LiveCert score recorder" every 30 min (registered 08:59 UTC, first run exit 0)
+  writes `C:\Users\hyada\tg-deploy\scores\` (score-history.jsonl, leaderboards\, record.log); only while the
+  machine is on. Backup: `scores.yml` (six tries an hour + after uptime; gaps up to 5.6 h).
 - **Next:** read GAS_PRICE, EVENT_OUTCOME, SENTIMENT in epochs 2104–2106. SENTIMENT (rank 14, median 0.957) is the
   largest gap left after CVE (G303, needs capture G282).
 
