@@ -8,6 +8,11 @@
 - **G310 — GAS_PRICE scored 0 while RPC miners scored 0.79–1.0. `OPEN` until the next epoch.** Our value matched
   publicnode exactly on a fresh read; the route cached readings for 60 s and Ethereum gas moved 7.5% in a minute.
   Cache cut to 5 s in `f3ba9f4`. Staleness as the cause is an inference.
+- **G311 partly closed (2026-11-16 08:59 UTC).** On the owner's "do it by yourself", the Windows task
+  "LiveCert score recorder" was registered: every 30 min it runs `C:\Users\hyada\tg-deploy\scores\record.cmd`;
+  the first run exited 0 and wrote `leaderboards\leaderboard-2103.json`. It runs only while the machine is on and
+  the owner is signed in; GitHub's `scores.yml` stays the backup. Remove with
+  `schtasks /delete /tn "LiveCert score recorder" /f`.
 - **G311 — Hourly score capture is still best effort. `OPEN`, owner action.** GitHub ran `scores.yml` at 21:00,
   00:10, 00:58, 06:37 and 07:55 UTC (gaps up to 5.6 h; an epoch is 3 h). A local 30-minute task is prepared at
   `C:\Users\hyada\tg-deploy\scores\record.cmd`; registering a Windows scheduled task was refused by the permission
