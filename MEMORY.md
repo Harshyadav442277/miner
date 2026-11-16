@@ -1,5 +1,18 @@
 # MEMORY.md — session continuity
 
+## 2026-11-16 ~14:45 UTC (20:15 IST): CURRENT — `04c0e9f` LIVE; YAML READY FOR THE OWNER TO SIGN
+
+- **To sign (owner):** `https://raw.githubusercontent.com/Harshyadav442277/miner/04c0e9f2aef9b205e78bcd18b783e87c21b86635/track1-miner/miner.yaml`,
+  SHA-256 `0x3cf18081c9fdc90be769ebe46851184d82fa6352ea4b26e3942dcb2f2f5fb13d`, 96,353 bytes, 44 intents. Validate on
+  Anjoman first. Sheet: `track1-miner/docs/evidence/yaml-for-signature-2026-11-16/README.md`. Registration 5232 stays
+  active until then.
+- **Production:** `04c0e9f`, `miner-hns8y07yw` (`dpl_FFxTiE7cY9ZBr2f69kBubPSdxeco`). **Rollback:** `miner-5vd4jwu4e`
+  (`a118570`). Gas: 12 chains, chain ids, no Ethereum substitution for unknown chains.
+- **Epoch 2105:** CHAT 0.9962 rank 1; FACT_CHECK 0.9974; GAS 0 (cause unknown, G310); EVENT 0.0008 (sports results,
+  G317); drops in SENTIMENT, CVE, TRANSLATION, TOKEN_HOLDER (G318).
+- **After the signature:** look the registration up by id, set `REGISTRATION_ID` (`gh variable set`), update MEMORY and
+  the release skill, watch the next epochs. The local recorder keys on the slug, so it keeps working.
+
 ## 2026-11-16 ~11:00 UTC (16:30 IST): CURRENT — `a118570` LIVE; `/security-review` served, not yet registered
 
 - **Production:** `a118570`, `miner-5vd4jwu4e` (`dpl_9DbYac9otZFY7eA6BXPoeS6zTKzC`). **Rollback:** `miner-8s4mxzd6g`

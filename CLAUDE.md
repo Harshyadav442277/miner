@@ -69,9 +69,10 @@ curl -s https://devnode.telegraphprotocol.com/api/miners/<registrationId> \
 
 # canonical-intent check — one bad string reverts the whole registration.
 # V2: list intents (WEATHER_CHECK_TEMPERATURE, X_GENERAL), never a family prefix (WEATHER_CHECK).
-cast call "$DIAMOND" "isCanonicalIntent(string)(bool)" "WEATHER_CHECK_TEMPERATURE" --rpc-url "$RPC"
-cast call "$DIAMOND" "getCanonicalIntents()(string[])" --rpc-url "$RPC"
-cast call "$DIAMOND" "getPrefixes()(string[],uint8[])" --rpc-url "$RPC"
+# Since V2 the Diamond's isCanonicalIntent holds FAMILIES only: it answers 0 for every suffixed id, including the
+# registered ones, and getPrefixes() no longer exists (2026-11-16, docs/TELEGRAPH_FACTS.md). Check both halves:
+curl -s https://devnode.telegraphprotocol.com/engine/v1/intents/WEATHER_CHECK_TEMPERATURE   # the id exists
+cast call "$DIAMOND" "isCanonicalIntent(string)(bool)" "WEATHER_CHECK" --rpc-url "$RPC"      # its family
 
 # Deploy the miner. NOT `git push` — that deploys nothing (G22).
 # Read GAPS G70 first: a redeploy 404'd every endpoint on 2026-09-04, and after a

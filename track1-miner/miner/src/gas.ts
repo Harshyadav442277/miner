@@ -52,15 +52,32 @@ const RPCS: Record<string, string[]> = {
   // gas 0.05 Gwei with base fee 0; Avalanche C-Chain chain id 0xa86a (43114), base fee ~2.54 Gwei.
   bsc: ["https://bsc-dataseed.bnbchain.org", "https://bsc-rpc.publicnode.com"],
   avalanche: ["https://api.avax.network/ext/bc/C/rpc", "https://avalanche-c-chain-rpc.publicnode.com"],
+  // Each pair answered eth_chainId, eth_gasPrice and eth_getBlockByNumber on 2026-11-16: Gnosis 100, Linea 59144,
+  // Scroll 534352, zkSync Era 324 (publicnode's zkSync endpoint returned an empty body, so one URL), Sonic 146.
+  gnosis: ["https://gnosis-rpc.publicnode.com", "https://rpc.gnosischain.com"],
+  linea: ["https://linea-rpc.publicnode.com", "https://rpc.linea.build"],
+  scroll: ["https://scroll-rpc.publicnode.com", "https://rpc.scroll.io"],
+  zksync: ["https://mainnet.era.zksync.io"],
+  sonic: ["https://sonic-rpc.publicnode.com", "https://rpc.soniclabs.com"],
 };
 
 /** The chain's own fee unit. Polygon prices gas in POL, BSC in BNB, Avalanche in AVAX, the rest in ETH. */
 const COIN: Record<string, string> = {
   ethereum: "ETH", base: "ETH", arbitrum: "ETH", optimism: "ETH", polygon: "POL", bsc: "BNB", avalanche: "AVAX",
+  gnosis: "xDAI", linea: "ETH", scroll: "ETH", zksync: "ETH", sonic: "S",
 };
 
 /** How a chain is named in the answer, where its id is not already its name. */
-const LABEL: Record<string, string> = { bsc: "BNB Smart Chain", avalanche: "Avalanche C-Chain" };
+const LABEL: Record<string, string> = { bsc: "BNB Smart Chain", avalanche: "Avalanche C-Chain", gnosis: "Gnosis Chain", zksync: "zkSync Era" };
+
+/** EVM chain ids, for a `chain` param sent as a number or as `eip155:<id>`. */
+const CHAIN_IDS: Record<string, string> = {
+  "1": "ethereum", "8453": "base", "42161": "arbitrum", "10": "optimism", "137": "polygon", "56": "bsc", "43114": "avalanche",
+  "100": "gnosis", "59144": "linea", "534352": "scroll", "324": "zksync", "146": "sonic",
+};
+
+/** Short names a `chain` param may carry that are too common to match inside a question's text. */
+const PARAM_ALIASES: Record<string, string> = { op: "optimism", eth: "ethereum", arb: "arbitrum", xdai: "gnosis", era: "zksync", s: "sonic" };
 
 /**
  * Test networks, named so they are refused rather than answered with their mainnet's fee: "gas on Base
@@ -83,6 +100,11 @@ const CHAIN_WORDS: Array<[RegExp, string]> = [
   [/\bpolygon\b|\bmatic\b/i, "polygon"],
   [/\bbsc\b|\bbnb\b|\bbinance smart chain\b/i, "bsc"],
   [/\bavalanche\b|\bavax\b|\bc-chain\b/i, "avalanche"],
+  [/\bgnosis\b|\bxdai\b/i, "gnosis"],
+  [/\blinea\b/i, "linea"],
+  [/\bscroll\b/i, "scroll"],
+  [/\bzk\s?sync\b/i, "zksync"],
+  [/\bsonic\b/i, "sonic"],
   [/\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i, "ethereum"],
 ];
 
@@ -90,9 +112,8 @@ const CHAIN_WORDS: Array<[RegExp, string]> = [
 const UNREAD: Array<[RegExp, string]> = [
   [/\bsolana\b|\bsol\b/i, "Solana"],
   [/\bbitcoin\b|\bbtc\b/i, "Bitcoin"],
-  [/\bzksync\b/i, "zkSync"],
-  [/\bscroll\b/i, "Scroll"],
-  [/\blinea\b/i, "Linea"],
+  // Fantom Opera's public RPCs answered nothing or asked for a key on 2026-11-16; its successor Sonic is read.
+  [/\bfantom\b|\bftm\b/i, "Fantom"],
 ];
 
 export type GasVerdict = "gas_price" | "unsupported_chain" | "unknown";
@@ -155,12 +176,20 @@ export function resolveChain(
     return { chain: null, explicit: true, unread: `${name} (a test network)` };
   }
   if (p && RPCS[p]) return { chain: p, explicit: true, unread: null };
+  const id = p.match(/^(?:eip155:)?(\d{1,7})$/)?.[1];
+  if (id) return CHAIN_IDS[id] ? { chain: CHAIN_IDS[id]!, explicit: true, unread: null } : { chain: null, explicit: true, unread: `chain id ${id}` };
+  if (PARAM_ALIASES[p]) return { chain: PARAM_ALIASES[p]!, explicit: true, unread: null };
 
   const named = CHAIN_WORDS.find(([re]) => re.test(text))?.[1] ?? null;
   if (named) return { chain: named, explicit: true, unread: null };
 
   const cannot = UNREAD.find(([re]) => re.test(text))?.[1] ?? null;
   if (cannot) return { chain: null, explicit: true, unread: cannot };
+
+  // A chain param that names nothing we read is that chain, unread: "Gnosis" and "Fantom" were answered with
+  // Ethereum's fee (production 2026-11-16). Only a request with no chain at all falls back to Ethereum.
+  const raw = String(param ?? "").trim();
+  if (raw && /^[A-Za-z][\w .()-]{0,39}$/.test(raw)) return { chain: null, explicit: true, unread: raw };
 
   return { chain: null, explicit: false, unread: null };
 }
@@ -206,7 +235,9 @@ export function roundedGwei(gwei: number): string {
   if (gwei >= 1) return gwei.toFixed(2);
   // Trailing zeros stripped so this collapses onto the exact form when the two
   // are the same number — "0.006 Gwei, or about 0.0060 Gwei" says one thing twice.
-  return gwei.toPrecision(2).replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
+  // Two significant figures in fixed form: toPrecision gave "2.6e-8" for Gnosis (2026-11-16).
+  if (gwei <= 0) return "0";
+  return gwei.toFixed(Math.min(20, 1 - Math.floor(Math.log10(gwei)))).replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
 }
 
 interface Reading { gwei: number; baseFee: number | null; block: number }
@@ -291,7 +322,8 @@ export async function getGasPrice(chain: string | null, unread: string | null = 
   const costCoin = (gwei * 21_000) / 1e9;
   const transferCost = costCoin >= 1e-6
     ? `${costCoin.toFixed(8).replace(/0+$/, "").replace(/\.$/, "")} ${coin}`
-    : `${(gwei * 21_000).toFixed(2)} Gwei`;
+    // fmtGwei, not toFixed(2): Gnosis at 2.6e-8 Gwei a gas made a transfer read "0.00 Gwei" (2026-11-16).
+    : `${fmtGwei(gwei * 21_000)} Gwei`;
 
   const assumed = chain === null
     ? " No network was named in the request, so this is the Ethereum mainnet figure."

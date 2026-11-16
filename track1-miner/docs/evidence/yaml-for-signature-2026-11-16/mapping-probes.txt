@@ -1,0 +1,18 @@
+# Production (build fa9b231) called with exactly the params the new intent_mapping sends, 2026-11-16 14:22 UTC
+ok  ACADEMIC_SEARCH       1202ms 200 papers         {"brief":"Top paper: CRISPR gene editing for sickle cell disease: one "}  
+ok  CONTENT_EXTRACTION     316ms 200 generic        {"brief":"values: $1,250.00, March 3, 2026, April 2, 2026"}  
+ok  WALLET_BALANCE         314ms 200 3.12885319 ETH {"balance":3.1288531903633072}  
+ok  ONCHAIN_TX_LOOKUP      606ms 200 confirmed      {"status":"confirmed","block_number":21000000}  
+ok  GAS_PRICE eth          290ms 200 gas_price      {"gas_price_gwei":0.319095478}  
+ok  GAS_PRICE gnosis       302ms 200 gas_price      {"gas_price_gwei":8.2e-8}  
+ok  GAS_PRICE fantom       311ms 200 unsupported_chain {}  unsupported_chain
+ok  TOKEN_HOLDER           478ms 200 holder_count   {"holders_count":9593563}  
+ok  RESEARCH_QUERY         997ms 200 evidence       {"brief":"Direct Pharmacological Activation of AMPK Extends Lifespan i"}  
+ok  RESEARCH_SYNTHESIS     715ms 200 synthesis      {"brief":"There are several dietary schemes available, such as intermi"}  
+ok  EVENT_OUTCOME          970ms 200 resolved       {"outcome":"no","resolved_yes":false}  
+ok  SENTIMENT              416ms 200 positive       {"sentiment":"Positive","score":0.8,"reason":"Positive. The sentiment of this text is positive. The passag"}  
+ok  REGULATORY_FILING      604ms 200 filed          {"filing_count":56}  
+ok  NEWS_SEARCH           1514ms 200 articles       {"brief":"SpaceX Starship rocket launch ends with historic catch of up"}  
+ok  STOCK_PRICE           1317ms 200 price          {"price_usd":356.27}  
+ok  TRANSLATION            280ms 200 translated     {"brief":"Buenos días, ¿cómo estás?"}  
+16/16 answered with every mapped field

@@ -55,6 +55,21 @@ below, the newer section wins.
 
 ---
 
+## Checked 2026-11-16 ~14:00 UTC: intent mapping docs, the Diamond's canonical intents
+
+- **YAML intent mapping, re-read on https://anjoman.ai/docs/miners/yaml-config.** Unchanged from the 2026-11-08
+  notes: `input.<param>.from` names the intent input that fills our param, filled by the node's extraction model.
+  "An optional value that fails is dropped; a required one that is missing or fails means the request is not sent
+  and the router uses its fallback miner." Endpoints may also declare `param_map: {incoming: upstream}`.
+- **The Base Sepolia Diamond holds families, not V2 ids.** At block 59,584,938, `isCanonicalIntent(string)` on
+  `0x5a2324aA18613FAD4e44bDF0d6c73Ec1f6D87ff8` (https://sepolia.base.org) returned 1 for `SSL_VERIFICATION` and
+  `SECURITY_REVIEW`, and 0 for `SSL_VERIFICATION_CERT`, `SECURITY_REVIEW_GENERAL` and every other suffixed id,
+  including those registration 5232 serves and is scored on. `getCanonicalIntents()` returned 134 strings;
+  `getPrefixes()` reverts "Diamond: Function does not exist". On 2026-10-26 the 40 strings checked were families too
+  (`track1-miner/docs/evidence/g208-intent-swap-2026-10-26/canonical-intents.json`). So a V2 id is checked in two
+  halves: it exists at `GET /engine/v1/intents/<id>`, and its family is canonical on the Diamond. Anjoman's
+  validator is the authoritative check; what it checks is not stated in the docs.
+
 ## Checked 2026-10-31 ~18:20–18:45 UTC: docs updated Oct 30–31, rules re-read, devnode (GAPS G237–G240)
 
 Sources: all 37 pages under https://anjoman.ai/docs (25 show "Updated October 30" or "October 31, 2026"), diffed

@@ -1,5 +1,31 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-16 ~14:45 UTC (20:15 IST) YAML prepared for signature; epoch 2105 — states changed; G317–G320 new
+
+- **YAML ready, not signed:** `track1-miner/docs/evidence/yaml-for-signature-2026-11-16/`, URL pinned at `04c0e9f`,
+  SHA-256 `0x3cf18081c9fdc90be769ebe46851184d82fa6352ea4b26e3942dcb2f2f5fb13d`. It carries G305, G308 and G314.
+- **G305 — addressed in the pending YAML.** Fourteen intents now map the node's input that fills our param, and
+  `chain` (wallet) and `period` (filings) are declared. The other half of G305 was wrong: the docs say a required
+  param that fails sends the request to a fallback miner, and an optional one is dropped, so node-required params
+  stay optional on our side on purpose.
+- **G308 — fixed in the pending YAML** (EVENT_OUTCOME description).
+- **G313 measured — CHAT_COMPLETION 0.9962, rank 1, epoch 2105** (0.9693, rank 6 in 2103), the first score after the
+  chat-budget fix.
+- **G310 updated — GAS_PRICE still 0 in epoch 2105, scored 09:48 UTC, after the 5 s cache (08:15).** Most of the field
+  sat at 0.333 or 0, Etherscan 0.497. Found and fixed (`21b3f89`, `04c0e9f`): a `chain` param naming an unknown
+  chain (Gnosis, Fantom, "op") was answered with Ethereum's fee. Gnosis, Linea, Scroll, zkSync Era and Sonic are now
+  read, chain ids are accepted, and tiny fees print in fixed form. The cause of the 0 is still not known.
+- **G317 — EVENT_OUTCOME 0.0008, rank 21/38, epoch 2105. `OPEN`.** Every miner above 0.01 in this field is a sports
+  scoreboard (Bundesliga 0.231, F1, NHL, NBA, NFL, MLB), so the node asks about game results. We read prediction
+  markets, Wikidata and model recall, none of which has today's results. A licensed sports-results source is the
+  candidate; its terms are not read.
+- **G318 — Drops in epoch 2105, not investigated. `OPEN`.** SENTIMENT 0.6751 (0.7632), CVE 0.5525 (0.7017),
+  LANGUAGE_TRANSLATION 0.7343 (0.9474), TOKEN_HOLDER_COUNT 0.7544 (0.9278). One epoch each.
+- **G319 — The Base Sepolia Diamond holds intent families only. Recorded in `docs/TELEGRAPH_FACTS.md`.** CLAUDE.md's
+  check is corrected: a V2 id is checked against the devnode intent catalog, and its family against the Diamond.
+- **G320 — The pending YAML is 96,353 bytes, above the largest known to validate (95,023). `OPEN` until Anjoman
+  answers.** 103,086 was refused as too large.
+
 ## 2026-11-16 ~10:00 UTC (15:30 IST) chat budget release `95b8c03`; SECURITY_REVIEW built, not shipped — G313–G316 new
 
 - **G313 — Chat was refused after ~12 calls a minute by our own budget. `FIXED` in `95b8c03`, score unmeasured.**

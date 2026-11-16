@@ -2,6 +2,30 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { asksForFees, fmtGwei, getGasPrice, notAFeeQuestion, resolveChain, roundedGwei, supportedChains } from "../src/gas";
 
+test("an unknown chain param is that chain, unread, never Ethereum (production 2026-11-16)", () => {
+  // "Gnosis", "Fantom" and "op" were each answered with Ethereum's gas price.
+  assert.deepEqual(resolveChain("Fantom", ""), { chain: null, explicit: true, unread: "Fantom" });
+  assert.deepEqual(resolveChain("Celo", ""), { chain: null, explicit: true, unread: "Celo" });
+  assert.equal(resolveChain("op", "").chain, "optimism");
+  assert.equal(resolveChain("Gnosis", "").chain, "gnosis");
+  assert.equal(resolveChain("", "gas on Linea right now").chain, "linea");
+  assert.equal(resolveChain("", "zkSync Era gas fees").chain, "zksync");
+  assert.equal(resolveChain("scroll", "").chain, "scroll");
+  assert.equal(resolveChain("sonic", "").chain, "sonic");
+  // Chain ids, bare or CAIP-2.
+  assert.equal(resolveChain("1", "").chain, "ethereum");
+  assert.equal(resolveChain("eip155:8453", "").chain, "base");
+  assert.equal(resolveChain("324", "").chain, "zksync");
+  assert.deepEqual(resolveChain("999999", ""), { chain: null, explicit: true, unread: "chain id 999999" });
+  // Names that already worked still do, and no chain at all still means Ethereum.
+  for (const [p, want] of [["Ethereum (ETH)", "ethereum"], ["Arbitrum One", "arbitrum"], ["Avalanche C-Chain", "avalanche"], ["BNB Chain", "bsc"],
+    ["Polygon PoS", "polygon"], ["OP Mainnet", "optimism"], ["Base Mainnet", "base"], ["matic", "polygon"], ["Ethereum Mainnet", "ethereum"]] as const) {
+    assert.equal(resolveChain(p, "").chain, want, p);
+  }
+  assert.deepEqual(resolveChain("", "What is the current gas price?"), { chain: null, explicit: false, unread: null });
+  assert.ok(["gnosis", "linea", "scroll", "zksync", "sonic"].every((c) => supportedChains().includes(c)));
+});
+
 test("the chain named in the question decides which chain is read", () => {
   assert.equal(resolveChain("", "What is the current gas price in Gwei on the Ethereum network?").chain, "ethereum");
   assert.equal(resolveChain("", "Polygon fees felt high yesterday, what are they at now?").chain, "polygon");
@@ -83,6 +107,8 @@ test("gwei formatting suits the magnitude and drops noise zeros", () => {
   // The rounded register collapses onto the exact one when they are the same
   // number, so the answer never says one thing twice.
   assert.equal(roundedGwei(0.006), "0.006");
+  assert.equal(roundedGwei(2.6e-8), "0.000000026", "Gnosis: fixed form, never 2.6e-8");
+  assert.equal(roundedGwei(0.149893), "0.15");
   assert.equal(roundedGwei(272.55), "273");
   assert.equal(roundedGwei(12.43), "12.4");
 });
@@ -166,7 +192,10 @@ test("every supported chain answers with a plausible fee (live)", async () => {
       assert.ok(r.priority_gwei >= 0, `${chain} negative priority fee`);
     }
     // BSC and Avalanche are named by their proper names ("BNB Smart Chain", "Avalanche C-Chain"), not the id.
-    const name = ({ bsc: "BNB Smart Chain", avalanche: "Avalanche C-Chain" } as Record<string, string>)[chain] ?? chain;
+    const name = ({ bsc: "BNB Smart Chain", avalanche: "Avalanche C-Chain", gnosis: "Gnosis Chain", zksync: "zkSync Era" } as Record<string, string>)[chain] ?? chain;
     assert.ok(r.reason.includes(name), `${chain} answer does not name the chain`);
+    // No exponent notation and no zero cost: Gnosis's 2.6e-8 Gwei read "about 2.6e-8 Gwei" and "costs about 0.00 Gwei".
+    assert.doesNotMatch(r.reason, /\de-\d/, `${chain}: exponent notation in "${r.reason}"`);
+    assert.doesNotMatch(r.reason, /costs about 0(?:\.0+)? (?:Gwei|[A-Z]+)\./, `${chain}: a zero transfer cost`);
   }
 });

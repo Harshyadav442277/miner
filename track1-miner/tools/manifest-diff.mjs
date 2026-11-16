@@ -45,6 +45,9 @@ function parse(path) {
 const before = parse(process.argv[2]);
 const after = parse(process.argv[3]);
 const allowed = new Set((process.argv.find((a) => a.startsWith("--allow-removed=")) ?? "").slice("--allow-removed=".length).split(",").filter(Boolean));
+// An added param, named here as path:param, is a stated change: callers that never send it are unaffected.
+// Only the exact params named pass, and only when nothing else on the endpoint changed.
+const addedOk = new Set((process.argv.find((a) => a.startsWith("--allow-added-params=")) ?? "").slice("--allow-added-params=".length).split(",").filter(Boolean));
 
 let problems = 0;
 const fail = (m) => { problems += 1; console.log(`  FAIL  ${m}`); };
@@ -69,7 +72,12 @@ for (const e of before.endpoints) {
     a.method === e.method &&
     JSON.stringify(a.intents) === JSON.stringify(e.intents) &&
     JSON.stringify(a.params) === JSON.stringify(e.params);
+  const gone = e.params.filter((p) => !a.params.includes(p));
+  const added = a.params.filter((p) => !e.params.includes(p));
+  const onlyAllowedAdds = a.method === e.method && JSON.stringify(a.intents) === JSON.stringify(e.intents)
+    && gone.length === 0 && added.length > 0 && added.every((p) => addedOk.has(`${e.path}:${p}`));
   if (same) ok(`${e.path.padEnd(18)} ${e.method} ${e.intents.join(",")} (${e.params.length} params) unchanged`);
+  else if (onlyAllowedAdds) ok(`${e.path.padEnd(18)} param${added.length > 1 ? "s" : ""} ${added.join(", ")} added on purpose (--allow-added-params); nothing else changed`);
   else {
     fail(`${e.path} CHANGED`);
     if (a.method !== e.method) console.log(`          method ${e.method} -> ${a.method}`);
