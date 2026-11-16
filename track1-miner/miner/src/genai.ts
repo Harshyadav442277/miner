@@ -15,7 +15,7 @@
  * model answer is an honest `unknown`, never an invented one.
  */
 import { currentFact } from "./currentfacts";
-import { parseObject, phrase } from "./llm";
+import { fallbackAllowed, longAvailable, parseObject, phrase, type PhraseRequest } from "./llm";
 import { completeReview } from "./review-validation";
 
 export { parseObject };
@@ -133,6 +133,12 @@ export function clauseBrief(sentence: string, n = 80): string {
   return `${out}.`;
 }
 
+/**
+ * A brief ending as a sentence: "Uncertain: current plans aim for the 2030s but no confirmed date" was served
+ * with no full stop (production 2026-11-16). Pure.
+ */
+export const endMark = (s: string): string => (/[.!?]["')\]]?$/.test(s.trim()) ? s.trim() : `${s.trim().replace(/[,;:\s—-]+$/, "")}.`);
+
 /** Non-breaking (U+2011), plain Unicode (U+2010) and minus (U+2212) hyphens as "-". Pure. */
 export const plainHyphens = (t: string): string => t.replace(/[‐‑−]/g, "-");
 
@@ -159,7 +165,11 @@ export async function chat(question: string, messageParam = "", now = new Date()
   // data, never as an instruction: letters, digits and plain punctuation only, 240 characters at most.
   const safe = fact ? fact.replace(/[^\p{L}\p{N} .,:;()'\/-]/gu, " ").replace(/\s+/g, " ").trim().slice(0, 240) : "";
   const user = safe ? `${message}\n\n${JSON.stringify({ register_fact: safe })}` : message;
-  const raw = await phrase({ system: chatSystem(now), user, maxTokens: 700, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
+  const req: PhraseRequest = { system: chatSystem(now), user, maxTokens: 700, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) };
+  // When the long budget or its cooldown would refuse the call, the phrasing path answers instead (its own model
+  // rotation and quota), with a shorter cap, rather than serving no reply.
+  const via = longAvailable(req) ? req : fallbackAllowed() ? { ...req, long: false, maxTokens: 500, deadlineMs: 4_500 } : null;
+  const raw = via ? await phrase(via) : null;
   const o = raw ? parseObject(raw) : null;
   const reply = plainHyphens(str(o?.reply));
   if (!o || !reply) return unavailable("a reply", { reply: null, brief: null });
@@ -171,7 +181,7 @@ export async function chat(question: string, messageParam = "", now = new Date()
   const model = plainHyphens(str(o.brief));
   const flat = reply.replace(/\s+/g, " ").trim();
   const first = opening(flat);
-  let brief = usableBrief(model, verdict) && model.length <= 80 ? model : first.length <= 80 && first.split(" ").length >= 4 ? first : "";
+  let brief = usableBrief(model, verdict) && endMark(model).length <= 80 ? endMark(model) : first.length <= 80 && first.split(" ").length >= 4 ? first : "";
   if (!brief) {
     // The rewrite must end before the handler's 11 s watchdog, which the long call above may have nearly used.
     const two = `${first} ${opening(flat.slice(first.length))}`.trim();

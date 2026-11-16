@@ -25,7 +25,62 @@ async function withReplies(contents: string[], run: (calls: Array<{ messages: Ar
   }
 }
 
-const LONG_BRIEF = "Uncertain: While NASA's Artemis program and private initiatives aim for Mars, no crewed landing date is confirmed by any agency yet.";
+test("chat: a brief with no closing mark gets a full stop (production 2026-11-16)", async () => {
+  const { endMark } = await import("../src/genai");
+  assert.equal(endMark("Uncertain: current plans aim for the 2030s but no confirmed date"), "Uncertain: current plans aim for the 2030s but no confirmed date.");
+  assert.equal(endMark("Canberra is the capital of Australia."), "Canberra is the capital of Australia.");
+  assert.equal(endMark("It depends,"), "It depends.");
+});
+
+test("chat: a call is charged what Groq says it used, so the long budget is not spent on reserved tokens", async () => {
+  // About 1,000 tokens are reserved per chat call; with a 2,500-token minute, three calls used to be refused at the third.
+  process.env.LLM_LONG_TOKENS_PER_MIN = "2500";
+  const real = globalThis.fetch;
+  let n = 0;
+  process.env.GROQ_API_KEY = "test-key";
+  resetPhraseState();
+  globalThis.fetch = (async () => {
+    n++;
+    return new Response(JSON.stringify({ usage: { total_tokens: 400 },
+      choices: [{ message: { content: JSON.stringify({ brief: `Answer number ${n} is a plain sentence.`, reply: `Answer number ${n} is a plain sentence.`, verdict: null }) } }] }), { status: 200 });
+  }) as typeof fetch;
+  try {
+    for (let i = 0; i < 5; i++) assert.ok((await chat(`Question ${i}: what is item ${i}?`, "", NOW)).reply, `call ${i + 1} answered`);
+    assert.equal(n, 5);
+  } finally {
+    globalThis.fetch = real;
+    delete process.env.GROQ_API_KEY;
+    delete process.env.LLM_LONG_TOKENS_PER_MIN;
+    resetPhraseState();
+  }
+});
+
+test("chat: the phrasing-path fallback has its own bucket, so a burst cannot use up the shared quota", async () => {
+  const { fallbackAllowed } = await import("../src/llm");
+  resetPhraseState();
+  process.env.LLM_FALLBACK_PER_MIN = "2";
+  try {
+    assert.equal(fallbackAllowed(1_000_000), true);
+    assert.equal(fallbackAllowed(1_000_001), true);
+    assert.equal(fallbackAllowed(1_000_002), false, "the third fallback in a minute is refused");
+    assert.equal(fallbackAllowed(1_061_000), true, "a minute later it is allowed again");
+  } finally {
+    delete process.env.LLM_FALLBACK_PER_MIN;
+    resetPhraseState();
+  }
+});
+
+test("chat: when the long budget refuses, the phrasing path answers instead of upstream_unavailable", async () => {
+  process.env.LLM_LONG_TOKENS_PER_MIN = "100"; // smaller than any chat estimate
+  await withReplies([JSON.stringify({ brief: "Canberra is the capital of Australia.", reply: "Canberra is the capital of Australia.", verdict: null })], async (calls) => {
+    const r = await chat("What is the capital of Australia?", "", NOW);
+    assert.equal(r.brief, "Canberra is the capital of Australia.");
+    assert.equal(calls.length, 1);
+  });
+  delete process.env.LLM_LONG_TOKENS_PER_MIN;
+});
+
+const LONG_BRIEF ="Uncertain: While NASA's Artemis program and private initiatives aim for Mars, no crewed landing date is confirmed by any agency yet.";
 const FORECAST = JSON.stringify({ verdict: "Uncertain", brief: LONG_BRIEF,
   reply: `${LONG_BRIEF} SpaceX targets uncrewed Starship flights first. NASA's crewed plans point to the late 2030s.` });
 

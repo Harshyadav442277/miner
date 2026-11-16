@@ -101,14 +101,41 @@ export function estimateTokens(r: PhraseRequest): number {
   for (const ch of r.system + r.user) (ch.codePointAt(0)! < 128 ? ascii++ : other++);
   return Math.ceil(ascii / 4) + other + (r.maxTokens ?? 200);
 }
-/** Whether a long request fits the minute and day budgets now; records it when it does. */
-function spendLong(tokens: number, now = Date.now()): boolean {
+/** Whether a long request of `tokens` fits the minute and day budgets now. */
+function longFits(tokens: number, now = Date.now()): boolean {
   while (longSpend.length && now - longSpend[0]!.at > 86_400_000) longSpend.shift();
   const minute = longSpend.reduce((a, s) => a + (now - s.at <= 60_000 ? s.tokens : 0), 0);
   const day = longSpend.reduce((a, s) => a + s.tokens, 0);
-  if (minute + tokens > envNumber("LLM_LONG_TOKENS_PER_MIN", 12_000)) return false;
-  if (day + tokens > envNumber("LLM_LONG_TOKENS_PER_DAY", 300_000)) return false;
-  longSpend.push({ at: now, tokens });
+  return minute + tokens <= envNumber("LLM_LONG_TOKENS_PER_MIN", 12_000) && day + tokens <= envNumber("LLM_LONG_TOKENS_PER_DAY", 300_000);
+}
+/** Records a long attempt when it fits, and returns its entry so the charge can be lowered to what it used. */
+function spendLong(tokens: number, now = Date.now()): { at: number; tokens: number } | null {
+  if (!longFits(tokens, now)) return null;
+  const entry = { at: now, tokens };
+  longSpend.push(entry);
+  return entry;
+}
+/**
+ * Whether a long request can be made now: its estimate fits the budgets and the long path is not cooling down.
+ * Chat asks this first and answers through the phrasing path when it cannot (production 2026-11-16: the 13th
+ * chat in a minute answered upstream_unavailable in 250 ms, refused by this budget before any model was asked).
+ */
+export function longAvailable(r: PhraseRequest): boolean {
+  return Date.now() >= longCooldownUntil && longFits(estimateTokens(r));
+}
+
+const fallbacks: number[] = [];
+/**
+ * Whether a long route may answer through the phrasing path now, and records it when it may. The phrasing path
+ * serves sentiment, fact-check, news briefs and classification, so a burst of chat must not use its quota up: at
+ * most LLM_FALLBACK_PER_MIN (6) such calls a minute, and none while the long path is cooling down after every
+ * model refused (commit security review, 2026-11-16).
+ */
+export function fallbackAllowed(now = Date.now()): boolean {
+  if (now < longCooldownUntil) return false;
+  while (fallbacks.length && now - fallbacks[0]! > 60_000) fallbacks.shift();
+  if (fallbacks.length >= envNumber("LLM_FALLBACK_PER_MIN", 6)) return false;
+  fallbacks.push(now);
   return true;
 }
 /** After every model has refused for rate, stop asking for a minute. */
@@ -151,6 +178,7 @@ export function resetPhraseState(): void {
   cooldownUntil = 0;
   longCooldownUntil = 0;
   longSpend.length = 0;
+  fallbacks.length = 0;
   nextModel = 0;
 }
 
@@ -223,7 +251,7 @@ export function salvage400(body: string, r: PhraseRequest): string | null {
 }
 
 /** One model, one attempt. Null for every failure; the reason is never surfaced. */
-async function ask(model: string, r: PhraseRequest, key: string, ms: number): Promise<string | "rate" | null> {
+async function ask(model: string, r: PhraseRequest, key: string, ms: number, meter?: { used?: number }): Promise<string | "rate" | null> {
   try {
     const res = await fetch(ENDPOINT, {
       method: "POST",
@@ -242,7 +270,9 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number): Pr
     if (res.status === 429 || res.status >= 500) return "rate";
     if (res.status === 400) return salvage400(await res.text().catch(() => ""), r);
     if (!res.ok) return null;
-    const body = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+    const body = (await res.json()) as { choices?: Array<{ message?: { content?: string } }>; usage?: { total_tokens?: number } };
+    const used = body?.usage?.total_tokens;
+    if (meter && typeof used === "number" && Number.isFinite(used) && used > 0) meter.used = used;
     return (r.clean ?? sanitise)(plainHyphens(body?.choices?.[0]?.message?.content ?? ""));
   } catch {
     // A timeout, a DNS failure or a malformed body. The caller falls back.
@@ -285,9 +315,14 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
     const left = deadline - Date.now();
     if (left < MIN_ATTEMPT_MS) break;
     const model = r.long ? LONG_MODELS[i]! : MODELS[(nextModel + i) % MODELS.length] ?? MODELS[0]!;
-    // Every attempt is charged, the fallbacks included: a timed-out call may still have spent tokens.
-    if (r.long && !spendLong(estimateTokens(r))) break;
-    const out = await ask(model, r, key, left);
+    // Every attempt is charged, the fallbacks included: a timed-out call may still have spent tokens. A call that
+    // answers is then charged what Groq says it used, not the completion cap it reserved: chat reserved ~1,000
+    // tokens a call and capped the route at about 12 calls a minute.
+    const entry = r.long ? spendLong(estimateTokens(r)) : null;
+    if (r.long && !entry) break;
+    const meter: { used?: number } = {};
+    const out = await ask(model, r, key, left, meter);
+    if (entry && meter.used !== undefined) entry.tokens = Math.min(entry.tokens, meter.used);
     if (out === "rate") { limited++; continue; }
     if (out) {
       nextModel = (nextModel + i + 1) % MODELS.length;

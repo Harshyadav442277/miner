@@ -1,5 +1,15 @@
 # MEMORY.md — session continuity
 
+## 2026-11-16 ~10:00 UTC (15:30 IST): CURRENT — `95b8c03` LIVE; chat budget fixed; SECURITY_REVIEW built, parked
+
+- **Production:** `95b8c03`, `miner-8s4mxzd6g` (`dpl_86UMLg8FutFqQTebhmvjpmdXF25R`). **Rollback:** `miner-2yrp4fuh8`
+  (`f3ba9f4`). Record: `track1-miner/docs/evidence/release-2026-11-16-chat-budget/`. Unit 1024/1024.
+- Chat burst 11/18 → 17/18 valid (G313). SECURITY_REVIEW route parked as a patch (G314):
+  `C:\Users\hyada\tg-deploy\patches\security-review-2026-11-16.patch`; needs the owner's yes to commit the YAML
+  change, then a signed registration. Crypto XMR/KAS unsourced (G315). Sanctions is a tie at 0.9994 (G316).
+- **Owner decisions pending:** (1) commit the SECURITY_REVIEW YAML change; (2) move sentiment word evidence out of
+  `reason`; (3) Upstash store for request capture (G282).
+
 ## 2026-11-16 ~08:30 UTC (14:00 IST): CURRENT — `f3ba9f4` LIVE; FACT_CHECK 0.9871 rank 4, STORM 0.9633 rank 7
 
 - **Production:** `f3ba9f4`, `miner-2yrp4fuh8` (`dpl_C34UEGsqutYsi7deeVKCpaAgXpdm`). **Rollback:** `miner-712vfn5wr`

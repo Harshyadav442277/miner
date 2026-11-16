@@ -1,5 +1,22 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-16 ~10:00 UTC (15:30 IST) chat budget release `95b8c03`; SECURITY_REVIEW built, not shipped — G313–G316 new
+
+- **G313 — Chat was refused after ~12 calls a minute by our own budget. `FIXED` in `95b8c03`, score unmeasured.**
+  18-message burst: 11/18 valid before, 17/18 after (`track1-miner/docs/evidence/release-2026-11-16-chat-budget/`).
+  CHAT_COMPLETION 0.9693, rank 6/16 in epoch 2103.
+- **G314 — SECURITY_REVIEW_GENERAL is not served; a route is built and waits for the owner. `OPEN`.** 29 miners
+  serve it (epoch 2103 top 0.9858, second 0.9258). `/security-review` (OSV.dev for package versions, headers for
+  sites, a model for code) passed 1033/1033 unit tests and preview probes (lodash@4.17.15 Insecure, 5 CVEs;
+  requests==2.19.0 Insecure, 5 after merging OSV's duplicate PYSEC records; example.com Needs changes, 5 missing
+  protections). Serving it needs the endpoint in `miner.yaml` and a new signed registration. The commit that
+  included the YAML was refused by the permission check, so the work is a patch outside the repo:
+  `C:\Users\hyada\tg-deploy\patches\security-review-2026-11-16.patch` (`git apply` from the repo root).
+- **G315 — CRYPTO_PRICE has no source for XMR or KAS. `OPEN`, not acted on.** Probed 2026-11-16: both answer
+  not_found. CoinGecko is barred by its terms (redistribution needs a signed agreement); Kraken's legal pages
+  answered 404, so its licence is unread. Epoch 2103: 0.945, rank 31/48, field median 0.946.
+- **G316 — SANCTIONS 0.9994, rank 9/27, is a tie with 1.0 leaders. Not acted on.**
+
 ## 2026-11-16 ~08:30 UTC (14:00 IST) release `f3ba9f4` — states changed; G310–G312 new
 
 - **G306 measured.** FACT_CHECK 0.9871, rank 4, epoch 2103 (was 0.8432, rank 11), scored 05:20 UTC under `3d4d51b`.
