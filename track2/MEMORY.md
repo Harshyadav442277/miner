@@ -8,7 +8,19 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-16 ~02:00 UTC (07:30 IST) · THREE LANES CLOSED BEFORE TRAINING (G44, G45, G46); NO EVALUATOR READY
+## CURRENT — 2026-11-16 ~03:30 UTC (09:00 IST) · QUESTION_ANSWERING v2 (LAST ITERATION) TRAINING
+
+Owner chose the last QA iteration (2026-11-16). Design and thresholds committed before any data was built (`b0e7168`).
+- Cause found on the v1 val split, not the holdout (`bias_probes.py`): v1 prefers the non-negated statement 1/60 and
+  60/60. v2 adds balanced `true_negation` and `false_negation` kinds. Audit PASS (`c3eac33`), negation probe 0.54.
+- **Detached chain** `C:/Users/hyada/tg-eval/runs-v2/qa_v2/run-chain.ps1` (log `chain.log`; rerun skips finished
+  steps): train `QUESTION_ANSWERING_v2` (rank 8, alpha 32, 384), finish, then measure V2 on the holdout and the probes.
+- **Then:** merge with `qa_holdout/holdout-QA301.json` and `holdout-GENERIC.json` (`harness/merge_results.py`), run
+  `compare.py` and `gate.py`, and paste the output verbatim. PASS needs ≥ 172 (champion + 2), ≥ 206 (shorter + 5) and
+  ≥ 271/362 (Wilson). A PASS would still need a fresh frozen set, because v1's holdout results informed v2.
+- v1's gate output is now in G42 (FAIL on 6 rules). `compare.py` and `gate.py` work end to end.
+
+## 2026-11-16 ~02:00 UTC (07:30 IST) · THREE LANES CLOSED BEFORE TRAINING (G44, G45, G46); NO EVALUATOR READY
 
 Branch `PR/track2-email-security-evaluator-303326`, nothing pushed, signed or registered.
 
