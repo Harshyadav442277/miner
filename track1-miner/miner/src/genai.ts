@@ -182,7 +182,13 @@ export async function chat(question: string, messageParam = "", now = new Date()
   const model = plainHyphens(str(o.brief));
   const flat = reply.replace(/\s+/g, " ").trim();
   const first = opening(flat);
-  let brief = usableBrief(model, verdict) && endMark(model).length <= 80 ? endMark(model) : first.length <= 80 && first.split(" ").length >= 4 ? first : "";
+  // A model brief with no closing mark may be cut short ("Uncertain: Bitcoin reaching $200", production 2026-11-16),
+  // so the reply's own complete first sentence is preferred to it when that fits.
+  const complete = /[.!?]["')\]]?$/.test(model.trim());
+  const firstFits = first.length <= 80 && first.split(" ").length >= 4;
+  let brief = usableBrief(model, verdict) && model.length <= 80 && complete ? model
+    : firstFits ? first
+    : usableBrief(model, verdict) && endMark(model).length <= 80 && !/\$?\d[\d,.]*$/.test(model.trim()) ? endMark(model) : "";
   if (!brief) {
     // The rewrite must end before the handler's 11 s watchdog, which the long call above may have nearly used.
     const two = `${first} ${opening(flat.slice(first.length))}`.trim();
@@ -190,6 +196,8 @@ export async function chat(question: string, messageParam = "", now = new Date()
       maxTokens: 150, deadlineMs: Math.min(2_500, 10_000 - (Date.now() - started)) })));
     brief = fixed.length <= 80 && usableBrief(fixed, verdict) && !/(?:…|\.\.\.)$/.test(fixed) ? fixed : clauseBrief(first);
   }
+  // Every path ends as a sentence: "Buenos días" came back from the short-answer path with no mark (2026-11-16).
+  if (endMark(brief).length <= 80) brief = endMark(brief);
   // The schema's verdict is Likely | Unlikely | Uncertain only; a question that is not a forecast carries none.
   return { reply, brief, ...(verdict ? { verdict } : {}), confidence: CONFIDENCE, source: SOURCE, reason: reply };
 }

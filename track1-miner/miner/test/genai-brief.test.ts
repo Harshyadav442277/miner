@@ -55,6 +55,20 @@ test("chat: a call is charged what Groq says it used, so the long budget is not 
   }
 });
 
+test("chat: a brief cut short loses to the reply's first sentence, and every brief ends with a mark", async () => {
+  // Production 2026-11-16: "Uncertain: Bitcoin reaching $200" was served as the brief.
+  await withReplies([JSON.stringify({ verdict: "Uncertain", brief: "Uncertain: Bitcoin reaching $200",
+    reply: "Uncertain: no one can reliably forecast that price. Many factors move it." })], async () => {
+    const r = await chat("Will Bitcoin reach 200,000 dollars in 2027?", "", NOW);
+    assert.equal(r.brief, "Uncertain: no one can reliably forecast that price.");
+  });
+  // A short answer with no mark, too short for any other path, still ends as a sentence.
+  await withReplies([JSON.stringify({ brief: "Buenos días", reply: "Buenos días", verdict: null }), "Buenos días"], async () => {
+    const r = await chat("Translate 'good morning' into Spanish.", "", NOW);
+    assert.equal(r.brief, "Buenos días.");
+  });
+});
+
 test("chat: the phrasing-path fallback has its own bucket, so a burst cannot use up the shared quota", async () => {
   const { fallbackAllowed } = await import("../src/llm");
   resetPhraseState();
