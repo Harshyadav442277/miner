@@ -103,9 +103,12 @@ export function looksLikeCode(target: string): boolean {
   const t = String(target ?? "");
   // A keyword, or a call: `app.get('/hello', (req, res) => { res.send(...) })` has neither `function` nor `const`
   // and was refused as no target (production 2026-11-16).
-  const keyword = /\b(?:function|def|class|import|require|return|const|let|var|public|private|contract|pragma|fn|SELECT|INSERT|echo|eval|exec)\b/.test(t);
-  const call = /[\w$\]]+(?:\.[\w$]+)*\s*\([^()]*(?:\([^()]*\)[^()]*)*\)/.test(t);
-  return (/[{};]|=>|\)\s*:/.test(t) && (keyword || call)) || looksLikeConfig(t);
+  // Detection reads at most what a review accepts, and the call pattern only opens a call, anchored at a word start,
+  // so no input makes it backtrack (commit security review, 2026-11-16).
+  const s = t.slice(0, MAX_CODE + 1);
+  if (!/[{};]|=>|\)\s*:/.test(s)) return looksLikeConfig(s);
+  const keyword = /\b(?:function|def|class|import|require|return|const|let|var|public|private|contract|pragma|fn|SELECT|INSERT|echo|eval|exec)\b/.test(s);
+  return keyword || /(?<![\w$])[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*\s*\(/.test(s) || looksLikeConfig(s);
 }
 
 /**
@@ -114,7 +117,7 @@ export function looksLikeCode(target: string): boolean {
  * code has. Pure.
  */
 export function looksLikeConfig(target: string): boolean {
-  const t = String(target ?? "");
+  const t = String(target ?? "").slice(0, MAX_CODE + 1);
   const lines = t.split(/\r?\n/).filter((l) => l.trim());
   if (lines.length < 2) return false;
   const dockerfile = /^\s*FROM\s+\S+/m.test(t) && /^\s*(?:RUN|COPY|ADD|CMD|ENTRYPOINT|USER|EXPOSE|ENV)\b/m.test(t);

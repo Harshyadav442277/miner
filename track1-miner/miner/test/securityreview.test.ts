@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  headerFindings, issueId, looksLikeCode, osvSeverity, parseCodeReview, parsePackages, securityReview, siteOf, verdictOf,
+  headerFindings, issueId, looksLikeCode, looksLikeConfig, osvSeverity, parseCodeReview, parsePackages, securityReview, siteOf, verdictOf,
 } from "../src/securityreview";
 import { scoredFields } from "../src/intent-fields";
 import { resetPhraseState } from "../src/llm";
@@ -30,6 +30,12 @@ test("siteOf, looksLikeCode", () => {
   assert.equal(looksLikeCode("app.get('/hello', (req, res) => { res.send('<h1>Hello ' + req.query.name + '</h1>'); });"), true);
   assert.equal(looksLikeCode("app.get('/file', (req, res) => { res.sendFile('/srv/files/' + req.query.name); });"), true);
   assert.equal(looksLikeCode("Is lodash@4.17.15 (the latest) secure?"), false);
+  // A long run of word characters and parentheses must not make detection slow.
+  const t0 = Date.now();
+  looksLikeCode(`{${"a".repeat(200_000)}`);
+  looksLikeCode(`;${"a(".repeat(50_000)}`);
+  looksLikeConfig(`${"k=v\n".repeat(50_000)}`);
+  assert.ok(Date.now() - t0 < 300, `detection took ${Date.now() - t0} ms`);
 });
 
 test("configuration counts as reviewable code; a repository link is not a site", async () => {
