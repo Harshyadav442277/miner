@@ -4167,5 +4167,83 @@
     "ledger": "/sources"
    }
   }
+ },
+ {
+  "intent": "SECURITY_REVIEW_GENERAL",
+  "path": "/security-review",
+  "query": "target=lodash@4.17.15",
+  "http": 200,
+  "ms": null,
+  "fetched_at": "2026-11-16T09:40:00Z",
+  "note": "recorded from preview miner-h8d4isv7m (the route is not in the registered YAML yet)",
+  "answer": {
+   "answer": "Insecure: 5 known vulnerabilities affect lodash@4.17.15.",
+   "target": "lodash@4.17.15",
+   "target_kind": "packages",
+   "source": "OSV.dev (GitHub Advisory Database, PyPI, Go and RustSec advisories; CC-BY 4.0, CC0)",
+   "verdict": "Insecure",
+   "vulnerability_count": 5,
+   "issues": [
+    "CVE-2021-23337 (GHSA-35jh-r3h4-6jhm)",
+    "CVE-2020-8203 (GHSA-p6mc-m468-83gw)",
+    "CVE-2026-4800 (GHSA-r5fr-rjxr-66jc)",
+    "CVE-2020-28500 (GHSA-29mw-wpgm-hmr9)",
+    "CVE-2025-13465 (GHSA-xxjr-mmjv-4gpg)"
+   ],
+   "findings": [
+    {
+     "id": "CVE-2021-23337 (GHSA-35jh-r3h4-6jhm)",
+     "severity": "high",
+     "title": "Command Injection in lodash",
+     "where": "lodash@4.17.15 (npm)"
+    },
+    {
+     "id": "CVE-2020-8203 (GHSA-p6mc-m468-83gw)",
+     "severity": "high",
+     "title": "Prototype Pollution in lodash",
+     "where": "lodash@4.17.15 (npm)"
+    },
+    {
+     "id": "CVE-2026-4800 (GHSA-r5fr-rjxr-66jc)",
+     "severity": "high",
+     "title": "lodash vulnerable to Code Injection via `_.template` imports key names",
+     "where": "lodash@4.17.15 (npm)"
+    },
+    {
+     "id": "CVE-2020-28500 (GHSA-29mw-wpgm-hmr9)",
+     "severity": "medium",
+     "title": "Regular Expression Denial of Service (ReDoS) in lodash",
+     "where": "lodash@4.17.15 (npm)"
+    },
+    {
+     "id": "CVE-2025-13465 (GHSA-xxjr-mmjv-4gpg)",
+     "severity": "medium",
+     "title": "Lodash has Prototype Pollution Vulnerability in `_.unset`, `_.omit`, and `_.pullAt` functions",
+     "where": "lodash@4.17.15 (npm)"
+    }
+   ],
+   "summary": "Insecure: 5 known vulnerabilities affect lodash@4.17.15. Most serious: CVE-2021-23337 (high), CVE-2020-8203 (high), CVE-2026-4800 (high).",
+   "confidence": 0.9,
+   "reason": "Insecure: 5 known vulnerabilities affect lodash@4.17.15. Most serious: CVE-2021-23337 (high), CVE-2020-8203 (high), CVE-2026-4800 (high). Known vulnerabilities only: code-level flaws in how a package is used are not checked.",
+   "checked_at": "2026-11-16T09:25:14.249Z",
+   "licensing": {
+    "endpoint_status": "unclear",
+    "upstreams": [
+     {
+      "source": "Public DNS resolvers (Cloudflare, Google, Quad9)",
+      "status": "unclear"
+     },
+     {
+      "source": "Groq",
+      "status": "unclear"
+     },
+     {
+      "source": "OSV.dev",
+      "status": "conditional"
+     }
+    ],
+    "ledger": "/sources"
+   }
+  }
  }
 ]

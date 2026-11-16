@@ -81,7 +81,7 @@ export interface Hop {
  * is done here through `lookup`, so a hostile name cannot answer the guard with a
  * public address and the connection with a private one. The body is never read.
  */
-function statusOf(u: URL, address: string): Promise<{ status: number; location: string | null }> {
+export function statusOf(u: URL, address: string): Promise<{ status: number; location: string | null; headers: IncomingMessage["headers"] }> {
   const family = address.includes(":") ? 6 : 4;
   const req = u.protocol === "https:" ? httpsRequest : httpRequest;
   return new Promise((resolve, reject) => {
@@ -95,7 +95,7 @@ function statusOf(u: URL, address: string): Promise<{ status: number; location: 
         o?.all ? cb(null, [{ address, family }]) : cb(null, address, family)) as never,
     }, (res: IncomingMessage) => {
       const loc = res.headers.location;
-      resolve({ status: res.statusCode ?? 0, location: typeof loc === "string" ? loc : null });
+      resolve({ status: res.statusCode ?? 0, location: typeof loc === "string" ? loc : null, headers: res.headers });
       res.destroy();
     });
     r.setTimeout(HOP_TIMEOUT_MS, () => r.destroy(new Error("timeout")));

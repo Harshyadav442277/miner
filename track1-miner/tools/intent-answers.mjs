@@ -1275,6 +1275,31 @@ const CHECKS = {
     return bad;
   },
 
+  async SECURITY_REVIEW() {
+    const bad = [];
+    // OSV.dev, read independently: lodash 4.17.15 carries CVE-2020-8203 and CVE-2021-23337 (read 2026-11-16).
+    const osv = await fetch("https://api.osv.dev/v1/query", { method: "POST", body: JSON.stringify({ package: { name: "lodash", ecosystem: "npm" }, version: "4.17.15" }),
+      signal: AbortSignal.timeout(15000) }).then((x) => x.json()).catch(() => null);
+    const pkg = await get("/security-review", { target: "lodash@4.17.15" });
+    if (pkg.body.verdict !== "Insecure") bad.push(`lodash@4.17.15 -> ${pkg.body.verdict}, want Insecure`);
+    for (const cve of ["CVE-2020-8203", "CVE-2021-23337"]) {
+      if (!(pkg.body.issues ?? []).some((i) => String(i).startsWith(cve))) bad.push(`lodash@4.17.15: ${cve} is not listed`);
+    }
+    if (!osv?.vulns) bad.push("OSV.dev did not answer, so the count could not be cross-checked");
+    else if (!(pkg.body.vulnerability_count >= 1 && pkg.body.vulnerability_count <= osv.vulns.length)) {
+      bad.push(`lodash@4.17.15 count ${pkg.body.vulnerability_count}, OSV lists ${osv.vulns.length} records`);
+    }
+    const repo = await get("/security-review", { target: "https://github.com/lodash/lodash" });
+    if (repo.body.verdict === "Secure" || repo.body.verdict === "Needs changes") bad.push(`a repository link was graded ${repo.body.verdict}`);
+    // A planted SQL injection, and the same query parameterised.
+    const sqli = await get("/security-review", { target: "def get_user(db, uid):\n    return db.execute(\"SELECT * FROM users WHERE id = '\" + uid + \"'\").fetchone()" });
+    if (sqli.body.error === "upstream_unavailable") return [...bad, "the model did not answer (Groq quota or outage)"];
+    if (sqli.body.verdict !== "Insecure" || !(sqli.body.issues ?? []).includes("CWE-89")) bad.push(`planted SQL injection -> ${sqli.body.verdict} ${JSON.stringify(sqli.body.issues)}, want Insecure with CWE-89`);
+    const safe = await get("/security-review", { target: "def get_user(db, uid):\n    return db.execute(\"SELECT * FROM users WHERE id = ?\", (uid,)).fetchone()" });
+    if (safe.body.verdict !== "Secure" && safe.body.error !== "upstream_unavailable") bad.push(`a parameterised query -> ${safe.body.verdict}, want Secure`);
+    return bad;
+  },
+
   async SMART_CONTRACT_AUDIT() {
     const bad = [];
     // A planted reentrancy: the ETH is sent before the balance is zeroed.

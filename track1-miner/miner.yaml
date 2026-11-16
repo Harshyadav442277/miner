@@ -1373,6 +1373,33 @@ endpoints:
             intents: ["*"]
             description: "The user's original question, verbatim; used when code is absent."
 
+  - path: /security-review
+    external_path: /security-review
+    method: GET
+    intents: [SECURITY_REVIEW_GENERAL]
+    description: >-
+      Known vulnerabilities in a target. Examples: "Is lodash@4.17.15 secure?",
+      "Review example.com", "Is this code safe? <code>". Returns verdict (Secure,
+      Needs changes or Insecure; Insecure when a finding is critical or high),
+      vulnerability_count, issues (CVE, GHSA or CWE ids, most serious first),
+      findings and summary. A package with its version (name@version, name==version,
+      group:artifact:version, module@version) is checked against OSV.dev; a site for
+      HTTPS, HSTS, CSP, framing, nosniff and cookie flags by CWE; code or a contract
+      by a language model, the verdict following its findings. A name with no
+      version, or a source that does not answer, is never reported secure.
+    params:
+      query:
+        required:
+          - name: target
+            type: string
+            intents: ["*"]
+            description: "Code, a package with its version, a contract or a site, verbatim and URL-encoded."
+        optional:
+          - name: query
+            type: string
+            intents: ["*"]
+            description: "The user's original question, verbatim; used when target is absent."
+
   - path: /contract-audit
     external_path: /contract-audit
     method: GET
@@ -1521,6 +1548,7 @@ semantics:
     - ONCHAIN_METRIC_VERIFY_GENERAL
     - CHAT_COMPLETION_GENERAL
     - CODE_REVIEW_GENERAL
+    - SECURITY_REVIEW_GENERAL
     - SMART_CONTRACT_AUDIT_GENERAL
     - TEXT_GENERATION_GENERAL
     - IP_GEOLOCATION_GENERAL
@@ -1708,6 +1736,15 @@ intent_mapping:
     endpoint: /code-review
     output:
       verdict: { path: verdict }
+  SECURITY_REVIEW_GENERAL:
+    endpoint: /security-review
+    input:
+      target: { from: target }
+    output:
+      verdict: { path: verdict }
+      vulnerability_count: { path: vulnerability_count }
+      issues: { path: issues }
+      summary: { path: summary }
   TEXT_GENERATION_GENERAL:
     endpoint: /generate
     output:
