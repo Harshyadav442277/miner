@@ -79,7 +79,7 @@ function at(answer: Record<string, unknown>, path: string): unknown {
 // Only scored or processed fields are mapped: the full mapping put miner.yaml at 103 KB, and Anjoman's validator
 // answered "request entity too large" (owner, 2026-11-09). An intent whose schema scores nothing has no entry.
 test("every supported intent with a scored field has a mapping, and nothing else is mapped", () => {
-  assert.equal(supported.length, 43);
+  assert.equal(supported.length, 44);
   for (const intent of supported) {
     const f = fields[intent]?.fields;
     assert.ok(f, `${intent} has no recorded response fields; re-record docs/evidence/intent-mapping-*`);
@@ -88,7 +88,7 @@ test("every supported intent with a scored field has a mapping, and nothing else
     else assert.ok(!mapping.has(intent), `${intent} scores nothing, so it has nothing to map`);
   }
   for (const intent of mapping.keys()) assert.ok(supported.includes(intent), `${intent} is mapped but not in supported_intents`);
-  assert.equal(mapping.size, 36);
+  assert.equal(mapping.size, 37);
 });
 
 test("miner.yaml stays under the size Anjoman's validator accepted", () => {

@@ -46,6 +46,7 @@ import { scanUrl, type UrlScanResult } from "./urlscan";
 import { webSearch, type WebSearchResult } from "./websearch";
 import { analyseSentiment, type SentimentResult } from "./sentiment";
 import { analyseSentimentPhrased } from "./prose-phrase";
+import { securityReview, type SecurityReviewResult } from "./securityreview";
 import { classifyText, type ClassifyResult } from "./classify";
 import { synthesise, type SynthesisResult } from "./synthesis";
 import { ledger, licensingFor } from "./sources";
@@ -63,6 +64,7 @@ export const ENDPOINTS: readonly string[] = [
   "/gas-price", "/financial", "/fraud-check",
   "/token-holders", "/research",
   "/crypto-price", "/stock-price", "/cross-chain", "/event-outcome", "/url-scan", "/web-search", "/sentiment", "/classify", "/research-synthesis",
+  "/security-review",
   ...Object.keys(MISSION_ROUTES),
 ];
 
@@ -79,7 +81,7 @@ type Answer =
   | ActivityResult
   | CryptoPriceResult | StockPriceResult | CrossChainResult | EventOutcomeResult
   | UrlScanResult | WebSearchResult | SentimentResult
-  | ClassifyResult | SynthesisResult | MissionAnswer;
+  | ClassifyResult | SynthesisResult | SecurityReviewResult | MissionAnswer;
 /** `reads` are the upstream reads that produced the value, replayed into a cache hit's receipt. */
 const cache = new Map<string, { at: number; value: Answer; ttl: number; reads: UpstreamRead[] }>();
 
@@ -1361,6 +1363,29 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A web search", q.slice(0, 60) || "this request", q));
+    return;
+  }
+
+  if (path === "/security-review") {
+    /**
+     * SECURITY_REVIEW_GENERAL: the schema's `target` (code, a package with its version, a contract or a site).
+     * Only an answer with no error is cached, so an OSV outage or a model miss is not pinned for the minute.
+     */
+    const targetParam = firstValue(url, "target", "code", "package", "url", "site");
+    const asked = firstValue(url, "query", "q", "question", "input");
+    const q = targetParam || asked;
+    const key = `secrev:${q.trim().slice(0, 2_000)}`;
+    const hit = fromCache(key);
+    if (hit) {
+      sendAnswer(res, q, hit);
+      return;
+    }
+    securityReview(asked, targetParam)
+      .then((r) => {
+        if (!r.error) toCache(key, r);
+        sendAnswer(res, q, r);
+      })
+      .catch(() => upstreamUnavailable(res, "A security review", q.slice(0, 60) || "this request", q));
     return;
   }
 

@@ -96,6 +96,7 @@ export const SOURCES: Source[] = [
   { id: "datamuse", name: "Datamuse", hosts: ["api.datamuse.com"], status: "licensed", licence: "Free use to 100,000 requests a day", terms: "https://www.datamuse.com/api/", read: R, basis: "Usable without restriction and without a key up to 100,000 requests a day, until 1 January 2027." },
   // Search, news and models
   { id: "google-news", name: "Google News RSS", hosts: ["news.google.com"], status: "barred", licence: "Google Terms", terms: "https://policies.google.com/terms", read: "2026-10-14", basis: "Non-commercial feed (GAPS G189)." },
+  { id: "osv", name: "OSV.dev", hosts: ["api.osv.dev"], status: "conditional", licence: "Each source's own: CC-BY 4.0 (GitHub, PyPI, Go, PSF), CC0 (RustSec), MIT, Apache 2.0, CC-BY-SA 4.0 (Ubuntu)", terms: "https://google.github.io/osv.dev/data/", read: "2026-11-16", basis: "Open licences per source; CC-BY needs attribution. The API states no rate limit (FAQ, 2026-11-16).", condition: { text: "Name OSV.dev and the advisory databases in each answer", met: "yes" } },
   { id: "groq", name: "Groq", hosts: ["api.groq.com"], status: "unclear", licence: "Groq Services Agreement", terms: "https://console.groq.com/docs/legal/services-agreement", read: "2026-10-18", basis: "Allows a Customer Application; forbids reselling the Cloud Services (GAPS G197)." },
   { id: "tavily", name: "Tavily", hosts: ["api.tavily.com"], status: "licensed", licence: "Tavily Terms (paid key)", terms: "https://www.tavily.com/terms", read: R, basis: "Contemplates Customer Applications serving third-party end users. No key is set in production." },
   { id: "tech-docs", name: "Technical documentation sites (Python, Node.js and others)", hosts: ["docs.python.org", "nodejs.org"], status: "unread", licence: "Per site", terms: "https://docs.python.org/3/license.html", read: null, basis: "websearch.ts quotes pages from an allowlist of doc hosts; each site's licence is unread." },
@@ -162,6 +163,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/url-scan": ["dns-resolvers"],
   "/web-search": ["bitstamp", "clinicaltrials", "coinbase", "ebi", "ecb", "endoflife", "frankfurter", "google-news", "groq", "tech-docs", "wikidata", "wikipedia"],
   "/sentiment": ["groq"],
+  "/security-review": ["dns-resolvers", "groq", "osv"],
   "/classify": ["datamuse", "groq"],
   "/research-synthesis": ["clinicaltrials", "doaj", "ebi", "ncbi", "openalex", "wikipedia"],
   // The sanctions index (sanctions-index.ts) is served from raw.githubusercontent.com, the host registered for
