@@ -10,6 +10,7 @@
  * Only EDGAR is read; exchange disclosures elsewhere are named as not covered.
  */
 import { resolveCik, submissions, type EdgarCompany, type Filing } from "./edgar";
+import { federalRegisterFilings } from "./fedreg-filings";
 
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
 const TIMEOUT_MS = Number(process.env.EDGAR_TIMEOUT_MS ?? 5_000);
@@ -210,6 +211,8 @@ export interface FilingResult {
   counted_until?: string;
   /** False when the window reaches past the 1,000 filings EDGAR's index returns, so the count is a lower bound. */
   count_complete?: boolean;
+  /** Which register the count is from: SEC EDGAR for a registrant, the Federal Register for a product or concern. */
+  register?: "SEC EDGAR" | "Federal Register";
 }
 
 /** EDGAR's submissions index returns at least a year of filings, or the newest 1,000. */
@@ -258,7 +261,10 @@ export async function monitorFilings(question: string, companyParam = "", formPa
       reason: `${ask.company}'s filings could not be checked because SEC EDGAR did not answer. This is an availability problem, not a finding that nothing was filed.` };
   }
   if (cik === null) {
-    // Not a count of 0: the intent covers any regulator's filings, and only SEC EDGAR was read.
+    // A product, drug or concern rather than an SEC registrant: count the Federal Register documents that name it.
+    const fr = ask.form ? undefined : await federalRegisterFilings(ask, other);
+    if (fr) return { ...base, ...fr };
+    // Not a count of 0: the intent covers any regulator's filings, and neither register could be read for it.
     return { ...base, verdict: "not_found", confidence: 0.6, filings: [], urls: [], counted_since: ask.since,
       reason: `No SEC registrant matching ${ask.company} was found, so it has no EDGAR filings to report.${notCovered ? ` ${notCovered}` : " Issuers that file only with regulators outside the US are not covered."}` };
   }
