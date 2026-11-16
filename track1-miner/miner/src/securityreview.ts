@@ -101,8 +101,11 @@ export function siteOf(target: string): URL | null {
 /** Whether the target carries code: statements, braces or a contract keyword. Pure. */
 export function looksLikeCode(target: string): boolean {
   const t = String(target ?? "");
-  return (/[{};]|=>|\)\s*:/.test(t) && /\b(?:function|def|class|import|require|return|const|let|var|public|private|contract|pragma|fn|SELECT|INSERT|echo|eval|exec)\b/.test(t))
-    || looksLikeConfig(t);
+  // A keyword, or a call: `app.get('/hello', (req, res) => { res.send(...) })` has neither `function` nor `const`
+  // and was refused as no target (production 2026-11-16).
+  const keyword = /\b(?:function|def|class|import|require|return|const|let|var|public|private|contract|pragma|fn|SELECT|INSERT|echo|eval|exec)\b/.test(t);
+  const call = /[\w$\]]+(?:\.[\w$]+)*\s*\([^()]*(?:\([^()]*\)[^()]*)*\)/.test(t);
+  return (/[{};]|=>|\)\s*:/.test(t) && (keyword || call)) || looksLikeConfig(t);
 }
 
 /**

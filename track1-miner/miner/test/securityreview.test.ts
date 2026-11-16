@@ -26,6 +26,10 @@ test("siteOf, looksLikeCode", () => {
   assert.equal(siteOf("lodash@4.17.15"), null);
   assert.equal(looksLikeCode("const q = `SELECT * FROM users WHERE id = ${id}`; db.query(q);"), true);
   assert.equal(looksLikeCode("Is lodash safe to use?"), false);
+  // Production 2026-11-16: refused as no target, though both are the textbook XSS and path traversal.
+  assert.equal(looksLikeCode("app.get('/hello', (req, res) => { res.send('<h1>Hello ' + req.query.name + '</h1>'); });"), true);
+  assert.equal(looksLikeCode("app.get('/file', (req, res) => { res.sendFile('/srv/files/' + req.query.name); });"), true);
+  assert.equal(looksLikeCode("Is lodash@4.17.15 (the latest) secure?"), false);
 });
 
 test("configuration counts as reviewable code; a repository link is not a site", async () => {
