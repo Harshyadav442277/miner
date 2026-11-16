@@ -8,7 +8,35 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-15 ~20:30 UTC (Nov 16 02:00 IST) · EMAIL_SECURITY LANE BUILDING THE HOLDOUT; TWO SONNET LANES RUNNING
+## CURRENT — 2026-11-16 ~02:00 UTC (07:30 IST) · THREE LANES CLOSED BEFORE TRAINING (G44, G45, G46); NO EVALUATOR READY
+
+Branch `PR/track2-email-security-evaluator-303326`, nothing pushed, signed or registered.
+
+- **EMAIL_SECURITY (G46): stopped by rule 6.**
+  - 300 frozen queries; 2,716 real answers; only 69 wrong, 61 of them from verity, which reports NXDOMAIN as
+    `lookup_ok: true`.
+  - 65 gated pairs (bar 100), identity probe 0.954 (bar 0.65). No training.
+  - Report-only: champion 73.8% / 67.7%, GENERIC 67.7% / 90.8% (two renderings, 65 pairs).
+- **WEATHER_FORECAST_VERIFY (G44, Sonnet lane): stopped at B.**
+  - 56 pairs; identity probe 0.696, shape probe 0.786.
+  - Wrong answers come from 3 services.
+- **VULNERABILITY_TRIAGE (G45, Sonnet lane): stopped at B.**
+  - On CNA≠NVD queries, only the champion author's miner is right.
+  - 12 miners serve the CNA score instead of NVD's.
+- **Common cause:** in these families, wrong real answers come from one to three services. A7's real-answer holdout
+  cannot separate quality from service identity. A redraw cannot fix this; the miners are what they are.
+- `capture.py` now fills query, body and path params from structured queries (`99c7d93`, `e5e6af9`). Tests: 20 OK.
+- **Still owed:**
+  - star github.com/telegraphprotocol/bounties (owner, required for every track);
+  - SUBMISSION_S2.md;
+  - growth posts;
+  - a choice of the next lane. QUESTION_ANSWERING's last iteration is the only open adapter lane with a frozen holdout.
+- **Agent branches**, each lane folder already copied here:
+  - `claude/weather-forecast-verify-lane` (`eddd6d1`);
+  - `claude/vulnerability-triage-lane` (`5607126`).
+  Their worktrees are `.claude/worktrees/agent-a08450d7f4d55c4f2` and `agent-aae807d93b70ba28b`.
+
+## 2026-11-15 ~20:30 UTC (Nov 16 02:00 IST) · EMAIL_SECURITY LANE BUILDING THE HOLDOUT; TWO SONNET LANES RUNNING
 
 Branch `PR/track2-email-security-evaluator-303326` (worktree `.claude/worktrees/track2-email-security-evaluator-303326`),
 reset onto `e181b96` (the `PR/evaluator-submission-track-2-4d21b7` tip; that branch had no commits of its own here).

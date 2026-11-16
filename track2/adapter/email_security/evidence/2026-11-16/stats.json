@@ -1,0 +1,42 @@
+{
+ "labels": {
+  "right": 1834,
+  "wrong": 69,
+  "call_failure": 197,
+  "ignores_query": 600
+ },
+ "truth": {
+  "NXDOMAIN": 147,
+  "NOERROR": 150,
+  "SERVFAIL": 3
+ },
+ "gated_pairs": 65,
+ "report_pairs": 135,
+ "longer_wins": 0.5077,
+ "shorter_wins": 0.4923,
+ "identity_probe": 0.9538,
+ "champion_author_pairs": 32,
+ "by_kind": {
+  "wrong_outcome": 65
+ },
+ "by_format": {
+  "lookup_ok-json>lookup_ok-json": 61,
+  "lookup_ok-json>doh-json": 2,
+  "doh-json>doh-json": 2
+ },
+ "chosen_service": {
+  "telegraph-guard.margyn.workers.dev/email-security": 32,
+  "preflight-ssl-verification.vercel.app/dns": 30,
+  "telegraph-verity-intelligence-api.onrender.com/v1/intent": 1,
+  "dns.adguard-dns.com/resolve": 2
+ },
+ "rejected_service": {
+  "telegraph-verity-intelligence-api.onrender.com/v1/intent": 61,
+  "dns.adguard-dns.com/resolve": 1,
+  "doh.pub/dns-query": 3
+ },
+ "by_truth": {
+  "NXDOMAIN": 62,
+  "NOERROR": 3
+ }
+}

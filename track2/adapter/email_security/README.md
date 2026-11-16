@@ -1,6 +1,35 @@
 # EMAIL_SECURITY adapter lane
 
-Status 2026-11-15 (UTC): **holdout being built. Nothing trained, nothing registered.**
+Status 2026-11-16 ~02:00 UTC: **STOPPED by rule 6 before training. 65 gated pairs (bar 100); identity probe
+0.954 (bar 0.65). Nothing trained, nothing registered.**
+
+## Result (2026-11-16)
+
+- Queries frozen at `2fde3cd` (`holdout/queries.json`, sha256 `21acfac5…ef25`, 300 rows) before any answer was seen.
+  Pilot (`holdout/pilot.json`) at the same commit. Capture `C:/Users/hyada/tg-eval/captures/es-20261116`
+  (9 services × 300, 2,716 requests, 00:33–01:20 UTC). Truth before and after agree on all 300: 150 NOERROR,
+  147 NXDOMAIN, 3 SERVFAIL (`truth-before.jsonl` sha256 `ba000a6f…`, `truth-after.jsonl` `9ff8c0f4…`).
+- Answers: 1,834 right, **69 wrong**, 197 call failures, 600 from the two services that ignore the query.
+  - Resolvers (dns.google, AliDNS, AdGuard, DNSPod), zk-email-dns and a1-preflight are right on 300/300 or close
+    (AdGuard 5 wrong, DNSPod 3 wrong).
+  - **verity is the only steady source of wrong answers: 61.** It reports NXDOMAIN as `lookup_ok: true` ("the lookup
+    completed successfully; the requested DNS name does not exist"). It returned HTTP 422 on 116 queries, mostly
+    underscore names.
+- One pair per query gives **65 gated pairs**. 61 of them have verity as the rejected side and 32 have the
+  champion author's zk-email-dns as the chosen side. Longer-wins 0.508, shorter-wins 0.492, **identity probe 0.954**.
+  Both conditions of rule 6 fail, so the lane stops; no training data was built.
+- Report-only measurement on those 65 pairs (node runtime, `harness/measure.py`, `evidence/2026-11-16/`), **not a gate**:
+
+  | Scorer | Rendering 1 (question + request JSON) | Rendering 2 (bare request JSON) |
+  |---|---|---|
+  | Champion #315 | 48/65 = 73.8% | 44/65 = 67.7% |
+  | GENERIC #900005 | 44/65 = 67.7% | 59/65 = 90.8% |
+
+  With 61 of 65 rejected answers from one service, these numbers say how each scorer treats verity's format, not how
+  well it measures EMAIL_SECURITY. GENERIC's 23-point swing between renderings supports G43: rendering matters.
+- **Reading:** this family's real miners are almost always right on `lookup_ok`. Most are DNS resolvers, which return
+  the DNS status itself. The one recurring error (NXDOMAIN read as success) lives in a single service. A real-answer
+  holdout cannot separate quality from identity here. The family is not an opening for a trained adapter under A7.
 
 Family `EMAIL_SECURITY`, intent `EMAIL_SECURITY_GENERAL`, class judgment (read live 2026-11-15 ~19:57 UTC from
 `/engine/v1/intents/EMAIL_SECURITY_GENERAL`). Request `domain` and `record_type`. One response field, scored:

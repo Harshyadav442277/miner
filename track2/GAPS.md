@@ -4,6 +4,20 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G46 — EMAIL_SECURITY lane stopped before training: 65 pairs, identity probe 0.954 (2026-11-16) — CLOSED
+
+Evidence: [adapter/email_security/](adapter/email_security/README.md) (rules fixed at `77ed687`, queries frozen at
+`2fde3cd`, `evidence/2026-11-16/`); capture `C:/Users/hyada/tg-eval/captures/es-20261116`.
+
+- 300 frozen queries, truth from NextDNS + DNS.SB before and after the capture (all 300 stable). 2,716 answers from 9
+  services: 1,834 right, 69 wrong, 197 call failures, 600 ignore the query (chainsight, txlens).
+- Wrong answers: 61 of 69 from telegraph-verity-intelligence, which reports NXDOMAIN as `lookup_ok: true`. 65 gated pairs
+  (bar 100), identity probe 0.954 (bar 0.65), length 0.508. Rule 6 stops the lane; no training data, no training.
+- Report-only on the 65 pairs: champion #315 73.8% / 67.7% and GENERIC 67.7% / 90.8% (question+JSON / bare-JSON
+  rendering). Not evidence of quality either way (one rejected service), but the rendering swing is real (G43).
+- Useful for the miner side and for judges: verity's NXDOMAIN-as-success is a real, repeatable `lookup_ok` error.
+- Reopen only if more than two services start making `lookup_ok` errors, or if real pool pairs become readable.
+
 ## G44 — WEATHER_FORECAST_VERIFY lane stopped at checkpoint B (2026-11-16) — CLOSED
 >
 > Evidence: `track2/adapter/weather_forecast_verify/` (README, CHECKPOINT.md, `holdout/queries.freeze.json`, `holdout/holdout.audit.json`);

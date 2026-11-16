@@ -1,0 +1,124 @@
+{
+ "intent": "EMAIL_SECURITY_GENERAL",
+ "queries_sha256": "21acfac58be5ab06bbd759694854565c532cc43d82d3b987e9979f9da1e3ef25",
+ "queries": 300,
+ "started_at": "2026-11-16T00:33:09.537894+00:00",
+ "miners": [
+  {
+   "miner_id": "190122",
+   "slug": "email-doh-dnspod",
+   "related_party": false,
+   "plan_error": null,
+   "requests": 300,
+   "http_200": 219
+  },
+  {
+   "miner_id": "190120",
+   "slug": "email-doh-adguard",
+   "related_party": false,
+   "plan_error": null,
+   "requests": 300,
+   "http_200": 300
+  },
+  {
+   "miner_id": "5530",
+   "slug": "telegraph-verity-intelligence",
+   "related_party": false,
+   "plan_error": null,
+   "requests": 300,
+   "http_200": 184
+  },
+  {
+   "miner_id": "9002",
+   "slug": "txlens",
+   "related_party": false,
+   "plan_error": null,
+   "requests": 300,
+   "http_200": 298
+  },
+  {
+   "miner_id": "56001",
+   "slug": "email-dns-gmail-mx",
+   "related_party": false,
+   "plan_error": null,
+   "requests": 300,
+   "http_200": 300
+  },
+  {
+   "miner_id": "772354",
+   "slug": "zk-email-dns",
+   "related_party": false,
+   "plan_error": null,
+   "requests": 300,
+   "http_200": 300
+  },
+  {
+   "miner_id": "190121",
+   "slug": "email-doh-alidns",
+   "related_party": false,
+   "plan_error": null,
+   "requests": 300,
+   "http_200": 300
+  },
+  {
+   "miner_id": "302",
+   "slug": "chainsight-oracle",
+   "related_party": false,
+   "plan_error": null,
+   "requests": 300,
+   "http_200": 300
+  },
+  {
+   "miner_id": "20260828",
+   "slug": "a1-preflight",
+   "related_party": false,
+   "plan_error": null,
+   "requests": 300,
+   "http_200": 300
+  }
+ ],
+ "skipped": [
+  {
+   "miner": "56007",
+   "reason": "not in --only"
+  },
+  {
+   "miner": "56010",
+   "reason": "not in --only"
+  },
+  {
+   "miner": "56008",
+   "reason": "not in --only"
+  },
+  {
+   "miner": "56006",
+   "reason": "not in --only"
+  },
+  {
+   "miner": "56005",
+   "reason": "not in --only"
+  },
+  {
+   "miner": "7354",
+   "reason": "not in --only"
+  },
+  {
+   "miner": "56004",
+   "reason": "not in --only"
+  },
+  {
+   "miner": "56009",
+   "reason": "not in --only"
+  },
+  {
+   "miner": "56003",
+   "reason": "not in --only"
+  },
+  {
+   "miner": "56002",
+   "reason": "not in --only"
+  }
+ ],
+ "requests": 2716,
+ "finished_at": "2026-11-16T01:20:16.328235+00:00"
+}
