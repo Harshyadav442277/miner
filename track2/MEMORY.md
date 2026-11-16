@@ -8,7 +8,20 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-16 ~03:30 UTC (09:00 IST) · QUESTION_ANSWERING v2 (LAST ITERATION) TRAINING
+## CURRENT — 2026-11-16 ~10:05 UTC (15:35 IST) · QA v2 FAILS THE GATE; NO ADAPTER LANE IS OPEN
+
+- **QUESTION_ANSWERING v2: FAIL** (G47). 157/362 = 43.4% vs champion 164; PASS needed 271. Both iterations are used,
+  and the lane is closed. The val probes show the negation bias shrank (A1 1 → 22/60), but TruthfulQA did not move.
+- Every adapter lane tried in Season II has now failed its gate or stopped before training: sanctions, URL Scan,
+  SECURITY_REVIEW, EVENT_OUTCOME, QA (G42, G47), EMAIL_SECURITY (G46), WEATHER (G44), VULN (G45).
+- **Owner decisions owed:**
+  - star github.com/telegraphprotocol/bounties (required for every track);
+  - whether A7 needs rethinking, since real-answer holdouts in these families are identity-confounded or need world
+    knowledge a base-size reward head lacks;
+  - what the five Track 2 entries become: comparators, material, or the measurement findings themselves.
+- Still owed: SUBMISSION_S2.md, growth posts.
+
+## 2026-11-16 ~03:30 UTC (09:00 IST) · QUESTION_ANSWERING v2 (LAST ITERATION) TRAINING
 
 Owner chose the last QA iteration (2026-11-16). Design and thresholds committed before any data was built (`b0e7168`).
 - Cause found on the v1 val split, not the holdout (`bias_probes.py`): v1 prefers the non-negated statement 1/60 and

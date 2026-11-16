@@ -60,7 +60,35 @@ holdout, or swings between the two renderings, suspect the rendering before call
 the holdout's answers come from each miner's public service called as its YAML declares, not from the paid
 engine route, which may phrase or map the request differently.
 
-## G42 — QUESTION_ANSWERING v1 fails on bare answers; no scorer beats chance on the benchmark pairs (2026-11-15) — `OPEN`
+## G47 — QUESTION_ANSWERING v2, the last iteration, fails the gate: 43.4% vs champion 45.3% (2026-11-16) — CLOSED
+
+Evidence: [adapter/question_answering/](adapter/question_answering/README.md) v2 section (design fixed at `b0e7168`
+before any data), `evidence/question_answering_v2/` (audit PASS, holdout and probe scores, chain log, Stage 1);
+package `C:/Users/hyada/tg-eval/runs-v2/QUESTION_ANSWERING_v2/QUESTION_ANSWERING.safetensors`, keccak `0x20cceafe…cd3f`.
+
+- Change from v1: balanced `true_negation` / `false_negation` kinds, after val-split probes showed v1 prefers the
+  non-negated statement. On those probes v2 moved A1 from 1/60 to 22/60 and A2 from 60/60 to 49/60. The bias shrank
+  but did not vanish, and knowledge (C) stayed at 46/60.
+- Holdout (frozen 362, node runtime): v2 157 = 43.4% (TruthfulQA 47/150, HaluEval 57/150, miner pairs 52/61 + 1/1).
+  v1 was 152 and the champion 164. Fixing the probe bias did not move TruthfulQA (46 → 47).
+- `compare.py` / `gate.py` output, verbatim:
+
+  ```
+  [holdout] V2 0.4337 [0.3836, 0.4852] vs QA301 0.4530 [0.4025, 0.5045] n=362 | both_right=89 both_wrong=130 cand_only=68 base_only=75 | McNemar p=0.616003 | diff=-0.0193 CI95=[-0.0829, 0.0442] | P(pass on 30 pairs)=0.0026
+  note: length baselines: longer-wins 0.4613, shorter-wins 0.5166
+  FAIL: candidate 0.4337 < QA301 0.4530 + 0.02
+  FAIL: candidate-only-right 68 <= QA301-only-right 75
+  FAIL: candidate Wilson lower bound 0.3836 < 0.7
+  FAIL: candidate 0.4337 < longer-answer-wins 0.4613 + 0.05
+  FAIL: candidate 0.4337 < shorter-answer-wins 0.5166 + 0.05
+  FAIL: P(pass a 30-pair round vs QA301) = 0.0026 < 0.6
+  FAIL
+  ```
+- Reading (inferred, not measured): TruthfulQA and HaluEval pairs turn on facts that a ModernBERT-base reward head
+  with a rank-8 adapter does not hold. The training data's own test split passed again (`training-result.json`)
+  and again predicted nothing. Both iterations are used; the lane is closed. Do not register v1 or v2.
+
+## G42 — QUESTION_ANSWERING v1 fails on bare answers; no scorer beats chance on the benchmark pairs (2026-11-15) — `CLOSED by G47`
 
 Evidence: `C:/Users/hyada/tg-eval/runs-v2/qa_holdout/holdout-*.json` and `report-*.json` (node runtime, per-pair
 f32 bits); holdout frozen at `3658ecd` before training; package keccak `0xa3880bf3…7443`, Stage 1 passed.

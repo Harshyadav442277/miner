@@ -9,6 +9,9 @@ Status 2026-11-15 (UTC): **v1 trained, exported and failed the gate. Not registe
 | GENERIC #900005 | 159 = 43.9% | 58 | 74 | 27 | 117 = 35.0% |
 | Longer answer wins / shorter answer wins | 46.1% / 51.7% | | | shorter wins 55 | 22.8% / 77.3% |
 
+**Status 2026-11-16 ~10:05 UTC: LANE CLOSED. v2 (the last iteration) fails the gate: 157/362 = 43.4%, against
+champion #301's 164 = 45.3%; PASS needed 271. Nothing registered.** Gate output: [GAPS G47](../../GAPS.md).
+
 ## v2: the last iteration. Design fixed 2026-11-16 before any v2 data was built
 
 - **Diagnosis, on the v1 val split, not the holdout** (`bias_probes.py`; scores in
