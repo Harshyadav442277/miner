@@ -20,8 +20,10 @@ export function frWindow(ask: FilingAsk): { since: string | null; until: string 
   return { since: null, until: null };
 }
 
+export type FrFields = Pick<FilingResult, "verdict" | "confidence" | "reason"> & Partial<FilingResult>;
+
 /** The intent's fields from one Federal Register search. Pure. */
-export function frResult(ask: FilingAsk, fr: FrSearch, other?: string): Partial<FilingResult> {
+export function frResult(ask: FilingAsk, fr: FrSearch, other?: string): FrFields {
   const { since, until } = frWindow(ask);
   const windowed = since !== null;
   const span = until ? `between ${since} and ${until}` : since ? `since ${since}` : "";
@@ -53,7 +55,7 @@ export function frResult(ask: FilingAsk, fr: FrSearch, other?: string): Partial<
 }
 
 /** `undefined` when the Federal Register did not answer, so the caller keeps its not-found answer. */
-export async function federalRegisterFilings(ask: FilingAsk, other?: string): Promise<Partial<FilingResult> | undefined> {
+export async function federalRegisterFilings(ask: FilingAsk, other?: string): Promise<FrFields | undefined> {
   const { since, until } = frWindow(ask);
   const fr = await searchFederalRegister(ask.company, since, until);
   return fr ? frResult(ask, fr, other) : undefined;
