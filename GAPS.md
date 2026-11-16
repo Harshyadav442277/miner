@@ -1,5 +1,21 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-16 ~08:30 UTC (14:00 IST) release `f3ba9f4` — states changed; G310–G312 new
+
+- **G306 measured.** FACT_CHECK 0.9871, rank 4, epoch 2103 (was 0.8432, rank 11), scored 05:20 UTC under `3d4d51b`.
+- **G300 partly closed.** SENTIMENT 0.7632 and NEWS_SEARCH 0.9176 in 2103; EVENT_OUTCOME still unread since the
+  release. STORM_ALERT 0.9633, rank 7 (was 0.8835, rank 12).
+- **G310 — GAS_PRICE scored 0 while RPC miners scored 0.79–1.0. `OPEN` until the next epoch.** Our value matched
+  publicnode exactly on a fresh read; the route cached readings for 60 s and Ethereum gas moved 7.5% in a minute.
+  Cache cut to 5 s in `f3ba9f4`. Staleness as the cause is an inference.
+- **G311 — Hourly score capture is still best effort. `OPEN`, owner action.** GitHub ran `scores.yml` at 21:00,
+  00:10, 00:58, 06:37 and 07:55 UTC (gaps up to 5.6 h; an epoch is 3 h). A local 30-minute task is prepared at
+  `C:\Users\hyada\tg-deploy\scores\record.cmd`; registering a Windows scheduled task was refused by the permission
+  check, so the owner registers it.
+- **G312 — Preflight's ONCHAIN_METRIC and TOKEN_TOTAL_SUPPLY checks fail when Blockscout does.** The checker reads
+  Blockscout as its reference; on 2026-11-16 the block lookup timed out and the tx lookup answered 500. The miner's
+  own verdicts passed. Not changed.
+
 ## 2026-11-15 ~17:45 UTC (23:15 IST) score recorder; FACT_CHECK rating release — states changed; G306–G309 new
 
 - **G300 updated — the post-release scores were lost, not measured. `OPEN`.** `/api/miners` keeps only each

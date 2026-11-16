@@ -123,7 +123,7 @@ test("each route names its intent's scored field, from a value it already states
 
 test("a route's own field of the same name is never overwritten, and a null body adds nothing", () => {
   assert.deepEqual(scoredFields("/url-scan", { verdict: "unsafe", safe: "kept" }), {});
-  assert.equal(scoredFields("/storm-alert", { risk_score: 0.2 }).risk_level, "LOW");
+  assert.equal(scoredFields("/storm-alert", { verdict: "low", risk_score: 0.27 }).risk_level, "LOW");
   assert.deepEqual(scoredFields("/ssl-check", null), {});
 });
 
@@ -165,7 +165,7 @@ test("format-version-3 fields: each copies what the route states, and the schema
   assert.equal(scoredFields("/dns", { verdict: "unknown", records: [] }).has_record, null);
   assert.equal(scoredFields("/sentiment", { verdict: "negative", compound: -0.6 }).sentiment, "Negative");
   assert.equal(scoredFields("/classify", { label: "billing" }).category, "billing");
-  assert.equal(scoredFields("/storm-alert", { risk_score: 0.8 }).risk_level, "SEVERE");
+  assert.equal(scoredFields("/storm-alert", { verdict: "severe", risk_score: 0.9 }).risk_level, "SEVERE");
   const papers = scoredFields("/papers", { count: 2, papers: [{ title: "A", doi: "10.1/a" }, { title: "B", doi: null }], reason: "Here are 2 papers on X: 1) A. 2) B." });
   assert.deepEqual(only(papers, { paper_titles: 0, dois: 0, total_matches: 0 }), { paper_titles: ["A", "B"], dois: ["10.1/a", null], total_matches: 2 });
   assert.ok(String(papers.brief).length <= 80);

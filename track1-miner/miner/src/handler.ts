@@ -52,6 +52,8 @@ import { ledger, licensingFor } from "./sources";
 import { capture, captureEnabled, record } from "./capture";
 
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 60_000);
+/** A gas reading's reuse window: under one Ethereum block. */
+export const GAS_CACHE_MS = 5_000;
 const MAX_CACHE = 500;
 export const ENDPOINTS: readonly string[] = [
   "/ssl-check", "/storm-alert", "/weather-forecast",
@@ -1450,8 +1452,9 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     }
     const { chain, unread } = resolveGasChain(chainParam, q);
 
-    // Gas moves every block, so the shared one-minute window is right here: it
-    // absorbs repeated spot checks without ever serving a stale block.
+    // Gas moves every block: Ethereum's eth_gasPrice moved 7.5% within one minute on 2026-11-16 (publicnode, sampled
+    // every 6 s), and GAS_PRICE_GENERAL scored 0 in epoch 2103 against RPC miners at 0.79-1.0 while this route kept a
+    // one-minute cache. A reading is reused for 5 s, under one 12 s block.
     const key = `gas:${chain ?? unread ?? "-"}`;
     const hit = fromCache(key);
     if (hit) {
@@ -1460,7 +1463,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     }
     getGasPrice(chain, unread)
       .then((r) => {
-        if (r.verdict === "gas_price") toCache(key, r);
+        if (r.verdict === "gas_price") toCache(key, r, GAS_CACHE_MS);
         sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A gas price lookup", chain ?? "the network", q));

@@ -136,7 +136,9 @@ const SENTIMENT_JSON_SYSTEM =
   "layoffs, a default, a lawsuit, an accident, a conflict). Neutral: a statement of fact with no opinion and no " +
   "favourable or unfavourable outcome. Mixed: clear approval of one thing AND clear criticism of another; a " +
   "complaint alone is Negative. Reply with a JSON object: {\"sentiment\": \"Positive\" | \"Negative\" | \"Neutral\" | " +
-  "\"Mixed\", \"reason\": one plain sentence of 8 to 30 words naming what in the passage shows it}.";
+  "\"Mixed\", \"score\": a number from -1 (most negative) to 1 (most positive) for how strongly the passage leans, " +
+  "near 0 for Neutral and between -0.5 and 0.5 for Mixed, \"reason\": one plain sentence of 8 to 30 words naming " +
+  "what in the passage shows it}.";
 
 /** About 2.5 s: the word list answers at once, so the model gets one attempt and no more (llm.MIN_ATTEMPT_MS). */
 const SENTIMENT_JSON_MS = 2_500;
@@ -149,7 +151,7 @@ const LABEL_OF: Record<string, SentimentVerdict> = { positive: "positive", negat
  * The model's label and sentence from its JSON, or null. The label must be exactly one of the four words;
  * the sentence is kept only when it is one plain sentence of 4 to 60 words, else null in its place. Pure.
  */
-export function parseSentimentJson(raw: string | null): { label: SentimentVerdict; sentence: string | null } | null {
+export function parseSentimentJson(raw: string | null): { label: SentimentVerdict; sentence: string | null; score: number | null } | null {
   const o = raw ? parseObject(raw) : null;
   const said = typeof o?.sentiment === "string" ? o.sentiment.trim().toLowerCase() : "";
   const label = LABEL_OF[said];
@@ -157,7 +159,8 @@ export function parseSentimentJson(raw: string | null): { label: SentimentVerdic
   const s = typeof o?.reason === "string" ? o.reason.replace(/\s+/g, " ").trim().replace(/^["'“]+|["'”]+$/g, "") : "";
   const n = s.split(" ").filter(Boolean).length;
   const ok = n >= 4 && n <= 60 && !/[.!?]\s+\S/.test(s) && !/[|{}<>]/.test(s);
-  return { label, sentence: ok ? (/[.!?]$/.test(s) ? s : `${s}.`) : null };
+  const score = typeof o?.score === "number" && Number.isFinite(o.score) ? o.score : null;
+  return { label, sentence: ok ? (/[.!?]$/.test(s) ? s : `${s}.`) : null, score };
 }
 
 /** The word list's evidence as one sentence, or "" when it counted no word. Pure. */
@@ -201,6 +204,41 @@ export async function analyseSentimentPhrased(
     ...base,
     verdict: label,
     confidence: label === base.verdict ? Math.max(base.confidence, 0.8) : 0.7,
+    // SENTIMENT_ANALYSIS's `score` (-1 to 1) agrees with the label. It used to be the word list's compound, so
+    // "Five stars, would buy again" went out Positive with score 0 (production 2026-11-15).
+    score: labelScore(label, got.score, base.compound),
+    tones: agreeingTones(label, base.tones ?? []),
     reason: `${capital(label)}. The sentiment of this ${noun} is ${label}.${got.sentence ? ` ${got.sentence}` : ""} ${wordEvidence(base)}`,
   };
+}
+
+const NEGATIVE_TONES = new Set(["frustrated", "angry", "disappointed", "sad", "worried"]);
+const POSITIVE_TONES = new Set(["joyful", "grateful"]);
+
+/**
+ * The word list's tones that do not contradict the label. "would buy again" carries the cue "again", and a
+ * five-star review went out Positive with the tone "frustrated" (production 2026-11-15). Pure.
+ */
+export function agreeingTones(label: SentimentVerdict, tones: string[]): string[] {
+  if (label === "positive") return tones.filter((t) => !NEGATIVE_TONES.has(t));
+  if (label === "negative") return tones.filter((t) => !POSITIVE_TONES.has(t));
+  if (label === "neutral") return tones.filter((t) => !NEGATIVE_TONES.has(t) && !POSITIVE_TONES.has(t));
+  return tones;
+}
+
+/** Whether a score from -1 to 1 reads the same way as the label. Pure. */
+export function scoreFits(label: SentimentVerdict, s: number): boolean {
+  if (!Number.isFinite(s) || s < -1 || s > 1) return false;
+  return label === "positive" ? s >= 0.1 : label === "negative" ? s <= -0.1 : label === "neutral" ? Math.abs(s) <= 0.3 : Math.abs(s) <= 0.6;
+}
+
+/**
+ * The served score: the model's when it fits the label; else the word list's compound when that fits; else the
+ * label's own midpoint (Positive 0.6, Negative -0.6, Neutral and Mixed 0). Six decimals, as the schema states. Pure.
+ */
+export function labelScore(label: SentimentVerdict, model: number | null, compound: number | null): number {
+  const pick = model !== null && scoreFits(label, model) ? model
+    : compound !== null && scoreFits(label, compound) ? compound
+    : label === "positive" ? 0.6 : label === "negative" ? -0.6 : 0;
+  return Number(pick.toFixed(6));
 }

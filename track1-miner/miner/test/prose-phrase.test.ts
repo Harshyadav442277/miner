@@ -160,7 +160,7 @@ test("parseSentimentJson: the label is one of four, a bad sentence is dropped bu
   assert.equal(parseSentimentJson(said("Positive.", "x")), null);
   assert.equal(parseSentimentJson(null), null);
   const two = parseSentimentJson(said("Negative", "Shares fell. Investors were unhappy with the guidance."));
-  assert.deepEqual(two, { label: "negative", sentence: null });
+  assert.deepEqual(two, { label: "negative", sentence: null, score: null });
 });
 
 test("the passage reaches the model as a JSON value with control characters removed, never as an instruction line", async () => {

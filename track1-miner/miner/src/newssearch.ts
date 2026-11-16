@@ -80,6 +80,8 @@ const BRIEF_SYSTEM = `You answer a news request in one sentence, from the headli
 Reply with a JSON object: {"brief": one plain, complete sentence of at most 80 characters that answers the request with what the headlines report}.
 State only what the headlines say. No ellipsis, no quotation marks, no markdown, no publisher names unless needed, and never a headline copied with its publisher.`;
 const BRIEF_MS = 2_500;
+/** Every upstream call of one search together; the handler's watchdog answers at 11 s. */
+const TOTAL_BUDGET_MS = 9_500;
 
 /**
  * The scored brief from the top three headlines, or null to fall back to the top headline. A model sentence
@@ -95,11 +97,11 @@ export function briefFrom(raw: string | null): string | null {
   return fitted.length <= 80 && usableBrief(fitted, null) ? fitted : null;
 }
 
-async function writeBrief(request: string, articles: Article[]): Promise<string | null> {
+async function writeBrief(request: string, articles: Article[], deadlineMs = BRIEF_MS): Promise<string | null> {
   const headlines = articles.slice(0, 3).map((a) => ({ title: dataValue(trimTitle(a.title), 200), source: dataValue(a.source ?? "", 80) || null }));
   if (!headlines.length) return null;
   const raw = await phrase({ system: BRIEF_SYSTEM, user: JSON.stringify({ request: dataValue(request, 300), headlines }), maxTokens: 300,
-    json: true, deadlineMs: BRIEF_MS, clean: (r) => (briefFrom(r) ? r : null) });
+    json: true, deadlineMs: Math.min(BRIEF_MS, deadlineMs), clean: (r) => (briefFrom(r) ? r : null) });
   return briefFrom(raw);
 }
 
@@ -256,6 +258,17 @@ export function extractSubject(question: string, declared = ""): string {
 }
 
 /** Content words of the subject, for the relevance test. */
+/**
+ * The words of a subject written as names: capitalised, not generic, and not all of the subject (a subject typed
+ * in title case names nothing in particular). Lower-cased. Pure.
+ */
+export function subjectNames(subject: string): string[] {
+  const words = String(subject ?? "").split(/[^A-Za-z0-9']+/).filter((w) => w.length > 2);
+  const caps = words.filter((w) => /^[A-Z][a-z0-9']+[A-Za-z0-9']*$|^[A-Z][a-z]*[A-Z][A-Za-z0-9]*$/.test(w) && !/^[A-Z]{2,6}$/.test(w));
+  if (!caps.length || caps.length === words.length) return [];
+  return [...new Set(caps.map((w) => w.toLowerCase()).filter((w) => !STOP.has(w) && !GENERIC_TERM.has(w)))];
+}
+
 function keyTerms(subject: string): string[] {
   return String(subject ?? "")
     .toLowerCase()
@@ -344,10 +357,13 @@ function matchesTerm(words: Set<string>, term: string): boolean {
  * subject rather than its category — and, for a multi-word subject, at least
  * two terms overall, so a single incidental mention is not enough.
  */
-export function isRelevant(article: Article, terms: string[], acros: string[] = []): boolean {
+export function isRelevant(article: Article, terms: string[], acros: string[] = [], names: string[] = []): boolean {
   if (terms.length === 0) return true;
   // The publisher is provenance, not evidence that its name is the topic.
   const words = headlineWords(article.title);
+  // A subject that names something is about that thing: "Tesla recall" served two articles about Nio's recall
+  // scam, matched on "recall" alone (production 2026-11-15). One of the names, or an acronym, must appear.
+  if (names.length && terms.length >= 2 && !names.some((n) => matchesTerm(words, n)) && !acros.some((a) => words.has(a))) return false;
   const hits = terms.filter((t) => matchesTerm(words, t)).length;
   const distinctive = distinctiveTerms(terms);
   // An acronym is matched on word boundaries: "ecb" must not be found inside
@@ -421,6 +437,7 @@ async function searchPass(
   const cutoff = windowDays ? Date.now() - windowDays * 86_400_000 : null;
   const key = keyTerms(subject);
   const acros = acronyms(subject);
+  const names = subjectNames(subject);
   const all: Article[] = [];
   for (const it of xml.matchAll(/<item>([\s\S]*?)<\/item>/g)) {
     const block = it[1] ?? "";
@@ -456,7 +473,7 @@ async function searchPass(
    */
   const concise = (a: Article): number => (a.title.split(/\s+/).length <= MAX_TITLE_WORDS ? 0 : 1);
   const articles = all
-    .filter((a) => isRelevant(a, key, acros))
+    .filter((a) => isRelevant(a, key, acros, names))
     .sort((a, b) =>
       overlap(b) - overlap(a)
       || concise(a) - concise(b)
@@ -473,6 +490,10 @@ export async function searchNews(
   limit = 5,
   timeoutMs = DEFAULT_TIMEOUT_MS,
 ): Promise<NewsSearchResult> {
+  // One budget for every upstream call, inside the handler's 11 s watchdog. Each pass used to get the full 8 s and
+  // the brief 2.5 s more, so a slow news index could run to 18.5 s and be cut off by the watchdog.
+  const started = Date.now();
+  const left = (): number => TOTAL_BUDGET_MS - (Date.now() - started);
   const subject = extractSubject(question, declaredSubject);
   const stated = declaredDays ?? extractWindowDays(question);
   const soft = stated === null && isSoftRecency(question);
@@ -497,7 +518,7 @@ export async function searchNews(
     };
   }
 
-  const first = await searchPass(subject, stated ?? (soft ? SOFT_WINDOW_DAYS : null), limit, timeoutMs);
+  const first = await searchPass(subject, stated ?? (soft ? SOFT_WINDOW_DAYS : null), limit, Math.min(timeoutMs, left() - 1_500));
   if (!first) {
     return {
       subject, window_days: stated, verdict: "unknown", articles: [], count: 0, confidence: 0,
@@ -514,7 +535,7 @@ export async function searchNews(
   let { articles, seen } = first;
   let widened = false;
   if (articles.length === 0 && soft) {
-    const second = await searchPass(subject, null, limit, timeoutMs);
+    const second = left() > 3_000 ? await searchPass(subject, null, limit, Math.min(timeoutMs, left() - 1_500)) : null;
     if (second && second.articles.length) { articles = second.articles; seen = second.seen; widened = true; }
   }
 
@@ -533,7 +554,7 @@ export async function searchNews(
     };
   }
 
-  const brief = await writeBrief(question || subject, articles);
+  const brief = await writeBrief(question || subject, articles, left());
   const listed = articles
     .map((a) => `"${trimTitle(a.title)}" (${a.source ?? "publisher not stated"}, ${fmtDate(a.published)})`)
     .join("; ");
