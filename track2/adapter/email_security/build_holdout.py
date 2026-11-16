@@ -19,6 +19,10 @@ from pathlib import Path
 SEED = "es-pairs-v1"
 RESOLVER_HOSTS = {"dns.google", "cloudflare-dns.com", "dns.adguard-dns.com", "dns.alidns.com", "doh.pub"}
 CHAMPION_AUTHOR = "0x8b224783fe5b3c52b7db0cb9b1754f8812b75287"
+RCODE_NAMES = {"NOERROR", "FORMERR", "SERVFAIL", "NXDOMAIN", "NOTIMP", "REFUSED"}
+# Pilot 2026-11-16 (pilot.json): these answer an email-posture report for a mangled domain, not the
+# requested name and record type, so they ignore the query: report-only, never gated.
+IGNORES_QUERY = {"hub.shadrakbessanh.me/emailsec", "telegraph-onchain-tx-lookup-miner.onrender.com/email-security"}
 TYPE_NAMES = {1: "A", 2: "NS", 5: "CNAME", 6: "SOA", 12: "PTR", 15: "MX", 16: "TXT", 28: "AAAA", 33: "SRV",
               52: "TLSA", 65: "HTTPS", 257: "CAA"}
 
@@ -45,15 +49,26 @@ def read_claim(body):
         return None
     if not isinstance(d, dict):
         return None
-    if isinstance(d.get("Status"), int) and isinstance(d.get("Question"), list) and d["Question"]:
-        q = d["Question"][0] if isinstance(d["Question"][0], dict) else {}
-        return d["Status"] == 0, norm(q.get("name")), TYPE_NAMES.get(q.get("type"), str(q.get("type"))), "doh-json"
-    for holder in (d, d.get("data"), d.get("result"), d.get("answer")):
+    question = d.get("Question")
+    if isinstance(question, list):
+        question = question[0] if question else None
+    if isinstance(d.get("Status"), int) and isinstance(question, dict) and "intent" not in d:
+        return d["Status"] == 0, norm(question.get("name")), TYPE_NAMES.get(question.get("type"), str(question.get("type"))), \
+            "doh-json"
+    name = d.get("domain") or d.get("name")
+    rtype = d.get("record_type") or d.get("type")
+    if isinstance(d.get("record_types"), list) and len(d["record_types"]) == 1:
+        rtype = d["record_types"][0]
+    for holder in (d, d.get("data"), d.get("result"), d.get("answer")):  # a stated lookup_ok wins
         if isinstance(holder, dict) and isinstance(holder.get("lookup_ok"), bool):
-            name = holder.get("domain") or holder.get("name") or d.get("domain") or d.get("name")
-            rtype = holder.get("record_type") or holder.get("type") or d.get("record_type") or d.get("type")
+            name = holder.get("domain") or holder.get("name") or name
+            rtype = holder.get("record_type") or holder.get("type") or rtype
             return holder["lookup_ok"], norm(name) if name else None, str(rtype).upper() if rtype else None, \
                 "lookup_ok-json"
+    for key in ("dns_status", "status", "rcode"):  # else a stated DNS status code
+        if str(d.get(key, "")).upper() in RCODE_NAMES:
+            return str(d[key]).upper() == "NOERROR", norm(name) if name else None, \
+                str(rtype).upper() if rtype else None, "status-json"
     return None
 
 
@@ -82,6 +97,8 @@ def label_all(queries, capture, truth, readings, owners):
             want_name, want_type = norm(q["params"]["domain"]), q["params"]["record_type"].upper()
             if t["lookup_ok"] is None:
                 row["label"] = "no_truth"
+            elif row["service"] in IGNORES_QUERY:
+                row["label"] = "ignores_query"
             elif r["status"] != 200 or not r["body"].strip():
                 row["label"] = "call_failure"
             else:
