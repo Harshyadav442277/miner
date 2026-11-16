@@ -8,7 +8,33 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-16 ~18:30 UTC (Nov 17 00:00 IST) · OPPORTUNITY REVIEW: NO REGISTRATION IS SUPPORTED
+## CURRENT — 2026-11-16 ~18:30 UTC (Nov 17 00:00 IST) · TRACK 2 PREPARED END TO END; ONLY OWNER ACTIONS REMAIN
+
+Branch `PR/cranky-euler-d201bb` (pushed; continues `PR/track2-email-security-evaluator-303326` at `634880d`).
+Nothing signed, uploaded, registered or sent.
+
+- **Owner checklist:** [SIGN_S2.md](SIGN_S2.md), top section, one sitting:
+  1. star the bounties repo;
+  2. upload the DNS and validator truth sources;
+  3. optionally, the EMAIL_SECURITY pairs;
+  4. send `material/ORGANISER_REPORT.md`;
+  5. submit the H2 form.
+- **Prepared this session:**
+  - `material/validator_truth/` (`8146571`): PublicNode Beacon REST, sha256 `bfcdb813…3e10`;
+  - `SUBMISSION_S2.md`, rewritten (`32a0f86`);
+  - the organiser report draft (`5fd82fd`).
+  The DNS truth sources were prepared earlier (`634880d`).
+- **Live re-check 2026-11-16 18:19 UTC:**
+  - 45 comparator registrations in 30 families still wait on a "no published snapshot". 28 have a snapshot under
+    `_GENERAL`.
+  - DNS_RECORD_LOOKUP_GENERAL was last scored at epoch 2019, VALIDATOR_PERFORMANCE_VERIFY_GENERAL at 2032. The
+    newest epoch is 2107.
+- **Next for Claude, after the owner acts:**
+  - read the row states in `/api/evalpool/status` and the post-upload score epochs in `/api/miners`;
+  - fill SUBMISSION_S2 §7;
+  - claim nothing without that evidence.
+
+## 2026-11-16 ~18:30 UTC · OPPORTUNITY REVIEW: NO REGISTRATION IS SUPPORTED
 
 Owner asked (2026-11-16) for a critical review of both Sonnet lanes, the reasons for every failure, and a ranking of what
 is left by realistic chance of beating a champion. Evidence: registry `wasm-20261116T163719Z.json`, `/api/miners`,
