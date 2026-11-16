@@ -1,0 +1,17 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           PASS
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+
+Re-run of the failing gate alone (npm test in the deploy tree at f3ba9f4, 2026-11-16 08:27 UTC):
+ℹ tests 1147
+ℹ pass 1145
+ℹ fail 0

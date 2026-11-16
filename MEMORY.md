@@ -1,5 +1,16 @@
 # MEMORY.md — session continuity
 
+## 2026-11-16 ~08:30 UTC (14:00 IST): CURRENT — `f3ba9f4` LIVE; FACT_CHECK 0.9871 rank 4, STORM 0.9633 rank 7
+
+- **Production:** `f3ba9f4`, `miner-2yrp4fuh8` (`dpl_C34UEGsqutYsi7deeVKCpaAgXpdm`). **Rollback:** `miner-712vfn5wr`
+  (`7182410`). Record: `track1-miner/docs/evidence/release-2026-11-16-consistency-gas/`. Unit 1020/1020.
+- **Measured (epoch 2103):** FACT_CHECK 0.8432 → 0.9871 (rank 11 → 4); STORM 0.8835 → 0.9633 (12 → 7); SENTIMENT
+  0.7632 (rank 14); NEWS 0.9176. GAS_PRICE 0 → cache cut to 5 s (G310), unscored yet.
+- **Score capture:** `scores.yml` six tries an hour + after uptime; still gaps to 5.6 h (G311). Local copy:
+  `C:\Users\hyada\tg-deploy\scores\` (history, per-epoch leaderboards). Owner to register the local task.
+- **Next:** read GAS_PRICE, EVENT_OUTCOME, SENTIMENT in epochs 2104–2106. SENTIMENT (rank 14, median 0.957) is the
+  largest gap left after CVE (G303, needs capture G282).
+
 ## 2026-11-15 ~18:05 UTC (23:35 IST): CURRENT — `7182410` LIVE; fact-check rating, paper-fraud fix, hourly scores
 
 - Owner: "yes add it" (hourly score recorder), "keep focus on the quality of miner".
