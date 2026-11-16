@@ -1,0 +1,3602 @@
+[
+ {
+  "id": "es-020665e07d",
+  "query": "What are the MX records for mx-d5h6qr.sport.pl?",
+  "params": {
+   "domain": "mx-d5h6qr.sport.pl",
+   "record_type": "MX"
+  },
+  "registrable": "sport.pl",
+  "tranco_rank": 7861,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-0285fb4d5c",
+  "query": "What are the TXT records for default._domainkey.movieboxhd.net?",
+  "params": {
+   "domain": "default._domainkey.movieboxhd.net",
+   "record_type": "TXT"
+  },
+  "registrable": "movieboxhd.net",
+  "tranco_rank": 21068,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-053a134f6a",
+  "query": "What are the TXT records for _dmarc.service.one?",
+  "params": {
+   "domain": "_dmarc.service.one",
+   "record_type": "TXT"
+  },
+  "registrable": "service.one",
+  "tranco_rank": 7892,
+  "template": "_dmarc.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-05e6888ada",
+  "query": "What are the TXT records for selector2._domainkey.stylevana.com?",
+  "params": {
+   "domain": "selector2._domainkey.stylevana.com",
+   "record_type": "TXT"
+  },
+  "registrable": "stylevana.com",
+  "tranco_rank": 6771,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-05ff04ccee",
+  "query": "What are the SRV records for _imaps._tcp.powerdns.com?",
+  "params": {
+   "domain": "_imaps._tcp.powerdns.com",
+   "record_type": "SRV"
+  },
+  "registrable": "powerdns.com",
+  "tranco_rank": 29084,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-078a854a82",
+  "query": "What are the CAA records for rayat7.com?",
+  "params": {
+   "domain": "rayat7.com",
+   "record_type": "CAA"
+  },
+  "registrable": "rayat7.com",
+  "tranco_rank": 818101,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-08400ec7a6",
+  "query": "What are the SRV records for _autodiscover._tcp.xn--d1ailn.xn--p1ai?",
+  "params": {
+   "domain": "_autodiscover._tcp.xn--d1ailn.xn--p1ai",
+   "record_type": "SRV"
+  },
+  "registrable": "xn--d1ailn.xn--p1ai",
+  "tranco_rank": 914620,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-0a2f1c11cf",
+  "query": "What are the NS records for financialpost.co.kr?",
+  "params": {
+   "domain": "financialpost.co.kr",
+   "record_type": "NS"
+  },
+  "registrable": "financialpost.co.kr",
+  "tranco_rank": 357526,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-0a590cb9fb",
+  "query": "What are the AAAA records for atlanticexpress.com.ua?",
+  "params": {
+   "domain": "atlanticexpress.com.ua",
+   "record_type": "AAAA"
+  },
+  "registrable": "atlanticexpress.com.ua",
+  "tranco_rank": 451510,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-0aea360bc8",
+  "query": "What are the TXT records for australianwinner.com?",
+  "params": {
+   "domain": "australianwinner.com",
+   "record_type": "TXT"
+  },
+  "registrable": "australianwinner.com",
+  "tranco_rank": 79764,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-0beac08966",
+  "query": "What are the TXT records for _smtp._tls.natera.com?",
+  "params": {
+   "domain": "_smtp._tls.natera.com",
+   "record_type": "TXT"
+  },
+  "registrable": "natera.com",
+  "tranco_rank": 42919,
+  "template": "_smtp._tls.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-0dae1231ce",
+  "query": "What are the A records for mail.bizjournals.com?",
+  "params": {
+   "domain": "mail.bizjournals.com",
+   "record_type": "A"
+  },
+  "registrable": "bizjournals.com",
+  "tranco_rank": 2900,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-0ede71e3f8",
+  "query": "What are the CNAME records for autodiscover.en-thunderscans.com?",
+  "params": {
+   "domain": "autodiscover.en-thunderscans.com",
+   "record_type": "CNAME"
+  },
+  "registrable": "en-thunderscans.com",
+  "tranco_rank": 8868,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-0f841aa7b8",
+  "query": "What are the CNAME records for autodiscover.demdex.net?",
+  "params": {
+   "domain": "autodiscover.demdex.net",
+   "record_type": "CNAME"
+  },
+  "registrable": "demdex.net",
+  "tranco_rank": 280,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-104d643117",
+  "query": "What are the MX records for www.mycorpaccess.com?",
+  "params": {
+   "domain": "www.mycorpaccess.com",
+   "record_type": "MX"
+  },
+  "registrable": "mycorpaccess.com",
+  "tranco_rank": 431850,
+  "template": "www.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-115569b25a",
+  "query": "What are the SOA records for cams.com?",
+  "params": {
+   "domain": "cams.com",
+   "record_type": "SOA"
+  },
+  "registrable": "cams.com",
+  "tranco_rank": 57982,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-11993fb4cb",
+  "query": "What are the MX records for winstonchurchill.org?",
+  "params": {
+   "domain": "winstonchurchill.org",
+   "record_type": "MX"
+  },
+  "registrable": "winstonchurchill.org",
+  "tranco_rank": 79680,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-1320b1b10f",
+  "query": "What are the SRV records for _autodiscover._tcp.in-berlin.de?",
+  "params": {
+   "domain": "_autodiscover._tcp.in-berlin.de",
+   "record_type": "SRV"
+  },
+  "registrable": "in-berlin.de",
+  "tranco_rank": 24152,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-13d97d23e4",
+  "query": "What are the MX records for mx-pall5p.1ex99.in?",
+  "params": {
+   "domain": "mx-pall5p.1ex99.in",
+   "record_type": "MX"
+  },
+  "registrable": "1ex99.in",
+  "tranco_rank": 88944,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-150b16fa51",
+  "query": "What are the TXT records for k1._domainkey.lovetodream.co.uk?",
+  "params": {
+   "domain": "k1._domainkey.lovetodream.co.uk",
+   "record_type": "TXT"
+  },
+  "registrable": "lovetodream.co.uk",
+  "tranco_rank": 797744,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-1584eaba50",
+  "query": "What are the TXT records for dkim._domainkey.mora.hu?",
+  "params": {
+   "domain": "dkim._domainkey.mora.hu",
+   "record_type": "TXT"
+  },
+  "registrable": "mora.hu",
+  "tranco_rank": 978427,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-178f6ee275",
+  "query": "What are the NS records for 614whats2love.com?",
+  "params": {
+   "domain": "614whats2love.com",
+   "record_type": "NS"
+  },
+  "registrable": "614whats2love.com",
+  "tranco_rank": 126612,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-18dd67c432",
+  "query": "What are the MX records for citizen.jp?",
+  "params": {
+   "domain": "citizen.jp",
+   "record_type": "MX"
+  },
+  "registrable": "citizen.jp",
+  "tranco_rank": 66854,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-1a80145d20",
+  "query": "What are the A records for mail.vkuser.net?",
+  "params": {
+   "domain": "mail.vkuser.net",
+   "record_type": "A"
+  },
+  "registrable": "vkuser.net",
+  "tranco_rank": 517,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-1bc3a49734",
+  "query": "What are the SOA records for revistaoeste.com?",
+  "params": {
+   "domain": "revistaoeste.com",
+   "record_type": "SOA"
+  },
+  "registrable": "revistaoeste.com",
+  "tranco_rank": 16508,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-1cdd33486f",
+  "query": "What are the SRV records for _submission._tcp.indomaretgroup.com?",
+  "params": {
+   "domain": "_submission._tcp.indomaretgroup.com",
+   "record_type": "SRV"
+  },
+  "registrable": "indomaretgroup.com",
+  "tranco_rank": 86939,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-1f04831f15",
+  "query": "What are the TXT records for google._domainkey.888pg-ox.vip?",
+  "params": {
+   "domain": "google._domainkey.888pg-ox.vip",
+   "record_type": "TXT"
+  },
+  "registrable": "888pg-ox.vip",
+  "tranco_rank": 26592,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-1f0aa04f6b",
+  "query": "What are the NS records for egihosting.com?",
+  "params": {
+   "domain": "egihosting.com",
+   "record_type": "NS"
+  },
+  "registrable": "egihosting.com",
+  "tranco_rank": 11614,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-1fa969b40b",
+  "query": "What are the MX records for www.impervadns.net?",
+  "params": {
+   "domain": "www.impervadns.net",
+   "record_type": "MX"
+  },
+  "registrable": "impervadns.net",
+  "tranco_rank": 395,
+  "template": "www.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-2004f9c441",
+  "query": "What are the AAAA records for betpawa.co.zm?",
+  "params": {
+   "domain": "betpawa.co.zm",
+   "record_type": "AAAA"
+  },
+  "registrable": "betpawa.co.zm",
+  "tranco_rank": 9943,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-20958613e7",
+  "query": "What are the A records for mail.alemaomadeiras.com?",
+  "params": {
+   "domain": "mail.alemaomadeiras.com",
+   "record_type": "A"
+  },
+  "registrable": "alemaomadeiras.com",
+  "tranco_rank": 949839,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-213f42dfe2",
+  "query": "What are the TXT records for _dmarc.mx-fk379x.sageone.co.za?",
+  "params": {
+   "domain": "_dmarc.mx-fk379x.sageone.co.za",
+   "record_type": "TXT"
+  },
+  "registrable": "sageone.co.za",
+  "tranco_rank": 9119,
+  "template": "_dmarc.{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-2372634da9",
+  "query": "What are the A records for mail.tiqcdn.com?",
+  "params": {
+   "domain": "mail.tiqcdn.com",
+   "record_type": "A"
+  },
+  "registrable": "tiqcdn.com",
+  "tranco_rank": 2350,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-2418500f2b",
+  "query": "What are the CAA records for kiwisizing.com?",
+  "params": {
+   "domain": "kiwisizing.com",
+   "record_type": "CAA"
+  },
+  "registrable": "kiwisizing.com",
+  "tranco_rank": 14194,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-24a16e6a36",
+  "query": "What are the SRV records for _imaps._tcp.encyclo.nl?",
+  "params": {
+   "domain": "_imaps._tcp.encyclo.nl",
+   "record_type": "SRV"
+  },
+  "registrable": "encyclo.nl",
+  "tranco_rank": 69215,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-2550589f3d",
+  "query": "What are the MX records for mx-9unosp.insurads.com?",
+  "params": {
+   "domain": "mx-9unosp.insurads.com",
+   "record_type": "MX"
+  },
+  "registrable": "insurads.com",
+  "tranco_rank": 8709,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-25990cbdc7",
+  "query": "What are the SRV records for _autodiscover._tcp.oslobodjenje.ba?",
+  "params": {
+   "domain": "_autodiscover._tcp.oslobodjenje.ba",
+   "record_type": "SRV"
+  },
+  "registrable": "oslobodjenje.ba",
+  "tranco_rank": 51229,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-25d8f87b1e",
+  "query": "What are the SRV records for _autodiscover._tcp.londonprizechoice.uk?",
+  "params": {
+   "domain": "_autodiscover._tcp.londonprizechoice.uk",
+   "record_type": "SRV"
+  },
+  "registrable": "londonprizechoice.uk",
+  "tranco_rank": 470109,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-284fc4b4f1",
+  "query": "What are the CNAME records for autodiscover.ahajournals.org?",
+  "params": {
+   "domain": "autodiscover.ahajournals.org",
+   "record_type": "CNAME"
+  },
+  "registrable": "ahajournals.org",
+  "tranco_rank": 4357,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-2868422727",
+  "query": "What are the SRV records for _autodiscover._tcp.delmarvanow.com?",
+  "params": {
+   "domain": "_autodiscover._tcp.delmarvanow.com",
+   "record_type": "SRV"
+  },
+  "registrable": "delmarvanow.com",
+  "tranco_rank": 86195,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-2873a12b5a",
+  "query": "What are the TXT records for _dmarc.mx-1u3vm5.vodacom.co.tz?",
+  "params": {
+   "domain": "_dmarc.mx-1u3vm5.vodacom.co.tz",
+   "record_type": "TXT"
+  },
+  "registrable": "vodacom.co.tz",
+  "tranco_rank": 160525,
+  "template": "_dmarc.{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-291f50556a",
+  "query": "What are the A records for unrulymedia.com?",
+  "params": {
+   "domain": "unrulymedia.com",
+   "record_type": "A"
+  },
+  "registrable": "unrulymedia.com",
+  "tranco_rank": 892,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-295a887a93",
+  "query": "What are the SRV records for _imaps._tcp.dodois.io?",
+  "params": {
+   "domain": "_imaps._tcp.dodois.io",
+   "record_type": "SRV"
+  },
+  "registrable": "dodois.io",
+  "tranco_rank": 6270,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-2a2c7ae854",
+  "query": "What are the TXT records for _dmarc.mrktplcgo.io?",
+  "params": {
+   "domain": "_dmarc.mrktplcgo.io",
+   "record_type": "TXT"
+  },
+  "registrable": "mrktplcgo.io",
+  "tranco_rank": 73389,
+  "template": "_dmarc.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-2b10ba3fc5",
+  "query": "What are the TXT records for mail._domainkey.starfall.com?",
+  "params": {
+   "domain": "mail._domainkey.starfall.com",
+   "record_type": "TXT"
+  },
+  "registrable": "starfall.com",
+  "tranco_rank": 1461,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-2b3c722456",
+  "query": "What are the TXT records for _mta-sts.muliatoto-resmi.com?",
+  "params": {
+   "domain": "_mta-sts.muliatoto-resmi.com",
+   "record_type": "TXT"
+  },
+  "registrable": "muliatoto-resmi.com",
+  "tranco_rank": 804432,
+  "template": "_mta-sts.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-2c9688252b",
+  "query": "What are the SRV records for _submission._tcp.people.com.cn?",
+  "params": {
+   "domain": "_submission._tcp.people.com.cn",
+   "record_type": "SRV"
+  },
+  "registrable": "people.com.cn",
+  "tranco_rank": 2123,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-2d8843ad23",
+  "query": "What are the SRV records for _autodiscover._tcp.cellularnews.com?",
+  "params": {
+   "domain": "_autodiscover._tcp.cellularnews.com",
+   "record_type": "SRV"
+  },
+  "registrable": "cellularnews.com",
+  "tranco_rank": 277762,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-2ef913c839",
+  "query": "What are the SRV records for _submission._tcp.change.inc?",
+  "params": {
+   "domain": "_submission._tcp.change.inc",
+   "record_type": "SRV"
+  },
+  "registrable": "change.inc",
+  "tranco_rank": 327994,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-2ff5e08e3b",
+  "query": "What are the A records for mail.sersoap.ru?",
+  "params": {
+   "domain": "mail.sersoap.ru",
+   "record_type": "A"
+  },
+  "registrable": "sersoap.ru",
+  "tranco_rank": 449265,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-32b4634358",
+  "query": "What are the TXT records for _mta-sts.jetbrains.ai?",
+  "params": {
+   "domain": "_mta-sts.jetbrains.ai",
+   "record_type": "TXT"
+  },
+  "registrable": "jetbrains.ai",
+  "tranco_rank": 6805,
+  "template": "_mta-sts.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-32ed5d471e",
+  "query": "What are the SRV records for _imaps._tcp.kino.de?",
+  "params": {
+   "domain": "_imaps._tcp.kino.de",
+   "record_type": "SRV"
+  },
+  "registrable": "kino.de",
+  "tranco_rank": 7280,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-334ccdd11f",
+  "query": "What are the AAAA records for crunchyroll.com?",
+  "params": {
+   "domain": "crunchyroll.com",
+   "record_type": "AAAA"
+  },
+  "registrable": "crunchyroll.com",
+  "tranco_rank": 2500,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-3366018a28",
+  "query": "What are the CNAME records for autodiscover.trustpilot.no?",
+  "params": {
+   "domain": "autodiscover.trustpilot.no",
+   "record_type": "CNAME"
+  },
+  "registrable": "trustpilot.no",
+  "tranco_rank": 879005,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-356237b6ad",
+  "query": "What are the SOA records for nic.network?",
+  "params": {
+   "domain": "nic.network",
+   "record_type": "SOA"
+  },
+  "registrable": "nic.network",
+  "tranco_rank": 18872,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-35eb48cc58",
+  "query": "What are the SRV records for _imaps._tcp.todostuslibros.com?",
+  "params": {
+   "domain": "_imaps._tcp.todostuslibros.com",
+   "record_type": "SRV"
+  },
+  "registrable": "todostuslibros.com",
+  "tranco_rank": 42019,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-35fb2ba709",
+  "query": "What are the SOA records for rupprecht.de?",
+  "params": {
+   "domain": "rupprecht.de",
+   "record_type": "SOA"
+  },
+  "registrable": "rupprecht.de",
+  "tranco_rank": 633470,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-36e851ae03",
+  "query": "What are the TXT records for _mta-sts.melolostatic.com?",
+  "params": {
+   "domain": "_mta-sts.melolostatic.com",
+   "record_type": "TXT"
+  },
+  "registrable": "melolostatic.com",
+  "tranco_rank": 5764,
+  "template": "_mta-sts.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-3714e06f3c",
+  "query": "What are the CNAME records for autodiscover.apple.com?",
+  "params": {
+   "domain": "autodiscover.apple.com",
+   "record_type": "CNAME"
+  },
+  "registrable": "apple.com",
+  "tranco_rank": 12,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-37642cea86",
+  "query": "What are the A records for mail.edgetcdn.net?",
+  "params": {
+   "domain": "mail.edgetcdn.net",
+   "record_type": "A"
+  },
+  "registrable": "edgetcdn.net",
+  "tranco_rank": 6217,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-381a2dda64",
+  "query": "What are the TXT records for kbjsyv.com?",
+  "params": {
+   "domain": "kbjsyv.com",
+   "record_type": "TXT"
+  },
+  "registrable": "kbjsyv.com",
+  "tranco_rank": 792117,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-3969ca4a1f",
+  "query": "What are the AAAA records for vibrantconnect.us?",
+  "params": {
+   "domain": "vibrantconnect.us",
+   "record_type": "AAAA"
+  },
+  "registrable": "vibrantconnect.us",
+  "tranco_rank": 729792,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-3a35d33a31",
+  "query": "What are the MX records for uw.edu?",
+  "params": {
+   "domain": "uw.edu",
+   "record_type": "MX"
+  },
+  "registrable": "uw.edu",
+  "tranco_rank": 4768,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-3b9ee0129d",
+  "query": "What are the SRV records for _submission._tcp.instant-gaming.com?",
+  "params": {
+   "domain": "_submission._tcp.instant-gaming.com",
+   "record_type": "SRV"
+  },
+  "registrable": "instant-gaming.com",
+  "tranco_rank": 6441,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-3d134e6265",
+  "query": "What are the NS records for shangducw.com?",
+  "params": {
+   "domain": "shangducw.com",
+   "record_type": "NS"
+  },
+  "registrable": "shangducw.com",
+  "tranco_rank": 120361,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-3f5256786b",
+  "query": "What are the SRV records for _submission._tcp.leewarehouse.co.nz?",
+  "params": {
+   "domain": "_submission._tcp.leewarehouse.co.nz",
+   "record_type": "SRV"
+  },
+  "registrable": "leewarehouse.co.nz",
+  "tranco_rank": 518522,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-3fe1b81850",
+  "query": "What are the NS records for madridrealhotel.com?",
+  "params": {
+   "domain": "madridrealhotel.com",
+   "record_type": "NS"
+  },
+  "registrable": "madridrealhotel.com",
+  "tranco_rank": 324798,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-3ffbbfec9c",
+  "query": "What are the CNAME records for autodiscover.prague.eu?",
+  "params": {
+   "domain": "autodiscover.prague.eu",
+   "record_type": "CNAME"
+  },
+  "registrable": "prague.eu",
+  "tranco_rank": 63084,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-40f6697c50",
+  "query": "What are the TXT records for _smtp._tls.conacyt.gov.py?",
+  "params": {
+   "domain": "_smtp._tls.conacyt.gov.py",
+   "record_type": "TXT"
+  },
+  "registrable": "conacyt.gov.py",
+  "tranco_rank": 85577,
+  "template": "_smtp._tls.{d}",
+  "truth_precheck": "SERVFAIL"
+ },
+ {
+  "id": "es-432020839d",
+  "query": "What are the A records for mail.osquery.io?",
+  "params": {
+   "domain": "mail.osquery.io",
+   "record_type": "A"
+  },
+  "registrable": "osquery.io",
+  "tranco_rank": 256012,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-4411d39eb5",
+  "query": "What are the SRV records for _submission._tcp.markt-kom.com?",
+  "params": {
+   "domain": "_submission._tcp.markt-kom.com",
+   "record_type": "SRV"
+  },
+  "registrable": "markt-kom.com",
+  "tranco_rank": 338566,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-444b9412bb",
+  "query": "What are the SRV records for _imaps._tcp.tcplusondemand.com?",
+  "params": {
+   "domain": "_imaps._tcp.tcplusondemand.com",
+   "record_type": "SRV"
+  },
+  "registrable": "tcplusondemand.com",
+  "tranco_rank": 35110,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-451328a1bb",
+  "query": "What are the CNAME records for autodiscover.sketchup.com?",
+  "params": {
+   "domain": "autodiscover.sketchup.com",
+   "record_type": "CNAME"
+  },
+  "registrable": "sketchup.com",
+  "tranco_rank": 4085,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-47ce5173f7",
+  "query": "What are the SRV records for _autodiscover._tcp.magicstudio.com?",
+  "params": {
+   "domain": "_autodiscover._tcp.magicstudio.com",
+   "record_type": "SRV"
+  },
+  "registrable": "magicstudio.com",
+  "tranco_rank": 67906,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-48bb9b1339",
+  "query": "What are the SRV records for _imaps._tcp.dgadr.gov.pt?",
+  "params": {
+   "domain": "_imaps._tcp.dgadr.gov.pt",
+   "record_type": "SRV"
+  },
+  "registrable": "dgadr.gov.pt",
+  "tranco_rank": 893719,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-49126e2881",
+  "query": "What are the A records for novaslothub.ca?",
+  "params": {
+   "domain": "novaslothub.ca",
+   "record_type": "A"
+  },
+  "registrable": "novaslothub.ca",
+  "tranco_rank": 858784,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-492ace4cf0",
+  "query": "What are the MX records for mx-qhepjo.somee.com?",
+  "params": {
+   "domain": "mx-qhepjo.somee.com",
+   "record_type": "MX"
+  },
+  "registrable": "somee.com",
+  "tranco_rank": 50941,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-49b09734d4",
+  "query": "What are the MX records for ayhal.com?",
+  "params": {
+   "domain": "ayhal.com",
+   "record_type": "MX"
+  },
+  "registrable": "ayhal.com",
+  "tranco_rank": 4832,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-4b10457b7c",
+  "query": "What are the NS records for archlinux.org?",
+  "params": {
+   "domain": "archlinux.org",
+   "record_type": "NS"
+  },
+  "registrable": "archlinux.org",
+  "tranco_rank": 2700,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-4d5982d984",
+  "query": "What are the NS records for sslip.io?",
+  "params": {
+   "domain": "sslip.io",
+   "record_type": "NS"
+  },
+  "registrable": "sslip.io",
+  "tranco_rank": 1878,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-4d64c267b5",
+  "query": "What are the SRV records for _submission._tcp.traveloka.com?",
+  "params": {
+   "domain": "_submission._tcp.traveloka.com",
+   "record_type": "SRV"
+  },
+  "registrable": "traveloka.com",
+  "tranco_rank": 3414,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-4dca5ae442",
+  "query": "What are the AAAA records for domainnamewire.com?",
+  "params": {
+   "domain": "domainnamewire.com",
+   "record_type": "AAAA"
+  },
+  "registrable": "domainnamewire.com",
+  "tranco_rank": 90416,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-4e66e2c278",
+  "query": "What are the MX records for mx-mlttf3.22bet-uk.com?",
+  "params": {
+   "domain": "mx-mlttf3.22bet-uk.com",
+   "record_type": "MX"
+  },
+  "registrable": "22bet-uk.com",
+  "tranco_rank": 553130,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-4ec233e89e",
+  "query": "What are the A records for mail.canopyandstars.co.uk?",
+  "params": {
+   "domain": "mail.canopyandstars.co.uk",
+   "record_type": "A"
+  },
+  "registrable": "canopyandstars.co.uk",
+  "tranco_rank": 339885,
+  "template": "mail.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-4ed8606a67",
+  "query": "What are the SOA records for vega-hap.xyz?",
+  "params": {
+   "domain": "vega-hap.xyz",
+   "record_type": "SOA"
+  },
+  "registrable": "vega-hap.xyz",
+  "tranco_rank": 248922,
+  "template": "{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-4fc7394887",
+  "query": "What are the MX records for mx-46dd3v.indifferentlanguages.com?",
+  "params": {
+   "domain": "mx-46dd3v.indifferentlanguages.com",
+   "record_type": "MX"
+  },
+  "registrable": "indifferentlanguages.com",
+  "tranco_rank": 37420,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-4fde627d46",
+  "query": "What are the SRV records for _submission._tcp.wildberries.ru?",
+  "params": {
+   "domain": "_submission._tcp.wildberries.ru",
+   "record_type": "SRV"
+  },
+  "registrable": "wildberries.ru",
+  "tranco_rank": 645,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-4ff8e5f84d",
+  "query": "What are the MX records for mx-ktdv06.cloudflareinsights.com?",
+  "params": {
+   "domain": "mx-ktdv06.cloudflareinsights.com",
+   "record_type": "MX"
+  },
+  "registrable": "cloudflareinsights.com",
+  "tranco_rank": 318,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-52404cf092",
+  "query": "What are the TXT records for _mta-sts.do-furusato.com?",
+  "params": {
+   "domain": "_mta-sts.do-furusato.com",
+   "record_type": "TXT"
+  },
+  "registrable": "do-furusato.com",
+  "tranco_rank": 92699,
+  "template": "_mta-sts.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-52b9a620fe",
+  "query": "What are the CNAME records for autodiscover.skycdn.it?",
+  "params": {
+   "domain": "autodiscover.skycdn.it",
+   "record_type": "CNAME"
+  },
+  "registrable": "skycdn.it",
+  "tranco_rank": 1961,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-52de893659",
+  "query": "What are the AAAA records for cwtv.com?",
+  "params": {
+   "domain": "cwtv.com",
+   "record_type": "AAAA"
+  },
+  "registrable": "cwtv.com",
+  "tranco_rank": 30127,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-52e50e89c3",
+  "query": "What are the CAA records for vh.net.pl?",
+  "params": {
+   "domain": "vh.net.pl",
+   "record_type": "CAA"
+  },
+  "registrable": "vh.net.pl",
+  "tranco_rank": 95341,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-534caabe5d",
+  "query": "What are the A records for trahkino.live?",
+  "params": {
+   "domain": "trahkino.live",
+   "record_type": "A"
+  },
+  "registrable": "trahkino.live",
+  "tranco_rank": 11791,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-5430dde0e9",
+  "query": "What are the TXT records for _mta-sts.searchengineland.com?",
+  "params": {
+   "domain": "_mta-sts.searchengineland.com",
+   "record_type": "TXT"
+  },
+  "registrable": "searchengineland.com",
+  "tranco_rank": 3746,
+  "template": "_mta-sts.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-544aa601cd",
+  "query": "What are the TXT records for _smtp._tls.vk-analytics.ru?",
+  "params": {
+   "domain": "_smtp._tls.vk-analytics.ru",
+   "record_type": "TXT"
+  },
+  "registrable": "vk-analytics.ru",
+  "tranco_rank": 1096,
+  "template": "_smtp._tls.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-55837f49be",
+  "query": "What are the AAAA records for oblacno.net?",
+  "params": {
+   "domain": "oblacno.net",
+   "record_type": "AAAA"
+  },
+  "registrable": "oblacno.net",
+  "tranco_rank": 76063,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-55ed316286",
+  "query": "What are the TXT records for vietnamnet.vn?",
+  "params": {
+   "domain": "vietnamnet.vn",
+   "record_type": "TXT"
+  },
+  "registrable": "vietnamnet.vn",
+  "tranco_rank": 5527,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-55fcc453ab",
+  "query": "What are the NS records for oraclecloud.com?",
+  "params": {
+   "domain": "oraclecloud.com",
+   "record_type": "NS"
+  },
+  "registrable": "oraclecloud.com",
+  "tranco_rank": 506,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-56feb258e7",
+  "query": "What are the SOA records for stenoshala.com?",
+  "params": {
+   "domain": "stenoshala.com",
+   "record_type": "SOA"
+  },
+  "registrable": "stenoshala.com",
+  "tranco_rank": 548607,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-57c21bf93a",
+  "query": "What are the TXT records for _mta-sts.hketc.net?",
+  "params": {
+   "domain": "_mta-sts.hketc.net",
+   "record_type": "TXT"
+  },
+  "registrable": "hketc.net",
+  "tranco_rank": 187345,
+  "template": "_mta-sts.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-57fc63b263",
+  "query": "What are the TXT records for _smtp._tls.tampabayfederal.com?",
+  "params": {
+   "domain": "_smtp._tls.tampabayfederal.com",
+   "record_type": "TXT"
+  },
+  "registrable": "tampabayfederal.com",
+  "tranco_rank": 569148,
+  "template": "_smtp._tls.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-595464f8bc",
+  "query": "What are the MX records for riag.com?",
+  "params": {
+   "domain": "riag.com",
+   "record_type": "MX"
+  },
+  "registrable": "riag.com",
+  "tranco_rank": 242359,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-5b7f21764d",
+  "query": "What are the SRV records for _imaps._tcp.accuweather.com?",
+  "params": {
+   "domain": "_imaps._tcp.accuweather.com",
+   "record_type": "SRV"
+  },
+  "registrable": "accuweather.com",
+  "tranco_rank": 637,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-5bd783e3c8",
+  "query": "What are the NS records for universalmusic.fr?",
+  "params": {
+   "domain": "universalmusic.fr",
+   "record_type": "NS"
+  },
+  "registrable": "universalmusic.fr",
+  "tranco_rank": 146744,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-5c07b08777",
+  "query": "What are the SOA records for pouyeshserver.com?",
+  "params": {
+   "domain": "pouyeshserver.com",
+   "record_type": "SOA"
+  },
+  "registrable": "pouyeshserver.com",
+  "tranco_rank": 388754,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-5d0a34e2f6",
+  "query": "What are the AAAA records for gamegrow.ru?",
+  "params": {
+   "domain": "gamegrow.ru",
+   "record_type": "AAAA"
+  },
+  "registrable": "gamegrow.ru",
+  "tranco_rank": 40685,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-5e2b8d4858",
+  "query": "What are the A records for mail.lojavirtualnuvem.com.br?",
+  "params": {
+   "domain": "mail.lojavirtualnuvem.com.br",
+   "record_type": "A"
+  },
+  "registrable": "lojavirtualnuvem.com.br",
+  "tranco_rank": 34816,
+  "template": "mail.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-5f322c7ed9",
+  "query": "What are the SRV records for _autodiscover._tcp.adamieva.info?",
+  "params": {
+   "domain": "_autodiscover._tcp.adamieva.info",
+   "record_type": "SRV"
+  },
+  "registrable": "adamieva.info",
+  "tranco_rank": 9908,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-5feac7be5c",
+  "query": "What are the MX records for mx-d2dziu.nanit.com?",
+  "params": {
+   "domain": "mx-d2dziu.nanit.com",
+   "record_type": "MX"
+  },
+  "registrable": "nanit.com",
+  "tranco_rank": 3617,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-60a572feda",
+  "query": "What are the NS records for core.microsoft?",
+  "params": {
+   "domain": "core.microsoft",
+   "record_type": "NS"
+  },
+  "registrable": "core.microsoft",
+  "tranco_rank": 1115,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-61f504ed32",
+  "query": "What are the AAAA records for kas-labs.com?",
+  "params": {
+   "domain": "kas-labs.com",
+   "record_type": "AAAA"
+  },
+  "registrable": "kas-labs.com",
+  "tranco_rank": 9742,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-624e8e9b08",
+  "query": "What are the A records for mail.akam.net?",
+  "params": {
+   "domain": "mail.akam.net",
+   "record_type": "A"
+  },
+  "registrable": "akam.net",
+  "tranco_rank": 102,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-62714769f7",
+  "query": "What are the CNAME records for autodiscover.bulawayo24.com?",
+  "params": {
+   "domain": "autodiscover.bulawayo24.com",
+   "record_type": "CNAME"
+  },
+  "registrable": "bulawayo24.com",
+  "tranco_rank": 27697,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-6296e0c596",
+  "query": "What are the A records for mail.bbcearth.com?",
+  "params": {
+   "domain": "mail.bbcearth.com",
+   "record_type": "A"
+  },
+  "registrable": "bbcearth.com",
+  "tranco_rank": 61064,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-646beb2fd0",
+  "query": "What are the SRV records for _submission._tcp.onlinedishguide.com?",
+  "params": {
+   "domain": "_submission._tcp.onlinedishguide.com",
+   "record_type": "SRV"
+  },
+  "registrable": "onlinedishguide.com",
+  "tranco_rank": 263865,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-64c5a5ca21",
+  "query": "What are the SRV records for _imaps._tcp.netbird.io?",
+  "params": {
+   "domain": "_imaps._tcp.netbird.io",
+   "record_type": "SRV"
+  },
+  "registrable": "netbird.io",
+  "tranco_rank": 3720,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-64d395105c",
+  "query": "What are the SRV records for _imaps._tcp.adult-chess.com?",
+  "params": {
+   "domain": "_imaps._tcp.adult-chess.com",
+   "record_type": "SRV"
+  },
+  "registrable": "adult-chess.com",
+  "tranco_rank": 74380,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-6650178fd1",
+  "query": "What are the TXT records for k1._domainkey.creativecommons.org?",
+  "params": {
+   "domain": "k1._domainkey.creativecommons.org",
+   "record_type": "TXT"
+  },
+  "registrable": "creativecommons.org",
+  "tranco_rank": 177,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-66e489d798",
+  "query": "What are the A records for thebingetown.com?",
+  "params": {
+   "domain": "thebingetown.com",
+   "record_type": "A"
+  },
+  "registrable": "thebingetown.com",
+  "tranco_rank": 831357,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-66f458ad04",
+  "query": "What are the TXT records for dkim._domainkey.abs-cbnip.tv?",
+  "params": {
+   "domain": "dkim._domainkey.abs-cbnip.tv",
+   "record_type": "TXT"
+  },
+  "registrable": "abs-cbnip.tv",
+  "tranco_rank": 8693,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-683287f100",
+  "query": "What are the AAAA records for moodle.org?",
+  "params": {
+   "domain": "moodle.org",
+   "record_type": "AAAA"
+  },
+  "registrable": "moodle.org",
+  "tranco_rank": 1857,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-686a7a787c",
+  "query": "What are the TXT records for s1._domainkey.force.com?",
+  "params": {
+   "domain": "s1._domainkey.force.com",
+   "record_type": "TXT"
+  },
+  "registrable": "force.com",
+  "tranco_rank": 488,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-68a2296015",
+  "query": "What are the TXT records for google._domainkey.allgosts.ru?",
+  "params": {
+   "domain": "google._domainkey.allgosts.ru",
+   "record_type": "TXT"
+  },
+  "registrable": "allgosts.ru",
+  "tranco_rank": 885591,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-68c994482e",
+  "query": "What are the CAA records for comolho.com?",
+  "params": {
+   "domain": "comolho.com",
+   "record_type": "CAA"
+  },
+  "registrable": "comolho.com",
+  "tranco_rank": 728285,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-690c903cde",
+  "query": "What are the TXT records for _mta-sts.umin.jp?",
+  "params": {
+   "domain": "_mta-sts.umin.jp",
+   "record_type": "TXT"
+  },
+  "registrable": "umin.jp",
+  "tranco_rank": 53284,
+  "template": "_mta-sts.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-6ae4bef659",
+  "query": "What are the TXT records for adspower.net?",
+  "params": {
+   "domain": "adspower.net",
+   "record_type": "TXT"
+  },
+  "registrable": "adspower.net",
+  "tranco_rank": 4559,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-6b5607860a",
+  "query": "What are the CNAME records for autodiscover.likuso.com?",
+  "params": {
+   "domain": "autodiscover.likuso.com",
+   "record_type": "CNAME"
+  },
+  "registrable": "likuso.com",
+  "tranco_rank": 119682,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-6f2671abea",
+  "query": "What are the SRV records for _autodiscover._tcp.mijnwoordenboek.nl?",
+  "params": {
+   "domain": "_autodiscover._tcp.mijnwoordenboek.nl",
+   "record_type": "SRV"
+  },
+  "registrable": "mijnwoordenboek.nl",
+  "tranco_rank": 8386,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-71423a4b75",
+  "query": "What are the MX records for mx-8kv2vd.tencent-cloud.net?",
+  "params": {
+   "domain": "mx-8kv2vd.tencent-cloud.net",
+   "record_type": "MX"
+  },
+  "registrable": "tencent-cloud.net",
+  "tranco_rank": 433,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-71ba2766e0",
+  "query": "What are the CAA records for allpanelexch9.game?",
+  "params": {
+   "domain": "allpanelexch9.game",
+   "record_type": "CAA"
+  },
+  "registrable": "allpanelexch9.game",
+  "tranco_rank": 9835,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-725d10cc7c",
+  "query": "What are the SRV records for _submission._tcp.sre.google?",
+  "params": {
+   "domain": "_submission._tcp.sre.google",
+   "record_type": "SRV"
+  },
+  "registrable": "sre.google",
+  "tranco_rank": 45881,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-7278dace9d",
+  "query": "What are the TXT records for _smtp._tls.qqwrd.com?",
+  "params": {
+   "domain": "_smtp._tls.qqwrd.com",
+   "record_type": "TXT"
+  },
+  "registrable": "qqwrd.com",
+  "tranco_rank": 439824,
+  "template": "_smtp._tls.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-736e2b9b97",
+  "query": "What are the CAA records for transip.nl?",
+  "params": {
+   "domain": "transip.nl",
+   "record_type": "CAA"
+  },
+  "registrable": "transip.nl",
+  "tranco_rank": 2621,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-7475148817",
+  "query": "What are the CNAME records for autodiscover.marsann.site?",
+  "params": {
+   "domain": "autodiscover.marsann.site",
+   "record_type": "CNAME"
+  },
+  "registrable": "marsann.site",
+  "tranco_rank": 236494,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-74b5952027",
+  "query": "What are the SRV records for _submission._tcp.teplosochi.ru?",
+  "params": {
+   "domain": "_submission._tcp.teplosochi.ru",
+   "record_type": "SRV"
+  },
+  "registrable": "teplosochi.ru",
+  "tranco_rank": 711524,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-76397bce23",
+  "query": "What are the NS records for artstation.com?",
+  "params": {
+   "domain": "artstation.com",
+   "record_type": "NS"
+  },
+  "registrable": "artstation.com",
+  "tranco_rank": 3695,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-76982866ab",
+  "query": "What are the MX records for mx-6du2y5.portlandpress.com?",
+  "params": {
+   "domain": "mx-6du2y5.portlandpress.com",
+   "record_type": "MX"
+  },
+  "registrable": "portlandpress.com",
+  "tranco_rank": 49932,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-7763cc35c3",
+  "query": "What are the MX records for goojara.to?",
+  "params": {
+   "domain": "goojara.to",
+   "record_type": "MX"
+  },
+  "registrable": "goojara.to",
+  "tranco_rank": 1638,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-77d10e4eb9",
+  "query": "What are the A records for mail.bidmatic.io?",
+  "params": {
+   "domain": "mail.bidmatic.io",
+   "record_type": "A"
+  },
+  "registrable": "bidmatic.io",
+  "tranco_rank": 9398,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-780729fedd",
+  "query": "What are the A records for mail.chatbotwhastapp.ru?",
+  "params": {
+   "domain": "mail.chatbotwhastapp.ru",
+   "record_type": "A"
+  },
+  "registrable": "chatbotwhastapp.ru",
+  "tranco_rank": 80373,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-785fb68e58",
+  "query": "What are the CAA records for worldtimeserver.com?",
+  "params": {
+   "domain": "worldtimeserver.com",
+   "record_type": "CAA"
+  },
+  "registrable": "worldtimeserver.com",
+  "tranco_rank": 4924,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-78f780ca3e",
+  "query": "What are the TXT records for s1._domainkey.telephony.goog?",
+  "params": {
+   "domain": "s1._domainkey.telephony.goog",
+   "record_type": "TXT"
+  },
+  "registrable": "telephony.goog",
+  "tranco_rank": 628,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-791bd89881",
+  "query": "What are the TXT records for _dmarc.casinosonlinenew.com?",
+  "params": {
+   "domain": "_dmarc.casinosonlinenew.com",
+   "record_type": "TXT"
+  },
+  "registrable": "casinosonlinenew.com",
+  "tranco_rank": 271730,
+  "template": "_dmarc.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-7939c69927",
+  "query": "What are the SRV records for _submission._tcp.chengxuan.com?",
+  "params": {
+   "domain": "_submission._tcp.chengxuan.com",
+   "record_type": "SRV"
+  },
+  "registrable": "chengxuan.com",
+  "tranco_rank": 687391,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-7dcc2bd020",
+  "query": "What are the CAA records for ebgaffiliates.com?",
+  "params": {
+   "domain": "ebgaffiliates.com",
+   "record_type": "CAA"
+  },
+  "registrable": "ebgaffiliates.com",
+  "tranco_rank": 87946,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-7eec8057ef",
+  "query": "What are the CAA records for bidvol.com?",
+  "params": {
+   "domain": "bidvol.com",
+   "record_type": "CAA"
+  },
+  "registrable": "bidvol.com",
+  "tranco_rank": 4561,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-7ff6654b66",
+  "query": "What are the TXT records for mail._domainkey.stockevents.app?",
+  "params": {
+   "domain": "mail._domainkey.stockevents.app",
+   "record_type": "TXT"
+  },
+  "registrable": "stockevents.app",
+  "tranco_rank": 91099,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-80b3a7bd91",
+  "query": "What are the A records for attn.tv?",
+  "params": {
+   "domain": "attn.tv",
+   "record_type": "A"
+  },
+  "registrable": "attn.tv",
+  "tranco_rank": 825,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-815dc2dba4",
+  "query": "What are the CAA records for piasd.org?",
+  "params": {
+   "domain": "piasd.org",
+   "record_type": "CAA"
+  },
+  "registrable": "piasd.org",
+  "tranco_rank": 61887,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-81b2b31711",
+  "query": "What are the NS records for forumarabia.com?",
+  "params": {
+   "domain": "forumarabia.com",
+   "record_type": "NS"
+  },
+  "registrable": "forumarabia.com",
+  "tranco_rank": 519750,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-8219bab5fc",
+  "query": "What are the MX records for mx-feaa3o.j-payment.co.jp?",
+  "params": {
+   "domain": "mx-feaa3o.j-payment.co.jp",
+   "record_type": "MX"
+  },
+  "registrable": "j-payment.co.jp",
+  "tranco_rank": 88544,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-82a873aaa6",
+  "query": "What are the A records for threads.com?",
+  "params": {
+   "domain": "threads.com",
+   "record_type": "A"
+  },
+  "registrable": "threads.com",
+  "tranco_rank": 565,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-837d757e39",
+  "query": "What are the TXT records for _mta-sts.vecdnlb.com?",
+  "params": {
+   "domain": "_mta-sts.vecdnlb.com",
+   "record_type": "TXT"
+  },
+  "registrable": "vecdnlb.com",
+  "tranco_rank": 686,
+  "template": "_mta-sts.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-83c10ca0a6",
+  "query": "What are the SRV records for _submission._tcp.binaccount.com?",
+  "params": {
+   "domain": "_submission._tcp.binaccount.com",
+   "record_type": "SRV"
+  },
+  "registrable": "binaccount.com",
+  "tranco_rank": 85675,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-84485eb4e7",
+  "query": "What are the MX records for fanedit.org?",
+  "params": {
+   "domain": "fanedit.org",
+   "record_type": "MX"
+  },
+  "registrable": "fanedit.org",
+  "tranco_rank": 194049,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-84cccff04d",
+  "query": "What are the AAAA records for adobedtm.com?",
+  "params": {
+   "domain": "adobedtm.com",
+   "record_type": "AAAA"
+  },
+  "registrable": "adobedtm.com",
+  "tranco_rank": 550,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-851470b72b",
+  "query": "What are the TXT records for lainsuperabledepil.com?",
+  "params": {
+   "domain": "lainsuperabledepil.com",
+   "record_type": "TXT"
+  },
+  "registrable": "lainsuperabledepil.com",
+  "tranco_rank": 905453,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-8523c5323b",
+  "query": "What are the MX records for mx-q0ihm1.hotxv.com?",
+  "params": {
+   "domain": "mx-q0ihm1.hotxv.com",
+   "record_type": "MX"
+  },
+  "registrable": "hotxv.com",
+  "tranco_rank": 1694,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-85827873b1",
+  "query": "What are the SRV records for _autodiscover._tcp.whois.com?",
+  "params": {
+   "domain": "_autodiscover._tcp.whois.com",
+   "record_type": "SRV"
+  },
+  "registrable": "whois.com",
+  "tranco_rank": 10395,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-85c1a01306",
+  "query": "What are the TXT records for _dmarc.lowes.com?",
+  "params": {
+   "domain": "_dmarc.lowes.com",
+   "record_type": "TXT"
+  },
+  "registrable": "lowes.com",
+  "tranco_rank": 973,
+  "template": "_dmarc.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-867532b030",
+  "query": "What are the MX records for mx-4tqy18.hostingmichigan.com?",
+  "params": {
+   "domain": "mx-4tqy18.hostingmichigan.com",
+   "record_type": "MX"
+  },
+  "registrable": "hostingmichigan.com",
+  "tranco_rank": 930607,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-87acc95c49",
+  "query": "What are the SOA records for trafficstars.com?",
+  "params": {
+   "domain": "trafficstars.com",
+   "record_type": "SOA"
+  },
+  "registrable": "trafficstars.com",
+  "tranco_rank": 10891,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-87b6c4c8e8",
+  "query": "What are the SOA records for namebrightdns.com?",
+  "params": {
+   "domain": "namebrightdns.com",
+   "record_type": "SOA"
+  },
+  "registrable": "namebrightdns.com",
+  "tranco_rank": 287,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-87c1fb87dd",
+  "query": "What are the SRV records for _submission._tcp.clutch.co?",
+  "params": {
+   "domain": "_submission._tcp.clutch.co",
+   "record_type": "SRV"
+  },
+  "registrable": "clutch.co",
+  "tranco_rank": 7287,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-87fc9e63f7",
+  "query": "What are the CAA records for pornkai.com?",
+  "params": {
+   "domain": "pornkai.com",
+   "record_type": "CAA"
+  },
+  "registrable": "pornkai.com",
+  "tranco_rank": 46684,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-88d72342a0",
+  "query": "What are the A records for mail.azure-dns.com?",
+  "params": {
+   "domain": "mail.azure-dns.com",
+   "record_type": "A"
+  },
+  "registrable": "azure-dns.com",
+  "tranco_rank": 470,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-89e3e48926",
+  "query": "What are the MX records for mx-f979f7.customchannels.rocks?",
+  "params": {
+   "domain": "mx-f979f7.customchannels.rocks",
+   "record_type": "MX"
+  },
+  "registrable": "customchannels.rocks",
+  "tranco_rank": 176242,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-8a1bc54026",
+  "query": "What are the MX records for mx-erlzuq.rtionline.gov.in?",
+  "params": {
+   "domain": "mx-erlzuq.rtionline.gov.in",
+   "record_type": "MX"
+  },
+  "registrable": "rtionline.gov.in",
+  "tranco_rank": 22031,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-8b16c20bbc",
+  "query": "What are the MX records for wistia.net?",
+  "params": {
+   "domain": "wistia.net",
+   "record_type": "MX"
+  },
+  "registrable": "wistia.net",
+  "tranco_rank": 6821,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-8be05f95fe",
+  "query": "What are the SRV records for _autodiscover._tcp.sempararempresas.com.br?",
+  "params": {
+   "domain": "_autodiscover._tcp.sempararempresas.com.br",
+   "record_type": "SRV"
+  },
+  "registrable": "sempararempresas.com.br",
+  "tranco_rank": 415119,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-8c4d5ce0bf",
+  "query": "What are the SRV records for _imaps._tcp.navitime.co.jp?",
+  "params": {
+   "domain": "_imaps._tcp.navitime.co.jp",
+   "record_type": "SRV"
+  },
+  "registrable": "navitime.co.jp",
+  "tranco_rank": 1378,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-8cb0bda41d",
+  "query": "What are the SRV records for _submission._tcp.zsheine.com?",
+  "params": {
+   "domain": "_submission._tcp.zsheine.com",
+   "record_type": "SRV"
+  },
+  "registrable": "zsheine.com",
+  "tranco_rank": 197182,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-8e00687c13",
+  "query": "What are the MX records for mx-vtxbq2.askethos.com?",
+  "params": {
+   "domain": "mx-vtxbq2.askethos.com",
+   "record_type": "MX"
+  },
+  "registrable": "askethos.com",
+  "tranco_rank": 96334,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-8e4be10ebb",
+  "query": "What are the TXT records for _dmarc.eos.org?",
+  "params": {
+   "domain": "_dmarc.eos.org",
+   "record_type": "TXT"
+  },
+  "registrable": "eos.org",
+  "tranco_rank": 37750,
+  "template": "_dmarc.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-8ec543a081",
+  "query": "What are the CNAME records for autodiscover.hubspot.com?",
+  "params": {
+   "domain": "autodiscover.hubspot.com",
+   "record_type": "CNAME"
+  },
+  "registrable": "hubspot.com",
+  "tranco_rank": 260,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-8ffc4b9f89",
+  "query": "What are the A records for xdrig.com?",
+  "params": {
+   "domain": "xdrig.com",
+   "record_type": "A"
+  },
+  "registrable": "xdrig.com",
+  "tranco_rank": 13730,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-91dc96677f",
+  "query": "What are the CNAME records for autodiscover.dockerhosting.ru?",
+  "params": {
+   "domain": "autodiscover.dockerhosting.ru",
+   "record_type": "CNAME"
+  },
+  "registrable": "dockerhosting.ru",
+  "tranco_rank": 264114,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-92cd6e8e98",
+  "query": "What are the CAA records for shopfemmenina.com?",
+  "params": {
+   "domain": "shopfemmenina.com",
+   "record_type": "CAA"
+  },
+  "registrable": "shopfemmenina.com",
+  "tranco_rank": 585348,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-93a4f6e07d",
+  "query": "What are the CNAME records for autodiscover.elsol.com.ar?",
+  "params": {
+   "domain": "autodiscover.elsol.com.ar",
+   "record_type": "CNAME"
+  },
+  "registrable": "elsol.com.ar",
+  "tranco_rank": 65653,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-94f4bed875",
+  "query": "What are the TXT records for _smtp._tls.gerlot.com.br?",
+  "params": {
+   "domain": "_smtp._tls.gerlot.com.br",
+   "record_type": "TXT"
+  },
+  "registrable": "gerlot.com.br",
+  "tranco_rank": 93008,
+  "template": "_smtp._tls.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-952edcdfda",
+  "query": "What are the TXT records for _dmarc.unibg.it?",
+  "params": {
+   "domain": "_dmarc.unibg.it",
+   "record_type": "TXT"
+  },
+  "registrable": "unibg.it",
+  "tranco_rank": 55735,
+  "template": "_dmarc.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-955abb0786",
+  "query": "What are the CNAME records for autodiscover.boyfriendtv.com?",
+  "params": {
+   "domain": "autodiscover.boyfriendtv.com",
+   "record_type": "CNAME"
+  },
+  "registrable": "boyfriendtv.com",
+  "tranco_rank": 1303,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-966e767552",
+  "query": "What are the NS records for hwcdn.ru?",
+  "params": {
+   "domain": "hwcdn.ru",
+   "record_type": "NS"
+  },
+  "registrable": "hwcdn.ru",
+  "tranco_rank": 2817,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-9680e0989f",
+  "query": "What are the A records for mail.cdngslb.com?",
+  "params": {
+   "domain": "mail.cdngslb.com",
+   "record_type": "A"
+  },
+  "registrable": "cdngslb.com",
+  "tranco_rank": 223,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-970ac11455",
+  "query": "What are the TXT records for _smtp._tls.twitcasting.tv?",
+  "params": {
+   "domain": "_smtp._tls.twitcasting.tv",
+   "record_type": "TXT"
+  },
+  "registrable": "twitcasting.tv",
+  "tranco_rank": 8069,
+  "template": "_smtp._tls.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-978d98c523",
+  "query": "What are the A records for mail.alerts.in.ua?",
+  "params": {
+   "domain": "mail.alerts.in.ua",
+   "record_type": "A"
+  },
+  "registrable": "alerts.in.ua",
+  "tranco_rank": 9415,
+  "template": "mail.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-97caab25c7",
+  "query": "What are the CNAME records for autodiscover.disney.com?",
+  "params": {
+   "domain": "autodiscover.disney.com",
+   "record_type": "CNAME"
+  },
+  "registrable": "disney.com",
+  "tranco_rank": 2606,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-992438a22f",
+  "query": "What are the NS records for apk2me.com?",
+  "params": {
+   "domain": "apk2me.com",
+   "record_type": "NS"
+  },
+  "registrable": "apk2me.com",
+  "tranco_rank": 88583,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-9a5d00d97b",
+  "query": "What are the NS records for cloudsink.net?",
+  "params": {
+   "domain": "cloudsink.net",
+   "record_type": "NS"
+  },
+  "registrable": "cloudsink.net",
+  "tranco_rank": 833,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-9af2efdc10",
+  "query": "What are the A records for mail.addtoany.com?",
+  "params": {
+   "domain": "mail.addtoany.com",
+   "record_type": "A"
+  },
+  "registrable": "addtoany.com",
+  "tranco_rank": 514,
+  "template": "mail.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-9c74da4487",
+  "query": "What are the TXT records for s1._domainkey.critrole.com?",
+  "params": {
+   "domain": "s1._domainkey.critrole.com",
+   "record_type": "TXT"
+  },
+  "registrable": "critrole.com",
+  "tranco_rank": 150746,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-9ca9f3b043",
+  "query": "What are the A records for mail.epicplazaarena.com?",
+  "params": {
+   "domain": "mail.epicplazaarena.com",
+   "record_type": "A"
+  },
+  "registrable": "epicplazaarena.com",
+  "tranco_rank": 713836,
+  "template": "mail.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-9dd54801c7",
+  "query": "What are the SRV records for _submission._tcp.linkedlegislation.org?",
+  "params": {
+   "domain": "_submission._tcp.linkedlegislation.org",
+   "record_type": "SRV"
+  },
+  "registrable": "linkedlegislation.org",
+  "tranco_rank": 629095,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-a08baceb9f",
+  "query": "What are the SRV records for _submission._tcp.bidspotter.com?",
+  "params": {
+   "domain": "_submission._tcp.bidspotter.com",
+   "record_type": "SRV"
+  },
+  "registrable": "bidspotter.com",
+  "tranco_rank": 31067,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-a133cc486f",
+  "query": "What are the MX records for lastampa.it?",
+  "params": {
+   "domain": "lastampa.it",
+   "record_type": "MX"
+  },
+  "registrable": "lastampa.it",
+  "tranco_rank": 4431,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-a3941b05f7",
+  "query": "What are the SOA records for sfmc-content.com?",
+  "params": {
+   "domain": "sfmc-content.com",
+   "record_type": "SOA"
+  },
+  "registrable": "sfmc-content.com",
+  "tranco_rank": 2729,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-a3c9e5b936",
+  "query": "What are the SRV records for _imaps._tcp.mketqua.net?",
+  "params": {
+   "domain": "_imaps._tcp.mketqua.net",
+   "record_type": "SRV"
+  },
+  "registrable": "mketqua.net",
+  "tranco_rank": 11704,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-a402debe74",
+  "query": "What are the TXT records for _dmarc.mx-p1j74u.mynet.com?",
+  "params": {
+   "domain": "_dmarc.mx-p1j74u.mynet.com",
+   "record_type": "TXT"
+  },
+  "registrable": "mynet.com",
+  "tranco_rank": 6257,
+  "template": "_dmarc.{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-a537201073",
+  "query": "What are the MX records for mx-m72utq.faymas.in?",
+  "params": {
+   "domain": "mx-m72utq.faymas.in",
+   "record_type": "MX"
+  },
+  "registrable": "faymas.in",
+  "tranco_rank": 9927,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-a543783e42",
+  "query": "What are the CNAME records for autodiscover.jobs2careers.com?",
+  "params": {
+   "domain": "autodiscover.jobs2careers.com",
+   "record_type": "CNAME"
+  },
+  "registrable": "jobs2careers.com",
+  "tranco_rank": 28810,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-a57eb27463",
+  "query": "What are the SRV records for _imaps._tcp.patreon.com?",
+  "params": {
+   "domain": "_imaps._tcp.patreon.com",
+   "record_type": "SRV"
+  },
+  "registrable": "patreon.com",
+  "tranco_rank": 941,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-a5f3ab841e",
+  "query": "What are the MX records for mx-3gzoai.stern.de?",
+  "params": {
+   "domain": "mx-3gzoai.stern.de",
+   "record_type": "MX"
+  },
+  "registrable": "stern.de",
+  "tranco_rank": 3762,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-a8a7a8e371",
+  "query": "What are the SRV records for _autodiscover._tcp.manything.com?",
+  "params": {
+   "domain": "_autodiscover._tcp.manything.com",
+   "record_type": "SRV"
+  },
+  "registrable": "manything.com",
+  "tranco_rank": 27510,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-aa15f609d2",
+  "query": "What are the MX records for weatherlive.world?",
+  "params": {
+   "domain": "weatherlive.world",
+   "record_type": "MX"
+  },
+  "registrable": "weatherlive.world",
+  "tranco_rank": 25178,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-ab3099c398",
+  "query": "What are the SRV records for _imaps._tcp.alllooksame.com?",
+  "params": {
+   "domain": "_imaps._tcp.alllooksame.com",
+   "record_type": "SRV"
+  },
+  "registrable": "alllooksame.com",
+  "tranco_rank": 933367,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-abf6b01947",
+  "query": "What are the A records for mail.unitedcinemas.jp?",
+  "params": {
+   "domain": "mail.unitedcinemas.jp",
+   "record_type": "A"
+  },
+  "registrable": "unitedcinemas.jp",
+  "tranco_rank": 8794,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-acdc530f88",
+  "query": "What are the SRV records for _imaps._tcp.myaltea.dev?",
+  "params": {
+   "domain": "_imaps._tcp.myaltea.dev",
+   "record_type": "SRV"
+  },
+  "registrable": "myaltea.dev",
+  "tranco_rank": 950798,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-ad4998e4bd",
+  "query": "What are the A records for svhl.de?",
+  "params": {
+   "domain": "svhl.de",
+   "record_type": "A"
+  },
+  "registrable": "svhl.de",
+  "tranco_rank": 828941,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-aeb7efbc9d",
+  "query": "What are the A records for mail.bokepking.cam?",
+  "params": {
+   "domain": "mail.bokepking.cam",
+   "record_type": "A"
+  },
+  "registrable": "bokepking.cam",
+  "tranco_rank": 52694,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-aec785b568",
+  "query": "What are the NS records for br.com?",
+  "params": {
+   "domain": "br.com",
+   "record_type": "NS"
+  },
+  "registrable": "br.com",
+  "tranco_rank": 6228,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-aeeb577db7",
+  "query": "What are the TXT records for selector1._domainkey.legislation.gov.uk?",
+  "params": {
+   "domain": "selector1._domainkey.legislation.gov.uk",
+   "record_type": "TXT"
+  },
+  "registrable": "legislation.gov.uk",
+  "tranco_rank": 3172,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-af64626fd7",
+  "query": "What are the SRV records for _submission._tcp.smilewanted.com?",
+  "params": {
+   "domain": "_submission._tcp.smilewanted.com",
+   "record_type": "SRV"
+  },
+  "registrable": "smilewanted.com",
+  "tranco_rank": 905,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-af89336abc",
+  "query": "What are the CNAME records for autodiscover.fedoraproject.org?",
+  "params": {
+   "domain": "autodiscover.fedoraproject.org",
+   "record_type": "CNAME"
+  },
+  "registrable": "fedoraproject.org",
+  "tranco_rank": 1403,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-afd3c23934",
+  "query": "What are the CNAME records for autodiscover.bundestag.de?",
+  "params": {
+   "domain": "autodiscover.bundestag.de",
+   "record_type": "CNAME"
+  },
+  "registrable": "bundestag.de",
+  "tranco_rank": 5487,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-b02f1b2187",
+  "query": "What are the AAAA records for bntu.by?",
+  "params": {
+   "domain": "bntu.by",
+   "record_type": "AAAA"
+  },
+  "registrable": "bntu.by",
+  "tranco_rank": 52532,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-b05218683c",
+  "query": "What are the CAA records for casinolevant1426.com?",
+  "params": {
+   "domain": "casinolevant1426.com",
+   "record_type": "CAA"
+  },
+  "registrable": "casinolevant1426.com",
+  "tranco_rank": 956854,
+  "template": "{d}",
+  "truth_precheck": "SERVFAIL"
+ },
+ {
+  "id": "es-b1479ba307",
+  "query": "What are the TXT records for _mta-sts.alltheweb.com?",
+  "params": {
+   "domain": "_mta-sts.alltheweb.com",
+   "record_type": "TXT"
+  },
+  "registrable": "alltheweb.com",
+  "tranco_rank": 31582,
+  "template": "_mta-sts.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-b19bfe80bf",
+  "query": "What are the CAA records for eg.ru?",
+  "params": {
+   "domain": "eg.ru",
+   "record_type": "CAA"
+  },
+  "registrable": "eg.ru",
+  "tranco_rank": 43026,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-b2382918fa",
+  "query": "What are the SOA records for iteleserve.com?",
+  "params": {
+   "domain": "iteleserve.com",
+   "record_type": "SOA"
+  },
+  "registrable": "iteleserve.com",
+  "tranco_rank": 21190,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-b276bf320e",
+  "query": "What are the A records for psu.edu?",
+  "params": {
+   "domain": "psu.edu",
+   "record_type": "A"
+  },
+  "registrable": "psu.edu",
+  "tranco_rank": 1362,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-b2bbc120a5",
+  "query": "What are the SRV records for _imaps._tcp.arabist.net?",
+  "params": {
+   "domain": "_imaps._tcp.arabist.net",
+   "record_type": "SRV"
+  },
+  "registrable": "arabist.net",
+  "tranco_rank": 693325,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-b3eadcab99",
+  "query": "What are the AAAA records for rkw-group.com?",
+  "params": {
+   "domain": "rkw-group.com",
+   "record_type": "AAAA"
+  },
+  "registrable": "rkw-group.com",
+  "tranco_rank": 604521,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-b4c5122cfb",
+  "query": "What are the TXT records for _smtp._tls.isinolsun.com?",
+  "params": {
+   "domain": "_smtp._tls.isinolsun.com",
+   "record_type": "TXT"
+  },
+  "registrable": "isinolsun.com",
+  "tranco_rank": 22348,
+  "template": "_smtp._tls.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-b57912e19b",
+  "query": "What are the SRV records for _imaps._tcp.jbll2025.live?",
+  "params": {
+   "domain": "_imaps._tcp.jbll2025.live",
+   "record_type": "SRV"
+  },
+  "registrable": "jbll2025.live",
+  "tranco_rank": 178507,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-b5b489031c",
+  "query": "What are the CAA records for pln-pskov.ru?",
+  "params": {
+   "domain": "pln-pskov.ru",
+   "record_type": "CAA"
+  },
+  "registrable": "pln-pskov.ru",
+  "tranco_rank": 69040,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-b703d145aa",
+  "query": "What are the MX records for proflowers.com?",
+  "params": {
+   "domain": "proflowers.com",
+   "record_type": "MX"
+  },
+  "registrable": "proflowers.com",
+  "tranco_rank": 64951,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-b908361911",
+  "query": "What are the SRV records for _imaps._tcp.xinjiang.gov.cn?",
+  "params": {
+   "domain": "_imaps._tcp.xinjiang.gov.cn",
+   "record_type": "SRV"
+  },
+  "registrable": "xinjiang.gov.cn",
+  "tranco_rank": 48320,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-b9de81dcdd",
+  "query": "What are the MX records for connectrcs.com?",
+  "params": {
+   "domain": "connectrcs.com",
+   "record_type": "MX"
+  },
+  "registrable": "connectrcs.com",
+  "tranco_rank": 9762,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-bb1fd564b4",
+  "query": "What are the CAA records for 446446446.xyz?",
+  "params": {
+   "domain": "446446446.xyz",
+   "record_type": "CAA"
+  },
+  "registrable": "446446446.xyz",
+  "tranco_rank": 138816,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-bb4cd9d3c4",
+  "query": "What are the A records for tvsquared.com?",
+  "params": {
+   "domain": "tvsquared.com",
+   "record_type": "A"
+  },
+  "registrable": "tvsquared.com",
+  "tranco_rank": 2145,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-bb8bc1f561",
+  "query": "What are the A records for mail.powerreviews.com?",
+  "params": {
+   "domain": "mail.powerreviews.com",
+   "record_type": "A"
+  },
+  "registrable": "powerreviews.com",
+  "tranco_rank": 5977,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-bbbad7a3ba",
+  "query": "What are the SOA records for grindr.com?",
+  "params": {
+   "domain": "grindr.com",
+   "record_type": "SOA"
+  },
+  "registrable": "grindr.com",
+  "tranco_rank": 2792,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-bc64849041",
+  "query": "What are the AAAA records for webempresa.eu?",
+  "params": {
+   "domain": "webempresa.eu",
+   "record_type": "AAAA"
+  },
+  "registrable": "webempresa.eu",
+  "tranco_rank": 979,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-bc981634c6",
+  "query": "What are the TXT records for s1._domainkey.batteryuniversity.com?",
+  "params": {
+   "domain": "s1._domainkey.batteryuniversity.com",
+   "record_type": "TXT"
+  },
+  "registrable": "batteryuniversity.com",
+  "tranco_rank": 42967,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-bce481e570",
+  "query": "What are the TXT records for ipvoid.com?",
+  "params": {
+   "domain": "ipvoid.com",
+   "record_type": "TXT"
+  },
+  "registrable": "ipvoid.com",
+  "tranco_rank": 44522,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-bdbb2e8865",
+  "query": "What are the AAAA records for bynder.com?",
+  "params": {
+   "domain": "bynder.com",
+   "record_type": "AAAA"
+  },
+  "registrable": "bynder.com",
+  "tranco_rank": 5173,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-bea4c635e4",
+  "query": "What are the MX records for mx-9jxkwj.venetianlasvegas.com?",
+  "params": {
+   "domain": "mx-9jxkwj.venetianlasvegas.com",
+   "record_type": "MX"
+  },
+  "registrable": "venetianlasvegas.com",
+  "tranco_rank": 45710,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-bf0319f219",
+  "query": "What are the SOA records for argenprop.com?",
+  "params": {
+   "domain": "argenprop.com",
+   "record_type": "SOA"
+  },
+  "registrable": "argenprop.com",
+  "tranco_rank": 8046,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-c0ead24fd8",
+  "query": "What are the TXT records for _mta-sts.mindbodyapis.com?",
+  "params": {
+   "domain": "_mta-sts.mindbodyapis.com",
+   "record_type": "TXT"
+  },
+  "registrable": "mindbodyapis.com",
+  "tranco_rank": 36048,
+  "template": "_mta-sts.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-c1465ecd51",
+  "query": "What are the SRV records for _autodiscover._tcp.chukka.com?",
+  "params": {
+   "domain": "_autodiscover._tcp.chukka.com",
+   "record_type": "SRV"
+  },
+  "registrable": "chukka.com",
+  "tranco_rank": 314126,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-c1d816371d",
+  "query": "What are the SRV records for _imaps._tcp.advolve.io?",
+  "params": {
+   "domain": "_imaps._tcp.advolve.io",
+   "record_type": "SRV"
+  },
+  "registrable": "advolve.io",
+  "tranco_rank": 5884,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-c33a94e032",
+  "query": "What are the AAAA records for earthshotprize.org?",
+  "params": {
+   "domain": "earthshotprize.org",
+   "record_type": "AAAA"
+  },
+  "registrable": "earthshotprize.org",
+  "tranco_rank": 191012,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-c3acacab77",
+  "query": "What are the CAA records for vagonweb.cz?",
+  "params": {
+   "domain": "vagonweb.cz",
+   "record_type": "CAA"
+  },
+  "registrable": "vagonweb.cz",
+  "tranco_rank": 66703,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-c6a0724bbc",
+  "query": "What are the TXT records for _dmarc.healthcarefinancenews.com?",
+  "params": {
+   "domain": "_dmarc.healthcarefinancenews.com",
+   "record_type": "TXT"
+  },
+  "registrable": "healthcarefinancenews.com",
+  "tranco_rank": 75285,
+  "template": "_dmarc.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-c6fed7ed89",
+  "query": "What are the A records for mail.scdn.co?",
+  "params": {
+   "domain": "mail.scdn.co",
+   "record_type": "A"
+  },
+  "registrable": "scdn.co",
+  "tranco_rank": 419,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-c8288c8849",
+  "query": "What are the MX records for www.cdnhwcljk104.com?",
+  "params": {
+   "domain": "www.cdnhwcljk104.com",
+   "record_type": "MX"
+  },
+  "registrable": "cdnhwcljk104.com",
+  "tranco_rank": 6378,
+  "template": "www.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-c98e0cbff1",
+  "query": "What are the CNAME records for autodiscover.3lift.com?",
+  "params": {
+   "domain": "autodiscover.3lift.com",
+   "record_type": "CNAME"
+  },
+  "registrable": "3lift.com",
+  "tranco_rank": 560,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-c98f52e095",
+  "query": "What are the A records for mail.queniuso.com?",
+  "params": {
+   "domain": "mail.queniuso.com",
+   "record_type": "A"
+  },
+  "registrable": "queniuso.com",
+  "tranco_rank": 6329,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-c9ef1fe3a8",
+  "query": "What are the MX records for mx-bawyot.syrahost.com?",
+  "params": {
+   "domain": "mx-bawyot.syrahost.com",
+   "record_type": "MX"
+  },
+  "registrable": "syrahost.com",
+  "tranco_rank": 27818,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-cb894b49e5",
+  "query": "What are the SRV records for _imaps._tcp.courseleaf.com?",
+  "params": {
+   "domain": "_imaps._tcp.courseleaf.com",
+   "record_type": "SRV"
+  },
+  "registrable": "courseleaf.com",
+  "tranco_rank": 76070,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-cf385d5e58",
+  "query": "What are the MX records for mx-r42vqr.purestorage.com?",
+  "params": {
+   "domain": "mx-r42vqr.purestorage.com",
+   "record_type": "MX"
+  },
+  "registrable": "purestorage.com",
+  "tranco_rank": 7871,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-d13e32bbe3",
+  "query": "What are the SOA records for royalenfield.store?",
+  "params": {
+   "domain": "royalenfield.store",
+   "record_type": "SOA"
+  },
+  "registrable": "royalenfield.store",
+  "tranco_rank": 536464,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-d1426b4efe",
+  "query": "What are the SRV records for _autodiscover._tcp.converse.com.mx?",
+  "params": {
+   "domain": "_autodiscover._tcp.converse.com.mx",
+   "record_type": "SRV"
+  },
+  "registrable": "converse.com.mx",
+  "tranco_rank": 88097,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-d1677e34b0",
+  "query": "What are the NS records for kuveytturk.com.tr?",
+  "params": {
+   "domain": "kuveytturk.com.tr",
+   "record_type": "NS"
+  },
+  "registrable": "kuveytturk.com.tr",
+  "tranco_rank": 90188,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-d17c8d7831",
+  "query": "What are the SRV records for _submission._tcp.ch3plus.com?",
+  "params": {
+   "domain": "_submission._tcp.ch3plus.com",
+   "record_type": "SRV"
+  },
+  "registrable": "ch3plus.com",
+  "tranco_rank": 47120,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-d3a8f3aaf7",
+  "query": "What are the TXT records for _dmarc.corriereadriatico.it?",
+  "params": {
+   "domain": "_dmarc.corriereadriatico.it",
+   "record_type": "TXT"
+  },
+  "registrable": "corriereadriatico.it",
+  "tranco_rank": 53520,
+  "template": "_dmarc.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-d3de442ef5",
+  "query": "What are the MX records for mx-7gdbbz.seafishzone.com?",
+  "params": {
+   "domain": "mx-7gdbbz.seafishzone.com",
+   "record_type": "MX"
+  },
+  "registrable": "seafishzone.com",
+  "tranco_rank": 95280,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-d4ba2ff441",
+  "query": "What are the SRV records for _autodiscover._tcp.funcionpublica.gov.co?",
+  "params": {
+   "domain": "_autodiscover._tcp.funcionpublica.gov.co",
+   "record_type": "SRV"
+  },
+  "registrable": "funcionpublica.gov.co",
+  "tranco_rank": 32301,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-d5421d4a44",
+  "query": "What are the SRV records for _autodiscover._tcp.tvserver.ru?",
+  "params": {
+   "domain": "_autodiscover._tcp.tvserver.ru",
+   "record_type": "SRV"
+  },
+  "registrable": "tvserver.ru",
+  "tranco_rank": 508831,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-d60d4e33fc",
+  "query": "What are the A records for tailscale.com?",
+  "params": {
+   "domain": "tailscale.com",
+   "record_type": "A"
+  },
+  "registrable": "tailscale.com",
+  "tranco_rank": 914,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-d7bc2adea4",
+  "query": "What are the CNAME records for autodiscover.louvremedia.com?",
+  "params": {
+   "domain": "autodiscover.louvremedia.com",
+   "record_type": "CNAME"
+  },
+  "registrable": "louvremedia.com",
+  "tranco_rank": 917021,
+  "template": "autodiscover.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-d805177b37",
+  "query": "What are the AAAA records for kwch.com?",
+  "params": {
+   "domain": "kwch.com",
+   "record_type": "AAAA"
+  },
+  "registrable": "kwch.com",
+  "tranco_rank": 52265,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-d8c081eae1",
+  "query": "What are the TXT records for _dmarc.mx-cp8693.cdc.gov?",
+  "params": {
+   "domain": "_dmarc.mx-cp8693.cdc.gov",
+   "record_type": "TXT"
+  },
+  "registrable": "cdc.gov",
+  "tranco_rank": 370,
+  "template": "_dmarc.{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-d9dfacd41b",
+  "query": "What are the TXT records for _dmarc.mx-yzjxw5.wswebcdn.com?",
+  "params": {
+   "domain": "_dmarc.mx-yzjxw5.wswebcdn.com",
+   "record_type": "TXT"
+  },
+  "registrable": "wswebcdn.com",
+  "tranco_rank": 859,
+  "template": "_dmarc.{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-da58fa3cf5",
+  "query": "What are the MX records for litoralnarede.com.br?",
+  "params": {
+   "domain": "litoralnarede.com.br",
+   "record_type": "MX"
+  },
+  "registrable": "litoralnarede.com.br",
+  "tranco_rank": 652312,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-db3c380002",
+  "query": "What are the TXT records for default._domainkey.framerusercontent.com?",
+  "params": {
+   "domain": "default._domainkey.framerusercontent.com",
+   "record_type": "TXT"
+  },
+  "registrable": "framerusercontent.com",
+  "tranco_rank": 9286,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-dd3e4295e9",
+  "query": "What are the NS records for n1info.rs?",
+  "params": {
+   "domain": "n1info.rs",
+   "record_type": "NS"
+  },
+  "registrable": "n1info.rs",
+  "tranco_rank": 7507,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-ddba1f2717",
+  "query": "What are the MX records for mx-3ag7nb.verisign.com?",
+  "params": {
+   "domain": "mx-3ag7nb.verisign.com",
+   "record_type": "MX"
+  },
+  "registrable": "verisign.com",
+  "tranco_rank": 654,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-dde374ebd1",
+  "query": "What are the SRV records for _autodiscover._tcp.paperbackswap.com?",
+  "params": {
+   "domain": "_autodiscover._tcp.paperbackswap.com",
+   "record_type": "SRV"
+  },
+  "registrable": "paperbackswap.com",
+  "tranco_rank": 85911,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-dee17f1a80",
+  "query": "What are the A records for vn2c.my?",
+  "params": {
+   "domain": "vn2c.my",
+   "record_type": "A"
+  },
+  "registrable": "vn2c.my",
+  "tranco_rank": 9768,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-e0639bb89d",
+  "query": "What are the SRV records for _autodiscover._tcp.sugarsync.com?",
+  "params": {
+   "domain": "_autodiscover._tcp.sugarsync.com",
+   "record_type": "SRV"
+  },
+  "registrable": "sugarsync.com",
+  "tranco_rank": 29703,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-e19acbb39e",
+  "query": "What are the TXT records for selector1._domainkey.insops.net?",
+  "params": {
+   "domain": "selector1._domainkey.insops.net",
+   "record_type": "TXT"
+  },
+  "registrable": "insops.net",
+  "tranco_rank": 7304,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-e1c33aee6a",
+  "query": "What are the SOA records for rbc.ru?",
+  "params": {
+   "domain": "rbc.ru",
+   "record_type": "SOA"
+  },
+  "registrable": "rbc.ru",
+  "tranco_rank": 2050,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-e2244ea896",
+  "query": "What are the CAA records for tbcache.com?",
+  "params": {
+   "domain": "tbcache.com",
+   "record_type": "CAA"
+  },
+  "registrable": "tbcache.com",
+  "tranco_rank": 176,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-e2c5b0ed0d",
+  "query": "What are the MX records for mx-p0spak.unwomen.org?",
+  "params": {
+   "domain": "mx-p0spak.unwomen.org",
+   "record_type": "MX"
+  },
+  "registrable": "unwomen.org",
+  "tranco_rank": 4237,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-e4c342b852",
+  "query": "What are the SOA records for zegonira.com?",
+  "params": {
+   "domain": "zegonira.com",
+   "record_type": "SOA"
+  },
+  "registrable": "zegonira.com",
+  "tranco_rank": 843910,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-e60d9b1681",
+  "query": "What are the MX records for mx-3czvzx.tuasaude.com?",
+  "params": {
+   "domain": "mx-3czvzx.tuasaude.com",
+   "record_type": "MX"
+  },
+  "registrable": "tuasaude.com",
+  "tranco_rank": 7223,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-e6528a4374",
+  "query": "What are the TXT records for _dmarc.mx-mi818d.avtub.wiki?",
+  "params": {
+   "domain": "_dmarc.mx-mi818d.avtub.wiki",
+   "record_type": "TXT"
+  },
+  "registrable": "avtub.wiki",
+  "tranco_rank": 9540,
+  "template": "_dmarc.{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-e6ab674e42",
+  "query": "What are the A records for mail.qvdt3feo.com?",
+  "params": {
+   "domain": "mail.qvdt3feo.com",
+   "record_type": "A"
+  },
+  "registrable": "qvdt3feo.com",
+  "tranco_rank": 5204,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-e7b515a2a3",
+  "query": "What are the CAA records for comorsports.com?",
+  "params": {
+   "domain": "comorsports.com",
+   "record_type": "CAA"
+  },
+  "registrable": "comorsports.com",
+  "tranco_rank": 250792,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-e98bf0c92f",
+  "query": "What are the MX records for mx-ah3gay.chickenkiller.com?",
+  "params": {
+   "domain": "mx-ah3gay.chickenkiller.com",
+   "record_type": "MX"
+  },
+  "registrable": "chickenkiller.com",
+  "tranco_rank": 17611,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-ea756c0a81",
+  "query": "What are the AAAA records for crickexnow.vip?",
+  "params": {
+   "domain": "crickexnow.vip",
+   "record_type": "AAAA"
+  },
+  "registrable": "crickexnow.vip",
+  "tranco_rank": 9888,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-eb471c047a",
+  "query": "What are the SRV records for _submission._tcp.buayagarapuh.com?",
+  "params": {
+   "domain": "_submission._tcp.buayagarapuh.com",
+   "record_type": "SRV"
+  },
+  "registrable": "buayagarapuh.com",
+  "tranco_rank": 237518,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "SERVFAIL"
+ },
+ {
+  "id": "es-ebae3797bf",
+  "query": "What are the MX records for mx-ygeozc.kamakathalu.com?",
+  "params": {
+   "domain": "mx-ygeozc.kamakathalu.com",
+   "record_type": "MX"
+  },
+  "registrable": "kamakathalu.com",
+  "tranco_rank": 87324,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-ec80c0ef2b",
+  "query": "What are the SRV records for _autodiscover._tcp.mtt.ru?",
+  "params": {
+   "domain": "_autodiscover._tcp.mtt.ru",
+   "record_type": "SRV"
+  },
+  "registrable": "mtt.ru",
+  "tranco_rank": 26256,
+  "template": "_autodiscover._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-ec9e25afa4",
+  "query": "What are the SRV records for _imaps._tcp.alicdn.com?",
+  "params": {
+   "domain": "_imaps._tcp.alicdn.com",
+   "record_type": "SRV"
+  },
+  "registrable": "alicdn.com",
+  "tranco_rank": 391,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-ed4804d34c",
+  "query": "What are the SRV records for _imaps._tcp.office.net?",
+  "params": {
+   "domain": "_imaps._tcp.office.net",
+   "record_type": "SRV"
+  },
+  "registrable": "office.net",
+  "tranco_rank": 44,
+  "template": "_imaps._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-ee13de13f7",
+  "query": "What are the MX records for mx-zfbg6e.eduplus.edu.pl?",
+  "params": {
+   "domain": "mx-zfbg6e.eduplus.edu.pl",
+   "record_type": "MX"
+  },
+  "registrable": "eduplus.edu.pl",
+  "tranco_rank": 886713,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-f0f064c6e5",
+  "query": "What are the TXT records for s1._domainkey.sicapsolucoes.com?",
+  "params": {
+   "domain": "s1._domainkey.sicapsolucoes.com",
+   "record_type": "TXT"
+  },
+  "registrable": "sicapsolucoes.com",
+  "tranco_rank": 824382,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-f44b730e8d",
+  "query": "What are the MX records for mx-99rcfy.bokepindo.casa?",
+  "params": {
+   "domain": "mx-99rcfy.bokepindo.casa",
+   "record_type": "MX"
+  },
+  "registrable": "bokepindo.casa",
+  "tranco_rank": 74437,
+  "template": "{rnd}.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-f510dff0fa",
+  "query": "What are the TXT records for dkim._domainkey.morimotohid.com?",
+  "params": {
+   "domain": "dkim._domainkey.morimotohid.com",
+   "record_type": "TXT"
+  },
+  "registrable": "morimotohid.com",
+  "tranco_rank": 466212,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-f56f3efc16",
+  "query": "What are the TXT records for _dmarc.alog.com?",
+  "params": {
+   "domain": "_dmarc.alog.com",
+   "record_type": "TXT"
+  },
+  "registrable": "alog.com",
+  "tranco_rank": 40347,
+  "template": "_dmarc.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-f650b8bd24",
+  "query": "What are the A records for mail.tchibo.hu?",
+  "params": {
+   "domain": "mail.tchibo.hu",
+   "record_type": "A"
+  },
+  "registrable": "tchibo.hu",
+  "tranco_rank": 70750,
+  "template": "mail.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-f7c3f6ab33",
+  "query": "What are the SRV records for _submission._tcp.ahzpump.com?",
+  "params": {
+   "domain": "_submission._tcp.ahzpump.com",
+   "record_type": "SRV"
+  },
+  "registrable": "ahzpump.com",
+  "tranco_rank": 334416,
+  "template": "_submission._tcp.{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-f869b39b8a",
+  "query": "What are the TXT records for _smtp._tls.hghmnds.ph?",
+  "params": {
+   "domain": "_smtp._tls.hghmnds.ph",
+   "record_type": "TXT"
+  },
+  "registrable": "hghmnds.ph",
+  "tranco_rank": 784224,
+  "template": "_smtp._tls.{d}",
+  "truth_precheck": "NXDOMAIN"
+ },
+ {
+  "id": "es-fc0fb4f5af",
+  "query": "What are the MX records for restonsimples.be?",
+  "params": {
+   "domain": "restonsimples.be",
+   "record_type": "MX"
+  },
+  "registrable": "restonsimples.be",
+  "tranco_rank": 225375,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-fc4fb291ad",
+  "query": "What are the TXT records for pat.edu.eg?",
+  "params": {
+   "domain": "pat.edu.eg",
+   "record_type": "TXT"
+  },
+  "registrable": "pat.edu.eg",
+  "tranco_rank": 811889,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-fc8265c3f1",
+  "query": "What are the MX records for vidazoo.com?",
+  "params": {
+   "domain": "vidazoo.com",
+   "record_type": "MX"
+  },
+  "registrable": "vidazoo.com",
+  "tranco_rank": 2716,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-fd060c7b54",
+  "query": "What are the A records for dual-s-dc-msedge.net?",
+  "params": {
+   "domain": "dual-s-dc-msedge.net",
+   "record_type": "A"
+  },
+  "registrable": "dual-s-dc-msedge.net",
+  "tranco_rank": 5368,
+  "template": "{d}",
+  "truth_precheck": "NOERROR"
+ },
+ {
+  "id": "es-ff5b97f08e",
+  "query": "What are the TXT records for dkim._domainkey.adjust.com?",
+  "params": {
+   "domain": "dkim._domainkey.adjust.com",
+   "record_type": "TXT"
+  },
+  "registrable": "adjust.com",
+  "tranco_rank": 819,
+  "template": "{sel}._domainkey.{d}",
+  "truth_precheck": "NXDOMAIN"
+ }
+]

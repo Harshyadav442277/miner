@@ -1,0 +1,11 @@
+{
+ "file": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\track2-email-security-evaluator-303326\\track2\\adapter\\email_security\\holdout\\pilot.json",
+ "kind": "queries",
+ "sha256": "7ef86fd6f2e0026dad29ff46fe4d623d3a14621c59d39fe6900486b7ce20d4db",
+ "rows": 3,
+ "family": "EMAIL_SECURITY",
+ "sources": "Tranco 947V2 pilot bucket 10",
+ "note": "3-query pilot (data, NODATA, NXDOMAIN); decides only which miners to skip; never gated.",
+ "created_at": "2026-11-16T00:21:51.798886+00:00",
+ "git_head": "4ef1c939431fe8516f60dd9446f8e1a285ce440f"
+}

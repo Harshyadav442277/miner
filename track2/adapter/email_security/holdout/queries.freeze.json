@@ -1,0 +1,11 @@
+{
+ "file": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\track2-email-security-evaluator-303326\\track2\\adapter\\email_security\\holdout\\queries.json",
+ "kind": "queries",
+ "sha256": "21acfac58be5ab06bbd759694854565c532cc43d82d3b987e9979f9da1e3ef25",
+ "rows": 300,
+ "family": "EMAIL_SECURITY",
+ "sources": "Tranco list 947V2 (2026-11-14), holdout bucket sha256('es-split-v1:'+domain)%100<10; names from email-security templates; truth pre-check NextDNS+DNS.SB",
+ "note": "Frozen before any miner answer was seen. 300 queries, one per registrable domain: 150 NOERROR, 147 NXDOMAIN, 3 SERVFAIL at pre-check (2026-11-16). Label on lookup_ok only; truth re-resolved before and after capture by two non-miner resolvers; rules 1-9 in adapter/email_security/README.md at 77ed687.",
+ "created_at": "2026-11-16T00:21:51.649477+00:00",
+ "git_head": "4ef1c939431fe8516f60dd9446f8e1a285ce440f"
+}

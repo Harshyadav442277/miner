@@ -1,0 +1,35 @@
+[
+ {
+  "id": "es-0a10a98913",
+  "query": "What are the MX records for parklogic.com?",
+  "params": {
+   "domain": "parklogic.com",
+   "record_type": "MX"
+  },
+  "registrable": "parklogic.com",
+  "tranco_rank": 876,
+  "template": "{d}"
+ },
+ {
+  "id": "es-5ab19e57b2",
+  "query": "What are the CAA records for edgecdn.ru?",
+  "params": {
+   "domain": "edgecdn.ru",
+   "record_type": "CAA"
+  },
+  "registrable": "edgecdn.ru",
+  "tranco_rank": 639,
+  "template": "{d}"
+ },
+ {
+  "id": "es-90ca932522",
+  "query": "What are the TXT records for selector2._domainkey.t-s1-msedge.net?",
+  "params": {
+   "domain": "selector2._domainkey.t-s1-msedge.net",
+   "record_type": "TXT"
+  },
+  "registrable": "t-s1-msedge.net",
+  "tranco_rank": 763,
+  "template": "{sel}._domainkey.{d}"
+ }
+]
