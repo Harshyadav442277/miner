@@ -304,7 +304,7 @@ test("genai: the token estimate counts non-ASCII characters whole, and every fal
   assert.equal(estimateTokens({ system: "", user: "abcdefgh", maxTokens: 10 }), 12);
   assert.equal(estimateTokens({ system: "", user: "日本語のテキスト", maxTokens: 10 }), 18);
   // Three timed-out-style failures (HTTP 500 counts as a rate refusal) each spend the budget.
-  process.env.LLM_LONG_TOKENS_PER_MIN = "2000"; // one chat attempt (~900 tokens) twice, not three times
+  process.env.LLM_LONG_TOKENS_PER_MIN = "2200"; // one chat attempt (~1,000 tokens) twice, not three times
   try {
     await withModel(null, async (calls) => {
       await chat("Why is the sky blue?");

@@ -105,6 +105,10 @@ test("genai-brief: clauseBrief keeps a complete clause in 80 characters, never a
 
 test("genai-brief: the system prompt carries today's date", async () => {
   assert.match(chatSystem(NOW), /Today is 14 November 2026 \(UTC\)\./);
+  // Production 2026-11-16: "Give me three tips for better sleep." was briefed with one tip, and "Is it better to rent
+  // or buy a house?" with "It depends on your financial situation, goals, and market conditions."
+  assert.match(chatSystem(NOW), /names all of them briefly/);
+  assert.match(chatSystem(NOW), /never "it depends" alone/);
   await withReplies([JSON.stringify({ brief: "Canberra is the capital of Australia.", reply: "Canberra is the capital of Australia.", verdict: null })], async (calls) => {
     await chat("What is the capital of Australia?", "", NOW);
     assert.match(calls[0]!.messages[0]!.content, /Today is 14 November 2026 \(UTC\)\. Never state a different current year\./);
