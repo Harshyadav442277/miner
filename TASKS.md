@@ -5,6 +5,16 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## Handoff 2026-11-16 ~19:00 UTC — Track 1 (MEMORY.md top block has the details)
+
+- [ ] Owner: wire `archive-requests.mjs` into `C:\Users\hyada\tg-deploy\scores\record.cmd` (the line is in MEMORY; the permission check refused Claude twice).
+- [ ] After two epochs under 5292: run `intent-table.mjs` into `track1-diagnosis-2026-11-17/after/` and compare with `before/`.
+- [ ] GAS_PRICE (G310): read `requests.jsonl` or `vercel logs` for `__path=/gas-price` and its `chain` values in a scored epoch; fix or remove.
+- [ ] REGULATORY_FILING (G321): read its first 5292 score and the `period` values the node sends.
+- [ ] Decide removals for ONE batched YAML: EVENT_OUTCOME (G317, unless a licence-clean results source is proven), URL_SCAN_VERDICT (0 missions, field ~0.54), GAS_PRICE if unfixed. Validate in the Anjoman web UI (the POST API answers 404); the owner signs.
+- [ ] Consumption: collect H2 mission-app delivery records (none verified yet).
+- [ ] Growth: the owner posts OUTREACH.md §5 (dated update) and the tutorial (§6).
+
 ## Handoff 2026-11-09 — next actions (MEMORY.md top block has the details)
 
 - [ ] Owner: sign the 43-intent YAML (`15ecfd6`, `0xb721afd7…3b7b5a`; the 4e385e1 YAML was too large for the validator), then update the registration id everywhere.

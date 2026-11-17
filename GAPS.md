@@ -1,5 +1,25 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-16 ~19:00 UTC (Nov 17 IST) Track 1 diagnosis; release `14b6d98` — states changed; G321–G323 new
+
+- **G320 — CLOSED.** The 96,353-byte YAML was accepted: registration 5292 carries its SHA-256.
+- **G310 updated — GAS_PRICE 0 in epoch 2107 (field top 0.4973, most at 0.333). `OPEN`.**
+  - Our value equalled `eth_gasPrice` to the wei at 18:27 UTC.
+  - Vercel logs from 17:33 to 18:14 UTC show no `/gas-price` call. Older lines were gone: retention is about an hour.
+  - `14b6d98` logs the route and the `chain` value. Read them in a scored epoch.
+- **G317 updated — EVENT_OUTCOME 0.0024, rank 21/38, epoch 2107.** Our answers to sports questions are an honest "no
+  market found". Removal at the next YAML is proposed, unless a licence-clean results source is found and its terms read.
+- **G321 — REGULATORY_FILING has never been scored for LiveCert; the field was scored in 2107. `ACTED ON` in `14b6d98`.**
+  - Five miners tied at 0.5, Federal Register readers among them.
+  - Fix: a Federal Register count for non-registrants. Score effect unmeasured.
+  - 5292's new `period` mapping is a second possible cause. The request log will separate the two.
+- **G322 — The availability record is thin. `OPEN`.** 45 sweeps from 2026-11-04 to 11-16, although `uptime` is
+  scheduled every 30 minutes. Only p50 and p90 are computed, not p95.
+- **G323 — The request-log archiver is not scheduled. `OPEN`, owner action.** Appending it to `record.cmd` was refused
+  twice by the permission check. Until it runs, log lines older than about an hour are lost.
+- **Assumption, not verified:** Federal Register documents are public domain as US Government works (17 U.S.C. 105).
+  The developer page, read 2026-11-16, confirms no API key is needed; the legal-status page was not read.
+
 ## 2026-11-16 ~14:45 UTC (20:15 IST) YAML prepared for signature; epoch 2105 — states changed; G317–G320 new
 
 - **YAML ready, not signed:** `track1-miner/docs/evidence/yaml-for-signature-2026-11-16/`, URL pinned at `04c0e9f`,
