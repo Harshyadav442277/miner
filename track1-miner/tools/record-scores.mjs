@@ -30,6 +30,14 @@ const body = await res.json();
 const miners = Array.isArray(body) ? body : (body.miners ?? body.data ?? []);
 
 const us = miners.find((m) => m?.slug === SLUG);
+// A node that holds no score for any miner has nothing to record: it was reset or is re-indexing (2026-11-17, GAPS
+// G325). That is not this job's failure. Whether our registration is listed is checked by id in `uptime`
+// (watch.mjs --registration-id), which alarms on its own.
+if (!miners.some((m) => (m?.scores ?? []).some((s) => s.epoch_id > 0))) {
+  console.log(`the node holds no scores for any of its ${miners.length} miners (reset or re-indexing); nothing to record` +
+    (us ? "" : `; ${SLUG} is not listed`));
+  process.exit(0);
+}
 if (!us) {
   console.error(`${SLUG} not in the catalog — registration may be rejected or the node stale`);
   process.exit(1);
