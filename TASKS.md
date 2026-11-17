@@ -5,19 +5,21 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
-## Handoff 2026-11-16 ~19:00 UTC — Track 1 (MEMORY.md top block has the details)
+## Handoff 2026-11-17 ~11:00 UTC — Track 1 (MEMORY.md top block has the details)
 
-- [ ] Owner: wire `archive-requests.mjs` into `C:\Users\hyada\tg-deploy\scores\record.cmd` (the line is in MEMORY; the permission check refused Claude twice).
-- [ ] After two epochs under 5292: run `intent-table.mjs` into `track1-diagnosis-2026-11-17/after/` and compare with `before/`.
-- [ ] GAS_PRICE (G310): read `requests.jsonl` or `vercel logs` for `__path=/gas-price` and its `chain` values in a scored epoch; fix or remove.
-- [ ] REGULATORY_FILING (G321): read its first 5292 score and the `period` values the node sends.
-- [ ] Decide removals for ONE batched YAML: EVENT_OUTCOME (G317, unless a licence-clean results source is proven), URL_SCAN_VERDICT (0 missions, field ~0.54), GAS_PRICE if unfixed. Validate in the Anjoman web UI (the POST API answers 404); the owner signs.
-- [ ] Batched YAML also: `/sec-filings` description (it still says "Only SEC EDGAR is read"), and `errors.status_path` (G327).
-- [ ] Owner decision: news source (Google News 429 now and licence-barred, G326 / G189): replace it, or remove NEWS_SEARCH and NEWS_HEADLINES.
-- [ ] Owner: merge PR 33 (production runs its branch).
-- [ ] Not done this session: `capture.py` table against competitors, an `intent_mapping` audit across deterministic intents, `latency-targets` (p95).
+- [ ] Owner: validate `yaml-for-signature-2026-11-17` on Anjoman `/dashboard/earn` and sign it (pinned at `6499779`, `0xbf9dd574…53bab`).
+- [ ] After signing: look the new registration up by id; set `REGISTRATION_ID`; update the release skill, mission-matrix and README.
+- [ ] First numbered epoch after the rebuild: run `intent-table.mjs` and compare with `after/after-table.md` (CVE G329, WEATHER_CHECK G330).
+- [ ] GAS_PRICE (G310) and REGULATORY_FILING (G321): read `C:/Users/hyada/tg-deploy/scores/requests.jsonl` for `__path=/gas-price` and `/sec-filings` around their next scores.
+- [ ] LANGUAGE_TRANSLATION swings (G331): read MyMemory's terms before considering it as a source.
+- [ ] Owner decision: news source (Google News 429 and licence-barred, G326 / G189): replace it, or remove NEWS_SEARCH and NEWS_HEADLINES.
+- [ ] `errors.status_path` (G327): left out of the pending YAML; its scoring effect is undocumented.
+- [ ] Not done: `capture.py` table against competitors; `latency-targets` (p95).
 - [ ] Consumption: collect H2 mission-app delivery records (none verified yet).
 - [ ] Growth: the owner posts OUTREACH.md §5 (dated update) and the tutorial (§6).
+- [x] Archiver wired into `record.cmd` (2026-11-17 10:15 UTC, G323).
+- [x] PRs 33, 35, 36 and 37 merged; issue 34 fixed and closed.
+- [x] `intent_mapping` audit: every scored field is mapped; unmapped context fields listed in GAPS G331 / the YAML sheet.
 
 ## Handoff 2026-11-09 — next actions (MEMORY.md top block has the details)
 

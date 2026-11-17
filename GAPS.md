@@ -1,5 +1,31 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-17 ~11:00 UTC (16:30 IST) CVE and WEATHER_CHECK fixes live; YAML prepared; G329–G331 new
+
+- **G323 — CLOSED.** The archiver runs inside `record.cmd`: run by hand under `cmd.exe` on 2026-11-17 10:15 UTC, exit
+  0, 11 new lines. The task "LiveCert score recorder" last ran 10:00 UTC with result 0.
+- **G329 — CVE answered a CNA's v4.0 score over NVD's Primary v3.1. `FIXED` in `8492d06`, live in `77970b0`.**
+  CVE-2025-0108 went from 8.8 (Palo Alto v4.0) to 9.1 (NVD v3.1), on production at ~10:40 UTC.
+  - Context: CVE_LOOKUP fell from 1.0 to 0.776, level with the CNA-reading miners (`cve-mitre`, `cve-circl`), while
+    every miner at 1.0 read NVD.
+  - The order within one authority (v3.1 > v3.0 > v4.0 > v2.0) is an inference from that field, not a published rule.
+  - CVEs where NVD has no Primary score (CVE-2025-29927 and others) still answer the CNA's score, as NVD's own record does.
+- **G330 — WEATHER_CHECK used a model value; observation-based miners led. `ACTED ON` in `8492d06`/`77970b0`.**
+  - Before: 0.3917, level with MET Norway's own miner. Leaders: `wxk-metar` 1.0, Environment Canada 0.975.
+  - Now: the nearest fresh METAR (NOAA AWC, within 60 km and 2 h) gives the temperature. Probed with London, New York,
+    Tokyo and Ulaanbaatar. Otherwise MET's model value, labelled as such (Lagos and Pitcairn on the probe).
+  - AWC licence is `conditional`: NWS disclaimer read; reuse of non-US METARs unchecked.
+  - Score effect unmeasured.
+- **G331 — LANGUAGE_TRANSLATION swings between ~0.71 and ~0.95 by epoch under both registrations. `OPEN`.** The
+  leaders are MyMemory miners at 0.98; our probes match MyMemory word for word on a plain sentence. The pending YAML
+  maps `translation` as well as `brief`; effect unknown. MyMemory's licence is unread.
+- **G328 — addressed in the pending YAML** (`yaml-for-signature-2026-11-17`): `fields`, `subject`, `token` and
+  `categories` are declared, and `/token-holders` reads an address passed as `token` (`6499779`).
+- **G326 note:** Google News answered 429 again in preflight on 2026-11-17 ~07:40 UTC; no new data since.
+- **G332 — Base token holders fail: `base.blockscout.com` answers 403. `OPEN`.** Seen 2026-11-17 ~11:00 UTC for USDC
+  on Base, by `address` and by `token`. Ethereum works (USDC 9,598,530; UNI 430,836). Pre-existing upstream fault;
+  not investigated.
+
 ## 2026-11-16 ~19:00 UTC (Nov 17 IST) Track 1 diagnosis; release `14b6d98` — states changed; G321–G323 new
 
 - **G320 — CLOSED.** The 96,353-byte YAML was accepted: registration 5292 carries its SHA-256.

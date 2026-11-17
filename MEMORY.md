@@ -1,5 +1,25 @@
 # MEMORY.md — session continuity
 
+## 2026-11-17 ~11:15 UTC (16:45 IST): CURRENT — `6499779` LIVE; registration 5292 active; YAML ready for signature
+
+- **Owner (2026-11-17):** "please take care of everything by yourself … end to end". Claude still never signs,
+  posts or touches the wallet.
+- **Production:** `6499779`, `miner-fudhplzsd` (`dpl_67J8yxpsi6TWDyHzpBSaxAi3gJ4C`). **Rollback:** `miner-6ptphl0o0`
+  (`77970b0`), then `miner-om2pymy89` (`dd95ab6`). Record: `track1-miner/docs/evidence/release-2026-11-17-cve-metar/`.
+  Unit 1052/1052.
+- **Fixed today:**
+  - CVE reports NVD's own score first (CVE-2025-0108: 8.8 → 9.1, G329).
+  - The current temperature comes from the nearest METAR (G330).
+  - `/token-holders` reads an address passed as `token`.
+- **Registration 5292:** active since the node's rebuild restored it at 09:51 UTC; the node's scores are at epoch 0.
+- **YAML to sign:** `track1-miner/docs/evidence/yaml-for-signature-2026-11-17/README.md`.
+  - Pinned at `6499779`, SHA-256 `0xbf9dd574…53bab`, 96,994 bytes, 44 intents.
+  - Changes: the G328 params, the `translation` output, the `/sec-filings` description.
+  - The owner validates on Anjoman `/dashboard/earn` and signs. After that, update `REGISTRATION_ID` everywhere.
+- **Request capture is live:** `record.cmd` runs `archive-requests.mjs` every 30 min into
+  `C:\Users\hyada\tg-deploy\scores\requests.jsonl` (G323 closed).
+- **Next:** TASKS.md "Handoff 2026-11-17 ~11:00 UTC".
+
 ## 2026-11-17 ~10:10 UTC (15:40 IST): CURRENT — registration 5292 RESTORED; `main` = PR 36 merge (`37f2a77`)
 
 - **5292 is back** since 09:51:48 UTC: active, same wallet, hash `3cf18081…` and 44 intents. `watch.mjs` reports
