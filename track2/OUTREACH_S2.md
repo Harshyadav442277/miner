@@ -2,8 +2,9 @@
 
 The Evaluator rubric gives 20 points to growth: education, ease of adoption, distribution and activation, 5 each.
 **The owner publishes; nothing here has been posted.** Each draft below uses only results that a reader can
-reproduce from the public repo. The rules ask a contest post to disclose hackathon participation and the prize
-incentive, so every draft does. Three updates must go out on separate dates.
+reproduce from the public repo. The rules say contest posts "should clearly disclose hackathon participation and the
+prize incentive where required by the platform or applicable law" (RULES_SEASON2.md, read 2026-11-16), so every draft
+does. Three updates must go out on separate dates.
 
 | # | Topic | Post on (UTC) | Published URL | Independent action |
 |---|---|---|---|---|
@@ -16,9 +17,10 @@ incentive, so every draft does. Three updates must go out on separate dates.
 > We're competing in @Telegraphprotoc Season II (Evaluator track, which has cash prizes). Here's an honest result:
 > none of our trained evaluators beat a champion, and the gate that stopped them is the useful part.
 >
-> Every candidate is measured on answers we did not write: real miner answers, labelled from primary sources (DNS,
-> NVD, weather stations), and frozen before training. On QUESTION_ANSWERING, two iterations scored 42.0% and 43.4%
-> against the champion's 45.3%. Our own test splits had passed.
+> Every candidate is measured on answers we did not write, labelled from primary sources (DNS, NVD, weather
+> stations, dataset gold) and frozen before training. On QUESTION_ANSWERING (300 public benchmark pairs plus 62 miner
+> pairs), two iterations scored 42.0% and 43.4% against the champion's 45.3%. None of the three beat a
+> "shorter answer wins" baseline, so that holdout cannot rank them. Our own test splits had passed.
 >
 > In 4 more families, right and wrong split almost entirely by service. Wrong answers came from 1–3 services
 > (EMAIL_SECURITY, weather), right ones from a single service (VULNERABILITY_TRIAGE), or there were no wrong numbers
@@ -33,10 +35,14 @@ incentive, so every draft does. Three updates must go out on separate dates.
 > miner answers against primary sources. Some errors are worth knowing if you run a miner:
 > - EMAIL_SECURITY: one service reports a name that does not exist as `lookup_ok: true`, in 61 of 300 queries.
 >   `lookup_ok` means NOERROR, and NOERROR with no records is still true.
-> - VULNERABILITY_TRIAGE: the schema asks for the NVD primary CVSS. Where NVD and the vendor's (CNA's) score differ,
->   most services return the vendor's score. (3-query pilot: indicative only.)
-> - OPTIMAL_EXECUTION_ROUTE: every numeric quote was within 0.25% of the best public aggregator quote. The failures
->   were non-answers, not wrong numbers.
+> - VULNERABILITY_TRIAGE: the schema asks for the NVD primary CVSS. On the one pilot CVE where NVD and the vendor
+>   (CNA) differ, 12 registrations on one host returned the vendor's score and one service returned NVD's.
+>   (3-query pilot: indicative only.)
+> - OPTIMAL_EXECUTION_ROUTE: every numeric quote was within 0.25% of the best public aggregator quote (48 quotes, one
+>   pair, one six-minute window). The failures were non-answers, not wrong numbers.
+>
+> These are direct calls to each miner as its YAML declares, not the engine route. We also run a miner on this
+> network (LiveCert), and none of the services above is ours.
 >
 > Reproduce the DNS check in about 15 minutes, with no wallet or key: <repo link to track2/TUTORIAL.md>
 
@@ -44,9 +50,11 @@ incentive, so every draft does. Three updates must go out on separate dates.
 
 > Two deterministic @Telegraphprotoc intents had not been ranked for days: DNS_RECORD_LOOKUP since epoch 2019 and
 > VALIDATOR_PERFORMANCE_VERIFY since 2032. A deterministic intent is ranked against "truth sources", public APIs that
-> answer the question. We contributed neutral ones: DNS.SB and NextDNS, and the PublicNode beacon API. Our own miner
-> serves DNS_RECORD_LOOKUP, so we disclose that; the sources are public resolvers we don't run. (Season II entry,
-> prize-eligible.)
+> answer the question. We contributed neutral ones: DNS.SB and NextDNS, and the PublicNode beacon API. Disclosure: our
+> own miner serves DNS_RECORD_LOOKUP and was unscored there, so it would be ranked if scoring resumes. The sources are
+> public resolvers we don't run, and not the upstreams our miner uses. (Season II entry, prize-eligible.)
+> [Before posting: the devnode registry was reset on 2026-11-17 (GAPS G51). Re-check that these intents are still
+> unscored, and use epochs from after the reset.]
 >
 > Result: <fill in only from the network: our row states, and the first epoch with new scores in `/api/miners`>.
 > Check it yourself: `curl https://devnode.telegraphprotocol.com/api/miners` and look for the intent's latest

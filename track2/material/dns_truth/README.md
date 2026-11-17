@@ -2,8 +2,9 @@
 
 **Why:** the intent has been unranked since epoch 2019 (2026-11-05; GAPS G50). The docs say a deterministic
 intent with no readable reference "is not ranked that epoch: its miners keep their previous ranking". Its last table
-(epoch 2019) scored the honest Cloudflare, DNS.SB and NextDNS resolver wrappers 0 and the champion author's guardwire
-0.99. That looks like a wrong reference. A truth source is evaluation material: it registers nothing, is never routed
+(epoch 2019, 2026-11-05 11:51 UTC) scored the proxy-hosted and Cloudflare wrappers 0 and the direct dns.google
+wrappers 0.90–0.93. That may be call failures rather than a reference error; the cause is unknown. (Registry facts
+here are as of 2026-11-16; the devnode registry was reset on 2026-11-17.) A truth source is evaluation material: it registers nothing, is never routed
 and is never paid (anjoman.ai/docs/scoring/contribute-evaluation-data, read 2026-11-16).
 
 **What:** `DNS_RECORD_LOOKUP_GENERAL.truth.jsonl`, two rows in the documented shape
@@ -21,7 +22,10 @@ and is never paid (anjoman.ai/docs/scoring/contribute-evaluation-data, read 2026
 
 ## Related party: disclose this
 
-Our miner `livecert` (#4433) serves DNS_RECORD_LOOKUP. A truth source sets the reference every miner in the intent is
+Our miner `livecert` serves DNS_RECORD_LOOKUP. It was unscored there, so it would be ranked if scoring resumed: it
+benefits directly. The two resolvers are the same upstreams that two existing miners (`dns-dnssb`, `dns-nextdns`, via
+a proxy host) wrap. livecert itself uses Cloudflare and Google (`track1-miner/miner/src/dns.ts`), so the sources do
+not match its upstream. A truth source sets the reference every miner in the intent is
 scored against, ours included. These sources are neutral public resolvers, not anything we host, so they cannot favour
 livecert. Disclose it anyway in the upload note and the submission. Never replace them with a wrapper we deploy.
 

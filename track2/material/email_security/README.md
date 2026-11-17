@@ -1,4 +1,9 @@
-# EMAIL_SECURITY_GENERAL evaluation material (prepared 2026-11-17, NOT uploaded)
+# EMAIL_SECURITY_GENERAL evaluation material (prepared 2026-11-16 UTC; DO NOT UPLOAD as is)
+
+**Recommendation (Fable review, 2026-11-17): keep this as evidence; do not upload it.** It fails this entry's own
+identity bar: 36 of 40 rejected answers come from one service (probe 0.954 against a bar of 0.65). A pool exists to
+rank adapters, and these rows would teach "this service's format loses". Only 8 wrong answers from other services
+exist to rebalance with, too few to fix that.
 
 `EMAIL_SECURITY_GENERAL.jsonl`: 40 `preference_pair` rows, sha256
 `897164b364a61d309da9bce68a81bb37660f4f49f8eb1852863860ac981020bd`. `node ../check-rows.mjs` reports

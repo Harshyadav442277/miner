@@ -5,7 +5,11 @@ wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` only, including the signer a
 Verify both before any authenticated action; no alternate identity is permitted. See [../AGENTS.md](../AGENTS.md).
 The owner signs. Claude never connects a wallet, signs or sends.
 
-## Owner checklist: one sitting, about 20 minutes (prepared 2026-11-16)
+## Owner checklist: one sitting, about 20 minutes (prepared 2026-11-16, revised 2026-11-17)
+
+**First, the 2026-11-17 registry reset (G51):** the devnode registry was emptied and is re-registering miners. id 4433
+is no longer LiveCert. Check at https://anjoman.ai/dashboard whether LiveCert and our comparators need re-registering.
+That decision and any signature are yours; Claude checks `/api/miners` for our wallet on request.
 
 Everything below is prepared and committed; each step needs only your click, signature or send. No adapter
 registration is on the list, because none has passed the gate. Deadline: **Dec 1 2026 23:59 UTC** (Dec 2 05:29 IST).
@@ -20,11 +24,11 @@ registration is on the list, because none has passed the gate. Deadline: **Dec 1
      `VALIDATOR_PERFORMANCE_VERIFY_GENERAL`. Check the sha256 is `bfcdb813…3e10`
      ([README](material/validator_truth/README.md)).
    Write down each response's row state or rejection code. `duplicate_case` on the validator file is possible and harmless.
-3. **Optional:** upload `adapter/email_security/evidence/2026-11-16/holdout.jsonl` under `EMAIL_SECURITY_GENERAL`.
-   It holds 65 real-answer pairs labelled from DNS, which catch verity's NXDOMAIN-as-success error. Skip it if you
-   prefer; it adds coverage, not a ranking change.
+3. **Do not upload** the EMAIL_SECURITY pairs: they fail our own identity bar (36 of 40 rejected answers from one
+   service; [material/email_security/README.md](material/email_security/README.md)). They stay in the repo as evidence.
 4. **Send [material/ORGANISER_REPORT.md](material/ORGANISER_REPORT.md)** to the Telegraph team, on Discord or as a
-   bounties issue. It reports the 45 blocked comparator registrations and the two unscored intents.
+   bounties issue. It asks about the 2026-11-17 registry reset first (G51), then reports the comparator lookup and the two
+   unscored intents (as of Nov 16).
 5. **Submit the H2 form** from [SUBMISSION_S2.md](SUBMISSION_S2.md). First fill its §7 table with what steps 1–4
    returned.
 
@@ -36,7 +40,7 @@ After steps 2 and 4, Claude can check the network evidence and update `SUBMISSIO
 A row is added here only when its module has passed the gate in [harness/](harness/README.md): it beats the
 current champion's own file and the length baseline on a holdout frozen before training, in the node runtime.
 
-## What is registered (devnode `/api/wasm`, read 2026-11-15 ~00:40 UTC)
+## What was registered (devnode `/api/wasm`, read 2026-11-15 ~00:40 UTC; the registry was emptied on 2026-11-17, G51)
 
 | Family | Id | State | Note |
 |---|---|---|---|

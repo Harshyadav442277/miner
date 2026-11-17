@@ -165,6 +165,11 @@ splits into four 5-point parts:
 
 "Posting alone does not earn all 20 points." Tag @Telegraphprotoc on X.
 
+**Disclosure (read 2026-11-16 on the live page, §06 growth text):** "Posts made to promote contest entries should
+clearly disclose hackathon participation and the prize incentive where required by the platform or applicable law.
+Telegraph tags alone are not necessarily adequate disclosure." It also bars bought or coordinated engagement,
+engagement exchanges and "self-dealing presented as external demand".
+
 A result that confirms an existing ranking can still be valuable. Adapter-only, material-only and combined
 entries are each judged on what they actually contribute.
 

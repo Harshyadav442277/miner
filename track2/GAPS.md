@@ -4,13 +4,22 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G51 — the devnode registry was reset on 2026-11-17 (observed 07:22 UTC) — `OPEN`
+
+- `/api/epoch`: `current_epoch` 0, 3 h epochs (2107 on Nov 16). `/api/wasm`: `{"count":0,"intents":{}}`. `/api/miners`: 1,283 then
+  1,296 entries, all registered 07:23 UTC (2,173 on Nov 16). `/api/miners/4433` is now `verifywire-fx-now` (LiveCert's id until then).
+  Eval pools kept their rows (EMAIL_SECURITY_GENERAL 651 eligible); our 144 LANGUAGE_TRANSLATION rows are still eligible.
+- Every registry fact in G40–G50 (ids, champions, epochs, pending comparators) is as of 2026-11-16.
+- Not known: whether this is a migration, whether earlier registrations are restored or must be redone, whether ids
+  change for good, and whether pre-reset rankings count. Asked in [material/ORGANISER_REPORT.md](material/ORGANISER_REPORT.md) §1 (not sent).
+
 ## G46 — EMAIL_SECURITY lane stopped before training: 65 pairs, identity probe 0.954 (2026-11-16) — CLOSED
 
 Evidence: [adapter/email_security/](adapter/email_security/README.md) (rules fixed at `77ed687`, queries frozen at
 `2fde3cd`, `evidence/2026-11-16/`); capture `C:/Users/hyada/tg-eval/captures/es-20261116`.
 
-- 300 frozen queries, truth from NextDNS + DNS.SB before and after the capture (all 300 stable). 2,716 answers from 9
-  services: 1,834 right, 69 wrong, 197 call failures, 600 ignore the query (chainsight, txlens).
+- 300 frozen queries, truth from NextDNS + DNS.SB before and after the capture (all 300 stable). 2,700 responses from 9
+  services (2,716 requests with retries): 1,834 right, 69 wrong, 197 call failures, 600 off-query (chainsight, txlens).
 - Wrong answers: 61 of 69 from telegraph-verity-intelligence, which reports NXDOMAIN as `lookup_ok: true`. 65 gated pairs
   (bar 100), identity probe 0.954 (bar 0.65), length 0.508. Rule 6 stops the lane; no training data, no training.
 - Report-only on the 65 pairs: champion #315 73.8% / 67.7% and GENERIC 67.7% / 90.8% (question+JSON / bare-JSON
@@ -67,9 +76,9 @@ Evidence: `/api/miners` scores read 2026-11-16 ~18:00 UTC; 25 of 27 `ready` dete
 VALIDATOR_PERFORMANCE_VERIFY_GENERAL's at 2032. The docs say an intent with no reference for any question "is not
 ranked that epoch: its miners keep their previous ranking" ([research/](research/docs-comparator-truth-2026-11-16.md)).
 
-- The epoch-2019 DNS table looks like a wrong reference, not a good one. The champion author's guardwire scored 0.99 and
-  the dns.google wrappers about 0.92, while the Cloudflare, DNS.SB, NextDNS, AdGuard and AliDNS wrappers scored 0.
-  On our own EMAIL_SECURITY capture those resolvers agreed on almost every name.
+- The epoch-2019 DNS table: the proxy-hosted resolver wrappers (omni-chat host) and the Cloudflare wrappers scored 0,
+  while the direct dns.google wrappers scored 0.90–0.93 and doh.pub 0.90. That may be call failures (the Cloudflare
+  path answers 400 without an accept header) rather than a reference error. Corrected 2026-11-17 after the Fable review.
 - Not known:
   - whether the pool holds a truth source at all (rows are never shown back);
   - whether a single uploaded row can land in the ranking half (`ranking_split_bps` 5000);
@@ -90,7 +99,7 @@ ranked that epoch: its miners keep their previous ranking" ([research/](research
   [material/dns_truth/](material/dns_truth/README.md), sha256 `ccc8e992…0123`. Upload is the owner's signature.
   Success shows only as DNS_RECORD_LOOKUP_GENERAL scores with an `epoch_id` after the upload.
 
-## G49 — about 30 comparator registrations wait on a pool snapshot that exists only under the `_GENERAL` id (2026-11-16) — `OPEN`
+## G49 — 45 comparator registrations in 30 families wait on a pool snapshot that exists only under the `_GENERAL` id (2026-11-16) — `OPEN`
 
 Evidence: registry snapshot `wasm-20261116T163719Z.json`. Re-evaluated 2026-11-16 15:45 UTC, 31 champion-less families
 still read `awaiting_compatible_material: ... eval-pool: no published snapshot`. `/api/evalpool/status` has a published

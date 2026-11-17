@@ -8,7 +8,7 @@ NOERROR). It uses only public endpoints. It needs no wallet, no API key and no p
 **What you need:** Python 3.12 with PyYAML (`pip install pyyaml`), `curl`, and git. Windows, macOS and Linux all work.
 
 **Cost and limits:** free. Each miner host is called at most once per second, with no auth headers, IPv4 only. The 3-query
-pilot below makes about 75 requests and takes 1–3 minutes. Be polite: don't raise the rate.
+pilot below makes about 75 miner-side requests (54 answers plus YAML and catalog reads) and 12 truth lookups, in 1–3 minutes. Be polite: don't raise the rate.
 
 ## 1. Get the code and look at the intent
 
@@ -61,12 +61,12 @@ or `ignores_query`, with the reason.
 
 - **NODATA is a success.** `lookup_ok` is true for NOERROR even when there are no records. In our full 300-query
   capture, one service reported 61 names that do not exist as `lookup_ok: true`. The 3-query pilot is too small to
-  show it (our run on 2026-11-17: 40 right, 0 wrong, 8 call failures, 6 ignoring the query). Freeze 30+ queries
+  show it (our run on 2026-11-16 UTC: 40 right, 0 wrong, 8 call failures, 6 ignoring the query). Freeze 30+ queries
   with several NXDOMAIN names to see it yourself.
 - **Underscore names (`_dmarc.`, `selector._domainkey.`) break some services**, which then answer HTTP 422.
 - **Who is wrong matters as much as how often.** If every wrong answer comes from one service, a scorer can "win"
-  by recognising that service's format. `my-labels/stats.json` prints an identity probe for that reason. Our gate
-  refuses a holdout when that probe is above 0.65.
+  by recognising that service's format. `my-labels/stats.json` prints an identity probe for that reason. We refuse such a
+  holdout when that probe is above 0.65 (a per-lane rule in build_holdout.py, not part of gate.py).
 
 ## 6. Optional: score real evaluator packages the way the node does
 
