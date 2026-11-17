@@ -238,6 +238,10 @@ endpoints:
             intents: ["*"]
             description: "The text to extract from, usually quoted after a colon in the question."
         optional:
+          - name: fields
+            type: string
+            intents: ["*"]
+            description: "The fields to extract, comma-separated, e.g. merchant, date, total."
           - name: query
             type: string
             intents: ["*"]
@@ -558,6 +562,10 @@ endpoints:
             type: string
             intents: ["*"]
             description: "Wallet address, URL, message text, or the title of an academic paper to assess."
+          - name: subject
+            type: string
+            intents: ["*"]
+            description: "What to assess, as the intent names it: an address, URL, message or paper title."
           - name: query
             type: string
             intents: ["*"]
@@ -597,6 +605,10 @@ endpoints:
             type: string
             intents: ["*"]
             description: "Token symbol, e.g. USDC. Used when no contract address is given."
+          - name: token
+            type: string
+            intents: ["*"]
+            description: "Token contract address or name, e.g. 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 or USDC."
           - name: chain
             type: string
             intents: ["*"]
@@ -922,6 +934,10 @@ endpoints:
             type: string
             intents: ["*"]
             description: "The candidate labels as a comma-separated list, e.g. billing, technical, account issue."
+          - name: categories
+            type: string
+            intents: ["*"]
+            description: "The candidate labels as a comma-separated list; same as labels."
           - name: query
             type: string
             intents: ["*"]
@@ -1085,8 +1101,9 @@ endpoints:
       names, and the document URL), recent_filings (up to five), and for a 10-Q,
       10-K or 20-F the figures tagged in that filing's XBRL: revenue, gross
       profit, gross margin, operating income and net income for its period, with
-      prior_year_figures for the same period a year earlier. Only SEC EDGAR is
-      read; a question about another regulator says that it is not covered.
+      prior_year_figures for the same period a year earlier. A name that matches
+      no SEC registrant (a product, drug or concern) is counted in the US Federal
+      Register instead, with register set to Federal Register.
     params:
       query:
         required:
@@ -1587,6 +1604,9 @@ intent_mapping:
       target_language: { from: target_language }
     output:
       brief: { path: brief }
+      translation: { path: translation }
+      source_language: { path: source_language }
+      target_language: { path: target_language }
   ACADEMIC_SEARCH_GENERAL:
     endpoint: /papers
     input:
@@ -1597,6 +1617,7 @@ intent_mapping:
     endpoint: /extract
     input:
       text: { from: content }
+      fields: { from: fields }
     output:
       brief: { path: brief }
   WALLET_BALANCE_CHECK_GENERAL:
@@ -1647,6 +1668,8 @@ intent_mapping:
       market_cap_usd: { path: market_cap_usd }
   FRAUD_DETECTION_GENERAL:
     endpoint: /fraud-check
+    input:
+      subject: { from: subject }
     output:
       verdict: { path: verdict }
       risk_score: { path: risk_score }
@@ -1654,6 +1677,7 @@ intent_mapping:
     endpoint: /token-holders
     input:
       chain: { from: chain }
+      token: { from: token }
     output:
       holders_count: { path: holders_count }
   RESEARCH_QUERY_GENERAL:
