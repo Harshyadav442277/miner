@@ -1,5 +1,21 @@
 # MEMORY.md — session continuity
 
+## 2026-11-17 ~17:00 UTC (22:30 IST): CURRENT — `4cb5924` LIVE; 5301 signed but not indexed; serving as 5292
+
+- **Production:** `4cb5924`, `miner-bb4rttgjq` (`dpl_AuZPKbjHRVwW5qygrzcCv6QRx8Y3`). **Rollback:** `miner-fudhplzsd`
+  (`6499779`). Unit 1054/1054. Fix: FINANCIAL_DATA stocks now carry `market_cap_usd`, and names in `symbol`
+  resolve (G333).
+- **Registration:** the owner signed the `6499779` YAML at 11:14 UTC.
+  - On-chain it is registration **5301**: tx `0xbfb7a37b…8b36`, success, our wallet and hash.
+  - The node's 5301 is another team's imported record, so ours is not indexed (G334). LiveCert serves as 5292
+    (YAML `04c0e9f`, active).
+  - Organiser note drafted in `track1-miner/docs/evidence/registration-5301-2026-11-17/README.md` (owner sends).
+  - **Do not re-sign** before they answer.
+  - Keep `REGISTRATION_ID` = 5292 until the node lists 5301 for livecert.
+- **Epoch 3 (14:47–14:52 UTC):** CVE 0.6667 (nine-way tie), WEATHER_CHECK 0.4833, GAS and REGULATORY 0 (whole
+  field), three intents at 1.0. Saved in `track1-diagnosis-2026-11-17/epoch3/`.
+- **Capture gap:** the PC slept 13:30–16:00 UTC and epoch 3's requests were lost (G311).
+
 ## 2026-11-17 ~11:15 UTC (16:45 IST): CURRENT — `6499779` LIVE; registration 5292 active; YAML ready for signature
 
 - **Owner (2026-11-17):** "please take care of everything by yourself … end to end". Claude still never signs,

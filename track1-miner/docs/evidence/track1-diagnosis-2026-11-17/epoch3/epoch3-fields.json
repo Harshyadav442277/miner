@@ -1,0 +1,563 @@
+{
+ "read_at": "2026-11-17T16:57:28.007Z",
+ "source": "GET /api/miners",
+ "livecert": [
+  {
+   "intent_id": "CURRENCY_EXCHANGE_CONVERT",
+   "epoch_id": 3,
+   "rank": 2,
+   "score": 1,
+   "scored_at": "2026-11-17T14:47:54.340324Z"
+  },
+  {
+   "intent_id": "MACRO_ECONOMIC_INDICATOR_GENERAL",
+   "epoch_id": 3,
+   "rank": 3,
+   "score": 1,
+   "scored_at": "2026-11-17T14:50:49.515099Z"
+  },
+  {
+   "intent_id": "REGULATORY_FILING_MONITOR_GENERAL",
+   "epoch_id": 3,
+   "rank": 3,
+   "score": 0,
+   "scored_at": "2026-11-17T14:48:31.51143Z"
+  },
+  {
+   "intent_id": "GAS_PRICE_GENERAL",
+   "epoch_id": 3,
+   "rank": 5,
+   "score": 0,
+   "scored_at": "2026-11-17T14:47:09.963776Z"
+  },
+  {
+   "intent_id": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+   "epoch_id": 3,
+   "rank": 7,
+   "score": 1,
+   "scored_at": "2026-11-17T14:48:05.261004Z"
+  },
+  {
+   "intent_id": "CVE_LOOKUP_CVSS",
+   "epoch_id": 3,
+   "rank": 7,
+   "score": 0.6666667,
+   "scored_at": "2026-11-17T14:52:12.857258Z"
+  },
+  {
+   "intent_id": "WEATHER_CHECK_TEMPERATURE",
+   "epoch_id": 3,
+   "rank": 12,
+   "score": 0.48333335,
+   "scored_at": "2026-11-17T14:49:39.641467Z"
+  }
+ ],
+ "fields": {
+  "CURRENCY_EXCHANGE_CONVERT": [
+   {
+    "slug": "livecert",
+    "score": 1,
+    "rank": 2,
+    "scored_at": "2026-11-17T14:47:54.340324Z"
+   },
+   {
+    "slug": "finwire-currency-exchange",
+    "score": 1,
+    "rank": 1,
+    "scored_at": "2026-11-17T14:47:54.337015Z"
+   },
+   {
+    "slug": "zk-fxconvert",
+    "score": 1,
+    "rank": 3,
+    "scored_at": "2026-11-17T14:47:54.341957Z"
+   },
+   {
+    "slug": "zk-fxexact",
+    "score": 1,
+    "rank": 4,
+    "scored_at": "2026-11-17T14:47:54.343599Z"
+   },
+   {
+    "slug": "fxratesapi",
+    "score": 0.8833334,
+    "rank": 5,
+    "scored_at": "2026-11-17T14:47:54.345018Z"
+   },
+   {
+    "slug": "fxex-frankfurter-hist",
+    "score": 0.33333334,
+    "rank": 6,
+    "scored_at": "2026-11-17T14:47:54.346422Z"
+   },
+   {
+    "slug": "sentinel-risk-oracle",
+    "score": 0,
+    "rank": 8,
+    "scored_at": "2026-11-17T14:47:54.349752Z"
+   },
+   {
+    "slug": "optivis-crypto-price",
+    "score": 0,
+    "rank": 7,
+    "scored_at": "2026-11-17T14:47:54.348093Z"
+   }
+  ],
+  "MACRO_ECONOMIC_INDICATOR_GENERAL": [
+   {
+    "slug": "a1-preflight",
+    "score": 1,
+    "rank": 1,
+    "scored_at": "2026-11-17T14:50:49.510729Z"
+   },
+   {
+    "slug": "livecert",
+    "score": 1,
+    "rank": 3,
+    "scored_at": "2026-11-17T14:50:49.515099Z"
+   },
+   {
+    "slug": "zk-macro-wdi-v2",
+    "score": 1,
+    "rank": 16,
+    "scored_at": "2026-11-17T14:50:49.535275Z"
+   },
+   {
+    "slug": "zk-macro-year",
+    "score": 1,
+    "rank": 17,
+    "scored_at": "2026-11-17T14:50:49.537055Z"
+   },
+   {
+    "slug": "datawire-macro-economic-indicator",
+    "score": 1,
+    "rank": 2,
+    "scored_at": "2026-11-17T14:50:49.513537Z"
+   },
+   {
+    "slug": "metricwire-macro-economic-indicator",
+    "score": 1,
+    "rank": 14,
+    "scored_at": "2026-11-17T14:50:49.532198Z"
+   },
+   {
+    "slug": "referenceforge-numeric",
+    "score": 1,
+    "rank": 15,
+    "scored_at": "2026-11-17T14:50:49.533749Z"
+   },
+   {
+    "slug": "macro-wb-unemp-us",
+    "score": 1,
+    "rank": 12,
+    "scored_at": "2026-11-17T14:50:49.52923Z"
+   },
+   {
+    "slug": "macro-wb-unemp-proxy",
+    "score": 1,
+    "rank": 4,
+    "scored_at": "2026-11-17T14:50:49.516366Z"
+   },
+   {
+    "slug": "macro-wb-unemp-proxy-b",
+    "score": 1,
+    "rank": 5,
+    "scored_at": "2026-11-17T14:50:49.517894Z"
+   },
+   {
+    "slug": "macro-wb-unemp-proxy-c",
+    "score": 1,
+    "rank": 6,
+    "scored_at": "2026-11-17T14:50:49.519512Z"
+   },
+   {
+    "slug": "macro-wb-unemp-proxy-d",
+    "score": 1,
+    "rank": 7,
+    "scored_at": "2026-11-17T14:50:49.52115Z"
+   },
+   {
+    "slug": "macro-wb-unemp-proxy-e",
+    "score": 1,
+    "rank": 8,
+    "scored_at": "2026-11-17T14:50:49.52278Z"
+   },
+   {
+    "slug": "macro-wb-unemp-proxy-f",
+    "score": 1,
+    "rank": 9,
+    "scored_at": "2026-11-17T14:50:49.524349Z"
+   },
+   {
+    "slug": "macro-wb-unemp-proxy-g",
+    "score": 1,
+    "rank": 10,
+    "scored_at": "2026-11-17T14:50:49.526041Z"
+   },
+   {
+    "slug": "macro-wb-unemp-proxy-h",
+    "score": 1,
+    "rank": 11,
+    "scored_at": "2026-11-17T14:50:49.527519Z"
+   },
+   {
+    "slug": "macro-wb-unemp-usa",
+    "score": 1,
+    "rank": 13,
+    "scored_at": "2026-11-17T14:50:49.530716Z"
+   },
+   {
+    "slug": "atlas-telegraph",
+    "score": 0,
+    "rank": 18,
+    "scored_at": "2026-11-17T14:50:49.538632Z"
+   }
+  ],
+  "REGULATORY_FILING_MONITOR_GENERAL": [
+   {
+    "slug": "a1-preflight",
+    "score": 0,
+    "rank": 1,
+    "scored_at": "2026-11-17T14:48:31.507934Z"
+   },
+   {
+    "slug": "zk-filing",
+    "score": 0,
+    "rank": 6,
+    "scored_at": "2026-11-17T14:48:31.516447Z"
+   },
+   {
+    "slug": "livecert",
+    "score": 0,
+    "rank": 3,
+    "scored_at": "2026-11-17T14:48:31.51143Z"
+   },
+   {
+    "slug": "praman-compliance-miner",
+    "score": 0,
+    "rank": 4,
+    "scored_at": "2026-11-17T14:48:31.513222Z"
+   },
+   {
+    "slug": "reg-fedreg-search",
+    "score": 0,
+    "rank": 5,
+    "scored_at": "2026-11-17T14:48:31.514837Z"
+   },
+   {
+    "slug": "counterproof-filing-monitor",
+    "score": 0,
+    "rank": 2,
+    "scored_at": "2026-11-17T14:48:31.509845Z"
+   }
+  ],
+  "GAS_PRICE_GENERAL": [
+   {
+    "slug": "livecert",
+    "score": 0,
+    "rank": 5,
+    "scored_at": "2026-11-17T14:47:09.963776Z"
+   },
+   {
+    "slug": "sentinel-risk-oracle",
+    "score": 0,
+    "rank": 6,
+    "scored_at": "2026-11-17T14:47:09.965506Z"
+   },
+   {
+    "slug": "truvian-onchain-truth",
+    "score": 0,
+    "rank": 7,
+    "scored_at": "2026-11-17T14:47:09.966912Z"
+   },
+   {
+    "slug": "atlas-telegraph",
+    "score": 0,
+    "rank": 1,
+    "scored_at": "2026-11-17T14:47:09.957174Z"
+   },
+   {
+    "slug": "gaswire-evm-fees",
+    "score": 0,
+    "rank": 4,
+    "scored_at": "2026-11-17T14:47:09.962482Z"
+   },
+   {
+    "slug": "gas-etherscan-v2",
+    "score": 0,
+    "rank": 2,
+    "scored_at": "2026-11-17T14:47:09.959747Z"
+   },
+   {
+    "slug": "gas-metamask",
+    "score": 0,
+    "rank": 3,
+    "scored_at": "2026-11-17T14:47:09.961206Z"
+   },
+   {
+    "slug": "zk-gasfees",
+    "score": 0,
+    "rank": 8,
+    "scored_at": "2026-11-17T14:47:09.967967Z"
+   }
+  ],
+  "CORPORATE_REGISTRY_LOOKUP_GENERAL": [
+   {
+    "slug": "a1-preflight",
+    "score": 1,
+    "rank": 1,
+    "scored_at": "2026-11-17T14:48:05.250078Z"
+   },
+   {
+    "slug": "livecert",
+    "score": 1,
+    "rank": 7,
+    "scored_at": "2026-11-17T14:48:05.261004Z"
+   },
+   {
+    "slug": "datawire-corporate-registry-lookup",
+    "score": 1,
+    "rank": 6,
+    "scored_at": "2026-11-17T14:48:05.259376Z"
+   },
+   {
+    "slug": "praman-compliance-miner",
+    "score": 1,
+    "rank": 8,
+    "scored_at": "2026-11-17T14:48:05.262623Z"
+   },
+   {
+    "slug": "zk-corp-reg",
+    "score": 1,
+    "rank": 10,
+    "scored_at": "2026-11-17T14:48:05.266154Z"
+   },
+   {
+    "slug": "corp-gleif-status",
+    "score": 1,
+    "rank": 5,
+    "scored_at": "2026-11-17T14:48:05.256832Z"
+   },
+   {
+    "slug": "zk-corp-atlas",
+    "score": 1,
+    "rank": 9,
+    "scored_at": "2026-11-17T14:48:05.26426Z"
+   },
+   {
+    "slug": "corp-gleif",
+    "score": 1,
+    "rank": 2,
+    "scored_at": "2026-11-17T14:48:05.252198Z"
+   },
+   {
+    "slug": "corp-gleif-apple",
+    "score": 1,
+    "rank": 3,
+    "scored_at": "2026-11-17T14:48:05.253961Z"
+   },
+   {
+    "slug": "corp-gleif-msft",
+    "score": 1,
+    "rank": 4,
+    "scored_at": "2026-11-17T14:48:05.255477Z"
+   },
+   {
+    "slug": "corp-brreg",
+    "score": 0.5,
+    "rank": 11,
+    "scored_at": "2026-11-17T14:48:05.267926Z"
+   },
+   {
+    "slug": "corp-os-default",
+    "score": 0.5,
+    "rank": 12,
+    "scored_at": "2026-11-17T14:48:05.269492Z"
+   },
+   {
+    "slug": "corp-os-eu",
+    "score": 0.5,
+    "rank": 13,
+    "scored_at": "2026-11-17T14:48:05.271204Z"
+   },
+   {
+    "slug": "corp-os-ofac",
+    "score": 0.5,
+    "rank": 14,
+    "scored_at": "2026-11-17T14:48:05.272763Z"
+   }
+  ],
+  "CVE_LOOKUP_CVSS": [
+   {
+    "slug": "telegraph-verity-intelligence",
+    "score": 1,
+    "rank": 1,
+    "scored_at": "2026-11-17T14:52:12.847745Z"
+   },
+   {
+    "slug": "cve-nvd",
+    "score": 0.6844333,
+    "rank": 2,
+    "scored_at": "2026-11-17T14:52:12.84999Z"
+   },
+   {
+    "slug": "cve-nvd-keyword",
+    "score": 0.6844333,
+    "rank": 3,
+    "scored_at": "2026-11-17T14:52:12.851352Z"
+   },
+   {
+    "slug": "livecert",
+    "score": 0.6666667,
+    "rank": 7,
+    "scored_at": "2026-11-17T14:52:12.857258Z"
+   },
+   {
+    "slug": "atlas-telegraph",
+    "score": 0.6666667,
+    "rank": 4,
+    "scored_at": "2026-11-17T14:52:12.853031Z"
+   },
+   {
+    "slug": "patchsignal-cve",
+    "score": 0.6666667,
+    "rank": 8,
+    "scored_at": "2026-11-17T14:52:12.858734Z"
+   },
+   {
+    "slug": "secwire-cve-lookup",
+    "score": 0.6666667,
+    "rank": 9,
+    "scored_at": "2026-11-17T14:52:12.860341Z"
+   },
+   {
+    "slug": "cve-circl",
+    "score": 0.6666667,
+    "rank": 5,
+    "scored_at": "2026-11-17T14:52:12.854325Z"
+   },
+   {
+    "slug": "cve-mitre",
+    "score": 0.6666667,
+    "rank": 6,
+    "scored_at": "2026-11-17T14:52:12.855731Z"
+   },
+   {
+    "slug": "zk-cvss",
+    "score": 0.6666667,
+    "rank": 10,
+    "scored_at": "2026-11-17T14:52:12.86199Z"
+   },
+   {
+    "slug": "cve-depsdev",
+    "score": 0.5,
+    "rank": 11,
+    "scored_at": "2026-11-17T14:52:12.863612Z"
+   },
+   {
+    "slug": "cve-nvd-cpe",
+    "score": 0.5,
+    "rank": 12,
+    "scored_at": "2026-11-17T14:52:12.865125Z"
+   },
+   {
+    "slug": "sentinel-risk-oracle",
+    "score": 0.33333334,
+    "rank": 14,
+    "scored_at": "2026-11-17T14:52:12.867941Z"
+   },
+   {
+    "slug": "cve-nvd-cvss",
+    "score": 0.33333334,
+    "rank": 13,
+    "scored_at": "2026-11-17T14:52:12.866582Z"
+   }
+  ],
+  "WEATHER_CHECK_TEMPERATURE": [
+   {
+    "slug": "wx-7timer",
+    "score": 0.725,
+    "rank": 1,
+    "scored_at": "2026-11-17T14:49:39.628644Z"
+   },
+   {
+    "slug": "a1-preflight",
+    "score": 0.6666667,
+    "rank": 2,
+    "scored_at": "2026-11-17T14:49:39.629933Z"
+   },
+   {
+    "slug": "chainsight-oracle",
+    "score": 0.6666667,
+    "rank": 4,
+    "scored_at": "2026-11-17T14:49:39.632058Z"
+   },
+   {
+    "slug": "atlas-telegraph",
+    "score": 0.6666667,
+    "rank": 3,
+    "scored_at": "2026-11-17T14:49:39.630979Z"
+   },
+   {
+    "slug": "wx-openmeteo",
+    "score": 0.6666667,
+    "rank": 6,
+    "scored_at": "2026-11-17T14:49:39.634048Z"
+   },
+   {
+    "slug": "isobar-weather",
+    "score": 0.6666667,
+    "rank": 5,
+    "scored_at": "2026-11-17T14:49:39.633029Z"
+   },
+   {
+    "slug": "amanat-weather-risk",
+    "score": 0.64166665,
+    "rank": 7,
+    "scored_at": "2026-11-17T14:49:39.635037Z"
+   },
+   {
+    "slug": "gauge-observed",
+    "score": 0.59999996,
+    "rank": 8,
+    "scored_at": "2026-11-17T14:49:39.636364Z"
+   },
+   {
+    "slug": "skywire-weather-check",
+    "score": 0.575,
+    "rank": 9,
+    "scored_at": "2026-11-17T14:49:39.637538Z"
+   },
+   {
+    "slug": "wx-metno",
+    "score": 0.575,
+    "rank": 10,
+    "scored_at": "2026-11-17T14:49:39.638806Z"
+   },
+   {
+    "slug": "zk-sky-temp",
+    "score": 0.575,
+    "rank": 11,
+    "scored_at": "2026-11-17T14:49:39.6401Z"
+   },
+   {
+    "slug": "livecert",
+    "score": 0.48333335,
+    "rank": 12,
+    "scored_at": "2026-11-17T14:49:39.641467Z"
+   },
+   {
+    "slug": "zk-airtemp",
+    "score": 0.48333335,
+    "rank": 13,
+    "scored_at": "2026-11-17T14:49:39.642795Z"
+   },
+   {
+    "slug": "wx-canada",
+    "score": 0,
+    "rank": 14,
+    "scored_at": "2026-11-17T14:49:39.643887Z"
+   }
+  ]
+ }
+}
