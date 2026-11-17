@@ -8,7 +8,40 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-16 ~18:30 UTC (Nov 17 00:00 IST) · TRACK 2 PREPARED END TO END; ONLY OWNER ACTIONS REMAIN
+## CURRENT — 2026-11-17 ~08:00 UTC (13:30 IST) · REVIEWED, CORRECTED, VIDEO BUILT; DEVNODE REGISTRY RESET (G51)
+
+Branch `PR/track2-email-security-evaluator-303326`, pushed to `origin/PR/cranky-euler-d201bb`. The owner asked for
+"prepare everything, Fable as advisor".
+
+- **Fable review (2026-11-17)** of submission, posts, tutorial, video and material, all applied:
+  - 2,716 → 2,700 responses;
+  - the DNS "wrong reference" claim softened (it may be call failures);
+  - 45 comparator registrations in 30 families;
+  - the QA holdout described accurately (300 benchmark + 62 miner pairs; no scorer beats shorter-wins);
+  - **the 144 LANGUAGE_TRANSLATION rows are uploaded, eligible and attested since 2026-11-04**, claimed in
+    SUBMISSION §5/§7;
+  - the EMAIL_SECURITY pairs are NOT to be uploaded (they fail our identity bar);
+  - fuller related-party disclosure;
+  - non-resolver services anonymised in the video.
+- **Deliverables:**
+  - `TUTORIAL.md` (steps 2–4 run 2026-11-16 UTC: 54 answers);
+  - `OUTREACH_S2.md` (3 drafts; the owner posts);
+  - `demo/make_video.py`, which builds `C:/Users/hyada/tg-eval/demo/track2-demo.mp4`: 10 slides, 168 s, offline
+    narration. Not committed (binary); the owner uploads it.
+- **G51: devnode registry reset, observed 2026-11-17 07:22 UTC.**
+  - The node reports epoch 0 and an empty `/api/wasm`, and miners are being re-registered (count stopped at 1,395).
+  - id 4433 is now another miner. **No miner from our wallet `0xdAd2…` was present at ~08:00 UTC.** Track 1 must
+    check whether LiveCert needs re-registering. That is the owner's signature.
+  - Pools are intact.
+- **Owner actions** (SIGN_S2.md top):
+  - the reset check;
+  - star the bounties repo;
+  - sign the DNS and validator truth uploads;
+  - send the organiser report (now leads with the reset);
+  - publish the video and the 3 posts on separate dates;
+  - submit the form by Dec 1 23:59 UTC.
+
+## 2026-11-16 ~18:30 UTC (Nov 17 00:00 IST) · TRACK 2 PREPARED END TO END; ONLY OWNER ACTIONS REMAIN
 
 Branch `PR/cranky-euler-d201bb` (pushed; continues `PR/track2-email-security-evaluator-303326` at `634880d`).
 Nothing signed, uploaded, registered or sent.
