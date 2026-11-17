@@ -19,6 +19,16 @@
     an SEC registrant". The answer now says no registrant matched by name, at confidence 0.7.
 - **G324 — "Toyota" resolves to "TOYO Co., Ltd" on EDGAR. `OPEN`, pre-existing.** Seen 2026-11-16 ~19:10 UTC
   (44 filings counted for the wrong issuer). The name matcher in `edgar.ts` `resolveCik` accepts it.
+- **G326 — News is down: Google News answers production with 429. `OPEN`.** Seen 2026-11-17 ~07:40 UTC by preflight
+  and by direct probes. `/headlines` and `/news-search` returned HTTP 200 with `upstream_unavailable` or
+  `provider_unavailable`. The source is also barred for commercial use (G189).
+  - Owner decision: replace the source, or remove NEWS_SEARCH and NEWS_HEADLINES (0 missions each; WEB_SEARCH, 15
+    missions, also reads it).
+- **G327 — Failures are sent as HTTP 200 on purpose (handler.ts `upstreamUnavailable`), against the owner's brief.
+  `OPEN`.** The engine scores any non-2xx as 0.
+  - The yaml-config docs offer `errors.status_path` / `success_values`. With them the node treats a 200 body as a
+    failure: "your caller is not charged, and no signal is recorded"; "a path that does not resolve is never a failure".
+  - Candidate for the batched YAML: `errors: { status_path: error, … }`. Its effect on scoring is undocumented.
 - **G325 — The devnode re-indexed its catalog on 2026-11-17 from ~06:31 UTC. `OPEN`.** At 07:31 UTC all scores read
   epoch 0 and 1,455 miners were listed (2,173 before). Registrations come back in id order (3000 at 06:36, 5000 at
   07:24, 5200 at 07:30), and 5292 answered 404 at 07:32. Cause not announced in anything read.

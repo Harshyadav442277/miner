@@ -12,6 +12,10 @@ commit.
 - [ ] GAS_PRICE (G310): read `requests.jsonl` or `vercel logs` for `__path=/gas-price` and its `chain` values in a scored epoch; fix or remove.
 - [ ] REGULATORY_FILING (G321): read its first 5292 score and the `period` values the node sends.
 - [ ] Decide removals for ONE batched YAML: EVENT_OUTCOME (G317, unless a licence-clean results source is proven), URL_SCAN_VERDICT (0 missions, field ~0.54), GAS_PRICE if unfixed. Validate in the Anjoman web UI (the POST API answers 404); the owner signs.
+- [ ] Batched YAML also: `/sec-filings` description (it still says "Only SEC EDGAR is read"), and `errors.status_path` (G327).
+- [ ] Owner decision: news source (Google News 429 now and licence-barred, G326 / G189): replace it, or remove NEWS_SEARCH and NEWS_HEADLINES.
+- [ ] Owner: merge PR 33 (production runs its branch).
+- [ ] Not done this session: `capture.py` table against competitors, an `intent_mapping` audit across deterministic intents, `latency-targets` (p95).
 - [ ] Consumption: collect H2 mission-app delivery records (none verified yet).
 - [ ] Growth: the owner posts OUTREACH.md §5 (dated update) and the tutorial (§6).
 

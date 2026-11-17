@@ -1,0 +1,53 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+      at async TestContext.<anonymous> (C:\Users\hyada\tg-deploy\med32fa0\track1-miner\miner\dist-test\test\news.test.js:105:19)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Promise.all (index 0)
+      at async Suite.run (node:internal/test_runner/test:1869:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at dist-test\test\news.test.js:110:26
+✖ an unanswerable topic still returns prose, never an empty reason (286.1424ms)
+  Error: upstream 429
+      at getHeadlines (C:\Users\hyada\tg-deploy\med32fa0\track1-miner\miner\dist-test\src\news.js:186:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (C:\Users\hyada\tg-deploy\med32fa0\track1-miner\miner\dist-test\test\news.test.js:111:19)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+--- intent answers (correctness) ---
+  NEWS_SEARCH            FAIL
+      - errored: provider_unavailable
+  CVE_LOOKUP             PASS
+  ONCHAIN_TX_LOOKUP      PASS
+  NEWS_HEADLINES         FAIL
+      - only 0 headlines returned
+      - no headline names its source
+  FACT_CHECK             PASS
+...
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  CHAT_COMPLETION        PASS
+  CODE_REVIEW            PASS
+  SECURITY_REVIEW        PASS
+  SMART_CONTRACT_AUDIT   PASS
+  TEXT_GENERATION        PASS
+  ONCHAIN_METRIC_VERIFY  PASS
+
+42/44 intents answering correctly.
+
+5/7 gates passed — re-run the failing gate alone before believing it.

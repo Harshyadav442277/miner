@@ -39,5 +39,9 @@
   path with the false sentence "X is not an SEC registrant". The answer now says no registrant matched by name, at
   confidence 0.7. Counts are full-text matches: "Meta" counted 115 documents, some unrelated.
 - Pre-existing, not from this release: "Toyota" resolves to "TOYO Co., Ltd" on EDGAR (GAPS G324).
+- **`dd95ab6` preflight (2026-11-17 ~07:40 UTC): 5/7.** Both failures are Google News answering 429. They are a live
+  news test, and NEWS_SEARCH and NEWS_HEADLINES in the intent-answers gate (`provider_unavailable`). Production
+  probes at 07:45 UTC returned `upstream_unavailable` / `provider_unavailable`, both with HTTP 200. No news code
+  changed in either release, so it was not rolled back (GAPS G326).
 - Which entities the node's tests use. Leaders at 0.5 in epoch 2107 (txlens, reg-fedreg-search) read the Federal
   Register; zk-filing, which counts EDGAR, scored 0.
