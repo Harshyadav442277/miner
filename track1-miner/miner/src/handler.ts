@@ -1172,8 +1172,11 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      * canonical description rules both out by name, and they are the two
      * neighbouring intents this miner already serves.
      */
-    const addressParam = firstValue(url, "address", "contract", "token_address");
-    const symbolParam = firstValue(url, "symbol", "token", "ticker");
+    // TOKEN_HOLDER_COUNT's `token` is "Token contract address or name": an address in it is an address.
+    const tokenParam = firstValue(url, "token");
+    const tokenIsAddress = /^0x[0-9a-fA-F]{40}$/.test(tokenParam);
+    const addressParam = firstValue(url, "address", "contract", "token_address") || (tokenIsAddress ? tokenParam : "");
+    const symbolParam = firstValue(url, "symbol") || (tokenIsAddress ? "" : tokenParam) || firstValue(url, "ticker");
     const chainParam = firstValue(url, "chain", "network", "blockchain");
     const q = withSubject(
       firstValue(url, "query", "q", "question", "text", "input"),
