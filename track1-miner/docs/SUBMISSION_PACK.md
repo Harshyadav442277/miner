@@ -9,7 +9,7 @@ day of submission.
 | Field | Value |
 |---|---|
 | Track | Miners / Providers |
-| Project | LiveCert, miner id 4433, slug `livecert`, registration **5292** (YAML `04c0e9f`) |
+| Project | LiveCert, miner id 4433, slug `livecert`, registration **5292** (YAML `04c0e9f`; active at 18:29 UTC Nov 16, then missing after the devnode re-index of Nov 17, GAPS G325; re-check before submitting) |
 | Endpoint | `https://miner-wine.vercel.app` (`/status` gives the release; `docs/openapi.json` describes every route) |
 | Intents | 44: `GET https://devnode.telegraphprotocol.com/api/miners/5292` → `supported_intents` |
 | Missions | The intents touch all 15 missions (`track1-miner/docs/evidence/track1-diagnosis-2026-11-17/missions/matrix.json`) |

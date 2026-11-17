@@ -13,6 +13,10 @@ manifest changes into one signed `updateMiner`. Checked by Claude; nothing signe
 | The 96,353-byte YAML was accepted (closes G320) | 5292 carries its hash | 18:29 UTC |
 | `claude/n1-v2-ids` is fully merged: 0 ahead of and 67 behind `origin/main`. Current work is `main`, not that branch | `git rev-list --left-right --count` | 18:20 UTC |
 
+**Since 2026-11-17 ~06:31 UTC the devnode has been rebuilding its catalog (GAPS G325).** The four saved leaderboards
+(2099–2107) and the pre-reset catalog `C:Usershyada	g-deployscoresminers-2026-11-16T1822Z-pre-reset.json` are
+now the only sources for this before-table. The node cannot reproduce it.
+
 ## The "14 unscored" were mostly not unscored
 
 `/api/miners` shows only each miner's latest scored epoch, and the node does not test every intent in every epoch.

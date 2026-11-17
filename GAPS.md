@@ -17,7 +17,10 @@
     not logged).
   - Corrected in `dd95ab6`: brand names of registrants (Google, Meta) took this path with the false sentence "is not
     an SEC registrant". The answer now says no registrant matched by name, at confidence 0.7.
-- **G324 — "Toyota" resolves to "TOYO Co., Ltd" on EDGAR. `OPEN`, pre-existing.** Seen 2026-11-16 ~19:10 UTC
+- **G324 — EDGAR name resolution is the open REGULATORY_FILING fix. `OPEN`, pre-existing.** Google, Facebook, Meta,
+  JPMorgan and Berkshire do not resolve to their registrants (Alphabet, Meta Platforms, JPMorgan Chase, Berkshire
+  Hathaway). They now get a plausible Federal Register count instead of an EDGAR count. And "Toyota" resolves to the
+  wrong issuer, "TOYO Co., Ltd". Seen 2026-11-16 ~19:10 UTC
   (44 filings counted for the wrong issuer). The name matcher in `edgar.ts` `resolveCik` accepts it.
 - **G326 — News is down: Google News answers production with 429. `OPEN`.** Seen 2026-11-17 ~07:40 UTC by preflight
   and by direct probes. `/headlines` and `/news-search` returned HTTP 200 with `upstream_unavailable` or
@@ -33,9 +36,15 @@
   epoch 0 and 1,455 miners were listed (2,173 before). Registrations come back in id order (3000 at 06:36, 5000 at
   07:24, 5200 at 07:30), and 5292 answered 404 at 07:32. Cause not announced in anything read.
   - **07:58 UTC:** still 404 after a 25-minute watch. The catalog has not grown since 07:31 (1,455 miners; newest
-    `registered_at` 07:30:39). 5240, 5283 and 5291 are also missing, so this is not a complete replay.
+    `registered_at` 07:30:39). 5240, 5283 and 5291 are also missing.
+  - **08:00 UTC, corrected reading:** the replay halted at 5201 (07:30:39). No id from 5202 to 5300 resolves, and
+    none of yesterday's active slugs above 5200 is back. So 5292 is **pending, not dropped**: the node has not
+    reached it. The chain was not read: no registration getter is documented, and `cast` is not installed.
+  - The pre-reset catalog (18:22 UTC Nov 16) is saved at
+    `C:Usershyada	g-deployscoresminers-2026-11-16T1822Z-pre-reset.json`.
   - The docs' what-changed page served no text to curl.
-  - Next: check again; if still missing, the owner asks the organisers (draft in MEMORY) before re-signing. A forced
+  - Next: check again. If the replay stays stuck, the owner asks the organisers (draft in MEMORY). **Do not re-sign
+    before that:** a new signature means a new id, and scoring starts again. A forced
     re-registration is the moment to send the batched YAML.
 - **G322 — The availability record is thin. `OPEN`.** 45 sweeps from 2026-11-04 to 11-16, although `uptime` is
   scheduled every 30 minutes. Only p50 and p90 are computed, not p95.

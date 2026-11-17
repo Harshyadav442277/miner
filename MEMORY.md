@@ -8,8 +8,11 @@
   Meta). It now says no registrant matched by name, at confidence 0.7.
 - **Network (G325):** from ~06:31 UTC the devnode rebuilt its catalog; at 07:33 UTC there were no scores (epoch 0),
   1,455 miners, and 5292 answered 404. Registrations are coming back in id order: 5200 at 07:30.
-  - 07:58 UTC: still 404. The catalog stopped growing at 07:30:39 (1,455). 5240, 5283 and 5291 are also missing.
-  - If 5292 does not return, the owner must re-register (sign). Ask the organisers first. Draft for the owner to send:
+  - 08:00 UTC: the replay halted at registration 5201 (07:30:39); nothing from 5202 to 5300 is back. So 5292 is
+    **pending, not dropped**. **Do not re-sign** until the replay passes 5292 or the organisers answer. A new
+    signature means a new id, and scoring starts again.
+  - The `uptime` workflow may open an alarm issue on the 404; that alarm is accurate.
+  - If it stays stuck, ask the organisers. Draft for the owner to send:
     > Hi team, since about 06:31 UTC on Nov 17 the devnode catalog looks rebuilt: scores show epoch 0, and our
     > registration 5292 (`livecert`, active since Nov 16 18:16 UTC, YAML hash 3cf18081…) answers "miner
     > registration not found". Is this a planned reset? Should miners re-register, or will existing registrations be
