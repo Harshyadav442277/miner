@@ -12,9 +12,19 @@
   - the catalog grows only by new registrations (1,465, a bulk registrant `0x8b22…`);
   - all scores on the node are at epoch 0, so re-registering loses no score history;
   - the `livecert` slug is unclaimed.
-- **Decision for the owner:** re-register now with the same YAML (`04c0e9f`, SHA-256 `3cf18081…5fb13d`, accepted
-  once on Nov 16; validate on Anjoman first), or wait for the organisers. Then set `REGISTRATION_ID`
-  (`gh variable set`) and update the skill, mission-matrix and README.
+- **~09:20 UTC: do NOT re-register.** The owner said "Re-register now"; the chain and the docs say it is not needed.
+  - **On-chain, 5292 is intact.** Ethereum Sepolia, Diamond `0x3624EB01…eb99b`: tx
+    `0x8ebe1d47ca227789fd38f3509845dfa33a7a50dbc489afddfb0241140a46f5db`, block 12,148,994. It is from the LiveCert
+    wallet and carries YAML hash `3cf18081…`. Three events have topic1 = 5292, and there is no later event for 5292
+    up to block 12,153,446 (`eth_getLogs`, publicnode).
+  - **The docs** (miner-registration, updated Nov 1) say: nodes "rebuild from on-chain state" and re-fetch every YAML.
+    After a chain move the admin imports existing miners "with the same id and owner. You do not have to register
+    again", and registration reopens only when the import closes.
+  - Re-registering would create a new id and supersede 5292 for nothing.
+  - **Next:** the owner asks the organisers why the node's rebuild stopped at 5201 (draft below, with the tx hash).
+    Re-check `GET /api/miners/5292`.
+  - Anjoman's `/dashboard/validate` is now a "Become a validator" sign-up page. YAML validation runs inside
+    `/dashboard/earn`, which needs a wallet.
 
 ## 2026-11-17 ~07:35 UTC (13:05 IST): `dd95ab6` LIVE; devnode re-indexing, 5292 not yet back (G325)
 
@@ -29,10 +39,11 @@
     signature means a new id, and scoring starts again.
   - The `uptime` workflow may open an alarm issue on the 404; that alarm is accurate.
   - If it stays stuck, ask the organisers. Draft for the owner to send:
-    > Hi team, since about 06:31 UTC on Nov 17 the devnode catalog looks rebuilt: scores show epoch 0, and our
-    > registration 5292 (`livecert`, active since Nov 16 18:16 UTC, YAML hash 3cf18081…) answers "miner
-    > registration not found". Is this a planned reset? Should miners re-register, or will existing registrations be
-    > restored?
+    > Hi team, since about 06:31 UTC on Nov 17 the devnode catalog has been rebuilding: scores show epoch 0, and
+    > registrations came back in id order until 5201 (07:30 UTC), then stopped. Our registration 5292 (`livecert`)
+    > is intact on Sepolia: tx 0x8ebe1d47ca227789fd38f3509845dfa33a7a50dbc489afddfb0241140a46f5db, YAML hash
+    > 3cf18081…, no later deregistration. But `GET /api/miners/5292` answers "miner registration not found". Will the
+    > rebuild resume past 5201, or should registrations above it be re-sent?
   - Look it up by registration id. Catalog id 4433 now returns another miner.
 - **Branch is unmerged:** production runs `PR/livecert-miner-track1-cec6be`; `main` still says `04c0e9f`. Merge the
   PR before any deploy from `main`, or that deploy reverts the Federal Register path and the request logging.
