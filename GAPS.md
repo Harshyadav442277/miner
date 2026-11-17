@@ -32,6 +32,11 @@
 - **G325 — The devnode re-indexed its catalog on 2026-11-17 from ~06:31 UTC. `OPEN`.** At 07:31 UTC all scores read
   epoch 0 and 1,455 miners were listed (2,173 before). Registrations come back in id order (3000 at 06:36, 5000 at
   07:24, 5200 at 07:30), and 5292 answered 404 at 07:32. Cause not announced in anything read.
+  - **07:58 UTC:** still 404 after a 25-minute watch. The catalog has not grown since 07:31 (1,455 miners; newest
+    `registered_at` 07:30:39). 5240, 5283 and 5291 are also missing, so this is not a complete replay.
+  - The docs' what-changed page served no text to curl.
+  - Next: check again; if still missing, the owner asks the organisers (draft in MEMORY) before re-signing. A forced
+    re-registration is the moment to send the batched YAML.
 - **G322 — The availability record is thin. `OPEN`.** 45 sweeps from 2026-11-04 to 11-16, although `uptime` is
   scheduled every 30 minutes. Only p50 and p90 are computed, not p95.
 - **G323 — The request-log archiver is not scheduled. `OPEN`, owner action.** Appending it to `record.cmd` was refused
