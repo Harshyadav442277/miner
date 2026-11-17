@@ -1,5 +1,17 @@
 # MEMORY.md — session continuity
 
+## 2026-11-17 ~10:10 UTC (15:40 IST): CURRENT — registration 5292 RESTORED; `main` = PR 36 merge (`37f2a77`)
+
+- **5292 is back** since 09:51:48 UTC: active, same wallet, hash `3cf18081…` and 44 intents. `watch.mjs` reports
+  active, so the `uptime` alerts clear on their own (never disabled). Not re-registered; nothing signed.
+- Evidence and the timeline: `track1-miner/docs/evidence/devnode-reindex-2026-11-17/README.md`. LiveCert was out of the
+  node for at least 2 h 20 min (07:30–09:51 UTC). Every score is at epoch 0.
+- **Owner:** the organiser message there is optional now. It documents the outage under rules §10.02.
+- **New, G328:** the restored record warns of four node-required params with no field on our endpoint (fields,
+  subject, token, categories). Add them to the batched YAML.
+- **Next:** first epoch scored under the rebuilt node. The local recorder and `scores` record it; then run
+  `intent-table.mjs` into `track1-diagnosis-2026-11-17/after/`.
+
 ## 2026-11-17 ~08:55 UTC (14:25 IST): CURRENT — PR 33 merged (`main` = `f84ec04`); LiveCert NOT registered on the devnode
 
 - **Merged:** PR 33 on the owner's "merge the prs"; `main` now matches production (`dd95ab6` code). PR 9 is not merged:

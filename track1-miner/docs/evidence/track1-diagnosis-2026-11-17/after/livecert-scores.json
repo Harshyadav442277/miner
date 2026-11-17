@@ -1,0 +1,296 @@
+[
+ {
+  "intent_id": "ONCHAIN_TX_LOOKUP_GENERAL",
+  "epoch_id": 0,
+  "rank": 1,
+  "score": 0.9384,
+  "scored_at": "2026-11-16T10:22:56.373166Z"
+ },
+ {
+  "intent_id": "CROSS_CHAIN_STATE_VERIFY_GENERAL",
+  "epoch_id": 0,
+  "rank": 2,
+  "score": 0.9951,
+  "scored_at": "2026-11-16T22:32:52.789823Z"
+ },
+ {
+  "intent_id": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+  "epoch_id": 0,
+  "rank": 2,
+  "score": 0.901,
+  "scored_at": "2026-11-16T23:46:28.48654Z"
+ },
+ {
+  "intent_id": "CURRENCY_EXCHANGE_CONVERT",
+  "epoch_id": 0,
+  "rank": 2,
+  "score": 1,
+  "scored_at": "2026-11-16T21:49:05.185902Z"
+ },
+ {
+  "intent_id": "IP_GEOLOCATION_GENERAL",
+  "epoch_id": 0,
+  "rank": 2,
+  "score": 0.8805,
+  "scored_at": "2026-11-16T23:09:43.669889Z"
+ },
+ {
+  "intent_id": "ONCHAIN_METRIC_VERIFY_GENERAL",
+  "epoch_id": 0,
+  "rank": 2,
+  "score": 0.9954,
+  "scored_at": "2026-11-16T22:37:59.762301Z"
+ },
+ {
+  "intent_id": "STOCK_PRICE_US_EQUITY",
+  "epoch_id": 0,
+  "rank": 2,
+  "score": 0.9777,
+  "scored_at": "2026-11-16T22:58:24.246811Z"
+ },
+ {
+  "intent_id": "TOKEN_HOLDER_COUNT_GENERAL",
+  "epoch_id": 0,
+  "rank": 2,
+  "score": 0.9333,
+  "scored_at": "2026-11-16T22:18:53.030485Z"
+ },
+ {
+  "intent_id": "WALLET_BALANCE_CHECK_GENERAL",
+  "epoch_id": 0,
+  "rank": 2,
+  "score": 0.8744,
+  "scored_at": "2026-11-16T22:02:47.935367Z"
+ },
+ {
+  "intent_id": "MACRO_ECONOMIC_INDICATOR_GENERAL",
+  "epoch_id": 0,
+  "rank": 3,
+  "score": 1,
+  "scored_at": "2026-11-16T21:47:28.194031Z"
+ },
+ {
+  "intent_id": "QUESTION_ANSWERING_GENERAL",
+  "epoch_id": 0,
+  "rank": 3,
+  "score": 0.9937,
+  "scored_at": "2026-11-16T22:49:00.674543Z"
+ },
+ {
+  "intent_id": "REGULATORY_FILING_MONITOR_GENERAL",
+  "epoch_id": 0,
+  "rank": 4,
+  "score": 0,
+  "scored_at": "2026-11-16T21:48:31.574551Z"
+ },
+ {
+  "intent_id": "RESEARCH_SYNTHESIS_GENERAL",
+  "epoch_id": 0,
+  "rank": 4,
+  "score": 0.9823,
+  "scored_at": "2026-11-16T16:52:27.8522Z"
+ },
+ {
+  "intent_id": "SANCTIONS_SCREENING_MATCH_GENERAL",
+  "epoch_id": 0,
+  "rank": 4,
+  "score": 1,
+  "scored_at": "2026-11-16T22:15:51.843364Z"
+ },
+ {
+  "intent_id": "SMART_CONTRACT_AUDIT_GENERAL",
+  "epoch_id": 0,
+  "rank": 4,
+  "score": 0.9485,
+  "scored_at": "2026-11-16T22:40:39.745803Z"
+ },
+ {
+  "intent_id": "SSL_VERIFICATION_CERT",
+  "epoch_id": 0,
+  "rank": 4,
+  "score": 0.9839,
+  "scored_at": "2026-11-16T23:33:24.952939Z"
+ },
+ {
+  "intent_id": "CHAT_COMPLETION_GENERAL",
+  "epoch_id": 0,
+  "rank": 5,
+  "score": 0.9884,
+  "scored_at": "2026-11-16T22:29:49.465496Z"
+ },
+ {
+  "intent_id": "TEXT_GENERATION_GENERAL",
+  "epoch_id": 0,
+  "rank": 5,
+  "score": 0.9981,
+  "scored_at": "2026-11-16T22:57:29.912132Z"
+ },
+ {
+  "intent_id": "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL",
+  "epoch_id": 0,
+  "rank": 5,
+  "score": 0.9981,
+  "scored_at": "2026-11-16T22:06:30.930792Z"
+ },
+ {
+  "intent_id": "WEATHER_CHECK_TEMPERATURE",
+  "epoch_id": 0,
+  "rank": 5,
+  "score": 0.39166668,
+  "scored_at": "2026-11-16T21:49:17.414875Z"
+ },
+ {
+  "intent_id": "FACT_CHECK_GENERAL",
+  "epoch_id": 0,
+  "rank": 6,
+  "score": 0.9699,
+  "scored_at": "2026-11-16T22:47:01.004118Z"
+ },
+ {
+  "intent_id": "URL_SCAN_VERDICT",
+  "epoch_id": 0,
+  "rank": 6,
+  "score": 0.53996664,
+  "scored_at": "2026-11-17T00:14:16.593001Z"
+ },
+ {
+  "intent_id": "WEATHER_FORECAST_GENERAL",
+  "epoch_id": 0,
+  "rank": 6,
+  "score": 0.9519,
+  "scored_at": "2026-11-16T23:49:08.114379Z"
+ },
+ {
+  "intent_id": "GAS_PRICE_GENERAL",
+  "epoch_id": 0,
+  "rank": 7,
+  "score": 0,
+  "scored_at": "2026-11-16T21:46:34.997885Z"
+ },
+ {
+  "intent_id": "TEXT_CLASSIFICATION_GENERAL",
+  "epoch_id": 0,
+  "rank": 7,
+  "score": 0.993,
+  "scored_at": "2026-11-16T22:11:35.239299Z"
+ },
+ {
+  "intent_id": "CONTENT_EXTRACTION_GENERAL",
+  "epoch_id": 0,
+  "rank": 8,
+  "score": 0.9926,
+  "scored_at": "2026-11-16T18:42:51.468642Z"
+ },
+ {
+  "intent_id": "FRAUD_DETECTION_GENERAL",
+  "epoch_id": 0,
+  "rank": 8,
+  "score": 0.9928,
+  "scored_at": "2026-11-16T22:19:13.859194Z"
+ },
+ {
+  "intent_id": "SENTIMENT_ANALYSIS_GENERAL",
+  "epoch_id": 0,
+  "rank": 8,
+  "score": 0.9426,
+  "scored_at": "2026-11-17T00:40:11.595843Z"
+ },
+ {
+  "intent_id": "ACADEMIC_SEARCH_GENERAL",
+  "epoch_id": 0,
+  "rank": 9,
+  "score": 0.9,
+  "scored_at": "2026-11-17T00:10:35.669364Z"
+ },
+ {
+  "intent_id": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+  "epoch_id": 0,
+  "rank": 9,
+  "score": 1,
+  "scored_at": "2026-11-16T21:46:57.665757Z"
+ },
+ {
+  "intent_id": "CVE_LOOKUP_CVSS",
+  "epoch_id": 0,
+  "rank": 9,
+  "score": 0.77625,
+  "scored_at": "2026-11-16T21:47:49.148461Z"
+ },
+ {
+  "intent_id": "FINANCIAL_DATA_GENERAL",
+  "epoch_id": 0,
+  "rank": 9,
+  "score": 0.9155,
+  "scored_at": "2026-11-17T00:08:03.738009Z"
+ },
+ {
+  "intent_id": "RESEARCH_QUERY_GENERAL",
+  "epoch_id": 0,
+  "rank": 9,
+  "score": 0.9714,
+  "scored_at": "2026-11-17T00:15:38.667154Z"
+ },
+ {
+  "intent_id": "SECURITY_REVIEW_GENERAL",
+  "epoch_id": 0,
+  "rank": 9,
+  "score": 0.9697,
+  "scored_at": "2026-11-17T00:13:39.075252Z"
+ },
+ {
+  "intent_id": "NEWS_SEARCH_GENERAL",
+  "epoch_id": 0,
+  "rank": 11,
+  "score": 0.9211,
+  "scored_at": "2026-11-16T23:47:55.044373Z"
+ },
+ {
+  "intent_id": "WEB_SEARCH_GENERAL",
+  "epoch_id": 0,
+  "rank": 11,
+  "score": 0.9718,
+  "scored_at": "2026-11-16T23:17:54.173149Z"
+ },
+ {
+  "intent_id": "STORM_ALERT_GENERAL",
+  "epoch_id": 0,
+  "rank": 12,
+  "score": 0.9005,
+  "scored_at": "2026-11-16T23:16:34.73665Z"
+ },
+ {
+  "intent_id": "LANGUAGE_TRANSLATION_GENERAL",
+  "epoch_id": 0,
+  "rank": 13,
+  "score": 0.7139,
+  "scored_at": "2026-11-16T23:36:31.440643Z"
+ },
+ {
+  "intent_id": "NEWS_HEADLINES_GENERAL",
+  "epoch_id": 0,
+  "rank": 13,
+  "score": 0.8225,
+  "scored_at": "2026-11-17T00:37:32.55824Z"
+ },
+ {
+  "intent_id": "URL_SAFE_GENERAL",
+  "epoch_id": 0,
+  "rank": 17,
+  "score": 0.9958,
+  "scored_at": "2026-11-16T23:20:06.187931Z"
+ },
+ {
+  "intent_id": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+  "epoch_id": 0,
+  "rank": 19,
+  "score": 0.0033,
+  "scored_at": "2026-11-16T23:41:32.136129Z"
+ },
+ {
+  "intent_id": "CRYPTO_PRICE_USD",
+  "epoch_id": 0,
+  "rank": 22,
+  "score": 0.96000004,
+  "scored_at": "2026-11-16T21:52:59.87176Z"
+ }
+]
