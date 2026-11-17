@@ -28,6 +28,31 @@ test("pickSeverity prefers the newest CVSS version, then the primary source", ()
   assert.deepEqual(picked, { score: 10, severity: "CRITICAL", version: "3.1", source: "NVD", primary: true });
 });
 
+test("pickSeverity takes NVD's Primary v3.1 over a CNA's v4.0 (CVE-2025-0108)", () => {
+  // The NVD record as mirrored on 2026-11-17: Palo Alto's v4.0 8.8 (Secondary) and NVD's v3.1 9.1 (Primary).
+  const picked = pickSeverity({
+    cvssMetricV40: [{ type: "Secondary", source: "psirt@paloaltonetworks.com", cvssData: { baseScore: 8.8, baseSeverity: "HIGH", version: "4.0" } }],
+    cvssMetricV31: [{ type: "Primary", source: "nvd@nist.gov", cvssData: { baseScore: 9.1, baseSeverity: "CRITICAL", version: "3.1" } }],
+  });
+  assert.deepEqual(picked, { score: 9.1, severity: "CRITICAL", version: "3.1", source: "NVD", primary: true });
+});
+
+test("pickSeverity falls back to the CNA's v3.1 score over its v4.0 when NVD has none", () => {
+  const picked = pickSeverity({
+    cvssMetricV40: [{ type: "Secondary", source: "cna@example.com", cvssData: { baseScore: 9.3, baseSeverity: "CRITICAL", version: "4.0" } }],
+    cvssMetricV31: [{ type: "Secondary", source: "cna@example.com", cvssData: { baseScore: 9.1, baseSeverity: "CRITICAL", version: "3.1" } }],
+  });
+  assert.equal(picked?.score, 9.1);
+  assert.equal(picked?.version, "3.1");
+});
+
+test("pickSeverity takes a CNA's v4.0 when it is the only score", () => {
+  const picked = pickSeverity({
+    cvssMetricV40: [{ type: "Secondary", source: "cna@example.com", cvssData: { baseScore: 9.3, baseSeverity: "CRITICAL", version: "4.0" } }],
+  });
+  assert.equal(picked?.score, 9.3);
+});
+
 test("pickSeverity returns null rather than inventing a score", () => {
   assert.equal(pickSeverity(undefined), null);
   assert.equal(pickSeverity({}), null);

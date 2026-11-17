@@ -176,7 +176,7 @@ interface Metric { type?: string; source?: string; cvssData?: { baseScore?: numb
  * versions at once (CVE-2021-44228 has v3.1 Primary at 10.0 and v2.0 Primary at
  * 9.3). Reporting whichever came first in the object would silently pick a
  * different authority's number between one CVE and the next, so the order is
- * fixed: newest CVSS version, Primary before Secondary — and the source is
+ * fixed: NVD's own metric before anyone else's, Primary before Secondary, then v3.1, v3.0, v4.0, v2.0 — and the source is
  * named in the answer, because "who says so" is part of a severity answer.
  */
 export function pickSeverity(metrics: Record<string, Metric[]> | undefined):
@@ -195,9 +195,14 @@ export function pickSeverity(metrics: Record<string, Metric[]> | undefined):
     }
   }
   if (all.length === 0) return null;
+  // NVD's own score first, whatever the version: CVE-2025-0108 carries Palo Alto's v4.0 8.8 beside NVD's Primary
+  // v3.1 9.1, and ordering by version first answered 8.8, the CNA's (2026-11-17; CVE_LOOKUP 1.0 → 0.776 beside the
+  // CNA-reading miners). Within one authority, v3.1, then v3.0, then v4.0, then v2.0: NVD scores in v3.x, and every
+  // miner at 1.0 that day read NVD. The v3.x-over-v4.0 order is an inference from that, not a published rule (GAPS).
+  const rank = (v: string): number => ({ "3.1": 4, "3.0": 3, "4.0": 2, "2.0": 1 } as Record<string, number>)[v] ?? 0;
   all.sort((a, b) =>
-    parseFloat(b.version) - parseFloat(a.version) || Number(b.source === "NVD") - Number(a.source === "NVD") ||
-    Number(b.primary) - Number(a.primary));
+    Number(b.source === "NVD") - Number(a.source === "NVD") || Number(b.primary) - Number(a.primary) ||
+    rank(b.version) - rank(a.version));
   return all[0]!;
 }
 
