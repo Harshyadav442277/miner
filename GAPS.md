@@ -44,7 +44,11 @@
     `C:/Users/hyada/tg-deploy/scores/miners-2026-11-16T1822Z-pre-reset.json`.
   - The docs' what-changed page served no text to curl.
   - Next: check again. If the replay stays stuck, the owner asks the organisers (draft in MEMORY). **Do not re-sign
-    before that:** a new signature means a new id, and scoring starts again. A forced
+    before that:** a new signature means a new id, and scoring starts again.
+  - **09:20 UTC, chain read (primary source):** 5292 is intact on Ethereum Sepolia. Tx `0x8ebe1d47…f5db`, block
+    12,148,994, is from the LiveCert wallet to Diamond `0x3624EB01…` and carries hash `3cf18081…`. No event names
+    5292 after it, up to block 12,153,446. The docs say existing miners keep "the same id and owner. You do not have
+    to register again." The node's rebuild, not the registration, is the fault. Still 404 on the node at 09:15 UTC. A forced
     re-registration is the moment to send the batched YAML.
 - **G322 — The availability record is thin. `OPEN`.** 45 sweeps from 2026-11-04 to 11-16, although `uptime` is
   scheduled every 30 minutes. Only p50 and p90 are computed, not p95.
