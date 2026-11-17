@@ -41,6 +41,7 @@ export const SOURCES: Source[] = [
   // Weather and places
   { id: "metno", name: "MET Norway", hosts: ["api.met.no"], status: "conditional", licence: "CC BY 4.0 / NLOD 2.0", terms: "https://api.met.no/doc/License", read: "2026-10-18", basis: "Open licence; attribution required (GAPS G189).", condition: { text: "Credit MET Norway", met: "yes" } },
   { id: "nominatim", name: "OpenStreetMap Nominatim", hosts: ["nominatim.openstreetmap.org"], status: "conditional", licence: "ODbL 1.0", terms: "https://operations.osmfoundation.org/policies/nominatim/", read: "2026-10-20", basis: "ODbL data; usage policy of one request per second (G196, G198).", condition: { text: "Visible ODbL credit; at most 1 request per second", met: "partly" } },
+  { id: "awc", name: "NOAA/NWS Aviation Weather Center (METAR)", hosts: ["aviationweather.gov"], status: "conditional", licence: "Public domain (US Government) for NWS data", terms: "https://www.weather.gov/disclaimer", read: "2026-11-17", basis: "The NWS disclaimer puts NWS web information in the public domain for any lawful use; the AWC data API is keyless and asks callers to keep requests limited. METARs from outside the US originate with other national services and reach NWS through WMO exchange.", condition: { text: "Confirm reuse of non-US METARs redistributed by NWS", met: "unchecked" } },
   { id: "nws", name: "US National Weather Service", hosts: ["api.weather.gov"], status: "licensed", licence: "Public domain (US Government)", terms: "https://www.weather.gov/disclaimer", read: R, basis: "Public domain, usable for any lawful purpose; no implied NWS endorsement." },
   // IP geolocation
   { id: "ip-api", name: "ip-api.com", hosts: ["ip-api.com"], status: "barred", licence: "Proprietary", terms: "https://members.ip-api.com/", read: "2026-10-23", basis: "The free endpoint does not allow commercial usage." },
@@ -137,7 +138,7 @@ export function weakest(ids: string[]): LicenceStatus {
 export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/ssl-check": [],
   "/storm-alert": ["metno", "nominatim"],
-  "/weather-forecast": ["metno", "nominatim", "nws"],
+  "/weather-forecast": ["awc", "metno", "nominatim", "nws"],
   "/ip-geolocate": ["ip-api", "ipinfo", "ipwhois"],
   "/translate": ["groq"],
   "/papers": ["doaj", "openalex"],

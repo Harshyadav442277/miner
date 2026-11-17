@@ -28,6 +28,7 @@ import { placeCredit } from "./weather-upstream";
 import { extractCoords, shortPlaceName } from "./extract";
 import type { ForecastResult } from "./forecast";
 import { MET_ATTRIBUTION, conditionOfSymbols, metForecast, stepAt } from "./metno";
+import { nearestObservation } from "./metar";
 
 const DEFAULT_TIMEOUT_MS = 8000;
 
@@ -74,14 +75,17 @@ export async function getCurrentConditions(query: string, timeoutMs = DEFAULT_TI
 
   // A failed read throws, and the route answers that as an outage — the same
   // contract as the forecast path, so an outage is never a missing reading.
+  // The nearest station observation is read alongside; when one qualifies, its temperature is the answer.
+  const observing = nearestObservation(place.latitude, place.longitude, Math.min(timeoutMs, 5_000));
   const steps = await metForecast(place.latitude, place.longitude, timeoutMs);
+  const obs = await observing;
   const c = steps[stepAt(steps, Date.now())];
   const located = { location: place.name, latitude: place.latitude, longitude: place.longitude };
   if (!c || c.temp_c === null || c.symbol === null) {
     return { ...base, ...located, confidence: 0, reason: `Current conditions are unavailable for ${place.name}.` };
   }
 
-  const temp = r1(c.temp_c);
+  const temp = obs ? obs.temp_c : r1(c.temp_c);
   const condition = conditionOfSymbols([c.symbol]);
   const coords = extractCoords(query);
   const where = coords ? `latitude ${coords.lat}, longitude ${coords.lon} near ${shortPlaceName(place.name)}` : place.name;
@@ -102,12 +106,18 @@ export async function getCurrentConditions(query: string, timeoutMs = DEFAULT_TI
   const rain = precip === null ? "" : precip >= 0.1 ? `, with ${precip} mm of precipitation this hour` : ", with no precipitation";
   const breeze = wind === null ? "" : ` and wind at ${wind} km/h`;
 
+  // The temperature is the station's measurement; the sky, rain and wind stay MET's model values for the hour.
+  const source = obs
+    ? `, observed at ${obs.name} (${obs.station}, ${obs.distance_km} km away) at ${obs.observed_at.slice(11, 16)} UTC ` +
+      `in its METAR from NOAA's Aviation Weather Center; conditions are the model values for ${at} from ${MET_ATTRIBUTION}`
+    : `, as of ${at}, the model value for that hour from ${MET_ATTRIBUTION}`;
   return {
     ...base, ...located,
     verdict: condition,
     start_time: `${c.time}Z`, end_time: `${c.time}Z`, hourly_count: null,
     temp_min_c: temp, temp_max_c: temp,
     total_precipitation_mm: precip, max_wind_speed_kmh: wind,
-    reason: `${lead}${rain}${breeze}, as of ${at}, the model value for that hour from ${MET_ATTRIBUTION}${placeCredit(place)}.`,
+    ...(obs ? { observation: obs } : {}),
+    reason: `${lead}${rain}${breeze}${source}${placeCredit(place)}.`,
   };
 }

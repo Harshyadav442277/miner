@@ -44,6 +44,8 @@ export interface ForecastResult {
   confidence: number;
   reason: string;
   checked_at: string;
+  /** A current-temperature answer read from a station's METAR (metar.ts) carries the station, time and distance. */
+  observation?: import("./metar").Observation;
 }
 
 export async function getForecast(
