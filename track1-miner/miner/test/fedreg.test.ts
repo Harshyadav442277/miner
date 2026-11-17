@@ -39,7 +39,9 @@ test("a product's count is the Federal Register documents in the period, and the
   assert.equal(r.verdict, "filed");
   assert.equal(r.counted_since, "2025-11-16");
   assert.match(r.reason!, /^3 US Federal Register documents name Ozempic since 2025-11-16; the latest, Notice, Food and Drug Administration, published 2026-04-30/);
-  assert.match(r.reason!, /not an SEC registrant/);
+  assert.match(r.reason!, /No SEC registrant matching Ozempic was found by name/);
+  assert.doesNotMatch(r.reason!, /is not an SEC registrant/);
+  assert.equal(r.confidence, 0.7);
 });
 
 test("no period gives no count, and a fiscal year is read as its calendar year", () => {

@@ -455,7 +455,8 @@ export function logParam(name: string, raw: string): string {
 }
 
 function route(req: IncomingMessage, res: ServerResponse): void {
-  // Off by default. When enabled, record parameter names only—never user text.
+  // Off by default. When enabled, record parameter names, and values only for route and short-list params
+  // (logParam)—never user text.
   // An empty value is marked, because "the engine sent text=" and "the engine
   // sent nothing" are different diagnoses (epoch 290's translate refusal).
   if (process.env.LOG_QUERY === "on") {

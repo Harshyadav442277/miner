@@ -1,5 +1,5 @@
 /**
- * REGULATORY_FILING_MONITOR for an entity that is not an SEC registrant (a product, drug, device or concern):
+ * REGULATORY_FILING_MONITOR for an entity that matches no SEC registrant by name (a product, drug, device or concern):
  * the Federal Register documents that name it, counted over the window asked. Kept apart from filings.ts so the
  * EDGAR path, which scored 0.9975-level results for registrants, is untouched.
  */
@@ -29,7 +29,7 @@ export function frResult(ask: FilingAsk, fr: FrSearch, other?: string): FrFields
   const span = until ? `between ${since} and ${until}` : since ? `since ${since}` : "";
   const latest = fr.documents[0];
   const notCovered = other ? ` Only SEC EDGAR and the US Federal Register are read; ${other} disclosures are not covered.` : "";
-  const what = `${ask.company} is not an SEC registrant, so it has no EDGAR filings; the count is of US Federal Register documents that name it.`;
+  const what = `No SEC registrant matching ${ask.company} was found by name, so the count is of US Federal Register documents that name it, not EDGAR filings. A company known by another name (Google for Alphabet) is counted here too; ask with its registered name or ticker for its EDGAR filings.`;
   const head = windowed
     ? `${fr.count} US Federal Register document${fr.count === 1 ? "" : "s"} name${fr.count === 1 ? "s" : ""} ${ask.company} ${span}`
     : `The latest US Federal Register document naming ${ask.company}`;
@@ -40,7 +40,8 @@ export function frResult(ask: FilingAsk, fr: FrSearch, other?: string): FrFields
       : `${head} is ${frTitle(latest)}, at ${latest.url}.`;
   return {
     verdict: windowed ? (fr.count > 0 ? "filed" : "not_filed") : latest ? "filed" : "not_filed",
-    confidence: 0.9,
+    // A full-text count of a name: documents that merely mention it are counted too.
+    confidence: 0.7,
     register: "Federal Register",
     entity: ask.company,
     // No window, no count: a count of every document ever published answers no question that was asked.
