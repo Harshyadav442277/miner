@@ -1,5 +1,5 @@
 $ curl https://devnode.telegraphprotocol.com/engine/v1/intents/EMAIL_SECURITY_GENERAL
-class: judgment | miners: 19
+class: judgment | miners: 19   (excerpt of the live response, 2026-11-16)
 request: domain, record_type
 scored field: lookup_ok (bool)
   "Whether the DNS {type} lookup for {name} succeeded: DNS Status 0 (NOERROR) means yes, any other "

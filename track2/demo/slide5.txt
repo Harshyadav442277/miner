@@ -1,10 +1,12 @@
-service                                          right wrong fail ignores
-telegraph-verity-intelligence-api.onrender.com     123    61  116       0
-dns.adguard-dns.com                                295     5    0       0
-doh.pub                                            216     3   81       0
-dns.alidns.com                                     300     0    0       0
-preflight-ssl-verification.vercel.app              300     0    0       0
-hub.shadrakbessanh.me                                0     0    0     300
-dns.google                                         300     0    0       0
-telegraph-guard.margyn.workers.dev                 300     0    0       0
-telegraph-onchain-tx-lookup-miner.onrender.com       0     0    0     300
+direct calls per each miner YAML, 2026-11-16 (not the engine route); truth: NextDNS + DNS.SB
+
+service                              right wrong fail off-query
+service A (multi-intent API)           123    61  116         0
+dns.adguard-dns.com                    295     5    0         0
+doh.pub                                216     3   81         0
+dns.alidns.com                         300     0    0         0
+service D (DNS checker)                300     0    0         0
+dns.google                             300     0    0         0
+service E (champion author)            300     0    0         0
+service B (multi-intent API)             0     0    0       300
+service C (multi-intent API)             0     0    0       300
