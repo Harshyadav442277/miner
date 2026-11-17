@@ -41,7 +41,7 @@
     none of yesterday's active slugs above 5200 is back. So 5292 is **pending, not dropped**: the node has not
     reached it. The chain was not read: no registration getter is documented, and `cast` is not installed.
   - The pre-reset catalog (18:22 UTC Nov 16) is saved at
-    `C:Usershyada	g-deployscoresminers-2026-11-16T1822Z-pre-reset.json`.
+    `C:/Users/hyada/tg-deploy/scores/miners-2026-11-16T1822Z-pre-reset.json`.
   - The docs' what-changed page served no text to curl.
   - Next: check again. If the replay stays stuck, the owner asks the organisers (draft in MEMORY). **Do not re-sign
     before that:** a new signature means a new id, and scoring starts again. A forced
