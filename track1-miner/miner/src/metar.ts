@@ -28,6 +28,11 @@ export function km(lat1: number, lon1: number, lat2: number, lon2: number): numb
   return 2 * 6371 * Math.asin(Math.sqrt(a));
 }
 
+/** "Tokyo/Haneda Intl, 13, JP" → "Tokyo/Haneda Intl": the API appends a region code and the country. Pure. */
+export function stationName(raw: string): string {
+  return raw.replace(/(?:, [^,]{1,3})?, [A-Z]{2}$/, "").trim();
+}
+
 /** The nearest fresh report with a temperature, within MAX_KM. Pure. */
 export function nearest(rows: unknown, lat: number, lon: number, now: number): Observation | null {
   if (!Array.isArray(rows)) return null;
@@ -39,7 +44,7 @@ export function nearest(rows: unknown, lat: number, lon: number, now: number): O
     const d = km(lat, lon, la, lo);
     if (d > MAX_KM || (best && d >= best.distance_km)) continue;
     best = {
-      station: String(m.icaoId ?? ""), name: String(m.name ?? m.icaoId ?? "").replace(/, [A-Z]{2}, [A-Z]{2}$/, ""),
+      station: String(m.icaoId ?? ""), name: stationName(String(m.name ?? m.icaoId ?? "")),
       temp_c: t, observed_at: new Date(obs * 1000).toISOString(), distance_km: Math.round(d),
     };
   }

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { MAX_KM, km, nearest } from "../src/metar";
+import { MAX_KM, km, nearest, stationName } from "../src/metar";
 
 const NOW = Date.parse("2026-11-17T10:10:00Z");
 const at = (iso: string): number => Date.parse(iso) / 1000;
@@ -28,6 +28,14 @@ test("a stale, future-dated, temperature-less or distant report is never used", 
   assert.equal(nearest([{ ...ROWS[2], temp: null }], 51.507, -0.128, NOW), null);
   assert.equal(nearest(ROWS, 48.857, 2.352, NOW), null); // Paris: London stations are ~340 km away
   assert.ok(km(51.507, -0.128, 48.857, 2.352) > MAX_KM);
+});
+
+test("station names lose the API's region code and country", () => {
+  assert.equal(stationName("Tokyo/Haneda Intl, 13, JP"), "Tokyo/Haneda Intl");
+  assert.equal(stationName("Ulan-Bator/Khaan Arpt, 1, MN"), "Ulan-Bator/Khaan Arpt");
+  assert.equal(stationName("London City Arpt, EN, GB"), "London City Arpt");
+  assert.equal(stationName("New York/Downtown, NY, US"), "New York/Downtown");
+  assert.equal(stationName("Northolt"), "Northolt");
 });
 
 test("a body that is not a list of reports gives no observation", () => {
