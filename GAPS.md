@@ -52,6 +52,19 @@
   - **RESTORED 09:51:48 UTC** with the same wallet, hash and 44 intents (checked by id at 10:05; `watch.mjs` active).
     The record is `track1-miner/docs/evidence/devnode-reindex-2026-11-17/`. Still open: 5202 and 5203 missing at 10:04,
     and every score reset to epoch 0.
+- **First scores under 5292** (Nov 16 18:42 – Nov 17 00:40 UTC), re-imported with epoch id 0. File:
+  `track1-miner/docs/evidence/track1-diagnosis-2026-11-17/after/after-table.md`. One reading per intent; nothing is
+  attributed beyond what the timing allows.
+  - **G321: REGULATORY_FILING scored 0, rank 4/8, at 21:48 UTC**, three hours after the Federal Register release
+    (`14b6d98`, 18:50). Fix not shown to work. What the node sent at 21:48 is lost: the archiver was not scheduled
+    (G323) and Vercel keeps about an hour.
+  - **G310: GAS_PRICE still 0**, rank 7, at 21:46 UTC. Same loss of the request log.
+  - **Up:** SENTIMENT 0.6751 → 0.9426 (rank 14 → 8) after 5292 mapped `text` and added the `score`/`reason` outputs.
+    QA 0.921 → 0.9937; RESEARCH_QUERY 0.7778 → 0.9714; CRYPTO_TRANSFER 0.3765 → 0.901.
+  - **First scores:** WEB_SEARCH 0.9718 (rank 11), SECURITY_REVIEW 0.9697 (rank 9).
+  - **Down, not investigated:** CVE 1.0 → 0.77625; LANGUAGE_TRANSLATION 0.9467 → 0.7139 (5292 mapped `text` and
+    `target_language`); WEATHER_CHECK 0.7833 → 0.3917; NEWS_HEADLINES 0.9951 → 0.8225 at 00:37 UTC (Google News 429
+    seen later that morning, G326); SMART_CONTRACT_AUDIT 0.9997 → 0.9485.
 - **G328 — The restored 5292 record lists `warnings`: four node-required params with no field on our endpoint.
   `OPEN`.** CONTENT_EXTRACTION `fields`, FRAUD_DETECTION `subject`, TOKEN_HOLDER_COUNT `token`, TEXT_CLASSIFICATION
   `categories`; the node says "the request builder maps it". Candidates for the batched YAML. Score effect unknown. A forced
