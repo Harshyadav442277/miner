@@ -1,6 +1,22 @@
 # MEMORY.md — session continuity
 
-## 2026-11-17 ~07:35 UTC (13:05 IST): CURRENT — `dd95ab6` LIVE; devnode re-indexing, 5292 not yet back (G325)
+## 2026-11-17 ~08:55 UTC (14:25 IST): CURRENT — PR 33 merged (`main` = `f84ec04`); LiveCert NOT registered on the devnode
+
+- **Merged:** PR 33 on the owner's "merge the prs"; `main` now matches production (`dd95ab6` code). PR 9 is not merged:
+  it only adds `on_chain.request` to `miner.yaml`, which the docs say jobs no longer read, and it would change the
+  signed YAML. Closing it is the owner's call.
+- **Email "miner failed" = issue 34**, opened by `scores` at 08:25 UTC. Fixed in `87d939c`: the recorder exits 0
+  when the node holds no score for any miner. Green on `main`: run 44050361817. Issue 34 is closed with the cause.
+- **Still failing on purpose:** `uptime` → `watch.mjs --registration-id 5292` exits 1 (404). That is true:
+  - at 08:47 UTC 5292 is still missing, and the replay has stayed stuck at 5201 since 07:30;
+  - the catalog grows only by new registrations (1,465, a bulk registrant `0x8b22…`);
+  - all scores on the node are at epoch 0, so re-registering loses no score history;
+  - the `livecert` slug is unclaimed.
+- **Decision for the owner:** re-register now with the same YAML (`04c0e9f`, SHA-256 `3cf18081…5fb13d`, accepted
+  once on Nov 16; validate on Anjoman first), or wait for the organisers. Then set `REGISTRATION_ID`
+  (`gh variable set`) and update the skill, mission-matrix and README.
+
+## 2026-11-17 ~07:35 UTC (13:05 IST): `dd95ab6` LIVE; devnode re-indexing, 5292 not yet back (G325)
 
 - **Production:** `dd95ab6`, `miner-om2pymy89` (`dpl_2vxUyxsXF9Cbs2ryb9uDxNZUqYGm`). **Rollback:** `miner-7bx1moszs`
   (`14b6d98`), then `miner-hns8y07yw` (`04c0e9f`). Unit 1045/1045 at `dd95ab6`.
