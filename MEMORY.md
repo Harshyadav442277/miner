@@ -1,5 +1,55 @@
 # MEMORY.md — session continuity
 
+## 2026-11-17 ~07:35 UTC (13:05 IST): CURRENT — `dd95ab6` LIVE; devnode re-indexing, 5292 not yet back (G325)
+
+- **Production:** `dd95ab6`, `miner-om2pymy89` (`dpl_2vxUyxsXF9Cbs2ryb9uDxNZUqYGm`). **Rollback:** `miner-7bx1moszs`
+  (`14b6d98`), then `miner-hns8y07yw` (`04c0e9f`). Unit 1045/1045 at `dd95ab6`.
+- **Fixed:** the Federal Register answer said "X is not an SEC registrant" for brand names of registrants (Google,
+  Meta). It now says no registrant matched by name, at confidence 0.7.
+- **Network (G325):** from ~06:31 UTC the devnode rebuilt its catalog; at 07:33 UTC there were no scores (epoch 0),
+  1,455 miners, and 5292 answered 404. Registrations are coming back in id order: 5200 at 07:30.
+  - 08:00 UTC: the replay halted at registration 5201 (07:30:39); nothing from 5202 to 5300 is back. So 5292 is
+    **pending, not dropped**. **Do not re-sign** until the replay passes 5292 or the organisers answer. A new
+    signature means a new id, and scoring starts again.
+  - The `uptime` workflow may open an alarm issue on the 404; that alarm is accurate.
+  - If it stays stuck, ask the organisers. Draft for the owner to send:
+    > Hi team, since about 06:31 UTC on Nov 17 the devnode catalog looks rebuilt: scores show epoch 0, and our
+    > registration 5292 (`livecert`, active since Nov 16 18:16 UTC, YAML hash 3cf18081…) answers "miner
+    > registration not found". Is this a planned reset? Should miners re-register, or will existing registrations be
+    > restored?
+  - Look it up by registration id. Catalog id 4433 now returns another miner.
+- **Branch is unmerged:** production runs `PR/livecert-miner-track1-cec6be`; `main` still says `04c0e9f`. Merge the
+  PR before any deploy from `main`, or that deploy reverts the Federal Register path and the request logging.
+
+## 2026-11-16 ~19:00 UTC (Nov 17 00:30 IST): `14b6d98` LIVE; registration **5292** active (owner signed `04c0e9f`)
+
+- **Branch:** `PR/livecert-miner-track1-cec6be` (worktree `.claude/worktrees/livecert-miner-track1-cec6be`), cut from
+  `origin/main` `70374df`. `claude/n1-v2-ids` is fully merged (0 ahead, 67 behind `main`), so current work is `main`.
+  `tg-deploy/m-nonsdn` still holds another session's uncommitted edits; untouched.
+- **Registration 5292:** active, YAML `04c0e9f`, SHA-256 `3cf18081…5fb13d`, 44 intents, registered 18:16:14 UTC; 5232
+  superseded. The `REGISTRATION_ID` repo variable is 5292; the release skill, mission-matrix and README are updated.
+- **Production:** `14b6d98`, `miner-7bx1moszs` (`dpl_4HCYvTJQV28vZ5pdEpq1CtovBYDh`). **Rollback:** `miner-hns8y07yw`
+  (`04c0e9f`). Record: `track1-miner/docs/evidence/release-2026-11-16-federal-register/`. Unit 1045/1045. Preflight 6/7;
+  the failing live test (MET Norway closed the socket) passes when re-run alone. Deploy tree
+  `C:/Users/hyada/tg-deploy/med32fa0` at `14b6d98`.
+- **Changed:**
+  - REGULATORY_FILING counts US Federal Register documents for an entity that is not an SEC registrant.
+  - The request log carries the values of `__path`, `chain`, `record_type`, `type`, `period`, `form`,
+    `target_language` and `window_hours`.
+- **Diagnosis:** `track1-miner/docs/evidence/track1-diagnosis-2026-11-17/README.md`.
+  - Before-table from the saved leaderboards, and the decisions.
+  - Availability 99.76% over 45 sweeps; capacity 10 callers, 0 errors.
+  - Of the brief's "14 unscored", only three lack a LiveCert score: DNS (dormant since 2019), WEB_SEARCH (dormant
+    since 2097) and REGULATORY_FILING.
+- **Owner steps:**
+  - Append this line to `C:\Users\hyada\tg-deploy\scores\record.cmd`. The permission check refused it to Claude
+    twice; the script is already copied there.
+    `"C:\Program Files\nodejs\node.exe" --no-deprecation "C:\Users\hyada\tg-deploy\scores\archive-requests.mjs" "C:\Users\hyada\tg-deploy\scores\requests.jsonl" >> "C:\Users\hyada\tg-deploy\scores\record.log" 2>&1`
+  - Post OUTREACH.md §5.
+  - Confirm the bounties repo is starred.
+- **Next:** TASKS.md "Handoff 2026-11-16 ~19:00 UTC". No YAML change is pending; removals are batched for one later
+  signature.
+
 ## 2026-11-16 ~14:45 UTC (20:15 IST): CURRENT — `04c0e9f` LIVE; YAML READY FOR THE OWNER TO SIGN
 
 - **To sign (owner):** `https://raw.githubusercontent.com/Harshyadav442277/miner/04c0e9f2aef9b205e78bcd18b783e87c21b86635/track1-miner/miner.yaml`,

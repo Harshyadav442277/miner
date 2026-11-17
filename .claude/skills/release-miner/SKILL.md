@@ -10,7 +10,7 @@ A deploy is not a push, and neither one is an `updateMiner`.
 
 ## Steps
 
-1. **Land and check the commit.** It must be on `codex/rank1-14-intents` in the main checkout, by fast-forward. Unit
+1. **Land and check the commit.** It must be on a pushed branch cut from `origin/main` (since 2026-11-14 work lands on `main` by PR; `codex/rank1-14-intents` is no longer the release branch). Unit
    tests must pass on that exact tree: `npm run test:unit` in a worktree at the same commit.
 2. **Make a clean deploy tree outside OneDrive.** OneDrive sync locks break builds.
 
@@ -39,7 +39,7 @@ A deploy is not a push, and neither one is an `updateMiner`.
      - intent answers: six intents are graded as honest `not_licensed` refusals (GAPS G230), not failures;
      - upstream health: the merkle RPC answering 429 is a failover warning only.
    - Anything else failing means fix it, or roll back to the previous production URL with `vercel promote`.
-7. **Check the registration:** `node track1-miner/tools/watch.mjs --registration-id 5232 --base-url https://miner-wine.vercel.app --once`.
+7. **Check the registration:** `node track1-miner/tools/watch.mjs --registration-id 5292 --base-url https://miner-wine.vercel.app --once`.
    `--once` goes last.
 8. **Record the release** in `track1-miner/docs/evidence/release-<date>-<topic>/README.md`:
    - the build commit;

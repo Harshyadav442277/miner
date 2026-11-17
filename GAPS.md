@@ -1,5 +1,58 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-16 ~19:00 UTC (Nov 17 IST) Track 1 diagnosis; release `14b6d98` — states changed; G321–G323 new
+
+- **G320 — CLOSED.** The 96,353-byte YAML was accepted: registration 5292 carries its SHA-256.
+- **G310 updated — GAS_PRICE 0 in epoch 2107 (field top 0.4973, most at 0.333). `OPEN`.**
+  - Our value equalled `eth_gasPrice` to the wei at 18:27 UTC.
+  - No `/gas-price`-shaped line is among the Vercel log lines returned for 17:33–18:14 UTC. Not proof of absence: one
+    window hit the CLI's 50-line cap. Older lines were gone: retention is about an hour.
+  - `14b6d98` logs the route and the `chain` value. Read them in a scored epoch.
+- **G317 updated — EVENT_OUTCOME 0.0024, rank 21/38, epoch 2107.** Our answers to sports questions are an honest "no
+  market found". Removal at the next YAML is proposed, unless a licence-clean results source is found and its terms read.
+- **G321 — REGULATORY_FILING has never been scored for LiveCert; the field was scored in 2107. `ACTED ON` in `14b6d98`.**
+  - Five miners tied at 0.5, Federal Register readers among them.
+  - Fix: a Federal Register count for non-registrants. Score effect unmeasured.
+  - 5292's new `period` mapping is a second possible cause. The request log cannot separate the two (`entity` is
+    not logged).
+  - Corrected in `dd95ab6`: brand names of registrants (Google, Meta) took this path with the false sentence "is not
+    an SEC registrant". The answer now says no registrant matched by name, at confidence 0.7.
+- **G324 — EDGAR name resolution is the open REGULATORY_FILING fix. `OPEN`, pre-existing.** Google, Facebook, Meta,
+  JPMorgan and Berkshire do not resolve to their registrants (Alphabet, Meta Platforms, JPMorgan Chase, Berkshire
+  Hathaway). They now get a plausible Federal Register count instead of an EDGAR count. And "Toyota" resolves to the
+  wrong issuer, "TOYO Co., Ltd". Seen 2026-11-16 ~19:10 UTC
+  (44 filings counted for the wrong issuer). The name matcher in `edgar.ts` `resolveCik` accepts it.
+- **G326 — News is down: Google News answers production with 429. `OPEN`.** Seen 2026-11-17 ~07:40 UTC by preflight
+  and by direct probes. `/headlines` and `/news-search` returned HTTP 200 with `upstream_unavailable` or
+  `provider_unavailable`. The source is also barred for commercial use (G189).
+  - Owner decision: replace the source, or remove NEWS_SEARCH and NEWS_HEADLINES (0 missions each; WEB_SEARCH, 15
+    missions, also reads it).
+- **G327 — Failures are sent as HTTP 200 on purpose (handler.ts `upstreamUnavailable`), against the owner's brief.
+  `OPEN`.** The engine scores any non-2xx as 0.
+  - The yaml-config docs offer `errors.status_path` / `success_values`. With them the node treats a 200 body as a
+    failure: "your caller is not charged, and no signal is recorded"; "a path that does not resolve is never a failure".
+  - Candidate for the batched YAML: `errors: { status_path: error, … }`. Its effect on scoring is undocumented.
+- **G325 — The devnode re-indexed its catalog on 2026-11-17 from ~06:31 UTC. `OPEN`.** At 07:31 UTC all scores read
+  epoch 0 and 1,455 miners were listed (2,173 before). Registrations come back in id order (3000 at 06:36, 5000 at
+  07:24, 5200 at 07:30), and 5292 answered 404 at 07:32. Cause not announced in anything read.
+  - **07:58 UTC:** still 404 after a 25-minute watch. The catalog has not grown since 07:31 (1,455 miners; newest
+    `registered_at` 07:30:39). 5240, 5283 and 5291 are also missing.
+  - **08:00 UTC, corrected reading:** the replay halted at 5201 (07:30:39). No id from 5202 to 5300 resolves, and
+    none of yesterday's active slugs above 5200 is back. So 5292 is **pending, not dropped**: the node has not
+    reached it. The chain was not read: no registration getter is documented, and `cast` is not installed.
+  - The pre-reset catalog (18:22 UTC Nov 16) is saved at
+    `C:/Users/hyada/tg-deploy/scores/miners-2026-11-16T1822Z-pre-reset.json`.
+  - The docs' what-changed page served no text to curl.
+  - Next: check again. If the replay stays stuck, the owner asks the organisers (draft in MEMORY). **Do not re-sign
+    before that:** a new signature means a new id, and scoring starts again. A forced
+    re-registration is the moment to send the batched YAML.
+- **G322 — The availability record is thin. `OPEN`.** 45 sweeps from 2026-11-04 to 11-16, although `uptime` is
+  scheduled every 30 minutes. Only p50 and p90 are computed, not p95.
+- **G323 — The request-log archiver is not scheduled. `OPEN`, owner action.** Appending it to `record.cmd` was refused
+  twice by the permission check. Until it runs, log lines older than about an hour are lost.
+- **Assumption, not verified:** Federal Register documents are public domain as US Government works (17 U.S.C. 105).
+  The developer page, read 2026-11-16, confirms no API key is needed; the legal-status page was not read.
+
 ## 2026-11-16 ~14:45 UTC (20:15 IST) YAML prepared for signature; epoch 2105 — states changed; G317–G320 new
 
 - **YAML ready, not signed:** `track1-miner/docs/evidence/yaml-for-signature-2026-11-16/`, URL pinned at `04c0e9f`,

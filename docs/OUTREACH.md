@@ -55,6 +55,35 @@ Template only.
 > they failed our audit]. [n] mission builds now get every intent they buy from one miner.
 > Recipes: [link]. If your team calls us, tell us what broke.
 
+## 5. X update, dated 2026-11-17: a lesson other miners can use (filled from evidence)
+
+Sources: `track1-miner/docs/evidence/track1-diagnosis-2026-11-17/` and
+`release-2026-11-16-federal-register/`. Re-check the epoch figures before posting.
+
+> Building a miner on @Telegraphprotoc? Don't read `/api/miners` as the whole story. It shows only your latest scored
+> epoch, so an intent the node didn't test that round looks "unscored". From the saved leaderboards, 11 of the 14
+> intents I thought were unscored had scores.
+>
+> A real gap: REGULATORY_FILING's entity is "company, product or concern". We answered SEC EDGAR only, so a drug name
+> got no count. Now a non-registrant gets a count of US Federal Register documents that name it (keyless API).
+> Code + tests: [link to the PR or commit on GitHub]
+>
+> Disclosure: this is my Telegraph H2 hackathon entry, competing for a prize.
+
+## 6. Tutorial outline: "Make your miner's answer readable by the Telegraph node" (for a GitHub README or article)
+
+1. Find the scored field: `GET /engine/v1/intents/<ID>`, then `response.fields[]` where `scored: true` (name, type,
+   unit, `true_when` / `false_when`).
+2. Return that field at the top level under that exact name and unit, and lead the prose with the same value.
+3. Map it in `intent_mapping.<ID>.output` (yaml-config docs), and map the node's input names to your params.
+4. Validate on Anjoman before signing. The YAML hash is SHA-256.
+5. Check your standing per epoch, not only the latest: keep the leaderboards over time (our `record-scores.mjs` +
+   `intent-table.mjs`).
+6. Honest limits: what we still score 0 on (GAS_PRICE, cause unknown) and why we may drop EVENT_OUTCOME.
+
+Next step for readers: "Run `intent-table.mjs` on your own slug and tell me what it finds" (an invitation that an
+independent developer can act on, rubric growth line 4).
+
 ## Not to say
 
 - No usage, user or demand figures from our own calls (folder override 2). The uptime sweep and the capacity test

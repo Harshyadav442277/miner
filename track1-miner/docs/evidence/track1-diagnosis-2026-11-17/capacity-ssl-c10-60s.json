@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-16T18:49:05.743Z",
+  "url": "https://miner-wine.vercel.app/ssl-check?query={domain}",
+  "concurrency": 10,
+  "seconds": 60,
+  "requests": 1691,
+  "per_second": 28.18,
+  "errors": 0,
+  "error_rate": 0,
+  "served_from_cache": 1151,
+  "statuses": {
+    "200": 1691
+  },
+  "p50_ms": 301,
+  "p90_ms": 429,
+  "p99_ms": 1385,
+  "max_ms": 3437,
+  "uncached": 540,
+  "uncached_p50_ms": 315,
+  "uncached_p90_ms": 495,
+  "uncached_p99_ms": 3312
+}

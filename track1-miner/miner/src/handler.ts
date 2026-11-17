@@ -443,14 +443,26 @@ function handleInContext(req: IncomingMessage, res: ServerResponse): void {
   }
 }
 
+/**
+ * Parameters whose values are a route or a choice from a short list, never a person's text: logged with their
+ * value, so a score of 0 can be read against what the node actually sent (GAS_PRICE, GAPS G310). Pure.
+ */
+const LOGGED_VALUES = new Set(["__path", "chain", "record_type", "type", "period", "form", "target_language", "window_hours"]);
+export function logParam(name: string, raw: string): string {
+  const v = raw.trim();
+  if (!v) return `${name}=EMPTY`;
+  return LOGGED_VALUES.has(name) ? `${name}=${v.slice(0, 40).replace(/[^\w .:/-]/g, "_")}` : name;
+}
+
 function route(req: IncomingMessage, res: ServerResponse): void {
-  // Off by default. When enabled, record parameter names only—never user text.
+  // Off by default. When enabled, record parameter names, and values only for route and short-list params
+  // (logParam)—never user text.
   // An empty value is marked, because "the engine sent text=" and "the engine
   // sent nothing" are different diagnoses (epoch 290's translate refusal).
   if (process.env.LOG_QUERY === "on") {
     const u = new URL(req.url ?? "/", "http://localhost");
     const names = [...new Set(u.searchParams.keys())]
-      .map((k) => ((u.searchParams.get(k) ?? "").trim() ? k : `${k}=EMPTY`))
+      .map((k) => logParam(k, u.searchParams.get(k) ?? ""))
       .join(",");
     const line = names ? `${u.pathname}?[${names}]` : u.pathname;
     process.stdout.write(`REQ ${req.method ?? "?"} ${line}\n`);
