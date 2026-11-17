@@ -241,7 +241,7 @@ endpoints:
           - name: fields
             type: string
             intents: ["*"]
-            description: "The fields to extract, comma-separated, e.g. merchant, date, total."
+            description: "Fields to extract, e.g. merchant, date, total."
           - name: query
             type: string
             intents: ["*"]
@@ -565,7 +565,7 @@ endpoints:
           - name: subject
             type: string
             intents: ["*"]
-            description: "What to assess, as the intent names it: an address, URL, message or paper title."
+            description: "What to assess; same as address."
           - name: query
             type: string
             intents: ["*"]
@@ -608,7 +608,7 @@ endpoints:
           - name: token
             type: string
             intents: ["*"]
-            description: "Token contract address or name, e.g. 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 or USDC."
+            description: "Contract address or symbol."
           - name: chain
             type: string
             intents: ["*"]
@@ -937,11 +937,11 @@ endpoints:
           - name: categories
             type: string
             intents: ["*"]
-            description: "The candidate labels as a comma-separated list; same as labels."
+            description: "Same as labels."
           - name: query
             type: string
             intents: ["*"]
-            description: "The user's original question, verbatim, including the labels and the quoted passage when they are not sent separately."
+            description: "The question, verbatim, with the labels and passage when not sent separately."
 
   - path: /research-synthesis
     external_path: /research-synthesis
@@ -1101,9 +1101,8 @@ endpoints:
       names, and the document URL), recent_filings (up to five), and for a 10-Q,
       10-K or 20-F the figures tagged in that filing's XBRL: revenue, gross
       profit, gross margin, operating income and net income for its period, with
-      prior_year_figures for the same period a year earlier. A name that matches
-      no SEC registrant (a product, drug or concern) is counted in the US Federal
-      Register instead, with register set to Federal Register.
+      prior_year_figures for the same period a year earlier. A name matching no
+      SEC registrant is counted in the US Federal Register instead.
     params:
       query:
         required:
@@ -1605,8 +1604,6 @@ intent_mapping:
     output:
       brief: { path: brief }
       translation: { path: translation }
-      source_language: { path: source_language }
-      target_language: { path: target_language }
   ACADEMIC_SEARCH_GENERAL:
     endpoint: /papers
     input:
