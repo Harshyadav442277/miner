@@ -65,7 +65,7 @@ Sources: `track1-miner/docs/evidence/track1-diagnosis-2026-11-17/` and
 > intents I thought were unscored had scores.
 >
 > A real gap: REGULATORY_FILING's entity is "company, product or concern". We answered SEC EDGAR only, so a drug name
-> got no count. Now a non-registrant gets a count of US Federal Register documents (keyless API, public domain).
+> got no count. Now a non-registrant gets a count of US Federal Register documents that name it (keyless API).
 > Code + tests: [link to the PR or commit on GitHub]
 >
 > Disclosure: this is my Telegraph H2 hackathon entry, competing for a prize.

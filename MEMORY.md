@@ -1,6 +1,19 @@
 # MEMORY.md — session continuity
 
-## 2026-11-16 ~19:00 UTC (Nov 17 00:30 IST): CURRENT — `14b6d98` LIVE; registration **5292** active (owner signed `04c0e9f`)
+## 2026-11-17 ~07:35 UTC (13:05 IST): CURRENT — `dd95ab6` LIVE; devnode re-indexing, 5292 not yet back (G325)
+
+- **Production:** `dd95ab6`, `miner-om2pymy89` (`dpl_2vxUyxsXF9Cbs2ryb9uDxNZUqYGm`). **Rollback:** `miner-7bx1moszs`
+  (`14b6d98`), then `miner-hns8y07yw` (`04c0e9f`). Unit 1045/1045 at `dd95ab6`.
+- **Fixed:** the Federal Register answer said "X is not an SEC registrant" for brand names of registrants (Google,
+  Meta). It now says no registrant matched by name, at confidence 0.7.
+- **Network (G325):** from ~06:31 UTC the devnode rebuilt its catalog; at 07:33 UTC there were no scores (epoch 0),
+  1,455 miners, and 5292 answered 404. Registrations are coming back in id order: 5200 at 07:30.
+  - If 5292 does not return, the owner must re-register (sign).
+  - Look it up by registration id. Catalog id 4433 now returns another miner.
+- **Branch is unmerged:** production runs `PR/livecert-miner-track1-cec6be`; `main` still says `04c0e9f`. Merge the
+  PR before any deploy from `main`, or that deploy reverts the Federal Register path and the request logging.
+
+## 2026-11-16 ~19:00 UTC (Nov 17 00:30 IST): `14b6d98` LIVE; registration **5292** active (owner signed `04c0e9f`)
 
 - **Branch:** `PR/livecert-miner-track1-cec6be` (worktree `.claude/worktrees/livecert-miner-track1-cec6be`), cut from
   `origin/main` `70374df`. `claude/n1-v2-ids` is fully merged (0 ahead, 67 behind `main`), so current work is `main`.

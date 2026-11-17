@@ -21,19 +21,29 @@ const vercel = process.platform === "win32" ? "vercel.cmd" : "vercel";
 
 const seen = new Set(existsSync(out) ? readFileSync(out, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l).id) : []);
 const now = Date.now();
+const CAP = 50; // the CLI returned at most 50 lines per call whatever --limit said (2026-11-16)
 let added = 0;
-for (let t = now - minutes * 60_000; t < now; t += 5 * 60_000) {
-  const since = new Date(t).toISOString();
-  const until = new Date(Math.min(t + 5 * 60_000, now)).toISOString();
+let truncated = 0;
+/** Lines in [a, b). A window that comes back full is split in half until it is under the cap or 30 s wide. */
+function fetchWindow(a, b) {
+  const since = new Date(a).toISOString();
+  const until = new Date(b).toISOString();
   let raw = "";
   try {
     raw = execFileSync(vercel, ["logs", "--project", project, "--scope", scope, "--environment", "production",
       "--since", since, "--until", until, "--limit", "100", "--json"], { encoding: "utf8", timeout: 60_000, stdio: ["ignore", "pipe", "ignore"], shell: process.platform === "win32" });
   } catch (e) {
     console.error(`${since}: ${e.message.split("\n")[0]}`);
-    continue;
+    return [];
   }
-  for (const line of raw.split("\n").filter((l) => l.startsWith("{"))) {
+  const lines = raw.split("\n").filter((l) => l.startsWith("{"));
+  if (lines.length < CAP) return lines;
+  if (b - a <= 30_000) { truncated++; return lines; }
+  const mid = a + Math.floor((b - a) / 2);
+  return [...fetchWindow(a, mid), ...fetchWindow(mid, b)];
+}
+for (let t = now - minutes * 60_000; t < now; t += 5 * 60_000) {
+  for (const line of fetchWindow(t, Math.min(t + 5 * 60_000, now))) {
     const l = JSON.parse(line);
     if (seen.has(l.id)) continue;
     seen.add(l.id);
@@ -42,4 +52,5 @@ for (let t = now - minutes * 60_000; t < now; t += 5 * 60_000) {
     added++;
   }
 }
-console.log(`${new Date(now).toISOString()} archived ${added} new request lines to ${out}`);
+console.log(`${new Date(now).toISOString()} archived ${added} new request lines to ${out}` +
+  (truncated ? `; ${truncated} 30-second window(s) still hit the ${CAP}-line cap, so lines may be missing` : ""));

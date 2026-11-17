@@ -23,7 +23,7 @@ day of submission.
 2. **0:30–1:30, one real request through Telegraph.**
    - Show the request and the answer.
    - The answer opens with the direct sentence. The scored field follows under the intent's own name (`filing_count`,
-     `gas_price_gwei`, `match`), then `checked_at` and a `receipt` of every upstream read.
+     `gas_price_gwei`, `matched`), then `checked_at` and a `receipt` of every upstream read.
 3. **1:30–2:30, check it yourself.**
    - Open the receipt's upstream URL: SEC EDGAR, the Federal Register, or an RPC `eth_gasPrice`.
    - Show the value matches. Then show a refusal: a malformed address gets an error that teaches the contract, not a guess.

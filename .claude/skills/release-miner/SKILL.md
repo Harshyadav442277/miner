@@ -10,7 +10,7 @@ A deploy is not a push, and neither one is an `updateMiner`.
 
 ## Steps
 
-1. **Land and check the commit.** It must be on `codex/rank1-14-intents` in the main checkout, by fast-forward. Unit
+1. **Land and check the commit.** It must be on a pushed branch cut from `origin/main` (since 2026-11-14 work lands on `main` by PR; `codex/rank1-14-intents` is no longer the release branch). Unit
    tests must pass on that exact tree: `npm run test:unit` in a worktree at the same commit.
 2. **Make a clean deploy tree outside OneDrive.** OneDrive sync locks break builds.
 

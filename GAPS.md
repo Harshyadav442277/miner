@@ -5,14 +5,23 @@
 - **G320 — CLOSED.** The 96,353-byte YAML was accepted: registration 5292 carries its SHA-256.
 - **G310 updated — GAS_PRICE 0 in epoch 2107 (field top 0.4973, most at 0.333). `OPEN`.**
   - Our value equalled `eth_gasPrice` to the wei at 18:27 UTC.
-  - Vercel logs from 17:33 to 18:14 UTC show no `/gas-price` call. Older lines were gone: retention is about an hour.
+  - No `/gas-price`-shaped line is among the Vercel log lines returned for 17:33–18:14 UTC. Not proof of absence: one
+    window hit the CLI's 50-line cap. Older lines were gone: retention is about an hour.
   - `14b6d98` logs the route and the `chain` value. Read them in a scored epoch.
 - **G317 updated — EVENT_OUTCOME 0.0024, rank 21/38, epoch 2107.** Our answers to sports questions are an honest "no
   market found". Removal at the next YAML is proposed, unless a licence-clean results source is found and its terms read.
 - **G321 — REGULATORY_FILING has never been scored for LiveCert; the field was scored in 2107. `ACTED ON` in `14b6d98`.**
   - Five miners tied at 0.5, Federal Register readers among them.
   - Fix: a Federal Register count for non-registrants. Score effect unmeasured.
-  - 5292's new `period` mapping is a second possible cause. The request log will separate the two.
+  - 5292's new `period` mapping is a second possible cause. The request log cannot separate the two (`entity` is
+    not logged).
+  - Corrected in `dd95ab6`: brand names of registrants (Google, Meta) took this path with the false sentence "is not
+    an SEC registrant". The answer now says no registrant matched by name, at confidence 0.7.
+- **G324 — "Toyota" resolves to "TOYO Co., Ltd" on EDGAR. `OPEN`, pre-existing.** Seen 2026-11-16 ~19:10 UTC
+  (44 filings counted for the wrong issuer). The name matcher in `edgar.ts` `resolveCik` accepts it.
+- **G325 — The devnode re-indexed its catalog on 2026-11-17 from ~06:31 UTC. `OPEN`.** At 07:31 UTC all scores read
+  epoch 0 and 1,455 miners were listed (2,173 before). Registrations come back in id order (3000 at 06:36, 5000 at
+  07:24, 5200 at 07:30), and 5292 answered 404 at 07:32. Cause not announced in anything read.
 - **G322 — The availability record is thin. `OPEN`.** 45 sweeps from 2026-11-04 to 11-16, although `uptime` is
   scheduled every 30 minutes. Only p50 and p90 are computed, not p95.
 - **G323 — The request-log archiver is not scheduled. `OPEN`, owner action.** Appending it to `record.cmd` was refused

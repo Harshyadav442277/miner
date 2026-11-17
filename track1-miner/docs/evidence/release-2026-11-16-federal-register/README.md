@@ -31,7 +31,13 @@
 
 ## Not verified
 
-- The score effect. REGULATORY_FILING has never been scored for LiveCert; 5292 also adds the `period` mapping, so the
-  request log (route and `period` values) is what will separate the two causes.
+- The score effect. REGULATORY_FILING has never been scored for LiveCert, and 5292 also adds the `period` mapping. The
+  request log cannot separate the two causes: `entity` is rightly not logged, so the log does not show which register
+  answered.
+- **Corrected in `dd95ab6`** (production `miner-om2pymy89`, 2026-11-17 ~07:25 UTC). Production probes after this
+  release showed brand names of registrants (Google, Facebook, Meta, JPMorgan, Berkshire) taking the Federal Register
+  path with the false sentence "X is not an SEC registrant". The answer now says no registrant matched by name, at
+  confidence 0.7. Counts are full-text matches: "Meta" counted 115 documents, some unrelated.
+- Pre-existing, not from this release: "Toyota" resolves to "TOYO Co., Ltd" on EDGAR (GAPS G324).
 - Which entities the node's tests use. Leaders at 0.5 in epoch 2107 (txlens, reg-fedreg-search) read the Federal
   Register; zk-filing, which counts EDGAR, scored 0.
