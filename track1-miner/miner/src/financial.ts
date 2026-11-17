@@ -34,7 +34,7 @@
  * and presented as the ratio.
  */
 
-import { getFundamentals, knownCompany, marketCap, metricAsked } from "./fundamentals";
+import { getFundamentals, knownCompany, marketCapValue, metricAsked } from "./fundamentals";
 import type { FundamentalFigures } from "./fundamentals";
 import { knownAsset, type Asset } from "./cryptoprice";
 import { notLicensedReason, permitted } from "./sources";
@@ -84,6 +84,24 @@ export type MarketFigures = Record<string, string | number | null>;
 const num = (n: number): number | null => (Number.isFinite(n) ? n : null);
 /** A provider value as a field: null stays null rather than becoming Number(null) === 0. */
 const field = (v: unknown): number | null => (v === null || v === undefined || v === "" ? null : num(Number(v)));
+
+/**
+ * The declared `symbol`, as a ticker. FINANCIAL_DATA's `asset` ("Company, token or market") is mapped onto it, so
+ * it often holds a name. Any word of one to six letters passed the ticker check, so "Apple", "Tesla", "NVIDIA" and
+ * "Solana" were looked up as tickers and found nothing (production, 2026-11-17), while "Bitcoin" worked only because
+ * it has seven letters. A name in the company or coin table becomes that ticker or coin symbol; anything else
+ * is upper-cased as before. Pure.
+ */
+export function declaredSymbol(raw: string): string {
+  const s = String(raw ?? "").trim();
+  const upper = s.toUpperCase();
+  if (!s || /^[A-Z][A-Z.-]{0,5}$/.test(s) && s === upper && s.length <= 4) return upper; // already a ticker: AAPL, BTC
+  const company = knownCompany(s);
+  if (company) return company;
+  const coin = knownAsset(s);
+  if (coin) return coin.symbol;
+  return upper;
+}
 
 /** An EVM contract address makes the question a token question outright. */
 export function contractAddress(text: string): string | null {
@@ -528,7 +546,7 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
   }
 
   const named = companyName(query);
-  const declared = String(symbolParam ?? "").trim().toUpperCase();
+  const declared = declaredSymbol(symbolParam);
   const declaredOk = /^[A-Z][A-Z.-]{0,5}$/.test(declared);
 
   // A coin named in words. The asset table also matches ordinary words ("etc" is
@@ -583,10 +601,14 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
     if (f.status === "outage") filingsOutage = f.label;
   }
   const eq = await equityData(query, ticker, filingsOutage);
-  if (eq.verdict === "financial_data" && eq.subject === "equity" && /\bmarket\s*cap(?:itali[sz]ation)?\b/i.test(query)) {
+  if (eq.verdict === "financial_data" && eq.subject === "equity") {
+    // Every stock answer carries its market cap: FINANCIAL_DATA scores `market_cap_usd`, and the node sends the
+    // asset alone, never the words "market cap".
     const price = Number(eq.data?.["price"]);
-    const cap = await marketCap(ticker, price, String(eq.data?.["currency"] ?? "")).catch(() => null);
-    return { ...eq, reason: `${eq.reason} ${cap ?? "The market capitalisation was not retrieved: the shares outstanding could not be read from its SEC filings."}` };
+    const cap = await marketCapValue(ticker, price, String(eq.data?.["currency"] ?? "")).catch(() => null);
+    const asked = /\bmarket\s*cap(?:itali[sz]ation)?\b/i.test(query);
+    if (cap) return { ...eq, data: { ...(eq.data ?? {}), market_cap: cap.usd }, reason: `${eq.reason} ${cap.text}` };
+    if (asked) return { ...eq, reason: `${eq.reason} The market capitalisation was not retrieved: the shares outstanding could not be read from its SEC filings.` };
   }
   // A P/E asked on its own: the market data already holds the price, so only the EPS is fetched.
   if (eq.verdict === "financial_data" && asksFundamentals(query).includes("price-to-earnings ratio")) {
