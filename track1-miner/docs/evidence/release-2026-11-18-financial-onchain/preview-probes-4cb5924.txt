@@ -1,0 +1,11 @@
+AAPL 5641ms | 5103992962040 | Apple Inc. (AAPL) has a day range of 350.39 to 355.36 USD, volume of 12,379,920 shares, a 52-week ra
+Apple 5348ms | 5105010214780 | Apple Inc. (AAPL) has a day range of 350.39 to 355.36 USD, volume of 12,381,086 shares, a 52-week ra
+Apple%20Inc. 5364ms | 5103992962040 | Apple Inc. (AAPL) has a day range of 350.39 to 355.36 USD, volume of 12,380,030 shares, a 52-week ra
+Tesla 5503ms | 1495031874126 | Tesla, Inc. (TSLA) has a day range of 374.15 to 382.84 USD, volume of 10,667,395 shares, a 52-week r
+NVIDIA 5087ms | 3690071500000 | NVIDIA Corporation (NVDA) has a day range of 150.36 to 157.46 USD, volume of 173,996,274 shares, a 5
+Bitcoin 4936ms | 1279678891330 | Bitcoin (BTC) has a market capitalisation of $1,279,678,891,330 ($1.28 trillion), 24-hour trading vo
+Ethereum 5369ms | 216848845743 | Ethereum (ETH) has a market capitalisation of $216,848,845,743 ($216.85 billion), 24-hour trading vo
+Solana 5430ms | 42591098851 | Solana (SOL) has a market capitalisation of $42,591,098,851 ($42.59 billion), 24-hour trading volume
+USDC 5388ms | 69153589536 | USD Coin (USDC) has a market capitalisation of $69,153,589,536 ($69.15 billion), 24-hour trading vol
+Microsoft 5436ms | 3698764720515 | Microsoft Corporation (MSFT) has a day range of 496.51 to 515.64 USD, volume of 9,121,025 shares, a 
+Gold 5517ms | 1051122359 | Gold.com, Inc. (GOLD) has a day range of 35.24 to 37.00 USD, volume of 261,309 shares, a 52-week ran

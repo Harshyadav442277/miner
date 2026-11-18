@@ -1,0 +1,12 @@
+== onchain-metric?address=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&block=21000000&chain=ethereum&metric=balance
+{"answer":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045's ETH balance at block 21,000,000 on Ethereum is 1,146.64 ETH (exact: 1146.641417679066653164).","verdict":"verified","value":"1146.641417679066653164","raw":"1146641417679066653164"}
+== onchain-metric?address=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&block=21000000
+{"answer":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045's ETH balance at block 21,000,000 on Ethereum (no chain was named, so Ethereum was read) is 1,146.64 ETH (exact: 1146.641417679","verdict":"verified","value":"1146.641417679066653164","raw":"1146641417679066653164"}
+== onchain-metric?address=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&block=60000000&chain=polygon&metric=balance
+{"answer":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045's POL balance at block 60,000,000 on Polygon is 460.69 POL (exact: 460.687590105346755809).","verdict":"verified","value":"460.687590105346755809","raw":"460687590105346755809"}
+== onchain-metric?address=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&block=21000000&metric=tx_count
+{"answer":"No readable on-chain value was named.","verdict":"insufficient_input","value":null,"raw":null}
+== financial?symbol=Apple
+{"answer":"Apple Inc. (AAPL) has a day range of 349.67 to 355.36 USD, volume of 36,248,936 shares, a 52-week range of 243.42 to 360.83 USD, a change of +0.98% against the previous c","verdict":"financial_data","mcap":5114020167620}
+== token-supply?token=USDC
+{"answer":"USDC's total supply on Ethereum at block 26440790 (no chain was named, so Ethereum was read) is 44,466,387,209.1 USDC (exact: 44466387209.099206).","verdict":"verified","supply":44466387209.099205}
