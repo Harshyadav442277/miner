@@ -1,0 +1,26 @@
+[
+ {
+  "id": "vv-p1",
+  "query": "Is VAT number IE6388047V valid for Google Ireland Limited?",
+  "params": {
+   "vendor": "Google Ireland Limited",
+   "vat_number": "IE6388047V"
+  }
+ },
+ {
+  "id": "vv-p2",
+  "query": "Is VAT number LU20260743 valid for Amazon EU SARL?",
+  "params": {
+   "vendor": "Amazon EU SARL",
+   "vat_number": "LU20260743"
+  }
+ },
+ {
+  "id": "vv-p3",
+  "query": "Is VAT number IE9999999ZZ valid for Example Trading Limited?",
+  "params": {
+   "vendor": "Example Trading Limited",
+   "vat_number": "IE9999999ZZ"
+  }
+ }
+]

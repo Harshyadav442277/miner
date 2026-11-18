@@ -1,0 +1,11 @@
+{
+ "file": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\track2-email-security-evaluator-303326\\track2\\adapter\\vendor_verify\\holdout\\pilot.json",
+ "kind": "queries",
+ "sha256": "dab411b6926a8990e07395a53f887fc56b11aeff99645837748d22e8d8f403bf",
+ "rows": 3,
+ "family": "VENDOR_VERIFY",
+ "sources": "hand-picked: two published EU VAT numbers (Google Ireland, Amazon EU) and one invented-format number",
+ "note": "3-query pilot before any answer is seen; decides only which miners to skip and whether wrong answers are spread across services.",
+ "created_at": "2026-11-18T09:51:57.968454+00:00",
+ "git_head": "0ff25fa2d4bbae194a5b4bbeeedfb85fa25cce70"
+}
