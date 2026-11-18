@@ -308,29 +308,25 @@ endpoints:
     intents: [ONCHAIN_TX_LOOKUP_GENERAL]
     description: >-
       On-chain activity, asked about a transaction or about an address. Example
-      questions: "Did transaction 0x… succeed, and who sent it to whom?", "When was
-      contract 0x… deployed and how many transactions does it have?". For a
+      questions: "Did transaction 0x… succeed, and who sent it to whom?", "When
+      was contract 0x… deployed and how many transactions does it have?". For a
       transaction it returns verdict and a transaction object with status, from,
       to, value_wei, value, symbol, block_number, block_hash, receipt_status,
-      method, gas_used, fee_wei, confirmations, base_fee_wei and base_fee_burned,
-      which is true on Ethereum and Polygon, where the EIP-1559 base fee is burned,
-      and false on rollups, where it is paid to the sequencer. A
-      transaction is read by hash from public JSON-RPC on Ethereum, Base, Arbitrum,
-      Optimism, Polygon, BNB Chain or Avalanche; where no chain is named every one
-      of them is searched rather than one being assumed. It reports confirmed,
-      reverted, pending or not found, with the sender and recipient, value moved,
-      total fee, the base fee and whether it was burned, confirmations, gas used,
-      block number, any contract
-      deployed and the count of ERC-20 transfers in the receipt. An address is
-      answered from the chain and its block explorer on Ethereum, Base, Arbitrum,
-      Optimism or Polygon: whether it is a contract, an externally owned account,
-      or an account carrying an EIP-7702 delegation; when a contract was deployed;
-      how many transactions are recorded against it; how many an account has sent;
-      and when it was last active, where a recency read the index could not date is
-      reported as undated rather than as inactive. On Ethereum an explorer outage
-      fails over to a second index whose count is attributed and may trail the
-      chain. A reverted transaction is reported as reverted, not as a failure to
-      answer; an RPC or explorer that does not respond is reported as unknown rather
+      method, gas_used, fee_wei, confirmations, base_fee_wei and
+      base_fee_burned, true where the EIP-1559 base fee is burned (Ethereum,
+      Polygon), false on rollups. A transaction is read by hash from public
+      JSON-RPC on Ethereum, Base, Arbitrum, Optimism, Polygon, BNB Chain or
+      Avalanche; where no chain is named every one of them is searched rather
+      than one being assumed. An address is answered from the chain and its
+      block explorer on Ethereum, Base, Arbitrum, Optimism or Polygon: whether
+      it is a contract, an externally owned account, or an account carrying an
+      EIP-7702 delegation; when a contract was deployed; how many transactions
+      are recorded against it; how many an account has sent; and when it was
+      last active, where a recency read the index could not date is reported as
+      undated rather than as inactive. On Ethereum an explorer outage fails over
+      to a second index whose count is attributed and may trail the chain. A
+      reverted transaction is reported as reverted, not as a failure to answer;
+      an RPC or explorer that does not respond is reported as unknown rather
       than as not found, because those are different facts; and a chain this
       endpoint does not read is named as unsupported rather than answered from a
       different chain.
@@ -1491,6 +1487,10 @@ endpoints:
     params:
       query:
         optional:
+          - name: metric
+            type: string
+            intents: ["*"]
+            description: "balance (native coin, the default) or tx_count."
           - name: chain
             type: string
             intents: ["*"]
@@ -1762,10 +1762,17 @@ intent_mapping:
       has_record: { path: has_record }
   TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL:
     endpoint: /token-supply
+    input:
+      token: { from: token }
     output:
       total_supply: { path: total_supply }
   ONCHAIN_METRIC_VERIFY_GENERAL:
     endpoint: /onchain-metric
+    input:
+      address: { from: address }
+      block: { from: block }
+      chain: { from: chain }
+      metric: { from: metric }
     output:
       balance_gwei: { path: balance_gwei }
   CHAT_COMPLETION_GENERAL:
