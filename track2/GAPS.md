@@ -4,6 +4,22 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G52 — post-reset pilots: VENDOR_VERIFY and CONTRACT_OBLIGATION_AUDIT split right/wrong by service (2026-11-18) — CLOSED
+
+Pilots frozen before capture (`475230b`, `fdd66a0`); captures `tg-eval/captures/vendor-pilot-20261118`, `contract-pilot-20261118`.
+Chosen because the prompt or a primary source carries the truth (EU VIES for VAT validity; the contract text itself).
+
+- **CONTRACT_OBLIGATION_AUDIT** (9 miners): 3 services audit the given contract (a1-preflight, txlens, zk-contract-spans, the
+  former champion author's) and extracted the obligations correctly on all 3 queries. 5 return unrelated government data
+  (USAspending, Federal Register, Crossref, Chicago POs); factwire declares no endpoint.
+- **VENDOR_VERIFY** (17 miners): a1-preflight and praman-compliance answer valid/valid/invalid, and txlens answers in prose.
+  Three VIES wrappers on one proxy host return a fixed id (DE811569869, `id_valid` 1) whatever is asked, and one more
+  answers 502. Nine sanctions or registry feeds answer a different question (the schema says `valid` is not sanctions).
+- **Both:** right answers come from 2–3 services and wrong ones from fixed-behaviour services, so identity predicts the label
+  (the G44–G48 cause). No full capture, no training. CONTENT_MODERATION has 0 miners (no real answers exist), and
+  PRODUCT_AUTHENTICITY has no primary source for `authentic`.
+- Reopen if a fresh pilot shows wrong answers from four or more services that do answer the question.
+
 ## G51 — the devnode registry was reset on 2026-11-17 (observed 07:22 UTC) — `OPEN`
 
 - `/api/epoch`: `current_epoch` 0, 3 h epochs (2107 on Nov 16). `/api/wasm`: `{"count":0,"intents":{}}`. `/api/miners`: 1,283 then
