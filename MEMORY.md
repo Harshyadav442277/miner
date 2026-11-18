@@ -1,5 +1,21 @@
 # MEMORY.md — session continuity
 
+## 2026-11-18 ~09:30 UTC (15:00 IST): CURRENT — `1c2a564` LIVE; serving as 5292; YAML `ac8d59e` ready to sign
+
+- **Production:** `1c2a564`, `miner-ngeicaq66` (`dpl_Cp6AhS1YnvcaYgJ8Z474m6CeyJgh`). **Rollback:** `miner-bb4rttgjq`
+  (`4cb5924`). Unit 1055/1055. Contains the FINANCIAL_DATA fix (G333) and the ONCHAIN_METRIC `metric` param (G335).
+- **Epoch 8:**
+  - FINANCIAL_DATA rank 1 (0.9938); EVENT_OUTCOME 0.987; WEATHER_CHECK 0.625; translation 0.92.
+  - Four on-chain intents at 0 (G335); GAS and REGULATORY at 0 for the whole field.
+  - Table: `track1-miner/docs/evidence/track1-diagnosis-2026-11-17/epoch8-table.json`.
+- **Owner to sign:** `track1-miner/docs/evidence/yaml-for-signature-2026-11-18/README.md`. Pinned at `ac8d59e`,
+  SHA-256 `0x794a11c9…7fa7c8`, 96,982 bytes. It adds input mappings for ONCHAIN_METRIC and TOKEN_TOTAL_SUPPLY to
+  the Nov 17 changes.
+- **Registration:** 5301 (signed Nov 17) is still not on the node (G334). The node serves `04c0e9f` as 5292.
+  `REGISTRATION_ID` stays 5292 until a new id is on the node.
+- **Branch:** `PR/financial-market-cap-2026-11-17` holds `4cb5924`, `1c2a564` and `ac8d59e`. It is merged by PR, so
+  `main` matches production.
+
 ## 2026-11-17 ~17:00 UTC (22:30 IST): CURRENT — `4cb5924` LIVE; 5301 signed but not indexed; serving as 5292
 
 - **Production:** `4cb5924`, `miner-bb4rttgjq` (`dpl_AuZPKbjHRVwW5qygrzcCv6QRx8Y3`). **Rollback:** `miner-fudhplzsd`

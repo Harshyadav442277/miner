@@ -1,0 +1,322 @@
+[
+ {
+  "i": "ONCHAIN_METRIC_VERIFY_GENERAL",
+  "ep": 8,
+  "sc": 0,
+  "rank": "21/25",
+  "top": "telegraph-verity-intelligence 0.8885",
+  "gap": 0.8885,
+  "mis": 7,
+  "prev": 0.9954
+ },
+ {
+  "i": "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL",
+  "ep": 8,
+  "sc": 0,
+  "rank": "15/18",
+  "top": "supply-coingecko 0.9996",
+  "gap": 0.9996,
+  "mis": 3,
+  "prev": 0.9981
+ },
+ {
+  "i": "CROSS_CHAIN_STATE_VERIFY_GENERAL",
+  "ep": 8,
+  "sc": 0,
+  "rank": "9/18",
+  "top": "a1-preflight 0.9938",
+  "gap": 0.9938,
+  "mis": 3,
+  "prev": 0.9951
+ },
+ {
+  "i": "TOKEN_HOLDER_COUNT_GENERAL",
+  "ep": 8,
+  "sc": 0,
+  "rank": "8/16",
+  "top": "zk-holders-pro 0.9473",
+  "gap": 0.9473,
+  "mis": 0,
+  "prev": 0.9333
+ },
+ {
+  "i": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+  "ep": 8,
+  "sc": 0.8487,
+  "rank": "3/20",
+  "top": "ctx-circle 0.9027",
+  "gap": 0.05399999999999994,
+  "mis": 5,
+  "prev": 0.901
+ },
+ {
+  "i": "WEB_SEARCH_GENERAL",
+  "ep": 8,
+  "sc": 0.9823,
+  "rank": "12/22",
+  "top": "chainsight-search-node 0.9993",
+  "gap": 0.017000000000000015,
+  "mis": 15,
+  "prev": 0.9718
+ },
+ {
+  "i": "SANCTIONS_SCREENING_MATCH_GENERAL",
+  "ep": 8,
+  "sc": 0.9632,
+  "rank": "9/25",
+  "top": "a1-preflight 1.0000 x4",
+  "gap": 0.036800000000000055,
+  "mis": 6,
+  "prev": 1
+ },
+ {
+  "i": "QUESTION_ANSWERING_GENERAL",
+  "ep": 8,
+  "sc": 0.9793,
+  "rank": "4/17",
+  "top": "chainsight-oracle 0.9926 x2",
+  "gap": 0.01330000000000009,
+  "mis": 13,
+  "prev": 0.9937
+ },
+ {
+  "i": "CVE_LOOKUP_CVSS",
+  "ep": 8,
+  "sc": 0.6666667,
+  "rank": "9/15",
+  "top": "telegraph-verity-intelligence 1.0000 x2",
+  "gap": 0.33333330000000005,
+  "mis": 0,
+  "prev": 0.77625
+ },
+ {
+  "i": "WEATHER_CHECK_TEMPERATURE",
+  "ep": 8,
+  "sc": 0.625,
+  "rank": "7/13",
+  "top": "a1-preflight 0.6583 x5",
+  "gap": 0.03333335999999998,
+  "mis": 4,
+  "prev": 0.39166668
+ },
+ {
+  "i": "SENTIMENT_ANALYSIS_GENERAL",
+  "ep": 8,
+  "sc": 0.9572,
+  "rank": "11/16",
+  "top": "a1-preflight 0.9997",
+  "gap": 0.04249999999999998,
+  "mis": 3,
+  "prev": 0.9426
+ },
+ {
+  "i": "LANGUAGE_TRANSLATION_GENERAL",
+  "ep": 8,
+  "sc": 0.92,
+  "rank": "12/16",
+  "top": "test-mymemory-translate 0.9775 x11",
+  "gap": 0.057499999999999996,
+  "mis": 2,
+  "prev": 0.7139
+ },
+ {
+  "i": "GAS_PRICE_GENERAL",
+  "ep": 8,
+  "sc": 0,
+  "rank": "6/9",
+  "top": "gas-etherscan-v2 0.0881",
+  "gap": 0.0881,
+  "mis": 1,
+  "prev": 0
+ },
+ {
+  "i": "RESEARCH_SYNTHESIS_GENERAL",
+  "ep": 8,
+  "sc": 0.8251,
+  "rank": "10/16",
+  "top": "chainsight-oracle 0.9999",
+  "gap": 0.17480000000000007,
+  "mis": 0,
+  "prev": 0.9823
+ },
+ {
+  "i": "STORM_ALERT_GENERAL",
+  "ep": 8,
+  "sc": 0.8606,
+  "rank": "12/17",
+  "top": "storm-gdacs-tc 0.9911",
+  "gap": 0.13049999999999995,
+  "mis": 0,
+  "prev": 0.9005
+ },
+ {
+  "i": "CONTENT_EXTRACTION_GENERAL",
+  "ep": 8,
+  "sc": 0.9814,
+  "rank": "9/19",
+  "top": "zk-extract-g4 0.9998",
+  "gap": 0.018399999999999972,
+  "mis": 3,
+  "prev": 0.9926
+ },
+ {
+  "i": "IP_GEOLOCATION_GENERAL",
+  "ep": 8,
+  "sc": 0.8783,
+  "rank": "3/11",
+  "top": "netwire-ip-geolocation 0.9871",
+  "gap": 0.10880000000000001,
+  "mis": 0,
+  "prev": 0.8805
+ },
+ {
+  "i": "FACT_CHECK_GENERAL",
+  "ep": 8,
+  "sc": 0.9956,
+  "rank": "4/13",
+  "top": "factwire-fact-check 0.9993",
+  "gap": 0.0036999999999999256,
+  "mis": 14,
+  "prev": 0.9699
+ },
+ {
+  "i": "EVENT_OUTCOME_RESOLUTION_GENERAL",
+  "ep": 8,
+  "sc": 0.9867,
+  "rank": "7/27",
+  "top": "event-espn-nba-scoreboard 0.9975",
+  "gap": 0.010800000000000032,
+  "mis": 4,
+  "prev": 0.0033
+ },
+ {
+  "i": "URL_SAFE_GENERAL",
+  "ep": 8,
+  "sc": 0.9933,
+  "rank": "14/17",
+  "top": "a1-preflight 0.9997",
+  "gap": 0.006400000000000072,
+  "mis": 3,
+  "prev": 0.9958
+ },
+ {
+  "i": "TEXT_CLASSIFICATION_GENERAL",
+  "ep": 8,
+  "sc": 0.996,
+  "rank": "5/15",
+  "top": "elcaro-ipi-detection 1.0000",
+  "gap": 0.0040000000000000036,
+  "mis": 4,
+  "prev": 0.993
+ },
+ {
+  "i": "CRYPTO_PRICE_USD",
+  "ep": 8,
+  "sc": 0.992,
+  "rank": "5/45",
+  "top": "crypto-coinbase 0.9950 x2",
+  "gap": 0.0030000000000000027,
+  "mis": 5,
+  "prev": 0.96000004
+ },
+ {
+  "i": "TEXT_GENERATION_GENERAL",
+  "ep": 8,
+  "sc": 0.9693,
+  "rank": "5/14",
+  "top": "tgen-bbc 0.9971",
+  "gap": 0.027799999999999936,
+  "mis": 0,
+  "prev": 0.9981
+ },
+ {
+  "i": "RESEARCH_QUERY_GENERAL",
+  "ep": 8,
+  "sc": 0.9922,
+  "rank": "7/22",
+  "top": "rq-fedreg 0.9999",
+  "gap": 0.00770000000000004,
+  "mis": 1,
+  "prev": 0.9714
+ },
+ {
+  "i": "FRAUD_DETECTION_GENERAL",
+  "ep": 8,
+  "sc": 0.9974,
+  "rank": "6/13",
+  "top": "zk-fraud-evidence 1.0000 x2",
+  "gap": 0.0026000000000000467,
+  "mis": 0,
+  "prev": 0.9928
+ },
+ {
+  "i": "URL_SCAN_VERDICT",
+  "ep": 8,
+  "sc": 0.5996333,
+  "rank": "5/8",
+  "top": "counterproof-url-scan 0.6000",
+  "gap": 0.00036669999999994207,
+  "mis": 0,
+  "prev": 0.53996664
+ },
+ {
+  "i": "FINANCIAL_DATA_GENERAL",
+  "ep": 8,
+  "sc": 0.9938,
+  "rank": "1/16",
+  "top": "livecert 0.9938",
+  "gap": 0,
+  "mis": 5,
+  "prev": 0.9155
+ },
+ {
+  "i": "STOCK_PRICE_US_EQUITY",
+  "ep": 8,
+  "sc": 0.9777,
+  "rank": "1/13",
+  "top": "livecert 0.9777",
+  "gap": 0,
+  "mis": 1,
+  "prev": 0.9777
+ },
+ {
+  "i": "CURRENCY_EXCHANGE_CONVERT",
+  "ep": 8,
+  "sc": 0.99666667,
+  "rank": "2/9",
+  "top": "livecert 0.9967 x4",
+  "gap": 0,
+  "mis": 0,
+  "prev": 1
+ },
+ {
+  "i": "MACRO_ECONOMIC_INDICATOR_GENERAL",
+  "ep": 8,
+  "sc": 1,
+  "rank": "3/10",
+  "top": "a1-preflight 1.0000 x10",
+  "gap": 0,
+  "mis": 6,
+  "prev": 1
+ },
+ {
+  "i": "REGULATORY_FILING_MONITOR_GENERAL",
+  "ep": 8,
+  "sc": 0,
+  "rank": "3/6",
+  "top": "a1-preflight 0.0000 x6",
+  "gap": 0,
+  "mis": 7,
+  "prev": 0
+ },
+ {
+  "i": "CORPORATE_REGISTRY_LOOKUP_GENERAL",
+  "ep": 8,
+  "sc": 1,
+  "rank": "8/13",
+  "top": "a1-preflight 1.0000 x11",
+  "gap": 0,
+  "mis": 8,
+  "prev": 1
+ }
+]

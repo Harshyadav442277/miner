@@ -1,5 +1,35 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-18 ~09:30 UTC (15:00 IST) epoch 8; release `1c2a564`; YAML `ac8d59e` prepared — G335–G336 new
+
+- **Epoch 8** (`track1-diagnosis-2026-11-17/epoch8-table.json`), 32 intents scored, the last at 08:13 UTC.
+  - **Up:**
+    - FINANCIAL_DATA 0.9938, **rank 1/16**, after 0.9155 on Nov 16; G333 measured.
+    - EVENT_OUTCOME 0.9867, rank 7/27, after 0.0033. The test set changed, not our code.
+    - WEATHER_CHECK 0.625, rank 7/13, after 0.39; G330.
+    - LANGUAGE_TRANSLATION 0.92, after 0.714.
+    - CRYPTO_PRICE 0.992, rank 5/45.
+    - FACT_CHECK 0.9956 and QA 0.9793, both rank 4.
+  - **Zeros:**
+    - GAS_PRICE and REGULATORY_FILING, whole field (G310, G321).
+    - ONCHAIN_METRIC, TOKEN_TOTAL_SUPPLY, CROSS_CHAIN, TOKEN_HOLDER (G335).
+  - **Down:** RESEARCH_SYNTHESIS 0.825 (0.982), STORM 0.861 (0.900), SANCTIONS 0.9632 (1.0), CVE 0.6667 (two at 1.0).
+    Not investigated.
+- **G335 — Four on-chain intents scored exactly 0 in epoch 8. `ACTED ON`, partly.**
+  - Scores: ONCHAIN_METRIC (7 missions; 0.995 on Nov 16), TOKEN_TOTAL_SUPPLY (0.998), CROSS_CHAIN (0.995),
+    TOKEN_HOLDER (0.933).
+  - The two archived ONCHAIN_METRIC calls (07:41 and 07:42 UTC) carried no params. The intents with mapped inputs
+    scored well.
+  - Inference: since the rebuild the node fills only mapped inputs.
+  - Code (`1c2a564`, live): `/onchain-metric` reads the intent's `metric` param. Before, `address + block +
+    metric=balance` answered "No readable on-chain value was named".
+  - Manifest (`ac8d59e`, unsigned): input mappings for ONCHAIN_METRIC and TOKEN_TOTAL_SUPPLY.
+  - CROSS_CHAIN defines no params; its 0 is unexplained.
+- **G336 — The archive missed most of the night again (PC asleep).** Only 13 lines for 07:00 UTC. Capture depends on
+  this machine (G311).
+- **G334 update (09:30 UTC):** 5301 is still not on the node. Other teams' registrations after it are indexed: 5310
+  (Nov 17 17:24) and 5315–5326 (Nov 18 morning). A fresh signature is expected to index; not verified.
+
 ## 2026-11-17 ~17:00 UTC (22:30 IST) epoch 3, FINANCIAL_DATA release `4cb5924`, registration 5301 — G333–G335 new
 
 - **Epoch 3 (first numbered epoch after the rebuild; `track1-diagnosis-2026-11-17/epoch3/epoch3-fields.json`).**
