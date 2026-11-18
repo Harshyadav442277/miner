@@ -9,6 +9,15 @@ They are in `git log -p -- track2/GAPS.md`.
 - `/api/epoch`: `current_epoch` 0, 3 h epochs (2107 on Nov 16). `/api/wasm`: `{"count":0,"intents":{}}`. `/api/miners`: 1,283 then
   1,296 entries, all registered 07:23 UTC (2,173 on Nov 16). `/api/miners/4433` is now `verifywire-fx-now` (LiveCert's id until then).
   Eval pools kept their rows (EMAIL_SECURITY_GENERAL 651 eligible); our 144 LANGUAGE_TRANSLATION rows are still eligible.
+- **Registry back on 2026-11-18 (read 09:16 UTC, epoch 8):** 102 entries, new ids. Our six comparators are #42–#47,
+  pending with the same family-id snapshot reason as G49. FX_NOW, CRYPTO_PRICE and WEATHER_CHECK went canonical to
+  #82/#80/#85 (`0xb3fb…`, registered 2026-11-17 20:04); re-registering ours gave "duplicate wasm" (the files are
+  still on chain). Runtime pins unchanged (foundation 0a49b325, engine 77643d6e, tokenizer 67bc76f8).
+- **Former judgment champions failed the 70% floor after the reset**, with new files and new corpus versions:
+  VULNERABILITY_TRIAGE #88 55.2% (29 pairs), CONTRACT_OBLIGATION_AUDIT #92 65.5% (29), EMAIL_SECURITY #95 60.7% (28).
+  #1–#3 (`0x3035…`: EVENT_OUTCOME, PRODUCT_AUTHENTICITY, VENDOR_VERIFY), #57, #62, #94, #99 are rejected with no score
+  or reason. Nine judgment families have no champion and ≥ 6 submitters, plus CONTENT_MODERATION and WEB_SEARCH at 5.
+  Snapshot: `tg-eval/champions/registry/wasm-20261118T091613Z.json` (sha256 b993a9e9…), `intent-detail-20261118.json`.
 - Every registry fact in G40–G50 (ids, champions, epochs, pending comparators) is as of 2026-11-16.
 - Not known: whether this is a migration, whether earlier registrations are restored or must be redone, whether ids
   change for good, and whether pre-reset rankings count. Asked in [material/ORGANISER_REPORT.md](material/ORGANISER_REPORT.md) §1 (not sent).
