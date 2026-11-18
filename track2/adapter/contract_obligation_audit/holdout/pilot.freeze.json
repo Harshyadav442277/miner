@@ -1,0 +1,11 @@
+{
+ "file": "C:\\Users\\hyada\\OneDrive\\Documents\\Work-Related\\Hackathons\\Telegraph\\.claude\\worktrees\\track2-email-security-evaluator-303326\\track2\\adapter\\contract_obligation_audit\\holdout\\pilot.json",
+ "kind": "queries",
+ "sha256": "6440b1094d4c308aa1a925fe0e57527f0e96cacd5dac037039252aa338fd4e25",
+ "rows": 3,
+ "family": "CONTRACT_OBLIGATION_AUDIT",
+ "sources": "three short contracts written for the pilot; each states who owes what by when",
+ "note": "3-query pilot before any answer is seen; decides only whether any miner audits the given text and whether wrong answers spread across services.",
+ "created_at": "2026-11-18T09:52:16.855319+00:00",
+ "git_head": "475230bfe1e657c1ebb471a487253b6e8ce891fd"
+}

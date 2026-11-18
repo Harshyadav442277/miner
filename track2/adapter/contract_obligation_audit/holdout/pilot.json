@@ -1,0 +1,23 @@
+[
+ {
+  "id": "co-p1",
+  "query": "Audit the obligations in this contract: Supply Agreement. 1. Acme Ltd shall deliver 500 steel brackets to Birch Corp by 15 March 2027. 2. Birch Corp shall pay EUR 12,000 within 30 days of delivery. 3. Late delivery incurs a penalty of 1% of the price per week.",
+  "params": {
+   "contract": "Supply Agreement. 1. Acme Ltd shall deliver 500 steel brackets to Birch Corp by 15 March 2027. 2. Birch Corp shall pay EUR 12,000 within 30 days of delivery. 3. Late delivery incurs a penalty of 1% of the price per week."
+  }
+ },
+ {
+  "id": "co-p2",
+  "query": "Audit the obligations in this contract: Services Agreement. The Provider shall maintain 99.9% monthly uptime for the hosted platform. The Customer shall pay a monthly fee of USD 2,000 on the first business day of each month. Either party may terminate on 60 days written notice.",
+  "params": {
+   "contract": "Services Agreement. The Provider shall maintain 99.9% monthly uptime for the hosted platform. The Customer shall pay a monthly fee of USD 2,000 on the first business day of each month. Either party may terminate on 60 days written notice."
+  }
+ },
+ {
+  "id": "co-p3",
+  "query": "Audit the obligations in this contract: Lease. The Tenant shall pay rent of GBP 1,500 on the 1st of each month and keep the premises in good repair. The Landlord shall insure the building and repair the roof within 14 days of notice.",
+  "params": {
+   "contract": "Lease. The Tenant shall pay rent of GBP 1,500 on the 1st of each month and keep the premises in good repair. The Landlord shall insure the building and repair the roof within 14 days of notice."
+  }
+ }
+]
