@@ -9,7 +9,7 @@ commit.
 
 - [x] Owner signed the `6499779` YAML (2026-11-17 11:14 UTC; on-chain registration 5301, tx `0xbfb7a37b…8b36`).
 - [ ] **URGENT (G337):** the node serves LiveCert as 5358 with 4 intents since 08:41 UTC Nov 18. Owner: send `import-overwrite-2026-11-18/README.md`'s note to the organisers.
-- [ ] Owner: validate and sign `yaml-for-signature-2026-11-18` (pinned `ac8d59e`, `0x794a11c9…7fa7c8`); it maps the inputs behind epoch 8's on-chain zeros (G335). Supersedes the stuck 5301.
+- [ ] Owner: validate and sign `yaml-for-signature-2026-11-18` (pinned `f47f018`, `0xbad6049c…452037`; bond $4.25 test USDC, faucet next ~08:30 UTC Nov 19); it maps the inputs behind epoch 8's on-chain zeros (G335). Supersedes the stuck 5301.
 - [ ] Owner (optional): send the 5301 note to the organisers (`registration-5301-2026-11-17/README.md`, G334).
 - [ ] After the next signature: find the id on-chain and on the node; watch ONCHAIN_METRIC, TOKEN_TOTAL_SUPPLY, TOKEN_HOLDER in the next epoch.
 - [ ] Investigate epoch-8 drops: RESEARCH_SYNTHESIS 0.825, STORM 0.861, SANCTIONS 0.963, CROSS_CHAIN 0.

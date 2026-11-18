@@ -21,9 +21,9 @@ was sent on-chain.
 
 | | |
 |---|---|
-| YAML URL (pinned) | `https://raw.githubusercontent.com/Harshyadav442277/miner/ac8d59e4c0855b84fbb0dd176bdfffcd0bbc4a4b/track1-miner/miner.yaml` |
-| SHA-256 | `0x794a11c985077216a5ccecffa84cfcfb4bf0bd78ed5b6c269c9aef4b673fa7c8` |
-| Size | 96,982 bytes, LF; served bytes and `git show ac8d59e:track1-miner/miner.yaml` hash the same |
+| YAML URL (pinned) | `https://raw.githubusercontent.com/Harshyadav442277/miner/f47f018e4461c93c60c8ca498d3c2a4d75c872f9/track1-miner/miner.yaml` |
+| SHA-256 | `0xbad6049cee6aa314fb1c502ae66025813569a56a158c787f9652e92447452037` |
+| Size | 96,988 bytes, LF; served bytes and `git show f47f018:track1-miner/miner.yaml` hash the same |
 | Intents | 44, unchanged; fee address and min price unchanged |
 
 ## What changed against `04c0e9f` (the YAML the node serves; `manifest-diff.txt`: PASS)
@@ -37,7 +37,12 @@ was sent on-chain.
    - TOKEN_HOLDER `token`;
    - translation `translation`;
    - the Federal Register line in `/sec-filings`.
-3. `/tx-lookup` description: a sentence that repeated its field list is removed, and the base-fee clause is
+3. **Added 2026-11-18 ~10:00 UTC (`f47f018`):** each intent's required input is mapped explicitly where our endpoint
+   declares the same name: CHAT `message`, CODE_REVIEW `code`, FACT_CHECK `claim`, TEXT_GENERATION `prompt`,
+   URL_SAFE `url`, WEB_SEARCH `query`. Audit of all 44 intents: every required input is now mapped, except
+   NEWS_HEADLINES `topic` and TEXT_CLASSIFICATION `text`/`categories`. Those two have no mapping block, and adding
+   one would require listing every output. `/fraud-check`'s description is tightened to fit.
+4. `/tx-lookup` description: a sentence that repeated its field list is removed, and the base-fee clause is
    shortened. This is to stay under the 97,000-byte guard.
 
 CROSS_CHAIN_STATE_VERIFY defines no request params, so there is nothing to map. Its 0 is not addressed here.
@@ -46,7 +51,7 @@ CROSS_CHAIN_STATE_VERIFY defines no request params, so there is nothing to map. 
 
 | Check | Result |
 |---|---|
-| Unit tests at `ac8d59e` | 1055/1055 (YAML size guard, mapping-vs-endpoint, manifest tests) |
+| Unit tests at `f47f018` | 1055/1055 (YAML size guard, mapping-vs-endpoint, manifest tests) |
 | Manifest diff vs `04c0e9f` | PASS, `--allow-added-params` naming exactly the five params |
 | Pinned URL | HTTP 200, 96,982 bytes, same SHA-256 |
 | Routes behind the new mappings | Live on production since `1c2a564`: `/onchain-metric?address=…&block=21000000&chain=ethereum&metric=balance` → 1,146.64 ETH, `verified` |
@@ -64,5 +69,6 @@ release skill, mission-matrix and README, and watches the next epoch for the fou
 
 - Whether this registration indexes: 5301 did not.
 - That missing input mappings caused the zeros. One epoch, and two archived calls.
-- Anjoman's size limit for 96,982 bytes. 96,353 was accepted, and the Nov 17 file of 96,994 was signed, so it passed
+- Anjoman's size limit for 96,988 bytes.
+- Registration needs a $4.25 test-USDC bond; the account had $4.1002 on 2026-11-18, with the faucet locked about 23.5 h. 96,353 was accepted, and the Nov 17 file of 96,994 was signed, so it passed
   the dashboard's checks.
