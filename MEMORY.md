@@ -1,5 +1,19 @@
 # MEMORY.md — session continuity
 
+## 2026-11-18 ~09:10 UTC (14:40 IST): CURRENT — ALERT: node serves LiveCert as 5358 with 4 intents (G337)
+
+- A node import at 08:35–08:41 UTC created 5352 and 5358 for our wallet from Season-1 IPFS YAMLs, with no on-chain
+  event.
+  - 5358 is active with 4 intents (SSL, STORM, WEATHER_FORECAST, IP_GEOLOCATION). 5292 (44 intents) is superseded.
+  - Evidence and organiser note: `track1-miner/docs/evidence/import-overwrite-2026-11-18/README.md`.
+- **Owner:**
+  1. Sign `yaml-for-signature-2026-11-18` (pinned `ac8d59e`, `0x794a11c9…7fa7c8`, 44 intents) on Anjoman
+     `/dashboard/earn`.
+  2. Send the organiser note.
+- **After signing:** find the id on-chain (`minerlogs.mjs`-style scan: Diamond events with topic2 = our wallet) and
+  on the node. Then set `REGISTRATION_ID` and update the release skill, mission-matrix and README.
+- `main` = `3b4dc90` (PR 40) matches production `1c2a564`; its `miner.yaml` is the `ac8d59e` YAML.
+
 ## 2026-11-18 ~09:30 UTC (15:00 IST): CURRENT — `1c2a564` LIVE; serving as 5292; YAML `ac8d59e` ready to sign
 
 - **Production:** `1c2a564`, `miner-ngeicaq66` (`dpl_Cp6AhS1YnvcaYgJ8Z474m6CeyJgh`). **Rollback:** `miner-bb4rttgjq`

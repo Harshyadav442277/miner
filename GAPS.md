@@ -1,5 +1,17 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-18 ~09:10 UTC (14:40 IST) — G337 new: a node import replaced 5292 with a 4-intent Season-1 YAML
+
+- **G337 — LiveCert routes only 4 of 44 intents since 08:41 UTC. `OPEN`, owner action.**
+  - The node created registrations 5352 and 5358 for the LiveCert wallet between 08:35 and 08:41 UTC, in a batch of
+    ids 5327–5358. Their YAMLs are Season-1 IPFS manifests.
+  - 5358 is active with SSL, STORM, WEATHER_FORECAST and IP_GEOLOCATION. 5292 (44 intents) is superseded.
+  - On-chain, the wallet's only Diamond events since Nov 16 are 5292 and 5301; 5352 and 5358 have none.
+  - Record and organiser note: `track1-miner/docs/evidence/import-overwrite-2026-11-18/`.
+  - Remedy within our control: sign the prepared YAML (`ac8d59e`, `0x794a11c9…`). Registrations sent by others after
+    the Nov 17 rebuild were indexed; ours of Nov 17 (5301) was not (G334).
+  - Risk: a later import may overwrite again.
+
 ## 2026-11-18 ~09:30 UTC (15:00 IST) epoch 8; release `1c2a564`; YAML `ac8d59e` prepared — G335–G336 new
 
 - **Epoch 8** (`track1-diagnosis-2026-11-17/epoch8-table.json`), 32 intents scored, the last at 08:13 UTC.
