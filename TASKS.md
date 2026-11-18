@@ -7,7 +7,13 @@ commit.
 
 ## Handoff 2026-11-17 ~11:00 UTC — Track 1 (MEMORY.md top block has the details)
 
-- [ ] Owner: validate `yaml-for-signature-2026-11-17` on Anjoman `/dashboard/earn` and sign it (pinned at `6499779`, `0xbf9dd574…53bab`).
+- [x] Owner signed the `6499779` YAML (2026-11-17 11:14 UTC; on-chain registration 5301, tx `0xbfb7a37b…8b36`).
+- [ ] Owner: validate and sign `yaml-for-signature-2026-11-18` (pinned `ac8d59e`, `0x794a11c9…7fa7c8`); it maps the inputs behind epoch 8's on-chain zeros (G335). Supersedes the stuck 5301.
+- [ ] Owner (optional): send the 5301 note to the organisers (`registration-5301-2026-11-17/README.md`, G334).
+- [ ] After the next signature: find the id on-chain and on the node; watch ONCHAIN_METRIC, TOKEN_TOTAL_SUPPLY, TOKEN_HOLDER in the next epoch.
+- [ ] Investigate epoch-8 drops: RESEARCH_SYNTHESIS 0.825, STORM 0.861, SANCTIONS 0.963, CROSS_CHAIN 0.
+- [ ] When the node lists 5301 for livecert: set `REGISTRATION_ID`, update the release skill, mission-matrix and README.
+- [x] FINANCIAL_DATA market cap and name resolution (G333, `4cb5924`). Watch its next score (was 0.9155).
 - [ ] After signing: look the new registration up by id; set `REGISTRATION_ID`; update the release skill, mission-matrix and README.
 - [ ] First numbered epoch after the rebuild: run `intent-table.mjs` and compare with `after/after-table.md` (CVE G329, WEATHER_CHECK G330).
 - [ ] GAS_PRICE (G310) and REGULATORY_FILING (G321): read `C:/Users/hyada/tg-deploy/scores/requests.jsonl` for `__path=/gas-price` and `/sec-filings` around their next scores.

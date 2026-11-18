@@ -231,6 +231,15 @@ async function concept(cik: number, tag: string, unit: string, period: "annual" 
  * cover are summed. Null when the cover tag is not filed or SEC did not answer.
  */
 export async function marketCap(ticker: string, price: number, currency: string): Promise<string | null> {
+  return (await marketCapValue(ticker, price, currency))?.text ?? null;
+}
+
+/**
+ * Shares outstanding from the cover of the latest SEC filing, times the last traded price: the dollar figure and
+ * the sentence that says how it was computed. FINANCIAL_DATA scores `market_cap_usd`, and a stock answer carried
+ * none at all until 2026-11-17 (AAPL and MSFT answered null on production).
+ */
+export async function marketCapValue(ticker: string, price: number, currency: string): Promise<{ usd: number; text: string } | null> {
   if (currency !== "USD" || !(price > 0)) return null;
   const co = await lookupCik(ticker).catch(() => undefined);
   if (!co) return null;
@@ -241,9 +250,13 @@ export async function marketCap(ticker: string, price: number, currency: string)
     if (!latest || !latest.accn) return null;
     const shares = facts.filter((f) => f.accn === latest.accn && f.end === latest.end).reduce((s, f) => s + f.val, 0);
     if (!(shares > 0)) return null;
-    return `Its market capitalisation is about ${amount(shares * price, "USD")}, computed from ${shares.toLocaleString("en-US")} ` +
-      `shares outstanding on ${longDate(latest.end)}, as stated on the cover of its ${latest.form ?? "filing"} filed ${latest.filed}, ` +
-      `times the last traded price of ${price.toFixed(2)} USD.`;
+    const usd = Math.round(shares * price);
+    return {
+      usd,
+      text: `Its market capitalisation is about ${amount(usd, "USD")}, computed from ${shares.toLocaleString("en-US")} ` +
+        `shares outstanding on ${longDate(latest.end)}, as stated on the cover of its ${latest.form ?? "filing"} filed ${latest.filed}, ` +
+        `times the last traded price of ${price.toFixed(2)} USD.`,
+    };
   } catch {
     return null;
   }

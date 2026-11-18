@@ -1,5 +1,62 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-18 ~09:30 UTC (15:00 IST) epoch 8; release `1c2a564`; YAML `ac8d59e` prepared — G335–G336 new
+
+- **Epoch 8** (`track1-diagnosis-2026-11-17/epoch8-table.json`), 32 intents scored, the last at 08:13 UTC.
+  - **Up:**
+    - FINANCIAL_DATA 0.9938, **rank 1/16**, after 0.9155 on Nov 16; G333 measured.
+    - EVENT_OUTCOME 0.9867, rank 7/27, after 0.0033. The test set changed, not our code.
+    - WEATHER_CHECK 0.625, rank 7/13, after 0.39; G330.
+    - LANGUAGE_TRANSLATION 0.92, after 0.714.
+    - CRYPTO_PRICE 0.992, rank 5/45.
+    - FACT_CHECK 0.9956 and QA 0.9793, both rank 4.
+  - **Zeros:**
+    - GAS_PRICE and REGULATORY_FILING, whole field (G310, G321).
+    - ONCHAIN_METRIC, TOKEN_TOTAL_SUPPLY, CROSS_CHAIN, TOKEN_HOLDER (G335).
+  - **Down:** RESEARCH_SYNTHESIS 0.825 (0.982), STORM 0.861 (0.900), SANCTIONS 0.9632 (1.0), CVE 0.6667 (two at 1.0).
+    Not investigated.
+- **G335 — Four on-chain intents scored exactly 0 in epoch 8. `ACTED ON`, partly.**
+  - Scores: ONCHAIN_METRIC (7 missions; 0.995 on Nov 16), TOKEN_TOTAL_SUPPLY (0.998), CROSS_CHAIN (0.995),
+    TOKEN_HOLDER (0.933).
+  - The two archived ONCHAIN_METRIC calls (07:41 and 07:42 UTC) carried no params. The intents with mapped inputs
+    scored well.
+  - Inference: since the rebuild the node fills only mapped inputs.
+  - Code (`1c2a564`, live): `/onchain-metric` reads the intent's `metric` param. Before, `address + block +
+    metric=balance` answered "No readable on-chain value was named".
+  - Manifest (`ac8d59e`, unsigned): input mappings for ONCHAIN_METRIC and TOKEN_TOTAL_SUPPLY.
+  - CROSS_CHAIN defines no params; its 0 is unexplained.
+- **G336 — The archive missed most of the night again (PC asleep).** Only 13 lines for 07:00 UTC. Capture depends on
+  this machine (G311).
+- **G334 update (09:30 UTC):** 5301 is still not on the node. Other teams' registrations after it are indexed: 5310
+  (Nov 17 17:24) and 5315–5326 (Nov 18 morning). A fresh signature is expected to index; not verified.
+
+## 2026-11-17 ~17:00 UTC (22:30 IST) epoch 3, FINANCIAL_DATA release `4cb5924`, registration 5301 — G333–G335 new
+
+- **Epoch 3 (first numbered epoch after the rebuild; `track1-diagnosis-2026-11-17/epoch3/epoch3-fields.json`).**
+  LiveCert, scored 14:47–14:52 UTC:
+  - CVE 0.6667, rank 7/14. Nine miners are tied at 0.6667, the NVD readers score 0.68 or 0.5, and one miner scores 1.0.
+  - WEATHER_CHECK 0.4833, rank 12/14, level with the METAR miner `zk-airtemp`. This epoch the model miners led
+    (7timer 0.725, Open-Meteo 0.667) and Environment Canada scored 0, against 0.975 earlier (G330).
+  - GAS_PRICE 0 and REGULATORY_FILING 0, as is everyone in both fields.
+  - CURRENCY, MACRO and CORPORATE_REGISTRY 1.0.
+  - One epoch only; the reference behind CVE and WEATHER_CHECK moves between epochs.
+- **G311 updated — the archive missed epoch 3.** No `record.cmd` run between 13:30 and 16:00 UTC (machine asleep);
+  Vercel had dropped the 14:47–14:52 lines by 16:30. Capture works only while this PC is awake.
+- **G333 — FINANCIAL_DATA: stocks had no `market_cap_usd`, and names in `symbol` were taken as tickers. `FIXED` in
+  `4cb5924`, live 2026-11-17 ~16:50 UTC.**
+  - Before, on production: AAPL and MSFT `market_cap_usd: null`; "Apple", "Tesla", "NVIDIA" and "Solana"
+    answered "No market data".
+  - After: every stock answer carries SEC cover-page shares × last price (TSLA 3,952,757,946 shares, per the 10-Q
+    filed 2026-10-22), and names resolve.
+  - Score was 0.9155, rank 9, Nov 16. Effect unmeasured.
+  - "Gold" still resolves to Gold.com, Inc. (GOLD); commodities are not served.
+- **G334 — Registration 5301 (owner signed 11:14 UTC) is on-chain but not on the node. `OPEN`, organiser question
+  drafted** (`registration-5301-2026-11-17/`). The node's 5301 is `chainsight-oracle`, imported at 09:52 UTC.
+  LiveCert still serves as 5292 on YAML `04c0e9f`.
+- **G331 updated — MyMemory is barred.** Its terms forbid users to "resell Translated's services as they are
+  without Translated express consent"; anonymous use is capped at 5,000 characters a day. Translation stays on our
+  model.
+
 ## 2026-11-17 ~11:00 UTC (16:30 IST) CVE and WEATHER_CHECK fixes live; YAML prepared; G329–G331 new
 
 - **G323 — CLOSED.** The archiver runs inside `record.cmd`: run by hand under `cmd.exe` on 2026-11-17 10:15 UTC, exit

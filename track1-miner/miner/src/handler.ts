@@ -447,7 +447,7 @@ function handleInContext(req: IncomingMessage, res: ServerResponse): void {
  * Parameters whose values are a route or a choice from a short list, never a person's text: logged with their
  * value, so a score of 0 can be read against what the node actually sent (GAS_PRICE, GAPS G310). Pure.
  */
-const LOGGED_VALUES = new Set(["__path", "chain", "record_type", "type", "period", "form", "target_language", "window_hours"]);
+const LOGGED_VALUES = new Set(["__path", "chain", "record_type", "type", "period", "form", "target_language", "window_hours", "metric", "block"]);
 export function logParam(name: string, raw: string): string {
   const v = raw.trim();
   if (!v) return `${name}=EMPTY`;

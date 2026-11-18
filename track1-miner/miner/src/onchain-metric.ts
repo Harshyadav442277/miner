@@ -156,7 +156,20 @@ export function holderAndToken(question: string, addresses: string[]): { holder:
   return marked(a) && !marked(b) ? { holder: b, token: a } : { holder: a, token: b };
 }
 
-export async function verifyOnchainMetric(question: string, chainParam = "", blockParam = "", addressParam = ""): Promise<OnchainMetricResult> {
+/**
+ * ONCHAIN_METRIC_VERIFY's request is structured: `address`, `block`, `chain` and `metric` (balance or tx_count,
+ * default balance), with no question text. The words-only reading of `metricKind` found no metric in that and
+ * answered "No readable on-chain value was named"; the intent scored 0 in epoch 8 (2026-11-18) after 0.995 on Nov 16.
+ * One address with `metric` balance, or with no metric and no other cue, is its native balance. Pure.
+ */
+export function structuredKind(kind: MetricKind | null, metricParam: string, addresses: string[], hasTx: boolean): MetricKind | null {
+  if (kind) return kind;
+  const m = String(metricParam ?? "").trim().toLowerCase();
+  if (hasTx || addresses.length !== 1) return null;
+  return m === "" || m === "balance" ? "native_balance" : null;
+}
+
+export async function verifyOnchainMetric(question: string, chainParam = "", blockParam = "", addressParam = "", metricParam = ""): Promise<OnchainMetricResult> {
   const text = `${addressParam} ${question}`;
   const named = resolveChain(chainParam, question);
   const chain = named ?? "ethereum";
@@ -166,7 +179,7 @@ export async function verifyOnchainMetric(question: string, chainParam = "", blo
   const addresses = [...new Set((tx ? text.replace(tx, " ") : text).match(/\b0x[a-fA-F0-9]{40}\b/g) ?? [])];
   const sym = addresses.length < 2 ? tokenSymbol(question.replace(/\b0x[a-fA-F0-9]{40,64}\b/g, " ")) : null;
   const symbol = sym && sym !== NATIVE[chain] && knownToken(chain, sym) ? sym : null;
-  const kind = metricKind(question, Boolean(tx), addresses, symbol);
+  const kind = structuredKind(metricKind(question, Boolean(tx), addresses, symbol), metricParam, addresses, Boolean(tx));
   const stated = statedBlock(question, blockParam);
   if (!kind || (kind === "block" && stated === null)) {
     return blank("insufficient_input", "No readable on-chain value was named. Name a transaction hash, a contract's storage slot or total supply, an address's balance, or a block number, and the block to read it at (or 'latest').", { error: "no_metric" });

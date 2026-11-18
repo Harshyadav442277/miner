@@ -102,7 +102,7 @@ export const MISSION_ROUTES: Record<string, MissionRoute> = {
   },
   "/onchain-metric": {
     what: "An on-chain metric read",
-    params: ["chain", "block", "block_number", "address", "contract", "tx_hash"],
-    run: (q, p) => verifyOnchainMetric(q, p("chain"), p("block", "block_number"), p("tx_hash", "contract", "address")),
+    params: ["chain", "block", "block_number", "address", "contract", "tx_hash", "metric"],
+    run: (q, p) => verifyOnchainMetric(q, p("chain"), p("block", "block_number"), p("tx_hash", "contract", "address"), p("metric")),
   },
 };

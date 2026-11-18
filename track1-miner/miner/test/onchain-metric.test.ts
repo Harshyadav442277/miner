@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { holderAndToken, metricKind, statedBlock, verifyOnchainMetric } from "../src/onchain-metric";
+import { holderAndToken, metricKind, statedBlock, structuredKind, verifyOnchainMetric } from "../src/onchain-metric";
 
 const TX = "0x24e20c506fd16546178a03c955bca381376f97b9ff5aefb726abf84dea6c8913";
 const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
@@ -88,4 +88,15 @@ test("onchain metric: no answer is unknown, never a zero; a future block is refu
     assert.equal(down.verdict, "unknown");
     assert.equal(down.error, "upstream_unavailable");
   } finally { restore(); }
+});
+
+test("onchain metric: the intent's structured metric param picks the read (epoch 8 scored 0 without it)", () => {
+  const A = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
+  assert.equal(structuredKind(null, "balance", [A], false), "native_balance");
+  assert.equal(structuredKind(null, "", [A], false), "native_balance");
+  assert.equal(structuredKind(null, "tx_count", [A], false), null);
+  assert.equal(structuredKind(null, "balance", [], false), null);
+  assert.equal(structuredKind(null, "balance", [A, USDC], false), null);
+  assert.equal(structuredKind("total_supply", "balance", [A], false), "total_supply");
+  assert.equal(structuredKind(null, "balance", [A], true), null);
 });
