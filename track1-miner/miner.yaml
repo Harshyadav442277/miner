@@ -532,25 +532,22 @@ endpoints:
       Example questions: "Is 0x… a scam address?", "This email asks me to pay an
       invoice in gift cards: is it fraud?". Returns answer, verdict, confidence,
       reason, checked_at and subject, evidence, not_checked, sanctioned,
-      flagged_hosts, scam_markers.
-      How likely a named address, link or message is to be fraudulent, assessed
-      from checks that are actually performed and named in the answer: the OFAC
-      sanctioned digital-currency address listing, Cloudflare's threat-intelligence
-      resolver for any domain in the text, the address's own on-chain state
-      (contract, externally owned account, or an account carrying an EIP-7702
-      delegation, with its transaction count and balance), and specific scam
-      wording such as a request for a seed phrase, gift-card payment or changed
-      banking details. A sanctions hit or a domain blocked as malware is reported
-      as high risk. A clean result is reported as no indicators found among the
-      checks performed, with the checks listed, and explicitly not as a statement
-      that the subject is safe; a check that could not be completed is named as
-      such rather than counted as clean. An academic paper named by title is
-      checked against OpenAlex's retraction record, and a retraction is reported
-      as high risk. No keyless source records misconduct findings, paper-mill
-      membership or predatory-publisher status, so the answer names those three as
-      not checked rather than implying a clean record, and a title that cannot be
-      matched to one indexed work is reported as not found rather than matched
-      loosely to a similar one.
+      flagged_hosts, scam_markers. How likely a named address, link or message
+      is to be fraudulent, assessed only from checks named in the answer: the
+      OFAC sanctioned digital-currency address listing, Cloudflare's
+      threat-intelligence resolver for any domain in the text, the address's own
+      on-chain state (contract, account or EIP-7702 delegation; transactions and
+      balance), and specific scam wording such as a request for a seed phrase,
+      gift-card payment or changed banking details. A sanctions hit or a domain
+      blocked as malware is reported as high risk. A clean result reads "no
+      indicators found among the checks performed", with the checks listed,
+      never "safe"; a check that could not be completed is named as such rather
+      than counted as clean. An academic paper named by title is checked against
+      OpenAlex's retraction record, and a retraction is reported as high risk.
+      No keyless source records misconduct findings, paper-mill membership or
+      predatory-publisher status, so the answer names those three as not checked
+      rather than implying a clean record; an unmatched title is reported as not
+      found.
     params:
       query:
         optional:
@@ -1626,6 +1623,8 @@ intent_mapping:
       balance: { path: balance }
   FACT_CHECK_GENERAL:
     endpoint: /fact-check
+    input:
+      claim: { from: claim }
     output:
       verdict: { path: verdict }
   ONCHAIN_TX_LOOKUP_GENERAL:
@@ -1704,6 +1703,8 @@ intent_mapping:
       safe: { path: safe }
   WEB_SEARCH_GENERAL:
     endpoint: /web-search
+    input:
+      query: { from: query }
     output:
       brief: { path: brief }
   SENTIMENT_ANALYSIS_GENERAL:
@@ -1750,6 +1751,8 @@ intent_mapping:
       rate_pct: { path: rate_pct }
   URL_SAFE_GENERAL:
     endpoint: /url-reputation
+    input:
+      url: { from: url }
     output:
       verdict: { path: verdict }
       detections: { path: detections }
@@ -1777,10 +1780,14 @@ intent_mapping:
       balance_gwei: { path: balance_gwei }
   CHAT_COMPLETION_GENERAL:
     endpoint: /chat
+    input:
+      message: { from: message }
     output:
       brief: { path: brief }
   CODE_REVIEW_GENERAL:
     endpoint: /code-review
+    input:
+      code: { from: code }
     output:
       verdict: { path: verdict }
   SECURITY_REVIEW_GENERAL:
@@ -1794,6 +1801,8 @@ intent_mapping:
       summary: { path: summary }
   TEXT_GENERATION_GENERAL:
     endpoint: /generate
+    input:
+      prompt: { from: prompt }
     output:
       brief: { path: brief }
   NEWS_SEARCH_GENERAL:

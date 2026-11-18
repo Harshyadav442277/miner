@@ -7,7 +7,7 @@
   - 5358 is active with 4 intents (SSL, STORM, WEATHER_FORECAST, IP_GEOLOCATION). 5292 (44 intents) is superseded.
   - Evidence and organiser note: `track1-miner/docs/evidence/import-overwrite-2026-11-18/README.md`.
 - **Owner:**
-  1. Sign `yaml-for-signature-2026-11-18` (pinned `ac8d59e`, `0x794a11c9…7fa7c8`, 44 intents) on Anjoman
+  1. Sign `yaml-for-signature-2026-11-18` (pinned `f47f018`, `0xbad6049c…452037`, 44 intents; bond $4.25 test USDC, balance $4.1002, faucet ~08:30 UTC Nov 19) on Anjoman
      `/dashboard/earn`.
   2. Send the organiser note.
 - **After signing:** find the id on-chain (`minerlogs.mjs`-style scan: Diamond events with topic2 = our wallet) and
@@ -22,8 +22,8 @@
   - FINANCIAL_DATA rank 1 (0.9938); EVENT_OUTCOME 0.987; WEATHER_CHECK 0.625; translation 0.92.
   - Four on-chain intents at 0 (G335); GAS and REGULATORY at 0 for the whole field.
   - Table: `track1-miner/docs/evidence/track1-diagnosis-2026-11-17/epoch8-table.json`.
-- **Owner to sign:** `track1-miner/docs/evidence/yaml-for-signature-2026-11-18/README.md`. Pinned at `ac8d59e`,
-  SHA-256 `0x794a11c9…7fa7c8`, 96,982 bytes. It adds input mappings for ONCHAIN_METRIC and TOKEN_TOTAL_SUPPLY to
+- **Owner to sign:** `track1-miner/docs/evidence/yaml-for-signature-2026-11-18/README.md`. Pinned at `f47f018`,
+  SHA-256 `0xbad6049c…452037`, 96,988 bytes. It adds input mappings for ONCHAIN_METRIC and TOKEN_TOTAL_SUPPLY to
   the Nov 17 changes.
 - **Registration:** 5301 (signed Nov 17) is still not on the node (G334). The node serves `04c0e9f` as 5292.
   `REGISTRATION_ID` stays 5292 until a new id is on the node.
