@@ -1,0 +1,38 @@
+[
+  {
+    "intent": "FX_NOW",
+    "file": "FX_NOW.wasm",
+    "bytes": 2287,
+    "keccak256": "0x6fd0728e57aa27ff75bc0de29ba15e76a45d321df58f7f528acacb36b9ecfb27"
+  },
+  {
+    "intent": "CRYPTO_PRICE",
+    "file": "CRYPTO_PRICE.wasm",
+    "bytes": 2293,
+    "keccak256": "0xff6ab15821c449b5fc585cb1267fa951febc7a3a78a6fad5c9b010804705be17"
+  },
+  {
+    "intent": "WEATHER_CHECK",
+    "file": "WEATHER_CHECK.wasm",
+    "bytes": 2294,
+    "keccak256": "0xc3b5c8777bb1eee583bfc7fcdbfeb3e09d3b3fddc4746b5dfa47dacabe562f88"
+  },
+  {
+    "intent": "CURRENCY_EXCHANGE",
+    "file": "CURRENCY_EXCHANGE.wasm",
+    "bytes": 2298,
+    "keccak256": "0xb12bbf49ae60624272c59e0abfa1c5eafa824d947c851e94d3b4bdfd9bc75d01"
+  },
+  {
+    "intent": "SSL_VERIFICATION",
+    "file": "SSL_VERIFICATION.wasm",
+    "bytes": 2297,
+    "keccak256": "0xfcecb3877835d7581fbacb60ccd8053dde9355d417ccf1b0738d6b9f94e22d72"
+  },
+  {
+    "intent": "STOCK_PRICE",
+    "file": "STOCK_PRICE.wasm",
+    "bytes": 2292,
+    "keccak256": "0xd0bb9cb654071da17a1fbc71be01e41643ac5c23fd0fed32afaca35a14a4836d"
+  }
+]

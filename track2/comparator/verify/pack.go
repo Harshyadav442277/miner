@@ -21,8 +21,11 @@ import (
 // Only the label differs, which is what lets one author register the same
 // comparator on several intents: the node refuses the same bytes twice from one address.
 //
-//	go run . pack <base.wasm> <out-dir> INTENT_A,INTENT_B,...
-func packMain(base, outDir, intents string) error {
+// An optional release label (default 0.1.0) goes in the same tool field. A new label gives new bytes for a
+// re-registration after the node refuses the old file as a duplicate; the scoring stays identical.
+//
+//	go run . pack <base.wasm> <out-dir> INTENT_A,INTENT_B,... [version]
+func packMain(base, outDir, intents, version string) error {
 	b, err := os.ReadFile(base)
 	if err != nil {
 		return err
@@ -43,7 +46,7 @@ func packMain(base, outDir, intents string) error {
 	for _, intent := range strings.Split(intents, ",") {
 		intent = strings.TrimSpace(intent)
 		meta := runtime.AdapterMeta{ABIVersion: runtime.AdapterABIVersion, Class: "comparator",
-			Tool: "telegraph_comparator 0.1.0 for " + intent}
+			Tool: "telegraph_comparator " + version + " for " + intent}
 		out := wasmbin.AppendCustomSection(append([]byte(nil), b...), runtime.AdapterMetaSection, meta.Encode())
 		got, err := runtime.ReadAdapterMeta(out)
 		if err != nil || got == nil {

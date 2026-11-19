@@ -86,8 +86,12 @@ func run(ctx context.Context, wasm []byte, cases []tc) ([]int64, error) {
 }
 
 func main() {
-	if len(os.Args) == 5 && os.Args[1] == "pack" {
-		if err := packMain(os.Args[2], os.Args[3], os.Args[4]); err != nil {
+	if (len(os.Args) == 5 || len(os.Args) == 6) && os.Args[1] == "pack" {
+		version := "0.1.0" // the label in the informational tool field; the arithmetic never changes
+		if len(os.Args) == 6 {
+			version = os.Args[5]
+		}
+		if err := packMain(os.Args[2], os.Args[3], os.Args[4], version); err != nil {
 			fmt.Println("FAIL:", err)
 			os.Exit(1)
 		}

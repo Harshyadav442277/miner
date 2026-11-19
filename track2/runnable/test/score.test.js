@@ -52,15 +52,18 @@ function cases() {
 const asBody = (batch) =>
   `{"batch":[${batch.map(([c, t, tr, m]) => `{"ground_truth_value":${tr},"miner_value":${m},"spec":[${c},${t}]}`).join(",")}]}`;
 
+const V2 = ["FX_NOW", "CRYPTO_PRICE", "WEATHER_CHECK", "CURRENCY_EXCHANGE", "SSL_VERIFICATION", "STOCK_PRICE"];
+
 test("the served bytes are the verified comparator builds", () => {
   for (const f of FAMILIES) {
-    const verified = fs.readFileSync(path.join(__dirname, "..", "..", "comparator", "dist", `${f}.wasm`));
+    const dir = V2.includes(f) ? "dist-v2" : "dist";
+    const verified = fs.readFileSync(path.join(__dirname, "..", "..", "comparator", dir, `${f}.wasm`));
     assert.ok(bytesOf(f).equals(verified), f);
   }
 });
 
-test("nine families are served, each pinned to the sha256 of its hosted file", () => {
-  assert.equal(FAMILIES.length, 9);
+test("twelve families are served, each pinned to the sha256 of its hosted file", () => {
+  assert.equal(FAMILIES.length, 12);
   for (const f of FAMILIES) {
     const b = bytesOf(f);
     assert.equal(crypto.createHash("sha256").update(b).digest("hex"), PINNED_SHA256[f], f);

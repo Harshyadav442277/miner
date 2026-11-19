@@ -17,10 +17,15 @@ const crypto = require("node:crypto");
 // sha256 of each file as hosted at the commit-pinned registration URL
 // (raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/2825b06f.../season2/comparator/dist/<FAMILY>.wasm).
 // The bytes are checked once at load: a mismatch makes the function fail to start rather than serve other bytes.
+// The six families the node evaluates after the 2026-11-17 reset serve the 0.2.0 files instead
+// (track2/comparator/dist-v2, hosted at a pinned commit of Harshyadav442277/miner): same arithmetic, new label.
 const PINNED_SHA256 = {
-  FX_NOW: "7aa1397d440d5ed7d133d7ec68b8c56ab0bcdd6bdd40dc96159f7e439c1980cc",
-  CRYPTO_PRICE: "c72796f25cd48d2e1a79a9b12e4d714ba633346dc092dff51b3f65b8660ee11c",
-  WEATHER_CHECK: "82f0addaab2e4197b5dc7dc059da87897b8afa089d0e52af8c37798f1569aec6",
+  FX_NOW: "5bbd4af6df957b0a6922262fe4cacb1868acb0c7a929c858026f3e473e8c47ca",
+  CRYPTO_PRICE: "a5de8f16f57ec703bb4597b3d89d70a0a0a146f738110645bb929d3ae9ad0fab",
+  WEATHER_CHECK: "64f5669d62a5889f6bde69005da4472422bc1c690d4f65e5a35d8ad0067c74b6",
+  CURRENCY_EXCHANGE: "886e67c7b8f8c242d95ab9be3cefe3d50fdf9671e2b2d05998a973a88fca10e5",
+  SSL_VERIFICATION: "57fa6d4ccaea6c63f6ed0e416ce968277871eb3ea5bb74cc8354478906b0bdb2",
+  STOCK_PRICE: "33649d0e49bb867f162cb94cc07c24e6ba2ffe45f040f6b348a6c3f0b271e03b",
   REGULATORY_FILING_MONITOR: "5506d7f0f3b168d1ea45a5ab7ca43457264d9eb43403d505936a0cadd824c97e",
   CORPORATE_REGISTRY_LOOKUP: "86ff887bc600975c2be5e6687dc6ca2dac3caf954bfe8d4535f5dacc9d0b4088",
   LIQUIDITY_DEPTH_VERIFY: "65bdefda4bc80ef2728c9f7556789750a97ef88b20e2ebb7a9231bc43c3d1ee5",
