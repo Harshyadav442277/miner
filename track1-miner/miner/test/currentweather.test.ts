@@ -39,7 +39,8 @@ test("a current-temperature question leads with a current reading (live)", async
   if (r.verdict === "unknown") return;
   assert.match(r.reason, /^The current temperature in Cairo[^.]* is -?\d+(?:\.\d)?°C/);
   assert.doesNotMatch(r.reason, /24-hour|hourly weather forecast|from -?\d+(?:\.\d)?°C to/);
-  assert.match(r.reason, /as of \d{2}:\d{2} UTC on \d{4}-\d{2}-\d{2}/);
+  // A station observation says when it was observed; the model value says which hour it is for (metar.ts, 2026-11-17).
+  assert.match(r.reason, /as of \d{2}:\d{2} UTC on \d{4}-\d{2}-\d{2}|observed at [^.]*? at \d{2}:\d{2} UTC/);
   assert.equal(r.temp_min_c, r.temp_max_c);
 });
 
