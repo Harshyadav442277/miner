@@ -39,9 +39,12 @@ example, `CORPORATE_REGISTRY_LOOKUP` had none, while `CORPORATE_REGISTRY_LOOKUP_
 2026-11-14. build-a-scoring-module says a comparator is asked "100 cases out of its correctness battery", and that a
 pending registration "is re-evaluated when a snapshot is published".
 
-**Our reading:** the comparator path looked the snapshot up by family id, while material is stored under the
-`_GENERAL` intent id. If registrations must be redone after the reset, it would help to know whether that lookup is
-fixed. Our #273–#278 were among those waiting.
+We first guessed a family-id vs `_GENERAL` lookup mismatch. That guess is contradicted: on 2026-11-19, FX_NOW has no
+snapshot under the family id (only `FX_NOW_EUR` etc. have one), yet FX_NOW comparators are evaluated (1,262 cases).
+Every family evaluated so far has non-`_GENERAL` intents (FX_NOW_*, CRYPTO_PRICE_USD, WEATHER_CHECK_TEMPERATURE,
+CURRENCY_EXCHANGE_CONVERT, SSL_VERIFICATION_CERT, STOCK_PRICE_US_EQUITY); every waiting family's intent is `_GENERAL`.
+**Question:** what does a `_GENERAL` deterministic family need before its comparators are evaluated? Our #42–#47
+(post-reset ids) are among those waiting.
 
 ### 3. Before the reset: two deterministic intents stopped being scored
 

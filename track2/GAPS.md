@@ -132,7 +132,12 @@ snapshot under `X_GENERAL` for 29 of them and none under the family id. The docs
 from its correctness battery, not pool rows (anjoman.ai/docs/scoring/build-a-scoring-module, read 2026-11-16).
 30 of the 31 are deterministic families; CODE_PATCH_VERIFY is judgment (too few submitters).
 
-- Reading (inferred): a platform mismatch between a family-id lookup and an intent-id pool. A report to the organiser
+- **Correction 2026-11-19:** the family-id reading is contradicted. FX_NOW has no family-id snapshot and is evaluated;
+  evaluated families all have non-`_GENERAL` intents, and waiting ones all `_GENERAL`. Cause unknown.
+- **Post-reset rotation (2026-11-19):** in the six evaluated families (FX_NOW, CRYPTO_PRICE, WEATHER_CHECK, CURRENCY_EXCHANGE,
+  SSL_VERIFICATION, STOCK_PRICE) the latest passing comparator supersedes the previous one: 0x8b22 #112–#117 replaced
+  0xb3fb #80–#85 within 36 h, all 0 mismatches. Identical scoring with new bytes; no quality difference.
+- Superseded reading (inferred): a platform mismatch between a family-id lookup and an intent-id pool. A report to the organiser
   is the owner's send.
 - **It changes no ranking for us.** Those families' miners are scored now, without a champion comparator, because a
   comparator is not needed for scoring. Every exact comparator reproduces the same network rule. Our #273–#278 can at

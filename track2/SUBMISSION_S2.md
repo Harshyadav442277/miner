@@ -84,9 +84,10 @@ engine route.
   miner registrations on one host (7 `nvd-cvss`, 5 `ghsa-cvss`) returned the CNA score. The schema asks for the NVD
   primary score. This is a 3-query pilot, so it is indicative only (`adapter/vulnerability_triage/`).
 - **Comparator registrations were blocked (G49, as of 2026-11-16).** 45 comparator registrations in 30 families read
-  `awaiting_compatible_material: ... no published snapshot`, while the snapshot existed under the `_GENERAL` intent id.
-  This is inferred from `/api/wasm` and `/api/evalpool/status`. It affected our #273–#278. The 2026-11-17 registry
-  reset emptied the list.
+  `awaiting_compatible_material: ... no published snapshot`. After the reset the same holds for our #42–#47. Every
+  family evaluated so far has non-`_GENERAL` intents (FX_NOW_*, CRYPTO_PRICE_USD, ...), and every waiting family's
+  intent is `_GENERAL`. Our first guess, a family-id lookup, is contradicted: FX_NOW has no family-id snapshot and is
+  still evaluated (2026-11-19). The cause is unknown and has been asked of the organisers.
 - **Two deterministic intents went unscored (G50, as of 2026-11-16).**
   - DNS_RECORD_LOOKUP_GENERAL was last scored at epoch 2019 (2026-11-05 11:51 UTC); the cause is unknown. In that
     table the proxy-hosted and Cloudflare wrappers scored 0 and the direct dns.google wrappers 0.90–0.93. That may be
@@ -110,7 +111,10 @@ engine route.
   - **Uploaded, with network evidence:** `material/out/LANGUAGE_TRANSLATION_GENERAL.jsonl`. 144 rows uploaded on
     2026-11-04 by signer 0xdAd2…A39e. All 144 are `eligible` and `attested`
     (`/api/evalpool/submissions/mine?submitter=0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e&intent_id=LANGUAGE_TRANSLATION_GENERAL`,
-    read 2026-11-17 07:22 UTC).
+    read 2026-11-17 07:22 UTC). **Related party:** our livecert served LANGUAGE_TRANSLATION_GENERAL (rank 12/22 on
+    2026-11-16). Rows in a pool's ranking half can become the questions miners are asked, so these rows may score our
+    own miner; they are dataset translations (Tatoeba), not livecert's answers. Two more rows from this wallet sit in
+    STOCK_PRICE_US_EQUITY and WEATHER_CHECK_TEMPERATURE (146 in all, `/api/evalpool/submissions/mine`, 2026-11-19).
   - **Prepared for owner-signed upload:**
     - `material/dns_truth/`: DNS.SB and NextDNS truth sources for DNS_RECORD_LOOKUP_GENERAL. Related party: our
       livecert serves that intent and was unscored there, so it would be ranked if scoring resumed.
