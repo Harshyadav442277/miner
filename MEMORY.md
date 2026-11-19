@@ -1,5 +1,17 @@
 # MEMORY.md — session continuity
 
+## 2026-11-19 ~08:30 UTC (14:00 IST): CURRENT — `fdba94e` LIVE; Groq key dead (G338); 44 intents active again
+
+- **Production:** `fdba94e` (`dpl_AM6rwiWNe4uJX5MtvkvrasJ6VH9z`, `miner-ek944oseb`): `1c2a564` plus one log line for
+  LLM refusals. Rollback: `miner-ngeicaq66` (`1c2a564`). Unit 1055/1055.
+- **Registration:** the catalog lists livecert active on `6499779` (44 intents) since 2026-11-18 10:01 UTC (G337
+  resolved).
+- **Epoch 14:** 14 intents at 0. Model-backed ones are from the dead Groq key (G338); the others are in G339.
+  Rank 1: CONTENT_EXTRACTION, NEWS_HEADLINES, STOCK_PRICE.
+- **Owner:**
+  1. New Groq key into Vercel Production `GROQ_API_KEY` (Sensitive); then Claude redeploys and verifies.
+  2. Sign `f47f018` after the faucet.
+
 ## 2026-11-18 ~09:10 UTC (14:40 IST): CURRENT — ALERT: node serves LiveCert as 5358 with 4 intents (G337)
 
 - A node import at 08:35–08:41 UTC created 5352 and 5358 for our wallet from Season-1 IPFS YAMLs, with no on-chain
