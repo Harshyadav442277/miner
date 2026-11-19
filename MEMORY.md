@@ -1,5 +1,10 @@
 # MEMORY.md — session continuity
 
+## 2026-11-19 ~09:15 UTC: CURRENT — Groq key replaced by the owner; production `miner-6q1l1vpb4` (`fdba94e`)
+
+- All model-backed routes verified on production (G338 fixed). Next: RESEARCH_SYNTHESIS search (G341); sign
+  `f47f018` after the faucet; read the next epoch.
+
 ## 2026-11-19 ~08:30 UTC (14:00 IST): CURRENT — `fdba94e` LIVE; Groq key dead (G338); 44 intents active again
 
 - **Production:** `fdba94e` (`dpl_AM6rwiWNe4uJX5MtvkvrasJ6VH9z`, `miner-ek944oseb`): `1c2a564` plus one log line for
