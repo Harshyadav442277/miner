@@ -1,5 +1,29 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-19 ~08:30 UTC (14:00 IST) epoch 14 — G338–G340 new; G337 resolved
+
+- **G337 — RESOLVED by the node.** Since 2026-11-18 10:01:41 UTC the catalog lists `livecert` active on YAML
+  `6499779` (the owner's Nov 17 signature, on-chain 5301), with 44 intents. The node-side id was not found in
+  5359–5700. The 4-intent overwrite lasted from about 08:41 to 10:01 UTC.
+- **G338 — Production's Groq key is rejected (HTTP 401) by every model. `OPEN`, owner action.**
+  - Seen on production `fdba94e` at ~08:20 UTC: `LLM openai/gpt-oss-120b HTTP 401`, same for qwen3.8-27b and
+    gpt-oss-20b.
+  - Every model-backed route answers "the language model did not return … in time" in under a second.
+  - In epoch 14 (scored 03:08–06:01 UTC) these scored exactly 0: CHAT, TEXT_GENERATION, CODE_REVIEW, SECURITY_REVIEW,
+    LANGUAGE_TRANSLATION, RESEARCH_SYNTHESIS, and probably QA and WEB_SEARCH.
+  - `GROQ_API_KEY` is Sensitive and Production-only, so a pulled copy is a placeholder and previews make no model
+    calls.
+  - Fix: the owner creates a new Groq key and sets it in Vercel Production; Claude redeploys and verifies.
+- **G339 — Epoch 14 zeros not explained by G338. `OPEN`.**
+  - FINANCIAL_DATA 0 at 04:49 UTC, after rank 1 in epoch 8; `/financial?symbol=Apple` answers correctly now.
+  - URL_SAFE 0: its 03:10 call arrived with no params.
+  - ONCHAIN_METRIC, TOKEN_TOTAL_SUPPLY, TOKEN_HOLDER and REGULATORY_FILING 0.
+  - The archive has no lines 04:00–05:59 UTC (PC asleep).
+  - The unsigned `f47f018` YAML maps URL_SAFE `url`, CHAT `message`, ONCHAIN_METRIC and TOKEN_TOTAL_SUPPLY inputs.
+- **G340 — Up in epoch 14:** CONTENT_EXTRACTION, NEWS_HEADLINES and STOCK_PRICE rank 1; CRYPTO_PRICE and
+  TEXT_CLASSIFICATION rank 2; IP_GEOLOCATION 0.9376, rank 2; SENTIMENT 0.9914, rank 4.
+  Table: `track1-miner/docs/evidence/track1-diagnosis-2026-11-17/epoch14-table.json`.
+
 ## 2026-11-18 ~09:10 UTC (14:40 IST) — G337 new: a node import replaced 5292 with a 4-intent Season-1 YAML
 
 - **G337 — LiveCert routes only 4 of 44 intents since 08:41 UTC. `OPEN`, owner action.**
