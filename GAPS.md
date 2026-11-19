@@ -1,5 +1,14 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-19 ~09:15 UTC — G338 fixed; G341 new
+
+- **G338 — FIXED.** The owner replaced `GROQ_API_KEY`, and production was redeployed (`miner-6q1l1vpb4`). Eight
+  model-backed routes answer, with no 401 in the logs (`track1-miner/docs/evidence/release-2026-11-19-groq-key/`).
+  Score effect: next epoch.
+- **G341 — RESEARCH_SYNTHESIS finds no studies for well-studied questions. `OPEN`.** "Does regular exercise reduce
+  depression symptoms?" answered `no_sources` (2026-11-19 ~09:10 UTC). Epoch 8: 0.825; epoch 14: 0 (the model was
+  also down then).
+
 ## 2026-11-19 ~08:30 UTC (14:00 IST) epoch 14 — G338–G340 new; G337 resolved
 
 - **G337 — RESOLVED by the node.** Since 2026-11-18 10:01:41 UTC the catalog lists `livecert` active on YAML
