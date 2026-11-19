@@ -11,7 +11,11 @@ const path = require("node:path");
 const { execFileSync } = require("node:child_process");
 const { FAMILIES, PINNED_SHA256, handle } = require("./lib/score");
 const BASE = (process.argv[2] || "https://livecert-comparator.vercel.app").replace(/\/$/, "");
-const PINNED = "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/2825b06f8ae7e4a0cd16e9e8824d66ef8b8fa5a9/season2/comparator/dist";
+const PINNED_V1 = "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/2825b06f8ae7e4a0cd16e9e8824d66ef8b8fa5a9/season2/comparator/dist";
+// The six families re-packed as release 0.2.0 after the 2026-11-17 reset are hosted in this repo at a pinned commit.
+const PINNED_V2 = "https://raw.githubusercontent.com/Harshyadav442277/miner/e834c7cad15e52dfd8b195cedacc921b6dcbeb25/track2/comparator/dist-v2";
+const V2 = new Set(["FX_NOW", "CRYPTO_PRICE", "WEATHER_CHECK", "CURRENCY_EXCHANGE", "SSL_VERIFICATION", "STOCK_PRICE"]);
+const pinnedUrl = (fam) => `${V2.has(fam) ? PINNED_V2 : PINNED_V1}/${fam}.wasm`;
 function viaVercelCurl(url, init) {
   // No spaces or newlines in any argument: on Windows this runs through cmd.exe.
   const tmp = path.join(os.tmpdir(), `live-check-${process.pid}`);
@@ -35,7 +39,7 @@ const sha = (b) => crypto.createHash("sha256").update(b).digest("hex");
     for (const d of [0n, 1n, -tol, 2n * tol, t / 200n]) qs.push(`{"ground_truth_value":${t},"miner_value":${BigInt.asIntN(64, t + d)},"spec":[${code},${tol}]}`);
   let allOk = true;
   for (const fam of FAMILIES) {
-    const hosted = sha(Buffer.from(await (await fetch(`${PINNED}/${fam}.wasm`, { signal: AbortSignal.timeout(30000) })).arrayBuffer()));
+    const hosted = sha(Buffer.from(await (await fetch(pinnedUrl(fam), { signal: AbortSignal.timeout(30000) })).arrayBuffer()));
     const g = await get(`${BASE}/${fam}/runnable`);
     const meta = g.status === 200 ? await g.json() : {};
     let bad = 0, n = 0, maxMs = 0;
