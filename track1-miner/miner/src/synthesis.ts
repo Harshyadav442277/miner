@@ -135,6 +135,17 @@ export function topicWords(topic: string): string[] {
 }
 
 /** The subject of a topic request. */
+/**
+ * " on <topic>" for the lead sentence, or nothing when the topic is the raw question. A question with no "about",
+ * "on" or "of" phrase becomes its own topic, and the answer read "Across three studies on Does vitamin D
+ * supplementation prevent fractures?, the findings are" (production, 2026-11-19). The topic still drives the search. Pure.
+ */
+export function topicLabel(topic: string): string {
+  const t = String(topic ?? "").trim();
+  if (!t || /\?\s*$/.test(t) || /^(?:does|do|did|is|are|was|were|can|could|will|would|should|what|how|which|why|when|where|who)\b/i.test(t)) return "";
+  return ` on ${t}`;
+}
+
 export function synthesisTopic(question: string): string | null {
   const s = String(question ?? "").replace(/\s+/g, " ").trim();
   const m = s.match(/\b(?:about|on|regarding|of)\s+(.+?)(?:,|\s+across\b|\s+from\s+(?:multiple|several|many|the)\b|\s+in\s+(?:one|a)\s+paragraph\b|[.?!]|$)/i);
@@ -309,6 +320,6 @@ export async function synthesise(question: string, topicParam = ""): Promise<Syn
   }
   return {
     verdict: "synthesis", confidence: 0.75, sources,
-    reason: `Across ${count(findings.length)} studies on ${topic}, the findings are: ${quoted}${method}`,
+    reason: `Across ${count(findings.length)} studies${topicLabel(topic)}, the findings are: ${quoted}${method}`,
   };
 }
