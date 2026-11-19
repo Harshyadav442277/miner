@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { findingSentence, hasWord, notesTopic, parseNotes, synthesise, synthesisTopic, topicWords } from "../src/synthesis";
+import { findingSentence, hasWord, notesTopic, parseNotes, synthesise, synthesisTopic, topicLabel, topicWords } from "../src/synthesis";
 import { parsePubmedArticle, plain, surname } from "../src/synthesis-sources";
 import { technicalComparisonPages, technicalSynthesis } from "../src/technical-research";
 
@@ -192,4 +192,11 @@ test("(live) the canonical example is synthesised from quoted, cited abstracts i
   }
   // The pest-detection paper the verifier caught must never be cited as a longevity finding.
   assert.doesNotMatch(r.reason, /PMID 40189644/);
+});
+
+test("the lead names a real topic but never echoes the raw question (production, 2026-11-19)", () => {
+  assert.equal(topicLabel("antibiotic resistance"), " on antibiotic resistance");
+  assert.equal(topicLabel("Does vitamin D supplementation prevent fractures?"), "");
+  assert.equal(topicLabel("Is intermittent fasting effective for weight loss"), "");
+  assert.equal(topicLabel(""), "");
 });
