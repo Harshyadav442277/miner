@@ -267,6 +267,9 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number, met
       }),
       signal: AbortSignal.timeout(ms),
     });
+    // Model and status only, never the key or the text: an invalid key (401) or a retired model (404) answered
+    // every model-backed intent with "did not return in time" and nothing in the logs said why (2026-11-19).
+    if (!res.ok) process.stdout.write(`LLM ${model} HTTP ${res.status}\n`);
     if (res.status === 429 || res.status >= 500) return "rate";
     if (res.status === 400) return salvage400(await res.text().catch(() => ""), r);
     if (!res.ok) return null;
