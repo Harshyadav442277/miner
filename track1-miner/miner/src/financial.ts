@@ -34,7 +34,7 @@
  * and presented as the ratio.
  */
 
-import { getFundamentals, knownCompany, lookupCik, marketCapValue, metricAsked } from "./fundamentals";
+import { dilutedCapValue, getFundamentals, knownCompany, lookupCik, marketCapValue, metricAsked } from "./fundamentals";
 import type { FundamentalFigures } from "./fundamentals";
 import { knownAsset, type Asset } from "./cryptoprice";
 import { notLicensedReason, permitted } from "./sources";
@@ -711,6 +711,8 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
     // Alphabet, Meta and Visa tag their shares by class only, so the SEC cover has no current total (2026-11-22).
     const nq = await nasdaqCap(ticker);
     if (nq) return { ...eq, data: { ...(eq.data ?? {}), market_cap: nq }, reason: `${eq.reason} Its market capitalisation is about ${human(nq)} (${money(nq)}), as Nasdaq's quote summary states it.` };
+    const dil = await dilutedCapValue(ticker, price, String(eq.data?.["currency"] ?? "")).catch(() => null);
+    if (dil) return { ...eq, data: { ...(eq.data ?? {}), market_cap: dil.usd }, reason: `${eq.reason} ${dil.text}` };
     if (asked) return { ...eq, reason: `${eq.reason} The market capitalisation was not retrieved: the shares outstanding could not be read from its SEC filings.` };
   }
   // A P/E asked on its own: the market data already holds the price, so only the EPS is fetched.

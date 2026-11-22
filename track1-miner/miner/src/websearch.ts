@@ -55,7 +55,7 @@ const DOC_HOSTS = new Set([
   "docs.python.org", "nodejs.org", "developer.mozilla.org", "docs.github.com", "docs.aws.amazon.com",
   "kubernetes.io", "rust-lang.org", "go.dev", "learn.microsoft.com", "postgresql.org",
 ]);
-const DOC_STOP = new Set("what is are how does do explain the a an and for from to of in on with about latest current official documentation docs reference tell me please".split(" "));
+const DOC_STOP = new Set("what is are how does do explain the a an and for from to of in on with about latest current official documentation docs reference tell me please one happens happen will would can should".split(" "));
 
 export interface OfficialDocument {
   title: string;
@@ -71,6 +71,33 @@ function decodeHtml(s: string): string {
 
 function docTerms(question: string): string[] {
   return [...new Set(String(question ?? "").toLowerCase().match(/[a-z][a-z0-9]{2,}/g) ?? [])].filter((w) => !DOC_STOP.has(w));
+}
+
+/**
+ * The passage that answers the question's predicate, not the page's subject. Counting matched terms picked the
+ * TaskGroup introduction for "How does Python asyncio TaskGroup handle exceptions?", because "asyncio" and
+ * "taskgroup" are in every passage (Codex review, 2026-11-22). Each term now weighs by how few passages hold it, and
+ * a term matches its stem ("exceptions" finds "exception"). Pure.
+ */
+export function bestPassage(passages: string[], terms: string[], definition = false): { text: string; index: number; hits: number } | null {
+  if (!passages.length) return null;
+  const stems = terms.map((t) => (t.length > 5 ? t.replace(/(?:ions|ion|ing|ed|es|s)$/, "") : t));
+  // A failing task "raises" in a question and "fails with an exception" in the docs.
+  const SAME: Record<string, string> = { raise: "(?:rais|fail|exception)", rais: "(?:rais|fail|exception)", error: "(?:error|exception)", throw: "(?:throw|rais|exception)" };
+  // Not after a hyphen: "exceptions" is not "non-exceptional".
+  const res = stems.map((s) => new RegExp(`(?<![-\\w])${SAME[s] ?? s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\w*`, "i"));
+  const df = res.map((re) => passages.filter((p) => re.test(p)).length);
+  const n = passages.length;
+  // Code samples hold every keyword and answer nothing: "async def main(): try: async with asyncio.timeout(10)".
+  const code = (t: string): boolean => /\b(?:async def|def|import|await|return)\b[^.]*[(:=]/.test(t) && (t.match(/[(){}=:]/g)?.length ?? 0) > 6;
+  const scored = passages.map((text, index) => {
+    let score = 0, hits = 0;
+    res.forEach((re, i) => { if (re.test(text)) { hits += 1; score += Math.log((n + 1) / (df[i]! + 0.5)); } });
+    return { text, index, hits, score: code(text) ? -1 : score };
+  }).sort((a, b) => (b.score < 0 ? -1 : 0) - (a.score < 0 ? -1 : 0) || b.hits - a.hits || b.score - a.score || a.index - b.index);
+  // "What is X?" is answered by the section's opening passage that names X, not by the rarest mention of it.
+  if (definition) return scored.filter((p) => p.score >= 0 && p.hits >= Math.max(1, scored[0]!.hits - 1)).sort((a, b) => a.index - b.index)[0] ?? scored[0]!;
+  return scored[0]!;
 }
 
 /** Resolve only known or explicitly allowlisted documentation hosts; never arbitrary web pages. */
@@ -104,12 +131,24 @@ export async function officialDocument(question: string): Promise<OfficialDocume
   try {
     const r = await fetch(target.url, { headers: { accept: "text/html,application/xhtml+xml", "user-agent": DOC_UA }, signal: AbortSignal.timeout(DOC_TIMEOUT_MS) });
     if (!r.ok) return null;
-    const html = await r.text();
-    const terms = docTerms(question);
-    const ranked = htmlPassages(html).map((text, index) => ({ text, index, score: terms.reduce((n, t) => n + (new RegExp(`\\b${t.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&")}\\b`, "i").test(text) ? 1 : 0), 0) }))
-      .sort((a, b) => b.score - a.score || a.index - b.index);
-    const best = ranked[0];
-    if (!best || (terms.length >= 2 && best.score < 1)) return null;
+    const page = await r.text();
+    // An anchored link names the section: rank that section's passages, not the whole page's (#task-groups).
+    const frag = (() => { try { return new URL(target.url).hash.slice(1); } catch { return ""; } })();
+    const at = frag ? page.indexOf(`id="${frag}"`) : -1;
+    // The section ends at the next heading of its level: a fixed window ran into "Running Tasks Concurrently".
+    const own = at >= 0 ? page.slice(at, at + 400).match(/<h([1-6])\b/i) : null;
+    const from = own ? at + own.index! + 3 : at + 10;
+    const next = at >= 0 ? page.slice(from).search(new RegExp(`<h[1-${own?.[1] ?? "2"}]\\b`, "i")) : -1;
+    const html = at >= 0 ? page.slice(at, next > 0 ? from + next : at + 30_000) : page;
+    // Words that only restate the page's subject (asyncio-task.html#task-groups: "asyncio", "task", "taskgroup")
+    // pick the passage that repeats the class name, not the one that answers. The rest of the question decides.
+    const subject = (() => { try { const u = new URL(target.url); return `${u.pathname}${u.hash}`.toLowerCase().replace(/[^a-z0-9]/g, ""); } catch { return ""; } })();
+    const all = docTerms(question);
+    const asked = all.filter((t) => !subject.includes(t.length > 5 ? t.replace(/(?:es|s)$/, "") : t));
+    const terms = asked.length ? asked : all;
+    const definition = /^\s*(?:what\s+(?:is|are)|define|explain)\b/i.test(question) && !/\b(?:when|if|how|why|happens|differ)\b/i.test(question);
+    const best = bestPassage(htmlPassages(html), terms, definition);
+    if (!best || (terms.length >= 2 && best.hits < 1)) return null;
     const excerpt = best.text.length > 360 ? `${best.text.slice(0, 357).replace(/\s+\S*$/, "")}…` : best.text;
     return { ...target, excerpt };
   } catch { return null; }

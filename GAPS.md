@@ -1,5 +1,19 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-22 ~20:15 UTC (2026-11-23 01:45 IST) — remaining gaps worked
+
+- **ONCHAIN_METRIC 0 at 16:35 UTC (epoch 38). `PARTLY FIXED`.** In its window the archive holds:
+  - a call with no parameters at all (16:30:25): nothing can answer it;
+  - two query-only calls: the question is not logged;
+  - `metric=totalSupply` with an address and block (16:13): refused, now read.
+  - Every common spelling of `metric` is now read. Which call was scored is not known.
+- **G353 — `PARTLY FIXED`.** When Nasdaq fails, the market cap comes from SEC diluted weighted-average shares times the
+  price, labelled as an approximation: Alphabet $3.27 tn, Meta $1.43 tn, Coinbase $26.9 bn. Visa and Berkshire tag no
+  such count and still depend on Nasdaq.
+- **TaskGroup documentation answer — `FIXED` for the reported case.** "How does Python asyncio TaskGroup handle
+  exceptions?" now quotes the rule that a failing task cancels the rest. The phrasing "what happens to the other tasks
+  … when one task raises" still picks the nested-group cancellation passage: related, but not the main rule.
+
 ## 2026-11-22 ~19:30 UTC (2026-11-23 01:00 IST) — Codex's reply checked; G350–G352 new; G349 fixed
 
 - **G350 — Two epoch-39 zeros, read from the RES log. `FIXED` in code, deploy recorded in MEMORY.md.**

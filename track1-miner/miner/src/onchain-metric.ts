@@ -185,12 +185,29 @@ export function holderAndToken(question: string, addresses: string[]): { holder:
  * over a block cue in the words, which would otherwise answer the block's gas. Pure.
  */
 export function structuredKind(kind: MetricKind | null, metricParam: string, addresses: string[], hasTx: boolean): MetricKind | null {
-  const m = String(metricParam ?? "").trim().toLowerCase();
+  const m = metricAlias(metricParam);
   const one = !hasTx && addresses.length === 1;
   if (one && m === "tx_count") return "tx_count";
   if (one && m === "balance" && (kind === null || kind === "block")) return "native_balance";
+  // metric=totalSupply with an address and a block came in at 16:13 UTC on 2026-11-22 and was refused.
+  if (one && m === "total_supply") return "total_supply";
+  if (!hasTx && !addresses.length && /^(?:gas_used|gas_limit|base_fee|block_tx_count)$/.test(m) && kind === null) return "block";
   if (kind) return kind;
   return one && m === "" ? "native_balance" : null;
+}
+
+/** The `metric` parameter in one spelling: "totalSupply", "total supply" and "total_supply" are one metric. Pure. */
+export function metricAlias(metricParam: string): string {
+  const m = String(metricParam ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_").replace(/([a-z])([A-Z])/g, "$1_$2");
+  const k = m.replace(/_/g, "");
+  if (k === "txcount" || k === "nonce" || k === "transactioncount" || k === "transactionssent") return "tx_count";
+  if (k === "balance" || k === "nativebalance" || k === "ethbalance") return "balance";
+  if (k === "totalsupply" || k === "supply") return "total_supply";
+  if (k === "gasused") return "gas_used";
+  if (k === "gaslimit") return "gas_limit";
+  if (k === "basefee" || k === "basefeepergas") return "base_fee";
+  if (k === "blocktxcount" || k === "blocktransactions") return "block_tx_count";
+  return m;
 }
 
 export async function verifyOnchainMetric(question: string, chainParam = "", blockParam = "", addressParam = "", metricParam = ""): Promise<OnchainMetricResult> {
@@ -231,7 +248,7 @@ export async function verifyOnchainMetric(question: string, chainParam = "", blo
     const used = big(b.gasUsed) ?? 0n, limit = big(b.gasLimit) ?? 0n, fee = big(b.baseFeePerGas);
     const pct = limit ? Number((used * 10000n) / limit) / 100 : 0;
     const when = b.timestamp ? new Date(Number(big(b.timestamp)) * 1000).toISOString() : null;
-    const field = blockField(question);
+    const field = blockField(`${question} ${({ gas_used: "gas used", gas_limit: "gas limit", base_fee: "base fee", block_tx_count: "how many transactions" } as Record<string, string>)[metricAlias(metricParam)] ?? ""}`);
     const pick = (x: typeof b): bigint | null => field === "gas_limit" ? big(x?.gasLimit) : field === "base_fee" ? big(x?.baseFeePerGas)
       : field === "tx_count" ? (Array.isArray(x?.transactions) ? BigInt(x.transactions.length) : null) : big(x?.gasUsed);
     const v = pick(b);

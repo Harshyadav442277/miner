@@ -149,3 +149,20 @@ test("a coin search hit says how it matched and its rank", () => {
   assert.deepEqual(pickCoin("TRON", [{ id: "tron", name: "TRON", symbol: "trx", market_cap_rank: 8 }]), { name: "TRON", symbol: "TRX", gecko: "tron", by: "name", rank: 8 });
   assert.equal(pickCoin("shib", [{ id: "shiba-inu", name: "Shiba Inu", symbol: "shib", market_cap_rank: 39 }])?.by, "symbol");
 });
+
+test("with Nasdaq failing, the market cap is approximated from SEC diluted shares (GAPS G353)", async () => {
+  await withFetch([
+    ["finance/chart/GOOGL", () => json({ chart: { result: [{ meta: { instrumentType: "EQUITY", currency: "USD", longName: "Alphabet Inc.", regularMarketPrice: 265,
+      chartPreviousClose: 260, regularMarketDayHigh: 266, regularMarketDayLow: 259, regularMarketVolume: 30_000_000, fiftyTwoWeekHigh: 300, fiftyTwoWeekLow: 150 } }] } })],
+    ["EntityCommonStockSharesOutstanding", () => json({ units: {} })],
+    ["api.nasdaq.com", () => json({ data: null, status: { rCode: 200, bCodeMessage: [{ code: 3004, errorMessage: "Error while calling vendor" }] } })],
+    ["WeightedAverageNumberOfDilutedSharesOutstanding", () => json({ units: { shares: [
+      { val: 12_368_000_000, end: new Date(Date.now() - 50 * 86_400_000).toISOString().slice(0, 10), form: "10-Q", filed: "2026-10-29", accn: "q" },
+      { val: 12_900_000_000, end: "2025-09-30", form: "10-Q", filed: "2025-10-29", accn: "old" },
+    ] } })],
+  ], async () => {
+    const r = await getFinancialData("Alphabet", "", "Alphabet");
+    assert.equal(r.data?.market_cap, 12_368_000_000 * 265);
+    assert.match(r.reason, /approximated from 12,368,000,000 diluted weighted-average shares/);
+  });
+});
