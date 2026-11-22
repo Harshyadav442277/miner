@@ -172,7 +172,11 @@ test("format-version-3 fields: each copies what the route states, and the schema
   assert.equal(scoredFields("/extract", { extracted: { dates: ["March 3, 2026"], values: ["$1,250.00"], events: [] } }).brief, "dates: March 3, 2026; values: $1,250.00");
   const tx = scoredFields("/tx-lookup", { hash: "0xab", verdict: "confirmed", transaction: { status: "confirmed", receipt_status: "failed", from: "0x1", to: "0x2", value: "0.5", block_number: 1 } });
   assert.deepEqual(only(tx, { status: 0, value_eth: 0 }), { status: "reverted", value_eth: 0.5 });
-  assert.equal(scoredFields("/onchain-metric", { metric: "native_balance", value_raw: "1146641417679066653164", block_number: 21000000 }).balance_gwei, 1146641417679);
+  assert.equal(scoredFields("/onchain-metric", { metric: "native_balance", value_raw: "1146641417679066653164", block_number: 21000000 }).balance_gwei, 1146641417679.066653);
+  assert.equal(scoredFields("/onchain-metric", { metric: "native_balance", value_raw: "5000", block_number: 1 }).balance_gwei, 0.000005, "sub-gwei dust is not floored to 0");
+  const nonce = scoredFields("/onchain-metric", { metric: "tx_count", value_raw: "7", tx_count: 7, balance_wei: "2000000000", block_number: 5 });
+  assert.deepEqual(only(nonce, { balance_gwei: 0, block: 0 }), { balance_gwei: 2, block: "5" });
+  assert.deepEqual(scoredFields("/onchain-metric", { metric: "block", value_raw: "11089692", block_number: 5 }), {});
   assert.equal(scoredFields("/sanctions-screen", {}).match_score, undefined, "sanctions fields are built in its route, not here");
 });
 

@@ -227,10 +227,14 @@ const SCORED: Record<string, (b: Body) => Body> = {
   "/macro": (b) => ({ rate_pct: num(list(b.indicators).find((i) => i.unit === "%")?.value) }),
   // DNS_RECORD_LOOKUP_GENERAL: at least one record, or none (NXDOMAIN or an empty answer); null when unread
   "/dns": (b) => ({ has_record: Array.isArray(b.records) && b.verdict !== "unknown" ? b.records.length > 0 : null }),
-  // ONCHAIN_METRIC_VERIFY_GENERAL scores a native balance in gwei
-  "/onchain-metric": (b) => b.metric === "native_balance" && typeof b.value_raw === "string" && /^\d+$/.test(b.value_raw)
-    ? { balance_gwei: Number(BigInt(b.value_raw) / 1_000_000_000n), block: b.block_number === null ? null : String(b.block_number) }
-    : {},
+  // ONCHAIN_METRIC_VERIFY_GENERAL scores a native balance in gwei, to the schema's 6 decimals, whichever `metric` was
+  // asked: a tx_count answer reads the balance alongside the nonce.
+  "/onchain-metric": (b) => {
+    const wei = b.metric === "native_balance" ? b.value_raw : b.metric === "tx_count" ? b.balance_wei : null;
+    return typeof wei === "string" && /^\d+$/.test(wei)
+      ? { balance_gwei: Number(BigInt(wei) / 1000n) / 1e6, block: b.block_number === null ? null : String(b.block_number) }
+      : {};
+  },
   // STORM_ALERT_GENERAL. risk_level is the grade the route states in its reason (storm.ts gradeRisk: none and low
   // are LOW). A separate cut-off rule on risk_score served "graded low" beside MODERATE for Miami at 0.27
   // (production 2026-11-15). precipitation_mm is the window's total, as the schema states, not one step's peak.

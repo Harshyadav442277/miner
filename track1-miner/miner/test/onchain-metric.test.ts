@@ -94,9 +94,33 @@ test("onchain metric: the intent's structured metric param picks the read (epoch
   const A = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
   assert.equal(structuredKind(null, "balance", [A], false), "native_balance");
   assert.equal(structuredKind(null, "", [A], false), "native_balance");
-  assert.equal(structuredKind(null, "tx_count", [A], false), null);
+  assert.equal(structuredKind(null, "tx_count", [A], false), "tx_count");
+  assert.equal(structuredKind("block", "tx_count", [A], false), "tx_count", "a stated metric beats a block cue in the words");
+  assert.equal(structuredKind("block", "balance", [A], false), "native_balance");
+  assert.equal(structuredKind(null, "tx_count", [A], true), null);
+  assert.equal(structuredKind(null, "gas_used", [A], false), null);
   assert.equal(structuredKind(null, "balance", [], false), null);
   assert.equal(structuredKind(null, "balance", [A, USDC], false), null);
   assert.equal(structuredKind("total_supply", "balance", [A], false), "total_supply");
   assert.equal(structuredKind(null, "balance", [A], true), null);
+});
+
+test("onchain metric: metric=tx_count answers the nonce at the block, with the balance the intent scores", async () => {
+  const restore = stubRpc({
+    eth_blockNumber: () => "0x100",
+    eth_getTransactionCount: (p) => (p[1] === "0x10" ? "0x2a" : "0x0"),
+    eth_getBalance: (p) => (p[1] === "0x10" ? "0xde0b6b3a7640000" : "0x0"),
+  });
+  try {
+    const r = await verifyOnchainMetric("", "ethereum", "16", VAULT, "tx_count");
+    assert.equal(r.metric, "tx_count");
+    assert.equal(r.verdict, "verified");
+    assert.equal(r.tx_count, 42);
+    assert.equal(r.value_raw, "42");
+    assert.equal(r.unit, "transactions");
+    assert.equal(r.block_number, 16);
+    assert.equal(r.address, VAULT);
+    assert.equal(r.balance_wei, "1000000000000000000");
+    assert.match(r.reason, /sent 42 transactions \(its nonce\) at block 16/);
+  } finally { restore(); }
 });

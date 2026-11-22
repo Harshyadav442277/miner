@@ -31,7 +31,7 @@ const NATIVE: Record<string, string> = { ethereum: "ETH", base: "ETH", arbitrum:
 const TRANSFER = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
 const SEL = { totalSupply: "0x18160ddd", decimals: "0x313ce567", symbol: "0x95d89b41", balanceOf: "0x70a08231" };
 
-export type MetricKind = "tx_receipt" | "storage" | "total_supply" | "token_balance" | "native_balance" | "block";
+export type MetricKind = "tx_receipt" | "storage" | "total_supply" | "token_balance" | "native_balance" | "tx_count" | "block";
 
 export interface TransferLog { token: string; symbol: string | null; from: string; to: string; amount: string | null; amount_raw: string | null; token_id: string | null; log_index: number }
 
@@ -56,6 +56,8 @@ export interface OnchainMetricResult {
   transfers?: TransferLog[];
   address?: string;
   token_address?: string;
+  tx_count?: number;
+  balance_wei?: string | null;
   error?: string;
 }
 
@@ -160,13 +162,17 @@ export function holderAndToken(question: string, addresses: string[]): { holder:
  * ONCHAIN_METRIC_VERIFY's request is structured: `address`, `block`, `chain` and `metric` (balance or tx_count,
  * default balance), with no question text. The words-only reading of `metricKind` found no metric in that and
  * answered "No readable on-chain value was named"; the intent scored 0 in epoch 8 (2026-11-18) after 0.995 on Nov 16.
- * One address with `metric` balance, or with no metric and no other cue, is its native balance. Pure.
+ * One address with `metric` balance, or with no metric and no other cue, is its native balance. `metric=tx_count`
+ * is the address's nonce: four such requests on 2026-11-20 were refused as "no readable value". A stated metric wins
+ * over a block cue in the words, which would otherwise answer the block's gas. Pure.
  */
 export function structuredKind(kind: MetricKind | null, metricParam: string, addresses: string[], hasTx: boolean): MetricKind | null {
-  if (kind) return kind;
   const m = String(metricParam ?? "").trim().toLowerCase();
-  if (hasTx || addresses.length !== 1) return null;
-  return m === "" || m === "balance" ? "native_balance" : null;
+  const one = !hasTx && addresses.length === 1;
+  if (one && m === "tx_count") return "tx_count";
+  if (one && m === "balance" && (kind === null || kind === "block")) return "native_balance";
+  if (kind) return kind;
+  return one && m === "" ? "native_balance" : null;
 }
 
 export async function verifyOnchainMetric(question: string, chainParam = "", blockParam = "", addressParam = "", metricParam = ""): Promise<OnchainMetricResult> {
@@ -197,6 +203,7 @@ export async function verifyOnchainMetric(question: string, chainParam = "", blo
   const base = { chain, metric: kind, block_number: block, block_anchor: anchor } as const;
 
   if (kind === "tx_receipt") return readReceipt(urls, tx!, chain, where, stated, base);
+  if (kind === "tx_count") return readTxCount(urls, addresses[0]!, block, at, where, base);
   if (kind === "block") {
     const reads = await readTwo(urls, "eth_getBlockByNumber", [hex(block), false]);
     const blocks = reads.map((r) => r.result as { hash?: string; gasUsed?: string; gasLimit?: string; baseFeePerGas?: string; transactions?: unknown[]; timestamp?: string } | null).filter(Boolean);
@@ -252,6 +259,31 @@ export async function verifyOnchainMetric(question: string, chainParam = "", blo
     providers: reads.map((r, i) => ({ provider: r.provider, value_raw: vals[i]?.toString() ?? null })),
     providers_agree: agree, verdict: agree === false ? "providers_disagree" : "verified", confidence: agree ? 1 : agree === null ? 0.8 : 0.5,
     source: `${call[0]} on public chain nodes`, reason: `${label} ${at} is ${said}. ${check}` };
+}
+
+/** An address's nonce at the block, with its native balance read alongside: the intent scores the balance either way. */
+async function readTxCount(urls: string[], holder: string, block: number, at: string, where: string,
+  base: Pick<OnchainMetricResult, "chain" | "metric" | "block_number" | "block_anchor">): Promise<OnchainMetricResult> {
+  const [reads, bals] = await Promise.all([
+    readTwo(urls, "eth_getTransactionCount", [holder, hex(block)]),
+    readTwo(urls, "eth_getBalance", [holder, hex(block)]),
+  ]);
+  const vals = reads.map((r) => big(r.result));
+  if (!reads.length || vals[0] === null) {
+    return blank("unknown", `Unknown: no ${where} RPC returned the transaction count of ${holder} ${at}. Old blocks need an archive node.`, { ...base, address: holder, error: "upstream_unavailable" });
+  }
+  const n = vals[0]!;
+  const agree = vals.length > 1 ? vals.every((x) => x === n) : null;
+  const bal = big(bals[0]?.result);
+  const coin = NATIVE[base.chain ?? ""] ?? "native units";
+  const held = bal === null ? "" : `, and it held ${readable(units(bal, 18))} ${coin} (exact: ${units(bal, 18)})`;
+  const check = agree ? "Both providers return the same count." : agree === null ? `Read from one provider (${reads[0]!.provider}).` :
+    `The providers disagree: ${reads.map((r) => `${r.provider} ${big(r.result)?.toString() ?? "no answer"}`).join("; ")}.`;
+  return { ...base, address: holder, value: n.toString(), value_raw: n.toString(), unit: "transactions", tx_count: Number(n), balance_wei: bal?.toString() ?? null,
+    providers: reads.map((r, i) => ({ provider: r.provider, value_raw: vals[i]?.toString() ?? null })),
+    providers_agree: agree, verdict: agree === false ? "providers_disagree" : "verified", confidence: agree ? 1 : agree === null ? 0.8 : 0.5,
+    source: "eth_getTransactionCount on public chain nodes",
+    reason: `${holder} had sent ${n.toLocaleString("en-US")} transaction${n === 1n ? "" : "s"} (its nonce) ${at}${held}. ${check}` };
 }
 
 async function readReceipt(urls: string[], tx: string, chain: string, where: string, stated: number | "latest" | null,
