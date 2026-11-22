@@ -1,5 +1,14 @@
 # MEMORY.md — session continuity
 
+## 2026-11-22 ~19:45 UTC (2026-11-23 01:15 IST): CURRENT — `5f28505` LIVE (`miner-pd9clrct7`); PRs #53, #54 merged
+
+- Production `dpl_9pMfgpRecB1Cn116wHV5v8noi9wg` from main `5f28505`. Preflight 7/7, watch active. Rollback:
+  `miner-bk9insot7` (`8ef874f`). Evidence: `track1-miner/docs/evidence/release-2026-11-23-remaining-gaps/`.
+- Changed: ONCHAIN_METRIC reads any `metric` spelling; market cap from SEC diluted shares when Nasdaq fails;
+  documentation answers pick the passage the question asks about; the SEC-only registry answer is held to the jurisdiction.
+- Next: read epochs 40+ (GAPS 2026-11-22 blocks). Codex's Stablecoin workflow plan needs the owner and an app partner.
+
+
 ## 2026-11-22 ~19:20 UTC (2026-11-23 00:50 IST): CURRENT — `8ef874f` LIVE (`miner-bk9insot7`); PRs #50, #51 merged
 
 - Production `dpl_BfJXp7P13QwEgh7fD1hUtaCo6ozS` from main `8ef874f`. Preflight 7/7 after one flaky live test re-ran clean;
