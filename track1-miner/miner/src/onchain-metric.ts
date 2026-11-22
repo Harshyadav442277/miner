@@ -106,6 +106,22 @@ export function metricKind(question: string, hasTx: boolean, addresses: string[]
   return null;
 }
 
+type BlockField = "gas_used" | "gas_limit" | "base_fee" | "tx_count";
+const BLOCK_UNIT: Record<BlockField, string> = { gas_used: "gas", gas_limit: "gas", base_fee: "gwei", tx_count: "transactions" };
+
+/**
+ * Which of a block's figures the question asks for; gas used when it names none. The value field held gas used
+ * whatever was asked, so "the gas limit of block 20000000" said 30,000,000 in the prose and 11089692 in `value_raw`
+ * (Codex audit, 2026-11-22). Pure.
+ */
+export function blockField(question: string): BlockField {
+  if (/\bgas\s*limit\b|\bgasLimit\b/i.test(question)) return "gas_limit";
+  if (/\bbase\s*fee\b|\bbaseFee(?:PerGas)?\b/i.test(question)) return "base_fee";
+  if (/\bgas\s*used\b|\bgasUsed\b|\bgas\b/i.test(question)) return "gas_used";
+  if (/\b(?:how many|number of|count of)\s+(?:transactions|txs?)\b|\btransaction count\b/i.test(question)) return "tx_count";
+  return "gas_used";
+}
+
 function blank(verdict: OnchainMetricResult["verdict"], reason: string, extra: Partial<OnchainMetricResult> = {}): OnchainMetricResult {
   return { chain: null, metric: null, block_number: null, block_anchor: null, value: null, value_raw: null, unit: null,
     providers: [], providers_agree: null, verdict, confidence: 0, reason, source: "JSON-RPC on public chain nodes", ...extra };
@@ -213,12 +229,18 @@ export async function verifyOnchainMetric(question: string, chainParam = "", blo
     const used = big(b.gasUsed) ?? 0n, limit = big(b.gasLimit) ?? 0n, fee = big(b.baseFeePerGas);
     const pct = limit ? Number((used * 10000n) / limit) / 100 : 0;
     const when = b.timestamp ? new Date(Number(big(b.timestamp)) * 1000).toISOString() : null;
-    return { ...base, value: used.toString(), value_raw: used.toString(), unit: "gas",
-      providers: reads.map((r) => ({ provider: r.provider, value_raw: big((r.result as { gasUsed?: string })?.gasUsed)?.toString() ?? null })),
-      providers_agree: agree, verdict: agree === false ? "providers_disagree" : "verified", confidence: agree ? 1 : agree === null ? 0.8 : 0.5,
+    const field = blockField(question);
+    const pick = (x: typeof b): bigint | null => field === "gas_limit" ? big(x?.gasLimit) : field === "base_fee" ? big(x?.baseFeePerGas)
+      : field === "tx_count" ? (Array.isArray(x?.transactions) ? BigInt(x.transactions.length) : null) : big(x?.gasUsed);
+    const v = pick(b);
+    const shown = v === null ? null : field === "base_fee" ? units(v, 9) : v.toString();
+    return { ...base, value: shown, value_raw: v?.toString() ?? null, unit: BLOCK_UNIT[field],
+      providers: reads.map((r) => ({ provider: r.provider, value_raw: pick(r.result as typeof b)?.toString() ?? null })),
+      providers_agree: agree, verdict: v === null ? "not_found" : agree === false ? "providers_disagree" : "verified", confidence: v === null ? 0 : agree ? 1 : agree === null ? 0.8 : 0.5,
+      ...(v === null ? { error: field === "base_fee" ? "no_base_fee" : "field_missing" } : {}),
       source: "eth_getBlockByNumber on public chain nodes",
       reason: `Block ${block.toLocaleString("en-US")} on ${where}${when ? ` (${when})` : ""} used ${used.toLocaleString("en-US")} gas of a ${limit.toLocaleString("en-US")} limit (${pct}%), held ${b.transactions?.length ?? 0} transactions` +
-        `${fee !== null ? ` and had a base fee of ${units(fee, 9)} gwei` : ""}. ${agree ? "Both providers return the same block hash." : agree === null ? "Read from one provider." : "The providers return different block hashes."}` };
+        `${fee !== null ? ` and had a base fee of ${units(fee, 9)} gwei` : field === "base_fee" ? ", and has no base fee: blocks before the London upgrade carry none" : ""}. ${agree ? "Both providers return the same block hash." : agree === null ? "Read from one provider." : "The providers return different block hashes."}` };
   }
 
   let call: [string, unknown[]], unit: string, decimals: number | null = null, label: string, holder = "", token = "";
