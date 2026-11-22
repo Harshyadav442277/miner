@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  acceptBackground, citedUrls, clipTitle, codeTokens, isForwardLooking, misroute, namesCode, officialDocument, officialDocumentUrl, timeless, webSearch,
+  acceptBackground, bestPassage, citedUrls, clipTitle, codeTokens, isForwardLooking, misroute, namesCode, officialDocument, officialDocumentUrl, timeless, webSearch,
 } from "../src/websearch";
 import { openGate } from "./licence-fixtures";
 
@@ -231,4 +231,18 @@ test("a timeless question served by web search names its cited source (live)", a
   assert.match(r.reason, /Jane Austen/);
   assert.ok(r.sources.includes("https://en.wikipedia.org/wiki/Pride_and_Prejudice"), JSON.stringify(r.sources));
   assert.ok(!r.sources.some((u) => /Zombies/.test(u)), JSON.stringify(r.sources));
+});
+
+test("a documentation passage is picked by the question's predicate, not by the page's subject (Codex review, 2026-11-22)", () => {
+  const passages = [
+    "Task groups combine a task creation API with a convenient and reliable way to wait for all tasks in the group to finish.",
+    "If cancel() is called before entering the task group, the group will be cancelled upon entry, so an unused asyncio.TaskGroup can be passed on.",
+    "Cancel the task group. This is a non-exceptional, early exit of the task group's lifetime.",
+    "The first time any of the tasks belonging to the group fails with an exception other than asyncio.CancelledError, the remaining tasks in the group are cancelled.",
+    "async def main(): try: async with asyncio.timeout(10): await long_running_task() except TimeoutError: print(x)",
+  ];
+  assert.equal(bestPassage(passages, ["handle", "exceptions"])?.index, 3, "not the non-exceptional one, not the code");
+  assert.equal(bestPassage(passages, ["cancel"])?.index, 1);
+  assert.equal(bestPassage(passages, ["taskgroup"], true)?.index, 1);
+  assert.equal(bestPassage(passages, ["raises"])?.index, 3, "a task that raises is one that fails with an exception");
 });
