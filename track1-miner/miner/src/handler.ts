@@ -473,17 +473,23 @@ function handleInContext(req: IncomingMessage, res: ServerResponse): void {
 const LOGGED_VALUES = new Set(["__path", "chain", "record_type", "type", "period", "form", "target_language", "window_hours", "metric", "block",
   "symbol", "ticker", "asset", "cve_id", "indicator", "country"]);
 
+const ASSET_PARAMS = new Set(["symbol", "ticker", "asset", "indicator", "country"]);
+
 /** One line per answer: the verdict, the error code and the names of the top-level fields that are null or empty, never a value. Pure. */
 export function resultLine(path: string, body: unknown): string {
   const b = (body && typeof body === "object" && !Array.isArray(body) ? body : {}) as Record<string, unknown>;
-  const verdict = typeof b.verdict === "string" ? b.verdict.slice(0, 30) : "-";
+  // A verdict word only: /wallet-balance's verdict is the balance itself ("5.79956412 ETH", GAPS G349).
+  const verdict = typeof b.verdict !== "string" ? "-" : /^[A-Za-z][A-Za-z _-]{0,29}$/.test(b.verdict) ? b.verdict : "value";
   const empty = Object.keys(b).filter((k) => b[k] === null || (Array.isArray(b[k]) && !(b[k] as unknown[]).length) || b[k] === "");
   return `RES ${path} verdict=${verdict}${typeof b.error === "string" ? ` error=${b.error.slice(0, 30)}` : ""}${empty.length ? ` empty=${empty.join(",").slice(0, 300)}` : ""}`;
 }
 export function logParam(name: string, raw: string): string {
   const v = raw.trim();
   if (!v) return `${name}=EMPTY`;
-  return LOGGED_VALUES.has(name) ? `${name}=${v.slice(0, 40).replace(/[^\w .:/-]/g, "_")}` : name;
+  if (!LOGGED_VALUES.has(name)) return name;
+  // A ticker or a coin name is at most four words; anything longer is a sentence and is not logged (GAPS G349).
+  if (ASSET_PARAMS.has(name) && (v.length > 40 || v.split(/\s+/).length > 4)) return `${name}=TEXT`;
+  return `${name}=${v.slice(0, 40).replace(/[^\w .:/-]/g, "_")}`;
 }
 
 function route(req: IncomingMessage, res: ServerResponse): void {
