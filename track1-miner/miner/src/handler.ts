@@ -39,6 +39,7 @@ import {
   type HolderResult,
 } from "./holders";
 import { answerResearch, type ResearchResult } from "./research";
+import { researchBrief } from "./answer-brief";
 import { lookupCryptoPrice, type CryptoPriceResult } from "./cryptoprice";
 import { lookupStockPrice, type StockPriceResult } from "./stockprice";
 import { verifyCrossChain, type CrossChainResult } from "./crosschain";
@@ -235,6 +236,18 @@ const requestOf = new WeakMap<ServerResponse, { path: string; params: URLSearchP
  * so answers are now written for the caller. The measurements that justified the
  * old shape are in git history (`restate.ts`, `lean`).
  */
+/**
+ * Adds the model's one-sentence answer as `brief` (answer-brief.ts) to a research answer that found evidence, or to an
+ * honest "none found" where the consensus is still worth stating. An outage keeps its own wording.
+ */
+function withResearchBrief(q: string) {
+  return async <T extends { verdict: string; reason: string; error?: string }>(r: T): Promise<T & { brief?: string; brief_basis?: string }> => {
+    if (r.error || /^(?:unknown|unavailable)$/.test(r.verdict)) return r;
+    const b = await researchBrief(q, r.reason).catch(() => null);
+    return b ? { ...r, brief: b, brief_basis: "one sentence written by a language model from the cited evidence" } : r;
+  };
+}
+
 function sendAnswer(res: ServerResponse, _question: string, body: unknown): void {
   const now = new Date();
   const path = pathOf.get(res) ?? "";
@@ -1230,6 +1243,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       return;
     }
     answerResearch(q)
+      .then(withResearchBrief(q))
       .then((r) => {
         if (r.verdict === "evidence" || r.verdict === "no_evidence") toCache(key, r);
         sendAnswer(res, q, r);
@@ -1485,6 +1499,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       return;
     }
     synthesise(q, firstValue(url, "topic", "subject"))
+      .then(withResearchBrief(q))
       .then((r) => {
         // An outage is never cached; an honest "nothing quotable" is.
         if (!r.error) toCache(key, r);
