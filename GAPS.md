@@ -22,7 +22,10 @@
     URL is the raw Crossref API, scored 0.998.
   - Now: the model writes the brief from the found evidence (`brief_basis` says so), and the mapper cuts at a clause.
   - The model brief cannot be checked on a preview (no Groq key there); it is checked on production after promote.
-- **G347 — Polygon's CoinGecko id `polygon-ecosystem-token` is from memory, not verified.** Rate-limited when checked.
+- **G347 — CLOSED 14:00 UTC.** `polygon-ecosystem-token` answered from the preview (Polygon, $0.8 bn, CoinGecko).
+- **G349 — The RES log line carries a value where a route's verdict is one. `OPEN`, small.** `/wallet-balance` logs
+  `verdict=5.79956412 ETH`, a public balance and not a person's text, but `a7036e5` says no value is logged.
+  Fix: log the verdict only when it is a word (letters, `_`, `-`).
 - **G348 — The signed manifest's `/research`, `/research-synthesis` and `/papers` descriptions do not say a model
   writes the brief.** Update them at the next signature.
 

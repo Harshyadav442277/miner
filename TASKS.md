@@ -9,7 +9,7 @@ commit.
 
 - [ ] Read the next FINANCIAL_DATA scoring call's REQ and RES lines (asset value, empty fields) and its score.
 - [ ] Read RESEARCH_QUERY, RESEARCH_SYNTHESIS, ACADEMIC, WEB and NEWS in the next two epochs against G346.
-- [ ] Verify Polygon's CoinGecko id (G347).
+- [x] Polygon's CoinGecko id verified from the preview (G347).
 - [ ] Next signature: say in the research and papers descriptions that a model writes the brief (G348).
 
 ## 2026-11-22 — Codex audit follow-ups (GAPS G342–G344)
