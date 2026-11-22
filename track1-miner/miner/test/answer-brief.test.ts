@@ -50,3 +50,15 @@ test("with no study found, the brief comes from general knowledge and the model 
     assert.equal((sent[0] as { evidence?: string }).evidence, undefined, "no evidence is passed when none was found");
   });
 });
+
+test("every research verdict that found or failed to find a study gets the model brief; an outage does not", async () => {
+  const { withResearchBrief } = await import("../src/handler");
+  await withModel(JSON.stringify({ brief: "Intermittent fasting has not been shown to slow human ageing" }), async () => {
+    for (const verdict of ["evidence", "synthesis", "single_source", "papers", "no_sources", "no_evidence"]) {
+      const r = await withResearchBrief("Does intermittent fasting slow ageing in humans?")({ verdict, reason: "x" });
+      assert.equal(r.brief, "Intermittent fasting has not been shown to slow human ageing.", verdict);
+    }
+    const down = await withResearchBrief("q")({ verdict: "unavailable", reason: "x", error: "upstream_unavailable" });
+    assert.equal(down.brief, undefined);
+  });
+});
