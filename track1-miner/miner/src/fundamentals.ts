@@ -265,6 +265,31 @@ export async function marketCapValue(ticker: string, price: number, currency: st
   }
 }
 
+/**
+ * Market capitalisation from the latest quarter's diluted weighted-average share count, for a company whose cover
+ * page tags shares by class only (Alphabet, Meta, Coinbase). The fallback when Nasdaq does not answer: on 2026-11-22
+ * at 18:55 UTC it answered "Error while calling vendor" and Visa's market cap went null (GAPS G353). The count is a
+ * quarter's average including dilution, so the figure is stated as an approximation. Null when not tagged
+ * (Visa, Berkshire) or older than 15 months.
+ */
+export async function dilutedCapValue(ticker: string, price: number, currency: string): Promise<{ usd: number; text: string } | null> {
+  if (currency !== "USD" || !(price > 0)) return null;
+  const co = await lookupCik(ticker).catch(() => undefined);
+  if (!co) return null;
+  try {
+    const r = await getJson(`${CONCEPT}/CIK${String(co.cik).padStart(10, "0")}/us-gaap/WeightedAverageNumberOfDilutedSharesOutstanding.json`);
+    const facts = ((r.body as { units?: Record<string, Array<Fact & { form?: string; filed?: string }>> } | undefined)?.units?.["shares"] ?? [])
+      .filter((f) => /^10-[QK]/.test(f.form ?? ""));
+    const latest = facts.reduce<(Fact & { form?: string; filed?: string }) | null>((a, f) => (!a || `${f.filed}${f.end}` > `${a.filed}${a.end}` ? f : a), null);
+    if (!latest || !(latest.val > 0) || Date.now() - Date.parse(latest.end) > 456 * 86_400_000) return null;
+    const usd = Math.round(latest.val * price);
+    return { usd, text: `Its market capitalisation is about ${amount(usd, "USD")}, approximated from ${latest.val.toLocaleString("en-US")} diluted weighted-average ` +
+      `shares for the period ending ${longDate(latest.end)} (${latest.form} filed ${latest.filed}) times the last traded price of ${price.toFixed(2)} USD.` };
+  } catch {
+    return null;
+  }
+}
+
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const longDate = (iso: string): string => {
   const [y, m, d] = iso.split("-").map(Number);
