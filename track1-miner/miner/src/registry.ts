@@ -192,6 +192,14 @@ export function askedSentence(
   return `For ${name}, ${joined}. `;
 }
 
+/** Whether a record is in the jurisdiction asked: a country (US) by address or jurisdiction, a subdivision (US-DE) exactly. Pure. */
+export function inJurisdiction(r: LeiRecord, want: string): boolean {
+  const e = r.attributes.entity;
+  const j = String(e.jurisdiction ?? "").toUpperCase();
+  const w = want.toUpperCase();
+  return w.length === 2 ? j === w || j.startsWith(`${w}-`) || String(e.legalAddress?.country ?? "").toUpperCase() === w : j === w;
+}
+
 export async function lookupRegistry(question: string, companyParam = "", numberParam = "", jurisdictionParam = ""): Promise<RegistryResult> {
   const s = registrySubject(question, companyParam, numberParam, jurisdictionParam);
   const subject = s.lei ?? s.number ?? (s.name || null);
@@ -200,7 +208,7 @@ export async function lookupRegistry(question: string, companyParam = "", number
     return { ...base, verdict: "unknown", confidence: 0, error: "no_subject",
       reason: "No company, company number or LEI was named, so no register record was looked up. Name the company, for example: What is the incorporation status of Tesla, Inc.?" };
   }
-  const country = s.country && s.country.length === 2 ? `&filter%5Bentity.legalAddress.country%5D=${s.country}` : "";
+  const country = s.country ? `&filter%5Bentity.legalAddress.country%5D=${s.country.slice(0, 2)}` : "";
   const path = s.lei ? `lei-records/${s.lei}`
     : s.number ? `lei-records?filter%5Bentity.registeredAs%5D=${encodeURIComponent(s.number)}${country}&page%5Bsize%5D=10`
     : `lei-records?filter%5Bentity.legalName%5D=${encodeURIComponent(s.name.slice(0, 120))}${country}&page%5Bsize%5D=15`;
@@ -231,7 +239,19 @@ export async function lookupRegistry(question: string, companyParam = "", number
     const hit = longs.find((l) => exact(l.n, l.list[0])) ?? (ranked.length ? undefined : longs.find((l) => l.list.length));
     if (hit) ranked = [...hit.list, ...ranked.filter((r) => !hit.list.includes(r))];
   }
-  const best = (us?.lei && records.find((r) => r.id === us.lei)) || ranked[0];
+  let best = (us?.lei && records.find((r) => r.id === us.lei)) || ranked[0];
+  // The jurisdiction asked is enforced on the record chosen: "Apple Inc." with jurisdiction US-DE (or "Delaware")
+  // answered active for the California entity (Codex review, 2026-11-22). A country filters GLEIF's query too; a
+  // subdivision (US-DE) only here. A record elsewhere is not the company asked about.
+  if (best && s.country && !inJurisdiction(best, s.country)) {
+    const alt = ranked.find((r) => inJurisdiction(r, s.country!));
+    if (!alt) {
+      const other = best.attributes.entity;
+      return { ...base, verdict: "not_found", confidence: 0.6, sources: [`https://search.gleif.org/#/record/${best.id}`],
+        reason: `No register record for ${subject} in ${s.country} was found in the GLEIF LEI register. The closest record, ${other.legalName.name}, is registered in ${other.jurisdiction ?? other.legalAddress.country ?? "another jurisdiction"}, so it is not reported as the company asked about.` };
+    }
+    best = alt;
+  }
   if (!best) {
     if (us) {
       return { ...base, verdict: "found", confidence: 0.75, legal_name: us.name, us_filer: us, sources: [us.source_url],
