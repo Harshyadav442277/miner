@@ -32,8 +32,25 @@ const YEAR = String.raw`((?:19|20)\d{2})(?![-/]\d)`;
  * "2025" (the calendar year). A period parameter may be the year alone; in a question the year needs a
  * preposition ("filings in 2025"), so "Apple's 2025 10-K" is not a window. Pure.
  */
+const MONTH_NAMES = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+const validDay = (d: string): boolean => !Number.isNaN(Date.parse(`${d}T00:00:00Z`)) && new Date(`${d}T00:00:00Z`).toISOString().startsWith(d);
+
 export function namedPeriod(text: string, bare: boolean): { since: string; until: string } | { fiscal_year: number } | null {
   const t = String(text ?? "");
+  // An explicit range, "2026-08-01 to 2026-08-31", left filing_count null; only relative windows, years and quarters
+  // were read (Codex review, 2026-11-22). Both ends are inclusive, as `within` counts them.
+  const iso = t.match(/\b(\d{4}-\d{2}-\d{2})\s*(?:to|through|until|till|and|–|—|-|\/)\s*(\d{4}-\d{2}-\d{2})\b/i);
+  if (iso && validDay(iso[1]!) && validDay(iso[2]!)) {
+    const [a, b] = [iso[1]!, iso[2]!].sort();
+    return { since: a!, until: b! };
+  }
+  const mon = t.match(new RegExp(String.raw`\b(january|february|march|april|may|june|july|august|september|october|november|december)\s+(?:of\s+)?${YEAR}`, "i"));
+  if (mon && !/\bquarter\b/i.test(t)) {
+    const m = MONTH_NAMES.indexOf(mon[1]!.toLowerCase()) + 1;
+    const y = Number(mon[2]);
+    const last = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    return { since: `${y}-${String(m).padStart(2, "0")}-01`, until: `${y}-${String(m).padStart(2, "0")}-${String(last).padStart(2, "0")}` };
+  }
   const fy = t.match(new RegExp(String.raw`\b(?:fiscal(?:\s+year)?\s*|FY\s?)${YEAR}`, "i"))?.[1];
   if (fy) return { fiscal_year: Number(fy) };
   const qa = t.match(new RegExp(String.raw`\bQ([1-4])\s*(?:of\s+)?${YEAR}`, "i"));

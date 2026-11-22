@@ -135,3 +135,14 @@ test("a concept whose USD facts are not a list has no facts, rather than crashin
   const facts = [{ end: "2025-12-31", val: 1, accn: "a" }];
   assert.deepEqual(usdFacts({ units: { USD: facts } }), facts);
 });
+
+test("an explicit date range or a named month is a counted window, both ends inclusive (Codex review, 2026-11-22)", () => {
+  const now = new Date("2026-11-22T00:00:00Z");
+  const a = filingAsk("", "Apple Inc.", "", now, "2026-08-01 to 2026-08-31");
+  assert.deepEqual([a.since, a.until], ["2026-08-01", "2026-08-31"]);
+  assert.deepEqual([filingAsk("", "Apple Inc.", "", now, "2026-08-31 to 2026-08-01").since, filingAsk("", "Apple Inc.", "", now, "2026-08-31 to 2026-08-01").until], ["2026-08-01", "2026-08-31"]);
+  const m = filingAsk("", "Apple Inc.", "", now, "August 2026");
+  assert.deepEqual([m.since, m.until], ["2026-08-01", "2026-08-31"]);
+  assert.equal(filingAsk("", "Apple Inc.", "", now, "2026-02-30 to 2026-03-31").until, undefined, "an impossible date is not a window");
+  assert.deepEqual([filingAsk("", "Apple Inc.", "", now, "Q3 2026").since, filingAsk("", "Apple Inc.", "", now, "Q3 2026").until], ["2026-07-01", "2026-09-30"]);
+});
