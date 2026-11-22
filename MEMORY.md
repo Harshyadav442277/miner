@@ -1,6 +1,14 @@
 # MEMORY.md — session continuity
 
-## 2026-11-22 ~09:15 UTC (14:45 IST): CURRENT — Codex audit reviewed; three fixes on `PR/audit-fixes-2026-11-22`, NOT deployed
+## 2026-11-22 ~09:30 UTC (15:00 IST): CURRENT — `4f1f852` LIVE (`miner-lefeghzyl`); PR #47 open, not merged
+
+- Production `dpl_B4dRAz1D6s2yoevNoty1Uz1fR8eh`, owner's yes. Preflight 7/7, watch active. Rollback: `miner-n0lo5k8w7`.
+  Evidence: `track1-miner/docs/evidence/release-2026-11-22-audit-fixes/`.
+- Next: merge PR #47; read ONCHAIN_METRIC and WEB_SEARCH in the next epoch; G343 (Arbitrum on Vercel).
+- The release-miner skill is stale: step 1 names `codex/rank1-14-intents` and step 7 registration 4829. This
+  release shipped from the PR branch and watched 6126.
+
+## 2026-11-22 ~09:15 UTC (14:45 IST): Codex audit reviewed; fixes on `PR/audit-fixes-2026-11-22`
 
 - **Branch:** `PR/audit-fixes-2026-11-22` from `main` `b48749a`: `2685fe8` (ONCHAIN_METRIC tx_count, G342),
   `a29e0dd` (block value follows the asked figure), `7e03413` (Web Search timeless sources), `3b92017` (nonce questions in words). Unit 1059/1059; live web-search test passes.

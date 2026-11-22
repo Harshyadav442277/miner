@@ -9,7 +9,7 @@ commit.
 
 - [x] ONCHAIN_METRIC `metric=tx_count`, nonce questions in words, block value follows the asked figure; Web Search
   timeless sources. Branch `PR/audit-fixes-2026-11-22`.
-- [ ] Owner yes, then deploy the branch (release-miner skill) and read ONCHAIN_METRIC in the next epoch.
+- [x] Deployed `4f1f852` to production 2026-11-22 (release-2026-11-22-audit-fixes). Next: read ONCHAIN_METRIC in the next epoch.
 - [ ] G343: production answers `unknown` for Arbitrum balance at block 507,283,728, which a local run answers. Find
   which Arbitrum RPC refuses Vercel.
 - [ ] Audit P1: outcome sweep (expected-field success, wrong-answer rate, p50/p95) for the intents we submit.
