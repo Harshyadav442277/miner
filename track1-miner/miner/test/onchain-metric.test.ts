@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { holderAndToken, metricKind, statedBlock, structuredKind, verifyOnchainMetric } from "../src/onchain-metric";
+import { blockField, holderAndToken, metricKind, statedBlock, structuredKind, verifyOnchainMetric } from "../src/onchain-metric";
 
 const TX = "0x24e20c506fd16546178a03c955bca381376f97b9ff5aefb726abf84dea6c8913";
 const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
@@ -24,6 +24,10 @@ test("onchain metric: the read is picked from the question", () => {
   assert.equal(metricKind("USDC held by 0x…", false, [VAULT], "USDC"), "token_balance");
   assert.equal(metricKind("gas used at block 5", false, [], null), "block");
   assert.equal(metricKind("What is the price of ETH?", false, [], null), null);
+  assert.equal(metricKind(`How many transactions has ${VAULT} sent at block 5?`, false, [VAULT], null), "tx_count");
+  assert.equal(metricKind("nonce of 0x… at block 5", false, [VAULT], null), "tx_count");
+  assert.equal(metricKind("transaction count of 0x… at block 5", false, [VAULT], null), "tx_count");
+  assert.equal(metricKind("How many transactions were in block 5?", false, [], null), "block");
 });
 
 test("onchain metric: the address named as the token is the token, the other the holder", () => {
@@ -94,9 +98,60 @@ test("onchain metric: the intent's structured metric param picks the read (epoch
   const A = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
   assert.equal(structuredKind(null, "balance", [A], false), "native_balance");
   assert.equal(structuredKind(null, "", [A], false), "native_balance");
-  assert.equal(structuredKind(null, "tx_count", [A], false), null);
+  assert.equal(structuredKind(null, "tx_count", [A], false), "tx_count");
+  assert.equal(structuredKind("block", "tx_count", [A], false), "tx_count", "a stated metric beats a block cue in the words");
+  assert.equal(structuredKind("block", "balance", [A], false), "native_balance");
+  assert.equal(structuredKind(null, "tx_count", [A], true), null);
+  assert.equal(structuredKind(null, "gas_used", [A], false), null);
   assert.equal(structuredKind(null, "balance", [], false), null);
   assert.equal(structuredKind(null, "balance", [A, USDC], false), null);
   assert.equal(structuredKind("total_supply", "balance", [A], false), "total_supply");
   assert.equal(structuredKind(null, "balance", [A], true), null);
+});
+
+test("onchain metric: metric=tx_count answers the nonce at the block, with the balance the intent scores", async () => {
+  const restore = stubRpc({
+    eth_blockNumber: () => "0x100",
+    eth_getTransactionCount: (p) => (p[1] === "0x10" ? "0x2a" : "0x0"),
+    eth_getBalance: (p) => (p[1] === "0x10" ? "0xde0b6b3a7640000" : "0x0"),
+  });
+  try {
+    const r = await verifyOnchainMetric("", "ethereum", "16", VAULT, "tx_count");
+    assert.equal(r.metric, "tx_count");
+    assert.equal(r.verdict, "verified");
+    assert.equal(r.tx_count, 42);
+    assert.equal(r.value_raw, "42");
+    assert.equal(r.unit, "transactions");
+    assert.equal(r.block_number, 16);
+    assert.equal(r.address, VAULT);
+    assert.equal(r.balance_wei, "1000000000000000000");
+    assert.match(r.reason, /sent 42 transactions \(its nonce\) at block 16/);
+  } finally { restore(); }
+});
+
+test("onchain metric: a block's value is the figure the question asks for, in its unit", async () => {
+  assert.equal(blockField("What was the gas limit of block 20000000?"), "gas_limit");
+  assert.equal(blockField("block 20000000 base fee"), "base_fee");
+  assert.equal(blockField("How much gas did block 5 use?"), "gas_used");
+  assert.equal(blockField("How many transactions were in block 5?"), "tx_count");
+  assert.equal(blockField("Tell me about block 5"), "gas_used");
+  const blk = { hash: "0xaa", gasUsed: "0xa936dc", gasLimit: "0x1c9c380", baseFeePerGas: "0x12643ff14", transactions: ["0x1", "0x2", "0x3"], timestamp: "0x6666" };
+  const restore = stubRpc({ eth_blockNumber: () => "0x2000000", eth_getBlockByNumber: (p) => (p[0] === "0x1312d00" ? blk : null) });
+  try {
+    const limit = await verifyOnchainMetric("What was the gas limit of block 20000000 on ethereum?");
+    assert.deepEqual([limit.value_raw, limit.unit, limit.verdict], ["30000000", "gas", "verified"]);
+    const fee = await verifyOnchainMetric("What was the base fee of block 20000000 on ethereum?");
+    assert.deepEqual([fee.value, fee.value_raw, fee.unit], ["4.936957716", "4936957716", "gwei"]);
+    assert.match(fee.reason, /base fee of 4\.936957716 gwei/);
+    const used = await verifyOnchainMetric("How much gas did block 20000000 on ethereum use?");
+    assert.deepEqual([used.value_raw, used.unit], ["11089628", "gas"]);
+    const count = await verifyOnchainMetric("How many transactions were in block 20000000 on ethereum?");
+    assert.deepEqual([count.value_raw, count.unit], ["3", "transactions"]);
+  } finally { restore(); }
+  const old = stubRpc({ eth_blockNumber: () => "0x2000000", eth_getBlockByNumber: () => ({ ...blk, baseFeePerGas: undefined }) });
+  try {
+    const pre = await verifyOnchainMetric("What was the base fee of block 1000000 on ethereum?");
+    assert.deepEqual([pre.value, pre.verdict, pre.error], [null, "not_found", "no_base_fee"]);
+    assert.match(pre.reason, /no base fee/);
+  } finally { old(); }
 });

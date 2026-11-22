@@ -5,6 +5,23 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## 2026-11-22 — epochs 34–38 follow-ups (GAPS G345–G348)
+
+- [ ] Read the next FINANCIAL_DATA scoring call's REQ and RES lines (asset value, empty fields) and its score.
+- [ ] Read RESEARCH_QUERY, RESEARCH_SYNTHESIS, ACADEMIC, WEB and NEWS in the next two epochs against G346.
+- [ ] Verify Polygon's CoinGecko id (G347).
+- [ ] Next signature: say in the research and papers descriptions that a model writes the brief (G348).
+
+## 2026-11-22 — Codex audit follow-ups (GAPS G342–G344)
+
+- [x] ONCHAIN_METRIC `metric=tx_count`, nonce questions in words, block value follows the asked figure; Web Search
+  timeless sources. Branch `PR/audit-fixes-2026-11-22`.
+- [x] Deployed `4f1f852` to production 2026-11-22 (release-2026-11-22-audit-fixes). Next: read ONCHAIN_METRIC in the next epoch.
+- [ ] G343: production answers `unknown` for Arbitrum balance at block 507,283,728, which a local run answers. Find
+  which Arbitrum RPC refuses Vercel.
+- [ ] Audit P1: outcome sweep (expected-field success, wrong-answer rate, p50/p95) for the intents we submit.
+- [ ] Audit P0 (owner): one mission workflow through Telegraph with an independent reproduction.
+
 ## Handoff 2026-11-17 ~11:00 UTC — Track 1 (MEMORY.md top block has the details)
 
 - [x] Owner signed the `6499779` YAML (2026-11-17 11:14 UTC; on-chain registration 5301, tx `0xbfb7a37b…8b36`).

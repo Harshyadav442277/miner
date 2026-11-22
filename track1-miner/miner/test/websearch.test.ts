@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  acceptBackground, clipTitle, codeTokens, isForwardLooking, misroute, namesCode, officialDocument, officialDocumentUrl, timeless, webSearch,
+  acceptBackground, citedUrls, clipTitle, codeTokens, isForwardLooking, misroute, namesCode, officialDocument, officialDocumentUrl, timeless, webSearch,
 } from "../src/websearch";
 import { openGate } from "./licence-fixtures";
 
@@ -211,4 +211,24 @@ test("an answer from Wikipedia names the article it quotes in sources", async ()
   } finally {
     globalThis.fetch = original;
   }
+});
+
+test("a timeless answer's sources are the citations it marks, not every page read (Codex audit, 2026-11-22)", () => {
+  const c = [
+    { n: 1, url: "https://en.wikipedia.org/wiki/Pride_%26_Prejudice_(2005_film)" },
+    { n: 2, url: "https://en.wikipedia.org/wiki/Pride_and_Prejudice" },
+    { n: 3, url: "https://en.wikipedia.org/wiki/Pride_and_Prejudice_and_Zombies" },
+    { n: 4, url: null },
+  ];
+  assert.deepEqual(citedUrls(`"Pride and Prejudice is a novel by English author Jane Austen." [2]`, c), ["https://en.wikipedia.org/wiki/Pride_and_Prejudice"]);
+  assert.deepEqual(citedUrls("A [1] and B [2] [2] and C [4]", c), [c[0]!.url, c[1]!.url]);
+  assert.deepEqual(citedUrls("No marker here.", c), []);
+});
+
+test("a timeless question served by web search names its cited source (live)", async () => {
+  const r = await webSearch("Who wrote Pride and Prejudice?");
+  assert.equal(r.verdict, "answered");
+  assert.match(r.reason, /Jane Austen/);
+  assert.ok(r.sources.includes("https://en.wikipedia.org/wiki/Pride_and_Prejudice"), JSON.stringify(r.sources));
+  assert.ok(!r.sources.some((u) => /Zombies/.test(u)), JSON.stringify(r.sources));
 });

@@ -1,5 +1,23 @@
 # MEMORY.md — session continuity
 
+## 2026-11-22 ~09:30 UTC (15:00 IST): CURRENT — `4f1f852` LIVE (`miner-lefeghzyl`); PR #47 open, not merged
+
+- Production `dpl_B4dRAz1D6s2yoevNoty1Uz1fR8eh`, owner's yes. Preflight 7/7, watch active. Rollback: `miner-n0lo5k8w7`.
+  Evidence: `track1-miner/docs/evidence/release-2026-11-22-audit-fixes/`.
+- Next: merge PR #47; read ONCHAIN_METRIC and WEB_SEARCH in the next epoch; G343 (Arbitrum on Vercel).
+- The release-miner skill is stale: step 1 names `codex/rank1-14-intents` and step 7 registration 4829. This
+  release shipped from the PR branch and watched 6126.
+
+## 2026-11-22 ~09:15 UTC (14:45 IST): Codex audit reviewed; fixes on `PR/audit-fixes-2026-11-22`
+
+- **Branch:** `PR/audit-fixes-2026-11-22` from `main` `b48749a`: `2685fe8` (ONCHAIN_METRIC tx_count, G342),
+  `a29e0dd` (block value follows the asked figure), `7e03413` (Web Search timeless sources), `3b92017` (nonce questions in words). Unit 1059/1059; live web-search test passes.
+  Archived request shapes replayed on a local server (balance, tx_count, polygon, arbitrum, prose nonce): all answer (G342–G344).
+- **Production:** not touched this session. The newest deploy log in `C:\Users\hyada\tg-deploy` is `prod-deploy-3543649.log`;
+  the live revision was not re-checked. Next: owner's yes to deploy the branch (release-miner skill),
+  then read the next ONCHAIN_METRIC epoch.
+- **Open:** Arbitrum archive state (G343). Audit items not acted on are listed in G344.
+
 ## 2026-11-19 ~09:15 UTC: CURRENT — Groq key replaced by the owner; production `miner-6q1l1vpb4` (`fdba94e`)
 
 - All model-backed routes verified on production (G338 fixed). Next: RESEARCH_SYNTHESIS search (G341); sign

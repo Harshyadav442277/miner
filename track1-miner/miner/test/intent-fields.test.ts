@@ -172,7 +172,11 @@ test("format-version-3 fields: each copies what the route states, and the schema
   assert.equal(scoredFields("/extract", { extracted: { dates: ["March 3, 2026"], values: ["$1,250.00"], events: [] } }).brief, "dates: March 3, 2026; values: $1,250.00");
   const tx = scoredFields("/tx-lookup", { hash: "0xab", verdict: "confirmed", transaction: { status: "confirmed", receipt_status: "failed", from: "0x1", to: "0x2", value: "0.5", block_number: 1 } });
   assert.deepEqual(only(tx, { status: 0, value_eth: 0 }), { status: "reverted", value_eth: 0.5 });
-  assert.equal(scoredFields("/onchain-metric", { metric: "native_balance", value_raw: "1146641417679066653164", block_number: 21000000 }).balance_gwei, 1146641417679);
+  assert.equal(scoredFields("/onchain-metric", { metric: "native_balance", value_raw: "1146641417679066653164", block_number: 21000000 }).balance_gwei, 1146641417679.066653);
+  assert.equal(scoredFields("/onchain-metric", { metric: "native_balance", value_raw: "5000", block_number: 1 }).balance_gwei, 0.000005, "sub-gwei dust is not floored to 0");
+  const nonce = scoredFields("/onchain-metric", { metric: "tx_count", value_raw: "7", tx_count: 7, balance_wei: "2000000000", block_number: 5 });
+  assert.deepEqual(only(nonce, { balance_gwei: 0, block: 0 }), { balance_gwei: 2, block: "5" });
+  assert.deepEqual(scoredFields("/onchain-metric", { metric: "block", value_raw: "11089692", block_number: 5 }), {});
   assert.equal(scoredFields("/sanctions-screen", {}).match_score, undefined, "sanctions fields are built in its route, not here");
 });
 
@@ -220,4 +224,19 @@ test("research: registered trials count as sources, each with its ClinicalTrials
     trials: [{ id: "NCT04777396", title: "evoke" }, { id: "NCT04777409", title: "evoke+" }] });
   assert.equal(f.source_count, 3);
   assert.deepEqual(f.sources, ["https://europepmc.org/abstract/MED/1", "https://clinicaltrials.gov/study/NCT04777396", "https://clinicaltrials.gov/study/NCT04777409"]);
+});
+
+test("a brief is cut at a clause and ends as a sentence, never mid-phrase (2026-11-22)", () => {
+  assert.equal(scoredFields("/web-search", { direct_answer: "The latest stable Node.js release is 26.13.1, released on 11 November 2026 (the 26 release cycle).", articles: [] }).brief,
+    "The latest stable Node.js release is 26.13.1.");
+  const b = String(scoredFields("/web-search", { direct_answer: "Argentina national football team won the 2022 FIFA World Cup, which ended on 2022-12-18, as Wikidata records it.", articles: [] }).brief);
+  assert.equal(b, "Argentina national football team won the 2022 FIFA World Cup.");
+});
+
+test("an attribution lead is dropped, and a clause cut that guts the sentence falls back to the word clip", () => {
+  assert.equal(scoredFields("/web-search", { articles: [], reason: `From Wikipedia's "Pride and Prejudice": "Pride and Prejudice is a novel by English author Jane Austen." [2] Quoted.` }).brief,
+    "Pride and Prejudice is a novel by English author Jane Austen.");
+  const synth = String(scoredFields("/research-synthesis", { sources: [1], reason: `Across two studies: X et al. (2026): "Compared with exercise alone, the addition of psychoeducation resulted in greater reductions in depressive symptoms."` }).brief);
+  assert.notEqual(synth, "Compared with exercise alone.");
+  assert.ok(synth.length > 45 && synth.length <= 80, synth);
 });

@@ -9,6 +9,7 @@
  * removes the guess. REGULATORY_FILING_MONITOR_GENERAL's `filing_count` is
  * built in filings.ts, which holds the whole filing window. Pure.
  */
+import { clauseBrief } from "./clause";
 import { leadSentence } from "./envelope";
 import type { RegistryResult } from "./registry";
 import type { SanctionsResult } from "./sanctions";
@@ -81,11 +82,29 @@ export function pairsBrief(pairs: string[], n = 80): string {
   return out || clip(pairs[0] ?? "", n);
 }
 
-/** The answer's lead sentence (envelope.ts, which knows "et al." and "Nov."), at most `n` characters. */
+/**
+ * The answer's lead sentence (envelope.ts, which knows "et al." and "Nov."), at most `n` characters, cut at a clause
+ * and ended as a sentence: "The latest stable Node.js release is 26.13.1, released on 11 November 2026 (the" was the
+ * scored brief, which the schema defines as "one plain sentence of at most 80 characters" (2026-11-22).
+ */
 const brief = (reason: unknown, n = 80): string | null => {
   const s = str(reason);
-  return s ? clip(leadSentence(s), n) : null;
+  return s ? sentenceBrief(leadSentence(s), n) : null;
 };
+
+/**
+ * One sentence in at most `n` characters. An attribution lead ("From Wikipedia's "X": ", "According to X: "), quote
+ * marks and [n] markers are dropped first, so "Pride and Prejudice is a novel by English author Jane Austen." fits
+ * whole. A clause cut is kept only when it keeps most of the room: cutting at the first comma served "Compared with
+ * exercise alone." and "From Wikipedia's "Pride and Prejudice"." in testing (2026-11-22); the word clip is used then. Pure.
+ */
+export function sentenceBrief(sentence: string, n = 80): string {
+  const t = sentence.replace(/^(?:From|According to)\s[^:]{1,120}?:\s+/i, "").replace(/\s*\[\d{1,2}\]/g, "")
+    .replace(/^["“]|["”]$/g, "").replace(/^["“]([^"”]+)["”]\s*$/, "$1").replace(/\s+/g, " ").trim();
+  if (t.length <= n) return t;
+  const cut = clauseBrief(t, n);
+  return cut.length >= Math.min(45, n * 0.55) ? cut : clip(t, n);
+}
 /** A headline with its publisher when both fit, else the headline alone. */
 const headline = (a: Body | undefined): string | null => {
   const title = str(a?.title);
@@ -97,7 +116,7 @@ const headline = (a: Body | undefined): string | null => {
 /** The first sentence quoted in `reason`: a synthesis quotes each finding from its study's abstract. */
 const firstQuote = (reason: unknown): string | null => {
   const q = str(reason)?.match(/"([^"]{12,})"/)?.[1];
-  return q ? clip(q) : null;
+  return q ? sentenceBrief(q) : null;
 };
 /**
  * An event outcome that answers: settled by a market or a record ("resolved"), or recalled by the model when
@@ -227,10 +246,14 @@ const SCORED: Record<string, (b: Body) => Body> = {
   "/macro": (b) => ({ rate_pct: num(list(b.indicators).find((i) => i.unit === "%")?.value) }),
   // DNS_RECORD_LOOKUP_GENERAL: at least one record, or none (NXDOMAIN or an empty answer); null when unread
   "/dns": (b) => ({ has_record: Array.isArray(b.records) && b.verdict !== "unknown" ? b.records.length > 0 : null }),
-  // ONCHAIN_METRIC_VERIFY_GENERAL scores a native balance in gwei
-  "/onchain-metric": (b) => b.metric === "native_balance" && typeof b.value_raw === "string" && /^\d+$/.test(b.value_raw)
-    ? { balance_gwei: Number(BigInt(b.value_raw) / 1_000_000_000n), block: b.block_number === null ? null : String(b.block_number) }
-    : {},
+  // ONCHAIN_METRIC_VERIFY_GENERAL scores a native balance in gwei, to the schema's 6 decimals, whichever `metric` was
+  // asked: a tx_count answer reads the balance alongside the nonce.
+  "/onchain-metric": (b) => {
+    const wei = b.metric === "native_balance" ? b.value_raw : b.metric === "tx_count" ? b.balance_wei : null;
+    return typeof wei === "string" && /^\d+$/.test(wei)
+      ? { balance_gwei: Number(BigInt(wei) / 1000n) / 1e6, block: b.block_number === null ? null : String(b.block_number) }
+      : {};
+  },
   // STORM_ALERT_GENERAL. risk_level is the grade the route states in its reason (storm.ts gradeRisk: none and low
   // are LOW). A separate cut-off rule on risk_score served "graded low" beside MODERATE for Miami at 0.27
   // (production 2026-11-15). precipitation_mm is the window's total, as the schema states, not one step's peak.

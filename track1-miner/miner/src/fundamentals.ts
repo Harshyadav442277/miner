@@ -35,7 +35,7 @@ const COMPANIES: Array<[string, number, string, string]> = [
   ["GOOGL", 1652044, "Alphabet Inc.", "Alphabet|google"], ["META", 1326801, "Meta Platforms, Inc.", "Meta|facebook"],
   ["TSLA", 1318605, "Tesla, Inc.", "tesla"], ["BRK-B", 1067983, "Berkshire Hathaway Inc.", "berkshire"],
   ["AVGO", 1730168, "Broadcom Inc.", "broadcom"], ["LLY", 59478, "Eli Lilly and Company", "eli lilly|Lilly"],
-  ["JPM", 19617, "JPMorgan Chase & Co.", "jpmorgan|jp morgan|j\\.p\\. morgan"], ["V", 1403161, "Visa Inc.", "Visa"],
+  ["JPM", 19617, "JPMorgan Chase & Co.", "jpmorgan|jp morgan|j\\.p\\. morgan"], ["V", 1403161, "Visa Inc.", "Visa"], ["MSTR", 1050446, "Strategy Inc", "microstrategy|strategy inc"],
   ["WMT", 104169, "Walmart Inc.", "walmart|wal-mart"], ["XOM", 34088, "Exxon Mobil Corporation", "exxon"],
   ["UNH", 731766, "UnitedHealth Group Incorporated", "unitedhealth"], ["MA", 1141391, "Mastercard Incorporated", "mastercard"],
   ["ORCL", 1341439, "Oracle Corporation", "Oracle"], ["COST", 909832, "Costco Wholesale Corporation", "costco"],
@@ -190,7 +190,7 @@ async function getJson(url: string): Promise<{ status: number; body?: unknown }>
 let tickerFile: Promise<Map<string, [number, string]>> | null = null;
 
 /** Ticker to CIK: the embedded table, else SEC's full ticker file once per instance. `undefined` is an outage. */
-async function lookupCik(ticker: string): Promise<{ cik: number; name: string } | null | undefined> {
+export async function lookupCik(ticker: string): Promise<{ cik: number; name: string } | null | undefined> {
   const t = ticker.toUpperCase().replace(/\./g, "-");
   const row = COMPANIES.find((c) => c[0] === t);
   if (row) return { cik: row[1], name: row[2] };
@@ -248,6 +248,9 @@ export async function marketCapValue(ticker: string, price: number, currency: st
     const facts = (r.body as { units?: Record<string, Array<Fact & { accn?: string }>> } | undefined)?.units?.["shares"] ?? [];
     const latest = facts.reduce<(Fact & { accn?: string }) | null>((a, f) => (!a || (f.filed ?? "") > (a.filed ?? "") || ((f.filed ?? "") === (a.filed ?? "") && f.end > a.end) ? f : a), null);
     if (!latest || !latest.accn) return null;
+    // Visa's and Berkshire's undimensioned counts stop in 2010 and 2011; priced today they gave $189 billion and
+    // $0.5 billion (2026-11-22). A count more than 15 months old is not current.
+    if (Date.now() - Date.parse(latest.end) > 456 * 86_400_000) return null;
     const shares = facts.filter((f) => f.accn === latest.accn && f.end === latest.end).reduce((s, f) => s + f.val, 0);
     if (!(shares > 0)) return null;
     const usd = Math.round(shares * price);

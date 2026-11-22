@@ -39,6 +39,7 @@ import {
   type HolderResult,
 } from "./holders";
 import { answerResearch, type ResearchResult } from "./research";
+import { researchBrief } from "./answer-brief";
 import { lookupCryptoPrice, type CryptoPriceResult } from "./cryptoprice";
 import { lookupStockPrice, type StockPriceResult } from "./stockprice";
 import { verifyCrossChain, type CrossChainResult } from "./crosschain";
@@ -235,10 +236,23 @@ const requestOf = new WeakMap<ServerResponse, { path: string; params: URLSearchP
  * so answers are now written for the caller. The measurements that justified the
  * old shape are in git history (`restate.ts`, `lean`).
  */
+/**
+ * Adds the model's one-sentence answer as `brief` (answer-brief.ts) to a research answer that found evidence. A "none
+ * found" answer claims nothing, so it gets no model sentence either; nor does an outage.
+ */
+function withResearchBrief(q: string) {
+  return async <T extends { verdict: string; reason: string; error?: string }>(r: T): Promise<T & { brief?: string; brief_basis?: string }> => {
+    if (r.error || !/^(?:evidence|synthesis|papers)$/.test(r.verdict)) return r;
+    const b = await researchBrief(q, r.reason).catch(() => null);
+    return b ? { ...r, brief: b, brief_basis: "one sentence written by a language model (Groq) from the cited evidence, with general scientific knowledge where the evidence is indirect" } : r;
+  };
+}
+
 function sendAnswer(res: ServerResponse, _question: string, body: unknown): void {
   const now = new Date();
   const path = pathOf.get(res) ?? "";
   const scored = scoredFields(path, body);
+  if (process.env.LOG_QUERY === "on") process.stdout.write(`${resultLine(path, { ...(body as object), ...scored })}\n`);
   const wrapped = envelope(Object.keys(scored).length ? { ...(body as object), ...scored } : body, now, currentReceipt(now));
   const licensing = licensingFor(path);
   send(res, 200, licensing && wrapped && typeof wrapped === "object" && !Array.isArray(wrapped) ? { ...wrapped, licensing } : wrapped);
@@ -447,7 +461,18 @@ function handleInContext(req: IncomingMessage, res: ServerResponse): void {
  * Parameters whose values are a route or a choice from a short list, never a person's text: logged with their
  * value, so a score of 0 can be read against what the node actually sent (GAS_PRICE, GAPS G310). Pure.
  */
-const LOGGED_VALUES = new Set(["__path", "chain", "record_type", "type", "period", "form", "target_language", "window_hours", "metric", "block"]);
+// Asset and identifier params (a ticker, coin name or CVE id) are public names, not a person's text: FINANCIAL_DATA
+// scored 0 in epochs 35–38 with no record of which asset was asked (2026-11-22).
+const LOGGED_VALUES = new Set(["__path", "chain", "record_type", "type", "period", "form", "target_language", "window_hours", "metric", "block",
+  "symbol", "ticker", "asset", "cve_id", "indicator", "country"]);
+
+/** One line per answer: the verdict, the error code and the names of the top-level fields that are null or empty, never a value. Pure. */
+export function resultLine(path: string, body: unknown): string {
+  const b = (body && typeof body === "object" && !Array.isArray(body) ? body : {}) as Record<string, unknown>;
+  const verdict = typeof b.verdict === "string" ? b.verdict.slice(0, 30) : "-";
+  const empty = Object.keys(b).filter((k) => b[k] === null || (Array.isArray(b[k]) && !(b[k] as unknown[]).length) || b[k] === "");
+  return `RES ${path} verdict=${verdict}${typeof b.error === "string" ? ` error=${b.error.slice(0, 30)}` : ""}${empty.length ? ` empty=${empty.join(",").slice(0, 300)}` : ""}`;
+}
 export function logParam(name: string, raw: string): string {
   const v = raw.trim();
   if (!v) return `${name}=EMPTY`;
@@ -1218,6 +1243,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       return;
     }
     answerResearch(q)
+      .then(withResearchBrief(q))
       .then((r) => {
         if (r.verdict === "evidence" || r.verdict === "no_evidence") toCache(key, r);
         sendAnswer(res, q, r);
@@ -1460,7 +1486,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     /**
      * Findings combined across sources, every one quoted from a named study's
      * abstract, or a supplied set of notes restated with their attributions.
-     * Nothing is generated; see src/synthesis.ts.
+     * The findings are quoted, not generated (src/synthesis.ts); only the one-sentence brief is model-written (answer-brief.ts).
      */
     const q = withSubject(
       firstValue(url, "query", "q", "question", "text", "input"),
@@ -1473,6 +1499,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       return;
     }
     synthesise(q, firstValue(url, "topic", "subject"))
+      .then(withResearchBrief(q))
       .then((r) => {
         // An outage is never cached; an honest "nothing quotable" is.
         if (!r.error) toCache(key, r);
@@ -1646,7 +1673,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       sendAnswer(res, q, academicAnswer(hit as PaperResult));
       return;
     }
+    // ACADEMIC_SEARCH's on-chain field is the brief, "the answer to the request in one plain sentence"; "Top paper:
+    // <title cut at 80>" scored 0.44-0.50 against 0.96 at the top (epochs 36-37).
     findPapers(q, undefined, undefined, topic)
+      .then(withResearchBrief(q))
       .then((r) => {
         toCache(key, r);
         sendAnswer(res, q, academicAnswer(r));

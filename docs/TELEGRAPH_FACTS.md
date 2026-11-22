@@ -55,6 +55,14 @@ below, the newer section wins.
 
 ---
 
+## Checked 2026-11-22 ~09:00 UTC: ONCHAIN_METRIC_VERIFY_GENERAL schema
+
+- Source: `curl https://devnode.telegraphprotocol.com/engine/v1/intents/ONCHAIN_METRIC_VERIFY_GENERAL`.
+- Request: `address` (required), `block` (integer, required), `chain` in ethereum, polygon or arbitrum (default
+  ethereum), and `metric` in balance or tx_count (default balance; tx_count is "its nonce").
+- Response: `balance_gwei` is the only scored field (on-chain, 6 decimals, unit Gwei). `address`, `block`, `chain` and
+  `tx_count` are off-chain. Class `judgment`, evaluated `via: generic`; 45 miners listed.
+
 ## Checked 2026-11-16 ~14:00 UTC: intent mapping docs, the Diamond's canonical intents
 
 - **YAML intent mapping, re-read on https://anjoman.ai/docs/miners/yaml-config.** Unchanged from the 2026-11-08

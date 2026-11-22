@@ -264,6 +264,15 @@ export function asksPrice(text: string): boolean {
  * of a named event. Headlines about Bitcoin do not state its price (production 2026-11-14: "the reports do not
  * state a specific price"), so the quote is read where it is struck. Null means the news path runs unchanged.
  */
+/**
+ * The URLs of the citations an answer marks with [n]: "Who wrote Pride and Prejudice?" cited [2] in its text and served
+ * sources [] (Codex audit, 2026-11-22), while every retrieved page would add "Pride and Prejudice and Zombies". Pure.
+ */
+export function citedUrls(reason: string, citations: Array<{ n: number; url: string | null }>): string[] {
+  const marked = new Set([...reason.matchAll(/\[(\d{1,2})\]/g)].map((m) => Number(m[1])));
+  return [...new Set(citations.filter((c) => marked.has(c.n)).map((c) => c.url).filter((u): u is string => !!u))];
+}
+
 async function liveFigure(q: string): Promise<{ reason: string; sources: string[]; confidence: number } | null> {
   if (asksPrice(q)) {
     if (knownAsset(q)) {
@@ -328,7 +337,7 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
   // Australia?" was answered with two Commonwealth Bank headlines (2026-10-21).
   if (timeless(q)) {
     const qa = await answerQuestion(q).catch(() => null);
-    if (qa?.verdict === "answered") return { ...empty, verdict: "answered", confidence: 0.8, reason: qa.reason };
+    if (qa?.verdict === "answered") return { ...empty, sources: citedUrls(qa.reason, qa.citations ?? []), verdict: "answered", confidence: 0.8, reason: qa.reason };
   }
 
   const entity = namedEntity(q);
