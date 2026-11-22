@@ -239,6 +239,7 @@ function sendAnswer(res: ServerResponse, _question: string, body: unknown): void
   const now = new Date();
   const path = pathOf.get(res) ?? "";
   const scored = scoredFields(path, body);
+  if (process.env.LOG_QUERY === "on") process.stdout.write(`${resultLine(path, { ...(body as object), ...scored })}\n`);
   const wrapped = envelope(Object.keys(scored).length ? { ...(body as object), ...scored } : body, now, currentReceipt(now));
   const licensing = licensingFor(path);
   send(res, 200, licensing && wrapped && typeof wrapped === "object" && !Array.isArray(wrapped) ? { ...wrapped, licensing } : wrapped);
@@ -447,7 +448,18 @@ function handleInContext(req: IncomingMessage, res: ServerResponse): void {
  * Parameters whose values are a route or a choice from a short list, never a person's text: logged with their
  * value, so a score of 0 can be read against what the node actually sent (GAS_PRICE, GAPS G310). Pure.
  */
-const LOGGED_VALUES = new Set(["__path", "chain", "record_type", "type", "period", "form", "target_language", "window_hours", "metric", "block"]);
+// Asset and identifier params (a ticker, coin name or CVE id) are public names, not a person's text: FINANCIAL_DATA
+// scored 0 in epochs 35–38 with no record of which asset was asked (2026-11-22).
+const LOGGED_VALUES = new Set(["__path", "chain", "record_type", "type", "period", "form", "target_language", "window_hours", "metric", "block",
+  "symbol", "ticker", "asset", "cve_id", "indicator", "country"]);
+
+/** One line per answer: the verdict, the error code and the names of the top-level fields that are null or empty, never a value. Pure. */
+export function resultLine(path: string, body: unknown): string {
+  const b = (body && typeof body === "object" && !Array.isArray(body) ? body : {}) as Record<string, unknown>;
+  const verdict = typeof b.verdict === "string" ? b.verdict.slice(0, 30) : "-";
+  const empty = Object.keys(b).filter((k) => b[k] === null || (Array.isArray(b[k]) && !(b[k] as unknown[]).length) || b[k] === "");
+  return `RES ${path} verdict=${verdict}${typeof b.error === "string" ? ` error=${b.error.slice(0, 30)}` : ""}${empty.length ? ` empty=${empty.join(",").slice(0, 300)}` : ""}`;
+}
 export function logParam(name: string, raw: string): string {
   const v = raw.trim();
   if (!v) return `${name}=EMPTY`;

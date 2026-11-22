@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { frParse, frQuery } from "../src/fedreg";
 import { frResult, frWindow } from "../src/fedreg-filings";
 import { filingAsk, monitorFilings } from "../src/filings";
-import { logParam } from "../src/handler";
+import { logParam, resultLine } from "../src/handler";
 
 const NOW = new Date("2026-11-16T12:00:00Z");
 const BODY = {
@@ -84,4 +84,12 @@ test("the request log keeps values only for route and short-list params", () => 
   assert.equal(logParam("record_type", "A;rm -rf"), "record_type=A_rm -rf");
   assert.equal(logParam("text", "my private note"), "text");
   assert.equal(logParam("name", " "), "name=EMPTY");
+  assert.equal(logParam("symbol", "Bitcoin (BTC)"), "symbol=Bitcoin _BTC_");
+  assert.equal(logParam("question", "my private question"), "question");
+});
+
+test("the result log names the verdict and the empty fields, never a value", () => {
+  assert.equal(resultLine("/financial", { verdict: "financial_data", asset: "Apple Inc.", market_cap_usd: null, sources: [] }),
+    "RES /financial verdict=financial_data empty=market_cap_usd,sources");
+  assert.equal(resultLine("/x", { verdict: "unknown", error: "no_subject", answer: "secret text" }), "RES /x verdict=unknown error=no_subject");
 });
