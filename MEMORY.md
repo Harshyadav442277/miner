@@ -1,5 +1,15 @@
 # MEMORY.md — session continuity
 
+## 2026-11-22 ~14:15 UTC (19:45 IST): CURRENT — `76b11a1` LIVE (`miner-ge5ejbder`); PR #47 merged
+
+- Production `dpl_GZSboFBsNoGF8sMYTzv9GEvX4Qke`, from main `76b11a1`. Preflight 7/7, watch active. Rollback:
+  `miner-lefeghzyl` (`4f1f852`). Evidence: `track1-miner/docs/evidence/release-2026-11-22-epoch-fixes/`.
+- What changed: FINANCIAL_DATA market caps (coins under rate limits, multi-class companies, ticker collisions); a
+  model-written answer `brief` for research, synthesis and papers; clause-cut briefs elsewhere; REQ values and RES lines.
+- Next: read the next FINANCIAL REQ/RES lines and the epoch scores (TASKS.md 2026-11-22 block, GAPS G345–G349).
+- This record is on branch `PR/release-record-76b11a1` (docs only), pushed for a PR.
+
+
 ## 2026-11-22 ~09:30 UTC (15:00 IST): CURRENT — `4f1f852` LIVE (`miner-lefeghzyl`); PR #47 open, not merged
 
 - Production `dpl_B4dRAz1D6s2yoevNoty1Uz1fR8eh`, owner's yes. Preflight 7/7, watch active. Rollback: `miner-n0lo5k8w7`.
