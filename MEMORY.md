@@ -3,8 +3,8 @@
 ## 2026-11-22 ~09:15 UTC (14:45 IST): CURRENT — Codex audit reviewed; three fixes on `PR/audit-fixes-2026-11-22`, NOT deployed
 
 - **Branch:** `PR/audit-fixes-2026-11-22` from `main` `b48749a`: `2685fe8` (ONCHAIN_METRIC tx_count, G342),
-  `a29e0dd` (block value follows the asked figure), `7e03413` (Web Search timeless sources). Unit 1059/1059. The new
-  live web-search test passes. The tx_count and block reads were run against live RPCs (G344).
+  `a29e0dd` (block value follows the asked figure), `7e03413` (Web Search timeless sources), `3b92017` (nonce questions in words). Unit 1059/1059; live web-search test passes.
+  Archived request shapes replayed on a local server (balance, tx_count, polygon, arbitrum, prose nonce): all answer (G342–G344).
 - **Production:** not touched this session. The newest deploy log in `C:\Users\hyada\tg-deploy` is `prod-deploy-3543649.log`;
   the live revision was not re-checked. Next: owner's yes to deploy the branch (release-miner skill),
   then read the next ONCHAIN_METRIC epoch.
