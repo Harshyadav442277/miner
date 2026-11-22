@@ -253,6 +253,15 @@ export async function lookupRegistry(question: string, companyParam = "", number
     best = alt;
   }
   if (!best) {
+    // The SEC-only answer is held to the jurisdiction too: with GLEIF silent, Apple Inc. asked in US-DE answered
+    // "found" from EDGAR's California record (preview, 2026-11-22).
+    const said = String(us?.state_of_incorporation ?? "").trim();
+    const code = /^[A-Za-z]{2}$/.test(said) ? said.toUpperCase() : Object.entries(US_STATES).find(([, n]) => n.toLowerCase() === said.toLowerCase())?.[0];
+    const state = code ? `US-${code}` : null;
+    if (us && s.country && /^US-[A-Z]{2}$/.test(s.country) && state && state !== s.country) {
+      return { ...base, verdict: "not_found", confidence: 0.6, sources: [us.source_url],
+        reason: `No register record for ${subject} in ${s.country} was found. SEC EDGAR lists ${us.name} as incorporated in ${state}, so it is not reported as the company asked about.` };
+    }
     if (us) {
       return { ...base, verdict: "found", confidence: 0.75, legal_name: us.name, us_filer: us, sources: [us.source_url],
         reason: `${us.name} is an SEC registrant incorporated in ${us.state_of_incorporation ?? "a state not stated"}, CIK ${us.cik}, ` +

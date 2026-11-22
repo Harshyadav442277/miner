@@ -96,3 +96,20 @@ test("the jurisdiction asked is enforced on the record: a country by address or 
   assert.equal(inJurisdiction(rec(null, "LU"), "LU"), true);
   assert.equal(inJurisdiction(rec("GB", "GB"), "SE"), false);
 });
+
+test("with GLEIF silent, the SEC-only answer is held to the jurisdiction asked (preview, 2026-11-22)", async (t) => {
+  const original = globalThis.fetch;
+  globalThis.fetch = (async (url: string) => {
+    const u = String(url);
+    if (u.includes("company_tickers.json")) return Response.json(Object.fromEntries([[0, { cik_str: 320193, ticker: "AAPL", title: "Apple Inc." }], ...Array.from({ length: 1200 }, (_, i) => [i + 1, { cik_str: 9_000_000 + i, ticker: `ZZ${i}`, title: `Filler Holdings ${i} Corp` }])]));
+    if (u.includes("submissions/CIK0000320193")) return Response.json({ cik: "320193", name: "Apple Inc.", stateOfIncorporation: "CA", stateOfIncorporationDescription: "CA",
+      addresses: { business: { street1: "ONE APPLE PARK WAY", city: "CUPERTINO", stateOrCountry: "CA", zipCode: "95014" } }, formerNames: [], tickers: ["AAPL"], filings: { recent: { form: [], filingDate: [], accessionNumber: [], primaryDocument: [], items: [] } } });
+    return new Response("", { status: 503 }); // GLEIF down
+  }) as typeof globalThis.fetch;
+  t.after(() => { globalThis.fetch = original; });
+  const de = await lookupRegistry("", "Apple Inc.", "", "US-DE");
+  assert.equal(de.verdict, "not_found");
+  assert.match(de.reason, /incorporated in US-CA/);
+  const ca = await lookupRegistry("", "Apple Inc.", "", "US-CA");
+  assert.equal(ca.verdict, "found");
+});
