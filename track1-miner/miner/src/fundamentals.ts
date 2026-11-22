@@ -190,7 +190,7 @@ async function getJson(url: string): Promise<{ status: number; body?: unknown }>
 let tickerFile: Promise<Map<string, [number, string]>> | null = null;
 
 /** Ticker to CIK: the embedded table, else SEC's full ticker file once per instance. `undefined` is an outage. */
-async function lookupCik(ticker: string): Promise<{ cik: number; name: string } | null | undefined> {
+export async function lookupCik(ticker: string): Promise<{ cik: number; name: string } | null | undefined> {
   const t = ticker.toUpperCase().replace(/\./g, "-");
   const row = COMPANIES.find((c) => c[0] === t);
   if (row) return { cik: row[1], name: row[2] };

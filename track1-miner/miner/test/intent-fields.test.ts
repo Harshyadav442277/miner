@@ -232,3 +232,11 @@ test("a brief is cut at a clause and ends as a sentence, never mid-phrase (2026-
   const b = String(scoredFields("/web-search", { direct_answer: "Argentina national football team won the 2022 FIFA World Cup, which ended on 2022-12-18, as Wikidata records it.", articles: [] }).brief);
   assert.equal(b, "Argentina national football team won the 2022 FIFA World Cup.");
 });
+
+test("an attribution lead is dropped, and a clause cut that guts the sentence falls back to the word clip", () => {
+  assert.equal(scoredFields("/web-search", { articles: [], reason: `From Wikipedia's "Pride and Prejudice": "Pride and Prejudice is a novel by English author Jane Austen." [2] Quoted.` }).brief,
+    "Pride and Prejudice is a novel by English author Jane Austen.");
+  const synth = String(scoredFields("/research-synthesis", { sources: [1], reason: `Across two studies: X et al. (2026): "Compared with exercise alone, the addition of psychoeducation resulted in greater reductions in depressive symptoms."` }).brief);
+  assert.notEqual(synth, "Compared with exercise alone.");
+  assert.ok(synth.length > 45 && synth.length <= 80, synth);
+});

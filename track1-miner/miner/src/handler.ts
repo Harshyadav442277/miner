@@ -237,14 +237,14 @@ const requestOf = new WeakMap<ServerResponse, { path: string; params: URLSearchP
  * old shape are in git history (`restate.ts`, `lean`).
  */
 /**
- * Adds the model's one-sentence answer as `brief` (answer-brief.ts) to a research answer that found evidence, or to an
- * honest "none found" where the consensus is still worth stating. An outage keeps its own wording.
+ * Adds the model's one-sentence answer as `brief` (answer-brief.ts) to a research answer that found evidence. A "none
+ * found" answer claims nothing, so it gets no model sentence either; nor does an outage.
  */
 function withResearchBrief(q: string) {
   return async <T extends { verdict: string; reason: string; error?: string }>(r: T): Promise<T & { brief?: string; brief_basis?: string }> => {
-    if (r.error || /^(?:unknown|unavailable)$/.test(r.verdict)) return r;
+    if (r.error || !/^(?:evidence|synthesis|papers)$/.test(r.verdict)) return r;
     const b = await researchBrief(q, r.reason).catch(() => null);
-    return b ? { ...r, brief: b, brief_basis: "one sentence written by a language model from the cited evidence" } : r;
+    return b ? { ...r, brief: b, brief_basis: "one sentence written by a language model (Groq) from the cited evidence, with general scientific knowledge where the evidence is indirect" } : r;
   };
 }
 
@@ -1486,7 +1486,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     /**
      * Findings combined across sources, every one quoted from a named study's
      * abstract, or a supplied set of notes restated with their attributions.
-     * Nothing is generated; see src/synthesis.ts.
+     * The findings are quoted, not generated (src/synthesis.ts); only the one-sentence brief is model-written (answer-brief.ts).
      */
     const q = withSubject(
       firstValue(url, "query", "q", "question", "text", "input"),

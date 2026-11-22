@@ -142,7 +142,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/weather-forecast": ["awc", "metno", "nominatim", "nws"],
   "/ip-geolocate": ["ip-api", "ipinfo", "ipwhois"],
   "/translate": ["groq"],
-  "/papers": ["doaj", "openalex"],
+  "/papers": ["doaj", "groq", "openalex"],
   "/extract": [],
   "/headlines": ["google-news"],
   "/wallet-balance": ["1rpc", "chain-rpcs", "drpc", "ensideas", "flashbots", "merkle", "publicnode"],
@@ -158,7 +158,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/financial": ["bitstamp", "coinbase", "coingecko", "coinpaprika", "ecb", "frankfurter", "nasdaq", "sec", "yahoo"],
   "/fraud-check": ["4byte", "chain-rpcs", "dns-resolvers", "doaj", "drpc", "merkle", "ofac-list", "openalex", "openchain", "publicnode"],
   "/token-holders": ["blockscout", "coingecko"],
-  "/research": ["clinicaltrials", "ebi", "wikipedia"],
+  "/research": ["clinicaltrials", "ebi", "groq", "wikipedia"],
   "/crypto-price": ["bitstamp", "coinbase", "ecb", "frankfurter"],
   "/stock-price": ["bitstamp", "coinbase", "coingecko", "coinpaprika", "ecb", "frankfurter", "nasdaq", "sec", "yahoo"],
   "/cross-chain": ["4byte", "chain-rpcs", "drpc", "layerzero", "merkle", "openchain", "publicnode"],
@@ -168,7 +168,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/sentiment": ["groq"],
   "/security-review": ["dns-resolvers", "groq", "osv"],
   "/classify": ["datamuse", "groq"],
-  "/research-synthesis": ["clinicaltrials", "doaj", "ebi", "ncbi", "openalex", "wikipedia"],
+  "/research-synthesis": ["clinicaltrials", "doaj", "ebi", "groq", "ncbi", "openalex", "wikipedia"],
   // The sanctions index (sanctions-index.ts) is served from raw.githubusercontent.com, the host registered for
   // "ofac-list", so that id is listed too; the index's data comes from ofac, un-sanctions, uk-sanctions and eu-sanctions.
   "/sanctions-screen": ["eu-sanctions", "ofac", "ofac-list", "uk-sanctions", "un-sanctions"],

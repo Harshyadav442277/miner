@@ -89,8 +89,22 @@ export function pairsBrief(pairs: string[], n = 80): string {
  */
 const brief = (reason: unknown, n = 80): string | null => {
   const s = str(reason);
-  return s ? clauseBrief(leadSentence(s), n) : null;
+  return s ? sentenceBrief(leadSentence(s), n) : null;
 };
+
+/**
+ * One sentence in at most `n` characters. An attribution lead ("From Wikipedia's "X": ", "According to X: "), quote
+ * marks and [n] markers are dropped first, so "Pride and Prejudice is a novel by English author Jane Austen." fits
+ * whole. A clause cut is kept only when it keeps most of the room: cutting at the first comma served "Compared with
+ * exercise alone." and "From Wikipedia's "Pride and Prejudice"." in testing (2026-11-22); the word clip is used then. Pure.
+ */
+export function sentenceBrief(sentence: string, n = 80): string {
+  const t = sentence.replace(/^(?:From|According to)\s[^:]{1,120}?:\s+/i, "").replace(/\s*\[\d{1,2}\]/g, "")
+    .replace(/^["“]|["”]$/g, "").replace(/^["“]([^"”]+)["”]\s*$/, "$1").replace(/\s+/g, " ").trim();
+  if (t.length <= n) return t;
+  const cut = clauseBrief(t, n);
+  return cut.length >= Math.min(45, n * 0.55) ? cut : clip(t, n);
+}
 /** A headline with its publisher when both fit, else the headline alone. */
 const headline = (a: Body | undefined): string | null => {
   const title = str(a?.title);
@@ -102,7 +116,7 @@ const headline = (a: Body | undefined): string | null => {
 /** The first sentence quoted in `reason`: a synthesis quotes each finding from its study's abstract. */
 const firstQuote = (reason: unknown): string | null => {
   const q = str(reason)?.match(/"([^"]{12,})"/)?.[1];
-  return q ? clauseBrief(q) : null;
+  return q ? sentenceBrief(q) : null;
 };
 /**
  * An event outcome that answers: settled by a market or a record ("resolved"), or recalled by the model when

@@ -130,3 +130,22 @@ test("a coin search hit counts only when it is a top-300 coin named as asked", (
   assert.equal(pickCoin("Apple", [{ id: "apple-xstock", name: "Apple xStock", symbol: "AAPLX", market_cap_rank: 967 }]), null);
   assert.equal(pickCoin("Polygon", [{ id: "x", name: "Index Coop (Polygon)", symbol: "X", market_cap_rank: 4046 }]), null);
 });
+
+test("a 2010 SEC share count is not priced today; Nasdaq's market cap is used (Visa, 2026-11-22)", async () => {
+  await withFetch([
+    ["finance/chart/V", () => json({ chart: { result: [{ meta: { instrumentType: "EQUITY", currency: "USD", longName: "Visa Inc.", regularMarketPrice: 340,
+      chartPreviousClose: 338, regularMarketDayHigh: 342, regularMarketDayLow: 336, regularMarketVolume: 5_000_000, fiftyTwoWeekHigh: 360, fiftyTwoWeekLow: 280 } }] } })],
+    ["EntityCommonStockSharesOutstanding", () => json({ units: { shares: [{ val: 469_280_842, end: "2010-01-27", filed: "2010-02-03", form: "10-Q", accn: "a1" }] } })],
+    ["api.nasdaq.com/api/quote/V/summary", () => json({ data: { summaryData: { MarketCap: { label: "Market Cap", value: "725,306,134,389" } } } })],
+  ], async (asked) => {
+    const r = await getFinancialData("Visa", "", "Visa");
+    assert.equal(r.data?.market_cap, 725_306_134_389);
+    assert.match(r.reason, /Nasdaq/);
+    assert.ok(!asked.some((u) => u.includes("coingecko")), "a known company is not searched as a coin");
+  });
+});
+
+test("a coin search hit says how it matched and its rank", () => {
+  assert.deepEqual(pickCoin("TRON", [{ id: "tron", name: "TRON", symbol: "trx", market_cap_rank: 8 }]), { name: "TRON", symbol: "TRX", gecko: "tron", by: "name", rank: 8 });
+  assert.equal(pickCoin("shib", [{ id: "shiba-inu", name: "Shiba Inu", symbol: "shib", market_cap_rank: 39 }])?.by, "symbol");
+});

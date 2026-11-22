@@ -34,7 +34,7 @@
  * and presented as the ratio.
  */
 
-import { getFundamentals, knownCompany, marketCapValue, metricAsked } from "./fundamentals";
+import { getFundamentals, knownCompany, lookupCik, marketCapValue, metricAsked } from "./fundamentals";
 import type { FundamentalFigures } from "./fundamentals";
 import { knownAsset, type Asset } from "./cryptoprice";
 import { notLicensedReason, permitted } from "./sources";
@@ -393,10 +393,10 @@ async function paprikaCoin(asset: Asset): Promise<Record<string, unknown> | unde
  * is a top-300 coin whose name or symbol is the asset asked. "TRON" was answered as the stock Tron Inc. (2026-11-22).
  * MetaDAO (rank 302) is not "META", and Apple xStock is not "Apple". Null on a miss or an outage.
  */
-export async function searchCoin(name: string): Promise<Asset | null> {
+export async function searchCoin(name: string): Promise<(Asset & { by: "name" | "symbol"; rank: number }) | null> {
   const n = String(name ?? "").trim();
   // CoinGecko names Polygon's coin "POL (ex-MATIC)", so its search does not match the name asked.
-  if (/^(?:polygon|matic|pol)$/i.test(n)) return { name: "Polygon", symbol: "POL", gecko: "polygon-ecosystem-token" };
+  if (/^(?:polygon|matic|pol)$/i.test(n)) return { name: "Polygon", symbol: "POL", gecko: "polygon-ecosystem-token", by: "name", rank: 1 };
   if (!n || n.split(/\s+/).length > 4 || !permitted(COINGECKO_SEARCH)) return null;
   try {
     const j = (await getJson(`${COINGECKO_SEARCH}?query=${encodeURIComponent(n)}`)) as { coins?: Array<{ id?: string; name?: string; symbol?: string; market_cap_rank?: number | null }> };
@@ -414,13 +414,13 @@ export async function searchCoin(name: string): Promise<Asset | null> {
 }
 
 /** The search hit that is the asset asked, by the rule above. Pure. */
-export function pickCoin(asked: string, coins: Array<{ id?: string; name?: string; symbol?: string; market_cap_rank?: number | null }>): Asset | null {
+export function pickCoin(asked: string, coins: Array<{ id?: string; name?: string; symbol?: string; market_cap_rank?: number | null }>): (Asset & { by: "name" | "symbol"; rank: number }) | null {
   const a = asked.trim().toLowerCase();
   const top = coins[0];
   if (!top?.id || !top.name || !top.symbol || !(Number(top.market_cap_rank) > 0 && Number(top.market_cap_rank) <= 300)) return null;
   const name = top.name.toLowerCase();
-  const same = name === a || name.includes(`(prev. ${a})`) || (a.length >= 3 && top.symbol.toLowerCase() === a);
-  return same ? { name: top.name, symbol: top.symbol.toUpperCase(), gecko: top.id } : null;
+  const by = name === a || name.includes(`(prev. ${a})`) ? "name" : a.length >= 3 && top.symbol.toLowerCase() === a ? "symbol" : null;
+  return by ? { name: top.name, symbol: top.symbol.toUpperCase(), gecko: top.id, by, rank: Number(top.market_cap_rank) } : null;
 }
 
 /** Market capitalisation from Nasdaq's quote summary, for a company whose SEC cover gives no current share count. */
@@ -642,7 +642,14 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
   const sameCoin = !named || knownAsset(named)?.gecko === tabled?.gecko;
   const tableCoin = tabled && sameCoin && !knownCompany(query) && (!declaredOk || declared === tabled.symbol) ? tabled : null;
   // A bare asset outside the table (the node sends the asset alone) is looked up as a coin before any ticker search.
-  const coin = tableCoin ?? (!tabled && !knownCompany(query) ? await searchCoin(named ?? query) : null);
+  // When a listed company has the ticker asked, only a top-50 coin wins it: TRON (rank 8) is the coin, but DASH is
+  // DoorDash, STX Seagate and CAKE the Cheesecake Factory.
+  let coin: Asset | null = tableCoin;
+  if (!coin && !tabled && !knownCompany(query)) {
+    const hit = await searchCoin(named ?? query);
+    const listed = hit && hit.rank > 50 ? await lookupCik(declaredOk ? declared : hit.symbol).catch(() => undefined) : null;
+    if (hit && listed === null) coin = hit;
+  }
   if (coin) {
     const c = await coinData(coin);
     if (c) return c;
