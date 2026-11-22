@@ -242,9 +242,16 @@ const requestOf = new WeakMap<ServerResponse, { path: string; params: URLSearchP
  */
 function withResearchBrief(q: string) {
   return async <T extends { verdict: string; reason: string; error?: string }>(r: T): Promise<T & { brief?: string; brief_basis?: string }> => {
-    if (r.error || !/^(?:evidence|synthesis|papers)$/.test(r.verdict)) return r;
-    const b = await researchBrief(q, r.reason).catch(() => null);
-    return b ? { ...r, brief: b, brief_basis: "one sentence written by a language model (Groq) from the cited evidence, with general scientific knowledge where the evidence is indirect" } : r;
+    if (r.error) return r;
+    const found = /^(?:evidence|synthesis|papers)$/.test(r.verdict);
+    // With no study found the scored brief was empty (RESEARCH_SYNTHESIS `no_sources`, epoch 39). The answer still
+    // says no study was found; the brief states established knowledge and says where it came from.
+    if (!found && !/^(?:no_evidence|no_sources|no_papers)$/.test(r.verdict)) return r;
+    const b = await researchBrief(q, r.reason, undefined, found).catch(() => null);
+    if (!b) return r;
+    return { ...r, brief: b, brief_basis: found
+      ? "one sentence written by a language model (Groq) from the cited evidence, with general scientific knowledge where the evidence is indirect"
+      : "one sentence written by a language model (Groq) from general scientific knowledge: no study was retrieved for this question" };
   };
 }
 
