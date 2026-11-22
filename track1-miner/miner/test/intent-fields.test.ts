@@ -225,3 +225,10 @@ test("research: registered trials count as sources, each with its ClinicalTrials
   assert.equal(f.source_count, 3);
   assert.deepEqual(f.sources, ["https://europepmc.org/abstract/MED/1", "https://clinicaltrials.gov/study/NCT04777396", "https://clinicaltrials.gov/study/NCT04777409"]);
 });
+
+test("a brief is cut at a clause and ends as a sentence, never mid-phrase (2026-11-22)", () => {
+  assert.equal(scoredFields("/web-search", { direct_answer: "The latest stable Node.js release is 26.13.1, released on 11 November 2026 (the 26 release cycle).", articles: [] }).brief,
+    "The latest stable Node.js release is 26.13.1.");
+  const b = String(scoredFields("/web-search", { direct_answer: "Argentina national football team won the 2022 FIFA World Cup, which ended on 2022-12-18, as Wikidata records it.", articles: [] }).brief);
+  assert.equal(b, "Argentina national football team won the 2022 FIFA World Cup.");
+});

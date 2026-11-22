@@ -9,6 +9,7 @@
  * removes the guess. REGULATORY_FILING_MONITOR_GENERAL's `filing_count` is
  * built in filings.ts, which holds the whole filing window. Pure.
  */
+import { clauseBrief } from "./clause";
 import { leadSentence } from "./envelope";
 import type { RegistryResult } from "./registry";
 import type { SanctionsResult } from "./sanctions";
@@ -81,10 +82,14 @@ export function pairsBrief(pairs: string[], n = 80): string {
   return out || clip(pairs[0] ?? "", n);
 }
 
-/** The answer's lead sentence (envelope.ts, which knows "et al." and "Nov."), at most `n` characters. */
+/**
+ * The answer's lead sentence (envelope.ts, which knows "et al." and "Nov."), at most `n` characters, cut at a clause
+ * and ended as a sentence: "The latest stable Node.js release is 26.13.1, released on 11 November 2026 (the" was the
+ * scored brief, which the schema defines as "one plain sentence of at most 80 characters" (2026-11-22).
+ */
 const brief = (reason: unknown, n = 80): string | null => {
   const s = str(reason);
-  return s ? clip(leadSentence(s), n) : null;
+  return s ? clauseBrief(leadSentence(s), n) : null;
 };
 /** A headline with its publisher when both fit, else the headline alone. */
 const headline = (a: Body | undefined): string | null => {
@@ -97,7 +102,7 @@ const headline = (a: Body | undefined): string | null => {
 /** The first sentence quoted in `reason`: a synthesis quotes each finding from its study's abstract. */
 const firstQuote = (reason: unknown): string | null => {
   const q = str(reason)?.match(/"([^"]{12,})"/)?.[1];
-  return q ? clip(q) : null;
+  return q ? clauseBrief(q) : null;
 };
 /**
  * An event outcome that answers: settled by a market or a record ("resolved"), or recalled by the model when

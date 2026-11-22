@@ -1673,7 +1673,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       sendAnswer(res, q, academicAnswer(hit as PaperResult));
       return;
     }
+    // ACADEMIC_SEARCH's on-chain field is the brief, "the answer to the request in one plain sentence"; "Top paper:
+    // <title cut at 80>" scored 0.44-0.50 against 0.96 at the top (epochs 36-37).
     findPapers(q, undefined, undefined, topic)
+      .then(withResearchBrief(q))
       .then((r) => {
         toCache(key, r);
         sendAnswer(res, q, academicAnswer(r));
