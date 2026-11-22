@@ -240,10 +240,12 @@ const requestOf = new WeakMap<ServerResponse, { path: string; params: URLSearchP
  * Adds the model's one-sentence answer as `brief` (answer-brief.ts) to a research answer that found evidence. A "none
  * found" answer claims nothing, so it gets no model sentence either; nor does an outage.
  */
-function withResearchBrief(q: string) {
+export function withResearchBrief(q: string) {
   return async <T extends { verdict: string; reason: string; error?: string }>(r: T): Promise<T & { brief?: string; brief_basis?: string }> => {
     if (r.error) return r;
-    const found = /^(?:evidence|synthesis|papers)$/.test(r.verdict);
+    // single_source: one study found; its quote alone served "rIIS additively extends late-life reproduction" for a
+    // question about fasting and ageing in humans (production, 2026-11-22).
+    const found = /^(?:evidence|synthesis|single_source|papers)$/.test(r.verdict);
     // With no study found the scored brief was empty (RESEARCH_SYNTHESIS `no_sources`, epoch 39). The answer still
     // says no study was found; the brief states established knowledge and says where it came from.
     if (!found && !/^(?:no_evidence|no_sources|no_papers)$/.test(r.verdict)) return r;
