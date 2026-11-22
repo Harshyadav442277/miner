@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { blockField, holderAndToken, metricKind, statedBlock, structuredKind, verifyOnchainMetric } from "../src/onchain-metric";
+import { blockField, holderAndToken, metricAlias, metricKind, statedBlock, structuredKind, verifyOnchainMetric } from "../src/onchain-metric";
 
 const TX = "0x24e20c506fd16546178a03c955bca381376f97b9ff5aefb726abf84dea6c8913";
 const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
@@ -154,4 +154,16 @@ test("onchain metric: a block's value is the figure the question asks for, in it
     assert.deepEqual([pre.value, pre.verdict, pre.error], [null, "not_found", "no_base_fee"]);
     assert.match(pre.reason, /no base fee/);
   } finally { old(); }
+});
+
+test("the metric parameter is read in any common spelling, and a block figure needs no address (2026-11-22 16:13 UTC)", () => {
+  assert.equal(metricAlias("totalSupply"), "total_supply");
+  assert.equal(metricAlias("nonce"), "tx_count");
+  assert.equal(metricAlias("gasUsed"), "gas_used");
+  assert.equal(metricAlias("base fee"), "base_fee");
+  assert.equal(structuredKind(null, "totalSupply", [USDC], false), "total_supply");
+  assert.equal(structuredKind(null, "nonce", [VAULT], false), "tx_count");
+  assert.equal(structuredKind(null, "gas_limit", [], false), "block");
+  assert.equal(structuredKind(null, "gas_limit", [VAULT], false), null, "an address with a block metric is not guessed");
+  assert.equal(blockField("x gas limit"), "gas_limit");
 });
