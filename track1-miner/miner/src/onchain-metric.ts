@@ -99,6 +99,8 @@ export function metricKind(question: string, hasTx: boolean, addresses: string[]
   if (hasTx) return "tx_receipt";
   if (/\bstorage\s+slot\b|\bslot\s+(?:0x[\da-f]+|\d+)\b/i.test(question) && addresses.length) return "storage";
   if (/\btotal\s*supply\b|\btotalSupply\b/i.test(question) && (addresses.length || symbol)) return "total_supply";
+  // An address's nonce, asked in words: with one address and "block" in the question it read the block instead.
+  if (addresses.length === 1 && /\bnonce\b|\b(?:transaction|tx)\s+count\b|\b(?:transactions|txs)\b[^.?]{0,80}\bsent\b|\bsent\b[^.?]{0,20}\b(?:transactions|txs)\b/i.test(question)) return "tx_count";
   if (/\bbalance|\bhold(?:s|ing)?\b|\bheld\b|\bown(?:s|ed)?\b/i.test(question) && addresses.length) {
     return addresses.length > 1 || symbol ? "token_balance" : "native_balance";
   }

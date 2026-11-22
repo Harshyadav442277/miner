@@ -24,6 +24,10 @@ test("onchain metric: the read is picked from the question", () => {
   assert.equal(metricKind("USDC held by 0x…", false, [VAULT], "USDC"), "token_balance");
   assert.equal(metricKind("gas used at block 5", false, [], null), "block");
   assert.equal(metricKind("What is the price of ETH?", false, [], null), null);
+  assert.equal(metricKind(`How many transactions has ${VAULT} sent at block 5?`, false, [VAULT], null), "tx_count");
+  assert.equal(metricKind("nonce of 0x… at block 5", false, [VAULT], null), "tx_count");
+  assert.equal(metricKind("transaction count of 0x… at block 5", false, [VAULT], null), "tx_count");
+  assert.equal(metricKind("How many transactions were in block 5?", false, [], null), "block");
 });
 
 test("onchain metric: the address named as the token is the token, the other the holder", () => {
