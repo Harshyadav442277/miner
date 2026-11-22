@@ -12,6 +12,11 @@
 - **G352 — REGULATORY_FILING read no explicit date range. `FIXED`.** "2026-08-01 to 2026-08-31" gave `filing_count`
   null. It now gives 4, matching EDGAR's submissions list for Apple.
 - **G349 — FIXED.** Only a verdict word is logged, and asset values over four words are logged as `TEXT`.
+- **G353 — The Nasdaq market-cap fallback is fragile. `OPEN`.** At 18:55 UTC api.nasdaq.com answered "Error while
+  calling vendor" for V, so Visa's `market_cap_usd` was null on a cold preview. Alphabet, Meta, Visa and Berkshire
+  depend on it. Candidate fix: SEC per-class share counts from the filing's XBRL instance. Not built.
+- **Flaky live test:** the Uniswap V2 router creation test failed once on Blockscout's null count, then passed alone
+  (2026-11-22 19:12 UTC).
 - Still open: ONCHAIN_METRIC 0 at 16:35 UTC (epoch 38), after the tx_count fix was live. Not diagnosed: the REQ line
   carried `query` only.
 - Still open: the TaskGroup documentation answer misses the question (Codex).

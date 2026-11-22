@@ -1,5 +1,17 @@
 # MEMORY.md — session continuity
 
+## 2026-11-22 ~19:20 UTC (2026-11-23 00:50 IST): CURRENT — `8ef874f` LIVE (`miner-bk9insot7`); PRs #50, #51 merged
+
+- Production `dpl_BfJXp7P13QwEgh7fD1hUtaCo6ozS` from main `8ef874f`. Preflight 7/7 after one flaky live test re-ran clean;
+  watch active. Rollback: `miner-ge5ejbder` (`76b11a1`). Evidence: `track1-miner/docs/evidence/release-2026-11-23-zero-causes/`.
+- Changed: research briefs for every verdict (no study found: labelled general knowledge); security review of a
+  target named or described in words; registry enforces the jurisdiction; filings read ISO ranges and named months;
+  logs keep only verdict words and short asset names.
+- Codex's reply to the review: `docs/CODEX_AUDIT_2026-11-22_RESPONSE.md` on `codex/rank1-14-intents` (not on main). Its
+  lead plan is a Stablecoin pre-payment screening workflow with an independent reproduction (owner and app partner).
+- Next: read epochs 40+ for SYNTHESIS, SECURITY_REVIEW, FINANCIAL, REGISTRY, FILING (GAPS G345, G350-G353).
+
+
 ## 2026-11-22 ~14:15 UTC (19:45 IST): CURRENT — `76b11a1` LIVE (`miner-ge5ejbder`); PR #47 merged
 
 - Production `dpl_GZSboFBsNoGF8sMYTzv9GEvX4Qke`, from main `76b11a1`. Preflight 7/7, watch active. Rollback:

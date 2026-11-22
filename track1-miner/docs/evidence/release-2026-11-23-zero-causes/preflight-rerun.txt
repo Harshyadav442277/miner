@@ -1,0 +1,6 @@
+✖ the Uniswap V2 router's creation transaction matches Blockscout's (live) (3502.4756ms)
+ℹ tests 1202
+ℹ pass 1200
+ℹ fail 1
+✖ failing tests:
+✖ the Uniswap V2 router's creation transaction matches Blockscout's (live) (3502.4756ms)
