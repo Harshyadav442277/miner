@@ -5,6 +5,13 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## 2026-11-22 — epochs 34–38 follow-ups (GAPS G345–G348)
+
+- [ ] Read the next FINANCIAL_DATA scoring call's REQ and RES lines (asset value, empty fields) and its score.
+- [ ] Read RESEARCH_QUERY, RESEARCH_SYNTHESIS, ACADEMIC, WEB and NEWS in the next two epochs against G346.
+- [ ] Verify Polygon's CoinGecko id (G347).
+- [ ] Next signature: say in the research and papers descriptions that a model writes the brief (G348).
+
 ## 2026-11-22 — Codex audit follow-ups (GAPS G342–G344)
 
 - [x] ONCHAIN_METRIC `metric=tx_count`, nonce questions in words, block value follows the asked figure; Web Search

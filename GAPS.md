@@ -1,5 +1,31 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-22 ~14:30 UTC (20:00 IST) — epochs 34–38 read; G345–G348 new
+
+- **G345 — FINANCIAL_DATA 0 in epochs 35–38 (top 0.98). Cause `NOT ESTABLISHED`; fixes shipped for what was found.**
+  - Seen on production, 2026-11-22:
+    - "Bitcoin (BTC)" was answered as a Bitcoin ETF ($3.7 bn) after CoinGecko refused.
+    - TRON was answered as the stock Tron Inc.
+    - Alphabet, Meta and Coinbase had no market cap.
+    - Visa ($189 bn) and Berkshire ($0.5 bn) were priced from 2010–2011 share counts.
+  - Against that, the #2 miner (a1-preflight, 0.955) fails several of the same hard cases. Epoch 8 was rank 1 on this
+    code path. So these are hypotheses for the zeros, not the proven cause.
+  - The scoring call at 13:18 UTC carried `symbol` with no logged value. Values and a RES line are now logged
+    (`a7036e5`). Read the next FINANCIAL REQ and RES lines before changing more.
+  - CoinGecko rate-limited this machine after about 20 calls. CoinPaprika's free tier is 60 requests an hour and
+    blocks for an hour (402 `payment_required`). Whether either answers from Vercel is not yet known.
+- **G346 — The search and research intents' only on-chain field is `brief`. `ACTED ON`, unverified in score.**
+  - The schema text for RESEARCH_QUERY, RESEARCH_SYNTHESIS, ACADEMIC, WEB and NEWS: "the answer to the request in
+    one plain sentence of at most 80 characters".
+  - Ours was a paper title or a quote cut at 80 characters.
+  - RESEARCH_QUERY scored 0 in epochs 34–37. The leaders return plain one-paragraph answers; rq-crossref, whose base
+    URL is the raw Crossref API, scored 0.998.
+  - Now: the model writes the brief from the found evidence (`brief_basis` says so), and the mapper cuts at a clause.
+  - The model brief cannot be checked on a preview (no Groq key there); it is checked on production after promote.
+- **G347 — Polygon's CoinGecko id `polygon-ecosystem-token` is from memory, not verified.** Rate-limited when checked.
+- **G348 — The signed manifest's `/research`, `/research-synthesis` and `/papers` descriptions do not say a model
+  writes the brief.** Update them at the next signature.
+
 ## 2026-11-22 ~09:10 UTC (14:40 IST) — Codex audit reviewed; G342–G344 new
 
 - **G342 — ONCHAIN_METRIC refused `metric=tx_count`. `FIXED` in code (`2685fe8`), not deployed.**
