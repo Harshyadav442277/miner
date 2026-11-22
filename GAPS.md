@@ -1,5 +1,27 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-22 ~09:10 UTC (14:40 IST) — Codex audit reviewed; G342–G344 new
+
+- **G342 — ONCHAIN_METRIC refused `metric=tx_count`. `FIXED` in code (`2685fe8`), not deployed.**
+  - The intent's schema allows `metric` balance or tx_count (read 2026-11-22, `docs/TELEGRAPH_FACTS.md`).
+  - Four `address + block + chain=ethereum + metric=tx_count` requests on 2026-11-20 (01:23–09:18 UTC, request
+    archive) were answered "No readable on-chain value was named".
+  - Unverified: whether this caused the zeros in epochs 35–36. The archive keeps param names and short values only,
+    not our response or the scorer's verdict.
+- **G343 — Arbitrum state at old blocks is unknown. `OPEN`.** Balance and tx_count at block 300,000,000 both
+  answered `unknown` on 2026-11-22: no free Arbitrum RPC in `RPCS` served archive state. Latest blocks answer.
+  One archived request asked Arbitrum block 507,283,728.
+- **G344 — Codex audit (`docs/CODEX_AUDIT_2026-11-22.md` on `codex/rank1-14-intents`, commit `3e7453c`). `ACTED ON`, partly.**
+  - Its structured `metric=gas_used` probe is not a request the schema allows. The two `gas_used` lines in the archive
+    (2026-11-22 07:47 and 07:48 UTC) are the audit's own probes.
+  - Fixed: a block answer's `value` follows the figure asked (gas limit, base fee, tx count), `a29e0dd`. Live block
+    20,000,000: 30000000 gas, 4.936957716 gwei, 11089692 gas, 134 transactions, two providers agreeing.
+  - Fixed: Web Search's timeless answers serve the cited Wikipedia URL instead of `sources: []`, `7e03413`.
+  - Not acted on: the mission-evidence P0 (owner and an app partner), the outcome sweep (P1), the P2 intent
+    qualifications, and the documentation brief that missed the asked behaviour (the TaskGroup probe).
+  - Its rule figures match `RULES_SEASON2.md` ($300 delivery awards; 24/35 quality). Registration 6126 is active on
+    manifest `f47f018` (`/api/miners/6126`, 2026-11-22 09:05 UTC).
+
 ## 2026-11-19 ~09:15 UTC — G338 fixed; G341 new
 
 - **G338 — FIXED.** The owner replaced `GROQ_API_KEY`, and production was redeployed (`miner-6q1l1vpb4`). Eight

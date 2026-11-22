@@ -1,5 +1,15 @@
 # MEMORY.md — session continuity
 
+## 2026-11-22 ~09:15 UTC (14:45 IST): CURRENT — Codex audit reviewed; three fixes on `PR/audit-fixes-2026-11-22`, NOT deployed
+
+- **Branch:** `PR/audit-fixes-2026-11-22` from `main` `b48749a`: `2685fe8` (ONCHAIN_METRIC tx_count, G342),
+  `a29e0dd` (block value follows the asked figure), `7e03413` (Web Search timeless sources). Unit 1059/1059. The new
+  live web-search test passes. The tx_count and block reads were run against live RPCs (G344).
+- **Production:** not touched this session. The newest deploy log in `C:\Users\hyada\tg-deploy` is `prod-deploy-3543649.log`;
+  the live revision was not re-checked. Next: owner's yes to deploy the branch (release-miner skill),
+  then read the next ONCHAIN_METRIC epoch.
+- **Open:** Arbitrum archive state (G343). Audit items not acted on are listed in G344.
+
 ## 2026-11-19 ~09:15 UTC: CURRENT — Groq key replaced by the owner; production `miner-6q1l1vpb4` (`fdba94e`)
 
 - All model-backed routes verified on production (G338 fixed). Next: RESEARCH_SYNTHESIS search (G341); sign
