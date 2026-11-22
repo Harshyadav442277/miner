@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { getFinancialData } from "../src/financial";
+import { getFinancialData, pickCoin } from "../src/financial";
 import { handleRequest } from "../src/handler";
 import { openGate } from "./licence-fixtures";
 
@@ -57,22 +57,32 @@ test("'etc' after a company is not Ethereum Classic", async () => {
   });
 });
 
-test("the Yahoo fallback reports a coin's volume in dollars and says the market cap was not retrieved", async () => {
+test("a coin CoinGecko refuses is read from CoinPaprika, never from the stock search (2026-11-22)", async () => {
   await withFetch([
     ["api.coingecko.com", () => json({ status: { error_code: 429 } }, 429)],
-    ["finance/search", () => json({ quotes: [{ symbol: "SOL-USD", quoteType: "CRYPTOCURRENCY", shortname: "Solana USD" }] })],
-    ["finance/chart/SOL-USD", () => json({ chart: { result: [{ meta: {
-      instrumentType: "CRYPTOCURRENCY", currency: "USD", longName: "Solana USD", regularMarketPrice: 109.47,
-      chartPreviousClose: 116.22, regularMarketDayHigh: 110.13, regularMarketDayLow: 109.08,
-      regularMarketVolume: 1311341568, fiftyTwoWeekHigh: 211.11, fiftyTwoWeekLow: 60.41, regularMarketTime: 1791600000,
-    } }] } })],
-  ], async () => {
+    ["coinpaprika.com/v1/search", () => json({ currencies: [{ id: "sol-solana", name: "Solana", symbol: "SOL", rank: 7 }] })],
+    ["coinpaprika.com/v1/tickers/sol-solana", () => json({ last_updated: "2026-11-22T13:00:00Z", quotes: { USD: { price: 109.47, market_cap: 59_000_000_000, volume_24h: 1_311_341_568, percent_change_24h: -5.8 } } })],
+  ], async (asked) => {
     const r = await getFinancialData("What is the market cap and 24h volume of Solana?");
     assert.equal(r.verdict, "financial_data");
+    assert.equal(r.subject, "coin");
+    assert.equal(r.data?.market_cap, 59_000_000_000);
+    assert.equal(r.data?.source, "coinpaprika");
     assert.match(r.reason, /24-hour trading volume of \$1,311,341,568/);
-    assert.doesNotMatch(r.reason, /shares/);
-    assert.match(r.reason, /market capitalisation was not retrieved/);
-    assert.equal(r.data?.volume_unit, "USD");
+    assert.ok(!asked.some((u) => u.includes("finance/search")), "no stock search for a named coin");
+  });
+});
+
+test("a named coin with every market source down is unknown, not a Bitcoin ETF (2026-11-22)", async () => {
+  await withFetch([
+    ["api.coingecko.com", () => json({}, 429)],
+    ["coinpaprika.com", () => json({ type: "payment_required" }, 402)],
+    ["finance/search", () => json({ quotes: [{ symbol: "BITB", quoteType: "ETF", shortname: "Bitwise Bitcoin ETF" }] })],
+  ], async () => {
+    const r = await getFinancialData("Bitcoin (BTC)", "", "Bitcoin (BTC)");
+    assert.equal(r.verdict, "unknown");
+    assert.equal(r.error, "provider_unavailable");
+    assert.equal(r.name, "Bitcoin");
   });
 });
 
@@ -110,4 +120,13 @@ test("/financial returns the figures as fields alongside the prose", async () =>
     assert.equal((body.data as Record<string, unknown>).market_cap, 64477502878);
     assert.doesNotMatch(String(body.reason), /^(?:Regarding|Here is)\b/);
   });
+});
+
+test("a coin search hit counts only when it is a top-300 coin named as asked", () => {
+  assert.equal(pickCoin("TRON", [{ id: "tron", name: "TRON", symbol: "trx", market_cap_rank: 8 }])?.gecko, "tron");
+  assert.equal(pickCoin("Toncoin", [{ id: "the-open-network", name: "Gram (prev. Toncoin)", symbol: "gram", market_cap_rank: 31 }])?.symbol, "GRAM");
+  assert.equal(pickCoin("SHIB", [{ id: "shiba-inu", name: "Shiba Inu", symbol: "shib", market_cap_rank: 39 }])?.name, "Shiba Inu");
+  assert.equal(pickCoin("META", [{ id: "meta-2-2", name: "MetaDAO", symbol: "META", market_cap_rank: 302 }]), null);
+  assert.equal(pickCoin("Apple", [{ id: "apple-xstock", name: "Apple xStock", symbol: "AAPLX", market_cap_rank: 967 }]), null);
+  assert.equal(pickCoin("Polygon", [{ id: "x", name: "Index Coop (Polygon)", symbol: "X", market_cap_rank: 4046 }]), null);
 });

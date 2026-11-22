@@ -46,6 +46,10 @@ const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 
 const GECKO = "https://api.geckoterminal.com/api/v2/networks";
 const COINGECKO_MARKETS = "https://api.coingecko.com/api/v3/coins/markets";
+const COINGECKO_SIMPLE = "https://api.coingecko.com/api/v3/simple/price";
+const COINGECKO_SEARCH = "https://api.coingecko.com/api/v3/search";
+const NASDAQ_QUOTE = "https://api.nasdaq.com/api/quote";
+const PAPRIKA = "https://api.coinpaprika.com/v1";
 const YAHOO_CHART = "https://query1.finance.yahoo.com/v8/finance/chart";
 const YAHOO_SEARCH = "https://query1.finance.yahoo.com/v1/finance/search";
 
@@ -316,8 +320,13 @@ export async function coinData(asset: Asset): Promise<FinancialResult | null> {
     const j = (await getJson(`${COINGECKO_MARKETS}?vs_currency=usd&ids=${encodeURIComponent(asset.gecko)}`)) as unknown[];
     c = (Array.isArray(j) ? j[0] : undefined) as Record<string, unknown> | undefined;
   } catch {
-    return null; // the equity path is the fallback, so an outage here is not the answer
+    // CoinGecko's simple-price endpoint carries the market cap and volume too: one refused call on Vercel sent
+    // "Bitcoin (BTC)" to the equity search, which answered a Bitcoin ETF's $3.7 billion (2026-11-22).
+    c = await simpleCoin(asset.gecko);
   }
+  // CoinGecko's free tier refuses after about 20 calls a minute, and Vercel's addresses are shared: CoinPaprika is
+  // the second source (2026-11-22, "bitcoin" went unknown after a burst).
+  if (!c) c = await paprikaCoin(asset);
   if (!c) return null;
   const p = Number(c.current_price);
   const mcap = Number(c.market_cap);
@@ -344,9 +353,86 @@ export async function coinData(asset: Asset): Promise<FinancialResult | null> {
       market_cap: field(c.market_cap), fully_diluted_valuation: field(c.fully_diluted_valuation),
       volume_24h: field(c.total_volume), low_24h: field(c.low_24h), high_24h: field(c.high_24h),
       change_pct_24h: field(c.price_change_percentage_24h), circulating_supply: field(c.circulating_supply),
-      source: "coingecko", observed_at: typeof c.last_updated === "string" ? c.last_updated : new Date().toISOString(),
+      source: typeof c.source === "string" ? c.source : "coingecko", observed_at: typeof c.last_updated === "string" ? c.last_updated : new Date().toISOString(),
     },
   };
+}
+
+/** The markets row's fields from CoinGecko's simple-price endpoint, or undefined when it fails too. */
+async function simpleCoin(gecko: string): Promise<Record<string, unknown> | undefined> {
+  try {
+    const j = (await getJson(`${COINGECKO_SIMPLE}?ids=${encodeURIComponent(gecko)}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true`)) as Record<string, Record<string, number>>;
+    const r = j?.[gecko];
+    if (!r || !(Number(r.usd) > 0)) return undefined;
+    return { current_price: r.usd, market_cap: r.usd_market_cap, total_volume: r.usd_24h_vol, price_change_percentage_24h: r.usd_24h_change,
+      last_updated: r.last_updated_at ? new Date(r.last_updated_at * 1000).toISOString() : undefined };
+  } catch {
+    return undefined;
+  }
+}
+
+/** The markets row's fields from CoinPaprika: its search finds the coin by name, matched on the symbol. */
+async function paprikaCoin(asset: Asset): Promise<Record<string, unknown> | undefined> {
+  if (!permitted(PAPRIKA)) return undefined;
+  try {
+    const s = (await getJson(`${PAPRIKA}/search?q=${encodeURIComponent(asset.name)}&c=currencies&limit=5`)) as { currencies?: Array<{ id?: string; symbol?: string; rank?: number }> };
+    const hit = (s.currencies ?? []).find((c) => c.id && c.symbol?.toUpperCase() === asset.symbol.toUpperCase() && Number(c.rank) > 0);
+    if (!hit) return undefined;
+    const t = (await getJson(`${PAPRIKA}/tickers/${encodeURIComponent(hit.id!)}`)) as { last_updated?: string; quotes?: { USD?: Record<string, number> } };
+    const q = t.quotes?.USD;
+    if (!q || !(Number(q.price) > 0)) return undefined;
+    return { current_price: q.price, market_cap: q.market_cap, total_volume: q.volume_24h, price_change_percentage_24h: q.percent_change_24h,
+      last_updated: t.last_updated, source: "coinpaprika" };
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * A coin the asset table does not hold ("TRON", "Uniswap", "Toncoin"), from CoinGecko's search: the top hit, when it
+ * is a top-300 coin whose name or symbol is the asset asked. "TRON" was answered as the stock Tron Inc. (2026-11-22).
+ * MetaDAO (rank 302) is not "META", and Apple xStock is not "Apple". Null on a miss or an outage.
+ */
+export async function searchCoin(name: string): Promise<Asset | null> {
+  const n = String(name ?? "").trim();
+  // CoinGecko names Polygon's coin "POL (ex-MATIC)", so its search does not match the name asked.
+  if (/^(?:polygon|matic|pol)$/i.test(n)) return { name: "Polygon", symbol: "POL", gecko: "polygon-ecosystem-token" };
+  if (!n || n.split(/\s+/).length > 4 || !permitted(COINGECKO_SEARCH)) return null;
+  try {
+    const j = (await getJson(`${COINGECKO_SEARCH}?query=${encodeURIComponent(n)}`)) as { coins?: Array<{ id?: string; name?: string; symbol?: string; market_cap_rank?: number | null }> };
+    return pickCoin(n, j.coins ?? []);
+  } catch {
+    // Rate-limited: CoinPaprika's search, by the same rule. Its id is not a CoinGecko id, so coinData reads it there.
+    if (!permitted(PAPRIKA)) return null;
+    try {
+      const s = (await getJson(`${PAPRIKA}/search?q=${encodeURIComponent(n)}&c=currencies&limit=3`)) as { currencies?: Array<{ id?: string; name?: string; symbol?: string; rank?: number }> };
+      return pickCoin(n, (s.currencies ?? []).map((c) => ({ id: c.id, name: c.name, symbol: c.symbol, market_cap_rank: c.rank })));
+    } catch {
+      return null;
+    }
+  }
+}
+
+/** The search hit that is the asset asked, by the rule above. Pure. */
+export function pickCoin(asked: string, coins: Array<{ id?: string; name?: string; symbol?: string; market_cap_rank?: number | null }>): Asset | null {
+  const a = asked.trim().toLowerCase();
+  const top = coins[0];
+  if (!top?.id || !top.name || !top.symbol || !(Number(top.market_cap_rank) > 0 && Number(top.market_cap_rank) <= 300)) return null;
+  const name = top.name.toLowerCase();
+  const same = name === a || name.includes(`(prev. ${a})`) || (a.length >= 3 && top.symbol.toLowerCase() === a);
+  return same ? { name: top.name, symbol: top.symbol.toUpperCase(), gecko: top.id } : null;
+}
+
+/** Market capitalisation from Nasdaq's quote summary, for a company whose SEC cover gives no current share count. */
+async function nasdaqCap(ticker: string): Promise<number | null> {
+  if (!permitted(NASDAQ_QUOTE)) return null;
+  try {
+    const j = (await getJson(`${NASDAQ_QUOTE}/${encodeURIComponent(ticker.replace("-", "."))}/summary?assetclass=stocks`)) as { data?: { summaryData?: { MarketCap?: { value?: string } } } };
+    const v = Number(String(j.data?.summaryData?.MarketCap?.value ?? "").replace(/[$,]/g, ""));
+    return v > 0 ? Math.round(v) : null;
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -552,11 +638,18 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
   // A coin named in words. The asset table also matches ordinary words ("etc" is
   // Ethereum Classic), so a company named in the question, or a different
   // declared ticker, keeps the question on the equity path.
-  const coin = knownAsset(`${declaredOk ? declared : ""} ${query}`);
-  const sameCoin = !named || knownAsset(named)?.gecko === coin?.gecko;
-  if (coin && sameCoin && !knownCompany(query) && (!declaredOk || declared === coin.symbol)) {
+  const tabled = knownAsset(`${declaredOk ? declared : ""} ${query}`);
+  const sameCoin = !named || knownAsset(named)?.gecko === tabled?.gecko;
+  const tableCoin = tabled && sameCoin && !knownCompany(query) && (!declaredOk || declared === tabled.symbol) ? tabled : null;
+  // A bare asset outside the table (the node sends the asset alone) is looked up as a coin before any ticker search.
+  const coin = tableCoin ?? (!tabled && !knownCompany(query) ? await searchCoin(named ?? query) : null);
+  if (coin) {
     const c = await coinData(coin);
     if (c) return c;
+    // A named coin is never answered with a stock's figures: the equity search reads "Bitcoin" as a Bitcoin ETF.
+    return { subject: "coin", name: coin.name, chain: null, verdict: "unknown", confidence: 0, error: "provider_unavailable",
+      reason: `Market statistics for ${coin.name} (${coin.symbol}) could not be retrieved because the market data provider did not respond. ` +
+        `This is an availability problem here, not a statement about the coin.` };
   }
 
   // Rank-loss report F8 (2026-09-15): a revenue question got a trading range.
@@ -608,6 +701,9 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
     const cap = await marketCapValue(ticker, price, String(eq.data?.["currency"] ?? "")).catch(() => null);
     const asked = /\bmarket\s*cap(?:itali[sz]ation)?\b/i.test(query);
     if (cap) return { ...eq, data: { ...(eq.data ?? {}), market_cap: cap.usd }, reason: `${eq.reason} ${cap.text}` };
+    // Alphabet, Meta and Visa tag their shares by class only, so the SEC cover has no current total (2026-11-22).
+    const nq = await nasdaqCap(ticker);
+    if (nq) return { ...eq, data: { ...(eq.data ?? {}), market_cap: nq }, reason: `${eq.reason} Its market capitalisation is about ${human(nq)} (${money(nq)}), as Nasdaq's quote summary states it.` };
     if (asked) return { ...eq, reason: `${eq.reason} The market capitalisation was not retrieved: the shares outstanding could not be read from its SEC filings.` };
   }
   // A P/E asked on its own: the market data already holds the price, so only the EPS is fetched.
