@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { askedSentence, lookupRegistry, rankRecords, registrySubject } from "../src/registry";
+import { askedSentence, inJurisdiction, lookupRegistry, rankRecords, registrySubject } from "../src/registry";
 
 test("the company, company number, LEI and country are read from the question", () => {
   assert.deepEqual(registrySubject("What is the incorporation status and registered agent for UK company number 12345678?"),
@@ -86,4 +86,13 @@ test("a question for the address or state of incorporation gets them first", () 
   assert.equal(askedSentence("Where is Tesla headquartered, and what is its address?", "TESLA, INC.", addr, null, "US-TX", "TX"), "");
   assert.match(askedSentence("Who is Acme's registered agent?", "ACME", addr, "C/O C T Corporation System", "US-DE", null), /registered agent is C T Corporation System/);
   assert.match(askedSentence("Where is Siemens incorporated?", "SIEMENS AG", null, null, "DE", null), /incorporated in DE/);
+});
+
+test("the jurisdiction asked is enforced on the record: a country by address or jurisdiction, a subdivision exactly", () => {
+  const rec = (jurisdiction: string | null, country: string) => ({ attributes: { entity: { jurisdiction, legalAddress: { country } } } }) as unknown as Parameters<typeof inJurisdiction>[0];
+  assert.equal(inJurisdiction(rec("US-CA", "US"), "US-DE"), false, "Apple Inc. is a California corporation");
+  assert.equal(inJurisdiction(rec("US-CA", "US"), "US-CA"), true);
+  assert.equal(inJurisdiction(rec("US-CA", "US"), "US"), true);
+  assert.equal(inJurisdiction(rec(null, "LU"), "LU"), true);
+  assert.equal(inJurisdiction(rec("GB", "GB"), "SE"), false);
 });

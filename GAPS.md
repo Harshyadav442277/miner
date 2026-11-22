@@ -1,5 +1,21 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-22 ~19:30 UTC (2026-11-23 01:00 IST) — Codex's reply checked; G350–G352 new; G349 fixed
+
+- **G350 — Two epoch-39 zeros, read from the RES log. `FIXED` in code, deploy recorded in MEMORY.md.**
+  - RESEARCH_SYNTHESIS, scored 18:45 UTC: we answered `no_sources` and served no `brief`.
+  - SECURITY_REVIEW, scored 18:08 UTC: we answered `unrecognised_target`. The value is not logged, so what was sent is
+    not known.
+  - Fixes: a brief from general knowledge, labelled; a model review of a target named or described in words.
+- **G351 — CORPORATE_REGISTRY ignored the jurisdiction asked. `FIXED`.** Apple Inc. with US-DE answered active for the
+  California entity. Reproduced on production 2026-11-22, as Codex reported.
+- **G352 — REGULATORY_FILING read no explicit date range. `FIXED`.** "2026-08-01 to 2026-08-31" gave `filing_count`
+  null. It now gives 4, matching EDGAR's submissions list for Apple.
+- **G349 — FIXED.** Only a verdict word is logged, and asset values over four words are logged as `TEXT`.
+- Still open: ONCHAIN_METRIC 0 at 16:35 UTC (epoch 38), after the tx_count fix was live. Not diagnosed: the REQ line
+  carried `query` only.
+- Still open: the TaskGroup documentation answer misses the question (Codex).
+
 ## 2026-11-22 ~14:30 UTC (20:00 IST) — epochs 34–38 read; G345–G348 new
 
 - **G345 — FINANCIAL_DATA 0 in epochs 35–38 (top 0.98). Cause `NOT ESTABLISHED`; fixes shipped for what was found.**

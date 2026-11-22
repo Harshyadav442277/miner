@@ -42,3 +42,11 @@ test("no model answer, or an ellipsis, leaves the route's own brief", async () =
   });
   assert.equal(await researchBrief("  ", "x"), null);
 });
+
+test("with no study found, the brief comes from general knowledge and the model is told none was retrieved", async () => {
+  await withModel(JSON.stringify({ brief: "Regular exercise reduces symptoms of depression in most adults" }), async (sent) => {
+    const b = await researchBrief("Does regular exercise reduce depression symptoms?", "No quotable study was found.", undefined, false);
+    assert.equal(b, "Regular exercise reduces symptoms of depression in most adults.");
+    assert.equal((sent[0] as { evidence?: string }).evidence, undefined, "no evidence is passed when none was found");
+  });
+});

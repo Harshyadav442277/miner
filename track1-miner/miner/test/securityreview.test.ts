@@ -171,9 +171,31 @@ test("code: the model's findings set the verdict; the target goes in as JSON dat
   }
 });
 
-test("no target, or a package with no version, is refused rather than called secure", async () => {
+test("no target is refused; a package named without a version is reviewed by the model, never called secure without one", async () => {
   assert.equal((await securityReview("", "")).error, "no_target");
+  assert.equal((await securityReview("", "42")).error, "unrecognised_target");
+  delete process.env.GROQ_API_KEY;
+  resetPhraseState();
   const r = await securityReview("", "Is lodash secure?");
-  assert.equal(r.verdict, "insufficient_input");
-  assert.equal(r.error, "unrecognised_target");
+  assert.equal(r.target_kind, "described");
+  assert.equal(r.verdict, "unknown", "no model, no verdict");
+});
+
+test("a described target gets a model review labelled as an assessment, not a scan (epoch 39 scored 0 on a refusal)", async () => {
+  const real = globalThis.fetch;
+  process.env.GROQ_API_KEY = "test-key-not-real";
+  resetPhraseState();
+  globalThis.fetch = (async () => new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify({ summary: "The form builds SQL from user input.",
+    findings: [{ cwe: "CWE-89", severity: "high", title: "SQL built from the login form's input", line: null, fix: "Use parameterised queries" }] }) } }] }), { status: 200 })) as unknown as typeof fetch;
+  try {
+    const r = await securityReview("", "a login form that builds SQL queries from user input");
+    assert.equal(r.target_kind, "described");
+    assert.equal(r.verdict, "Insecure");
+    assert.equal(r.vulnerability_count, 1);
+    assert.match(r.reason, /assessment of the target as named or described, not a scan/);
+  } finally {
+    globalThis.fetch = real;
+    delete process.env.GROQ_API_KEY;
+    resetPhraseState();
+  }
 });

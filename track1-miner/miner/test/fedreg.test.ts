@@ -93,3 +93,10 @@ test("the result log names the verdict and the empty fields, never a value", () 
     "RES /financial verdict=financial_data empty=market_cap_usd,sources");
   assert.equal(resultLine("/x", { verdict: "unknown", error: "no_subject", answer: "secret text" }), "RES /x verdict=unknown error=no_subject");
 });
+
+test("the logs keep a verdict word and a short asset name, never a value or a sentence (G349)", () => {
+  assert.equal(resultLine("/wallet-balance", { verdict: "5.79956412 ETH" }), "RES /wallet-balance verdict=value");
+  assert.equal(resultLine("/ssl-check", { verdict: "valid" }), "RES /ssl-check verdict=valid");
+  assert.equal(logParam("symbol", "Market cap and 24h volume of my private holdings"), "symbol=TEXT");
+  assert.equal(logParam("asset", "Shiba Inu"), "asset=Shiba Inu");
+});
