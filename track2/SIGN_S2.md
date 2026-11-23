@@ -29,7 +29,28 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### Ready to sign (2026-11-23 ~19:10 UTC): TEXT_SUMMARIZATION v1 and CONTENT_MODERATION v2
+### Ready to sign (2026-11-23 ~22:10 UTC): EMAIL_SECURITY v1
+
+**Node runtime:**
+
+| Set | Result |
+|---|---|
+| Test | 371/400 = 92.75% (bullets 128/136, JSON 127/136, prose 116/128) |
+| Unseen-style probe | 191/200 = 95.5% |
+| "Failed lookup read as success" | 65/65 and 36/36 |
+| Weak kind: MX order | 11/23 |
+
+It clears the A7 bar. The family has no champion.
+
+| Field | Value |
+|---|---|
+| Binary link | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/252b96545df75d73fd13d6cd5c306c4dc6e85a7e/season2/adapter/EMAIL_SECURITY/v1/EMAIL_SECURITY.safetensors` |
+| keccak256 | `0x17b84d0a18f93344ac5b2191bf9b08400f2da79b8ff5b136ce1cfa492cf9c578` |
+| Family | `EMAIL_SECURITY` |
+| Fee address | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
+| Runnable endpoint URL | `https://bearing-dated-fishing-funk.trycloudflare.com/EMAIL_SECURITY` (executor on port 18290; `tg-eval/executor-es.out`) |
+
+### Signed 2026-11-23 20:17 and 20:24 UTC as #217 and #218: TEXT_SUMMARIZATION v1 and CONTENT_MODERATION v2
 
 Both are served by one executor, one tunnel and two paths. The URLs are in `C:\Users\hyada\tg-eval\executor-ts_cm.out`;
 `check_executor.py` PASSED on both at 19:06 UTC. Use the same account and wallet as #210. Fee address for both:
