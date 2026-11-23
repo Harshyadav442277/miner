@@ -8,7 +8,25 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-23 ~17:35 UTC (23:05 IST) · #210 REGISTERED (owner signed), CHECK EXPECTED 19–21 UTC
+## CURRENT — 2026-11-23 ~18:30 UTC (00:00 IST Nov 24) · #210 IS CANONICAL (first CONTRACT_OBLIGATION_AUDIT champion)
+
+- **#210 CONTRACT_OBLIGATION_AUDIT v1: canonical at 18:18 UTC**, "82.76% on 29 pairs (floor 70%)". This is our first
+  Season II evaluator seat. Evidence and the public-pair kinds are in the
+  [lane README](adapter/contract_obligation_audit/README.md).
+  - **Disclosed:** the pool also draws on CUAD.
+  - The capture is at `tg-eval/executor-logs/20261123T150348Z/capture/` (outside the repo).
+- **The executor still runs**, at the same URL. Whether the node calls the champion's runnable again is unknown (G55).
+  Keep it up while the laptop is on. If it dies, the URL cannot be restored; record that, but do not re-register
+  without the owner.
+- **ts_v1 on 400 real-bill pairs:** 360/400 = 90.0% (Wilson 86.7–92.6; shorter-wins 60.25%). Weak kind: flipped
+  duties, 63/98.
+  - Hosted at `telegraph-factscore` `fe080f33` `season2/adapter/TEXT_SUMMARIZATION/v1/`; the keccak `0x3f3ad908…ead5`
+    matches the URL.
+  - Its own test and probe in the node runtime are measuring now; cm_v2 is next in the same chain.
+- **cm_v2:** kit 84.75%, Stage 1 PASS; node runtime pending.
+- **ts_v2:** training since 17:52 UTC.
+
+## 2026-11-23 ~17:35 UTC (23:05 IST) · #210 REGISTERED (owner signed), CHECK EXPECTED 19–21 UTC
 
 - **#210 CONTRACT_OBLIGATION_AUDIT v1 was registered by the owner at 15:36 UTC.** Every field matches the sign block.
   - It is `awaiting_seed_epoch`; expect the check around 19:00–21:00 UTC (G55).

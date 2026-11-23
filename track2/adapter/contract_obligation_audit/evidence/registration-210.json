@@ -1,0 +1,41 @@
+{
+ "rank": 1,
+ "registration_id": 210,
+ "author_address": "0xdad201ef02f5c1fbb8f9e931ae9b7c1bf493a39e",
+ "intent_id": "CONTRACT_OBLIGATION_AUDIT",
+ "wasm_url": "https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/4298d6d3705969675e0214a960855a3cc00dd3c8/season2/adapter/CONTRACT_OBLIGATION_AUDIT/v1/CONTRACT_OBLIGATION_AUDIT.safetensors",
+ "wasm_runnable_url": "https://scheduling-guarantees-romance-spend.trycloudflare.com/CONTRACT_OBLIGATION_AUDIT",
+ "wasm_hash": "bf759737f604b1dfd4fbadd07da86271c478d82d97fa9c30e22b5f1b52b160e8",
+ "activation_status": "active",
+ "stage": "canonical",
+ "bond_amount": 0,
+ "is_champion": true,
+ "eval_score": 0.82758623,
+ "eval": {
+  "decision": "first_canonical",
+  "reason": "promoted: first Canonical for CONTRACT_OBLIGATION_AUDIT at 82.76% on 29 pairs (floor 70%, corpus 01f46baeb1a0)",
+  "corpus_version": "01f46baeb1a0f8f033dcfdf7b96bdfc615f3310d49840df351cd289e4d051d6c",
+  "sample_root": "e5ba47cff662d04d0010ae1198f18d9ed1727de5583d328f8ab0e27ce4f16233",
+  "seed": {
+   "epoch_id": 44,
+   "block_hash": "45bd0d03a82004c7532ff4d438a328e2a120f5a120ce8331c0075123296f2eff",
+   "intent_id": "CONTRACT_OBLIGATION_AUDIT",
+   "corpus_version": "01f46baeb1a0f8f033dcfdf7b96bdfc615f3310d49840df351cd289e4d051d6c",
+   "seed": "e9af3115e6cfdaa1798dec0d9b322b82c1348cfc02e5298e0a633a0639e5baa7"
+  },
+  "candidate_win_rate": 0.8275862068965517,
+  "candidate_pairs": 29,
+  "replacement_margin": 0.02,
+  "min_win_rate": 0.7,
+  "child_min_win_rate": 0.6,
+  "rank": 1,
+  "round_candidates": 1,
+  "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+  "engine_hash": "77643d6e1176ab8744801cef93ccb844d0136ed32b8daa865d541f37d13292de",
+  "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+  "precision": "wasm-f32",
+  "input_root": "fb710a684df3c6826712a1c72928ab03c6cc1cbe82d6e04ba856c1d57adec712"
+ },
+ "registered_at": "2026-11-23T15:36:03Z",
+ "updated_at": "2026-11-23T18:17:53Z"
+}

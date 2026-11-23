@@ -56,4 +56,47 @@ Before registration the package must reach both of these, measured in the node r
 
 ## Results
 
-None yet. Training was queued at 2026-11-23 10:56 UTC.
+**v1 is the canonical CONTRACT_OBLIGATION_AUDIT evaluator: registration #210.** The node's reason (2026-11-23 18:18
+UTC): "promoted: first Canonical for CONTRACT_OBLIGATION_AUDIT at 82.76% on 29 pairs (floor 70%, corpus 01f46baeb1a0)".
+Full registry entry: [evidence/registration-210.json](evidence/registration-210.json).
+
+**The registration** was signed by the owner at 15:36 UTC as a disclosed information-buying probe (ARCHITECTURE A7
+probe rule), because v1 was under our 85% held-out bar.
+
+| Item | Value |
+|---|---|
+| Package | `telegraph-factscore` `4298d6d` `season2/adapter/CONTRACT_OBLIGATION_AUDIT/v1/` |
+| keccak256 | `0xbf759737…60e8` |
+| Rank / alpha / max tokens | 8 / 32 / 512 |
+| Training pairs | 3,000 |
+
+**Measured before registration**, in the node runtime:
+
+| Version | Kit | Own test | Unseen-style probe | Weak kinds | Evidence |
+|---|---|---|---|---|---|
+| v1 | 82.25% | 322/400 = 80.5% | 249/278 = 89.6% | party swap 52/78, status 9/21, CUAD present/absent 52/84 | [measure-coa_v1.json](evidence/measure-coa_v1.json) |
+| v2 | 85.0% | 307/400 = 76.75% | 234/265 = 88.3% | same as v1 | [measure-coa_v2.json](evidence/measure-coa_v2.json) |
+
+v2 (more names, deadline-relative status, more CUAD) was not better, and is not registered (GAPS G55).
+
+**The node's remote check:**
+- one batch of 30 texts (15 pairs) at 18:12 UTC;
+- 82.5 s through the tunnel;
+- the bits were confirmed by the node.
+
+On every one of the 15 pairs, our adapter scored the first answer higher.
+
+**What the public pairs hold, by kind.** This is the decoded capture, read for kinds only; the texts stay outside the
+repo.
+
+| Kind | Pairs |
+|---|---|
+| CUAD clause extraction as `{"clause","value","found"}` with a wrong value, clause label, party or date | 11 |
+| Rubric-style meta answers ("identifies the specific…" vs "makes a generic statement…") | 3 |
+| Legal reasoning about a settlement-authority clause | 1 |
+
+One pair appeared twice.
+
+**Disclosure.** Another contributor's pool rows also draw on CUAD, which v1 trains on. We never read a pool row, and
+our pairs are our own construction. Still, the same public contracts can appear on both sides, so the hidden-sample
+score may be easier for any CUAD-trained adapter. Reviewers should weigh it with that in mind.
