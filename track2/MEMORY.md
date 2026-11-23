@@ -15,6 +15,24 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
   - Not yet created. It needs the owner's HF account under `hyadav42774@gmail.com` and a write token, saved as
     `HF_TOKEN` in `C:\Users\hyada\tg-eval\.env.local`.
   - The free tier sleeps after idle time, so the Space needs a keep-alive. This is unverified; add it once it exists.
+  - **HF is not free for this (2026-11-23 11:25 UTC).** `POST /api/repos/create` (docker space) answered: "hosting Gradio
+    and Docker Spaces on free cpu-basic requires a PRO subscription". Nothing was created. The owner said
+    "until it's free", so the next free option is this laptop behind a stable tunnel URL; the owner chooses.
+  - **The ngrok account on this machine is not usable (re-checked 11:30 UTC).** Its one free domain
+    `grippelike-foliiferous-richie.ngrok-free.dev` is online from another machine, serving "The Archive of
+    Constantinople" (as in G39). It was not touched; the local `ngrok.yml` was left as it is.
+  - **Free options left:**
+    1. a second ngrok account under `hyadav42774@gmail.com`: its own permanent domain, run with a separate config
+       file (recommended);
+    2. a Cloudflare quick tunnel (`cloudflared` is installed): no account needed, but the URL dies on restart.
+    Both need the laptop awake through each remote check.
+  - **Exception granted 2026-11-23 ("Use college email"), recorded in AGENTS.md.**
+  - **Account, created by the owner 2026-11-23:** HF user `harsh442277`, for hosting the evaluator executor Space.
+    - `whoami-v2` (11:20 UTC) shows email `harsh.2024a@vitstudent.ac.in`, NOT the required `hyadav42774@gmail.com`
+      (AGENTS.md). **No Space was created.** It waits for the owner to change the account email or grant an explicit
+      exception.
+    - The write token is in `tg-eval/.env.local` as `HF_TOKEN`. It was pasted into the chat transcript, so rotate it
+      once the Space runs.
 - **Executor:**
   - `fanout_exec.py` now routes `/<FAMILY>` to each adapter's workers.
   - Local rehearsal 2026-11-23 10:50 UTC (EVENT_OUTCOME package `0xc23ad1c6…`, 2 workers): `check_executor.py` PASS;

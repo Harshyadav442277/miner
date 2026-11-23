@@ -15,5 +15,9 @@ connected wallet address. If either differs or cannot be verified, stop that act
 fall back to another account, wallet, signer or payout address. Only a new explicit owner
 instruction can change this restriction.
 
+**One exception, by explicit owner instruction (2026-11-23, "Use college email"):** the Hugging Face account
+`harsh442277` (email `harsh.2024a@vitstudent.ac.in`) hosts the Track 2 evaluator executor Space. It holds no wallet
+and signs nothing. Every registration, upload and payout still uses the email and wallet above.
+
 Read [CLAUDE.md](CLAUDE.md) for the remaining repository operating rules, including owner-only
 wallet interaction and signing, and [MEMORY.md](MEMORY.md) for session continuity.
