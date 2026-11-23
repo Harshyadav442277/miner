@@ -15,6 +15,7 @@ import { asksCurrentConditions, asksTemperatureNow, getCurrentConditions } from 
 import { temperatureThreshold, thresholdSentence } from "./threshold";
 import { geolocate, type GeoResult } from "./geo";
 import { extractContent, fieldNames, namedFieldValues, quotedPayload } from "./content";
+import { modelFieldValues } from "./extract-model";
 import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
 import { convert, normalizeCurrency, notAnFxQuestion, parseDate as parseFxDate, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
@@ -1652,26 +1653,40 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const e = asked ? extractContent(asked, suppliedText || quotedPayload(q))
       : suppliedText ? extractContent(instruction, suppliedText) : extractContent(q);
     // brief, as the schema asks: the values asked for as name: value pairs, at most 80 characters in all. The
-    // names are the `fields` parameter as sent; each is read from the extraction, or else by its own pattern.
+    // names are the `fields` parameter as sent. A model value the text bears out comes first (extract-model.ts);
+    // else the extraction's, else the field's own pattern.
     const names = fieldList ? fieldNames(fieldList) : [];
-    const byPattern = namedFieldValues(names, suppliedText || quotedPayload(q));
-    const pairs = names.flatMap((n, i): Array<[string, string]> => {
-      const key = n.toLowerCase().replace(/\s+/g, "_");
-      const v = e.fields[key]?.[0] ?? byPattern[i];
-      if (v && !e.fields[key]?.length) e.fields[key] = [v];
-      return v ? [[n, v]] : [];
-    });
-    sendAnswer(res, q, {
-      // The whole extraction is the answer. Its lead sentence alone dropped the dates and amounts that came
-      // after "Organization: … Place: …" (audit replay 2026-11-04, row 30).
-      answer: e.summary,
-      verdict: e.want,
-      extracted: e.fields,
-      ...(fieldList ? { fields_requested: fieldList } : {}),
-      confidence: 1,
-      reason: e.summary,
-      ...(pairs.length ? { brief: fitPairs(pairs) } : {}),
-    });
+    const source = suppliedText || quotedPayload(q);
+    const byPattern = namedFieldValues(names, source);
+    const finish = (byModel: Array<string | null> | null): void => {
+      let modelled = 0;
+      const pairs = names.flatMap((n, i): Array<[string, string]> => {
+        const key = n.toLowerCase().replace(/\s+/g, "_");
+        const m = byModel?.[i] ?? null;
+        const v = m ?? e.fields[key]?.[0] ?? byPattern[i];
+        if (m) modelled++;
+        if (v && (m || !e.fields[key]?.length)) e.fields[key] = [v];
+        return v ? [[n, v]] : [];
+      });
+      // With a model value in it, the answer is the named fields themselves: the patterns' summary may say
+      // "No structured values could be extracted" about a text whose sentiment and rating were just read.
+      const named = pairs.map(([n, v]) => `${n.charAt(0).toUpperCase()}${n.slice(1)}: ${v}.`).join(" ");
+      const summary = modelled && named ? named : e.summary;
+      sendAnswer(res, q, {
+        // The whole extraction is the answer. Its lead sentence alone dropped the dates and amounts that came
+        // after "Organization: … Place: …" (audit replay 2026-11-04, row 30).
+        answer: summary,
+        verdict: e.want,
+        extracted: e.fields,
+        ...(fieldList ? { fields_requested: fieldList } : {}),
+        confidence: modelled ? 0.9 : 1,
+        reason: summary,
+        ...(names.length ? { method: modelled ? "patterns, and a model for fields the text bears out word for word" : "patterns" } : {}),
+        ...(pairs.length ? { brief: fitPairs(pairs) } : {}),
+      });
+    };
+    if (!names.length) { finish(null); return; }
+    modelFieldValues(names, source).then(finish, () => finish(null));
     return;
   }
 
