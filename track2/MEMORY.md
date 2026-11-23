@@ -26,6 +26,17 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
        file (recommended);
     2. a Cloudflare quick tunnel (`cloudflared` is installed): no account needed, but the URL dies on restart.
     Both need the laptop awake through each remote check.
+  - **The second ngrok token (11:50 UTC) is the same account:** the same domain, the same ERR_NGROK_334. It was
+    removed from `.env.local`, and the separate config was deleted.
+  - **Working host, 11:53 UTC: this laptop + Cloudflare quick tunnel**, via [executor/run_local.ps1](executor/run_local.ps1).
+    The test used package #46 (keccak `0x49de4107…`), 3 workers:
+    - `check_executor.py` PASS through the public trycloudflare URL;
+    - the bits are identical to a direct worker;
+    - the identity hashes are echoed;
+    - the worst-case 30 × 512-token batch takes 64.7 s (Cloudflare cuts at 100 s);
+    - `run_local.ps1` itself was tested: it printed the URL, GET answered, and its processes were stopped.
+    **The URL changes every run.** Register while it runs, keep the laptop awake (request keep-awake), and stop only
+    after `/api/wasm` shows the registration past the remote check.
   - **Exception granted 2026-11-23 ("Use college email"), recorded in AGENTS.md.**
   - **Account, created by the owner 2026-11-23:** HF user `harsh442277`, for hosting the evaluator executor Space.
     - `whoami-v2` (11:20 UTC) shows email `harsh.2024a@vitstudent.ac.in`, NOT the required `hyadav42774@gmail.com`
