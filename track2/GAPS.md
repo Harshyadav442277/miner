@@ -4,6 +4,26 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G56 — LiveCert self-check sets, and what they show about LiveCert (2026-11-24) — `OPEN`
+
+- **What was captured:** 60 frozen held-out prompts per intent, sent to LiveCert only (`capture.py --only livecert`).
+  - The sentiment and QA captures had to be re-run (`cap2-*`): their endpoints declare `query` as optional, so the
+    first capture sent no text.
+  - Captures: `tg-eval/captures/livecert-selfcheck-20261124/`. Pairs builder: `harness/selfcheck_pairs.py`.
+- **LiveCert's own wrong answers.** Each becomes a pair of the correct answer against LiveCert's whole response:
+
+  | Intent | LiveCert result on 60 prompts | Wrong answers kept |
+  |---|---|---|
+  | SENTIMENT_ANALYSIS | 10 refused as "no text"; often "Neutral" on clearly polar reviews | 12 |
+  | QUESTION_ANSWERING | answers unanswerable questions from the passage; cites outside sources; says "do not say" when the passage does | 37 |
+  | FACT_CHECK | FEVER's 2017 labels may lag today's Wikipedia, which LiveCert reads, so some of these are label age, not LiveCert error | 19 |
+
+- **A7 condition 2:** each adapter for these intents must order its self-check set correctly before it is offered
+  for signing. Not yet measured: the adapters are still training.
+- **For Track 1, not acted on here:**
+  - LiveCert's `/answer` ignores the supplied passage and answers unanswerable questions;
+  - `/sentiment` refuses texts sent as `query` in some shapes, and labels polar reviews neutral.
+
 ## G55 — coa_v2 is not better than v1, the kit and the node disagree by 8 points, and #210 waits (2026-11-23) — `OPEN`
 
 - **coa_v2 compared with coa_v1.**
