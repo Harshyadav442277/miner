@@ -54,6 +54,12 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
   - 3,000 / 300 / 400 pairs + 278 probe; the kit dataset gate PASSES.
   - `train_package.ps1` started at 10:56 UTC (pid 23956). It waits for the GPU, which another job outside
     GPU.lock holds at 1.4 GB. Log: `tg-eval/runs-v2/coa_v1/chain.log`.
+- **Owner, 2026-11-23: "Train alongside".**
+  - coa_v1 was restarted at 11:57 UTC: batch 1 × accumulation 16, waiting only for other jobs under 2000 MiB. It
+    trains next to the other GPU job, at 1.6 GB total, about 6.5 s a step over 561 steps.
+- **CONTENT_MODERATION v1** ([adapter/content_moderation/](adapter/content_moderation/README.md)):
+  - Civil Comments (CC0) with crowd-consensus labels; the kit dataset gate PASSES.
+  - Training is queued behind coa_v1 on GPU.lock (log `tg-eval/runs-v2/cm_v1/chain.log`).
 - **Next (Claude):** when `chain.log` says `chain end`:
   1. `harness/measure.py` on test and probe;
   2. if it clears 85% held out / 70% per style, host the package at a pinned commit;
