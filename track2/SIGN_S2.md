@@ -29,7 +29,27 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### Ready to sign (2026-11-23 ~22:10 UTC): EMAIL_SECURITY v1
+### To do now (2026-11-23 ~23:10 UTC): replace #220 EMAIL_SECURITY
+
+#220 was registered at 23:04 UTC (tx mined 22:55:48), but its runnable URL died when the session restarted and
+killed the executors. A quick-tunnel address cannot be restored, so #220's check would fail.
+
+Same-hash re-registration is refused ("duplicate wasm hash", bounties #213). The replacement is therefore v1b: the same
+trained adapter re-exported at max_tokens 480. Its Stage 1 score is the same bits (`0x3fe521b2`), and every EMAIL text
+is under 480 tokens.
+
+1. **Deregister #220** at Anjoman → My registrations → Deregister, then click "Confirm deregister?" within 4 s.
+2. **Register v1b:**
+
+| Field | Value |
+|---|---|
+| Binary link | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/03693028a0f09b5bf0b0203fdecd46035aa2b7b9/season2/adapter/EMAIL_SECURITY/v1b/EMAIL_SECURITY.safetensors` |
+| keccak256 | `0x35de4143e5afa65dc0dafc4b4639a6f4d3f17ca6b9efd95ed6cf061bf0b96b66` |
+| Family | `EMAIL_SECURITY` |
+| Fee address | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
+| Runnable endpoint URL | `https://rocks-territory-light-zen.trycloudflare.com/EMAIL_SECURITY` (a detached executor: it survives session restarts, not reboots) |
+
+### Superseded (2026-11-23 ~22:10 UTC): EMAIL_SECURITY v1, registered as #220 with a URL that has since died
 
 **Node runtime:**
 

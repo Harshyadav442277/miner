@@ -8,7 +8,27 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-23 ~21:05 UTC (02:35 IST Nov 24) · 3 REGISTERED (#210 canonical, #217, #218); 5 MORE TRAINING
+## CURRENT — 2026-11-23 ~23:10 UTC (04:40 IST Nov 24) · #217 PASSED 15/15; #218 REJECTED; #220 NEEDS REPLACING
+
+- **The session restarted about 22:50 UTC and killed every executor and tunnel** (no reboot). The URLs of #210, #217 and
+  #220 are dead.
+  - **Executors now start detached:** WMI `Win32_Process.Create` with `cmd /c pwsh -File run_local.ps1 …`; WMI cannot
+    launch the Store `pwsh` alias directly. They survive session restarts.
+- **#217 TEXT_SUMMARIZATION:** the remote check was at 22:16 UTC, and the adapter ordered all 15 public pairs (118th
+  bills, NASA, one Wikipedia). It now awaits the hidden round, which the node runs itself.
+- **#218 CONTENT_MODERATION: rejected, 5/15.** The pool holds:
+  - Allow/Block policy questions ("Can I post someone's address?");
+  - verdict-only JSON `{"verdict","text","source"}`, where cm_v2 preferred "Safe" even on abuse.
+
+  A v3 needs verdict-only answers and a licensed safe/unsafe prompt set (e.g. Aegis, CC BY 4.0; check). Score it
+  offline on the captured 15 pairs, without training on them.
+- **#219:** Truvian challenges our #210 CONTRACT_OBLIGATION_AUDIT seat (registered 22:12 UTC).
+- **#220 EMAIL_SECURITY** (owner, 23:04 UTC) points at a dead URL. Its replacement is es_v1b: re-exported at max_tokens
+  480, the same Stage 1 bits, keccak `0x35de4143…`, hosted at `03693028`, executor at
+  `rocks-territory-light-zen…`. Same-hash re-registration is refused (bounties #213). The owner deregisters #220 and
+  registers v1b (SIGN_S2.md top).
+
+## 2026-11-23 ~21:05 UTC (02:35 IST Nov 24) · 3 REGISTERED (#210 canonical, #217, #218); 5 MORE TRAINING
 
 - **Owner, 2026-11-24:** "just build them". The ban on intents LiveCert serves is lifted on disclosure and
   score-down terms (ARCHITECTURE A7).
