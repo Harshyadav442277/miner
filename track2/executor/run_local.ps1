@@ -8,6 +8,8 @@
 param([Parameter(Mandatory)][string[]]$Package, [int]$Workers = 3, [int]$Port = 18090,
       [string]$EvalRoot = 'C:/Users/hyada/tg-eval')
 $ErrorActionPreference = 'Stop'
+# pwsh -File passes one string: accept FAMILY=path,FAMILY=path as well as an array
+$Package = @($Package | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
 $f = Join-Path $EvalRoot 'foundation'
 $env:FOUNDATION_MODEL_PATH = Join-Path $f 'foundation_lora_fp32.onnx'
 $env:FOUNDATION_MODEL_HASH = '0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6'

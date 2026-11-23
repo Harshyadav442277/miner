@@ -29,7 +29,47 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### Ready to sign: CONTRACT_OBLIGATION_AUDIT v1, an information-buying probe (2026-11-23 ~15:05 UTC)
+### Ready to sign (2026-11-23 ~19:10 UTC): TEXT_SUMMARIZATION v1 and CONTENT_MODERATION v2
+
+Both are served by one executor, one tunnel and two paths. The URLs are in `C:\Users\hyada\tg-eval\executor-ts_cm.out`;
+`check_executor.py` PASSED on both at 19:06 UTC. Use the same account and wallet as #210. Fee address for both:
+`0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`.
+
+**TEXT_SUMMARIZATION v1: clears the A7 bar.**
+
+Node runtime:
+
+| Set | Result |
+|---|---|
+| Own test | 399/400 |
+| Unseen-style probe | 200/200 |
+| 400 real-bill pairs | 360/400 = 90.0% |
+
+| Field | Value |
+|---|---|
+| Binary link | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/fe080f33c185a4e1a598abf4c707c06fa101d671/season2/adapter/TEXT_SUMMARIZATION/v1/TEXT_SUMMARIZATION.safetensors` |
+| keccak256 | `0x3f3ad90898301c410e0820f9cb6501e97e0e847459cf812831400791ec68ead5` |
+| Family | `TEXT_SUMMARIZATION` |
+| Runnable endpoint URL | `https://ate-wives-craps-symantec.trycloudflare.com/TEXT_SUMMARIZATION` |
+
+**CONTENT_MODERATION v2: a disclosed information-buying probe (A7 probe rule).**
+
+Node runtime: test 328/400 = 82.0%, probe 161/200 = 80.5%. That is under the 85% bar. The family has no champion;
+#174 got 51.9%.
+
+| Field | Value |
+|---|---|
+| Binary link | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/a45ab6c49cbe1834917dc573468bb45e3867e6ed/season2/adapter/CONTENT_MODERATION/v2/CONTENT_MODERATION.safetensors` |
+| keccak256 | `0x0e0014f3fff73294c93390db09363ee3301e0213cdc927777fb69e8d0b337606` |
+| Family | `CONTENT_MODERATION` |
+| Runnable endpoint URL | `https://ate-wives-craps-symantec.trycloudflare.com/CONTENT_MODERATION` |
+
+### Done: CONTRACT_OBLIGATION_AUDIT v1 is canonical #210
+
+It went canonical on 2026-11-23 at 18:18 UTC, 82.76% on 29 pairs
+([lane README](adapter/contract_obligation_audit/README.md)). Its sign block is kept below for the record.
+
+### Signed: CONTRACT_OBLIGATION_AUDIT v1, an information-buying probe (2026-11-23 ~15:05 UTC)
 
 **What it is.** v1 scores 80.5% held out in the node runtime. That is under our own 85% bar, so this is registered as
 a disclosed probe under A7's probe rule. It may well be rejected. What we get either way:
