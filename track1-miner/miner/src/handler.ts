@@ -7,14 +7,14 @@ import { alertAnswer, asksAlert, officialAlertAnswer, type AlertCheckResult } fr
 import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
 import { envelope } from "./envelope";
-import { pairsBrief, scoredFields } from "./intent-fields";
+import { fitPairs, scoredFields } from "./intent-fields";
 import { currentReceipt, installRecorder, readsSoFar, replayFromCache, withReceipt, type UpstreamRead } from "./receipt";
 import { MISSION_ROUTES, type MissionAnswer } from "./mission-routes";
 import { getForecast, type ForecastResult } from "./forecast";
 import { asksCurrentConditions, asksTemperatureNow, getCurrentConditions } from "./currentweather";
 import { temperatureThreshold, thresholdSentence } from "./threshold";
 import { geolocate, type GeoResult } from "./geo";
-import { extractContent, quotedPayload, requestedFields } from "./content";
+import { extractContent, fieldNames, namedFieldValues, quotedPayload } from "./content";
 import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
 import { convert, normalizeCurrency, notAnFxQuestion, parseDate as parseFxDate, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
@@ -1651,10 +1651,15 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const asked = fieldList ? `Extract ${fieldList}.` : "";
     const e = asked ? extractContent(asked, suppliedText || quotedPayload(q))
       : suppliedText ? extractContent(instruction, suppliedText) : extractContent(q);
-    // brief, as the schema asks: the values asked for as name: value pairs, at most 80 characters in all.
-    const pairs = (asked ? requestedFields(asked) : []).flatMap((n) => {
-      const v = e.fields[n.toLowerCase().replace(/\s+/g, "_")]?.[0];
-      return v ? [`${n}: ${v}`] : [];
+    // brief, as the schema asks: the values asked for as name: value pairs, at most 80 characters in all. The
+    // names are the `fields` parameter as sent; each is read from the extraction, or else by its own pattern.
+    const names = fieldList ? fieldNames(fieldList) : [];
+    const byPattern = namedFieldValues(names, suppliedText || quotedPayload(q));
+    const pairs = names.flatMap((n, i): Array<[string, string]> => {
+      const key = n.toLowerCase().replace(/\s+/g, "_");
+      const v = e.fields[key]?.[0] ?? byPattern[i];
+      if (v && !e.fields[key]?.length) e.fields[key] = [v];
+      return v ? [[n, v]] : [];
     });
     sendAnswer(res, q, {
       // The whole extraction is the answer. Its lead sentence alone dropped the dates and amounts that came
@@ -1665,7 +1670,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       ...(fieldList ? { fields_requested: fieldList } : {}),
       confidence: 1,
       reason: e.summary,
-      ...(pairs.length ? { brief: pairsBrief(pairs) } : {}),
+      ...(pairs.length ? { brief: fitPairs(pairs) } : {}),
     });
     return;
   }

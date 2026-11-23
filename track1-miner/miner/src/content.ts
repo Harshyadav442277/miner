@@ -357,6 +357,27 @@ const FIELD_SYNONYMS: Array<[RegExp, RegExp]> = [
   [/\bsubject\b|\btitle\b/i, /\bsubject\b|\btitle\b|\bre\b/i],
 ];
 
+const MONEY_FIELD = /\btotal\b|\bamount\b|\bprice\b|\bcost\b|\bbalance\b|\brent\b|\bsalary\b|\bfee\b|\brevenue\b|\bsubtotal\b/i;
+
+/**
+ * The value of each named field in `source`, in the order named; null where no pattern finds it. The names are
+ * CONTENT_EXTRACTION_GENERAL's own `fields` parameter, taken as given rather than re-read from an "Extract …"
+ * sentence, whose filters dropped names such as "values" or "dates". Pure.
+ */
+export function namedFieldValues(names: string[], source: string): Array<string | null> {
+  const s = String(source ?? "").trim().replace(/\s+/g, " ");
+  const { lead, pairs } = labeledPairs(s);
+  return names.map((name) => fieldValue(name, s, pairs, lead)?.value ?? null);
+}
+
+/** "merchant, date and total" as field names, at most eight, each at most 40 characters. Pure. */
+export function fieldNames(list: string): string[] {
+  return String(list ?? "").replace(/\s+/g, " ").slice(0, 300)
+    .split(/\s*,\s*(?:and\s+)?|\s+and\s+|\s*;\s*|\s*&\s*|\s*\|\s*/i)
+    .map((n) => n.trim().replace(/^(?:the|its|their|a|an)\s+/i, "").replace(/[.:?!]+$/, "").trim())
+    .filter((n) => n && n.length <= 40).slice(0, 8);
+}
+
 function fieldValue(name: string, source: string, pairs: Array<[string, string]>, lead: string): { label: string; value: string } | null {
   const words = name.toLowerCase().split(/\s+/).filter((w) => w.length > 2 && !/^(?:name|number)$/.test(w));
   const syn = FIELD_SYNONYMS.find(([asked]) => asked.test(name))?.[1];
@@ -370,7 +391,10 @@ function fieldValue(name: string, source: string, pairs: Array<[string, string]>
     // A value ends with its sentence: "Total due: $1,250.00. Contact billing@acme.com." read the total as
     // "$1,250.00. Contact billing@acme.com" (2026-11-08). leadSentence knows "St." and "Dr.".
     const own = leadSentence(pair[1]).replace(/(?<=\S)\.$/, "");
-    const value = /\btitle\b|\bname\b/i.test(name) ? own.replace(/\s+by\s+[A-Z].*$/, "").replace(/^['"‘“]+|['"’”]+$/g, "") : own;
+    // A money field is the amount, not its clause: "Total due: $1,284.50, payable by 11 April 2026" read the total
+    // as the whole clause, and that value alone filled the 80-character brief (epoch 43, 2026-11-23).
+    const money = MONEY_FIELD.test(name) ? numerics(own).find((v) => /[$£€]/.test(v)) : undefined;
+    const value = money ?? (/\btitle\b|\bname\b/i.test(name) ? own.replace(/\s+by\s+[A-Z].*$/, "").replace(/^['"‘“]+|['"’”]+$/g, "") : own);
     return { label: pair[0], value };
   }
   if (byline && /\btitle\b/i.test(name)) return { label, value: byline[1]!.replace(/^[^:]*:\s*/, "").replace(/^['"‘“]+|['"’”]+$/g, "") };
