@@ -96,8 +96,18 @@ so point 1 could never pass. From today the registration gate is:
    pool holds; they are never training rows or near-copies;
 5. at most two registrations per family. A family stops if v2 orders fewer than 9 of 15.
 
-A real-answer holdout, where one exists, is still measured and reported, but it no longer gates. We evaluate no
-intent that LiveCert serves.
+A real-answer holdout, where one exists, is still measured and reported, but it no longer gates.
+
+**Intents LiveCert serves (owner decision, 2026-11-24: "just build them").** RULES_SEASON2 has no ban on evaluating
+an intent our miner serves. It disqualifies collusion and self-dealing, and requires related parties to be disclosed.
+So an adapter for such an intent may be built and registered on three conditions:
+1. the related party is disclosed in its README and in the submission;
+2. before registration, a measured set of LiveCert's own wrong answers, against right answers from other sources, is
+   scored down (track2 hard rule 2);
+3. nothing in its data names, formats or favours LiveCert (A4).
+
+The earlier self-imposed ban (WINNING.md, "it never serves an intent we submit a judgment adapter for") is lifted on
+these terms.
 
 **Probe rule (2026-11-23).** A version below the point-3 bar may be registered once per family as a disclosed
 **information-buying probe**. The owner is told it may well be rejected. It is allowed only when all of these hold:

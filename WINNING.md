@@ -411,7 +411,8 @@ adapter package itself was never pushed (track2 MEMORY, 2026-10-25).
 - **The rule for any later addition.** All of these must hold:
   - it deepens a thinly covered mission, or is bought by three or more missions;
   - it is correct from a licence-clean primary source, proved in the audit before signing;
-  - it never serves an intent we submit a judgment adapter for (comparators reproduce a fixed network
+  - (lifted 2026-11-24 by the owner, on the terms in track2/ARCHITECTURE.md A7: disclosure plus a measured
+    score-down of LiveCert's own wrong answers) it never serves an intent we submit a judgment adapter for (comparators reproduce a fixed network
     rule, so they carry no such conflict);
   - its update costs no routing time.
 - **Ranked candidates, if G206 resolves as "no reset":**
