@@ -427,12 +427,16 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
       headlineAnswer(q, articles, ms).catch(() => null),
       webBrief(q, articles.map((a) => a.title).join(" | "), ms).catch(() => null),
     ]);
+    // A knowledge sentence never replaces the headlines' answer to a current question: the model's knowledge of
+    // "the latest" or "this year" is stale by construction.
+    const use = wb && !(wb.basis === "knowledge" && CURRENT.test(q)) ? wb : null;
+    const lead = use?.brief ?? direct;
     return {
       articles, sources: articles.map((a) => a.url).filter((u): u is string => !!u), background, verdict: "answered", confidence: 0.8,
-      direct_answer: wb?.brief ?? direct, ...basisOf(wb),
+      direct_answer: lead, ...basisOf(use),
       // No encyclopedia clause beside current reports: it would spend the
       // ~32 scored words on static background the intent is defined against.
-      reason: `${direct ? `${direct} ` : ""}${digest}${caveat} Source: Google News search.`,
+      reason: `${lead ? `${lead} ` : ""}${digest}${caveat} Source: Google News search.`,
     };
   }
 
@@ -445,7 +449,7 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
     return {
       articles, sources: page ? [page] : [], background, verdict: "answered", confidence: 0.5,
       ...(wb ? { direct_answer: wb.brief, ...basisOf(wb) } : {}),
-      reason: `According to Wikipedia: ${background}${note}${caveat}`,
+      reason: `${wb?.basis === "found" ? `${wb.brief} ` : ""}According to Wikipedia: ${background}${note}${caveat}`,
     };
   }
 
@@ -460,18 +464,19 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
   // labelled, and the reason still says what was and was not searched.
   const known = await webBrief(q, "", Math.min(3_000, 10_000 - (Date.now() - started))).catch(() => null);
   const knownFields = known ? { direct_answer: known.brief, ...basisOf(known) } : {};
+  const knownLead = known ? `${known.brief} That is from general knowledge, not from this search. ` : "";
 
   if (newsBarred) {
     return {
       ...empty, ...knownFields, verdict: "unknown", confidence: 0, error: "not_licensed",
-      reason: `No answer is given from current reporting. ${news!.reason}`,
+      reason: `${knownLead}No answer is given from current reporting. ${news!.reason}`,
     };
   }
 
   if (newsDown) {
     return {
       ...empty, ...knownFields, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
-      reason: "Google News, the current-reporting source, did not answer, so no current information was retrieved for this question. That is a data outage, not a finding that no information exists.",
+      reason: `${knownLead}Google News, the current-reporting source, did not answer, so no current information was retrieved for this question. That is a data outage, not a finding that no information exists.`,
     };
   }
 
@@ -480,6 +485,6 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
   const wikiGap = entity && wikiDown ? " Wikipedia did not answer, so it was not checked." : "";
   return {
     ...empty, ...knownFields, verdict: "no_results", confidence: 0.4,
-    reason: `No current report${entity && !wikiDown ? " or encyclopedia article" : ""}${about} matching this question was found in ${read}, so no answer is given rather than an unrelated one. That is an absence in ${read === "Google News" ? "that source" : "those two sources"}, not proof that nothing has been published.${wikiGap}`,
+    reason: `${knownLead}No current report${entity && !wikiDown ? " or encyclopedia article" : ""}${about} matching this question was found in ${read}${known ? "" : ", so no answer is given rather than an unrelated one"}. That is an absence in ${read === "Google News" ? "that source" : "those two sources"}, not proof that nothing has been published.${wikiGap}`,
   };
 }

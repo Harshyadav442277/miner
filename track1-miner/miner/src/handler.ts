@@ -256,7 +256,10 @@ export function withResearchBrief(q: string) {
     if (!found && !outage && !/^(?:no_evidence|no_sources|no_papers)$/.test(r.verdict)) return r;
     const b = await researchBrief(q, r.reason, undefined, found).catch(() => null);
     if (!b) return r;
-    return { ...r, brief: b, brief_basis: found
+    // The answer leads with the direct sentence, as the leaders' do; it opened with a registered trial's title
+    // ("COVID-19 is the subject of one registered trial, NCT05972993, a Phase 1 study…", production 2026-11-23).
+    const reason = found ? `${b} ${r.reason}` : `${b} That is from general scientific knowledge. ${r.reason}`;
+    return { ...r, reason, brief: b, brief_basis: found
       ? "one sentence written by a language model (Groq) from the cited evidence, with general scientific knowledge where the evidence is indirect"
       : outage ? "one sentence written by a language model (Groq) from general scientific knowledge: the trial registry and literature index did not answer"
       : "one sentence written by a language model (Groq) from general scientific knowledge: no study was retrieved for this question" };
