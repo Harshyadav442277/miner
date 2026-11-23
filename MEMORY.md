@@ -1,5 +1,14 @@
 # MEMORY.md — session continuity
 
+## 2026-11-23 ~11:00 UTC (16:30 IST): CURRENT — `5f28505` still LIVE; epoch 43 fixes on a branch, not deployed
+
+- Epoch 43: CONTENT_EXTRACTION 0 (top 0.999), WEATHER_CHECK 0.658, CRYPTO_PRICE 0.551 (rank 30 of 52; the top
+  score is 0.59). CURRENCY, SSL and STOCK are at rank 3. Record: `track1-miner/docs/evidence/epoch-43-2026-11-23/`.
+- Branch `PR/epoch-43-miner-improvements-5d425b`: `7e5a86f`, `5dc18fc`, `7277e16` (extraction brief, a grounded
+  model extraction, months not companies). Unit 1084/1084. The model path is untested until production (G355).
+- Weather is left as is: the reference changes between epochs (GAPS 2026-11-23 block).
+- Next: owner's yes to deploy, then the G355 probe and the next two CONTENT_EXTRACTION epochs.
+
 ## 2026-11-22 ~19:45 UTC (2026-11-23 01:15 IST): CURRENT — `5f28505` LIVE (`miner-pd9clrct7`); PRs #53, #54 merged
 
 - Production `dpl_9pMfgpRecB1Cn116wHV5v8noi9wg` from main `5f28505`. Preflight 7/7, watch active. Rollback:

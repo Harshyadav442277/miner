@@ -1,5 +1,27 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-23 ~11:00 UTC (16:30 IST) — epoch 43 read; G354–G357 new
+
+- **CONTENT_EXTRACTION_GENERAL 0 in epochs 42–43 (top 0.999). `ACTED ON` on branch
+  `PR/epoch-43-miner-improvements-5d425b`, not deployed.** Record: `track1-miner/docs/evidence/epoch-43-2026-11-23/`.
+  - The scored input is unknown: values are not logged, and capture is off.
+  - Shown on production: the brief dropped requested fields, and money values kept their clause. Patterns found
+    about 20 of 55 fields on a 15-case probe.
+  - Fixed: every field is briefed; a model reads the rest, and a value counts only when the text bears it out.
+- **WEATHER_CHECK_TEMPERATURE 0.658 against 1.0. `NOT ACTED ON`.** Over epochs 30–43 we beat or tie the Open-Meteo
+  miner in 8 of 14 (G330: the reference changes between epochs).
+- **G354 — `content` given as a URL is answered `values: <url>` at confidence 1. `OPEN`.** The schema says "the
+  content, or a URL to it". No page is fetched. The URL-fetching miners all scored 0 in epoch 43, so the test is
+  probably inline text. That is an inference, not a fact.
+- **G355 — The model path in `/extract` is unverified. `OPEN`.** It needs `GROQ_API_KEY`, which is on production
+  only. Check after a deploy with a probe such as `fields=gate, departure time` on a flight sentence.
+  The signed manifest calls `/extract` "deterministic" and says "nothing is fetched": fix that at the next signature.
+- **G356 — Most RES lines never reach `requests.jsonl`. `OPEN`.** 76 RES lines against 7,968 lines in all. Probably
+  the CLI's JSON gives one row per invocation; not checked. Until fixed, a RES line cannot be relied on for a scored
+  call.
+- **G357 — The archiver missed 09:10–09:30 UTC (`vercel logs` ETIMEDOUT). `RECOVERED`.** A 75-minute run at
+  10:24 UTC recovered 128 lines.
+
 ## 2026-11-22 ~20:15 UTC (2026-11-23 01:45 IST) — remaining gaps worked
 
 - **ONCHAIN_METRIC 0 at 16:35 UTC (epoch 38). `PARTLY FIXED`.** In its window the archive holds:
