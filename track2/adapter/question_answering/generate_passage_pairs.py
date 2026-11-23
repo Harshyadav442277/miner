@@ -27,6 +27,7 @@ import random
 import re
 
 MAX_TOKENS = 500
+MAX_CTX = 1600  # v4 passes --max-ctx 900: shorter passages, so the question-answer link is easier to learn
 ASKS = ["Answer the question using only this passage.\n\nPassage: {c}\n\nQuestion: {q}",
         "Context: {c}\nQ: {q}",
         "Based on the text below, {ql}\n\n{c}",
@@ -81,7 +82,7 @@ def build(rows, n, seed, split, styles, tok):
     while len(out) < n:
         r = rng.choice(pool)
         ctx, q, title = r["context"], r["question"].strip(), r["title"].replace("_", " ")
-        if r["id"] in seen or len(ctx) > 1600 or len(q) < 8:
+        if r["id"] in seen or len(ctx) > MAX_CTX or len(q) < 8:
             continue
         style = rng.choice(styles)
         others = sorted(s for s in by_ctx.get(ctx, ()) if not r["answers"] or s != r["answers"][0])
@@ -122,7 +123,10 @@ def main():
     ap.add_argument("--tokenizer", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--n", type=int, default=4000)
+    ap.add_argument("--max-ctx", type=int, default=1600)
     a = ap.parse_args()
+    global MAX_CTX
+    MAX_CTX = a.max_ctx
     import pyarrow.parquet as pq
     from tokenizers import Tokenizer
     tok = Tokenizer.from_file(a.tokenizer)
