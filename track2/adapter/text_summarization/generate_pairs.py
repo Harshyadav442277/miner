@@ -160,6 +160,7 @@ def main():
     ap.add_argument("--tokenizer", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--n", type=int, default=3000)
+    ap.add_argument("--bills", help="v2: short bills from filter_bills.py; about half of each set becomes bill pairs")
     a = ap.parse_args()
     from tokenizers import Tokenizer
     tok = Tokenizer.from_file(a.tokenizer)
@@ -167,6 +168,34 @@ def main():
     train = build(a.n + 300, 7, "train", styles, tok)
     sets = {"train": train[:a.n], "val": train[a.n:], "test": build(400, 97, "test", styles, tok),
             "probe": build(200, 131, "test", ["tldr"], tok)}
+    if a.bills:
+        import sys
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # -I drops the script folder
+        import bill_pairs
+        bills = bill_pairs.load(a.bills)
+        test_ids = {b["id"] for b in bills if int(hashlib.sha256(str(b["id"]).encode()).hexdigest(), 16) % 5 == 0}
+
+        def bill_set(n, seed, split):
+            rng = random.Random(seed)
+            pool = [b for b in bills if (b["id"] in test_ids) == (split == "test")]
+            rows, used = [], set()
+            for _ in range(n * 20):
+                if len(rows) >= n:
+                    break
+                b = rng.choice(pool)
+                r = bill_pairs.pair(rng, b, pool, tok, MAX_TOKENS)
+                if r and (b["id"], r["kind"]) not in used:
+                    used.add((b["id"], r["kind"]))
+                    rows.append(r)
+            return rows
+
+        tb, testb = bill_set(a.n + 300, 11, "train"), bill_set(400, 97, "test")
+        rng = random.Random(5)
+        sets["train"] = sets["train"][:a.n - a.n // 2] + tb[:a.n // 2]
+        rng.shuffle(sets["train"])
+        sets["val"] = sets["val"][:150] + tb[a.n // 2:a.n // 2 + 150]
+        sets["test"] = sets["test"][:200] + testb[:200]
+        sets["bills_test"] = testb
     os.makedirs(a.out, exist_ok=True)
     for name, rows in sets.items():
         with open(os.path.join(a.out, f"{name}.jsonl"), "w", encoding="utf-8", newline="\n") as f:
