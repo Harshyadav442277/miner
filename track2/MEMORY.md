@@ -10,8 +10,13 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ## CURRENT — 2026-11-23 ~20:25 UTC (01:55 IST Nov 24) · TS v1 + CM v2 READY TO SIGN; EMAIL + VULN LANES TRAINING
 
-- **Ready to sign** (sign block in SIGN_S2.md): ts_v1 (`fe080f33`) and cm_v2 (`a45ab6c4`, a probe). Their executor is on
-  port 18190 (URL in `tg-eval/executor-ts_cm.out`). **Not yet signed** at 20:20 UTC.
+- **The owner signed both:**
+  - **#217 TEXT_SUMMARIZATION** (ts_v1), at 20:17 UTC;
+  - **#218 CONTENT_MODERATION** (cm_v2, a probe), at 20:24 UTC.
+  - The hashes match `0x3f3ad908…` and `0x0e0014f3…`. Their executor is on port 18190 (URL in
+    `tg-eval/executor-ts_cm.out`); keep it up.
+  - Expected check: about 2 h after the 23:10 UTC epoch boundary.
+  - A background watch (7 h) reports stage changes.
 - **New lanes** (owner, 2026-11-23: "improve them and make more"). Comparators cannot be won; the node refuses them.
   - **EMAIL_SECURITY** (es_v1): DoH JSON and headers in the prompt; the kit gate PASSES at a bag-of-words probe of 64.6%,
     just under the 65% bar, after three fixes.
