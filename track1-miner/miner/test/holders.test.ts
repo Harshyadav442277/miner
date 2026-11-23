@@ -235,3 +235,15 @@ test("with no chain named, a count from the chains that answered says which did 
     assert.ok(!urls.some((u) => u.includes("geckoterminal")), urls.join(" "));
   });
 });
+
+test("with Blockscout challenged, the holder count comes from GeckoTerminal and says so (2026-11-23)", async () => {
+  const answer = (url: string): Response => url.includes("api.geckoterminal.com") && url.includes("/info")
+    ? json({ data: { attributes: { name: "USD Coin", symbol: "USDC", holders: { count: 12642769 } } } })
+    : json({ message: "Just a moment..." }, 403);
+  await withUpstreams(answer, async () => {
+    const r = await lookupHolders(`How many addresses hold the token ${BASE_USDC} on base?`);
+    assert.equal(r.verdict, "holder_count");
+    assert.equal(r.holders, 12642769);
+    assert.match(r.reason, /read from GeckoTerminal's token index \(the chain's Blockscout index did not answer\)/);
+  });
+});
