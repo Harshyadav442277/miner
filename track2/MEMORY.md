@@ -8,7 +8,21 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-23 ~18:30 UTC (00:00 IST Nov 24) · #210 IS CANONICAL (first CONTRACT_OBLIGATION_AUDIT champion)
+## CURRENT — 2026-11-23 ~20:25 UTC (01:55 IST Nov 24) · TS v1 + CM v2 READY TO SIGN; EMAIL + VULN LANES TRAINING
+
+- **Ready to sign** (sign block in SIGN_S2.md): ts_v1 (`fe080f33`) and cm_v2 (`a45ab6c4`, a probe). Their executor is on
+  port 18190 (URL in `tg-eval/executor-ts_cm.out`). **Not yet signed** at 20:20 UTC.
+- **New lanes** (owner, 2026-11-23: "improve them and make more"). Comparators cannot be won; the node refuses them.
+  - **EMAIL_SECURITY** (es_v1): DoH JSON and headers in the prompt; the kit gate PASSES at a bag-of-words probe of 64.6%,
+    just under the 65% bar, after three fixes.
+  - **VULNERABILITY_TRIAGE** (vt_v1): CVSS, KEV and exposure in the prompt; the kit gate PASSES with the probe at 49.7%.
+  - Both families have no champion, and LiveCert serves neither. The pool forms come from bounties #119 and #89.
+  - Training: es_v1 is on the GPU now; vt_v1 is queued.
+- **ts_v2:** kit 99%. Its node measurement **failed with out of memory**: 15.6 GB of RAM, with 9 executor workers and GPU
+  training running. **Do not run measure.py while both executors are up.** Measure ts_v2, es_v1 and vt_v1 once the
+  executors can shrink.
+
+## 2026-11-23 ~18:30 UTC (00:00 IST Nov 24) · #210 IS CANONICAL (first CONTRACT_OBLIGATION_AUDIT champion)
 
 - **#210 CONTRACT_OBLIGATION_AUDIT v1: canonical at 18:18 UTC**, "82.76% on 29 pairs (floor 70%)". This is our first
   Season II evaluator seat. Evidence and the public-pair kinds are in the
