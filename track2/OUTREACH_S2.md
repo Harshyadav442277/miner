@@ -8,25 +8,34 @@ does. Three updates must go out on separate dates.
 
 | # | Topic | Post on (UTC) | Published URL | Independent action |
 |---|---|---|---|---|
-| 1 | Why we held no evaluator, and what changed | 2026-11-23 or 24 | not published | none recorded |
+| 1 | First canonical seat (#210), and what changed | 2026-11-23/24 | not published | none recorded |
 | 2 | Miner errors found by checking answers against primary sources | ≥ 1 day after #1 | not published | none recorded |
 | 3 | Two unranked intents, neutral truth sources, the network check | after the uploads + network evidence | not published | none recorded |
 
-## Draft 1 (rewritten 2026-11-23, post first): why we held no evaluator, and what changed
+## Post 1 (final text 2026-11-23 ~23:20 UTC; the owner posts it as a 4-post thread)
 
-> We're competing in @Telegraphprotoc Season II (Evaluator track, which has cash prizes). Three weeks in, we hold
-> no evaluator seat. Here's why, because the mistake is easy to make.
+Every claim can be checked: registration 210 in `/api/wasm`; #217 and #218 from the decoded public-pair captures
+(lane READMEs). Each post is at most 280 characters; X counts a link as 23.
+
+> 1/4 Our evaluator is now the first canonical CONTRACT_OBLIGATION_AUDIT scorer on @Telegraphprotoc testnet: 82.76% on
+> 29 hidden pairs (floor 70%).
 >
-> We gated every candidate on real miner answers, labelled from primary sources. In family after family, which
-> service answered predicted whether it was right, so the gate measured the miners, not our scorer, and never
-> passed. The network judges evaluators on contributors' pool pairs, after a 15-pair public check.
+> The fix: train on pairs whose right answer comes from the prompt itself.
 >
-> What we do now: pairs whose right answer can be derived from the prompt itself (contract clauses, crowd-rated
-> comments, the source text of a summary), checked by the kit's data gate (length and bag-of-words probes), then
-> the network's public check. First three: CONTRACT_OBLIGATION_AUDIT, CONTENT_MODERATION, TEXT_SUMMARIZATION.
-> We'll post the public-check results, good or bad.
+> Season II hackathon entry, prize-eligible. 1/4
+
+> 2/4 For 3 weeks we held no seat. We gated every evaluator on real miner answers, but in those families which
+> service answered predicted the label, so the gate measured the miners, not our scorer. The network judges
+> contributors' pool pairs, after a 15-pair public check.
+
+> 3/4 Now each pair's label comes from text in the prompt: contract clauses (CUAD), bill text with its CRS summary,
+> DNS responses. The kit's gate rejects length and word shortcuts; the node's public check decides.
 >
-> Generators, gates and the full write-up: https://github.com/Harshyadav442277/miner/tree/PR/evaluators-plan-2026-11-23/track2
+> Summarization passed it 15/15. Moderation failed 5/15.
+
+> 4/4 Check it yourself: registration 210 at https://devnode.telegraphprotocol.com/api/wasm
+>
+> Generators, gates and every result, including the failures: https://github.com/Harshyadav442277/miner/tree/PR/evaluators-plan-2026-11-23/track2
 
 ## Draft 2: what checking real answers found
 
