@@ -1,5 +1,15 @@
 # MEMORY.md — session continuity
 
+## 2026-11-23 ~12:50 UTC (18:20 IST): CURRENT — `36e4e13` LIVE (`miner-1by7eu4j6`); PR #56 open, not merged
+
+- Owner: "highly focus on chat completion, event outcome, web general, research query" and "deploy everything
+  alongside". Production `dpl_GZ6oFR8b4ZxgnCVbM5AJS2g2eTt8`. Gates 7/7 (intent answers re-run after a Blockscout
+  500), watch 6126 active. Rollback: `miner-mqhxx9oil` (`40b698f`). Evidence: `track1-miner/docs/evidence/release-2026-11-23-four-intents/`.
+- Changed: research outage briefs; answers lead with the direct sentence; web model brief (labelled, dated);
+  event stage and Fed matching; chat brief label and bare verdict; G358.
+- Open: G359–G361 (Pectra-type recent facts, research latency, event zeros unexplained).
+- Next: read the four intents in the next two epochs; merge PR #56.
+
 ## 2026-11-23 ~12:00 UTC (17:30 IST): CURRENT — `40b698f` LIVE (`miner-mqhxx9oil`); PR #56 open, not merged
 
 - Production `dpl_AE3WL7EfDNqp7LYPLYJSiQrnd9Af` from `40b698f` (PR #56 head), owner's yes. Preflight 7/7, watch

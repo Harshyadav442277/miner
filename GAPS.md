@@ -1,5 +1,21 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-23 ~12:50 UTC (18:20 IST) — four-intent release `36e4e13`; G358 fixed; G359–G361 new
+
+Record: `track1-miner/docs/evidence/release-2026-11-23-four-intents/`. Faults were found by probing production, not
+by reading scored inputs. The causes of the zeros are `NOT ESTABLISHED`, and the score effect is unmeasured.
+
+- **G358 — `FIXED`, live in `36e4e13`.** Tighter separators come before a cut value.
+- **G359 — WEB_SEARCH cannot state a recent fact the headlines lack. `OPEN`.** "Ethereum Pectra upgrade date" is
+  briefed "has not been reported yet" (Pectra went live in 2025). "Latest Fed rate decision" gets a vague brief.
+  A real web search provider would close it. None is licensed here (G230).
+- **G360 — RESEARCH_QUERY takes about 7 s when Europe PMC is slow (6.5 s seen against our 6 s timeout). `OPEN`.**
+  The leaders answer in 2–6 s. The node's timeout is not known.
+- **G361 — EVENT_OUTCOME 0 in epochs 38–42; cause unknown. `OPEN`.** a1-preflight (0.99) encodes an open market
+  as we do (`unresolved`, `resolved_yes` null). The stage and Fed matching fixes address probed faults only.
+- **Blockscout:** `/api/v2/blocks/21000000` answered 500 at 12:30–12:42 UTC and 200 at 12:45 UTC. It failed
+  ONCHAIN_METRIC in preflight twice; that was an upstream outage, not this release.
+
 ## 2026-11-23 ~11:00 UTC (16:30 IST) — epoch 43 read; G354–G357 new
 
 - **CONTENT_EXTRACTION_GENERAL 0 in epochs 42–43 (top 0.999). `ACTED ON` on branch

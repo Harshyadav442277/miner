@@ -10,7 +10,9 @@ commit.
 - [x] CONTENT_EXTRACTION: brief every field asked, money as the amount, model for uncovered fields (grounded).
   Branch `PR/epoch-43-miner-improvements-5d425b`, 1084/1084 unit.
 - [x] Deployed `40b698f` 2026-11-23 (release-2026-11-23-extraction); model path verified on production (G355).
-- [ ] G358: fit the brief with tighter separators before cutting a value.
+- [x] G358 fixed, live in `36e4e13`.
+- [ ] Read CHAT, EVENT_OUTCOME, WEB_SEARCH, RESEARCH_QUERY in the next two epochs (release-2026-11-23-four-intents).
+- [ ] G359 recent facts in web search; G360 research latency; G361 event zeros.
 - [ ] Read CONTENT_EXTRACTION in the next two epochs after the deploy.
 - [ ] Next signature: drop "deterministic" and "nothing is fetched" from the `/extract` description (G355).
 - [ ] G356: find why RES lines are missing from the archive.
