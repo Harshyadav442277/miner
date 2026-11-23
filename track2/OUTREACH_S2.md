@@ -8,26 +8,25 @@ does. Three updates must go out on separate dates.
 
 | # | Topic | Post on (UTC) | Published URL | Independent action |
 |---|---|---|---|---|
-| 1 | Why we stopped training evaluators: real answers, a frozen gate | first free day | not published | none recorded |
+| 1 | Why we held no evaluator, and what changed | 2026-11-23 or 24 | not published | none recorded |
 | 2 | Miner errors found by checking answers against primary sources | ≥ 1 day after #1 | not published | none recorded |
 | 3 | Two unranked intents, neutral truth sources, the network check | after the uploads + network evidence | not published | none recorded |
 
-## Draft 1: the gate and why every lane stopped
+## Draft 1 (rewritten 2026-11-23, post first): why we held no evaluator, and what changed
 
-> We're competing in @Telegraphprotoc Season II (Evaluator track, which has cash prizes). Here's an honest result:
-> none of our trained evaluators beat a champion, and the gate that stopped them is the useful part.
+> We're competing in @Telegraphprotoc Season II (Evaluator track, which has cash prizes). Three weeks in, we hold
+> no evaluator seat. Here's why, because the mistake is easy to make.
 >
-> Every candidate is measured on answers we did not write, labelled from primary sources (DNS, NVD, weather
-> stations, dataset gold) and frozen before training. On QUESTION_ANSWERING (300 public benchmark pairs plus 62 miner
-> pairs), two iterations scored 42.0% and 43.4% against the champion's 45.3%. None of the three beat a
-> "shorter answer wins" baseline, so that holdout cannot rank them. Our own test splits had passed.
+> We gated every candidate on real miner answers, labelled from primary sources. In family after family, which
+> service answered predicted whether it was right, so the gate measured the miners, not our scorer, and never
+> passed. The network judges evaluators on contributors' pool pairs, after a 15-pair public check.
 >
-> In 4 more families, right and wrong split almost entirely by service. Wrong answers came from 1–3 services
-> (EMAIL_SECURITY, weather), right ones from a single service (VULNERABILITY_TRIAGE), or there were no wrong numbers
-> at all (OPTIMAL_EXECUTION_ROUTE). A scorer could "win" there by recognising a service's format. We refuse such a
-> holdout (identity probe > 0.65), so those lanes stopped before training.
+> What we do now: pairs whose right answer can be derived from the prompt itself (contract clauses, crowd-rated
+> comments, the source text of a summary), checked by the kit's data gate (length and bag-of-words probes), then
+> the network's public check. First three: CONTRACT_OBLIGATION_AUDIT, CONTENT_MODERATION, TEXT_SUMMARIZATION.
+> We'll post the public-check results, good or bad.
 >
-> Method, gate and every verdict: <repo link to track2/harness/README.md and GAPS.md>
+> Generators, gates and the full write-up: https://github.com/Harshyadav442277/miner/tree/PR/evaluators-plan-2026-11-23/track2
 
 ## Draft 2: what checking real answers found
 

@@ -5,35 +5,41 @@ wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` only, including the signer a
 Verify both before any authenticated action; no alternate identity is permitted. See [../AGENTS.md](../AGENTS.md).
 The owner signs. Claude never connects a wallet, signs or sends.
 
-## Owner checklist: one sitting, about 20 minutes (prepared 2026-11-16, revised 2026-11-17)
+## Owner checklist (rewritten 2026-11-23 ~12:50 UTC). Deadline: Dec 1 2026 23:59 UTC (Dec 2 05:29 IST)
 
-**First, the 2026-11-17 registry reset (G51):** the devnode registry was emptied and is re-registering miners. id 4433
-is no longer LiveCert. Check at https://anjoman.ai/dashboard whether LiveCert and our comparators need re-registering.
-That decision and any signature are yours; Claude checks `/api/miners` for our wallet on request.
+The 2026-11-17 reset is over: the registry was restored on Nov 18 (G51). Each item names its file, what to check and
+what to send back to Claude.
 
-Everything below is prepared and committed; each step needs only your click, signature or send. No adapter
-registration is on the list, because none has passed the gate. Deadline: **Dec 1 2026 23:59 UTC** (Dec 2 05:29 IST).
+### Ready now
 
-1. ~~Star https://github.com/telegraphprotocol/bounties~~ **done**: `gh api user/starred/telegraphprotocol/bounties`
-   returned 204 on 2026-11-23. The current owner list is [PLAN_2026-11-23.md](PLAN_2026-11-23.md) §8.
-2. **Sign in at https://anjoman.ai/dashboard/eval.** Verify `hyadav42774@gmail.com` and the wallet
-   `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. Then upload two files, each under its exact intent:
-   - `material/dns_truth/DNS_RECORD_LOOKUP_GENERAL.truth.jsonl` under `DNS_RECORD_LOOKUP_GENERAL`. Check the sha256
-     is `ccc8e992…0123` ([README](material/dns_truth/README.md); discloses that livecert serves this intent).
+1. ~~Star telegraphprotocol/bounties~~ **done**: `gh api user/starred/telegraphprotocol/bounties` returned 204 on
+   2026-11-23.
+2. **Post update 1 on X**: [OUTREACH_S2.md](OUTREACH_S2.md), Draft 1, as written; it carries the prize disclosure.
+   It is longer than 280 characters, so post it as a thread or a long post. Send Claude the post URL.
+3. **Upload two truth sources on https://anjoman.ai/dashboard/eval.** Sign in as `hyadav42774@gmail.com` with wallet
+   `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. Upload each file under its exact intent.
+   - `material/dns_truth/DNS_RECORD_LOOKUP_GENERAL.truth.jsonl` under `DNS_RECORD_LOOKUP_GENERAL`. The sha256 is
+     `ccc8e992…0123`.
    - `material/validator_truth/VALIDATOR_PERFORMANCE_VERIFY_GENERAL.truth.jsonl` under
-     `VALIDATOR_PERFORMANCE_VERIFY_GENERAL`. Check the sha256 is `bfcdb813…3e10`
-     ([README](material/validator_truth/README.md)).
-   Write down each response's row state or rejection code. `duplicate_case` on the validator file is possible and harmless.
-3. **Do not upload** the EMAIL_SECURITY pairs: they fail our own identity bar (36 of 40 rejected answers from one
-   service; [material/email_security/README.md](material/email_security/README.md)). They stay in the repo as evidence.
-4. **Send [material/ORGANISER_REPORT.md](material/ORGANISER_REPORT.md)** to the Telegraph team, on Discord or as a
-   bounties issue. It asks about the 2026-11-17 registry reset first (G51), then reports the comparator lookup and the two
-   unscored intents (as of Nov 16).
-5. **Submit the H2 form** from [SUBMISSION_S2.md](SUBMISSION_S2.md). First fill its §7 table with what steps 1–4
-   returned.
+     `VALIDATOR_PERFORMANCE_VERIFY_GENERAL`. The sha256 is `bfcdb813…3e10`.
+   - Both hashes were re-checked on 2026-11-23, and the three APIs behind the files answered HTTP 200.
+   - Send Claude each response's row state.
+4. **Send [material/ORGANISER_REPORT.md](material/ORGANISER_REPORT.md)** (rewritten 2026-11-23) on Discord or as a
+   bounties issue. Send Claude the link.
+5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
+   ([material/email_security/README.md](material/email_security/README.md)).
 
-After steps 2 and 4, Claude can check the network evidence and update `SUBMISSION_S2.md`: row states in
-`/api/evalpool/status`, and scores at an epoch after the upload in `/api/miners`.
+### Not ready yet (Claude brings each one with exact values)
+
+6. **Adapter registrations, about one a day.** Three adapters are trained or queued: CONTRACT_OBLIGATION_AUDIT,
+   CONTENT_MODERATION and TEXT_SUMMARIZATION.
+   - None is offered for signing until it clears ≥ 85% held out and ≥ 70% on every answer style, in the node runtime.
+   - For each one Claude starts the executor and hands over four values: hosted URL, family, fee address (the LiveCert
+     wallet) and runnable URL. You sign on Anjoman Evaluators.
+   - The laptop stays awake until the remote check finishes, about 1.5 h.
+7. **Posts 2 and 3** go out on later dates: about Nov 27 with the public-pair results, and about Nov 30.
+8. **The H2 form** from [SUBMISSION_S2.md](SUBMISSION_S2.md), by Dec 1 20:00 UTC. Claude rewrites the form from network
+   evidence on Nov 30.
 
 ## Nothing is ready to sign (2026-11-15)
 

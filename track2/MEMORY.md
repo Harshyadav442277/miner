@@ -60,6 +60,15 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 - **CONTENT_MODERATION v1** ([adapter/content_moderation/](adapter/content_moderation/README.md)):
   - Civil Comments (CC0) with crowd-consensus labels; the kit dataset gate PASSES.
   - Training is queued behind coa_v1 on GPU.lock (log `tg-eval/runs-v2/cm_v1/chain.log`).
+- **Owner, 2026-11-23: "prepare all of them also. give those which are ready for the submission".**
+  - **Lane 3** is now TEXT_SUMMARIZATION, not the CODE_PATCH_VERIFY challenge: #208 was rejected for an unreachable
+    executor, so the family is evaluable with no champion.
+  - Its synthetic data passes the kit gate ([adapter/text_summarization/](adapter/text_summarization/README.md)), and
+    training is queued third.
+  - The owner checklist in [SIGN_S2.md](SIGN_S2.md) is rewritten with what is ready now:
+    1. post 1 (rewritten);
+    2. the DNS and validator truth uploads (hashes re-checked; sources HTTP 200);
+    3. the organiser report (rewritten).
 - **Next (Claude):** when `chain.log` says `chain end`:
   1. `harness/measure.py` on test and probe;
   2. if it clears 85% held out / 70% per style, host the package at a pinned commit;
