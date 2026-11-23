@@ -1,5 +1,34 @@
 # MEMORY.md — session continuity
 
+## 2026-11-23 ~12:50 UTC (18:20 IST): CURRENT — `36e4e13` LIVE (`miner-1by7eu4j6`); PR #56 open, not merged
+
+- Owner: "highly focus on chat completion, event outcome, web general, research query" and "deploy everything
+  alongside". Production `dpl_GZ6oFR8b4ZxgnCVbM5AJS2g2eTt8`. Gates 7/7 (intent answers re-run after a Blockscout
+  500), watch 6126 active. Rollback: `miner-mqhxx9oil` (`40b698f`). Evidence: `track1-miner/docs/evidence/release-2026-11-23-four-intents/`.
+- Changed: research outage briefs; answers lead with the direct sentence; web model brief (labelled, dated);
+  event stage and Fed matching; chat brief label and bare verdict; G358.
+- Open: G359–G361 (Pectra-type recent facts, research latency, event zeros unexplained).
+- Next: read the four intents in the next two epochs; merge PR #56.
+
+## 2026-11-23 ~12:00 UTC (17:30 IST): CURRENT — `40b698f` LIVE (`miner-mqhxx9oil`); PR #56 open, not merged
+
+- Production `dpl_AE3WL7EfDNqp7LYPLYJSiQrnd9Af` from `40b698f` (PR #56 head), owner's yes. Preflight 7/7, watch
+  6126 active. Rollback: `miner-pd9clrct7` (`5f28505`). Evidence: `track1-miner/docs/evidence/release-2026-11-23-extraction/`.
+- Live: CONTENT_EXTRACTION briefs every field, and a model reads fields the patterns miss, kept only when the text bears
+  them out. Checked on production (G355 closed).
+- Open: G358 (the fitter cuts "Senior Data Engineer" before trying tighter separators). Merge PR #56 after CI.
+- Next: read CONTENT_EXTRACTION in the next two epochs.
+- vercel.cmd drops everything after the first `&` in a URL: call the CLI through `node …\vercel\dist\vc.js`.
+
+## 2026-11-23 ~11:00 UTC (16:30 IST): CURRENT — `5f28505` still LIVE; epoch 43 fixes on a branch, not deployed
+
+- Epoch 43: CONTENT_EXTRACTION 0 (top 0.999), WEATHER_CHECK 0.658, CRYPTO_PRICE 0.551 (rank 30 of 52; the top
+  score is 0.59). CURRENCY, SSL and STOCK are at rank 3. Record: `track1-miner/docs/evidence/epoch-43-2026-11-23/`.
+- Branch `PR/epoch-43-miner-improvements-5d425b`: `7e5a86f`, `5dc18fc`, `7277e16` (extraction brief, a grounded
+  model extraction, months not companies). Unit 1084/1084. The model path is untested until production (G355).
+- Weather is left as is: the reference changes between epochs (GAPS 2026-11-23 block).
+- Next: owner's yes to deploy, then the G355 probe and the next two CONTENT_EXTRACTION epochs.
+
 ## 2026-11-22 ~19:45 UTC (2026-11-23 01:15 IST): CURRENT — `5f28505` LIVE (`miner-pd9clrct7`); PRs #53, #54 merged
 
 - Production `dpl_9pMfgpRecB1Cn116wHV5v8noi9wg` from main `5f28505`. Preflight 7/7, watch active. Rollback:

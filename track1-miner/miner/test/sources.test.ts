@@ -40,7 +40,7 @@ function reachable(entry: string): Set<string> {
 /** Each declared endpoint's entry module(s), from the dispatch in handler.ts and mission-routes.ts. */
 const ENTRY: Record<string, string[]> = {
   "/ssl-check": ["ssl"], "/storm-alert": ["storm"], "/weather-forecast": ["storm", "alertcheck", "forecast", "currentweather"],
-  "/ip-geolocate": ["geo"], "/translate": ["translate"], "/papers": ["papers", "answer-brief"], "/extract": ["content"], "/headlines": ["news"],
+  "/ip-geolocate": ["geo"], "/translate": ["translate"], "/papers": ["papers", "answer-brief"], "/extract": ["content", "extract-model"], "/headlines": ["news"],
   "/wallet-balance": ["wallet"], "/fact-check": ["factcheck"], "/tx-lookup": ["onchain", "contractactivity"],
   "/transfer-verify": ["onchain", "contractactivity"], "/cve": ["cve", "cvesurvey", "cvekeyword"], "/news-search": ["newssearch"],
   "/convert": ["currency"], "/gas-price": ["gas"], "/financial": ["financial"], "/fraud-check": ["fraud"], "/token-holders": ["holders"],

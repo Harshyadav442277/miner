@@ -165,7 +165,27 @@ export function names(text: string): string[] {
 export function foldCountries(text: string): string {
   return String(text ?? "")
     .replace(/\bUnited\s+States(?:\s+of\s+America)?\b|\bU\.S\.(?:A\.)?|\bUSA\b/gi, "US")
-    .replace(/\bUnited\s+Kingdom\b|\bU\.K\./gi, "UK");
+    .replace(/\bUnited\s+Kingdom\b|\bU\.K\./gi, "UK")
+    // Polymarket writes "Fed": "Did the Federal Reserve cut interest rates in September 2024?" matched no market,
+    // because every name must appear, and fell to model recall, which gave the wrong cut size (2026-11-23).
+    .replace(/\b(?:US\s+)?Federal\s+Reserve(?:\s+Board)?\b|\bFOMC\b/gi, "Fed");
+}
+
+/** Stages of a competition. A market about another stage is another event. */
+const STAGE = /\b(?:final|finals|semi-?finals?|quarter-?finals?|round\s+of\s+\d+|group\s+stage|knockout|playoffs?|advance|qualify|qualifies|relegat\w*|top\s+\d+)\b/gi;
+const stages = (text: string): Set<string> =>
+  new Set((String(text ?? "").match(STAGE) ?? []).map((s) => s.toLowerCase().replace(/[-\s]+/g, "").replace(/s$/, "")));
+
+/**
+ * True when the market names a stage the question does not: "Did Real Madrid win the 2024 UEFA Champions League
+ * final?" settled against "Will Real Madrid advance to the Round of 16 in the 2024-25 UEFA Champions League?"
+ * (production, 2026-11-23). "Win the final" and "win the title" are one event, so a question that names no stage
+ * accepts a market's "final". Pure.
+ */
+export function stageConflict(question: string, marketText: string): boolean {
+  const q = stages(question);
+  const m = stages(marketText);
+  return [...m].some((s) => !q.has(s) && !(s === "final" && q.size === 0));
 }
 
 /** Share of the question's significant words present in a market's title, 0 when any number or name is missing. */
@@ -175,6 +195,7 @@ export function coverage(questionText: string, marketTextRaw: string): number {
   const want = keywords(question);
   if (!want.length) return 0;
   if (directionConflict(question, marketText)) return 0;
+  if (stageConflict(question, marketText)) return 0;
   const have = new Set(keywords(marketText));
   const nums = numbers(marketText);
   if (numbers(question).some((n) => !nums.includes(n))) return 0;

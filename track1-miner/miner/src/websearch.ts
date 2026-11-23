@@ -34,6 +34,7 @@ import { findEventWinner, andList } from "./eventwinner";
 import { opening } from "./genai";
 import { phrase, sanitise } from "./llm";
 import { answerQuestion } from "./qa";
+import { webBrief } from "./answer-brief";
 import { searchNews, type Article } from "./newssearch";
 import { findEncyclopedia, namedEntity } from "./research";
 
@@ -163,6 +164,8 @@ export interface WebSearchResult {
   background: string | null;
   /** The model's one-sentence answer from the report titles, when it gave one. */
   direct_answer?: string | null;
+  /** Where the direct answer came from when a model wrote it: what the search found, or general knowledge. */
+  brief_basis?: string;
   verdict: WebSearchVerdict;
   confidence: number;
   reason: string;
@@ -329,6 +332,14 @@ async function liveFigure(q: string): Promise<{ reason: string; sources: string[
   return null;
 }
 
+/** The label a model-written direct answer carries. Pure. */
+export function basisOf(wb: { basis: "found" | "knowledge" } | null): { brief_basis?: string } {
+  if (!wb) return {};
+  return { brief_basis: wb.basis === "found"
+    ? "one sentence written by a language model (Groq) from what this search found"
+    : "one sentence written by a language model (Groq) from general knowledge: the search did not answer the question" };
+}
+
 export async function webSearch(question: string): Promise<WebSearchResult> {
   const started = Date.now();
   const q = String(question ?? "").trim();
@@ -411,13 +422,21 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
       : `The most relevant ${age} reports are ${cite(articles[0] as Article)} and ${cite(articles[1] as Article)}.`;
     // The direct answer leads when the model gives one from the titles; the dated citations follow it.
     // Inside the route's 11 s watchdog: two news passes can take ~9 s, so the model gets what is left of 10 s.
-    const direct = await headlineAnswer(q, articles, Math.min(3_000, 10_000 - (Date.now() - started))).catch(() => null);
+    const ms = Math.min(3_000, 10_000 - (Date.now() - started));
+    const [direct, wb] = await Promise.all([
+      headlineAnswer(q, articles, ms).catch(() => null),
+      webBrief(q, articles.map((a) => a.title).join(" | "), ms).catch(() => null),
+    ]);
+    // A knowledge sentence never replaces the headlines' answer to a current question: the model's knowledge of
+    // "the latest" or "this year" is stale by construction.
+    const use = wb && !(wb.basis === "knowledge" && CURRENT.test(q)) ? wb : null;
+    const lead = use?.brief ?? direct;
     return {
       articles, sources: articles.map((a) => a.url).filter((u): u is string => !!u), background, verdict: "answered", confidence: 0.8,
-      direct_answer: direct,
+      direct_answer: lead, ...basisOf(use),
       // No encyclopedia clause beside current reports: it would spend the
       // ~32 scored words on static background the intent is defined against.
-      reason: `${direct ? `${direct} ` : ""}${digest}${caveat} Source: Google News search.`,
+      reason: `${lead ? `${lead} ` : ""}${digest}${caveat} Source: Google News search.`,
     };
   }
 
@@ -426,9 +445,11 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
       : newsDown ? " The news index did not answer, so no current reporting is included." : " No current news report on this subject was found.";
     // The article the answer quotes is its source: "Who is the CEO of OpenAI?" came back with sources [] (2026-11-08).
     const page = wiki && wiki !== "unavailable" ? `https://en.wikipedia.org/wiki/${encodeURIComponent(wiki.title.replace(/ /g, "_"))}` : null;
+    const wb = await webBrief(q, background, Math.min(3_000, 10_000 - (Date.now() - started))).catch(() => null);
     return {
       articles, sources: page ? [page] : [], background, verdict: "answered", confidence: 0.5,
-      reason: `According to Wikipedia: ${background}${note}${caveat}`,
+      ...(wb ? { direct_answer: wb.brief, ...basisOf(wb) } : {}),
+      reason: `${wb?.basis === "found" ? `${wb.brief} ` : ""}According to Wikipedia: ${background}${note}${caveat}`,
     };
   }
 
@@ -439,17 +460,23 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
    * though Google News was never read. News is the primary source for this
    * intent, so its outage is an outage whatever Wikipedia said.
    */
+  // With nothing found, the scored brief was the outage or absence sentence. A knowledge answer is given instead,
+  // labelled, and the reason still says what was and was not searched.
+  const known = await webBrief(q, "", Math.min(3_000, 10_000 - (Date.now() - started))).catch(() => null);
+  const knownFields = known ? { direct_answer: known.brief, ...basisOf(known) } : {};
+  const knownLead = known ? `${known.brief} That is from general knowledge, not from this search. ` : "";
+
   if (newsBarred) {
     return {
-      ...empty, verdict: "unknown", confidence: 0, error: "not_licensed",
-      reason: `No answer is given from current reporting. ${news!.reason}`,
+      ...empty, ...knownFields, verdict: "unknown", confidence: 0, error: "not_licensed",
+      reason: `${knownLead}No answer is given from current reporting. ${news!.reason}`,
     };
   }
 
   if (newsDown) {
     return {
-      ...empty, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
-      reason: "Google News, the current-reporting source, did not answer, so no current information was retrieved for this question. That is a data outage, not a finding that no information exists.",
+      ...empty, ...knownFields, verdict: "unknown", confidence: 0, error: "upstream_unavailable",
+      reason: `${knownLead}Google News, the current-reporting source, did not answer, so no current information was retrieved for this question. That is a data outage, not a finding that no information exists.`,
     };
   }
 
@@ -457,7 +484,7 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
   const read = entity && !wikiDown ? "Google News or Wikipedia" : "Google News";
   const wikiGap = entity && wikiDown ? " Wikipedia did not answer, so it was not checked." : "";
   return {
-    ...empty, verdict: "no_results", confidence: 0.4,
-    reason: `No current report${entity && !wikiDown ? " or encyclopedia article" : ""}${about} matching this question was found in ${read}, so no answer is given rather than an unrelated one. That is an absence in ${read === "Google News" ? "that source" : "those two sources"}, not proof that nothing has been published.${wikiGap}`,
+    ...empty, ...knownFields, verdict: "no_results", confidence: 0.4,
+    reason: `${knownLead}No current report${entity && !wikiDown ? " or encyclopedia article" : ""}${about} matching this question was found in ${read}${known ? "" : ", so no answer is given rather than an unrelated one"}. That is an absence in ${read === "Google News" ? "that source" : "those two sources"}, not proof that nothing has been published.${wikiGap}`,
   };
 }

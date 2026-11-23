@@ -7,14 +7,15 @@ import { alertAnswer, asksAlert, officialAlertAnswer, type AlertCheckResult } fr
 import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
 import { envelope } from "./envelope";
-import { pairsBrief, scoredFields } from "./intent-fields";
+import { fitPairs, scoredFields } from "./intent-fields";
 import { currentReceipt, installRecorder, readsSoFar, replayFromCache, withReceipt, type UpstreamRead } from "./receipt";
 import { MISSION_ROUTES, type MissionAnswer } from "./mission-routes";
 import { getForecast, type ForecastResult } from "./forecast";
 import { asksCurrentConditions, asksTemperatureNow, getCurrentConditions } from "./currentweather";
 import { temperatureThreshold, thresholdSentence } from "./threshold";
 import { geolocate, type GeoResult } from "./geo";
-import { extractContent, quotedPayload, requestedFields } from "./content";
+import { extractContent, fieldNames, namedFieldValues, quotedPayload } from "./content";
+import { modelFieldValues } from "./extract-model";
 import { getHeadlines } from "./news";
 import { searchNews, type NewsSearchResult } from "./newssearch";
 import { convert, normalizeCurrency, notAnFxQuestion, parseDate as parseFxDate, parseQuery as parseCurrency, type CurrencyResult } from "./currency";
@@ -242,17 +243,25 @@ const requestOf = new WeakMap<ServerResponse, { path: string; params: URLSearchP
  */
 export function withResearchBrief(q: string) {
   return async <T extends { verdict: string; reason: string; error?: string }>(r: T): Promise<T & { brief?: string; brief_basis?: string }> => {
-    if (r.error) return r;
+    // An index outage still gets a knowledge brief: Europe PMC took 6.5 s against a 6 s timeout and the scored brief
+    // read "Neither the trial registry nor the literature index answered." (production, 2026-11-23; RESEARCH_QUERY
+    // scored 0 in epochs 41 and 43). The answer still reports the outage.
+    const outage = r.error === "upstream_unavailable";
+    if (r.error && !outage) return r;
     // single_source: one study found; its quote alone served "rIIS additively extends late-life reproduction" for a
     // question about fasting and ageing in humans (production, 2026-11-22).
     const found = /^(?:evidence|synthesis|single_source|papers)$/.test(r.verdict);
     // With no study found the scored brief was empty (RESEARCH_SYNTHESIS `no_sources`, epoch 39). The answer still
     // says no study was found; the brief states established knowledge and says where it came from.
-    if (!found && !/^(?:no_evidence|no_sources|no_papers)$/.test(r.verdict)) return r;
+    if (!found && !outage && !/^(?:no_evidence|no_sources|no_papers)$/.test(r.verdict)) return r;
     const b = await researchBrief(q, r.reason, undefined, found).catch(() => null);
     if (!b) return r;
-    return { ...r, brief: b, brief_basis: found
+    // The answer leads with the direct sentence, as the leaders' do; it opened with a registered trial's title
+    // ("COVID-19 is the subject of one registered trial, NCT05972993, a Phase 1 study…", production 2026-11-23).
+    const reason = found ? `${b} ${r.reason}` : `${b} That is from general scientific knowledge. ${r.reason}`;
+    return { ...r, reason, brief: b, brief_basis: found
       ? "one sentence written by a language model (Groq) from the cited evidence, with general scientific knowledge where the evidence is indirect"
+      : outage ? "one sentence written by a language model (Groq) from general scientific knowledge: the trial registry and literature index did not answer"
       : "one sentence written by a language model (Groq) from general scientific knowledge: no study was retrieved for this question" };
   };
 }
@@ -1651,22 +1660,41 @@ function route(req: IncomingMessage, res: ServerResponse): void {
     const asked = fieldList ? `Extract ${fieldList}.` : "";
     const e = asked ? extractContent(asked, suppliedText || quotedPayload(q))
       : suppliedText ? extractContent(instruction, suppliedText) : extractContent(q);
-    // brief, as the schema asks: the values asked for as name: value pairs, at most 80 characters in all.
-    const pairs = (asked ? requestedFields(asked) : []).flatMap((n) => {
-      const v = e.fields[n.toLowerCase().replace(/\s+/g, "_")]?.[0];
-      return v ? [`${n}: ${v}`] : [];
-    });
-    sendAnswer(res, q, {
-      // The whole extraction is the answer. Its lead sentence alone dropped the dates and amounts that came
-      // after "Organization: … Place: …" (audit replay 2026-11-04, row 30).
-      answer: e.summary,
-      verdict: e.want,
-      extracted: e.fields,
-      ...(fieldList ? { fields_requested: fieldList } : {}),
-      confidence: 1,
-      reason: e.summary,
-      ...(pairs.length ? { brief: pairsBrief(pairs) } : {}),
-    });
+    // brief, as the schema asks: the values asked for as name: value pairs, at most 80 characters in all. The
+    // names are the `fields` parameter as sent. A model value the text bears out comes first (extract-model.ts);
+    // else the extraction's, else the field's own pattern.
+    const names = fieldList ? fieldNames(fieldList) : [];
+    const source = suppliedText || quotedPayload(q);
+    const byPattern = namedFieldValues(names, source);
+    const finish = (byModel: Array<string | null> | null): void => {
+      let modelled = 0;
+      const pairs = names.flatMap((n, i): Array<[string, string]> => {
+        const key = n.toLowerCase().replace(/\s+/g, "_");
+        const m = byModel?.[i] ?? null;
+        const v = m ?? e.fields[key]?.[0] ?? byPattern[i];
+        if (m) modelled++;
+        if (v && (m || !e.fields[key]?.length)) e.fields[key] = [v];
+        return v ? [[n, v]] : [];
+      });
+      // With a model value in it, the answer is the named fields themselves: the patterns' summary may say
+      // "No structured values could be extracted" about a text whose sentiment and rating were just read.
+      const named = pairs.map(([n, v]) => `${n.charAt(0).toUpperCase()}${n.slice(1)}: ${v}.`).join(" ");
+      const summary = modelled && named ? named : e.summary;
+      sendAnswer(res, q, {
+        // The whole extraction is the answer. Its lead sentence alone dropped the dates and amounts that came
+        // after "Organization: … Place: …" (audit replay 2026-11-04, row 30).
+        answer: summary,
+        verdict: e.want,
+        extracted: e.fields,
+        ...(fieldList ? { fields_requested: fieldList } : {}),
+        confidence: modelled ? 0.9 : 1,
+        reason: summary,
+        ...(names.length ? { method: modelled ? "patterns, and a model for fields the text bears out word for word" : "patterns" } : {}),
+        ...(pairs.length ? { brief: fitPairs(pairs) } : {}),
+      });
+    };
+    if (!names.length) { finish(null); return; }
+    modelFieldValues(names, source).then(finish, () => finish(null));
     return;
   }
 

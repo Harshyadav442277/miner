@@ -1,0 +1,28 @@
+/research "Does intermittent fasting improve insulin sensitivity?" 
+    {"s":200,"ms":6718,"verdict":"unavailable","brief":"Neither the trial registry nor the literature index answered.","err":"upstream_unavailable","ans":"Neither the trial registry nor the literature index answered, so no cited evidence on intermittent fasting improve insulin sensitivity could"}
+/research "What is the effect of microplastics on human health?" 
+    {"s":200,"ms":6652,"verdict":"unavailable","brief":"Neither the trial registry nor the literature index answered.","err":"upstream_unavailable","ans":"Neither the trial registry nor the literature index answered, so no cited evidence on What is the effect of microplastics on human health co"}
+/research "How effective are mRNA vaccines against COVID-19 hospitalization?" 
+    {"s":200,"ms":5062,"verdict":"evidence","brief":"mRNA vaccines markedly reduce COVID-19 hospitalization risk.","ans":"COVID-19 is the subject of one registered trial, NCT05972993, a Phase 1 study titled \"A Safety and Immune Response Study to Evaluate Varying"}
+/research "What are the main causes of coral reef bleaching?" 
+    {"s":200,"ms":6977,"verdict":"evidence","brief":"Rising sea temperatures from climate change are the main cause of coral.","ans":"The published evidence includes \"Assisted evolution of algal symbionts to enhance coral reef bleaching tolerance: A success story\" by Guiber"}
+/web-search "Who won the 2024 Nobel Prize in Physics?" 
+    {"s":200,"ms":1705,"verdict":"answered","brief":"John Hopfield and Geoffrey Hinton won the 2024 Nobel Prize in Physics.","ans":"John Hopfield and Geoffrey Hinton won the 2024 Nobel Prize in Physics."}
+/web-search "What is the latest stable version of Python?" 
+    {"s":200,"ms":307,"verdict":"answered","brief":"The latest stable Python release is 3.15.2, released on 25 October 2026 (the","ans":"The latest stable Python release is 3.15.2, released on 25 October 2026 (the 3.15 release cycle)."}
+/web-search "capital of Australia" 
+    {"s":200,"ms":3430,"verdict":"answered","brief":"They report on Reserve Bank of Australia tax modelling and that Australia’s.","ans":"They report on Reserve Bank of Australia tax modelling and that Australia’s coffee capital is not Melbourne."}
+/web-search "Ethereum Pectra upgrade date" 
+    {"s":200,"ms":2012,"verdict":"answered","brief":"The Ethereum Pectra upgrade is being discussed and explained.","ans":"The Ethereum Pectra upgrade is being discussed and explained, but they do not specify a date for the upgrade."}
+/event-outcome "Did Donald Trump win the 2024 US presidential election?" 
+    {"s":200,"ms":675,"verdict":"resolved","outcome":"yes","resolved_yes":true,"ans":"Resolved Yes: the Polymarket market \"Will Donald Trump win the 2024 US Presidential Election?\" has settled on Yes."}
+/event-outcome "Will Bitcoin reach $150,000 by December 31, 2026?" 
+    {"s":200,"ms":496,"verdict":"unresolved","outcome":"unresolved","resolved_yes":null,"ans":"Unresolved: the Polymarket market \"Will Bitcoin reach $150,000 by December 31, 2026?\" has not settled; trading is scheduled to close 2027-01"}
+/event-outcome "Did Real Madrid win the 2024 UEFA Champions League final?" 
+    {"s":200,"ms":538,"verdict":"resolved","outcome":"yes","resolved_yes":true,"ans":"Resolved Yes: the Polymarket market \"Will Real Madrid advance to the Round of 16 in the 2024-25 UEFA Champions League?\" has settled on Yes."}
+/event-outcome "Did the Federal Reserve cut interest rates in September 2024?" 
+    {"s":200,"ms":1082,"verdict":"recalled","outcome":"yes","resolved_yes":true,"ans":"Yes: The Federal Reserve cut rates by 25 basis points at its September 2024 meeting."}
+/chat "Explain the difference between TCP and UDP in two sentences." 
+    {"s":200,"ms":1139,"brief":"TCP gives reliable, ordered delivery; UDP is connectionless and best-effort.","ans":"TCP gives reliable, ordered delivery; UDP is connectionless and best-effort."}
+/chat "Will it rain on Mars tomorrow?" 
+    {"s":200,"ms":1748,"verdict":"Uncertain","brief":"Uncertain.","ans":"Uncertain."}

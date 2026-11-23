@@ -64,6 +64,8 @@ export function clip(text: string, n = 80): string {
   if (t.length <= n) return t;
   const at = t.slice(0, n + 1).lastIndexOf(" ");
   let out = (at > n / 4 ? t.slice(0, at) : t.slice(0, n)).replace(/[\s,;:(\-–—“‘]+$/, "");
+  // An opened, unclosed parenthesis is a fragment: "(the" (2026-11-23).
+  if (/\([^)]*$/.test(out) && out.lastIndexOf("(") > n / 4) out = out.slice(0, out.lastIndexOf("(")).replace(/[\s,;:\-–—]+$/, "");
   while (DANGLING.test(out)) out = out.replace(DANGLING, "");
   return out;
 }
@@ -80,6 +82,33 @@ export function pairsBrief(pairs: string[], n = 80): string {
     out = next;
   }
   return out || clip(pairs[0] ?? "", n);
+}
+
+/**
+ * Every requested field in at most `n` characters. Whole pairs with "; ", then with ";"; then the longest long value
+ * (over 18 characters) is cut at a word, so a date or an amount stays whole; whole pairs only as the last resort. "merchant, date, total" was briefed "merchant: Acme Supplies Ltd; date: March 12, 2026" with
+ * the total left out (epoch 43, 2026-11-23); the schema asks for "the values the request asks for". Pure.
+ */
+export function fitPairs(pairs: Array<[string, string]>, n = 80): string {
+  const ps = pairs.map(([k, v]) => [k, v.replace(/\s+/g, " ").replace(/;/g, ",").trim()] as [string, string]).filter(([, v]) => v);
+  const join = (sep = "; "): string => ps.map(([k, v]) => `${k}: ${v}`).join(sep);
+  // Tighter separators before any value is cut: cutting first served "job title: Senior Data" for "Senior Data
+  // Engineer", a wrong title (production, 2026-11-23, G358).
+  if (join().length <= n) return join();
+  if (join(";").length <= n) return join(";");
+  const tight = ps.map(([k, v]) => `${k}:${v}`).join(";");
+  if (tight.length <= n) return tight;
+  for (let guard = 0; guard < 40 && join(";").length > n; guard++) {
+    let i = -1;
+    ps.forEach(([, v], j) => { if (v.length > 18 && (i < 0 || v.length > ps[i]![1].length)) i = j; });
+    if (i < 0) break;
+    const v = ps[i]![1];
+    const target = Math.max(18, v.length - (join(";").length - n));
+    const cut = clip(v, target);
+    ps[i] = [ps[i]![0], cut.length < v.length && cut.length >= 4 ? cut : v.slice(0, target).trim()];
+  }
+  if (join(";").length <= n) return join(";");
+  return pairsBrief(ps.map(([k, v]) => `${k}: ${v}`), n);
 }
 
 /**
@@ -102,8 +131,12 @@ export function sentenceBrief(sentence: string, n = 80): string {
   const t = sentence.replace(/^(?:From|According to)\s[^:]{1,120}?:\s+/i, "").replace(/\s*\[\d{1,2}\]/g, "")
     .replace(/^["“]|["”]$/g, "").replace(/^["“]([^"”]+)["”]\s*$/, "$1").replace(/\s+/g, " ").trim();
   if (t.length <= n) return t;
-  const cut = clauseBrief(t, n);
-  return cut.length >= Math.min(45, n * 0.55) ? cut : clip(t, n);
+  // A parenthesis goes before any word: "…released on 25 October 2026 (the 3.15 release cycle)." was served as
+  // "…25 October 2026 (the" (production, 2026-11-23).
+  const bare = t.replace(/\s*\([^()]*\)/g, "").replace(/\s+([.,;:!?])/g, "$1").trim();
+  if (bare.length <= n && bare.split(/\s+/).length >= 4) return bare;
+  const cut = clauseBrief(bare, n);
+  return cut.length >= Math.min(45, n * 0.55) ? cut : clip(bare, n);
 }
 /** A headline with its publisher when both fit, else the headline alone. */
 const headline = (a: Body | undefined): string | null => {
@@ -190,7 +223,10 @@ const SCORED: Record<string, (b: Body) => Body> = {
   "/extract": (b) => {
     const ex = b.extracted && typeof b.extracted === "object" && !Array.isArray(b.extracted) ? (b.extracted as Record<string, unknown>) : {};
     const pairs = Object.entries(ex).filter(([, v]) => Array.isArray(v) && v.length).map(([k, v]) => `${k}: ${(v as unknown[]).join(", ")}`);
-    return { entities: Object.values(ex).flatMap((v) => (Array.isArray(v) ? v : [])), brief: pairs.length ? pairsBrief(pairs) : brief(b.reason) };
+    // The route's brief names the fields as asked; this one, built from every extracted key, overwrote it with
+    // internal keys such as "values:" (2026-11-23). It stands only when the route wrote none.
+    const own = str(b.brief);
+    return { entities: Object.values(ex).flatMap((v) => (Array.isArray(v) ? v : [])), brief: own ?? (pairs.length ? pairsBrief(pairs) : brief(b.reason)) };
   },
   // NEWS_HEADLINES_GENERAL
   "/headlines": (b) => ({ top_headline: (list(b.headlines)[0]?.title as string | undefined) ?? null }),

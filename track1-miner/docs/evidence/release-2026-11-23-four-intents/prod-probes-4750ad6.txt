@@ -1,0 +1,28 @@
+/research "Does intermittent fasting improve insulin sensitivity?" 
+    {"s":200,"ms":7330,"verdict":"unavailable","brief":"Yes, intermittent fasting has been shown to improve insulin sensitivity.","err":"upstream_unavailable","ans":"Yes, intermittent fasting has been shown to improve insulin sensitivity."}
+/research "What is the effect of microplastics on human health?" 
+    {"s":200,"ms":6918,"verdict":"evidence","brief":"The science on microplastics and human health is unclear.","ans":"The science on microplastics and human health is unclear."}
+/research "How effective are mRNA vaccines against COVID-19 hospitalization?" 
+    {"s":200,"ms":1142,"verdict":"evidence","brief":"mRNA vaccines markedly reduce COVID-19 hospitalization risk.","ans":"mRNA vaccines markedly reduce COVID-19 hospitalization risk."}
+/research "What are the main causes of coral reef bleaching?" 
+    {"s":200,"ms":7650,"verdict":"unavailable","brief":"Elevated sea temperatures cause corals to expel symbiotic algae.","err":"upstream_unavailable","ans":"Elevated sea temperatures cause corals to expel symbiotic algae."}
+/web-search "Who won the 2024 Nobel Prize in Physics?" 
+    {"s":200,"ms":2420,"verdict":"answered","brief":"John Hopfield and Geoffrey Hinton won the 2024 Nobel Prize in Physics.","ans":"John Hopfield and Geoffrey Hinton won the 2024 Nobel Prize in Physics."}
+/web-search "What is the latest stable version of Python?" 
+    {"s":200,"ms":513,"verdict":"answered","brief":"The latest stable Python release is 3.15.2, released on 25 October 2026.","ans":"The latest stable Python release is 3.15.2, released on 25 October 2026 (the 3.15 release cycle)."}
+/web-search "capital of Australia" 
+    {"s":200,"ms":1794,"verdict":"answered","brief":"Canberra is the capital of Australia.","ans":"Canberra is the capital of Australia."}
+/web-search "Ethereum Pectra upgrade date" 
+    {"s":200,"ms":2904,"verdict":"answered","brief":"The articles discuss what to know about and provide a guide to Ethereum’s.","ans":"The articles discuss what to know about and provide a guide to Ethereum’s Pectra upgrade."}
+/event-outcome "Did Donald Trump win the 2024 US presidential election?" 
+    {"s":200,"ms":682,"verdict":"resolved","outcome":"yes","resolved_yes":true,"ans":"Resolved Yes: the Polymarket market \"Will Donald Trump win the 2024 US Presidential Election?\" has settled on Yes."}
+/event-outcome "Will Bitcoin reach $150,000 by December 31, 2026?" 
+    {"s":200,"ms":539,"verdict":"unresolved","outcome":"unresolved","resolved_yes":null,"ans":"Unresolved: the Polymarket market \"Will Bitcoin reach $150,000 by December 31, 2026?\" has not settled; trading is scheduled to close 2027-01"}
+/event-outcome "Did Real Madrid win the 2024 UEFA Champions League final?" 
+    {"s":200,"ms":844,"verdict":"resolved","outcome":"yes","resolved_yes":true,"ans":"Yes: Real Madrid won the 2024 UEFA Champions League Final, which ended 2024-06-01."}
+/event-outcome "Did the Federal Reserve cut interest rates in September 2024?" 
+    {"s":200,"ms":663,"verdict":"resolved","outcome":"yes","resolved_yes":true,"ans":"Resolved Yes: the Polymarket market \"Fed decreases interest rates by 50+ bps after September 2024 meeting?\" has settled on Yes."}
+/chat "Explain the difference between TCP and UDP in two sentences." 
+    {"s":200,"ms":1674,"brief":"Answer: TCP is reliable and ordered; UDP is fast and connectionless.","ans":"TCP provides reliable, ordered delivery while UDP offers fast, connectionless transmission."}
+/chat "Will it rain on Mars tomorrow?" 
+    {"s":200,"ms":2395,"verdict":"Uncertain","brief":"Uncertain.","ans":"Uncertain."}

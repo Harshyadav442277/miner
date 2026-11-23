@@ -5,6 +5,18 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## 2026-11-23 — epoch 43 follow-ups (GAPS G354–G357)
+
+- [x] CONTENT_EXTRACTION: brief every field asked, money as the amount, model for uncovered fields (grounded).
+  Branch `PR/epoch-43-miner-improvements-5d425b`, 1084/1084 unit.
+- [x] Deployed `40b698f` 2026-11-23 (release-2026-11-23-extraction); model path verified on production (G355).
+- [x] G358 fixed, live in `36e4e13`.
+- [ ] Read CHAT, EVENT_OUTCOME, WEB_SEARCH, RESEARCH_QUERY in the next two epochs (release-2026-11-23-four-intents).
+- [ ] G359 recent facts in web search; G360 research latency; G361 event zeros.
+- [ ] Read CONTENT_EXTRACTION in the next two epochs after the deploy.
+- [ ] Next signature: drop "deterministic" and "nothing is fetched" from the `/extract` description (G355).
+- [ ] G356: find why RES lines are missing from the archive.
+
 ## 2026-11-22 — epochs 34–38 follow-ups (GAPS G345–G348)
 
 - [ ] Read the next FINANCIAL_DATA scoring call's REQ and RES lines (asset value, empty fields) and its score.

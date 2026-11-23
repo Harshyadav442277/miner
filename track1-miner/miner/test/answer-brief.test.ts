@@ -51,14 +51,18 @@ test("with no study found, the brief comes from general knowledge and the model 
   });
 });
 
-test("every research verdict that found or failed to find a study gets the model brief; an outage does not", async () => {
+test("every research verdict that found or failed to find a study gets the model brief, an outage too; other errors do not", async () => {
   const { withResearchBrief } = await import("../src/handler");
   await withModel(JSON.stringify({ brief: "Intermittent fasting has not been shown to slow human ageing" }), async () => {
     for (const verdict of ["evidence", "synthesis", "single_source", "papers", "no_sources", "no_evidence"]) {
       const r = await withResearchBrief("Does intermittent fasting slow ageing in humans?")({ verdict, reason: "x" });
       assert.equal(r.brief, "Intermittent fasting has not been shown to slow human ageing.", verdict);
     }
-    const down = await withResearchBrief("q")({ verdict: "unavailable", reason: "x", error: "upstream_unavailable" });
-    assert.equal(down.brief, undefined);
+    // Europe PMC timed out and the scored brief was the outage sentence (2026-11-23).
+    const down = await withResearchBrief("Does intermittent fasting slow ageing in humans?")({ verdict: "unavailable", reason: "x", error: "upstream_unavailable" });
+    assert.equal(down.brief, "Intermittent fasting has not been shown to slow human ageing.");
+    assert.match(String(down.brief_basis), /did not answer/);
+    const bad = await withResearchBrief("q")({ verdict: "unknown", reason: "x", error: "no_question" });
+    assert.equal(bad.brief, undefined);
   });
 });

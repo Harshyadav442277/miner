@@ -143,7 +143,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/ip-geolocate": ["ip-api", "ipinfo", "ipwhois"],
   "/translate": ["groq"],
   "/papers": ["doaj", "groq", "openalex"],
-  "/extract": [],
+  "/extract": ["groq"],
   "/headlines": ["google-news"],
   "/wallet-balance": ["1rpc", "chain-rpcs", "drpc", "ensideas", "flashbots", "merkle", "publicnode"],
   "/fact-check": ["groq", "tavily", "wikipedia"],
