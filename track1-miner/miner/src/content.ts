@@ -424,7 +424,8 @@ function fieldValue(name: string, source: string, pairs: Array<[string, string]>
   }
   if (/\bmerchant\b|\bvendor\b|\bstore\b|\bseller\b|\bcompany\b|\bbusiness\b|\bshop\b|\borgani[sz]ation\b|\bemployer\b|\bfirm\b/i.test(name)) {
     if (lead && lead.split(/\s+/).length <= 6) return { label, value: lead };
-    const org = entities(source).orgs[0];
+    // A month is not a company: "apply by Dec 15" briefed "company: Dec" (2026-11-23).
+    const org = entities(source).orgs.find((o) => !new RegExp(String.raw`^(?:${MONTHS})\.?$`, "i").test(o));
     return org ? { label, value: org } : null;
   }
   if (/\bsize\b|\bweight\b|\blength\b|\bduration\b|\bdisplay\b|\bscreen\b|\bstorage\b|\bmemory\b/i.test(name)) {

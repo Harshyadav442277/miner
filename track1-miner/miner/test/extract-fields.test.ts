@@ -33,6 +33,8 @@ test("every field asked for is briefed, and a money field is the amount (epoch 4
   assert.equal(invoice.brief, "merchant: Acme Supplies Ltd; date: March 12, 2026; total: $1,284.50");
   const flat = await request({ content: "Apartment for rent: 2 bedrooms, 1 bath, 850 sq ft, $2,100/month, available January 1, Brooklyn NY.", fields: "rent" });
   assert.equal(flat.brief, "rent: $2,100");
+  const job = await request({ content: "Job: Senior Data Engineer at Stripe, remote (US), salary $180k-$220k, apply by Dec 15.", fields: "company" });
+  assert.notEqual(job.brief, "company: Dec", "a month is not a company");
 });
 
 test("fitPairs cuts the longest long value before it drops a field", () => {
