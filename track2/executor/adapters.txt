@@ -1,0 +1,2 @@
+# FAMILY  commit-pinned package URL  sha256 of the file at that URL
+# One line per adapter we register. The family is also the URL path: https://<space>.hf.space/<FAMILY>

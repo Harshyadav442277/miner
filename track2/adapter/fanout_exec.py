@@ -10,6 +10,10 @@ agree, or the request fails with 502), and the input_root of the whole batch, co
 the node does (remote.BatchInputRoot). A chunk whose worker fails is retried on the others.
 
     python fanout_exec.py --listen 127.0.0.1:8090 --workers http://127.0.0.1:8081/,http://127.0.0.1:8082/
+
+One process can serve several adapters, one runnable URL per family (`https://host/<FAMILY>`):
+
+    python fanout_exec.py --route CONTRACT_OBLIGATION_AUDIT=http://127.0.0.1:8081/,http://127.0.0.1:8082/
 """
 import argparse
 import json
@@ -44,8 +48,9 @@ def post_any(workers, start, body):
     raise err
 
 
-def make_handler(workers, log_path):
-    pool = ThreadPoolExecutor(max_workers=len(workers))
+def make_handler(routes, log_path):
+    """routes maps a path's first segment ("" for any path) to that adapter's worker URLs."""
+    pool = ThreadPoolExecutor(max_workers=sum(len(w) for w in routes.values()))
 
     class Handler(BaseHTTPRequestHandler):
         def reply(self, status, body):
@@ -56,8 +61,16 @@ def make_handler(workers, log_path):
             self.end_headers()
             self.wfile.write(data)
 
+        def do_GET(self):
+            # A health page for uptime checks; it names the families served and nothing else.
+            self.reply(200, {"families": sorted(k for k in routes if k)})
+
         def do_POST(self):
             t0 = time.time()
+            name = self.path.split("?")[0].strip("/").split("/")[0].upper()
+            workers = routes.get(name) or routes.get("")
+            if not workers:
+                return self.reply(404, {"error": f"no adapter at /{name}"})
             n = int(self.headers.get("Content-Length") or 0)
             if n > MAX_BODY:
                 return self.reply(413, {"error": "body too large"})
@@ -90,7 +103,7 @@ def make_handler(workers, log_path):
                 # sizes and timing only: the texts are pool material, which we neither keep nor tune on
                 sizes = [len(t) for t in tokens if isinstance(t, list)]
                 with open(log_path, "a", encoding="utf-8") as f:
-                    f.write(json.dumps({"at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "items": len(items),
+                    f.write(json.dumps({"at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "route": name, "items": len(items),
                                         "max_tokens": max(sizes, default=0), "seconds": round(time.time() - t0, 1),
                                         **{key: body[key] for key in IDENTITY}}) + "\n")
             self.reply(200, body)
@@ -104,13 +117,19 @@ def make_handler(workers, log_path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--listen", default="127.0.0.1:8090")
-    ap.add_argument("--workers", required=True, help="comma-separated adapterexec URLs")
+    ap.add_argument("--workers", help="comma-separated adapterexec URLs, for any path")
+    ap.add_argument("--route", action="append", default=[], help="FAMILY=url,url: the workers for /FAMILY")
     ap.add_argument("--log", help="append each scored batch's size, timing and identity here (JSON lines)")
     a = ap.parse_args()
     host, port = a.listen.rsplit(":", 1)
-    workers = [w.strip() for w in a.workers.split(",") if w.strip()]
-    print(f"fanout: {len(workers)} workers on {a.listen}", flush=True)
-    ThreadingHTTPServer((host, int(port)), make_handler(workers, a.log)).serve_forever()
+    split = lambda v: [w.strip() for w in v.split(",") if w.strip()]
+    routes = {name.strip().upper(): split(urls) for name, urls in (r.split("=", 1) for r in a.route)}
+    if a.workers:
+        routes[""] = split(a.workers)
+    if not routes:
+        ap.error("give --workers or at least one --route")
+    print(f"fanout: {routes} on {a.listen}", flush=True)
+    ThreadingHTTPServer((host, int(port)), make_handler(routes, a.log)).serve_forever()
 
 
 if __name__ == "__main__":

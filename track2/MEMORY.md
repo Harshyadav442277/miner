@@ -8,7 +8,31 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-23 ~11:00 UTC (16:30 IST) · WE HOLD NOTHING; FINAL PLAN WRITTEN
+## CURRENT — 2026-11-23 ~11:10 UTC (16:40 IST) · EXECUTOR BUILT; CONTRACT LANE DATA PASSES; TRAINING QUEUED
+
+- **Owner, 2026-11-23:** "i am okay with the best option until it's free". The executor goes on a free Hugging Face
+  Docker Space ([executor/](executor/README.md)).
+  - Not yet created. It needs the owner's HF account under `hyadav42774@gmail.com` and a write token, saved as
+    `HF_TOKEN` in `C:\Users\hyada\tg-eval\.env.local`.
+  - The free tier sleeps after idle time, so the Space needs a keep-alive. This is unverified; add it once it exists.
+- **Executor:**
+  - `fanout_exec.py` now routes `/<FAMILY>` to each adapter's workers.
+  - Local rehearsal 2026-11-23 10:50 UTC (EVENT_OUTCOME package `0xc23ad1c6…`, 2 workers): `check_executor.py` PASS;
+    the router and a direct worker gave identical bits; an unknown family gives 404.
+  - The Linux cross-build of `adapterexec` compiles.
+  - The Docker image itself has not been built: there is no Linux Docker engine here.
+- **CONTRACT_OBLIGATION_AUDIT v1** ([adapter/contract_obligation_audit/](adapter/contract_obligation_audit/README.md)):
+  - 3,000 / 300 / 400 pairs + 278 probe; the kit dataset gate PASSES.
+  - `train_package.ps1` started at 10:56 UTC (pid 23956). It waits for the GPU, which another job outside
+    GPU.lock holds at 1.4 GB. Log: `tg-eval/runs-v2/coa_v1/chain.log`.
+- **Next (Claude):** when `chain.log` says `chain end`:
+  1. `harness/measure.py` on test and probe;
+  2. if it clears 85% held out / 70% per style, host the package at a pinned commit;
+  3. add it to `executor/adapters.txt`;
+  4. stand up the Space (owner's token).
+  Then CONTENT_MODERATION generator v1.
+
+## 2026-11-23 ~11:00 UTC (16:30 IST) · WE HOLD NOTHING; FINAL PLAN WRITTEN
 
 Branch `PR/evaluators-plan-2026-11-23`, cut from `085e06d`, the tip of this Track 2 lineage. Main's `track2/` is the
 Oct 31 version. Nothing was signed, registered or trained this session.
