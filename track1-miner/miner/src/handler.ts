@@ -243,17 +243,22 @@ const requestOf = new WeakMap<ServerResponse, { path: string; params: URLSearchP
  */
 export function withResearchBrief(q: string) {
   return async <T extends { verdict: string; reason: string; error?: string }>(r: T): Promise<T & { brief?: string; brief_basis?: string }> => {
-    if (r.error) return r;
+    // An index outage still gets a knowledge brief: Europe PMC took 6.5 s against a 6 s timeout and the scored brief
+    // read "Neither the trial registry nor the literature index answered." (production, 2026-11-23; RESEARCH_QUERY
+    // scored 0 in epochs 41 and 43). The answer still reports the outage.
+    const outage = r.error === "upstream_unavailable";
+    if (r.error && !outage) return r;
     // single_source: one study found; its quote alone served "rIIS additively extends late-life reproduction" for a
     // question about fasting and ageing in humans (production, 2026-11-22).
     const found = /^(?:evidence|synthesis|single_source|papers)$/.test(r.verdict);
     // With no study found the scored brief was empty (RESEARCH_SYNTHESIS `no_sources`, epoch 39). The answer still
     // says no study was found; the brief states established knowledge and says where it came from.
-    if (!found && !/^(?:no_evidence|no_sources|no_papers)$/.test(r.verdict)) return r;
+    if (!found && !outage && !/^(?:no_evidence|no_sources|no_papers)$/.test(r.verdict)) return r;
     const b = await researchBrief(q, r.reason, undefined, found).catch(() => null);
     if (!b) return r;
     return { ...r, brief: b, brief_basis: found
       ? "one sentence written by a language model (Groq) from the cited evidence, with general scientific knowledge where the evidence is indirect"
+      : outage ? "one sentence written by a language model (Groq) from general scientific knowledge: the trial registry and literature index did not answer"
       : "one sentence written by a language model (Groq) from general scientific knowledge: no study was retrieved for this question" };
   };
 }
