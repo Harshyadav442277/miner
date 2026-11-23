@@ -8,7 +8,25 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-23 ~23:10 UTC (04:40 IST Nov 24) · #217 PASSED 15/15; #218 REJECTED; #220 NEEDS REPLACING
+## CURRENT — 2026-11-23 ~23:55 UTC (05:25 IST Nov 24) · #221 EMAIL v1b REGISTERED; QUEUE ON train_queue.py
+
+- **#221 EMAIL_SECURITY (v1b, `0x35de4143…`)** was registered at 23:11 UTC with a live URL; #220 is deactivated. Its
+  executor is up (`executor-es3.out`); its pwsh supervisor died to the Ctrl+C, but the workers, router and tunnel
+  still serve.
+- **Post 1 (four-post thread) was posted by the owner on 2026-11-23.** The URL is not yet recorded; ask for it.
+- **The queue died a second time:** a console Ctrl+C hit every console-attached process at about 23:20 UTC.
+  - It now runs as `adapter/train_queue.py`, started by WMI. It ignores Ctrl+C and starts each lane in its own hidden
+    console and new process group (a no-console pwsh exits silently). It keeps the PC awake for 12 h.
+  - Runner 1: vt_v1, then sa_v1, fc_v1 and qa_v4 (rank 16, lr 3e-4, 4 epochs, contexts ≤ 900 characters). Runner 2:
+    cm_v3.
+- **qa_v3 FAILED the kit gate at 56.25%:** the loss barely moved. qa_v4 is the retry.
+- **cm_v3** ([generate_pairs_v3.py](adapter/content_moderation/generate_pairs_v3.py)): Aegis 2.0 requests
+  (Allow/Block), verdict-only JSON, and categories. The kit gate PASSES.
+- **Offline public-pair check:** `tg-eval/pairs/public15/{cm,ts,coa}.jsonl`, rebuilt from the decoded captures (first
+  answer = better). It reproduces the node to within 1 pair: cm_v2 6/15 against the node's 5/15, coa_v1 15/15. Use
+  it only to screen a version before signing; never train on it.
+
+## 2026-11-23 ~23:10 UTC (04:40 IST Nov 24) · #217 PASSED 15/15; #218 REJECTED; #220 NEEDS REPLACING
 
 - **The session restarted about 22:50 UTC and killed every executor and tunnel** (no reboot). The URLs of #210, #217 and
   #220 are dead.
