@@ -186,6 +186,8 @@ interface Token {
   totalSupply: string | null;
   decimals: number | null;
   listed: boolean;
+  /** Set when the count came from GeckoTerminal rather than the chain's Blockscout index. */
+  via?: "geckoterminal";
 }
 
 function toToken(r: TokenRecord): Token | null {
@@ -205,7 +207,7 @@ function toToken(r: TokenRecord): Token | null {
 }
 
 /** One token by contract address, on one chain. `null` is "no such token here". */
-export async function tokenByAddress(chain: string, address: string): Promise<Token | null | "unavailable"> {
+export async function tokenByAddress(chain: string, address: string, fallback = false): Promise<Token | null | "unavailable"> {
   const host = CHAINS[chain]?.host;
   if (!host) return null;
   try {
@@ -213,7 +215,30 @@ export async function tokenByAddress(chain: string, address: string): Promise<To
   } catch (e) {
     // A 404 is a real answer: this chain does not index that token. Anything
     // else is the index failing to answer, which is not the same thing (A5).
-    return /HTTP 404/.test(String(e)) ? null : "unavailable";
+    if (/HTTP 404/.test(String(e))) return null;
+    // Only for one named chain: GeckoTerminal's small quota also serves the symbol resolver (G217).
+    return (fallback ? await geckoToken(chain, address) : null) ?? "unavailable";
+  }
+}
+
+/**
+ * The holder count from GeckoTerminal's token info, when Blockscout does not answer. Base and Polygon Blockscout
+ * served a Cloudflare challenge page on 2026-11-23 (four `upstream_unavailable` answers in the hour before
+ * TOKEN_HOLDER_COUNT's epoch-45 scoring); GeckoTerminal answered for Base, Polygon and Ethereum USDC. Null when it
+ * holds no count.
+ */
+export async function geckoToken(chain: string, address: string): Promise<Token | null> {
+  const net = CHAINS[chain]?.gecko;
+  if (!net || !permitted(GECKO)) return null;
+  try {
+    const j = (await getJson(`${GECKO}/networks/${net}/tokens/${address.toLowerCase()}/info`)) as
+      { data?: { attributes?: { name?: string; symbol?: string; holders?: { count?: number | null } } } };
+    const a = j.data?.attributes;
+    const count = Number(a?.holders?.count);
+    if (!a || !Number.isFinite(count) || count <= 0) return null;
+    return { address, name: a.name ?? null, symbol: a.symbol ?? null, holders: count, totalSupply: null, decimals: null, listed: true, via: "geckoterminal" };
+  } catch {
+    return null;
   }
 }
 
@@ -443,7 +468,7 @@ export async function lookupHolders(question: string, requested?: HolderRequest)
     : Promise.resolve<number | null | "unavailable">(null);
 
   const found = await Promise.all(chains.map(async (chain) => {
-    if (address) return { chain, t: await tokenByAddress(chain, address) };
+    if (address) return { chain, t: await tokenByAddress(chain, address, chains.length === 1) };
     // Symbol first to an address: a listed major token from the table, anything
     // else through the fast resolver (G217: it allows 10 calls a minute and timed
     // out on production). Then the holder count by address, which is the call
@@ -452,7 +477,7 @@ export async function lookupHolders(question: string, requested?: HolderRequest)
     if (resolved === null || resolved === "unavailable" || resolved === "ambiguous") {
       return { chain, t: resolved };
     }
-    return { chain, t: await tokenByAddress(chain, resolved) };
+    return { chain, t: await tokenByAddress(chain, resolved, chains.length === 1) };
   }));
 
   const hits = found.filter((f) => f.t && f.t !== "unavailable" && f.t !== "ambiguous") as Array<{ chain: string; t: Token }>;
@@ -551,7 +576,7 @@ export async function lookupHolders(question: string, requested?: HolderRequest)
     holders: token.holders, top_holder_percent: concentration,
     verdict: "holder_count", confidence: 0.95,
     reason:
-      `${name} on ${label} has ${fmt(token.holders)} distinct holder addresses, read from the ` +
-      `chain's own transfer index at contract ${token.address}.${note}${tail}${spread}${missing}`,
+      `${name} on ${label} has ${fmt(token.holders)} distinct holder addresses, read from ` +
+      `${token.via === "geckoterminal" ? "GeckoTerminal's token index (the chain's Blockscout index did not answer)" : "the chain's own transfer index"} at contract ${token.address}.${note}${tail}${spread}${missing}`,
   };
 }

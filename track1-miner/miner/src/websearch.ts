@@ -33,7 +33,7 @@ import { currentFact } from "./currentfacts";
 import { findEventWinner, andList } from "./eventwinner";
 import { opening } from "./genai";
 import { phrase, sanitise } from "./llm";
-import { answerQuestion } from "./qa";
+import { citedAnswer } from "./qa";
 import { webBrief } from "./answer-brief";
 import { searchNews, type Article } from "./newssearch";
 import { findEncyclopedia, namedEntity } from "./research";
@@ -386,7 +386,7 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
   // introductions, the QUESTION_ANSWERING path: "What is the capital of
   // Australia?" was answered with two Commonwealth Bank headlines (2026-10-21).
   if (timeless(q)) {
-    const qa = await answerQuestion(q).catch(() => null);
+    const qa = await citedAnswer(q).catch(() => null);
     if (qa?.verdict === "answered") return { ...empty, sources: citedUrls(qa.reason, qa.citations ?? []), verdict: "answered", confidence: 0.8, reason: qa.reason };
   }
 

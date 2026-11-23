@@ -237,3 +237,32 @@ test("an ambiguous answer given because the model answered 429 is marked degrade
     resetPhraseState();
   }
 });
+
+test("a model reading that misses its 350 ms gets one longer second chance before the answer is ambiguous (epoch 46)", async () => {
+  const { resetPhraseState } = await import("../src/llm");
+  const real = globalThis.fetch;
+  let calls = 0;
+  process.env.GROQ_API_KEY = "test-key-not-real";
+  resetPhraseState();
+  globalThis.fetch = (async (input: string | URL, init?: { signal?: AbortSignal }) => {
+    const u = String(input);
+    if (!u.includes("api.groq.com")) return new Response("[]", { status: 200 }); // the relatedness index knows nothing
+    calls += 1;
+    const wait = calls === 1 ? 600 : 50;
+    await new Promise<void>((done, fail) => {
+      const t = setTimeout(done, wait);
+      init?.signal?.addEventListener("abort", () => { clearTimeout(t); fail(new DOMException("aborted", "AbortError")); });
+    });
+    return new Response(JSON.stringify({ choices: [{ message: { content: "astronomy|This news item is astronomy: it reports a telescope finding." } }] }), { status: 200 });
+  }) as unknown as typeof fetch;
+  try {
+    const r = await classifyText("", "Researchers report a faint signal in the cosmic microwave data", "politics,astronomy,cooking");
+    assert.equal(r.label, "astronomy");
+    assert.equal(r.verdict, "classified");
+    assert.ok(calls >= 2, `the model was asked again (${calls} calls)`);
+  } finally {
+    globalThis.fetch = real;
+    delete process.env.GROQ_API_KEY;
+    resetPhraseState();
+  }
+});

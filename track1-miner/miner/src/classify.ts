@@ -211,6 +211,18 @@ export async function classifyText(question: string, textParam = "", labelsParam
   const phrased = wantsMultiLabel(q) ? Promise.resolve(null) : phraseClassification(noun, text, labels).catch(() => null);
   /** A model was configured and asked, and gave no reading: a 429, a timeout or a refusal. */
   const missed = async (): Promise<boolean> => Boolean(process.env.GROQ_API_KEY) && !wantsMultiLabel(q) && (await phrased) === null;
+  /**
+   * The model's second chance, only when its 350 ms reading missed and the word list declined: two scoring calls at
+   * 22:28 UTC on 2026-11-23 answered `ambiguous error=degraded` with category null, and TEXT_CLASSIFICATION scored 0
+   * in epoch 46 after 0.996. The fast path keeps its latency; only this case waits up to 2.5 s more. Nothing is
+   * guessed from the word list (G244).
+   */
+  const secondReading = async (): Promise<ClassifyResult | null> => {
+    if (!(await missed())) return null;
+    const said = await phraseClassification(noun, text, labels, 2_500).catch(() => null);
+    return said ? { verdict: "classified", label: said.label, confidence: 0.6,
+      reason: `${said.reason} The word list alone did not separate the labels, so this rests on the model's reading.` } : null;
+  };
 
   if (labels.every((l) => SENTIMENT_LABELS.has(l.toLowerCase()))) {
     const s = analyseSentiment(`sentiment of this ${noun}`, text);
@@ -317,6 +329,8 @@ export async function classifyText(question: string, textParam = "", labelsParam
    */
   const margin = best ? best.score - (second?.score ?? 0) : 0;
   if (best && clear && !keylessLabelHolds(margin, Boolean(process.env.GROQ_API_KEY))) {
+    const again = await secondReading();
+    if (again) return again;
     return degrade(await missed(), {
       verdict: "ambiguous", label: null, confidence: 0.3,
       reason: `This ${noun} is ambiguous: its wording leans towards ${best.label}, but too weakly to choose a label from word relatedness alone, so none is guessed.${via}`,
@@ -368,6 +382,8 @@ export async function classifyText(question: string, textParam = "", labelsParam
         `respond and no label word appears in the text directly. That is a source outage, not a finding that the text fits none of them.`,
     };
   }
+  const again = await secondReading();
+  if (again) return again;
   const tied = ranked.filter((r) => best && r.score > 0 && r.score >= best.score / 1.5).map((r) => r.label);
   return degrade(await missed(), {
     verdict: "ambiguous", label: null, confidence: 0.2,
