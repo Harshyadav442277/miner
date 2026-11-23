@@ -8,7 +8,25 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-23 ~15:10 UTC (20:40 IST) · COA v1 READY TO SIGN AS A PROBE; v2s TRAINING
+## CURRENT — 2026-11-23 ~17:35 UTC (23:05 IST) · #210 REGISTERED (owner signed), CHECK EXPECTED 19–21 UTC
+
+- **#210 CONTRACT_OBLIGATION_AUDIT v1 was registered by the owner at 15:36 UTC.** Every field matches the sign block.
+  - It is `awaiting_seed_epoch`; expect the check around 19:00–21:00 UTC (G55).
+  - Its executor is still running (`tg-eval/executor-coa_v1.out`, pid file beside it). The capture folder is in the
+    logs path that file names.
+  - **When the check lands:**
+    1. decode the capture (`adapter/decode_capture.py`);
+    2. record the kinds of pair the pool holds;
+    3. score coa_v1 and coa_v2 offline on those texts;
+    4. then stop the executor.
+- **coa_v2 is not better** (G55): node runtime 76.75% test / 88.3% probe. Do not offer it for signing.
+- **ts_v2 data:** 8,193 real short bills (CC0, 116th–117th Congress) plus synthetic; the kit gate passes. Queued behind
+  cm_v2, which has been training since 16:20 UTC.
+- **ts_v1 on 400 real-bill pairs:** measuring at Idle priority (`runs-v2/ts_v1/measure-bills.json`).
+- **Comparators are retired by the node** (#199). The 422 question in ORGANISER_REPORT §1 is partly answered; update
+  it before sending.
+
+## 2026-11-23 ~15:10 UTC (20:40 IST) · COA v1 READY TO SIGN AS A PROBE; v2s TRAINING
 
 - **coa_v1:**
   - Kit 82.25%. Node runtime: test 322/400 = 80.5%; probe (unseen table style) 249/278 = 89.6%.

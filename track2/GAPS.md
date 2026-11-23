@@ -4,6 +4,31 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G55 — coa_v2 is not better than v1, the kit and the node disagree by 8 points, and #210 waits (2026-11-23) — `OPEN`
+
+- **coa_v2 compared with coa_v1.**
+  - coa_v2 has 4,500 pairs, about 600 generated names and status facts stated relative to the deadline.
+
+    | | Kit, own test | Node runtime, own test | Node runtime, probe |
+    |---|---|---|---|
+    | coa_v1 | 82.25% | 322/400 = 80.5% | 249/278 = 89.6% |
+    | coa_v2 | 85.0% | 307/400 = 76.75% | 234/265 = 88.3% |
+
+  - The two test sets are different files.
+  - **The weak kinds did not move:** party 38/62, status 11/26, deny 9/20, claim_absent 50/78. More names did not teach
+    party direction.
+- **Kit vs node gap:** 85.0% in the kit against 76.75% in the node runtime, on the same 400 pairs. coa_v1's gap was
+  1.75 points. The cause is unknown: possibly the checkpoint the kit evaluates against the one it exports, or a
+  rendering difference. Don't trust a kit number without the node-runtime one (A2).
+- **Comparators are retired:** #199 FX_NOW was deactivated with "Comparator modules are no longer accepted.
+  Deterministic intents are scored by the node's …".
+- **When the check comes:** registrations are checked about 2 h after the first epoch that ends after them:
+  - #207: registered 05:47, epoch ended 08:10, promoted 10:13;
+  - #209: registered 11:45, updated 17:15.
+
+  #210 was registered at 15:36 and still showed `awaiting_seed_epoch` at 17:11, after the 17:10:58 boundary. Expect
+  its check around 19:00–21:00 UTC; the executor must stay up until then.
+
 ## G54 — what the pools hold (from contributors' public comments), and the new Diamond (2026-11-23) — `OPEN`
 
 - **Pool contents.** These come from the contributors' own descriptions on `telegraphprotocol/bounties`, read
