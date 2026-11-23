@@ -1,0 +1,10 @@
+== /extract {"content":"Invoice #4471 from Acme Supplies Ltd, dated 12 March 2026. Total due: $1,284.50, payable by 11 April 2026.","fields":"merchant, date, total"}
+{"brief":"merchant: Acme Supplies Ltd; date: March 12, 2026; total: $1,284.50","method":"patterns","answer":"Merchant: Acme Supplies Ltd. Date: March 12, 2026. Total due: $1,284.50. Also: April 11, 2026.","lic":"unclear"}
+== /extract {"content":"Apartment for rent: 2 bedrooms, 1 bath, 850 sq ft, $2,100/month, available January 1, Brooklyn NY.","fields":"rent"}
+{"brief":"rent: $2,100","method":"patterns","answer":"Apartment for rent: $2,100. Also: January 1.","lic":"unclear"}
+== /extract {"content":"Flight BA117 departs London Heathrow at 08:25 on 4 Dec 2026, arriving New York JFK at 11:10. Gate B42.","fields":"flight number, departure time, gate"}
+{"brief":"flight number: BA117","method":"patterns","answer":"Flight number: BA117. Extracted from the supplied text: Dec 4, 2026.","lic":"unclear"}
+== /convert {"amount":"100","from":"USD","to":"EUR"}
+{"answer":"100.00 USD is 90.99 EUR at a rate of 1 USD = 0.9099 EUR, equivalently 1 EUR = 1.0990 USD.","lic":"licensed"}
+== /ssl-check
+{"answer":"The TLS/SSL certificate configuration for github.com is valid.","lic":"licensed"}

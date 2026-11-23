@@ -1,5 +1,15 @@
 # MEMORY.md — session continuity
 
+## 2026-11-23 ~12:00 UTC (17:30 IST): CURRENT — `40b698f` LIVE (`miner-mqhxx9oil`); PR #56 open, not merged
+
+- Production `dpl_AE3WL7EfDNqp7LYPLYJSiQrnd9Af` from `40b698f` (PR #56 head), owner's yes. Preflight 7/7, watch
+  6126 active. Rollback: `miner-pd9clrct7` (`5f28505`). Evidence: `track1-miner/docs/evidence/release-2026-11-23-extraction/`.
+- Live: CONTENT_EXTRACTION briefs every field, and a model reads fields the patterns miss, kept only when the text bears
+  them out. Checked on production (G355 closed).
+- Open: G358 (the fitter cuts "Senior Data Engineer" before trying tighter separators). Merge PR #56 after CI.
+- Next: read CONTENT_EXTRACTION in the next two epochs.
+- vercel.cmd drops everything after the first `&` in a URL: call the CLI through `node …\vercel\dist\vc.js`.
+
 ## 2026-11-23 ~11:00 UTC (16:30 IST): CURRENT — `5f28505` still LIVE; epoch 43 fixes on a branch, not deployed
 
 - Epoch 43: CONTENT_EXTRACTION 0 (top 0.999), WEATHER_CHECK 0.658, CRYPTO_PRICE 0.551 (rank 30 of 52; the top

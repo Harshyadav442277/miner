@@ -16,6 +16,11 @@
 - **G355 — The model path in `/extract` is unverified. `OPEN`.** It needs `GROQ_API_KEY`, which is on production
   only. Check after a deploy with a probe such as `fields=gate, departure time` on a flight sentence.
   The signed manifest calls `/extract` "deterministic" and says "nothing is fetched": fix that at the next signature.
+- **G355 — model path `VERIFIED` on production 2026-11-23 ~11:58 UTC** (`release-2026-11-23-extraction/prod-probes.txt`).
+  The description fix at the next signature is still open.
+- **G358 — The brief fitter cuts a long value before it tries tighter separators. `OPEN`, small.** Seen on production:
+  "job title, company, salary, deadline" gave `job title: Senior Data`, a wrong title. Fix: try ";" and ":" without
+  spaces before cutting, and cut only when nothing else fits. Needs a deploy.
 - **G356 — Most RES lines never reach `requests.jsonl`. `OPEN`.** 76 RES lines against 7,968 lines in all. Probably
   the CLI's JSON gives one row per invocation; not checked. Until fixed, a RES line cannot be relied on for a scored
   call.

@@ -1,0 +1,12 @@
+== {"content":"Flight BA117 departs London Heathrow at 08:25 on 4 Dec 2026, arriving New York JFK at 11:10. Gate B42.","fields":"flight number, departure time, gate"}
+{"brief":"flight number: BA117; departure time: 08:25; gate: B42","method":"patterns, and a model for fields the text bears out word for word","conf":0.9,"up":1}
+== {"content":"Invoice #4471 from Acme Supplies Ltd, dated 12 March 2026. Total due: $1,284.50, payable by 11 April 2026.","fields":"merchant, date, total"}
+{"brief":"merchant: Acme Supplies Ltd; date: 12 March 2026; total: $1,284.50","method":"patterns, and a model for fields the text bears out word for word","conf":0.9,"up":1}
+== {"content":"I absolutely loved this blender - smoothies in seconds! Only complaint is the noise. 4/5 stars.","fields":"sentiment, rating, complaint"}
+{"brief":"sentiment: positive; rating: 4/5; complaint: noise","method":"patterns, and a model for fields the text bears out word for word","conf":0.9,"up":1}
+== {"content":"Apple reported revenue of $94.9 billion for Q4 2026, up 6% year over year, CEO Tim Cook said.","fields":"company, revenue, growth, CEO"}
+{"brief":"company: Apple; revenue: $94.9 billion; growth: 6%; CEO: Tim Cook","method":"patterns, and a model for fields the text bears out word for word","conf":0.9,"up":1}
+== {"content":"Patient: John Doe, DOB 1980-04-12, blood type O+, allergic to penicillin.","fields":"name, date of birth, blood type, allergy"}
+{"brief":"name: John Doe; date of birth: 1980-04-12; blood type: O+; allergy: penicillin","method":"patterns, and a model for fields the text bears out word for word","conf":0.9,"up":1}
+== {"content":"Job: Senior Data Engineer at Stripe, remote (US), salary $180k-$220k, apply by Dec 15.","fields":"job title, company, salary, deadline"}
+{"brief":"job title: Senior Data; company: Stripe; salary: $180k-$220k; deadline: Dec 15","method":"patterns, and a model for fields the text bears out word for word","conf":0.9,"up":1}
