@@ -8,7 +8,28 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-23 ~20:25 UTC (01:55 IST Nov 24) · TS v1 + CM v2 READY TO SIGN; EMAIL + VULN LANES TRAINING
+## CURRENT — 2026-11-23 ~21:05 UTC (02:35 IST Nov 24) · 3 REGISTERED (#210 canonical, #217, #218); 5 MORE TRAINING
+
+- **Owner, 2026-11-24:** "just build them". The ban on intents LiveCert serves is lifted on disclosure and
+  score-down terms (ARCHITECTURE A7).
+- **GPU queue** (each waits on GPU.lock; the order is whoever polls first):
+
+  | Run | Family | Data | Kit gate |
+  |---|---|---|---|
+  | es_v1 | EMAIL_SECURITY | DoH JSON and headers | PASS |
+  | vt_v1 | VULNERABILITY_TRIAGE | CVSS, KEV, exposure | PASS |
+  | qa_v3 | QUESTION_ANSWERING | passage-grounded, SQuAD 2.0 train, CC BY-SA | PASS |
+  | sa_v1 | SENTIMENT_ANALYSIS | amazon_polarity, Apache-2.0; challenger to #207 at 83.3%, needs ≥ 85.3% | PASS |
+  | fc_v1 | FACT_CHECK | FEVER pairs from October | PASS (no probe set) |
+
+- **LiveCert self-check** for qa, sa and fc (A7 condition 2):
+  - 60 frozen queries each are in `tg-eval/captures/livecert-selfcheck-20261124/`; the capture with
+    `--only livecert` is running.
+  - Next: label LiveCert's answers against the `.truth.json` files, build pairs of right answer vs LiveCert's wrong
+    answer, and measure each adapter on them before offering it for signing.
+- **Memory:** 15.6 GB RAM. Run measurements only when an executor can be spared, and at Idle priority.
+
+## 2026-11-23 ~20:25 UTC (01:55 IST Nov 24) · TS v1 + CM v2 READY TO SIGN; EMAIL + VULN LANES TRAINING
 
 - **The owner signed both:**
   - **#217 TEXT_SUMMARIZATION** (ts_v1), at 20:17 UTC;
