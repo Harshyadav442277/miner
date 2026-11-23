@@ -49,3 +49,9 @@ test("a brief keeps whole pairs and clips only a first pair too long to fit", ()
   assert.equal(pairsBrief(["a: 1", "b: 2"]), "a: 1; b: 2");
   assert.equal(pairsBrief([`title: ${"word ".repeat(30)}`]).length <= 80, true);
 });
+
+test("tighter separators come before a cut value (G358)", () => {
+  const b = fitPairs([["job title", "Senior Data Engineer"], ["company", "Stripe"], ["salary", "$180k-$220k"], ["deadline", "Dec 15"]]);
+  assert.ok(b.length <= 80, b);
+  assert.match(b, /Senior Data Engineer/);
+});
