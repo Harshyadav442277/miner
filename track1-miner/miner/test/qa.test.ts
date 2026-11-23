@@ -105,3 +105,27 @@ test("context parsing stays fast on long, hostile passages", () => {
   assert.ok(Date.now() - t < 200, `took ${Date.now() - t} ms`);
   assert.equal(suppliedContext("What did it say?\nContext: Mars has two moons, Phobos and Deimos, both small and irregular.")?.question, "What did it say?");
 });
+
+test("a question Wikipedia does not answer gets a labelled general-knowledge answer; a supplied passage keeps not_in_sources (epoch 46)", async () => {
+  const { resetPhraseState } = await import("../src/llm");
+  const real = globalThis.fetch;
+  process.env.GROQ_API_KEY = "test-key-not-real";
+  resetPhraseState();
+  globalThis.fetch = (async (input: string | URL) => {
+    const u = String(input);
+    if (u.includes("api.groq.com")) return new Response(JSON.stringify({ choices: [{ message: { content: "Water boils at 100 degrees Celsius at sea level" } }] }), { status: 200 });
+    return Response.json({ query: { search: [] }, pages: [] }); // Wikipedia finds nothing
+  }) as unknown as typeof fetch;
+  try {
+    const r = await answerQuestion("At what temperature does water boil at sea level in Celsius?");
+    assert.equal(r.verdict, "answered");
+    assert.equal(r.method, "model_general_knowledge");
+    assert.match(r.reason, /^Water boils at 100 degrees Celsius at sea level\. This answer is from a language model's general knowledge/);
+    const passage = await answerQuestion("Context: Mars has two moons, Phobos and Deimos, both small.\nQuestion: Who discovered the moons of Mars?");
+    assert.notEqual(passage.method, "model_general_knowledge");
+  } finally {
+    globalThis.fetch = real;
+    delete process.env.GROQ_API_KEY;
+    resetPhraseState();
+  }
+});
