@@ -1,4 +1,4 @@
-# LiveCert, Miners / Providers: submission pack (rules §08), draft of 2026-11-17
+# LiveCert, Miners / Providers: submission pack (rules §08), draft of 2026-11-17, facts corrected 2026-11-24
 
 The deadline is Dec 1, 2026, 23:59 UTC (Dec 2, 05:29 IST). The owner submits through the H2 website; Claude drafts.
 Every figure here comes from a dated evidence file. Re-read each figure, and replace any older than a week, on the
@@ -9,9 +9,9 @@ day of submission.
 | Field | Value |
 |---|---|
 | Track | Miners / Providers |
-| Project | LiveCert, miner id 4433, slug `livecert`, registration **5292** (YAML `04c0e9f`; active at 18:29 UTC Nov 16, then missing after the devnode re-index of Nov 17, GAPS G325; re-check before submitting) |
+| Project | LiveCert, miner id 4433, slug `livecert`, registration **6126** (manifest `f47f018`; active per `GET /api/miners/6126` and the release watch at 2026-11-23 23:24 UTC; 5292 is superseded; re-check before submitting) |
 | Endpoint | `https://miner-wine.vercel.app` (`/status` gives the release; `docs/openapi.json` describes every route) |
-| Intents | 44: `GET https://devnode.telegraphprotocol.com/api/miners/5292` → `supported_intents` |
+| Intents | 44: `GET https://devnode.telegraphprotocol.com/api/miners/6126` → `supported_intents` |
 | Missions | The intents touch all 15 missions (`track1-miner/docs/evidence/track1-diagnosis-2026-11-17/missions/matrix.json`) |
 | Wallet | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` (fee and miner address) |
 | GitHub user that starred `telegraphprotocol/bounties` | Owner to confirm the star before submitting |
@@ -55,11 +55,12 @@ curl "https://miner-wine.vercel.app/dns?domain=example.com&type=A"
 
 | What | Where |
 |---|---|
-| Per-intent standing with ranks, epochs and ties | `track1-miner/docs/evidence/track1-diagnosis-2026-11-17/before/intent-table.md`; after-table due once 5292 is scored |
+| Per-intent standing with ranks, epochs and ties | `track1-miner/docs/evidence/track1-diagnosis-2026-11-17/before/intent-table.md`; refresh from `/scores?intent=` for 6126 on submission day |
 | Availability and latency per endpoint | `…/track1-diagnosis-2026-11-17/availability.md`: 99.76% of 1,653 calls, 45 sweeps |
 | Capacity | `…/capacity-ssl-c10-60s.json`: 10 callers, 60 s, 1,691 requests, 0 errors |
-| Releases and gates | `track1-miner/docs/evidence/release-*/README.md` (latest: `release-2026-11-16-federal-register`) |
-| Registration | `GET /api/miners/5292` |
+| Releases and gates | `track1-miner/docs/evidence/release-*/README.md` (latest: `release-2026-11-24-transient-zeros`) |
+| Registration | `GET /api/miners/6126` |
+| Paid usage, 1–4 Nov (network, not app-attributed) | 385 user signals; 341 Sepolia receipts, each a 0.01 test-USDC payer-to-Diamond transfer, 3.41 test USDC in all; 15 known payer wallets (Codex re-check, `docs/CODEX_AUDIT_2026-11-22_RESPONSE.md` on `codex/rank1-14-intents`) |
 | Consumption (H2 mission apps) | **None verified yet.** Collect app, operator, request id, Miner–Intent pair and receipt for each |
 
 ## 05 Public summary (draft, about 120 words)
@@ -67,8 +68,9 @@ curl "https://miner-wine.vercel.app/dns?domain=example.com&type=A"
 > LiveCert is a Telegraph miner that sells checkable answers across 44 intents, from sanctions screening and SEC or
 > Federal Register filings to gas prices, DNS and CVE scores. Every answer starts with the direct answer, then the
 > scored value under the intent's own field name, then a receipt of the primary sources it read, so an app or a
-> reviewer can re-check it. Where a source forbids resale, LiveCert refuses rather than resells. It is live at
-> miner-wine.vercel.app and registered on the Telegraph devnode (registration 5292). Try it with the curl lines in
+> reviewer can re-check it. Each source's terms are recorded in a public ledger, and a licence gate refuses the
+> sources that bar resale for a commercial deployment; on this testnet deployment the gate is off. It is live at
+> miner-wine.vercel.app and registered on the Telegraph devnode (registration 6126). Try it with the curl lines in
 > the README. Integration recipes for each mission are in docs/INTEGRATE_LIVECERT.md. Issues and reproduction
 > reports are welcome on GitHub.
 
