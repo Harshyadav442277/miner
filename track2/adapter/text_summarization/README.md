@@ -52,7 +52,36 @@ texts are from them.
 python -I generate_pairs.py --tokenizer C:/Users/hyada/tg-eval/foundation/tokenizer.json --out C:/Users/hyada/tg-eval/pairs/ts_v1
 ```
 
+## v2 (2026-11-23): real bills added
+
+The pool is described as mostly short 118th-Congress bills and NASA press releases (GAPS G54).
+
+**Source.** [filter_bills.py](filter_bills.py) streamed `dreamproit/bill_summary_us` (CC0; govinfo texts; 125,246 rows,
+never stored) and kept 8,193 short 116th–117th Congress bills with their CRS summaries. The file is
+`tg-eval/data/bills/short.jsonl`, sha256 `ffd9fec6…0f70f`. None is from the 118th Congress, so none can be a pool
+bill.
+
+**Pairs** ([bill_pairs.py](bill_pairs.py)):
+- **Better answer:** the CRS summary of that bill.
+- **Worse answer:** the same summary with one unsupported claim, checked against the bill text: a number changed to
+  one in neither text, an agency or official the bill never names, a flipped duty, or a sentence from another bill's
+  summary.
+- **Splits:** a fixed fifth of bills is test-only. `bills_test.jsonl` (400 pairs) measures ts_v1 on real text.
+
+**Kit dataset gate on ts_v2** (4,000 pairs, about half of them bills): **PASS**.
+
+| Check | Value |
+|---|---|
+| Unique negatives | 99.2% |
+| Length shortcut | 61.1% |
+| Leak | 0.7% |
+| Bag-of-words probe | 60.2% |
+
 ## Training and results
+
+- **ts_v1** (synthetic only): kit 100% on its own synthetic test, which is meaningless. Stage 1 PASS, keccak
+  `0x3f3ad908…ead5`. Not yet measured on `bills_test`.
+- **ts_v2** was queued at 16:02 UTC behind cm_v2.
 
 `../train_package.ps1 -Intent TEXT_SUMMARIZATION -Run ts_v1 -Pairs ts_v1 -BatchSize 1 -GradAccum 16` was queued at
 ~12:42 UTC, third on GPU.lock. No results yet.
