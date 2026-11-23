@@ -1,5 +1,14 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-23 ~23:30 UTC (2026-11-24 IST) — epochs 45–46 read; G354 new
+
+- **TEXT_CLASSIFICATION, QUESTION_ANSWERING, TOKEN_HOLDER_COUNT zeros: `FIXED` in `8a631d5`** (release record).
+- **G354 — The request archive keeps few RES lines. `OPEN`.** 303 of about 11,000 archived lines are RES, so the answers
+  behind RESEARCH_QUERY, EVENT_OUTCOME and CODE_REVIEW's zeros were not recorded. Fix: have `archive-requests.mjs` keep
+  each line of a log entry.
+- **NEWS_HEADLINES 0 in epoch 45:** Google News answered `upstream_unavailable` at 20:01 UTC. The source is G326.
+
+
 ## 2026-11-23 ~12:50 UTC (18:20 IST) — four-intent release `36e4e13`; G358 fixed; G359–G361 new
 
 Record: `track1-miner/docs/evidence/release-2026-11-23-four-intents/`. Faults were found by probing production, not

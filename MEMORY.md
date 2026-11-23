@@ -1,5 +1,16 @@
 # MEMORY.md — session continuity
 
+## 2026-11-23 ~23:30 UTC (2026-11-24 05:00 IST): CURRENT — `8a631d5` LIVE (`miner-3udefsmw1`); main = production
+
+- Owner: "take the decision as per your recommendation. all i want is to win". PR #56 (the other session's `36e4e13`)
+  and #57 merged. Production `dpl_iBtj3VqNELw7JMhhLRQqpSJeN82K`; 44/44 intent answers with the updated gate; watch active.
+  Rollback: `miner-1by7eu4j6` (`36e4e13`). Evidence: `track1-miner/docs/evidence/release-2026-11-24-transient-zeros/`.
+- SUBMISSION_PACK.md facts corrected: registration 6126, the licence-gate wording (LICENCE_GATE unset in Production),
+  and the paid-usage figures Codex verified. The owner submits by Dec 1 23:59 UTC (Dec 2 05:29 IST).
+- Next: read epochs 47+; RESEARCH_QUERY, EVENT_OUTCOME and CODE_REVIEW zeros need their RES lines (the archiver keeps
+  few); news source decision (G326) is the owner's.
+
+
 ## 2026-11-23 ~12:50 UTC (18:20 IST): CURRENT — `36e4e13` LIVE (`miner-1by7eu4j6`); PR #56 open, not merged
 
 - Owner: "highly focus on chat completion, event outcome, web general, research query" and "deploy everything
