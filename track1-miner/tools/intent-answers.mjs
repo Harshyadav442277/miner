@@ -682,7 +682,17 @@ const CHECKS = {
     const r = await get("/token-holders", { query: `How many addresses hold the token ${USDC_BASE} on base?` });
     const b = r.body;
 
-    if (!providerUp) {
+    if (!providerUp && b.verdict === "holder_count") {
+      // Since 2026-11-24 a challenged Blockscout falls back to GeckoTerminal for one named chain. Then the answer must
+      // name GeckoTerminal and match GeckoTerminal's own count within 1% (both move as transfers land).
+      if (!/GeckoTerminal/.test(String(b.reason ?? ""))) bad.push("a count served during a Blockscout outage does not name GeckoTerminal");
+      try {
+        const g = await fetch(`https://api.geckoterminal.com/api/v2/networks/base/tokens/${USDC_BASE.toLowerCase()}/info`, { signal: AbortSignal.timeout(20000) });
+        const want = Number((await g.json())?.data?.attributes?.holders?.count);
+        const got = Number(b.holders_count ?? b.holders);
+        if (Number.isFinite(want) && want > 0 && !(Math.abs(got - want) / want <= 0.01)) bad.push(`holders ${got} vs GeckoTerminal ${want}`);
+      } catch { /* GeckoTerminal itself did not answer: the source-naming check above still holds */ }
+    } else if (!providerUp) {
       // The only thing gradeable during an outage: we must say it is an outage
       // and must not claim the token has no holders.
       if (b.error !== "upstream_unavailable") {
