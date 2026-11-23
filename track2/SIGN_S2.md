@@ -29,6 +29,36 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
+### Ready to sign: CONTRACT_OBLIGATION_AUDIT v1, an information-buying probe (2026-11-23 ~15:05 UTC)
+
+**What it is.** v1 scores 80.5% held out in the node runtime. That is under our own 85% bar, so this is registered as
+a disclosed probe under A7's probe rule. It may well be rejected. What we get either way:
+- the node sends our executor its 15 public pairs, and the executor keeps them;
+- v2, training now, can then be scored against what the pool really asks.
+
+If v1 orders 11 of 15 correctly and wins ≥ 70% on the hidden sample, it takes the empty seat.
+
+**Where:** https://anjoman.ai/dashboard/eval → publish for evaluation. Sign in as `hyadav42774@gmail.com` with wallet
+`0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`.
+
+| Field | Value |
+|---|---|
+| Binary link | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/4298d6d3705969675e0214a960855a3cc00dd3c8/season2/adapter/CONTRACT_OBLIGATION_AUDIT/v1/CONTRACT_OBLIGATION_AUDIT.safetensors` |
+| keccak256 Anjoman should show | `0xbf759737f604b1dfd4fbadd07da86271c478d82d97fa9c30e22b5f1b52b160e8` |
+| Family | `CONTRACT_OBLIGATION_AUDIT` |
+| Fee address | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
+| Runnable endpoint URL | the URL printed in `C:\Users\hyada\tg-eval\executor-coa_v1.out`, valid only while that executor runs. At 15:04 UTC it was `https://scheduling-guarantees-romance-spend.trycloudflare.com/CONTRACT_OBLIGATION_AUDIT` |
+
+**Checks already run:**
+- the hosted file's keccak matches (HTTP 200, no redirect);
+- Stage 1 passed;
+- `check_executor.py` PASS through the public URL.
+
+**After signing:**
+- **Bond:** paid in test USDC on the new Diamond `0x72a70e94…a08b`, at most 1 USDC. The wallet holds 72.57.
+- **Keep the laptop on, lid open.** Leave the executor running until Claude reports the registration past the remote
+  check: about 1 hour of epoch wait plus minutes of checks.
+
 ### Not ready yet (Claude brings each one with exact values)
 
 6. **Adapter registrations, about one a day.** Three adapters are trained or queued: CONTRACT_OBLIGATION_AUDIT,

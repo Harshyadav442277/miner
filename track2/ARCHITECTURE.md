@@ -98,3 +98,16 @@ so point 1 could never pass. From today the registration gate is:
 
 A real-answer holdout, where one exists, is still measured and reported, but it no longer gates. We evaluate no
 intent that LiveCert serves.
+
+**Probe rule (2026-11-23).** A version below the point-3 bar may be registered once per family as a disclosed
+**information-buying probe**. The owner is told it may well be rejected. It is allowed only when all of these hold:
+
+- the kit gate passes;
+- Stage 1 passes;
+- the hosted keccak matches;
+- the executor captures the node's batch (`fanout_exec.py --capture`), so the probe returns the public pairs;
+- the bond budget allows it. Since the 2026-11-17 Diamond, bonds are at most 1 test USDC, and the wallet held
+  72.57 on 2026-11-23.
+
+The captured texts name the kinds of pair the pool holds and score later versions offline. They are never training
+rows. A probe that takes the seat is a result, not a reason to skip the bar for the next version.

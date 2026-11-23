@@ -4,6 +4,26 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G54 — what the pools hold (from contributors' public comments), and the new Diamond (2026-11-23) — `OPEN`
+
+- **Pool contents.** These come from the contributors' own descriptions on `telegraphprotocol/bounties`, read
+  2026-11-23. The rows themselves are not public, and none is used.
+  - **#166, CONTENT_MODERATION:** zkasuran uploaded 120 rows. Each asks whether "an exact supplied discussion comment
+    is Safe or Flagged under a stated discussion-toxicity policy", labelled from unanimous Wikipedia Talk annotations.
+    Other contributors uploaded 20 and 5 rows.
+  - **#146, TEXT_SUMMARIZATION:** zkasuran uploaded about 187 rows: short 118th-Congress bills, plus two-sentence
+    summaries of 2024 NASA press releases. Another contributor uploaded 11 Wikipedia and LLM-drafted rows.
+  - **CONTRACT_OBLIGATION_AUDIT:** no description has been found yet.
+  - cm_v2 follows the moderation form. ts_v1 is synthetic; a real-genre check (117th-Congress bills, NASA releases,
+    both public domain) is still owed.
+- **New Diamond (docs `/protocol/addresses-and-params`, updated 2026-11-19):** `0x72a70e949362670Bf8bceAd24eFC5b8f950aa08b`
+  replaces `0x3624…b99b` from 2026-11-17.
+  - Bonds are paid in test USDC `0xcc194e1a…Ae17`; `machinaToken()` is zero.
+  - `entityBonds()` = 0.1 / 1.0 / 0.1 USDC.
+  - The wallet holds 1.316 Sepolia ETH and 72.57 test USDC (`cast`, 2026-11-23).
+  - The repo CLAUDE.md commands still name the old Diamond: update before using them.
+- **Unknown:** whether a rejected adapter's bond is returned on the new Diamond.
+
 ## G53 — registry state 2026-11-23 and the unknowns behind the final plan — `OPEN`
 
 Read 2026-11-23 10:27 UTC, epoch 43: `/api/wasm` (66 families, 215 registrations) and `/api/evalpool/status` per family.

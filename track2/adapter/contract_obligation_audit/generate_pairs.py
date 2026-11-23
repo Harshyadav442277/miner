@@ -141,7 +141,11 @@ def synthetic_pair(rng, split, styles):
         d = next((o["due"] for o in c["obligations"] if o["kind"] == "deliver"), None)
         if d and rng.random() < 0.65:
             facts["delivered"] = min(as_of, d + synth.dt.timedelta(days=rng.randrange(-20, 25)))
-            said.append(f"delivery was made on {synth.date_text(facts['delivered'])}")
+            gap = (facts["delivered"] - d).days
+            # v2: half the time the fact is also stated against the deadline, so no date arithmetic is needed
+            rel = ("" if rng.random() < 0.5 else
+                   f" ({abs(gap)} days {'after' if gap > 0 else 'before'} the delivery date)" if gap else " (on the delivery date)")
+            said.append(f"delivery was made on {synth.date_text(facts['delivered'])}{rel}")
         elif d:
             said.append("nothing has been delivered")
         if rng.random() < 0.5:
@@ -245,7 +249,7 @@ def build(n, seed, split, cuad, tok, styles):
     docs = cuad_index(cuad, split)
     rows, seen = [], set()
     while len(rows) < n:
-        r = cuad_pair(rng, docs) if rng.random() < 0.4 else synthetic_pair(rng, split, styles)
+        r = cuad_pair(rng, docs) if rng.random() < 0.45 else synthetic_pair(rng, split, styles)
         if not r or r["chosen"] == r["rejected"] or r["prompt"] in seen:
             continue
         lens = [len(tok.encode(f"### Task:\n{r['prompt']}\n\n### Answer:\n{r[k]}").ids) for k in ("chosen", "rejected")]
@@ -261,7 +265,7 @@ def main():
     ap.add_argument("--cuad", required=True)
     ap.add_argument("--tokenizer", required=True)
     ap.add_argument("--out", required=True)
-    ap.add_argument("--n", type=int, default=3000)
+    ap.add_argument("--n", type=int, default=4500)
     a = ap.parse_args()
     from tokenizers import Tokenizer
     tok = Tokenizer.from_file(a.tokenizer)

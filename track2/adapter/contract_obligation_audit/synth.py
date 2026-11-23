@@ -13,6 +13,13 @@ import random
 PREFIX = ["Acme", "Birch", "Cobalt", "Delta", "Ember", "Fjord", "Granite", "Harbor", "Iris", "Juniper", "Keystone",
           "Lumen", "Maple", "Nimbus", "Orchid", "Pioneer", "Quarry", "Redwood", "Summit", "Tidal", "Umber", "Vertex",
           "Willow", "Xenon", "Yarrow", "Zephyr", "Alder", "Basalt", "Cedar", "Dune", "Elm", "Flint", "Garnet", "Hazel"]
+# v2: about 600 generated names, so party direction is learned rather than a few names memorised.
+HEADS = ["Al", "Bri", "Cor", "Dal", "Eve", "Fen", "Gor", "Hal", "Ivo", "Jas", "Kel", "Lor", "Mar",
+         "Nor", "Ost", "Pel", "Quen", "Ros", "Sil", "Tor", "Ul", "Val", "Wex", "Yor", "Zan"]
+TAILS = ["ton", "vex", "mark", "ridge", "wave", "line", "stone", "field", "core", "nova", "gate",
+         "wood", "bay", "crest", "forge", "haven", "point", "brook", "dale", "stream", "works", "peak",
+         "light", "well"]
+NAMES = PREFIX + [h + t for h in HEADS for t in TAILS]
 SUFFIX = ["Ltd", "Corp", "GmbH", "LLC", "Inc.", "S.A.", "Pty Ltd", "B.V.", "plc", "Holdings"]
 ITEMS = ["steel brackets", "server racks", "LED panels", "pallets of flour", "laptops", "solar inverters",
          "safety helmets", "printed manuals", "copper cables", "office chairs", "water filters", "lithium cells",
@@ -52,7 +59,7 @@ def money(rng):
 
 
 def new_contract(rng, split):
-    names = [p for p in PREFIX if in_split(p, split)]
+    names = [p for p in NAMES if in_split(p, split)]
     items = [i for i in ITEMS if in_split(i, split)]
     a, b = rng.sample(names, 2)
     a, b = f"{a} {rng.choice(SUFFIX)}", f"{b} {rng.choice(SUFFIX)}"

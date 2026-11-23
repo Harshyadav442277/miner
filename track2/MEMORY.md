@@ -8,7 +8,34 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-23 ~11:10 UTC (16:40 IST) · EXECUTOR BUILT; CONTRACT LANE DATA PASSES; TRAINING QUEUED
+## CURRENT — 2026-11-23 ~15:10 UTC (20:40 IST) · COA v1 READY TO SIGN AS A PROBE; v2s TRAINING
+
+- **coa_v1:**
+  - Kit 82.25%. Node runtime: test 322/400 = 80.5%; probe (unseen table style) 249/278 = 89.6%.
+  - Weak kinds: party swap 52/78 (all misses on test-only names); status 9/21; CUAD claim_absent 40/63, deny 12/21.
+  - Evidence: `tg-eval/runs-v2/coa_v1/measure.json`.
+  - Hosted at `telegraph-factscore` branch `season2-adapters-v3` commit `4298d6d`. The keccak `0xbf759737…60e8` matches
+    the URL.
+- **The probe rule was added to A7 on advice:** register below the bar once, as a disclosed information-buying
+  attempt, only with capture on.
+  - `fanout_exec.py --capture` and `decode_capture.py` were proved end to end at 14:14 UTC.
+  - `run_local.ps1` keeps the PC from idle sleep while it runs.
+- **The executor for coa_v1 is RUNNING detached** (pid in `tg-eval/executor-coa_v1.pid`, URL in
+  `tg-eval/executor-coa_v1.out`); it was checked PASS at 15:04 UTC. The sign block is at the top of SIGN_S2.md.
+  - Stop it only after `/api/wasm` shows the registration past the remote check, or when the owner declines.
+- **Bonds are test USDC on the new Diamond** (G54). The budget is not a constraint.
+- **GPU queue:**
+  - ts_v1 is done: kit 100% (synthetic, meaningless), Stage 1 PASS, keccak `0x3f3ad908…ead5`. Not measured on real
+    text.
+  - coa_v2 is training: 4,500 pairs, ~600 generated names, status stated relative to the deadline, CUAD 45%.
+  - cm_v2 is queued: Civil Comments + Wikipedia Talk, Safe/Flagged policy prompts.
+  - cm_v1 was stopped at step 10 (superseded), and its lock removed.
+- **Next:**
+  1. when the owner signs, watch `/api/wasm` for the registration and decode the capture;
+  2. measure coa_v2 and cm_v2;
+  3. build the TEXT_SUMMARIZATION real-genre holdout (117th-Congress bills via govinfo, NASA releases).
+
+## 2026-11-23 ~11:10 UTC (16:40 IST) · EXECUTOR BUILT; CONTRACT LANE DATA PASSES; TRAINING QUEUED
 
 - **Owner, 2026-11-23:** "i am okay with the best option until it's free". The executor goes on a free Hugging Face
   Docker Space ([executor/](executor/README.md)).

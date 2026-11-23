@@ -48,7 +48,7 @@ def post_any(workers, start, body):
     raise err
 
 
-def make_handler(routes, log_path):
+def make_handler(routes, log_path, capture_dir=None):
     """routes maps a path's first segment ("" for any path) to that adapter's worker URLs."""
     pool = ThreadPoolExecutor(max_workers=sum(len(w) for w in routes.values()))
 
@@ -99,8 +99,14 @@ def make_handler(routes, log_path):
             tokens = [it.get("tokens") for it in items]
             if all(isinstance(t, list) for t in tokens):
                 body["input_root"] = batch_input_root(tokens)
+            if capture_dir:
+                # The public pairs the node sends at the remote check (ARCHITECTURE A7, amended 2026-11-23): kept
+                # outside the repo, read only to name the kinds of pair the pool holds, never trained on or copied.
+                stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+                with open(os.path.join(capture_dir, f"{name or 'any'}-{stamp}-{len(items)}.json"), "w",
+                          encoding="utf-8") as f:
+                    json.dump({"route": name, "at": stamp, "request": req, "results": results}, f)
             if log_path:
-                # sizes and timing only: the texts are pool material, which we neither keep nor tune on
                 sizes = [len(t) for t in tokens if isinstance(t, list)]
                 with open(log_path, "a", encoding="utf-8") as f:
                     f.write(json.dumps({"at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "route": name, "items": len(items),
@@ -120,6 +126,7 @@ def main():
     ap.add_argument("--workers", help="comma-separated adapterexec URLs, for any path")
     ap.add_argument("--route", action="append", default=[], help="FAMILY=url,url: the workers for /FAMILY")
     ap.add_argument("--log", help="append each scored batch's size, timing and identity here (JSON lines)")
+    ap.add_argument("--capture", help="keep each batch request (token lists) as a JSON file in this folder, outside the repo")
     a = ap.parse_args()
     host, port = a.listen.rsplit(":", 1)
     split = lambda v: [w.strip() for w in v.split(",") if w.strip()]
@@ -129,7 +136,9 @@ def main():
     if not routes:
         ap.error("give --workers or at least one --route")
     print(f"fanout: {routes} on {a.listen}", flush=True)
-    ThreadingHTTPServer((host, int(port)), make_handler(routes, a.log)).serve_forever()
+    if a.capture:
+        os.makedirs(a.capture, exist_ok=True)
+    ThreadingHTTPServer((host, int(port)), make_handler(routes, a.log, a.capture)).serve_forever()
 
 
 if __name__ == "__main__":
