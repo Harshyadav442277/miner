@@ -4,6 +4,26 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G53 — registry state 2026-11-23 and the unknowns behind the final plan — `OPEN`
+
+Read 2026-11-23 10:27 UTC, epoch 43: `/api/wasm` (66 families, 215 registrations) and `/api/evalpool/status` per family.
+Raw files are in the session scratchpad, not committed. The plan is [PLAN_2026-11-23.md](PLAN_2026-11-23.md).
+
+- **Ours:** 12 registrations, 0 active.
+  - #139–#144 scored 1 and were superseded by `0xb3fb…` #145–#150.
+  - #42–#46 were rejected: the runnable answered 422, "expected integer ground_truth_value, miner_value and spec".
+  - #47 FINANCIAL_DATA was deregistered with score 0.
+- **Pools need 3 submitters now** (`min_submitters: 3`; it was 5).
+- **Inferred, not verified:** the 422s are a module-kind mismatch, not our parser. Every author's comparator in those
+  families fails the same way, and adapters in LIQUIDITY_DEPTH_VERIFY and MINING_HASHPRICE_VERIFY are checked on
+  "chosen" text pairs. The `livecert-comparator` logs from 2026-11-17 were not read; they are likely past Vercel's
+  retention. Kill this if a log or the docs show integer pairs.
+- **Unknown:** whether a rejected adapter's bond returns, and after how long (the registry shows `bond_amount: 0`).
+- **Unknown:** whether the runnable must stay up after promotion.
+- **Unknown:** whether TEXT_SUMMARIZATION can be evaluated: zkasuran #208 has been `awaiting_compatible_material` since
+  06:44 UTC.
+- **Unknown:** whether CUAD and the chosen moderation and patch datasets are licence-clean for training.
+
 ## G52 — post-reset pilots: VENDOR_VERIFY and CONTRACT_OBLIGATION_AUDIT split right/wrong by service (2026-11-18) — CLOSED
 
 Pilots frozen before capture (`475230b`, `fdd66a0`); captures `tg-eval/captures/vendor-pilot-20261118`, `contract-pilot-20261118`.

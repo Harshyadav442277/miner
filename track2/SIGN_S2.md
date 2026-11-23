@@ -14,8 +14,8 @@ That decision and any signature are yours; Claude checks `/api/miners` for our w
 Everything below is prepared and committed; each step needs only your click, signature or send. No adapter
 registration is on the list, because none has passed the gate. Deadline: **Dec 1 2026 23:59 UTC** (Dec 2 05:29 IST).
 
-1. **Star https://github.com/telegraphprotocol/bounties** as `Harshyadav442277`. §05 requires it for every track.
-   Check: `gh api user/starred/telegraphprotocol/bounties` returns 204.
+1. ~~Star https://github.com/telegraphprotocol/bounties~~ **done**: `gh api user/starred/telegraphprotocol/bounties`
+   returned 204 on 2026-11-23. The current owner list is [PLAN_2026-11-23.md](PLAN_2026-11-23.md) §8.
 2. **Sign in at https://anjoman.ai/dashboard/eval.** Verify `hyadav42774@gmail.com` and the wallet
    `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. Then upload two files, each under its exact intent:
    - `material/dns_truth/DNS_RECORD_LOOKUP_GENERAL.truth.jsonl` under `DNS_RECORD_LOOKUP_GENERAL`. Check the sha256

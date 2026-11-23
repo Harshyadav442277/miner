@@ -8,7 +8,29 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-17 ~08:00 UTC (13:30 IST) · REVIEWED, CORRECTED, VIDEO BUILT; DEVNODE REGISTRY RESET (G51)
+## CURRENT — 2026-11-23 ~11:00 UTC (16:30 IST) · WE HOLD NOTHING; FINAL PLAN WRITTEN
+
+Branch `PR/evaluators-plan-2026-11-23`, cut from `085e06d`, the tip of this Track 2 lineage. Main's `track2/` is the
+Oct 31 version. Nothing was signed, registered or trained this session.
+
+- **Registry (epoch 43):** 12 of our registrations, 0 active.
+  - 6 comparators scored 1.0 and were superseded by identical later registrations.
+  - 5 comparators were rejected with 422; the inferred cause is a module-kind mismatch (G53).
+  - No adapter has been registered since #46.
+- **Plan:** [PLAN_2026-11-23.md](PLAN_2026-11-23.md).
+  - Causes: we gated on real miner answers, but the network judges pool pairs; and we picked families whose truth is
+    outside the prompt.
+  - A7 is amended to correct-by-construction pairs plus the 15-public-pair loop that Truvian used to win
+    SMART_CONTRACT_AUDIT.
+  - Lanes, in order: CONTRACT_OBLIGATION_AUDIT, then CONTENT_MODERATION, then a CODE_PATCH_VERIFY challenge (or
+    TEXT_SUMMARIZATION). FACT_CHECK, TRANSLATION, WEB_SEARCH, QA and SMART_CONTRACT_AUDIT are excluded because
+    LiveCert serves them.
+- **The bounties star is done:** 204 on 2026-11-23.
+- **Next (Claude):** licence check of CUAD; build and rehearse the executor host; CONTRACT_OBLIGATION_AUDIT generator v1.
+- **Owner decision:** the executor host. The recommended option is a Hugging Face Space under `hyadav42774@gmail.com`.
+- **Owner, now:** the first growth post (OUTREACH_S2.md).
+
+## 2026-11-17 ~08:00 UTC (13:30 IST) · REVIEWED, CORRECTED, VIDEO BUILT; DEVNODE REGISTRY RESET (G51)
 
 Branch `PR/track2-email-security-evaluator-303326`, pushed to `origin/PR/cranky-euler-d201bb`. The owner asked for
 "prepare everything, Fable as advisor".

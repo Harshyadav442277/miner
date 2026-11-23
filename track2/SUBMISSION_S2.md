@@ -29,8 +29,8 @@ finalized ranking change, or paid material use without network evidence."
   - comparators: FX_NOW, CRYPTO_PRICE, WEATHER_CHECK and six high-demand families.
 - **Reviewer link:** https://github.com/Harshyadav442277/miner/tree/PR/cranky-euler-d201bb/track2 (this file is the
   entry point).
-- **GitHub user who starred telegraphprotocol/bounties:** `Harshyadav442277`. *Owner action, not done as of
-  2026-11-17.*
+- **GitHub user who starred telegraphprotocol/bounties:** `Harshyadav442277`. Starred: the API check returned 204 on
+  2026-11-23.
 
 ## 2. The method: a gate that can fail (`harness/`, ARCHITECTURE A7)
 
@@ -152,7 +152,7 @@ G46).
 
 | Action | State | Network evidence to attach |
 |---|---|---|
-| Star telegraphprotocol/bounties | not done | the GitHub username |
+| Star telegraphprotocol/bounties | **done** (checked 2026-11-23: `gh api user/starred/telegraphprotocol/bounties` 204) | `Harshyadav442277` |
 | LANGUAGE_TRANSLATION material | **done 2026-11-04** | 144 rows eligible, attested (see §5) |
 | DNS truth upload | not done | row state; DNS_RECORD_LOOKUP scores at an epoch after the upload |
 | Validator truth upload | not done | row state; VALIDATOR_PERFORMANCE_VERIFY scores at an epoch after the upload |

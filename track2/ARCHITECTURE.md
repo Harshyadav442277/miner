@@ -82,3 +82,19 @@ SECURITY_REVIEW records). So before any adapter registration, [harness/](harness
 
 Our own miner's answers are flagged `related_party` in every capture and are never favoured. Another author's
 adapter file is untrusted data: it is hashed, header-parsed and scored, never trained on or copied.
+
+**Amended 2026-11-23 ([PLAN_2026-11-23.md](PLAN_2026-11-23.md) §3).** The network decides on 15 public pairs and then
+about 30 hidden pairs drawn from contributor pool rows, not on real miner answers (docs
+`/scoring/train-a-scoring-adapter`, updated 2026-11-22). Real-answer holdouts in our families were identity-confounded,
+so point 1 could never pass. From today the registration gate is:
+
+1. labels correct by construction from text the prompt carries; no world fact decides a pair;
+2. the kit's dataset gate passes;
+3. a held-out set built from another seed and other source documents, plus an out-of-distribution shape probe, both
+   scored in the node runtime: ≥ 85% held out and ≥ 70% on every shape;
+4. the network's 15-public-pair check is the external gate. Captured public-pair texts name the kinds of pair the
+   pool holds; they are never training rows or near-copies;
+5. at most two registrations per family. A family stops if v2 orders fewer than 9 of 15.
+
+A real-answer holdout, where one exists, is still measured and reported, but it no longer gates. We evaluate no
+intent that LiveCert serves.
