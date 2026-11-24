@@ -8,7 +8,8 @@
 - SUBMISSION_PACK.md facts corrected: registration 6126, the licence-gate wording (LICENCE_GATE unset in Production),
   and the paid-usage figures Codex verified. The owner submits by Dec 1 23:59 UTC (Dec 2 05:29 IST).
 - Next: read epochs 47+; RESEARCH_QUERY, EVENT_OUTCOME and CODE_REVIEW zeros need their RES lines (the archiver keeps
-  few); news source decision (G326) is the owner's.
+  few, G362); news source decision (G326) is the owner's.
+- Start-up prompt for the next session: `docs/NEXT_SESSION.md`.
 
 
 ## 2026-11-23 ~12:50 UTC (18:20 IST): CURRENT — `36e4e13` LIVE (`miner-1by7eu4j6`); PR #56 open, not merged
