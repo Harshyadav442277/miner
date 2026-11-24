@@ -19,6 +19,7 @@ import hashlib
 import json
 import os
 import random
+import sys
 
 MAX_TOKENS = 500
 WORDS = ["acme", "birch", "cobalt", "delta", "ember", "fjord", "granite", "harbor", "iris", "juniper", "keystone",
@@ -227,10 +228,22 @@ def render(lines, style, f):
     return " ".join(f"{x[0].upper()}{x[1:]}." for x in lines)
 
 
-def build(n, seed, split, styles, tok):
+def build(n, seed, split, styles, tok, v2=False):
     rng = random.Random(seed)
     rows, seen = [], set()
     while len(rows) < n:
+        if v2 and rng.random() < 0.5:  # the kinds #221's public pairs held (v2_cases.py)
+            import v2_cases
+            kind = rng.choice(["posture", "capture", "phishing"])
+            got = (v2_cases.posture_case(rng, domain, split) if kind == "posture" else
+                   v2_cases.capture_case(rng, domain, split, doh) if kind == "capture" else v2_cases.phishing_case(rng, split))
+            prompt, chosen, rejected, kind = got
+            if prompt in seen or chosen == rejected or max(
+                    len(tok.encode(f"### Task:\n{prompt}\n\n### Answer:\n{x}").ids) for x in (chosen, rejected)) > MAX_TOKENS:
+                continue
+            seen.add(prompt)
+            rows.append(dict(prompt=prompt, chosen=chosen, rejected=rejected, kind=kind, style="v2", case=kind))
+            continue
         prompt, f = rng.choice([spf_case, spf_case, dmarc_case, mx_case, header_case])(rng, split)
         bad, kind = wrong(rng, f)
         if bad is None or prompt in seen:
@@ -251,12 +264,14 @@ def main():
     ap.add_argument("--tokenizer", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--n", type=int, default=3000)
+    ap.add_argument("--v2", action="store_true", help="mix in the posture, capture and phishing kinds (v2_cases.py)")
     a = ap.parse_args()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # -I drops the script folder
     from tokenizers import Tokenizer
     tok = Tokenizer.from_file(a.tokenizer)
     styles = ["json", "bullets", "prose"]
-    train = build(a.n + 300, 7, "train", styles, tok)
-    sets = {"train": train[:a.n], "val": train[a.n:], "test": build(400, 97, "test", styles, tok),
+    train = build(a.n + 300, 7, "train", styles, tok, a.v2)
+    sets = {"train": train[:a.n], "val": train[a.n:], "test": build(400, 97, "test", styles, tok, a.v2),
             "probe": build(200, 131, "test", ["line"], tok)}
     os.makedirs(a.out, exist_ok=True)
     for name, rows in sets.items():

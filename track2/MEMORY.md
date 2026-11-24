@@ -8,7 +8,21 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-24 ~03:15 UTC (08:45 IST) · #221 + #222 AWAITING; SIX LANES QUEUED ON GPU.lock
+## CURRENT — 2026-11-24 ~03:40 UTC (09:10 IST) · #210 DEFENDED; #221 REJECTED 8/15; es_v2 QUEUED
+
+- **#219 (Truvian's challenger) rejected:** "win rate 86.21% did not beat the incumbent (registration 210)". Our #210
+  scored about 86% on that round's sample, and keeps the seat.
+- **#221 EMAIL_SECURITY rejected at the remote check, 8/15.** The decoded public pairs hold three kinds:
+  1. posture reports with no evidence in the prompt; the posture must follow from the answer's own SPF and DMARC
+     fields;
+  2. supplied DoH captures worded with a reference time and source URL;
+  3. phishing scenarios (brand display name against a lookalike sender).
+- **es_v2** ([v2_cases.py](adapter/email_security/v2_cases.py)) covers all three, 50/50 with v1. The kit gate
+  PASSES (leak 0.8%, bag-of-words probe 58.8%). It is queued (detached).
+- **Offline screen file:** `tg-eval/pairs/public15/es.jsonl`.
+- **Executor:** #221's (port 18290) can be stopped now that #221 is decided. #222's must stay up.
+
+## 2026-11-24 ~03:15 UTC (08:45 IST) · #221 + #222 AWAITING; SIX LANES QUEUED ON GPU.lock
 
 - **#222 TEXT_SUMMARIZATION v1b** (`0x51b0f844…`) was registered by the owner at 01:39 UTC. Its executor runs through
   `executor/launch.py` (port 18390, `why-detroit-tucson-locally…`); its run_local pwsh (29928) holds the PC
