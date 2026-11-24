@@ -21,7 +21,9 @@ function Log($m) { "$((Get-Date).ToUniversalTime().ToString('s'))Z $m" | Add-Con
 Log "waiting for the GPU (lock free, other jobs under $FreeMiB MiB)"
 while ($true) {
     $used = [int](nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits)
-    if ($used -lt $FreeMiB) {
+    # EXECUTOR.lock: a registration awaits its check, and the executor needs the RAM. On 2026-11-24 its workers were
+    # paged out under training load: 30-text batches took 164-263 s against Cloudflare's 100 s cut, and #222 was lost.
+    if ($used -lt $FreeMiB -and -not (Test-Path (Join-Path $EvalRoot 'EXECUTOR.lock'))) {
         try { $h = [System.IO.File]::Open($lock, 'CreateNew', 'Write'); break } catch [System.IO.IOException] { }
     }
     Start-Sleep -Seconds 120

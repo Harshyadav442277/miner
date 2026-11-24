@@ -8,6 +8,19 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
+## CURRENT — 2026-11-24 ~06:25 UTC (11:55 IST) · TS v1c READY TO SIGN; TRAINING PAUSED FOR ITS WINDOW
+
+- **#222 was rejected with Cloudflare 524 three times.** Its 30-text batches took 164-263 s because the workers (3.4 GB
+  private each) were paged out under training load. **Rule:** while a registration awaits its check, training stops
+  (`tg-eval/EXECUTOR.lock`; `train_package.ps1` waits on it), and the executor runs 4 workers at AboveNormal.
+  Remove the lock once the registration is decided.
+- **ts_v1c** (max_tokens 510, keccak `0x1c22378e…`, hosted at `13a7900a`): its executor is on port 18390
+  (`kelly-their-deleted-mechanical…`). The node's own 30-text batch replays in 58.2 s.
+- **SENTIMENT_ANALYSIS now has a 100% champion (#216)**, which cannot be beaten. sa_v1 (kit 95.75%) is not to be
+  registered.
+- The training lanes (fc, qa_v4, vt_v2, sca, es_v2, cm_v4) are relaunched and wait on EXECUTOR.lock. qa_v4 restarts
+  from scratch.
+
 ## CURRENT — 2026-11-24 ~03:40 UTC (09:10 IST) · #210 DEFENDED; #221 REJECTED 8/15; es_v2 QUEUED
 
 - **cm_v3:** kit 81%, Stage 1 PASS (`0x80972315…`). The offline pool screen gives **10/15**, against v2's 6 and the

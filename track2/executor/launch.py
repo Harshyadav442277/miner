@@ -22,10 +22,11 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--port", required=True)
     ap.add_argument("--package", action="append", required=True, help="FAMILY=path")
+    ap.add_argument("--workers", default="3", help="workers per adapter; 4 keeps a 30-text batch well under 100 s")
     a = ap.parse_args()
     pwsh = shutil.which("pwsh") or os.path.expandvars(r"%LOCALAPPDATA%\Microsoft\WindowsApps\pwsh.exe")
     out = open(a.out, "w")
-    p = subprocess.Popen([pwsh, "-NoProfile", "-File", os.path.join(HERE, "run_local.ps1"), "-Port", a.port,
+    p = subprocess.Popen([pwsh, "-NoProfile", "-File", os.path.join(HERE, "run_local.ps1"), "-Port", a.port, "-Workers", a.workers,
                           "-Package", ",".join(a.package)],
                          stdout=out, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL, creationflags=FLAGS)
     with open(a.out + ".pid", "w") as f:

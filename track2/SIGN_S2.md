@@ -29,7 +29,28 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### Ready to sign (2026-11-24 ~01:40 UTC): TEXT_SUMMARIZATION v1b, replacing the rejected #217
+### Ready to sign (2026-11-24 ~06:25 UTC): TEXT_SUMMARIZATION v1c
+
+#222 (v1b) was rejected with Cloudflare 524 three times. Its 30-text batches took 164-263 s, because the executor's
+workers (3.4 GB private each) were paged out while training ran. Same-hash re-registration is refused, so v1c is the
+same adapter at max_tokens 510, with the same Stage 1 bits `0x3fbc8682`.
+
+**This window:**
+- training is paused (`tg-eval/EXECUTOR.lock`; every lane waits on it);
+- the executor runs 4 workers at AboveNormal priority;
+- replaying the node's own 30-text batch through the tunnel took 58.2 s.
+
+Keep the lock until the registration is decided.
+
+| Field | Value |
+|---|---|
+| Binary link | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/13a7900aba9ff9e1c0abff55ca3fab906df92813/season2/adapter/TEXT_SUMMARIZATION/v1c/TEXT_SUMMARIZATION.safetensors` |
+| keccak256 | `0x1c22378e13fe61e67400281f5c6e792282e63181f373529bffddee1b6344697c` |
+| Family | `TEXT_SUMMARIZATION` |
+| Fee address | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
+| Runnable endpoint URL | `https://kelly-their-deleted-mechanical.trycloudflare.com/TEXT_SUMMARIZATION` |
+
+### Signed 2026-11-24 01:39 UTC as #222, rejected (executor timeouts): TEXT_SUMMARIZATION v1b
 
 #217 passed its public check 15/15, but was rejected when the node came back to a dead executor. v1b is the same
 adapter re-exported at max_tokens 511, for a new hash. Its Stage 1 bits are the same (`0x3fbc8682`). Node-runtime
