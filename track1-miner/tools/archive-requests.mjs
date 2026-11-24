@@ -9,13 +9,14 @@
  * names, values only for route and short-list params per handler.ts `logParam`, then the RES verdict), never a
  * person's text.
  *
- * usage: node tools/archive-requests.mjs [out.jsonl]   env: MINUTES (default 40), VERCEL_SCOPE, VERCEL_PROJECT
+ * usage: node tools/archive-requests.mjs [out.jsonl]   env: MINUTES (default 65), VERCEL_SCOPE, VERCEL_PROJECT
  */
 import { execFileSync } from "node:child_process";
 import { appendFileSync, existsSync, readFileSync } from "node:fs";
 
 const out = process.argv[2] ?? "requests.jsonl";
-const minutes = Number(process.env.MINUTES ?? 40);
+// 65, not 40: one missed 30-minute run lost 23:00-23:50 UTC on 2026-11-23. Vercel keeps about an hour.
+const minutes = Number(process.env.MINUTES ?? 65);
 const scope = process.env.VERCEL_SCOPE ?? "wukong4";
 const project = process.env.VERCEL_PROJECT ?? "miner";
 const vercel = process.platform === "win32" ? "vercel.cmd" : "vercel";
