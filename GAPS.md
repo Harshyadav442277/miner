@@ -1,9 +1,9 @@
 # GAPS.md — honesty ledger
 
-## 2026-11-23 ~23:30 UTC (2026-11-24 IST) — epochs 45–46 read; G354 new
+## 2026-11-23 ~23:30 UTC (2026-11-24 IST) — epochs 45–46 read; G362 new
 
 - **TEXT_CLASSIFICATION, QUESTION_ANSWERING, TOKEN_HOLDER_COUNT zeros: `FIXED` in `8a631d5`** (release record).
-- **G354 — The request archive keeps few RES lines. `OPEN`.** 303 of about 11,000 archived lines are RES, so the answers
+- **G362 — The request archive keeps few RES lines. `OPEN`.** 303 of about 11,000 archived lines are RES, so the answers
   behind RESEARCH_QUERY, EVENT_OUTCOME and CODE_REVIEW's zeros were not recorded. Fix: have `archive-requests.mjs` keep
   each line of a log entry.
 - **NEWS_HEADLINES 0 in epoch 45:** Google News answered `upstream_unavailable` at 20:01 UTC. The source is G326.

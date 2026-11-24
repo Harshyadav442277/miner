@@ -5,6 +5,14 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## 2026-11-24 — handoff (start-up prompt: docs/NEXT_SESSION.md)
+
+- [ ] Read epochs 47+ for every intent; list zeros where another miner scored.
+- [ ] G362: archive-requests.mjs keeps every log line; then diagnose RESEARCH_QUERY, EVENT_OUTCOME, CODE_REVIEW zeros.
+- [ ] Owner: app partner for the Stablecoin screening workflow plus independent reproduction (no verified app usage yet).
+- [ ] Owner: weekly X post tagging Telegraph; news-source decision (G326); manifest re-sign for brief wording (G348).
+- [ ] Owner: submit from track1-miner/docs/SUBMISSION_PACK.md by 2026-12-01 23:59 UTC; re-read its figures that day.
+
 ## 2026-11-23 — epoch 43 follow-ups (GAPS G354–G357)
 
 - [x] CONTENT_EXTRACTION: brief every field asked, money as the amount, model for uncovered fields (grounded).
