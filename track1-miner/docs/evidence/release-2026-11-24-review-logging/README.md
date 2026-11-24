@@ -25,10 +25,12 @@ CODE_REVIEW and SMART_CONTRACT_AUDIT log which check a model review failed.
   and the rest are in a `logs` array the archiver dropped. After the fix, 106 of 106 invocations in a 65-minute read
   had their RES line. Before it, 356 RES lines were kept in 11,768 rows. The fixed script is installed in
   `C:\Users\hyada\tg-deploy\scores` and backed up as `archive-requests.mjs.bak-2026-11-24`.
-- **CODE_REVIEW, epoch 46 (0, scored 01:21:41 UTC):** we answered `verdict=Comment` at 01:20:08
-  (`code-review-scored-window.txt`). Four miners scored 1. The same deployment, `5f28505`, scored 1 in epoch 39 and
-  0 in epoch 41, and no commit touched the review path between them. So the cause is `NOT ESTABLISHED`: one scored
-  call cannot separate "Comment is wrong" from "the review is wrong".
+- **CODE_REVIEW, epoch 46 (0, scored 01:21:41 UTC):** the nearest call before it, at 01:20:08, answered
+  `verdict=Comment` (`code-review-scored-window.txt`). That it was the scored call is inferred from timing. Four
+  miners scored 1. The same deployment, `5f28505`, scored 1 in epoch 39 and 0 in epoch 41. No commit touched
+  `genai.ts`, `review-validation.ts` or `llm.ts` between them, and the evaluator adapter hash is unchanged. So the
+  cause is `NOT ESTABLISHED`: one call cannot separate "Comment is wrong" from "the review is wrong".
+- **Scheduled archiver:** its 02:00 UTC run used the new script and added 214 rows, 209 with a RES line.
 - **CODE_REVIEW `invalid_model_response`:** a three-line JS loop answered `unknown` three times at 01:44 UTC (our
   probes, not a scored call). It answered `Request changes` at ~01:58 UTC. The failing check was not logged before
   this release. It is now.

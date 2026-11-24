@@ -14,10 +14,17 @@ Record: `track1-miner/docs/evidence/release-2026-11-24-review-logging/`.
   `unknown` three times at 01:44 UTC, then `Request changes` at ~01:58 UTC. The local Groq key answers 401 and
   previews have no key, so the failing check could not be reproduced. Each review now logs `REVIEW ... problem=<check>`.
   Read it in the archive before changing the validation.
-- **G364 — CODE_REVIEW 0 in epochs 41–46; cause `NOT ESTABLISHED`.** The one scored call with a RES line (epoch 46,
-  01:20:08 → 0 at 01:21:41) answered `Comment`. Four miners score 1. `5f28505` scored 1 in epoch 39 and 0 in epoch 41
-  with no change to the review path in between. The fix is not chosen. Candidates: a verdict that follows the summary's
-  "correct / not correct" sentence. Decide only after the next scored calls show `REVIEW stated/served/top`.
+- **G364 — CODE_REVIEW 0 in epochs 41–46; cause `NOT ESTABLISHED`.** The `/code-review` call nearest before the
+  epoch-46 score (01:20:08, scored 0 at 01:21:41) answered `Comment`. That it was the scored call is inferred from
+  timing only. Four miners score 1. `5f28505` scored 1 in epoch 39 and 0 in epoch 41. No commit touched `genai.ts`,
+  `review-validation.ts` or `llm.ts` in between; the handler and field mapping were not checked. The evaluator
+  adapter hash (`4e4c0a35`) is the same in epoch 39 and 41–46, so the scorer's adapter did not change. The fix is
+  not chosen. Candidate: a verdict that follows the summary's "correct / not correct" sentence. Decide only after
+  the next scored calls show `REVIEW stated/served/top`.
+- **Archive reading, unverified:** CODE_REVIEW's nearest call came about 90 s before its score in three epochs;
+  EVENT_OUTCOME's nearest was 16 min before. Some caller hits `/code-review` at :27:20 and :57:20 (8 rows). It is not
+  our uptime workflow (`uptime.yml` runs at :03, :13 …). The source is unknown. The archive has 87 duplicate ids for
+  00:42–01:46 UTC on 2026-11-24 (old row plus a row with `lines`), so deduplicate by `id` before counting.
 - **G365 — SECURITY_REVIEW not scored for us in epochs 45–46, with 27 miners scored. `OPEN`.** Last scored 1 in epoch
   43. Not investigated.
 - **Zeros without a cause, epochs 45–46:** EVENT_OUTCOME (G361), FINANCIAL_DATA, GAS_PRICE, RESEARCH_QUERY and
