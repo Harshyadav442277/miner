@@ -1,5 +1,32 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-24 ~02:10 UTC (07:40 IST) — release `66d5ecb`; G362 fixed; G363–G365 new
+
+Record: `track1-miner/docs/evidence/release-2026-11-24-review-logging/`.
+
+- **G362 — `FIXED` (`e0134a3`).** The CLI gives one row per invocation, and its `logs` array holds the REQ and the RES.
+  The archiver now keeps every line (106 of 106 rows had a RES). The installed copy in `C:\Users\hyada\tg-deploy\scores`
+  is updated.
+- **Archive holes — `FIXED` going forward (`f248de6`).** No archiver output for the 22:30, 23:30 and 00:00 UTC runs on
+  2026-11-23/24 (`record.log`), so 23:00–23:50 UTC was never read. The lookback is now 65 minutes. Why those runs
+  failed is not known.
+- **G363 — CODE_REVIEW sometimes answers `invalid_model_response`. `OPEN`, now logged.** A three-line JS loop answered
+  `unknown` three times at 01:44 UTC, then `Request changes` at ~01:58 UTC. The local Groq key answers 401 and
+  previews have no key, so the failing check could not be reproduced. Each review now logs `REVIEW ... problem=<check>`.
+  Read it in the archive before changing the validation.
+- **G364 — CODE_REVIEW 0 in epochs 41–46; cause `NOT ESTABLISHED`.** The one scored call with a RES line (epoch 46,
+  01:20:08 → 0 at 01:21:41) answered `Comment`. Four miners score 1. `5f28505` scored 1 in epoch 39 and 0 in epoch 41
+  with no change to the review path in between. The fix is not chosen. Candidates: a verdict that follows the summary's
+  "correct / not correct" sentence. Decide only after the next scored calls show `REVIEW stated/served/top`.
+- **G365 — SECURITY_REVIEW not scored for us in epochs 45–46, with 27 miners scored. `OPEN`.** Last scored 1 in epoch
+  43. Not investigated.
+- **Zeros without a cause, epochs 45–46:** EVENT_OUTCOME (G361), FINANCIAL_DATA, GAS_PRICE, RESEARCH_QUERY and
+  ONCHAIN_TX_LOOKUP (epoch 46, scored before `8a631d5`). REQ lines exist and RES lines do not. The next epoch's are
+  archived in full.
+- **TOKEN_HOLDER_COUNT on Base answers `upstream_unavailable` for `chain=base&token=…`** (01:11 and 01:38 UTC). We
+  still scored 0.8453 (rank 1) in epoch 46. The GeckoTerminal fallback in `8a631d5` covers a named chain; check why
+  this shape misses it.
+
 ## 2026-11-23 ~23:30 UTC (2026-11-24 IST) — epochs 45–46 read; G362 new
 
 - **TEXT_CLASSIFICATION, QUESTION_ANSWERING, TOKEN_HOLDER_COUNT zeros: `FIXED` in `8a631d5`** (release record).

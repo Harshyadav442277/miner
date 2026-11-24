@@ -7,8 +7,12 @@ commit.
 
 ## 2026-11-24 — handoff (start-up prompt: docs/NEXT_SESSION.md)
 
-- [ ] Read epochs 47+ for every intent; list zeros where another miner scored.
-- [ ] G362: archive-requests.mjs keeps every log line; then diagnose RESEARCH_QUERY, EVENT_OUTCOME, CODE_REVIEW zeros.
+- [x] Read epochs 45–47 (epoch 47 had only 4 intents scored at 02:05 UTC): `release-2026-11-24-review-logging/epoch-45-47-scores.txt`.
+- [x] G362: archive keeps every log line (`e0134a3`), 65-minute lookback (`f248de6`); review logging (`66d5ecb`), live.
+- [ ] After epoch 47: join each zero's scored_at to the archive's `lines` (RESEARCH_QUERY, EVENT_OUTCOME, CODE_REVIEW,
+  FINANCIAL_DATA, GAS_PRICE); fix only what they show (G361, G363, G364).
+- [ ] G365: why SECURITY_REVIEW was not scored for us in epochs 45–46.
+- [ ] TOKEN_HOLDER_COUNT `chain=base&token=` still answers `upstream_unavailable` (GAPS 2026-11-24 block).
 - [ ] Owner: app partner for the Stablecoin screening workflow plus independent reproduction (no verified app usage yet).
 - [ ] Owner: weekly X post tagging Telegraph; news-source decision (G326); manifest re-sign for brief wording (G348).
 - [ ] Owner: submit from track1-miner/docs/SUBMISSION_PACK.md by 2026-12-01 23:59 UTC; re-read its figures that day.
