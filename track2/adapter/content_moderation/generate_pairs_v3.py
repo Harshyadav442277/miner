@@ -120,6 +120,7 @@ def main():
     ap.add_argument("--tokenizer", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--n", type=int, default=4000)
+    ap.add_argument("--parts", default="40,40,20", help="request,comment,category shares (v4: 60,30,10)")
     a = ap.parse_args()
     import pandas as pd
     from tokenizers import Tokenizer
@@ -129,8 +130,9 @@ def main():
                          v2.load_wiki(os.path.join(a.wiki, "validation.csv"))], ignore_index=True)
     c_test = pd.concat([v2.load(os.path.join(a.data, "test-00000-of-00001.parquet")),
                         v2.load_wiki(os.path.join(a.wiki, "test.csv"))], ignore_index=True)
-    train = build(a.n + 300, 7, a_train, c_train, tok)
-    sets = {"train": train[:a.n], "val": train[a.n:], "test": build(400, 97, a_test, c_test, tok),
+    parts = tuple(int(x) for x in a.parts.split(","))
+    train = build(a.n + 300, 7, a_train, c_train, tok, parts=parts)
+    sets = {"train": train[:a.n], "val": train[a.n:], "test": build(400, 97, a_test, c_test, tok, parts=parts),
             "probe": build(200, 131, a_test, c_test, tok, key_order="text_first", parts=(0, 100, 0))}
     os.makedirs(a.out, exist_ok=True)
     for name, rows in sets.items():

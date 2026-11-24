@@ -10,6 +10,13 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ## CURRENT — 2026-11-24 ~03:40 UTC (09:10 IST) · #210 DEFENDED; #221 REJECTED 8/15; es_v2 QUEUED
 
+- **cm_v3:** kit 81%, Stage 1 PASS (`0x80972315…`). The offline pool screen gives **10/15**, against v2's 6 and the
+  node's floor of 11.
+  - The verdict-only comments are now right.
+  - Still missed: nuanced requests (an academic thesis on propaganda, health misinformation, a home address).
+  - Not offered for signing: this family's probe was spent on #218.
+  - **cm_v4** is queued: 5,000 pairs, 60% requests, 4 epochs, lr 2e-4.
+
 - **#219 (Truvian's challenger) rejected:** "win rate 86.21% did not beat the incumbent (registration 210)". Our #210
   scored about 86% on that round's sample, and keeps the seat.
 - **#221 EMAIL_SECURITY rejected at the remote check, 8/15.** The decoded public pairs hold three kinds:
