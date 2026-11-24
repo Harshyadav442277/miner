@@ -29,7 +29,24 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### To do now (2026-11-23 ~23:10 UTC): replace #220 EMAIL_SECURITY
+### Ready to sign (2026-11-24 ~01:40 UTC): TEXT_SUMMARIZATION v1b, replacing the rejected #217
+
+#217 passed its public check 15/15, but was rejected when the node came back to a dead executor. v1b is the same
+adapter re-exported at max_tokens 511, for a new hash. Its Stage 1 bits are the same (`0x3fbc8682`). Node-runtime
+results are as v1: own test 399/400, probe 200/200, 400 real-bill pairs 90.0%.
+
+The executor was started through `executor/launch.py`: WMI, then its own hidden console and a new process group. It
+survives session restarts and console Ctrl+C, but not reboots or sleep.
+
+| Field | Value |
+|---|---|
+| Binary link | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/da22d6605782eee2e9ffafe490cc4f5e9210020d/season2/adapter/TEXT_SUMMARIZATION/v1b/TEXT_SUMMARIZATION.safetensors` |
+| keccak256 | `0x51b0f844a8f2860489d684188e0637930b4b2243506daa18b1041cf9209a3c3b` |
+| Family | `TEXT_SUMMARIZATION` |
+| Fee address | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
+| Runnable endpoint URL | `https://why-detroit-tucson-locally.trycloudflare.com/TEXT_SUMMARIZATION` |
+
+### Done 2026-11-23 23:11 UTC: #220 replaced by #221 (EMAIL_SECURITY v1b)
 
 #220 was registered at 23:04 UTC (tx mined 22:55:48), but its runnable URL died when the session restarted and
 killed the executors. A quick-tunnel address cannot be restored, so #220's check would fail.
