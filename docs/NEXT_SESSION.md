@@ -25,7 +25,7 @@ State as of 2026-11-24 02:10 UTC:
 
 Next, in order:
 1. Read epochs 47+ with /scores?intent=<ID>&limit=100 for every intent. List the intents scoring 0 where another miner scored. Split each epoch at the release time: a zero scored before a release says nothing about it.
-2. For each zero, read the archive rows whose `lines` hold that route in the 5 minutes before scored_at (calls landed 15 s to 4 min before). Exclude our own probes and the :27/:57 monitor calls. Diagnose RESEARCH_QUERY, EVENT_OUTCOME (G361), CODE_REVIEW (G363, G364), FINANCIAL_DATA and GAS_PRICE.
+2. For each zero, read the archive rows whose `lines` hold that route before scored_at. CODE_REVIEW's nearest call came about 90 s before; EVENT_OUTCOME's 16 min before, so widen the window when nothing is found. Exclude our own probes and the :27:20/:57:20 `/code-review` caller, whose source is unknown. Deduplicate archive rows by `id`. Diagnose RESEARCH_QUERY, EVENT_OUTCOME (G361), CODE_REVIEW (G363, G364), FINANCIAL_DATA and GAS_PRICE.
 3. Fix only causes the logs prove. Test each fix and give it its own commit.
 4. Release with the release-miner skill:
    - clean deploy tree under C:\Users\hyada\tg-deploy;
