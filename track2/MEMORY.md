@@ -8,7 +8,23 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-23 ~23:55 UTC (05:25 IST Nov 24) · #221 EMAIL v1b REGISTERED; QUEUE ON train_queue.py
+## CURRENT — 2026-11-24 ~01:30 UTC (07:00 IST) · #217 LOST TO A DEAD EXECUTOR; vt_v1 FAILED; USAGE LIMIT HIT
+
+- **#217 TEXT_SUMMARIZATION was rejected:** "gave up after 3 failed evaluation attempts: remote executor unreachable".
+  It had passed the public check 15/15 at 22:16, but **the node calls the executor again later**, and that executor
+  died at the 22:50 session restart.
+  - **Rule:** keep every executor up until its registration is canonical or rejected.
+  - **Next:** re-export ts_v1 at max_tokens 511 (a new hash; same-hash re-registration is refused, bounties #213).
+    Run Stage 1, host it, start a durable executor, then the owner registers it.
+- **#221 EMAIL_SECURITY:** the executor was alive at 01:28 UTC (port 18290, `rocks-territory-light-zen…`). **Do not
+  stop it.**
+- **vt_v1 FAILED the kit gate at 50%:** chance; the loss never moved. Ordering numbers is not learned at rank 8 /
+  1e-4. Rethink before retrying: it needs explicit score comparisons in the text.
+- **Queue:** runner 1 continues with sa_v1, fc_v1, qa_v4; runner 2 has cm_v3. Check each `runs-v2/<run>/chain.log`.
+- **To make executors durable:** start them like `train_queue.py` does, in their own hidden console and new process
+  group (`CREATE_NO_WINDOW | CREATE_NEW_PROCESS_GROUP`), launched through WMI. Not yet done for run_local.
+
+## 2026-11-23 ~23:55 UTC (05:25 IST Nov 24) · #221 EMAIL v1b REGISTERED; QUEUE ON train_queue.py
 
 - **#221 EMAIL_SECURITY (v1b, `0x35de4143…`)** was registered at 23:11 UTC with a live URL; #220 is deactivated. Its
   executor is up (`executor-es3.out`); its pwsh supervisor died to the Ctrl+C, but the workers, router and tunnel
