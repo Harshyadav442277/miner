@@ -8,7 +8,19 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-24 ~01:30 UTC (07:00 IST) · #217 LOST TO A DEAD EXECUTOR; vt_v1 FAILED; USAGE LIMIT HIT
+## CURRENT — 2026-11-24 ~03:15 UTC (08:45 IST) · #221 + #222 AWAITING; SIX LANES QUEUED ON GPU.lock
+
+- **#222 TEXT_SUMMARIZATION v1b** (`0x51b0f844…`) was registered by the owner at 01:39 UTC. Its executor runs through
+  `executor/launch.py` (port 18390, `why-detroit-tucson-locally…`); its run_local pwsh (29928) holds the PC
+  keep-awake.
+- **The train_queue.py runners died** (cause unknown; no error log), but each lane's pwsh survived in its own process
+  group.
+  - Every job is now started with `train_queue.py --detach`, one detached pwsh per lane, ordered by GPU.lock.
+  - Jobs: cm_v3 (training), sa_v1, fc_v1, qa_v4, vt_v2 (vt_v1 data, rank 16, lr 3e-4, 4 epochs), sca_v1 (new:
+    SMART_CONTRACT_AUDIT challenger, generated contracts).
+- **Owner, 2026-11-24:** "Train for 8, 9, 10 hours. It's okay."
+
+## 2026-11-24 ~01:30 UTC (07:00 IST) · #217 LOST TO A DEAD EXECUTOR; vt_v1 FAILED; USAGE LIMIT HIT
 
 - **#217 TEXT_SUMMARIZATION was rejected:** "gave up after 3 failed evaluation attempts: remote executor unreachable".
   It had passed the public check 15/15 at 22:16, but **the node calls the executor again later**, and that executor

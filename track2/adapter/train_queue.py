@@ -33,6 +33,9 @@ def main():
     ap.add_argument("--job", action="append", default=[])
     ap.add_argument("--awake-hours", type=float, default=8)
     ap.add_argument("--eval-root", default="C:/Users/hyada/tg-eval")
+    ap.add_argument("--detach", action="store_true",
+                    help="start every job at once and exit; GPU.lock orders them. The long-lived runner was killed "
+                         "on 2026-11-24 while the lanes it had started, each in its own process group, survived")
     a = ap.parse_args()
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     ctypes.windll.kernel32.SetConsoleCtrlHandler(None, True)
@@ -47,11 +50,13 @@ def main():
             continue
         rank, alpha, epochs, lr = (hp + ["8", "32", "3", "0.0001"][len(hp):])[:4]
         os.makedirs(os.path.dirname(log), exist_ok=True)
-        with open(os.path.join(a.eval_root, f"queue-{run}.out"), "w") as out:
-            subprocess.run([pwsh, "-NoProfile", "-File", os.path.join(HERE, "train_package.ps1"), "-Intent", intent,
+        out = open(os.path.join(a.eval_root, f"queue-{run}.out"), "w")
+        (subprocess.Popen if a.detach else subprocess.run)([pwsh, "-NoProfile", "-File", os.path.join(HERE, "train_package.ps1"), "-Intent", intent,
                             "-Run", run, "-Pairs", pairs, "-BatchSize", "1", "-GradAccum", "16", "-FreeMiB", "2200",
                             "-Rank", rank, "-Alpha", alpha, "-Epochs", epochs, "-Lr", lr],
                            stdout=out, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL, creationflags=DETACHED)
+    if a.detach:
+        return
     while time.time() < until:  # keep the executors' host awake for the rest of the window
         time.sleep(60)
 
