@@ -18,7 +18,7 @@ import { clauseBrief } from "./clause";
 export { clauseBrief };
 import { currentFact } from "./currentfacts";
 import { fallbackAllowed, longAvailable, parseObject, phrase, type PhraseRequest } from "./llm";
-import { completeReview } from "./review-validation";
+import { reviewLine, reviewProblem } from "./review-validation";
 
 export { parseObject };
 
@@ -233,10 +233,18 @@ export async function reviewCode(question: string, codeParam = ""): Promise<GenA
   const raw = await phrase({ system: REVIEW_SYSTEM, user: code, maxTokens: 1_400, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
   const o = raw ? parseObject(raw) : null;
   const stated = str(o?.summary);
-  if (!o || !stated) return unavailable("a review", { findings: [], summary: null });
-  if (!completeReview(o, false)) return { ...unavailable("a complete review", { findings: [], summary: null, finding_count: null }), error: "invalid_model_response" };
+  if (!o || !stated) {
+    console.log(reviewLine("/code-review", o, raw ? (o ? "summary_missing" : "not_json") : "no_reply", "unknown", "", code));
+    return unavailable("a review", { findings: [], summary: null });
+  }
+  const problem = reviewProblem(o, false);
+  if (problem) {
+    console.log(reviewLine("/code-review", o, problem, "unknown", "", code));
+    return { ...unavailable("a complete review", { findings: [], summary: null, finding_count: null }), error: "invalid_model_response" };
+  }
   const findings = normaliseFindings(o.findings);
   const verdict = reviewVerdict(str(o.verdict), findings);
+  console.log(reviewLine("/code-review", o, null, verdict, findings[0]?.severity ?? "", code));
   const summary = reviewSummary(stated, verdict);
   const listed = findings.map((f, i) => `${i + 1}) ${f.severity}${f.line ? `, line ${f.line}` : ""}: ${f.issue}${f.fix ? ` Fix: ${f.fix}` : ""}`).join(" ");
   return { verdict, summary, findings, finding_count: findings.length, confidence: CONFIDENCE, source: SOURCE,
@@ -307,10 +315,18 @@ export async function auditContract(question: string, contractParam = ""): Promi
   const raw = await phrase({ system: AUDIT_SYSTEM, user: source, maxTokens: 1_800, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
   const o = raw ? parseObject(raw) : null;
   const stated = str(o?.summary);
-  if (!o || !stated) return unavailable("an audit", none);
-  if (!completeReview(o, true)) return { ...unavailable("a complete audit", none), error: "invalid_model_response" };
+  if (!o || !stated) {
+    console.log(reviewLine("/contract-audit", o, raw ? (o ? "summary_missing" : "not_json") : "no_reply", "unknown", "", source));
+    return unavailable("an audit", none);
+  }
+  const problem = reviewProblem(o, true);
+  if (problem) {
+    console.log(reviewLine("/contract-audit", o, problem, "unknown", "", source));
+    return { ...unavailable("a complete audit", none), error: "invalid_model_response" };
+  }
   const findings = normaliseAuditFindings(o.findings);
   const verdict = riskGrade(findings);
+  console.log(reviewLine("/contract-audit", o, null, verdict, findings[0]?.severity ?? "", source));
   const summary = auditSummary(stated, verdict);
   const listed = findings.map((f, i) => `${i + 1}) ${f.severity} ${f.class}${f.function ? ` in ${f.function}` : ""}: ${f.issue}${f.fix ? ` Fix: ${f.fix}` : ""}`).join(" ");
   return { verdict, summary, findings, finding_count: findings.length, confidence: CONFIDENCE, source: SOURCE,

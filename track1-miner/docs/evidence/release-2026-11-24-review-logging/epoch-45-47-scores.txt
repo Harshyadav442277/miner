@@ -1,0 +1,45 @@
+# /scores?intent=<ID>&limit=100 for registration 6126's 44 intents, epochs >= 45, read 2026-11-24T02:02Z. Times are UTC; e46 spans Nov 23 21:xx to Nov 24 01:xx.
+ACADEMIC_SEARCH_GENERAL                  e46: ours=0.9597 r10 @01:55:40 top=scholarwire-academic-search 0.9983 n=19 | e45: ours=0.5 r11 @17:35:07 top=txlens 0.9813 n=19
+CHAT_COMPLETION_GENERAL                  e46: ours=0.9922 r1 @21:53:52 top=livecert 0.9922 n=18 | e45: ours=0.9949 r1 @21:34:35 top=livecert 0.9949 n=18
+CODE_REVIEW_GENERAL                      e46: ours=0 r7 @01:21:41 top=txlens 1 n=17 **ZERO** | e45: ours=0 r5 @19:53:53 top=txlens 1 n=17 **ZERO**
+CONTENT_EXTRACTION_GENERAL               e46: ours=0.9886 r3 @00:30:36 top=txlens 0.9987 n=22 | e45: ours=0.9594 r2 @17:58:37 top=a1-preflight 0.9612 n=22
+CORPORATE_REGISTRY_LOOKUP_GENERAL        e46: ours=0.9441 r6 @22:33:06 top=corp-os-default 0.9895 n=29 | e45: ours=0.9892 r9 @21:35:51 top=zk-corp-reg 0.9998 n=29
+CROSS_CHAIN_STATE_VERIFY_GENERAL         e46: ours=0 r3 @23:19:07 top=verireceipt 0 n=29 | e45: ours=0 r6 @21:09:18 top=zk-xstate-general 0.4508 n=29 **ZERO**
+CRYPTO_PRICE_USD                         e47: ours=0.936 r19 @02:02:01 top=a1-preflight 0.969 n=52 | e46: ours=0.988 r4 @21:42:40 top=breadwinner-price 0.989 n=48
+CRYPTO_TRANSFER_VERIFY_GENERAL           e46: ours=0.8607 r1 @01:41:08 top=livecert 0.8607 n=25 | e45: ours=0.6345 r1 @19:28:21 top=livecert 0.6345 n=25
+CURRENCY_EXCHANGE_CONVERT                e47: ours=1 r3 @01:58:13 top=a1-preflight 1 n=17 | e46: ours=1 r3 @21:38:07 top=a1-preflight 1 n=17 | e45: ours=1 r3 @17:13:30 top=a1-preflight 1 n=17
+CVE_LOOKUP_CVSS                          e46: ours=0.3915 r10 @22:28:04 top=verireceipt 0.397666 n=15 | e45: ours=0.428325 r8 @20:24:06 top=verireceipt 0.44605 n=15
+DNS_RECORD_LOOKUP_GENERAL                e46: ours=0.9947 r2 @22:36:34 top=verireceipt 0.9981 n=28 | e45: ours=0.9945 r1 @19:31:42 top=livecert 0.9945 n=28
+EVENT_OUTCOME_RESOLUTION_GENERAL         e46: ours=0 r16 @23:59:41 top=a1-preflight 0.9937 n=39 **ZERO** | e45: ours=0 r9 @20:33:28 top=txlens 0.9999 n=41 **ZERO**
+FACT_CHECK_GENERAL                       e46: ours=0.9967 r4 @23:07:00 top=telegraph-intent-miner 1 n=19 | e45: ours=0.9926 r3 @21:01:05 top=telegraph-intent-miner 0.9998 n=18
+FINANCIAL_DATA_GENERAL                   e46: ours=0 r2 @00:25:27 top=txlens 0.9828 n=21 **ZERO** | e45: ours=0 r2 @18:01:16 top=a1-preflight 0.8921 n=21 **ZERO**
+FRAUD_DETECTION_GENERAL                  e46: ours=0.9999 r5 @00:36:21 top=anchor 1 n=28 | e45: ours=0.9978 r5 @20:33:57 top=txlens 1 n=28
+GAS_PRICE_GENERAL                        e46: ours=0 r7 @00:02:45 top=txlens 0.9824 n=30 **ZERO** | e45: ours=0 r6 @17:57:36 top=txlens 0.9796 n=30 **ZERO**
+IP_GEOLOCATION_GENERAL                   e46: ours=0 r2 @22:27:29 top=netwire-ip-geolocation 0 n=16 | e45: ours=0.8935 r2 @17:52:10 top=netwire-ip-geolocation 0.9821 n=16
+LANGUAGE_TRANSLATION_GENERAL             e46: ours=0.9687 r13 @23:53:30 top=langwire-translation 0.9954 n=23 | e45: ours=0.9897 r4 @18:28:23 top=tr-mymemory 0.9964 n=23
+MACRO_ECONOMIC_INDICATOR_GENERAL         e46: ours=0.9839 r4 @23:57:42 top=metricwire-macro-economic-indicator 0.9941 n=29 | e45: ours=0.978 r3 @18:39:19 top=zk-macro-year 0.9866 n=29
+NEWS_HEADLINES_GENERAL                   e46: ours=0 r2 @23:37:51 top=txlens 0.921 n=19 **ZERO** | e45: ours=0 r17 @20:16:17 top=txlens 0.9592 n=19 **ZERO**
+NEWS_SEARCH_GENERAL                      e46: ours=0.4363 r8 @01:30:05 top=nsearch-openalex 0.9856 n=21 | e45: ours=0.0676 r6 @18:55:33 top=chainsight-oracle 0.5 n=22
+ONCHAIN_METRIC_VERIFY_GENERAL            e46: ours=0.9089 r2 @00:28:20 top=chainsight-oracle 0.9134 n=46 | e45: ours=0.9498 r1 @18:50:19 top=livecert 0.9498 n=45
+ONCHAIN_TX_LOOKUP_GENERAL                e46: ours=0 r3 @21:57:25 top=sentinel-risk-oracle 0.5 n=22 **ZERO** | e45: ours=0.5 r8 @20:06:12 top=zk-txread 0.5369 n=32
+QUESTION_ANSWERING_GENERAL               e46: ours=0 r10 @22:47:31 top=package-release-intel 0.9962 n=17 **ZERO** | e45: ours=0.9737 r1 @18:15:49 top=livecert 0.9737 n=17
+REGULATORY_FILING_MONITOR_GENERAL        e46: ours=0.9556 r6 @23:13:58 top=a1-preflight 0.9857 n=25 | e45: ours=0.9743 r5 @19:25:10 top=a1-preflight 0.989 n=25
+RESEARCH_QUERY_GENERAL                   e46: ours=0 r9 @21:53:39 top=goldrush-qld-history 0.9648 n=33 **ZERO** | e45: ours=0 r7 @17:44:06 top=goldrush-qld-history 0.9543 n=33 **ZERO**
+RESEARCH_SYNTHESIS_GENERAL               e46: ours=0.9885 r3 @23:31:03 top=chainsight-oracle 0.9997 n=20 | e45: ours=0.7735 r3 @21:01:20 top=chainsight-oracle 0.9999 n=20
+SANCTIONS_SCREENING_MATCH_GENERAL        e46: ours=1 r10 @01:25:39 top=chainsight-oracle 1 n=31 | e45: ours=1 r9 @18:33:07 top=chainsight-oracle 1 n=31
+SECURITY_REVIEW_GENERAL                  e46: ours=- top=secrev-ghsa 1 n=27 | e45: ours=- top=txlens 1 n=27
+SENTIMENT_ANALYSIS_GENERAL               e46: ours=1 r2 @22:53:22 top=a1-preflight 1 n=23 | e45: ours=1 r5 @19:14:31 top=a1-preflight 1 n=23
+SMART_CONTRACT_AUDIT_GENERAL             e46: ours=- top=goplus-security 0 n=6 | e45: ours=0 r10 @19:53:03 top=chainsight-oracle 1 n=20 **ZERO**
+SSL_VERIFICATION_CERT                    e47: ours=1 r3 @02:02:41 top=a1-preflight 1 n=8 | e46: ours=1 r3 @21:43:15 top=a1-preflight 1 n=8 | e45: ours=1 r3 @17:13:50 top=a1-preflight 1 n=8
+STOCK_PRICE_US_EQUITY                    e46: ours=0.91 r3 @22:02:51 top=txlens 0.952 n=11 | e45: ours=0.886 r2 @17:37:00 top=a1-preflight 0.886 n=11
+STORM_ALERT_GENERAL                      e46: ours=0.9356 r4 @23:04:44 top=txlens 0.9984 n=21 | e45: ours=0.5 r3 @17:24:43 top=txlens 0.5 n=21
+TEXT_CLASSIFICATION_GENERAL              e46: ours=0 r11 @22:39:06 top=vulnrank-triage 0.9997 n=22 **ZERO** | e45: ours=0.9956 r2 @21:14:08 top=txlens 0.9957 n=22
+TEXT_GENERATION_GENERAL                  e46: ours=0.9929 r2 @22:54:18 top=txlens 0.9985 n=19 | e45: ours=0.9933 r4 @19:52:18 top=zk-drafttext 0.9998 n=20
+TOKEN_HOLDER_COUNT_GENERAL               e46: ours=0.8453 r1 @01:18:04 top=livecert 0.8453 n=24 | e45: ours=0.8403 r1 @21:00:09 top=livecert 0.8403 n=24
+TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL        e46: ours=0.9916 r1 @23:40:18 top=livecert 0.9916 n=30 | e45: ours=0 r5 @20:44:13 top=a1-preflight 0.7949 n=29 **ZERO**
+URL_SAFE_GENERAL                         e46: ours=0.5 r16 @01:01:03 top=urlsafe-otx-cloudflare-domain 0.9615 n=21 | e45: ours=0.5 r5 @18:08:13 top=urlsafe-otx-example-url 0.9705 n=20
+URL_SCAN_VERDICT                         e46: ours=0.5511 r5 @01:02:23 top=chainsight-oracle 0.5892 n=11 | e45: ours=0.549066 r6 @20:03:33 top=chainsight-oracle 0.5892 n=11
+WALLET_BALANCE_CHECK_GENERAL             e46: ours=0.5 r4 @22:17:26 top=a1-preflight 0.5 n=26 | e45: ours=0.9234 r4 @17:51:00 top=a1-preflight 0.9699 n=26
+WEATHER_CHECK_TEMPERATURE                e47: ours=0.583333 r13 @01:58:24 top=a1-preflight 0.791666 n=18 | e46: ours=0.275 r13 @21:39:08 top=a1-preflight 0.55 n=16 | e45: ours=0.408333 r12 @17:14:37 top=a1-preflight 0.583333 n=16
+WEATHER_FORECAST_GENERAL                 e46: ours=0.9717 r8 @00:23:56 top=preflight-ssl-verification 0.9964 n=28 | e45: ours=0.5 r7 @20:49:01 top=skywire-forecast 0.6803 n=28
+WEB_SEARCH_GENERAL                       e46: ours=0.1825 r3 @23:42:18 top=txlens 0.9915 n=30 | e45: ours=0.9607 r5 @19:22:50 top=txlens 0.997 n=30

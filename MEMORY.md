@@ -1,5 +1,16 @@
 # MEMORY.md — session continuity
 
+## 2026-11-24 ~02:10 UTC (07:40 IST): CURRENT — `66d5ecb` LIVE (`miner-g5zcew03d`); no answer changed
+
+- Production `dpl_2d2r1xgMJxRbAkbt6NDc6yZKYg5k`. Preflight 7/7, watch 6126 active. Rollback: `miner-3udefsmw1`
+  (`8a631d5`). Evidence: `track1-miner/docs/evidence/release-2026-11-24-review-logging/`.
+- The request archive now keeps each invocation's REQ and RES (G362 fixed; installed in `tg-deploy\scores`, 65-minute
+  lookback). Code reviews and audits log `REVIEW stated= problem= served= top=`.
+- No zero's cause was proven: CODE_REVIEW answered `Comment` on its one logged scored call (G364); the others have no
+  RES line. Epoch 47 began ~01:58 UTC.
+- Next: after epoch 47, join each zero's scored_at to the archive's `lines`; then fix what they show (G363, G364, G361).
+- Archive rows: `lines` is every log line; `around.mjs`-style joins need `MSYS_NO_PATHCONV=1` for `/route` arguments.
+
 ## 2026-11-23 ~23:30 UTC (2026-11-24 05:00 IST): CURRENT — `8a631d5` LIVE (`miner-3udefsmw1`); main = production
 
 - Owner: "take the decision as per your recommendation. all i want is to win". PR #56 (the other session's `36e4e13`)

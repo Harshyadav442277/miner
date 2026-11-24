@@ -5,21 +5,26 @@
  * Vercel keeps about an hour of request logs on this plan (oldest line 17:33 UTC when read at 18:30 UTC on
  * 2026-11-16) and the CLI returns at most 50 lines per call, so a score of 0 could not be read against what the node
  * sent (GAPS G310). Run every 30 minutes: it reads the last `MINUTES` in 5-minute windows and keeps each line once.
- * A line holds the route, status, time and parameter names; values only for route and short-list params
- * (handler.ts `logParam`), never a person's text.
+ * A row is one invocation: its route, status, time, and `lines`, every log line it wrote (the REQ with parameter
+ * names, values only for route and short-list params per handler.ts `logParam`, then the RES verdict), never a
+ * person's text.
  *
- * usage: node tools/archive-requests.mjs [out.jsonl]   env: MINUTES (default 40), VERCEL_SCOPE, VERCEL_PROJECT
+ * usage: node tools/archive-requests.mjs [out.jsonl]   env: MINUTES (default 65), VERCEL_SCOPE, VERCEL_PROJECT
  */
 import { execFileSync } from "node:child_process";
 import { appendFileSync, existsSync, readFileSync } from "node:fs";
 
 const out = process.argv[2] ?? "requests.jsonl";
-const minutes = Number(process.env.MINUTES ?? 40);
+// 65, not 40: one missed 30-minute run lost 23:00-23:50 UTC on 2026-11-23. Vercel keeps about an hour.
+const minutes = Number(process.env.MINUTES ?? 65);
 const scope = process.env.VERCEL_SCOPE ?? "wukong4";
 const project = process.env.VERCEL_PROJECT ?? "miner";
 const vercel = process.platform === "win32" ? "vercel.cmd" : "vercel";
 
-const seen = new Set(existsSync(out) ? readFileSync(out, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l).id) : []);
+// The CLI gives one row per invocation: `message` is one of its log lines and `logs` holds all of them, so the REQ
+// and its RES sit in one row (GAPS G362). A row archived before `lines` existed is written again once with them.
+const seen = new Set(existsSync(out) ? readFileSync(out, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l))
+  .filter((r) => Array.isArray(r.lines)).map((r) => r.id) : []);
 const now = Date.now();
 const CAP = 50; // the CLI returned at most 50 lines per call whatever --limit said (2026-11-16)
 let added = 0;
@@ -42,13 +47,19 @@ function fetchWindow(a, b) {
   const mid = a + Math.floor((b - a) / 2);
   return [...fetchWindow(a, mid), ...fetchWindow(mid, b)];
 }
+/** Every log line of the invocation, REQ first; `message` alone when the CLI sends no `logs` array. */
+function entryLines(l) {
+  const lines = Array.isArray(l.logs) ? l.logs.map((x) => x?.message).filter((m) => typeof m === "string") : [];
+  if (!lines.length && typeof l.message === "string") lines.push(l.message);
+  return lines.sort((a, b) => Number(!a.startsWith("REQ ")) - Number(!b.startsWith("REQ ")));
+}
 for (let t = now - minutes * 60_000; t < now; t += 5 * 60_000) {
   for (const line of fetchWindow(t, Math.min(t + 5 * 60_000, now))) {
     const l = JSON.parse(line);
     if (seen.has(l.id)) continue;
     seen.add(l.id);
     appendFileSync(out, JSON.stringify({ id: l.id, at: new Date(l.timestamp).toISOString(), deployment: l.deploymentId,
-      method: l.requestMethod, status: l.responseStatusCode, message: l.message }) + "\n");
+      method: l.requestMethod, status: l.responseStatusCode, message: l.message, lines: entryLines(l) }) + "\n");
     added++;
   }
 }
