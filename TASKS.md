@@ -5,12 +5,21 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## 2026-11-25 — epochs 47–55 read; `cc9a51c` live (logging only)
+
+- [x] Join epoch 47–55 zeros to the archive: no cause proven (GAPS 2026-11-25 block, G364, G366–G368).
+- [x] Log Groq's error code on refused model calls (`80cbbc5`) and a `sha=` per reviewed input (`cc9a51c`); live.
+- [ ] Read the `code=` values of `LLM … HTTP 400` lines (G367); fix what they name.
+- [ ] CODE_REVIEW: when one `sha=` gets different verdicts and scores, decide a fix; ask the owner if it changes
+  `Comment` (G244, G364).
+- [ ] Owner: keep the archiving PC awake, or agree to move the archiver to a runner (G366).
+- [ ] Zeros not yet investigated: GAS_PRICE, RESEARCH_SYNTHESIS, WEB_SEARCH, MACRO, NEWS_SEARCH (G368).
+
 ## 2026-11-24 — handoff (start-up prompt: docs/NEXT_SESSION.md)
 
 - [x] Read epochs 45–47 (epoch 47 had only 4 intents scored at 02:05 UTC): `release-2026-11-24-review-logging/epoch-45-47-scores.txt`.
 - [x] G362: archive keeps every log line (`e0134a3`), 65-minute lookback (`f248de6`); review logging (`66d5ecb`), live.
-- [ ] After epoch 47: join each zero's scored_at to the archive's `lines` (RESEARCH_QUERY, EVENT_OUTCOME, CODE_REVIEW,
-  FINANCIAL_DATA, GAS_PRICE); fix only what they show (G361, G363, G364).
+- [x] After epoch 47: join each zero's scored_at to the archive's `lines` — done 2026-11-25, no cause proven.
 - [ ] G365: why SECURITY_REVIEW was not scored for us in epochs 45–46.
 - [ ] TOKEN_HOLDER_COUNT `chain=base&token=` still answers `upstream_unavailable` (GAPS 2026-11-24 block).
 - [ ] Owner: app partner for the Stablecoin screening workflow plus independent reproduction (no verified app usage yet).
