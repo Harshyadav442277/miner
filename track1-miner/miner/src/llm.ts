@@ -159,6 +159,12 @@ export interface PhraseRequest {
   long?: boolean;
   /** Ask for a JSON object (Groq `response_format: json_object`). */
   json?: boolean;
+  /**
+   * Filled with what answered: the model, "cache", or nothing when no model did; `salvaged` when the text came
+   * from a 400 `json_validate_failed` body. One 179-byte review input was served Comment four times and
+   * Request changes four times, and which model wrote each was not known (GAPS G364).
+   */
+  report?: { via?: string; salvaged?: boolean };
 }
 
 interface Entry { text: string; at: number }
@@ -267,7 +273,7 @@ export function llmErrorLine(model: string, status: number, body: string, json: 
 }
 
 /** One model, one attempt. Null for every failure; the reason is never surfaced. */
-async function ask(model: string, r: PhraseRequest, key: string, ms: number, meter?: { used?: number }): Promise<string | "rate" | null> {
+async function ask(model: string, r: PhraseRequest, key: string, ms: number, meter?: { used?: number; salvaged?: boolean }): Promise<string | "rate" | null> {
   try {
     const res = await fetch(ENDPOINT, {
       method: "POST",
@@ -289,7 +295,10 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number, met
       const body = await res.text().catch(() => "");
       process.stdout.write(`${llmErrorLine(model, res.status, body, Boolean(r.json))}\n`);
       if (res.status === 429 || res.status >= 500) return "rate";
-      return res.status === 400 ? salvage400(body, r) : null;
+      if (res.status !== 400) return null;
+      const kept = salvage400(body, r);
+      if (kept && meter) meter.salvaged = true;
+      return kept;
     }
     const body = (await res.json()) as { choices?: Array<{ message?: { content?: string } }>; usage?: { total_tokens?: number } };
     const used = body?.usage?.total_tokens;
@@ -316,7 +325,10 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
 
   const id = cacheKey(r);
   const hit = cache.get(id);
-  if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.text;
+  if (hit && Date.now() - hit.at < CACHE_TTL_MS) {
+    if (r.report) r.report.via = "cache";
+    return hit.text;
+  }
 
   const cap = r.long ? Math.max(budgetMs(), LONG_BUDGET_MS) : budgetMs();
   const deadline = Date.now() + Math.min(r.deadlineMs ?? cap, cap);
@@ -341,11 +353,12 @@ export async function phrase(r: PhraseRequest): Promise<string | null> {
     // tokens a call and capped the route at about 12 calls a minute.
     const entry = r.long ? spendLong(estimateTokens(r)) : null;
     if (r.long && !entry) break;
-    const meter: { used?: number } = {};
+    const meter: { used?: number; salvaged?: boolean } = {};
     const out = await ask(model, r, key, left, meter);
     if (entry && meter.used !== undefined) entry.tokens = Math.min(entry.tokens, meter.used);
     if (out === "rate") { limited++; continue; }
     if (out) {
+      if (r.report) { r.report.via = model; r.report.salvaged = Boolean(meter.salvaged); }
       nextModel = (nextModel + i + 1) % MODELS.length;
       if (cache.size >= CACHE_MAX) cache.delete(cache.keys().next().value as string);
       cache.set(id, { text: out, at: Date.now() });

@@ -230,21 +230,22 @@ export async function reviewCode(question: string, codeParam = ""): Promise<GenA
     return { verdict: "insufficient_input", confidence: 0, error: "no_code", findings: [], summary: null, source: SOURCE,
       reason: "No code was found in the request, and links are not fetched, so nothing was reviewed. Send the code or diff itself as the code parameter." };
   }
-  const raw = await phrase({ system: REVIEW_SYSTEM, user: code, maxTokens: 1_400, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
+  const via: { via?: string; salvaged?: boolean } = {};
+  const raw = await phrase({ report: via, system: REVIEW_SYSTEM, user: code, maxTokens: 1_400, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
   const o = raw ? parseObject(raw) : null;
   const stated = str(o?.summary);
   if (!o || !stated) {
-    console.log(reviewLine("/code-review", o, raw ? (o ? "summary_missing" : "not_json") : "no_reply", "unknown", "", code));
+    console.log(reviewLine("/code-review", o, raw ? (o ? "summary_missing" : "not_json") : "no_reply", "unknown", "", code, via));
     return unavailable("a review", { findings: [], summary: null });
   }
   const problem = reviewProblem(o, false);
   if (problem) {
-    console.log(reviewLine("/code-review", o, problem, "unknown", "", code));
+    console.log(reviewLine("/code-review", o, problem, "unknown", "", code, via));
     return { ...unavailable("a complete review", { findings: [], summary: null, finding_count: null }), error: "invalid_model_response" };
   }
   const findings = normaliseFindings(o.findings);
   const verdict = reviewVerdict(str(o.verdict), findings);
-  console.log(reviewLine("/code-review", o, null, verdict, findings[0]?.severity ?? "", code));
+  console.log(reviewLine("/code-review", o, null, verdict, findings[0]?.severity ?? "", code, via));
   const summary = reviewSummary(stated, verdict);
   const listed = findings.map((f, i) => `${i + 1}) ${f.severity}${f.line ? `, line ${f.line}` : ""}: ${f.issue}${f.fix ? ` Fix: ${f.fix}` : ""}`).join(" ");
   return { verdict, summary, findings, finding_count: findings.length, confidence: CONFIDENCE, source: SOURCE,
@@ -312,21 +313,22 @@ export async function auditContract(question: string, contractParam = ""): Promi
     return { ...none, verdict: "insufficient_input", confidence: 0, error: "no_source", source: SOURCE,
       reason: "No contract source was found in the request, and addresses and links are not fetched, so nothing was audited. Send the Solidity source itself as the contract parameter." };
   }
-  const raw = await phrase({ system: AUDIT_SYSTEM, user: source, maxTokens: 1_800, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
+  const via: { via?: string; salvaged?: boolean } = {};
+  const raw = await phrase({ report: via, system: AUDIT_SYSTEM, user: source, maxTokens: 1_800, long: true, json: true, clean: (r) => (parseObject(r) ? r : null) });
   const o = raw ? parseObject(raw) : null;
   const stated = str(o?.summary);
   if (!o || !stated) {
-    console.log(reviewLine("/contract-audit", o, raw ? (o ? "summary_missing" : "not_json") : "no_reply", "unknown", "", source));
+    console.log(reviewLine("/contract-audit", o, raw ? (o ? "summary_missing" : "not_json") : "no_reply", "unknown", "", source, via));
     return unavailable("an audit", none);
   }
   const problem = reviewProblem(o, true);
   if (problem) {
-    console.log(reviewLine("/contract-audit", o, problem, "unknown", "", source));
+    console.log(reviewLine("/contract-audit", o, problem, "unknown", "", source, via));
     return { ...unavailable("a complete audit", none), error: "invalid_model_response" };
   }
   const findings = normaliseAuditFindings(o.findings);
   const verdict = riskGrade(findings);
-  console.log(reviewLine("/contract-audit", o, null, verdict, findings[0]?.severity ?? "", source));
+  console.log(reviewLine("/contract-audit", o, null, verdict, findings[0]?.severity ?? "", source, via));
   const summary = auditSummary(stated, verdict);
   const listed = findings.map((f, i) => `${i + 1}) ${f.severity} ${f.class}${f.function ? ` in ${f.function}` : ""}: ${f.issue}${f.fix ? ` Fix: ${f.fix}` : ""}`).join(" ");
   return { verdict, summary, findings, finding_count: findings.length, confidence: CONFIDENCE, source: SOURCE,

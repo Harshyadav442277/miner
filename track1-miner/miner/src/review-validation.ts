@@ -36,10 +36,11 @@ export function completeReview(value: Record<string, unknown>, audit: boolean): 
  * One log line per model review: the verdict the model stated (an allowed word or "other"), the check that failed,
  * the verdict served, the top severity, the input's size and an 8-hex SHA-256 prefix of it. Categorical only, never
  * the code or the review. The prefix tells a repeated input from a new one of the same size: a 179-byte input was
- * served Comment once and Request changes once, and only its size said they might be the same input (2026-11-25). Pure.
+ * served Comment once and Request changes once, and only its size said they might be the same input (2026-11-25).
+ * `report` says which model wrote the review, so a fix can tell model variance from model choice (G364). Pure.
  */
 export function reviewLine(path: string, o: Record<string, unknown> | null, problem: string | null, served: string,
-  topSeverity: string, input: string): string {
+  topSeverity: string, input: string, report: { via?: string; salvaged?: boolean } = {}): string {
   const words = ["Approve", "Request changes", "Comment", "Critical", "High", "Medium", "Low", "No issues found"];
   const v = typeof o?.verdict === "string" ? o.verdict.trim() : null;
   // An allowed word as sent; one that differs only in case or spacing is marked, since that alone fails the check.
@@ -47,5 +48,8 @@ export function reviewLine(path: string, o: Record<string, unknown> | null, prob
   const stated = !o ? "none" : v === null ? "missing" : words.includes(v) ? v : near ? `${near}~case` : "other";
   return `REVIEW ${path} stated=${stated} problem=${problem ?? "none"} served=${served} top=${topSeverity || "none"}` +
     ` bytes=${Buffer.byteLength(input)} lines=${input.split("\n").filter((l) => l.trim()).length}` +
-    ` sha=${createHash("sha256").update(input).digest("hex").slice(0, 8)}`;
+    ` sha=${createHash("sha256").update(input).digest("hex").slice(0, 8)}` +
+    // The model as a short id ("gpt-oss-120b"), "cache", or "none"; salvaged=1 when a 400 body supplied the text.
+    ` via=${(report.via ?? "none").replace(/^.*\//, "").replace(/[^a-z0-9.-]/gi, "").slice(0, 30) || "none"}` +
+    ` salvaged=${report.salvaged ? 1 : 0}`;
 }
