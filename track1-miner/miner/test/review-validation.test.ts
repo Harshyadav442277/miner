@@ -27,7 +27,7 @@ test("completeReview: unchanged behaviour, true exactly when there is no problem
 test("reviewLine: categorical only, never the code or the model's words", () => {
   const code = "for (let i = 0; i <= arr.length; i++) {\n  total += arr[i];\n}\n";
   assert.equal(reviewLine("/code-review", { verdict: "Request Changes" }, "verdict_not_allowed", "unknown", "", code),
-    "REVIEW /code-review stated=Request changes~case problem=verdict_not_allowed served=unknown top=none bytes=61 lines=3");
+    "REVIEW /code-review stated=Request changes~case problem=verdict_not_allowed served=unknown top=none bytes=61 lines=3 sha=48d4575e");
   const line = reviewLine("/code-review", { verdict: "my secret password is hunter2" }, "verdict_not_allowed", "unknown", "", "secret code");
   assert.match(line, /stated=other /);
   assert.doesNotMatch(line, /hunter2|secret code/);

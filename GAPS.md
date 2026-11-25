@@ -1,5 +1,45 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-25 ~13:45 UTC (19:15 IST) — epochs 47–55 read; release `cc9a51c` (logging only); G366–G368 new
+
+Record: `track1-miner/docs/evidence/release-2026-11-25-llm-codes/` (scores in `epochs-47-55.txt`). Every miner of an
+intent shares one `scored_at`, so a score is joined to our calls by timing only. No zero below has a proven cause.
+
+- **G366 — Request archive hole: the host was off. `OPEN`, owner.** `record.log` has no output at all from
+  2026-11-24 16:30 to 2026-11-25 08:08 UTC (score recorder and archiver both silent), and the archive has no rows for
+  those hours, so epochs 50–53 cannot be joined. Smaller holes: 11-24 11:30–14:43, 11-25 10:00–11:03. Code cannot fix
+  a sleeping host: keep the PC awake, or move the archiver to a runner (needs a Vercel token there; not done).
+  Separately, most runs log one `Command failed` for the window starting at now−65 min; probably past Vercel's
+  retention. `UNVERIFIED` (not run by hand with stderr).
+- **RESEARCH_QUERY zeros (6 of 8 epochs, 47–54): cause `NOT ESTABLISHED`.** Nearest preceding call per epoch:
+  e47 `evidence`→0; e48 `no_evidence`→0.98; e49 `unavailable`→0; e53 `evidence`→0; e54 `unavailable`→0.86. The
+  same verdict precedes both 0 and a high score, so the verdict is not the cause. e49 and e51 had third place 0.5.
+  The call lands 10–20 min before the score, so "nearest" may be someone else's call. 3 of 10 archived `/research`
+  calls answered `unavailable` (one index timed out and nothing was found). txlens took 11.7 s on a routed research
+  call (Daemon feed, 2026-11-25), which weakens latency (G360) as the cause.
+- **EVENT_OUTCOME (G361): cause `NOT ESTABLISHED`.** `no_market_found` preceded 0.9989 (e48) and 0 (e49, e54). The
+  route gets dozens of calls an epoch, so the nearest call identifies nothing. Third place was 0 in e52–e54: the field
+  failed, not only us.
+- **G364 — CODE_REVIEW: an input-dependent pattern, `INFERRED`.** No release between e47 and e55; scores 0,0,0,0,1,1,
+  0.5,1,1. The call 60–95 s before each score: e47 `Comment` (bytes=1)→0; e48 `Comment` (bytes=179)→0; e53 `Approve`
+  (bytes=130)→0.5; e54 `Request changes` (bytes=179, top critical)→1; e55 `Approve` (bytes=76)→1. A 179-byte input was
+  served `Comment` (top info) at 10:16 and `Request changes` (top high/critical) at 08:07, 09:10, 11:14 and 15:59 on
+  11-24/25: the model's severity varies on one input. Equal size is not proof of equal input, so `cc9a51c` logs
+  `sha=` per review. No review behaviour was changed: it cannot be tested before production (local Groq key 401,
+  previews keyless). Next: when a `sha` repeats with different verdicts and scores, decide a fix; turning `Comment`
+  into another verdict touches G244, so ask the owner first.
+- **G367 — Model calls refused with 400. `OPEN`, now logged with Groq's code.** 27 `LLM … HTTP 400` lines in the
+  archive over nine routes and all three models (research-synthesis 7, event-outcome 4, papers 4, news-search 6).
+  `80cbbc5` logs `code=<Groq error code> json=<0/1>`. Read the codes before changing a prompt or model.
+- **G368 — Other zeros where another miner scored, epochs 47–54, not investigated:** GAS_PRICE (e47, e52; e51/e54 the
+  field was near 0 too), RESEARCH_SYNTHESIS (e48, e50, e54; e54's call logged `LLM qwen HTTP 400`), WEB_SEARCH (e48,
+  e50, e53), MACRO (e47, e49, e52), FRAUD_DETECTION (e49, e54), URL_SAFE (e49, e50), QUESTION_ANSWERING (e53),
+  TOKEN_TOTAL_SUPPLY (e48, e51, e54), CRYPTO_TRANSFER (e52, e54), WALLET_BALANCE (e49, e50, e52), NEWS_HEADLINES (e53).
+  NEWS_SEARCH scores 0.03–0.22 in most epochs against 0.5–0.99 third place (G326). FINANCIAL_DATA and CROSS_CHAIN are
+  0 with third place 0 in most epochs. SMART_CONTRACT_AUDIT is unscored for us in odd epochs.
+- **CODE_REVIEW `bytes=1` inputs:** some caller sends one-byte `code` many times a day; we answer `Comment` with an
+  info finding. What the right answer is, and who sends it, is unknown.
+
 ## 2026-11-24 ~02:10 UTC (07:40 IST) — release `66d5ecb`; G362 fixed; G363–G365 new
 
 Record: `track1-miner/docs/evidence/release-2026-11-24-review-logging/`.

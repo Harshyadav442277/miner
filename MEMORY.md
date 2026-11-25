@@ -1,5 +1,17 @@
 # MEMORY.md — session continuity
 
+## 2026-11-25 ~13:45 UTC (19:15 IST): CURRENT — `cc9a51c` LIVE (`miner-1hem8iuy0`); logging only, no answer changed
+
+- Production `dpl_7WxvntGK3GmMuax8RAjz4fzT92En`. Unit 1094/1094, preflight 7/7, watch 6126 active. Rollback:
+  `miner-g5zcew03d` (`66d5ecb`). Evidence: `track1-miner/docs/evidence/release-2026-11-25-llm-codes/`.
+- Epochs 47–55 read for all 44 intents (`epochs-47-55.txt`). No zero's cause is proven: the scorer scores a whole
+  intent at one time, and the archive is empty from 11-24 16:30 to 11-25 08:08 UTC because the host was off (G366).
+- New log fields: `LLM <model> HTTP <status> code=<Groq code> json=<0/1>` (G367) and `REVIEW … sha=<8 hex>` (G364).
+- Next: read the `code=` values and the `sha=` repeats against the next epochs' scores (G364, G367), then G368.
+- How: `track1-miner/tools/epoch-history.mjs <out> <44 intent ids>` (ids from `/api/miners/6126`
+  `supported_intents`), then join `tg-deploy\scores\requests.jsonl` `lines` by route and time. Dedupe by `id`; use
+  `MSYS_NO_PATHCONV=1` for `/route` arguments in Git Bash. The join scripts were scratch and are not kept.
+
 ## 2026-11-24 ~02:10 UTC (07:40 IST): CURRENT — `66d5ecb` LIVE (`miner-g5zcew03d`); no answer changed
 
 - Production `dpl_2d2r1xgMJxRbAkbt6NDc6yZKYg5k`. Preflight 7/7, watch 6126 active. Rollback: `miner-3udefsmw1`

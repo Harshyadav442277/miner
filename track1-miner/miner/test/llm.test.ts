@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { phrase, resetPhraseState, sanitise } from "../src/llm";
+import { llmErrorLine, phrase, resetPhraseState, sanitise } from "../src/llm";
 
 /**
  * The generative transport, exercised entirely through an injected fetch. No
@@ -236,4 +236,14 @@ test("a fast request makes one non-reasoning attempt, and a second model only af
       assert.equal(calls.length, 1);
     },
   );
+});
+
+test("llmErrorLine: Groq's error code and the JSON flag, never the message", () => {
+  const body = JSON.stringify({ error: { code: "json_validate_failed", message: "secret prompt text", failed_generation: "secret reply" } });
+  assert.equal(llmErrorLine("qwen/qwen3.8-27b", 400, body, true), "LLM qwen/qwen3.8-27b HTTP 400 code=json_validate_failed json=1");
+  const line = llmErrorLine("openai/gpt-oss-120b", 400, JSON.stringify({ error: { code: "Bad Code: secret prompt text" } }), false);
+  assert.equal(line, "LLM openai/gpt-oss-120b HTTP 400 code=other json=0");
+  assert.equal(llmErrorLine("m", 400, "not json at all, secret", false), "LLM m HTTP 400 code=unparsed json=0");
+  assert.equal(llmErrorLine("m", 429, "", false), "LLM m HTTP 429 code=none json=0");
+  assert.equal(llmErrorLine("m", 400, JSON.stringify({ error: { message: "x" } }), false), "LLM m HTTP 400 code=none json=0");
 });
