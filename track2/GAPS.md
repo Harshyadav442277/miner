@@ -84,7 +84,10 @@ Raw files are in the session scratchpad, not committed. The plan is [PLAN_2026-1
   "chosen" text pairs. The `livecert-comparator` logs from 2026-11-17 were not read; they are likely past Vercel's
   retention. Kill this if a log or the docs show integer pairs.
 - **Unknown:** whether a rejected adapter's bond returns, and after how long (the registry shows `bond_amount: 0`).
-- **Unknown:** whether the runnable must stay up after promotion.
+- **Unknown:** whether the runnable must stay up after promotion. Observed 2026-11-25: #210 kept its canonical seat
+  through #219 (2026-11-23) and #234 (registered 2026-11-24 16:59 UTC) with its runnable URL dead since 2026-11-23
+  22:50 UTC. So a challenger round did not need our executor. Not documented, and the node may still re-run an
+  incumbent on some other trigger.
 - **Unknown:** whether TEXT_SUMMARIZATION can be evaluated: zkasuran #208 has been `awaiting_compatible_material` since
   06:44 UTC.
 - **Unknown:** whether CUAD and the chosen moderation and patch datasets are licence-clean for training.

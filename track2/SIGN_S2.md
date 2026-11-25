@@ -29,18 +29,24 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### Ready to sign (2026-11-24 ~06:25 UTC): TEXT_SUMMARIZATION v1c
+### Ready to sign (executor restarted 2026-11-25 13:20 UTC): TEXT_SUMMARIZATION v1c
 
 #222 (v1b) was rejected with Cloudflare 524 three times. Its 30-text batches took 164-263 s, because the executor's
 workers (3.4 GB private each) were paged out while training ran. Same-hash re-registration is refused, so v1c is the
 same adapter at max_tokens 510, with the same Stage 1 bits `0x3fbc8682`.
 
-**This window:**
-- training is paused (`tg-eval/EXECUTOR.lock`; every lane waits on it);
-- the executor runs 4 workers at AboveNormal priority;
-- replaying the node's own 30-text batch through the tunnel took 58.2 s.
+**The Nov 24 executor (`kelly-their-deleted-mechanical…`) is dead:** the PC crashed at 15:39 UTC Nov 24 (event 41)
+and was powered off from the Start menu at 16:35 and 16:51 UTC. v1c was never registered. Use only the URL below.
 
-Keep the lock until the registration is decided.
+**This window (checked 2026-11-25 13:21-13:24 UTC):**
+- training is paused (`tg-eval/EXECUTOR.lock`; all six lanes are relaunched and wait on it);
+- the executor (`tg-eval/executor-ts4.out`) runs 4 workers at AboveNormal priority;
+- `check_executor.py` PASS: public and loopback return identical bits, item 0 `0x3fbc8682`;
+- replaying the node's own 30-text batch (captured 2026-11-24 02:21) through the tunnel took 58.9 s;
+- the hosted binary's sha256 equals the local package's (`a7bfdf10…f434`), whose manifest keccak is below.
+
+Keep the lock and the PC on (no shutdown, no sleep, lid open) until the registration is decided. The check comes
+about 2 h after the first epoch boundary after registration; the next boundary is 2026-11-25 16:04:54 UTC.
 
 | Field | Value |
 |---|---|
@@ -48,7 +54,7 @@ Keep the lock until the registration is decided.
 | keccak256 | `0x1c22378e13fe61e67400281f5c6e792282e63181f373529bffddee1b6344697c` |
 | Family | `TEXT_SUMMARIZATION` |
 | Fee address | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
-| Runnable endpoint URL | `https://kelly-their-deleted-mechanical.trycloudflare.com/TEXT_SUMMARIZATION` |
+| Runnable endpoint URL | `https://humanities-jerusalem-vote-inspiration.trycloudflare.com/TEXT_SUMMARIZATION` |
 
 ### Signed 2026-11-24 01:39 UTC as #222, rejected (executor timeouts): TEXT_SUMMARIZATION v1b
 

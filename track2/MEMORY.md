@@ -8,7 +8,45 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-24 ~06:25 UTC (11:55 IST) · TS v1c READY TO SIGN; TRAINING PAUSED FOR ITS WINDOW
+## CURRENT — 2026-11-25 ~13:30 UTC (19:00 IST) · PC CRASHED NOV 24; v1c EXECUTOR RESTARTED; SIX LANES RELAUNCHED
+
+- **The PC crashed at 2026-11-24 15:39 UTC** (System event 41, unclean) and was then powered off from the Start menu
+  at 16:35 and 16:51 UTC (event 1074, user account). No update restart is pending. Every executor, tunnel and
+  training lane died. Nothing trained from Nov 24 06:16 to Nov 25 13:25 UTC: the lanes waited on EXECUTOR.lock, then
+  died with the PC.
+- **v1c was never registered** (no `0x1c22378e…` in `/api/wasm`, 13:18 UTC). Its executor was restarted through
+  `executor/launch.py --workers 4`, port 18390, output `tg-eval/executor-ts4.out`:
+  `https://humanities-jerusalem-vote-inspiration.trycloudflare.com/TEXT_SUMMARIZATION`.
+  - Workers set to AboveNormal (3.8 GB private each; 4.9 GB RAM free with nothing else running).
+  - `check_executor.py`: PASS, public = loopback, item 0 `0x3fbc8682`. The node's 30-text batch replayed in 58.9 s.
+  - A new quick-tunnel name is NXDOMAIN for about 30 s after cloudflared registers; this machine's resolver then
+    cached the miss until `ipconfig /flushdns`. Not a tunnel fault.
+- **EXECUTOR.lock stays** until v1c is decided. TEXT_SUMMARIZATION still has no champion (#208, #217, #222, #228
+  and #173 all rejected for executor faults).
+- **Lanes relaunched at 13:25 UTC** (`train_queue.py --detach --awake-hours 12`, WMI), all waiting on the lock. The
+  exact job strings, so the next relaunch does not have to guess:
+
+  | Job | Source of the hyperparameters |
+  |---|---|
+  | `EMAIL_SECURITY:es_v2:es_v2` | queue defaults (rank 8, alpha 32, 3 epochs, lr 1e-4), as es_v1 |
+  | `CONTENT_MODERATION:cm_v4:cm_v4:8:32:4:0.0002` | epochs and lr from the 03:40 block; rank is the default |
+  | `QUESTION_ANSWERING:qa_v4:qa_v4:16:32:4:0.0003` | qa_v4's own train.log |
+  | `VULNERABILITY_TRIAGE:vt_v2:vt_v1:16:32:4:0.0003` | the 03:15 block |
+  | `SMART_CONTRACT_AUDIT:sca_v1:sca_v1` | queue defaults; not recorded before |
+  | `FACT_CHECK:fc_v1:fact_check_v1` | queue defaults; not recorded before |
+
+- **#210 stays canonical with a dead runnable URL** since 2026-11-23 22:50: #219 and #234 (registered 2026-11-24
+  16:59, after the crash) both lost to it. Observed, not a documented guarantee (G53).
+- **No finished adapter to measure:** sa_v1 is barred by #216 (100%); cm_v3 failed the public15 screen (10/15).
+- **LiveCert 6126:** active, YAML `f47f018`. Epoch 54 (44 intents): 7 rank-1 (two are 0.000 ties: CROSS_CHAIN_STATE,
+  FINANCIAL_DATA), 22 top-3, 9 zeros (CROSS_CHAIN_STATE, FINANCIAL_DATA, IP_GEOLOCATION, GAS_PRICE,
+  CRYPTO_TRANSFER_VERIFY, RESEARCH_SYNTHESIS, FRAUD_DETECTION, TOKEN_TOTAL_SUPPLY, EVENT_OUTCOME). Epochs 52/53: 5/7
+  rank-1, 16/20 top-3, 12/8 zeros.
+- **Next:** owner signs v1c (SIGN_S2.md top) → watch for the check (~2 h after the first boundary after
+  registration) → when decided, delete `tg-eval/EXECUTOR.lock` → measure each lane as it finishes (node runtime +
+  public15 screen where one exists).
+
+## 2026-11-24 ~06:25 UTC (11:55 IST) · TS v1c READY TO SIGN; TRAINING PAUSED FOR ITS WINDOW
 
 - **#222 was rejected with Cloudflare 524 three times.** Its 30-text batches took 164-263 s because the workers (3.4 GB
   private each) were paged out under training load. **Rule:** while a registration awaits its check, training stops
@@ -21,7 +59,7 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 - The training lanes (fc, qa_v4, vt_v2, sca, es_v2, cm_v4) are relaunched and wait on EXECUTOR.lock. qa_v4 restarts
   from scratch.
 
-## CURRENT — 2026-11-24 ~03:40 UTC (09:10 IST) · #210 DEFENDED; #221 REJECTED 8/15; es_v2 QUEUED
+## 2026-11-24 ~03:40 UTC (09:10 IST) · #210 DEFENDED; #221 REJECTED 8/15; es_v2 QUEUED
 
 - **cm_v3:** kit 81%, Stage 1 PASS (`0x80972315…`). The offline pool screen gives **10/15**, against v2's 6 and the
   node's floor of 11.
