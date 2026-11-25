@@ -9,14 +9,15 @@
  * names, values only for route and short-list params per handler.ts `logParam`, then the RES verdict), never a
  * person's text.
  *
- * usage: node tools/archive-requests.mjs [out.jsonl]   env: MINUTES (default 65), VERCEL_SCOPE, VERCEL_PROJECT
+ * usage: node tools/archive-requests.mjs [out.jsonl]   env: MINUTES (default 60), VERCEL_SCOPE, VERCEL_PROJECT
  */
 import { execFileSync } from "node:child_process";
 import { appendFileSync, existsSync, readFileSync } from "node:fs";
 
 const out = process.argv[2] ?? "requests.jsonl";
-// 65, not 40: one missed 30-minute run lost 23:00-23:50 UTC on 2026-11-23. Vercel keeps about an hour.
-const minutes = Number(process.env.MINUTES ?? 65);
+// 60, not 40: one missed 30-minute run lost 23:00-23:50 UTC on 2026-11-23. Not 65: a window starting 65 min back
+// answers "Response Error (400)" (retention edge, run by hand 2026-11-25), so every run's first window failed.
+const minutes = Number(process.env.MINUTES ?? 60);
 const scope = process.env.VERCEL_SCOPE ?? "wukong4";
 const project = process.env.VERCEL_PROJECT ?? "miner";
 const vercel = process.platform === "win32" ? "vercel.cmd" : "vercel";
@@ -36,9 +37,12 @@ function fetchWindow(a, b) {
   let raw = "";
   try {
     raw = execFileSync(vercel, ["logs", "--project", project, "--scope", scope, "--environment", "production",
-      "--since", since, "--until", until, "--limit", "100", "--json"], { encoding: "utf8", timeout: 60_000, stdio: ["ignore", "pipe", "ignore"], shell: process.platform === "win32" });
+      "--since", since, "--until", until, "--limit", "100", "--json"], { encoding: "utf8", timeout: 60_000, stdio: ["ignore", "pipe", "pipe"], shell: process.platform === "win32" });
   } catch (e) {
-    console.error(`${since}: ${e.message.split("\n")[0]}`);
+    // The CLI's own "Error: ..." line, not only "Command failed": nine windows inside retention failed on
+    // 2026-11-25 10:16-10:56 UTC and the discarded stderr left no reason (GAPS G366).
+    const why = String(e.stderr ?? "").split("\n").map((l) => l.trim()).filter((l) => /error/i.test(l)).pop() ?? (e.signal ? `killed ${e.signal}` : "no stderr");
+    console.error(`${since}: ${e.message.split("\n")[0]} — ${why.slice(0, 200)}`);
     return [];
   }
   const lines = raw.split("\n").filter((l) => l.startsWith("{"));
