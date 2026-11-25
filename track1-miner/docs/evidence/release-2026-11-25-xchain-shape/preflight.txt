@@ -1,0 +1,87 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          FAIL
+  param shapes (engine-shaped)           FAIL
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+  
+  ''
+  
+      at TestContext.<anonymous> (C:\Users\hyada\tg-deploy\m8ce6dae\track1-miner\miner\dist-test\test\currentfacts.test.js:158:22)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: /^The current Secretary-General of the United Nations is \S/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+--- verify-deploy ---
+...
+  PASS  missing ip -> honest 200 — got 200
+
+  translate:
+  PASS  French "good morning" -> Bonjour — got Bonjour, 577ms
+  PASS  missing text -> honest 200 — got 200
+
+  papers:
+  PASS  bare topic -> real papers — 5 papers in prose, 2251ms
+  PASS  missing topic -> honest 200 — got 200
+
+  latency: median 721ms, p95 8468ms, max 8468ms
+  !! p95 above 5s — validators spot-check every ~20s; this will cost score.
+
+1 CHECK(S) FAILED — fix before registering.
+
+--- param shapes (engine-shaped) ---
+FAIL  /headlines  want /technology/  error=upstream_unavailable
+      got: Current headlines could not be retrieved right now because the upstream data provider did not respond successfully. This is a temporary data availability problem, not a statement a
+ok    /wallet-balance  [305ms]
+
+...
+subject survives a paraphrasing query
+
+ok    /ssl-check  [250ms]
+ok    /papers  [2540ms]
+ok    /ip-geolocate  [275ms]
+ok    /weather-forecast  [249ms]
+ok    /storm-alert  [285ms]
+ok    /translate  [267ms]
+ok    /extract  [317ms]
+FAIL  /headlines  want /technology/  error=upstream_unavailable
+      got: Current headlines could not be retrieved right now because the upstream data provider did not respond successfully. This is a temporary data availability problem, not a statement a
+ok    /wallet-balance  [305ms]
+
+53 passed, 1 failed, 54 total
+
+--- intent answers (correctness) ---
+  WEB_SEARCH             FAIL
+      - Fed question -> unknown, want answered
+      - no cited report carries a publisher and a date
+  SENTIMENT_ANALYSIS     PASS
+...
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  CHAT_COMPLETION        PASS
+  CODE_REVIEW            PASS
+  SECURITY_REVIEW        PASS
+  SMART_CONTRACT_AUDIT   PASS
+  TEXT_GENERATION        PASS
+  ONCHAIN_METRIC_VERIFY  PASS
+
+43/44 intents answering correctly.
+
+3/7 gates passed — re-run the failing gate alone before believing it.

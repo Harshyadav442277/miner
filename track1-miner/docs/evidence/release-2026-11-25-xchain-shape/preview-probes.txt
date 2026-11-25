@@ -1,0 +1,9 @@
+== /cross-chain?source_chain=arbitrum&destination_chain=base&tx_hash=46b61721aaaabbbbccccddddeeeeffff00001111222233334444555566667777
+{"answer":"No bridge message was identified: a cross-chain check needs the message's source or destination transaction hash or its GUID.","verdict":"insufficient_input","confidence":0,"error":"no_reference","reason":"No bridge message was identified: a cross-chain check needs the message's source or destination transaction hash or its GUID. A nonce alone does not identify a message, because nonces
+== /ssl-check?query=github.com
+{"answer":"The TLS/SSL certificate configuration for github.com is valid.","domain":"github.com","verdict":"valid","valid":true,"chain_complete":true,"issuer":"Sectigo Limited","valid_to":"2027-01-27","days_remaining":63,"confidence":1,"reason":"The TLS/SSL certificate configuration for github.com is valid. Certificate validity: the certificate is currently valid, expiring in 63 days on 2027-01-27
+== /convert?from=USD&to=EUR&amount=10
+{"answer":"10.00 USD is 9.12 EUR at a rate of 1 USD = 0.9122 EUR, equivalently 1 EUR = 1.0963 USD.","from":"USD","to":"EUR","amount":10,"rate":0.9121590805436468,"converted":9.121590805436469,"kind":"ecb_reference","as_of":"2026-11-24","verdict":"converted","confidence":0.95,"reason":"10.00 USD is 9.12 EUR at a rate of 1 USD = 0.9122 EUR, equivalently 1 EUR = 1.0963 USD. This is the European Centr
+dpl_Fpv7eLp5 XCHAIN no_reference ref=hex64 chains=2 proof=0
+dpl_8DD9niuo XCHAIN no_reference ref=none chains=1 proof=1
+dpl_8DD9niuo XCHAIN no_reference ref=other_66 chains=2 proof=0
