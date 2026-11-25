@@ -177,7 +177,7 @@ test("/financial reads the intent's own `asset` field (asset=BTC answered no_sub
   });
 });
 
-test("a stock asked by name alone reports its latest 10-K revenue and net income, listed in metrics (scored 0 without, epochs 47-55)", async () => {
+test("a stock asked by name alone reports its latest 10-K revenue and net income, listed in metrics, as the leaders do (2026-11-25)", async () => {
   const fy = (val: number) => json({ units: { USD: [
     { start: "2024-01-29", end: "2025-01-26", val: val / 2, fy: 2025, fp: "FY", form: "10-K", filed: "2025-02-26" },
     { start: "2025-01-27", end: "2026-01-25", val, fy: 2026, fp: "FY", form: "10-K", filed: "2026-02-25" },
@@ -213,5 +213,24 @@ test("a stock answer keeps its market figures when SEC does not answer the filed
     assert.equal(r.data?.market_cap, Math.round(3_952_757_946 * 381.73));
     assert.doesNotMatch(r.reason, /reported (?:revenue|net income)/);
     assert.match(String(r.metrics), /^last price 381\.73 USD; market capitalisation \$1\.51 trillion;/);
+  });
+});
+
+test("/financial carries metrics in the HTTP answer, and a net loss reads as a loss", async () => {
+  const fy = (val: number) => json({ units: { USD: [{ start: "2024-12-29", end: "2025-12-27", val, fy: 2025, fp: "FY", form: "10-K", filed: "2026-01-30" }] } });
+  await withFetch([
+    ["finance/chart/INTC", () => json({ chart: { result: [{ meta: { instrumentType: "EQUITY", currency: "USD", longName: "Intel Corporation", regularMarketPrice: 21.5,
+      chartPreviousClose: 21, regularMarketDayHigh: 21.9, regularMarketDayLow: 20.8, regularMarketVolume: 60_000_000, fiftyTwoWeekHigh: 27, fiftyTwoWeekLow: 18 } }] } })],
+    ["EntityCommonStockSharesOutstanding", () => json({ units: { shares: [{ val: 4_400_000_000, end: new Date(Date.now() - 30 * 86_400_000).toISOString().slice(0, 10), filed: "2026-10-30", form: "10-Q", accn: "q" }] } })],
+    ["us-gaap/Revenues.json", () => fy(53_101_000_000)],
+    ["us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json", () => json({}, 404)],
+    ["us-gaap/SalesRevenueNet.json", () => json({}, 404)],
+    ["us-gaap/NetIncomeLoss.json", () => fy(-18_756_000_000)],
+  ], async () => {
+    const body = await get("/financial?symbol=INTC");
+    assert.equal(body.verdict, "financial_data");
+    assert.equal(body.market_cap_usd, 4_400_000_000 * 21.5);
+    assert.match(String(body.metrics), /; revenue \$53\.10 billion for fiscal year 2025, ended 2025-12-27 \(10-K\); net loss \$18\.76 billion for fiscal year 2025/);
+    assert.match(String(body.reason), /reported a net loss of \$18\.76 billion|reported net loss of \$18\.76 billion/);
   });
 });

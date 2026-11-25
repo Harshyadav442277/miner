@@ -741,8 +741,9 @@ async function withMarketCap(eq: FinancialResult, ticker: string, query: string)
 
 /**
  * The latest annual revenue and net income from the company's 10-K, for a stock answer. Asked "NVIDIA" alone, the
- * miners that scored FINANCIAL_DATA in epochs 47-55 (txlens, finwire, a1-preflight) all reported these filed figures,
- * while this route reported trading ranges only and scored 0 (2026-11-25). Empty when SEC did not answer.
+ * miners that scored FINANCIAL_DATA in epochs 47-55 (txlens, finwire, a1-preflight) all reported these filed figures
+ * (observed 2026-11-25 ~19:25 UTC); this route reported trading ranges and a market cap only. Whether that caused
+ * its zeros is not established. Empty when SEC did not answer.
  */
 async function filedSnapshot(ticker: string): Promise<FinancialResult[]> {
   const outs = await Promise.all(["revenue", "net income"].map((m) => getFundamentals(m, ticker).catch(() => null)));
@@ -767,7 +768,9 @@ export function withFiled(r: FinancialResult, filed: FinancialResult[]): Financi
     parts.push(`change ${pct >= 0 ? "+" : ""}${pct.toFixed(2)}% against the previous close of ${prev.toFixed(2)} ${cur}`);
   }
   for (const f of filed.map((x) => x.fundamentals!)) {
-    parts.push(`${f.metric} ${human(f.value)} for fiscal year ${f.fiscal_year}, ended ${f.period_end} (${f.form})`);
+    // A negative net income is a net loss, as the reason sentence says, never "$-5.00 billion".
+    const label = f.value < 0 && f.metric.endsWith("income") ? f.metric.replace(/income$/, "loss") : f.metric;
+    parts.push(`${label} ${f.value < 0 && label === f.metric ? "-" : ""}${human(Math.abs(f.value))} for fiscal year ${f.fiscal_year}, ended ${f.period_end} (${f.form})`);
   }
   return {
     ...r,
