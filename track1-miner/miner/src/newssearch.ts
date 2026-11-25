@@ -238,7 +238,11 @@ export function extractSubject(question: string, declared = ""): string {
   const inQuotes = quoted(q);
   if (inQuotes.length) return inQuotes.join(" ");
 
-  let s = q.replace(/[?!.]+\s*$/, "");
+  // A question's opening auxiliary is not part of its subject: "Will Piramal Critical launch Mitigo?" searched for
+  // "Will Piramal Critical launch Mitigo", counted "will" as a name, and answered "No news articles covering Will
+  // Piramal Critical launch Mitigo were found" (production, 2026-11-26). Only for a question, so "Will Smith" stays.
+  let s = /\?\s*$/.test(q) ? q.replace(/^\s*(?:will|would|should|shall|may|might)\s+(?=\S)/i, "") : q;
+  s = s.replace(/[?!.]+\s*$/, "");
   for (const re of SCAFFOLD) s = s.replace(re, " ");
   for (const [re] of WINDOWS) s = s.replace(re, " ");
   s = s.replace(/\b(?:last|past|previous)\s+\d{1,3}\s+(?:hour|day|week|month|year)s?\b/gi, " ");
