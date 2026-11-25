@@ -1577,7 +1577,8 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      * STOCK_PRICE, and the description says so explicitly.
      */
     const addressParam = firstValue(url, "address", "contract", "token", "token_address");
-    const symbolParam = firstValue(url, "symbol", "ticker", "company");
+    // `asset` is the intent's own request field: /financial?asset=AAPL answered no_subject (production 2026-11-25).
+    const symbolParam = firstValue(url, "symbol", "ticker", "company", "asset");
     const q = withSubject(
       firstValue(url, "query", "q", "question", "text", "input"),
       addressParam || symbolParam,
