@@ -25,6 +25,7 @@
  * A "nonce 4412 from arbitrum" with no transaction hash, GUID or OApp address
  * does not identify a message — nonces are per pathway — so it is asked for.
  */
+import { leadSentence } from "./envelope";
 import { readReceipt } from "./onchain";
 
 const TIMEOUT_MS = Number(process.env.CROSSCHAIN_TIMEOUT_MS ?? 4_000);
@@ -141,7 +142,37 @@ async function scan(kind: "tx" | "guid", ref: string): Promise<ScanMessage[] | n
 const logsFrom = (logs: Array<{ address: string; topics: string[]; data: string }>, topic: string): string[] =>
   logs.filter((l) => l.address.toLowerCase() === ENDPOINT_V2 && l.topics?.[0] === topic).map((l) => l.data);
 
-export async function verifyCrossChain(question: string): Promise<CrossChainResult> {
+/**
+ * CROSS_CHAIN_STATE_VERIFY_GENERAL's response format, under its own names (GET /engine/v1/intents/<id>, read
+ * 2026-11-26): `consistent` (bool, the scored field), `address`, `status`, `chains` and `summary`. The intent had no
+ * response format when the YAML's intent_mapping was written (2026-11-05), so the answers never named the scored
+ * field and the node's parser had to infer it from `verdict` words that are not in its true/false lists.
+ * `consistent` is true only for a message verified on both chains' receipts, false when the receipts show it
+ * undelivered or on another route, or no message is indexed for the reference, and null when nothing was checked.
+ * It is never a statement about a state root, proof or header. Pure.
+ */
+export function crossChainFields(r: CrossChainResult, question: string): CrossChainResult & CrossChainIntentFields {
+  const status: Record<CrossChainVerdict, string> = {
+    verified: "executed", not_delivered: "pending", mismatch: "inconsistent", not_found: "not_found",
+    unsupported: "not_verified", insufficient_input: "not_verified", unknown: "unknown",
+  };
+  const consistent = r.verdict === "verified" ? true
+    : r.verdict === "not_delivered" || r.verdict === "mismatch" || r.verdict === "not_found" ? false : null;
+  const m = r.message;
+  const chains = m?.source_chain && m.destination_chain ? [m.source_chain, m.destination_chain] : namedChains(question);
+  return { ...r, address: m?.guid ?? references(question)[0] ?? null, status: status[r.verdict], chains, consistent,
+    summary: leadSentence(r.reason) };
+}
+
+export interface CrossChainIntentFields {
+  address: string | null; status: string; chains: string[]; consistent: boolean | null; summary: string;
+}
+
+export async function verifyCrossChain(question: string): Promise<CrossChainResult & CrossChainIntentFields> {
+  return crossChainFields(await verifyMessage(question), question);
+}
+
+async function verifyMessage(question: string): Promise<CrossChainResult> {
   const q = String(question ?? "");
   const refs = references(q);
   const proofNote = asksProof(q)
