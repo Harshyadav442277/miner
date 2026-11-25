@@ -36,10 +36,16 @@ what to send back to Claude.
 (same-hash re-registration is refused, bounties #213), so v1e is the same adapter at max_tokens 508. The v1d executor
 is stopped, so the v1d registration cannot pass its check.
 
-1. **From the wrong wallet:** deregister the v1d registration (Anjoman → My registrations → Deregister → "Confirm
-   deregister?" within 4 s).
-2. **Switch MetaMask to `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`**, check the address on the screen, then
-   deregister #245 and register v1e.
+**Correction, 19:31 UTC:** `/api/wasm` shows v1d as **#246, author `0xdad201…a39e` (the LiveCert wallet)**,
+registered 19:26:26 UTC, one minute after Claude stopped the v1d executor for v1e. #246's URL is therefore dead. No
+registration from another wallet is listed. Which field held the wrong address (signer or fee address) is not known;
+the API does not show the fee address.
+
+1. **Switch MetaMask to `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`** and check the address on the screen.
+2. **Deregister #245 and #246** (both point at dead URLs): Anjoman → My registrations → Deregister → "Confirm
+   deregister?" within 4 s.
+3. **Register v1e** with the values below, typing the fee address from this table.
+4. If a registration exists from another wallet, deregister it from that wallet and send Claude its address or tx hash.
 
 Checked 2026-11-25 19:25-19:28 UTC: Stage 1 PASS (`0x3fbc8682`); hosted sha256 = local (`9f5cf1a3…e6fb`);
 `check_executor.py` PASS, public = loopback, the reply's `adapter_hash` is v1e's; the node's 30-text batch took 73.0 s.

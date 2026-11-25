@@ -10,7 +10,7 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ## CURRENT — 2026-11-25 ~19:30 UTC (Nov 26 01:00 IST) · v1d SUBMITTED FROM THE WRONG WALLET; v1e READY TO SIGN
 
-- **Owner, ~19:20 UTC:** v1d was submitted from another wallet on the same email, not `0xdAd2…A39e`. Its address
+- **Owner, ~19:20 UTC:** v1d was submitted from another wallet on the same email, not `0xdAd2…A39e`. BUT `/api/wasm` at 19:31 shows v1d as #246 under author `0xdad201…a39e`, registered 19:26:26, one minute after Claude stopped the v1d executor, so #246 is dead too. Its address
   and tx hash are not yet known; at 19:24 UTC `/api/wasm` showed no v1d registration from any wallet. **Identity
   incident (AGENTS.md):** that registration must be deregistered from the wallet that made it.
 - **v1e** (max_tokens 508, keccak `0x89974f9c…`, hosted at `a644c0f`, branch `hosting/ts-v1d`): executor
