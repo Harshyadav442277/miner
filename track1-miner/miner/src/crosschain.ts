@@ -148,7 +148,8 @@ const logsFrom = (logs: Array<{ address: string; topics: string[]; data: string 
  * response format when the YAML's intent_mapping was written (2026-11-05), so the answers never named the scored
  * field and the node's parser had to infer it from `verdict` words that are not in its true/false lists.
  * `consistent` is true only for a message verified on both chains' receipts, false when the receipts show it
- * undelivered or on another route, or no message is indexed for the reference, and null when nothing was checked.
+ * undelivered or on another route, and null when nothing was checked or LayerZero indexes no message for the
+ * reference (another bridge may have carried it).
  * It is never a statement about a state root, proof or header. Pure.
  */
 export function crossChainFields(r: CrossChainResult, question: string): CrossChainResult & CrossChainIntentFields {
@@ -156,8 +157,8 @@ export function crossChainFields(r: CrossChainResult, question: string): CrossCh
     verified: "executed", not_delivered: "pending", mismatch: "inconsistent", not_found: "not_found",
     unsupported: "not_verified", insufficient_input: "not_verified", unknown: "unknown",
   };
-  const consistent = r.verdict === "verified" ? true
-    : r.verdict === "not_delivered" || r.verdict === "mismatch" || r.verdict === "not_found" ? false : null;
+  // not_found is null: only LayerZero is searched, so a completed transfer over another bridge is not ruled out.
+  const consistent = r.verdict === "verified" ? true : r.verdict === "not_delivered" || r.verdict === "mismatch" ? false : null;
   const m = r.message;
   const chains = m?.source_chain && m.destination_chain ? [m.source_chain, m.destination_chain] : namedChains(question);
   return { ...r, address: m?.guid ?? references(question)[0] ?? null, status: status[r.verdict], chains, consistent,

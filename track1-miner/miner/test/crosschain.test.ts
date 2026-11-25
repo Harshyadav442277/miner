@@ -110,11 +110,13 @@ test("answers carry the intent's response fields; consistent is null when nothin
   const verified = crossChainFields({ verdict: "verified", confidence: 0.95, reason: "Verified: it was delivered. Both receipts agree.", message }, "on ethereum");
   assert.deepEqual([verified.consistent, verified.status, verified.chains, verified.address, verified.summary],
     [true, "executed", ["arbitrum", "base"], GUID, "Verified: it was delivered."]);
-  for (const [verdict, status] of [["not_delivered", "pending"], ["mismatch", "inconsistent"], ["not_found", "not_found"]] as const) {
+  for (const [verdict, status] of [["not_delivered", "pending"], ["mismatch", "inconsistent"]] as const) {
     const r = crossChainFields({ verdict, confidence: 0.8, reason: "x." }, `tx ${SRC_TX} from base to arbitrum`);
     assert.deepEqual([r.consistent, r.status], [false, status], verdict);
-    if (verdict === "not_found") assert.deepEqual([r.address, r.chains], [SRC_TX, ["base", "arbitrum"]]);
   }
+  // Only LayerZero is searched: a reference it does not index may still be a completed transfer on another bridge.
+  const missing = crossChainFields({ verdict: "not_found", confidence: 0.6, reason: "x." }, `tx ${SRC_TX} from base to arbitrum`);
+  assert.deepEqual([missing.consistent, missing.status, missing.address, missing.chains], [null, "not_found", SRC_TX, ["base", "arbitrum"]]);
   for (const verdict of ["unknown", "unsupported", "insufficient_input"] as const) {
     assert.equal(crossChainFields({ verdict, confidence: 0, reason: "x." }, "").consistent, null, verdict);
   }
