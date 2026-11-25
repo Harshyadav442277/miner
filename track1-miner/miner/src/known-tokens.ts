@@ -26,7 +26,10 @@ export const TABLE_NOTE: Record<string, string> = {
 };
 
 /** Token names asked for in place of their symbols. A name is never sent to the resolver, which matched one to a look-alike. */
-export const TOKEN_NAMES: Record<string, string> = { TETHER: "USDT", USDCOIN: "USDC", CHAINLINK: "LINK", WRAPPEDETHER: "WETH", WRAPPEDBITCOIN: "WBTC" };
+export const TOKEN_NAMES: Record<string, string> = {
+  TETHER: "USDT", TETHERUSD: "USDT", USDCOIN: "USDC", CHAINLINK: "LINK", WRAPPEDETHER: "WETH", WRAPPEDETHEREUM: "WETH",
+  WRAPPEDBITCOIN: "WBTC", DAISTABLECOIN: "DAI",
+};
 
 export interface NativeCoin { symbol: string; of: string; wrapped: string | null; note: string }
 

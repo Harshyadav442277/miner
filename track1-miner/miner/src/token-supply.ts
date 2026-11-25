@@ -173,16 +173,39 @@ export function verdictFor(
       " Circulating supply, which excludes treasury and locked wallets, is not computed: those wallets are not on-chain facts." };
 }
 
+/**
+ * A `token` parameter written as a phrase, split into the token and the chain it names. The router sends
+ * `token=UNI (0x1f98…) on Ethereum` (Daemon feed, 2026-11-25), and a phrase with no address — "Tether on
+ * Arbitrum", "USD Coin" — used to answer no_token, where txlens and a1-preflight read the token. Pure.
+ */
+export function tokenPhrase(param: string): { symbol: string | null; chain: string | null } {
+  const p = String(param ?? "").replace(/\s+/g, " ").trim();
+  const on = p.match(/^(.*?)\s+on\s+(?:the\s+)?(.+)$/i);
+  const chain = on ? resolveChain("", on[2]!) : null;
+  const head = on ? on[1]! : p;
+  const inParens = head.match(/\(\s*([A-Za-z][A-Za-z0-9]{1,9})\s*\)/)?.[1];
+  const core = head.replace(/\([^)]*\)/g, " ").replace(/\b0x[a-fA-F0-9]{40}\b/g, " ").replace(/\s+/g, " ").trim();
+  // Generic words dropped, so "the USDC token" is USDC. Any other multi-word name ("Lido DAO") stays unread
+  // rather than guessed from one of its words.
+  const bare = core.replace(/\b(?:the|token|tokens|contract|erc-?20|total|supply|of)\b/gi, " ").replace(/\s+/g, " ").trim();
+  const fold = (s: string): string => s.replace(/[\s.-]+/g, "").toUpperCase();
+  const symbol = TOKEN_NAMES[fold(core)] ?? TOKEN_NAMES[fold(bare)]
+    ?? (inParens && !/^0x/i.test(inParens) ? inParens.toUpperCase() : null)
+    ?? (/^[A-Za-z][A-Za-z0-9]{1,9}$/.test(bare) ? bare.toUpperCase() : null);
+  return { symbol, chain };
+}
+
 export async function verifyTokenSupply(question: string, tokenParam = "", chainParam = ""): Promise<TokenSupplyResult> {
   const text = `${tokenParam} ${question}`;
-  const named = resolveChain(chainParam, question);
+  const phrase = /\s/.test(tokenParam.trim()) ? tokenPhrase(tokenParam) : { symbol: null, chain: null };
+  const named = resolveChain(chainParam, question) ?? phrase.chain;
   const chain = named ?? "ethereum";
   const urls = (RPCS[chain] ?? []).slice(0, 2);
   const token = contractAddress(text);
   if (!token) {
     const supplyOf = question.match(/\bsupply\s+of\s+(?:the\s+)?([a-z][a-z0-9]{1,9})\b/i)?.[1];
     const asked = tokenParam.trim() && !/\s/.test(tokenParam.trim()) ? tokenParam.trim().toUpperCase()
-      : tokenSymbol(question) ?? (supplyOf && !/^tokens?$/i.test(supplyOf) ? supplyOf.toUpperCase() : null);
+      : phrase.symbol ?? tokenSymbol(question) ?? (supplyOf && !/^tokens?$/i.test(supplyOf) ? supplyOf.toUpperCase() : null);
     if (!asked) {
       return empty("insufficient_input", "No token contract address or symbol was supplied, so no supply could be read. Supply a contract address (0x…) or a symbol, and the chain.", { error: "no_token" });
     }
