@@ -86,3 +86,38 @@ test("the year is read from the parameter or the question, and a future year is 
   assert.equal(yearAsked("Will inflation fall in 2030?", "", now), null);
   assert.equal(yearAsked("What is the latest US CPI?", "", now), null);
 });
+
+test("a World Bank read that fails once is retried, and a 404 is not (epochs 47 and 49 answered upstream_unavailable)", async (t) => {
+  const original = globalThis.fetch;
+  const calls: string[] = [];
+  globalThis.fetch = (async (url: string) => {
+    const u = new URL(String(url));
+    calls.push(u.pathname);
+    const first = calls.filter((p) => p === u.pathname).length === 1;
+    // Honduras: a timeout, then the answer. Armenia: a 502, then the answer. Bhutan: 404 every time.
+    if (u.pathname.includes("/HN/")) {
+      if (first) throw new DOMException("The operation was aborted due to timeout", "TimeoutError");
+      return Response.json([{ page: 1 }, [{ date: "2025", value: 3.8 }]]);
+    }
+    if (u.pathname.includes("/AM/")) {
+      if (first) return new Response("<html>Bad Gateway</html>", { status: 502 });
+      return Response.json([{ page: 1 }, [{ date: "2025", value: 3.3 }]]);
+    }
+    return new Response("", { status: 404 });
+  }) as typeof globalThis.fetch;
+  t.after(() => { globalThis.fetch = original; });
+
+  const hn = await macroIndicators("", "real GDP growth rate", "Honduras");
+  assert.equal(hn.verdict, "reported");
+  assert.equal(hn.indicators[0]!.value, 3.8);
+  assert.equal(calls.filter((p) => p.includes("/HN/")).length, 2);
+
+  const am = await macroIndicators("", "annual consumer price inflation", "Armenia");
+  assert.equal(am.verdict, "reported");
+  assert.equal(am.indicators[0]!.value, 3.3);
+
+  const bt = await macroIndicators("", "unemployment rate", "Bhutan");
+  assert.equal(bt.verdict, "unknown");
+  assert.equal(calls.filter((p) => p.includes("/BT/")).length, 1, "a 404 is an answer, not an outage");
+});
+

@@ -13,7 +13,8 @@
  * says so rather than reaching for a different statistic.
  */
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
-const TIMEOUT_MS = Number(process.env.MACRO_TIMEOUT_MS ?? 6_000);
+// Two attempts of 4.5 s each fit inside the route's 11 s watchdog.
+const TIMEOUT_MS = Number(process.env.MACRO_TIMEOUT_MS ?? 4_500);
 const TTL_MS = 3 * 3_600_000;
 
 export type Indicator = "cpi" | "core_cpi" | "unemployment" | "policy_rate" | "gdp_growth" | "gdp";
@@ -73,12 +74,28 @@ export function indicatorsAsked(text: string): Indicator[] {
 }
 
 const cache = new Map<string, { at: number; value: unknown }>();
+async function fetchJson(url: string): Promise<unknown> {
+  const r = await fetch(url, { headers: { accept: "application/json", "user-agent": UA }, signal: AbortSignal.timeout(TIMEOUT_MS) });
+  if (!r.ok) throw Object.assign(new Error(`HTTP ${r.status}`), { status: r.status });
+  return r.json();
+}
+
+/**
+ * One retry on a failed read. Three of five archived World Bank calls (Honduras GDP growth 2026-11-24 02:06,
+ * South Africa CPI 11:06, Armenia CPI 11-25 15:00 UTC) answered upstream_unavailable and each answered on re-ask;
+ * the two that preceded a MACRO score (epochs 47 and 49) scored 0. A 4xx other than 429 is an answer, not an outage.
+ */
 async function getJson(url: string): Promise<unknown> {
   const hit = cache.get(url);
   if (hit && Date.now() - hit.at < TTL_MS) return hit.value;
-  const r = await fetch(url, { headers: { accept: "application/json", "user-agent": UA }, signal: AbortSignal.timeout(TIMEOUT_MS) });
-  if (!r.ok) throw new Error(`HTTP ${r.status}`);
-  const value = await r.json();
+  let value: unknown;
+  try {
+    value = await fetchJson(url);
+  } catch (e) {
+    const status = (e as { status?: number }).status;
+    if (status !== undefined && status < 500 && status !== 429) throw e;
+    value = await fetchJson(url);
+  }
   cache.set(url, { at: Date.now(), value });
   return value;
 }
