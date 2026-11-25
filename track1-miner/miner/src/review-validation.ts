@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+
 /**
  * Why a model review is incomplete, as a fixed code, or null when it is complete. The code is logged, never the
  * review: production answered `invalid_model_response` to a three-line JavaScript loop with no record of which
@@ -32,7 +34,9 @@ export function completeReview(value: Record<string, unknown>, audit: boolean): 
 
 /**
  * One log line per model review: the verdict the model stated (an allowed word or "other"), the check that failed,
- * the verdict served, the top severity and the input's size. Categorical only, never the code or the review. Pure.
+ * the verdict served, the top severity, the input's size and an 8-hex SHA-256 prefix of it. Categorical only, never
+ * the code or the review. The prefix tells a repeated input from a new one of the same size: a 179-byte input was
+ * served Comment once and Request changes once, and only its size said they might be the same input (2026-11-25). Pure.
  */
 export function reviewLine(path: string, o: Record<string, unknown> | null, problem: string | null, served: string,
   topSeverity: string, input: string): string {
@@ -42,5 +46,6 @@ export function reviewLine(path: string, o: Record<string, unknown> | null, prob
   const near = v === null ? undefined : words.find((w) => w.toLowerCase() === v.toLowerCase().replace(/\s+/g, " "));
   const stated = !o ? "none" : v === null ? "missing" : words.includes(v) ? v : near ? `${near}~case` : "other";
   return `REVIEW ${path} stated=${stated} problem=${problem ?? "none"} served=${served} top=${topSeverity || "none"}` +
-    ` bytes=${Buffer.byteLength(input)} lines=${input.split("\n").filter((l) => l.trim()).length}`;
+    ` bytes=${Buffer.byteLength(input)} lines=${input.split("\n").filter((l) => l.trim()).length}` +
+    ` sha=${createHash("sha256").update(input).digest("hex").slice(0, 8)}`;
 }
