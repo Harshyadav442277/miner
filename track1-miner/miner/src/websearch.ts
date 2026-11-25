@@ -449,7 +449,10 @@ export async function webSearch(question: string): Promise<WebSearchResult> {
     return {
       articles, sources: page ? [page] : [], background, verdict: "answered", confidence: 0.5,
       ...(wb ? { direct_answer: wb.brief, ...basisOf(wb) } : {}),
-      reason: `${wb?.basis === "found" ? `${wb.brief} ` : ""}According to Wikipedia: ${background}${note}${caveat}`,
+      // A knowledge sentence leads too, labelled as the no-result answer below labels it: "Will Capivasertib deaths
+      // exceed 100?" was answered "According to Wikipedia: Capivasertib … is an anti-cancer medication", which does
+      // not address the question, while the model's answer to it sat unused in direct_answer (production, 2026-11-26).
+      reason: `${wb ? `${wb.brief} ${wb.basis === "found" ? "" : "That is from general knowledge, not from this search. "}` : ""}According to Wikipedia: ${background}${note}${caveat}`,
     };
   }
 
