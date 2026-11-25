@@ -29,7 +29,32 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### Ready to sign (executor restarted 2026-11-25 13:20 UTC): TEXT_SUMMARIZATION v1c
+### Ready to sign (2026-11-25 ~19:15 UTC): TEXT_SUMMARIZATION v1d, replacing #245
+
+**#245 (v1c, signed 2026-11-25 18:09 UTC) points at a dead URL.** The v1c tunnel lost the network at 15:46:49 UTC
+(cloudflared: DNS timeout, "no recent network activity"), and Cloudflare then deleted the quick tunnel ("Tunnel not
+found"), so the URL was already dead when #245 was signed. A quick-tunnel name cannot be restored, and no call to change
+a registration's runnable URL is known. v1d is the same trained adapter re-exported at max_tokens 509, for a new hash.
+
+1. **Deregister #245** at Anjoman → My registrations → Deregister, then click "Confirm deregister?" within 4 s.
+2. **Register v1d** with the values below, right away: a quick tunnel only lives while this laptop's network holds.
+
+Checked 2026-11-25 19:10-19:13 UTC:
+- Stage 1 PASS, same bits as v1 to v1c (`0x3fbc8682`); `runs-v2/ts_v1d/stage1.log`;
+- the hosted file's sha256 equals the local package's (`ff87a137…7b48`);
+- `check_executor.py` PASS, public = loopback, and the reply's `adapter_hash` is v1d's;
+- the node's 30-text batch replayed through the tunnel in 69.2 s (Cloudflare cuts at 100 s);
+- training is paused (`tg-eval/EXECUTOR.lock`), 4 workers at AboveNormal. Keep the PC on and online until decided.
+
+| Field | Value |
+|---|---|
+| Binary link | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/a89b4b477df792dc9923843d29303db3bd473bfc/season2/adapter/TEXT_SUMMARIZATION/v1d/TEXT_SUMMARIZATION.safetensors` |
+| keccak256 | `0xff6352179269ae46dee2c2252d23cfb5d56223f92f3f49d568785e76456c8175` |
+| Family | `TEXT_SUMMARIZATION` |
+| Fee address | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
+| Runnable endpoint URL | `https://wholesale-demographic-coast-but.trycloudflare.com/TEXT_SUMMARIZATION` |
+
+### Signed 2026-11-25 18:09 UTC as #245, URL dead since 15:46 UTC: TEXT_SUMMARIZATION v1c
 
 #222 (v1b) was rejected with Cloudflare 524 three times. Its 30-text batches took 164-263 s, because the executor's
 workers (3.4 GB private each) were paged out while training ran. Same-hash re-registration is refused, so v1c is the

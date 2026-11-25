@@ -8,7 +8,22 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-25 ~13:30 UTC (19:00 IST) · PC CRASHED NOV 24; v1c EXECUTOR RESTARTED; SIX LANES RELAUNCHED
+## CURRENT — 2026-11-25 ~19:15 UTC (Nov 26 00:45 IST) · #245 (v1c) SIGNED ON A DEAD URL; v1d READY TO SIGN
+
+- **#245 = v1c**, signed 18:09 UTC, stage `awaiting_compatible_material`. Its tunnel had died at 15:46:49 UTC: a
+  network drop (cloudflared DNS timeout), then "Unauthorized: Tunnel not found" on every reconnect. The worker
+  processes kept running, so only a probe of the PUBLIC URL shows this. Nothing probed it between 13:27 and 19:05.
+- **Rule:** probe the public runnable URL right before handing sign values over and every minute until the
+  registration is decided; a quick tunnel does not survive a network blip.
+- **v1d** (max_tokens 509, keccak `0xff635217…`, hosted at `a89b4b4` on telegraph-factscore branch `hosting/ts-v1d`):
+  executor `tg-eval/executor-ts5.out`, port 18390, `wholesale-demographic-coast-but…`. Owner: deregister #245, register
+  v1d (SIGN_S2.md top). Stage 1 needs `LIVE_CLASS_INTENTS=TEXT_SUMMARIZATION` for `adapterbuild-live.exe`.
+- **Restart trap:** killing run_local's pwsh does not kill its adapterexec workers. The 13:20 v1c workers held
+  18391-18394, so the first v1d relaunch at 19:09 fronted v1c workers. Kill the `adapterexec` processes by
+  command line and check the ports are free before relaunching.
+- EXECUTOR.lock stays; the six lanes still wait on it. Nothing else is ready to sign.
+
+## 2026-11-25 ~13:30 UTC (19:00 IST) · PC CRASHED NOV 24; v1c EXECUTOR RESTARTED; SIX LANES RELAUNCHED
 
 - **The PC crashed at 2026-11-24 15:39 UTC** (System event 41, unclean) and was then powered off from the Start menu
   at 16:35 and 16:51 UTC (event 1074, user account). No update restart is pending. Every executor, tunnel and
