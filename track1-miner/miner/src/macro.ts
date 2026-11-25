@@ -158,7 +158,8 @@ async function worldBank(indicator: Indicator, region: string): Promise<Reading 
   const code = region === "EA" ? "EMU" : region;
   const j = (await getJson(`https://api.worldbank.org/v2/country/${code}/indicator/${w[0]}?format=json&mrnev=1`)) as [unknown, Array<{ date: string; value: number | null }>?];
   const row = j[1]?.[0];
-  return row && row.value !== null ? { indicator, region, value: Number(row.value.toFixed(w[1] === "%" ? 1 : 0)), unit: w[1], period: row.date,
+  // Four places, as worldBankYear keeps: one place served 3.2 for South Africa's 2025 CPI that WDI publishes as 3.2055.
+  return row && row.value !== null ? { indicator, region, value: Number(row.value.toFixed(w[1] === "%" ? 4 : 0)), unit: w[1], period: row.date,
     frequency: "annual", series: w[0], source: "World Bank World Development Indicators", source_url: `https://data.worldbank.org/indicator/${w[0]}?locations=${code}` } : null;
 }
 

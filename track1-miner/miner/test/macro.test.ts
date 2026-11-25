@@ -121,3 +121,15 @@ test("a World Bank read that fails once is retried, and a 404 is not (epochs 47 
   assert.equal(calls.filter((p) => p.includes("/BT/")).length, 1, "a 404 is an answer, not an outage");
 });
 
+test("the latest World Bank value keeps four decimal places, as the year path does; the sentence rounds to one", async (t) => {
+  const original = globalThis.fetch;
+  // South Africa's 2025 CPI as api.worldbank.org returned it on 2026-11-25 (production answered 3.2).
+  globalThis.fetch = (async (url: string) =>
+    new URL(String(url)).pathname.includes("/ZA/")
+      ? Response.json([{ page: 1 }, [{ date: "2025", value: 3.20552311 }]])
+      : new Response("", { status: 404 })) as typeof globalThis.fetch;
+  t.after(() => { globalThis.fetch = original; });
+  const za = await macroIndicators("", "CPI inflation", "South Africa");
+  assert.equal(za.indicators[0]!.value, 3.2055);
+  assert.match(za.reason, /^Consumer price inflation in South Africa was 3\.2% in 2025 \(World Bank/);
+});
