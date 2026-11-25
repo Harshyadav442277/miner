@@ -3,7 +3,7 @@
 ## 2026-11-25 ~19:17 UTC (2026-11-26 00:47 IST): Alibaba / Qwen use cases recorded; docs only
 
 - In `docs/TELEGRAPH_FACTS.md`, with G373 and a note in `WINNING.md`. Same branch as the Solana record
-  (`PR/solana-institutional-use-cases-e8aaba`), unpushed. No code, deploy or post. G370 is still the dated item.
+  (`PR/solana-institutional-use-cases-e8aaba`), pushed as PR #65 to main. No code, deploy or post. G370 is still the dated item.
 
 ## 2026-11-25 ~19:10 UTC (2026-11-26 00:40 IST): organiser's Solana use cases recorded; docs only
 
