@@ -8,7 +8,7 @@ The thread is recorded in `docs/TELEGRAPH_FACTS.md`.
   Anjoman". Re-read 2026-11-25 ~19:10 UTC: both hackathon.telegraphprotocol.com/rules and
   anjoman.ai/dashboard/hackathon/season-2/rules still say "Submit through the official H2 website by December 1,
   2026, at 23:59 UTC". The two may be one thing (Anjoman hosts an H2 dashboard), but no submission form has been
-  seen, and it may need the owner's sign-in. Next: the owner opens the form in advance, not on Dec 1.
+  seen (the Anjoman Season II overview shows a countdown and no submit link when signed out). Next: the owner opens the form in advance, not on Dec 1.
 - **G371 — Does a Solana use case score anything extra? `OPEN`.** The thread says existing tracks, prizes and
   rules, and names no new criterion or award. We assume the rubric is unchanged.
 - **G372 — Which intents these use cases would buy is not stated. `OPEN, our inference`.** From intent names and
@@ -17,7 +17,8 @@ The thread is recorded in `docs/TELEGRAPH_FACTS.md`.
   catalogue, not served: CONTRACT_OBLIGATION_AUDIT, DOCUMENT_AUTHENTICITY, VENDOR_VERIFY,
   ASSET_RESERVE_ATTESTATION, SHIPMENT_DELAY_RISK, DELIVERY_WINDOW_VERIFY, PURCHASE_ORDER_VERIFY,
   INVOICE_LEDGER_RECONCILE. **LiveCert reads no Solana chain state:** transaction, supply and transfer reads are
-  EVM only (`onchain.ts`, `token-supply.ts`), so it cannot verify a Solana settlement or SPL token today.
+  EVM only (`onchain.ts`, `token-supply.ts`), wallet and gas name Solana only to refuse it (`wallet.ts`, `gas.ts`),
+  and a search of `src/` and `api/` found no Solana RPC call. It cannot verify a Solana settlement or SPL token.
 
 ## 2026-11-25 ~14:30 UTC (20:00 IST) — corrections to the block below; release `1cbd7f4`; G369 new
 

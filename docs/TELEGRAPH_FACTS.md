@@ -4,45 +4,6 @@
 verification date. Re-verify anything older than a few days — the canonical intent set and
 contract parameters change on-chain.
 
-## Organiser announcement, 2026-11-23: Solana institutional and commercial use cases
-
-Source: a thread by Ahmed Ali, pasted into the session by the owner and recorded 2026-11-25 ~19:10 UTC. The
-thread itself was not opened by Claude. The one timestamp shown is "11/23/26, 4:47 PM", timezone unstated.
-Unconfirmed points are GAPS G370–G372.
-
-**Frame:** "part of Telegraph Hackathon Season II, using the existing tracks, prizes and rules. No separate
-registration or new competition is required." Final submissions "through Anjoman by December 1, 2026". Solana
-already has payments, tokenized assets, settlement, Pay.sh and confidential computing; the ask is new capability
-and demand on top of these, not a rebuild.
-
-**Five priority use cases** ("priorities, not limitations"; a stronger Solana idea is welcome):
-
-| # | Use case | What it checks or does | Demonstration asked for |
-|---|---|---|---|
-| 1 | Institutional transaction intelligence and settlement assurance | Counterparty identity, contractual obligations, compliance evidence, asset restrictions and payment conditions, before a Solana transaction is authorized | A real financial scenario where specialist intelligence catches a consequential discrepancy, prevents a wrong authorization, or verifies an authorized settlement |
-| 2 | Living institutional asset intelligence | Tokenized real-world assets: issuer, asset evidence, ownership and redemption rights, legal restrictions, disclosures, material changes | A working investigation of an actual Solana tokenized asset: original evidence, cross-source checks, ongoing monitoring |
-| 3 | Verified intelligence economy (Telegraph × Pay.sh) | Solana agents buy specialists chosen by independent performance evaluation, with Telegraph's ranking, verification and recovery | An agent doing hard tasks through evaluated specialists, compared with a frontier model and with direct paid-API selection: correctness, cost, latency, task fulfillment |
-| 4 | Verified global trade and autonomous commerce | Suppliers, contracts, shipments, milestones and obligations, tied to authorized Solana stablecoin payments | A buyer-to-supplier workflow that finds a material problem, holds or escalates the payment, and verifies settlement once conditions are met |
-| 5 | Confidential institutional intelligence | Solana Confidential Compute plus specialist intelligence and verification for sensitive records | A prototype with protected data handling, execution attestations, verified intelligence and a consequential decision |
-
-**Wanted for each:** a working end-to-end application with real Solana functionality where relevant; real
-Telegraph Miners, Intents, competing providers and independently contributed evaluation; sources, paid
-intelligence receipts, hard test cases and reproducible results; a measured advantage over existing tools or
-frontier models; who pays and why; a live application, GitHub repository, short demo video, X post and results.
-"Apps & Agents, Miners and Evaluators are all important." One capability may serve several applications, and
-teams may build on existing projects, compete or collaborate.
-
-**Asked of participants, in that thread:** the use case and what will be built; existing application, Miners or
-evaluation work; what is missing; repository, progress, video and results. Nothing has been posted from this repo.
-
-**Links given:** https://anjoman.ai/dashboard/hackathon/season-2/missions ·
-https://github.com/telegraphprotocol/bounties (asks for a star) ·
-https://anjoman.ai/dashboard/hackathon/season-2/rules
-
-**Checked 2026-11-25 ~19:10 UTC:** the missions page opens without sign-in, shows the same fifteen missions by
-name, and its main text does not mention Solana or Pay.sh. The bounties README and the 100 newest issues matched
-neither word. Devnode `/engine/v1/intents` returned no intent with "SOLANA" in its name.
-
 **Scoring and three compliance intents, checked 2026-11-04 ~20:40–21:10 UTC** (devnode `/api/miners`,
 `/api/miners/4829`, `/engine/v1/intents/<id>`, `/api/evalpool/status?intent_id=`; anjoman.ai/docs
 `miners/miner-overview`, `miners/miner-registration` (updated Nov 1) and `miners/yaml-config` (updated Nov 3).
@@ -93,6 +54,55 @@ Verified **2026-08-26** against https://docs.telegraphprotocol.com (docs updated
 below, the newer section wins.
 
 ---
+
+## Organiser announcement, 2026-11-23: Solana institutional and commercial use cases
+
+Source: a thread by Ahmed Ali, pasted into the session by the owner and recorded 2026-11-25 ~19:10 UTC. The
+thread itself was not opened by Claude. The one timestamp shown is "11/23/26, 4:47 PM", timezone unstated.
+Unconfirmed points are GAPS G370–G372.
+
+**Frame:** "part of Telegraph Hackathon Season II, using the existing tracks, prizes and rules. No separate
+registration or new competition is required." Final submissions "through Anjoman by December 1, 2026". Solana
+already has payments, tokenized assets, settlement, Pay.sh and confidential computing; the ask is new capability
+and demand on top of these, not a rebuild.
+
+**Five priority use cases** ("priorities, not limitations"; a stronger Solana idea is welcome):
+
+| # | Use case | What it checks or does | Demonstration asked for |
+|---|---|---|---|
+| 1 | Institutional transaction intelligence and settlement assurance | Counterparty identity, contractual obligations, compliance evidence, asset restrictions and payment conditions, before a Solana transaction is authorized | A real financial scenario where specialist intelligence catches a consequential discrepancy, prevents a wrong authorization, or verifies an authorized settlement |
+| 2 | Living institutional asset intelligence | Tokenized real-world assets: issuer, asset evidence, ownership and redemption rights, legal restrictions, disclosures, material changes | A working investigation of an actual Solana tokenized asset: original evidence, cross-source checks, ongoing monitoring |
+| 3 | Verified intelligence economy (Telegraph × Pay.sh) | Solana agents buy specialists chosen by independent performance evaluation, with Telegraph's ranking, verification and recovery | An agent doing hard tasks through evaluated specialists, compared with a frontier model and with direct paid-API selection: correctness, cost, latency, task fulfillment |
+| 4 | Verified global trade and autonomous commerce | Suppliers, contracts, shipments, milestones and obligations, tied to authorized Solana stablecoin payments | A buyer-to-supplier workflow that finds a material problem, holds or escalates the payment, and verifies settlement once conditions are met |
+| 5 | Confidential institutional intelligence | Solana Confidential Compute plus specialist intelligence and verification for sensitive records | A prototype with protected data handling, execution attestations, verified intelligence and a consequential decision |
+
+**Commercial opportunity given:** (1) make Solana settlement more useful to institutions with high-value
+transactions; (2) help asset managers and custodians evaluate and monitor assets, drawing holdings to Solana;
+(3) more paid intelligence use and recurring demand for specialist providers; (4) trade, merchant activity and
+recurring B2B payments on Solana; (5) privacy-sensitive institutional AI applications.
+
+**Standard for every application:** "real functionality, measurable commercial value, independent evidence and a
+clear reason for Solana to want the product." **Beyond the prizes:** a successful Miner can keep earning from paid
+demand on mainnet "subject to performance and protocol rules"; eligible Evaluator contributions can share protocol
+rewards.
+
+**Wanted for each:** a working end-to-end application with real Solana functionality where relevant; real
+Telegraph Miners, Intents, competing providers and independently contributed evaluation; sources, paid
+intelligence receipts, hard test cases and reproducible results; a measured advantage over existing tools or
+frontier models; who pays and why; a live application, GitHub repository, short demo video, X post and results.
+"Apps & Agents, Miners and Evaluators are all important." One capability may serve several applications, and
+teams may build on existing projects, compete or collaborate.
+
+**Asked of participants, in that thread:** the use case and what will be built; existing application, Miners or
+evaluation work; what is missing; repository, progress, video and results. Nothing has been posted from this repo.
+
+**Links given:** https://anjoman.ai/dashboard/hackathon/season-2/missions ·
+https://github.com/telegraphprotocol/bounties (asks for a star) ·
+https://anjoman.ai/dashboard/hackathon/season-2/rules
+
+**Checked 2026-11-25 ~19:10 UTC:** the missions page opens without sign-in, shows fifteen missions with the same
+names as `track1-miner/docs/evidence/missions-2026-10-31/matrix.json`, and its main text does not mention Solana or Pay.sh. The bounties README and the 100 newest issues matched
+neither word. Devnode `/engine/v1/intents` returned no intent with "SOLANA" in its name.
 
 ## Checked 2026-11-22 ~09:00 UTC: ONCHAIN_METRIC_VERIFY_GENERAL schema
 
