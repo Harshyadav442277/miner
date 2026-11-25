@@ -29,7 +29,32 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### Ready to sign (2026-11-25 ~19:15 UTC): TEXT_SUMMARIZATION v1d, replacing #245
+### Ready to sign (2026-11-25 ~19:30 UTC): TEXT_SUMMARIZATION v1e, from the LiveCert wallet only
+
+**v1d was submitted from a different wallet of the owner's** (owner, 2026-11-25 ~19:20 UTC), not
+`0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. That breaks the identity rule (AGENTS.md). Its hash may now be taken
+(same-hash re-registration is refused, bounties #213), so v1e is the same adapter at max_tokens 508. The v1d executor
+is stopped, so the v1d registration cannot pass its check.
+
+1. **From the wrong wallet:** deregister the v1d registration (Anjoman → My registrations → Deregister → "Confirm
+   deregister?" within 4 s).
+2. **Switch MetaMask to `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`**, check the address on the screen, then
+   deregister #245 and register v1e.
+
+Checked 2026-11-25 19:25-19:28 UTC: Stage 1 PASS (`0x3fbc8682`); hosted sha256 = local (`9f5cf1a3…e6fb`);
+`check_executor.py` PASS, public = loopback, the reply's `adapter_hash` is v1e's; the node's 30-text batch took 73.0 s.
+**Risk:** another training job runs on this PC, and the workers are partly paged out (0.7-1.1 GB of 3.8 GB resident,
+2.1 GB RAM free). 73 s is under Cloudflare's 100 s cut, with less margin than the 58.9 s measured at 13:24.
+
+| Field | Value |
+|---|---|
+| Binary link | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/a644c0f26e0470bcdfc720bc38395fe3393185cc/season2/adapter/TEXT_SUMMARIZATION/v1e/TEXT_SUMMARIZATION.safetensors` |
+| keccak256 | `0x89974f9cf887e2fcae5741a35487b83081d3adae59635a55985a5805dfc052e3` |
+| Family | `TEXT_SUMMARIZATION` |
+| Fee address | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
+| Runnable endpoint URL | `https://dividend-versus-notes-mothers.trycloudflare.com/TEXT_SUMMARIZATION` |
+
+### Superseded 2026-11-25 ~19:25 UTC (submitted from the wrong wallet; executor stopped): TEXT_SUMMARIZATION v1d
 
 **#245 (v1c, signed 2026-11-25 18:09 UTC) points at a dead URL.** The v1c tunnel lost the network at 15:46:49 UTC
 (cloudflared: DNS timeout, "no recent network activity"), and Cloudflare then deleted the quick tunnel ("Tunnel not

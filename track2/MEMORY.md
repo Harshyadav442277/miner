@@ -8,7 +8,19 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-25 ~19:15 UTC (Nov 26 00:45 IST) · #245 (v1c) SIGNED ON A DEAD URL; v1d READY TO SIGN
+## CURRENT — 2026-11-25 ~19:30 UTC (Nov 26 01:00 IST) · v1d SUBMITTED FROM THE WRONG WALLET; v1e READY TO SIGN
+
+- **Owner, ~19:20 UTC:** v1d was submitted from another wallet on the same email, not `0xdAd2…A39e`. Its address
+  and tx hash are not yet known; at 19:24 UTC `/api/wasm` showed no v1d registration from any wallet. **Identity
+  incident (AGENTS.md):** that registration must be deregistered from the wallet that made it.
+- **v1e** (max_tokens 508, keccak `0x89974f9c…`, hosted at `a644c0f`, branch `hosting/ts-v1d`): executor
+  `tg-eval/executor-ts6.out`, `dividend-versus-notes-mothers…`. The v1d executor is stopped. Sign block: SIGN_S2.md top.
+- **#245 is still pending** under the right wallet with its dead v1c URL; it still needs deregistering.
+- **Load:** a training job from the owner's other entry folder runs on this PC. v1e workers are 0.7-1.1 GB resident
+  of 3.8 GB and the 30-text batch took 73.0 s (58.9 s at 13:24 with nothing else running). Not touched; the owner's
+  call.
+
+## 2026-11-25 ~19:15 UTC (Nov 26 00:45 IST) · #245 (v1c) SIGNED ON A DEAD URL; v1d READY TO SIGN
 
 - **#245 = v1c**, signed 18:09 UTC, stage `awaiting_compatible_material`. Its tunnel had died at 15:46:49 UTC: a
   network drop (cloudflared DNS timeout), then "Unauthorized: Tunnel not found" on every reconnect. The worker
