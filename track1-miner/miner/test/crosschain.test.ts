@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  asksProof, decodePacketDelivered, decodePacketSent, namedChains, references, verifyCrossChain,
+  asksProof, decodePacketDelivered, decodePacketSent, namedChains, references, refShape, verifyCrossChain,
 } from "../src/crosschain";
 
 /**
@@ -77,4 +77,16 @@ test("(live) the same message asked about the wrong destination is a mismatch, n
   if (r.verdict === "unknown") return;
   assert.equal(r.verdict, "mismatch");
   assert.match(r.reason, /sent from arbitrum to base/);
+});
+
+test("refShape: the reference's shape, never its value", () => {
+  const h = "46b61721" + "a".repeat(56);
+  assert.equal(refShape(""), "none");
+  assert.equal(refShape(`0x${h}`), "0x64");
+  assert.equal(refShape(h.toUpperCase()), "hex64");
+  assert.equal(refShape("0x1234"), "0x4");
+  assert.equal(refShape("5VERv8NMvzbJMEkV8xnrLkEaWRtSz9CosKDYjCJjBRnbJLgp8uirBgmQpjKhoR4tjF3ZpRzrFmBV6UjKdiSZkQUW"), "b58_88");
+  const other = refShape("nonce 4412 from arbitrum");
+  assert.equal(other, "other_24");
+  assert.doesNotMatch(other, /4412|arbitrum/);
 });

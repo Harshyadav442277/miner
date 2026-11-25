@@ -69,6 +69,21 @@ export function references(text: string): string[] {
   return [...new Set([...String(text ?? "").matchAll(/\b0x[a-fA-F0-9]{64}\b/g)].map((m) => m[0].toLowerCase()))].slice(0, 2);
 }
 
+/**
+ * The shape of a supplied reference, never its value: "none", "0x64" (what `references` reads), "hex64" (no 0x),
+ * "0x<n>" (other hex length), "b58_<n>" (base58, as Solana signatures are) or "other_<n>". Calls carrying
+ * tx_hash, source_chain and destination_chain answered no_reference and the log could not say why (2026-11-25). Pure.
+ */
+export function refShape(value: string): string {
+  const v = String(value ?? "").trim();
+  if (!v) return "none";
+  if (/^0x[0-9a-f]{64}$/i.test(v)) return "0x64";
+  if (/^[0-9a-f]{64}$/i.test(v)) return "hex64";
+  if (/^0x[0-9a-f]+$/i.test(v)) return `0x${Math.min(v.length - 2, 999)}`;
+  if (/^[1-9A-HJ-NP-Za-km-z]+$/.test(v)) return `b58_${Math.min(v.length, 999)}`;
+  return `other_${Math.min(v.length, 999)}`;
+}
+
 /** A proof, root or header check was asked for — the part this module never claims. */
 export function asksProof(text: string): boolean {
   return /\bstate\s*root\b|\bmerkle\b|\bpatricia\b|\bstorage\s+proof\b|\bblock\s+header\b|\bproof\b/i.test(String(text ?? ""));

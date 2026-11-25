@@ -43,7 +43,7 @@ import { answerResearch, type ResearchResult } from "./research";
 import { researchBrief } from "./answer-brief";
 import { lookupCryptoPrice, type CryptoPriceResult } from "./cryptoprice";
 import { lookupStockPrice, type StockPriceResult } from "./stockprice";
-import { verifyCrossChain, type CrossChainResult } from "./crosschain";
+import { asksProof, namedChains, refShape, verifyCrossChain, type CrossChainResult } from "./crosschain";
 import { MAX_QUESTION, resolveEvent, type EventOutcomeResult } from "./eventoutcome";
 import { scanUrl, type UrlScanResult } from "./urlscan";
 import { webSearch, type WebSearchResult } from "./websearch";
@@ -1346,6 +1346,10 @@ function route(req: IncomingMessage, res: ServerResponse): void {
         // An in-flight message becomes deliverable at any moment, so only settled
         // verdicts are cached.
         if (r.verdict === "verified" || r.verdict === "mismatch" || r.verdict === "insufficient_input") toCache(key, r);
+        // Shapes and counts only, never the values (GAPS G369).
+        if (r.error === "no_reference") {
+          console.log(`XCHAIN no_reference ref=${refShape(refParam)} chains=${namedChains(q).length} proof=${asksProof(q) ? 1 : 0}`);
+        }
         sendAnswer(res, q, r);
       })
       .catch(() => upstreamUnavailable(res, "A cross-chain message verification", (refParam || q).slice(0, 66) || "this request", q));
