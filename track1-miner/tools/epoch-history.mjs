@@ -36,8 +36,10 @@ for (const intent of intents) {
   }
   const byEpoch = new Map();
   for (const r of rows) {
-    const e = byEpoch.get(r.epoch_id) ?? { epoch: r.epoch_id, field: 0, third: null, ours: null };
+    const e = byEpoch.get(r.epoch_id) ?? { epoch: r.epoch_id, field: 0, top: null, third: null, ours: null };
     e.field += 1;
+    // The top score says whether anyone scored; third place cannot when we sit at rank 1-3 with a 0 (2026-11-25).
+    if (r.rank === 1) e.top = r.score;
     if (r.rank === 3) e.third = r.score;
     if (r.miner_slug === SLUG) e.ours = { rank: r.rank, score: r.score, scored_at: r.scored_at, failure_reason: r.failure_reason || null };
     byEpoch.set(r.epoch_id, e);
@@ -49,6 +51,6 @@ for (const [intent, v] of Object.entries(out.intents)) {
   console.log(`${intent}  rows ${v.rows_read}/${v.total}`);
   for (const e of v.epochs) {
     const ours = e.ours ? `${e.ours.rank} ${e.ours.score} ${e.ours.scored_at.slice(0, 16)}Z` : "-";
-    console.log(`  ${e.epoch}  ours ${ours}  3rd ${e.third}  field ${e.field}`);
+    console.log(`  ${e.epoch}  ours ${ours}  top ${e.top}  3rd ${e.third}  field ${e.field}`);
   }
 }

@@ -1,0 +1,306 @@
+=== verify-deploy 14:05:17
+verifying https://miner-wine.vercel.app
+
+  PASS  served over HTTPS
+  PASS  GET /health — 200 in 388ms
+
+  verdict matrix:
+  PASS  github.com -> valid — got valid, 333ms
+  PASS  expired.badssl.com -> expired — got expired, 3606ms
+  PASS  expired-rsa-dv.ssl.com -> expired — got expired, 267ms
+  PASS  self-signed.badssl.com -> self_signed — got self_signed, 4497ms
+  PASS  wrong.host.badssl.com -> hostname_mismatch — got hostname_mismatch, 1589ms
+  PASS  untrusted-root.badssl.com -> untrusted — got untrusted, 598ms
+  PASS  no-such-host-xyz123-telegraph.invalid -> unreachable — got unreachable, 270ms
+
+  storm-alert:
+  PASS  Chennai -> graded verdict — got none, 262ms
+  PASS  reports a 48h window — reason names the window
+  PASS  unresolvable place -> unknown — got unknown
+  PASS  missing location -> honest 200 — got 200
+
+  weather-forecast:
+  PASS  London -> condition — got cloudy, 266ms
+  PASS  temperature range is sane — 4.4 to 5.5
+  PASS  missing location -> honest 200 — got 200
+
+  input handling:
+  PASS  malformed domain -> honest 200 — got 200
+  PASS  accepts a full URL via ?url= — reason names cloudflare.com=true
+
+  ip-geolocate:
+  PASS  8.8.8.8 -> anycast, Google named — got anycast, 311ms
+  PASS  missing ip -> honest 200 — got 200
+
+  translate:
+  PASS  French "good morning" -> Bonjour — got bonjour, 428ms
+  PASS  missing text -> honest 200 — got 200
+
+  papers:
+  PASS  bare topic -> real papers — 5 papers in prose, 2816ms
+  PASS  missing topic -> honest 200 — got 200
+
+  latency: median 428ms, p95 4497ms, max 4497ms
+
+ALL CHECKS PASSED — safe to register.
+exit=0
+=== param-shapes 14:05:38
+param shapes against https://miner-wine.vercel.app
+
+ok    /ssl-check  {"domain":"github.com"}  [368ms]
+ok    /ssl-check  {"query":"Is the SSL certificate for github.com valid?"}  [265ms]
+ok    /ssl-check  {"domain":"github.com","query":"Is the SSL certificate for github.com valid?"}  [250ms]
+ok    /ssl-check  {"domain":"","query":"Is the SSL certificate for github.com valid?"}  [270ms]
+ok    /ssl-check  {"domain":"github.com","query":""}  [267ms]
+ok    /papers  {"topic":"CRISPR gene editing"}  [2384ms]
+ok    /papers  {"query":"Find recent papers on CRISPR gene editing"}  [2153ms]
+ok    /papers  {"topic":"","query":"Find recent papers on CRISPR gene editing"}  [266ms]
+ok    /papers  {"topic":"CRISPR gene editing","query":""}  [274ms]
+ok    /translate  {"text":"Good morning","target_language":"French"}  [551ms]
+ok    /translate  {"query":"Translate \"Good morning\" into French."}  [322ms]
+ok    /translate  {"text":"Good morning","target_language":"French","query":""}  [251ms]
+ok    /translate  {"text":"Good morning","target_language":"French","query":"Translate this into  [263ms]
+ok    /translate  {"text":"","target_language":"French","query":"Translate \"Good morning\" into  [245ms]
+ok    /translate  {"text":"Good morning","target_language":"fr"}  [274ms]
+ok    /translate  {"text":"Thank you very much for your help.","target_language":"de","query":""  [2878ms]
+ok    /ip-geolocate  {"ip":"8.8.8.8"}  [267ms]
+ok    /ip-geolocate  {"query":"Where is 8.8.8.8 located and does it have abuse history?"}  [473ms]
+ok    /ip-geolocate  {"ip":"8.8.8.8","query":"Where is this IP and does it have abuse history?"}  [251ms]
+ok    /ip-geolocate  {"ip":"192.168.1.10"}  [265ms]
+ok    /ip-geolocate  {"ip":"","query":"Where is 8.8.8.8 located?"}  [309ms]
+ok    /weather-forecast  {"location":"London"}  [668ms]
+ok    /weather-forecast  {"query":"What is the weather forecast for London over the next 24 hours?"}  [266ms]
+ok    /weather-forecast  {"location":"","lat":"37.7749","lon":"-122.4194"}  [579ms]
+ok    /weather-forecast  {"location":"London","hours":"48"}  [267ms]
+ok    /weather-forecast  {"location":"","query":"Forecast for London tomorrow"}  [275ms]
+ok    /storm-alert  {"location":"Chennai"}  [282ms]
+ok    /storm-alert  {"query":"Is there a storm risk in Chennai in the next 48 hours?"}  [279ms]
+ok    /storm-alert  {"location":"","lat":"13.08","lon":"80.27"}  [442ms]
+ok    /storm-alert  {"location":"Chennai","query":""}  [276ms]
+ok    /extract  {"text":"Reach us at support@example.com or call 555-0192."}  [253ms]
+ok    /extract  {"query":"Extract the contact details from: \"Reach us at support@example.com   [335ms]
+ok    /extract  {"text":"Reach us at support@example.com or call 555-0192.","query":"Extract t  [273ms]
+ok    /extract  {"text":"The shipment weighs 45 kilograms and is 2.3 meters long.","query":"Ex  [262ms]
+ok    /headlines  {"topic":"technology"}  [629ms]
+ok    /headlines  {"query":"What are the top 5 technology headlines today?"}  [669ms]
+ok    /headlines  {"topic":"technology","query":"Give me the top 5 headlines in Japan."}  [863ms]
+ok    /wallet-balance  {"address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"}  [303ms]
+ok    /wallet-balance  {"query":"What is the ETH balance of 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA9604  [273ms]
+ok    /wallet-balance  {"address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045","query":"What is the E  [271ms]
+ok    /wallet-balance  {"address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045","query":"What is the E  [312ms]
+ok    /wallet-balance  {"address":"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045","query":"How much USDT  [267ms]
+ok    /ssl-check  {"domain":"","query":""}  [254ms]
+ok    /wallet-balance  {"address":"","query":""}  [260ms]
+ok    /extract  {"text":"","query":""}  [254ms]
+
+subject survives a paraphrasing query
+
+ok    /ssl-check  [274ms]
+ok    /papers  [2475ms]
+ok    /ip-geolocate  [320ms]
+ok    /weather-forecast  [269ms]
+ok    /storm-alert  [268ms]
+ok    /translate  [253ms]
+ok    /extract  [353ms]
+ok    /headlines  [305ms]
+ok    /wallet-balance  [318ms]
+
+54 passed, 0 failed, 54 total
+exit=0
+=== intent-answers 14:06:05
+intent answers against https://miner-wine.vercel.app
+
+  coverage: 44 declared intents, 44 cases
+
+  SSL_VERIFICATION       PASS
+  STORM_ALERT            PASS
+  WEATHER_FORECAST       PASS
+  GAS_PRICE              PASS
+  FINANCIAL_DATA         PASS
+  FRAUD_DETECTION        PASS
+  CURRENCY_EXCHANGE      PASS
+  NEWS_SEARCH            PASS
+  CVE_LOOKUP             PASS
+  ONCHAIN_TX_LOOKUP      PASS
+  WEATHER_CHECK          PASS
+  IP_GEOLOCATION         PASS
+  LANGUAGE_TRANSLATION   PASS
+  ACADEMIC_SEARCH        PASS
+  CONTENT_EXTRACTION     PASS
+  NEWS_HEADLINES         PASS
+  FACT_CHECK             PASS
+  WALLET_BALANCE_CHECK   PASS
+  TOKEN_HOLDER_COUNT     PASS
+  RESEARCH_QUERY         PASS
+  CRYPTO_PRICE           PASS
+  STOCK_PRICE            PASS
+  CROSS_CHAIN_STATE_VERIFY PASS
+  EVENT_OUTCOME_RESOLUTION 
+      (Polymarket unreachable from the checker — EVENT_OUTCOME checked for honesty only)
+PASS
+  URL_SCAN               PASS
+  WEB_SEARCH             PASS
+  SENTIMENT_ANALYSIS     PASS
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  CHAT_COMPLETION        PASS
+  CODE_REVIEW            PASS
+  SECURITY_REVIEW        FAIL
+      - the model did not answer (Groq quota or outage)
+  SMART_CONTRACT_AUDIT   FAIL
+      - the model did not answer (Groq quota or outage)
+  TEXT_GENERATION        FAIL
+      - the model did not answer (Groq quota or outage)
+  ONCHAIN_METRIC_VERIFY  FAIL
+      - Blockscout did not answer for the tx
+
+40/44 intents answering correctly.
+exit=1
+=== intent-answers (2nd) 14:10:54
+intent answers against https://miner-wine.vercel.app
+
+  coverage: 44 declared intents, 44 cases
+
+  SSL_VERIFICATION       
+      (expired.badssl.com: unreachable 3 times, handshake timed out after 8000ms; skipped)
+PASS
+  STORM_ALERT            PASS
+  WEATHER_FORECAST       PASS
+  GAS_PRICE              PASS
+  FINANCIAL_DATA         PASS
+  FRAUD_DETECTION        PASS
+  CURRENCY_EXCHANGE      PASS
+  NEWS_SEARCH            FAIL
+      - errored: provider_unavailable
+  CVE_LOOKUP             PASS
+  ONCHAIN_TX_LOOKUP      PASS
+  WEATHER_CHECK          PASS
+  IP_GEOLOCATION         PASS
+  LANGUAGE_TRANSLATION   PASS
+  ACADEMIC_SEARCH        PASS
+  CONTENT_EXTRACTION     PASS
+  NEWS_HEADLINES         FAIL
+      - only 0 headlines returned
+      - no headline names its source
+  FACT_CHECK             PASS
+  WALLET_BALANCE_CHECK   PASS
+  TOKEN_HOLDER_COUNT     PASS
+  RESEARCH_QUERY         PASS
+  CRYPTO_PRICE           PASS
+  STOCK_PRICE            PASS
+  CROSS_CHAIN_STATE_VERIFY PASS
+  EVENT_OUTCOME_RESOLUTION 
+      (Polymarket unreachable from the checker — EVENT_OUTCOME checked for honesty only)
+PASS
+  URL_SCAN               PASS
+  WEB_SEARCH             PASS
+  SENTIMENT_ANALYSIS     PASS
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  CHAT_COMPLETION        PASS
+  CODE_REVIEW            PASS
+  SECURITY_REVIEW        PASS
+  SMART_CONTRACT_AUDIT   PASS
+  TEXT_GENERATION        FAIL
+      - the model did not answer (Groq quota or outage)
+  ONCHAIN_METRIC_VERIFY  PASS
+
+41/44 intents answering correctly.
+exit=1
+=== currentfacts live test 14:13:06
+✔ release and office questions are recognised, and news questions are not (7.2669ms)
+✔ the latest Python release comes from endoflife.date, skipping an unreleased cycle (29.2392ms)
+✔ an LTS question is answered with the newest cycle already in LTS, not with 'LTS' as the product (2026-10-21) (0.952ms)
+✔ a product endoflife.date does not cover is null, and so is an outage (0.4578ms)
+✔ the UN Secretary-General is read from the office's preferred holder claim (2.0859ms)
+✔ an office matched by alias is named by its label, and a mul-only name is read (1.0381ms)
+✔ without an office item, a head of state is read off the country only under the asked title (2.3236ms)
+✔ a holder Wikidata records as dead is not reported as current (0.545ms)
+✔ a search result naming a different office is refused, not substituted (0.3934ms)
+✔ holders: ended, future and ambiguous claims are not current (0.2877ms)
+✔ webSearch returns the current fact without calling the news search (1.7396ms)
+✔ the latest Python release (live) (193.6821ms)
+✔ the UN Secretary-General (live) (1468.9297ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1801.3163
+exit=0
+=== intent-answers (3rd) 14:15:08
+intent answers against https://miner-wine.vercel.app
+
+  coverage: 44 declared intents, 44 cases
+
+  SSL_VERIFICATION       PASS
+  STORM_ALERT            PASS
+  WEATHER_FORECAST       PASS
+  GAS_PRICE              PASS
+  FINANCIAL_DATA         PASS
+  FRAUD_DETECTION        PASS
+  CURRENCY_EXCHANGE      PASS
+  NEWS_SEARCH            PASS
+  CVE_LOOKUP             PASS
+  ONCHAIN_TX_LOOKUP      PASS
+  WEATHER_CHECK          PASS
+  IP_GEOLOCATION         PASS
+  LANGUAGE_TRANSLATION   PASS
+  ACADEMIC_SEARCH        PASS
+  CONTENT_EXTRACTION     PASS
+  NEWS_HEADLINES         PASS
+  FACT_CHECK             PASS
+  WALLET_BALANCE_CHECK   PASS
+  TOKEN_HOLDER_COUNT     PASS
+  RESEARCH_QUERY         PASS
+  CRYPTO_PRICE           PASS
+  STOCK_PRICE            PASS
+  CROSS_CHAIN_STATE_VERIFY PASS
+  EVENT_OUTCOME_RESOLUTION 
+      (Polymarket unreachable from the checker — EVENT_OUTCOME checked for honesty only)
+PASS
+  URL_SCAN               PASS
+  WEB_SEARCH             PASS
+  SENTIMENT_ANALYSIS     PASS
+  TEXT_CLASSIFICATION    PASS
+  RESEARCH_SYNTHESIS     PASS
+  SANCTIONS_SCREENING_MATCH PASS
+  CORPORATE_REGISTRY_LOOKUP PASS
+  REGULATORY_FILING_MONITOR PASS
+  CRYPTO_TRANSFER_VERIFY PASS
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  CHAT_COMPLETION        PASS
+  CODE_REVIEW            PASS
+  SECURITY_REVIEW        PASS
+  SMART_CONTRACT_AUDIT   FAIL
+      - the model did not answer (Groq quota or outage)
+  TEXT_GENERATION        FAIL
+      - the model did not answer (Groq quota or outage)
+  ONCHAIN_METRIC_VERIFY  PASS
+
+42/44 intents answering correctly.
+exit=1

@@ -1,4 +1,4 @@
-# Next session: start-up prompt (written 2026-11-24 ~02:10 UTC / 07:40 IST)
+# Next session: start-up prompt (written 2026-11-25 ~14:30 UTC / 20:00 IST)
 
 Paste the block below into a new session. Update this file at the end of each session.
 
@@ -10,30 +10,32 @@ Goal: win the Miners / Providers track. Final submission 2026-12-01 23:59 UTC (2
 Start by reading, in order:
 1. CLAUDE.md
 2. MEMORY.md (top block)
-3. GAPS.md (2026-11-22 and 2026-11-23 blocks)
+3. GAPS.md (the two 2026-11-25 blocks; the newer one corrects the older)
 4. TASKS.md
-5. track1-miner/docs/evidence/release-2026-11-24-review-logging/README.md
-6. docs/CODEX_AUDIT_2026-11-22_REVIEW.md
-7. On branch codex/rank1-14-intents: docs/CODEX_AUDIT_2026-11-22_RESPONSE.md
+5. track1-miner/docs/evidence/release-2026-11-25-xchain-shape/README.md (and epochs-47-55-top.txt beside it)
 
-State as of 2026-11-24 02:10 UTC:
-- Production: 66d5ecb (miner-g5zcew03d, dpl_2d2r1xgMJxRbAkbt6NDc6yZKYg5k). Main matches production.
-- Rollback: miner-3udefsmw1 (8a631d5).
-- The request archive (C:\Users\hyada\tg-deploy\scores\requests.jsonl) keeps each invocation's REQ and RES in `lines` (G362 fixed). Code reviews log `REVIEW stated= problem= served= top=`.
-- Registration 6126 active, manifest f47f018. Intent answers 44/44.
+State as of 2026-11-25 14:30 UTC:
+- Production: 1cbd7f4 (miner-a3k2j7mfd, dpl_2iZdZvzi22bdyufsbq6XEp2dUdA8). Main matches production after PR merge.
+- Rollback: miner-1hem8iuy0 (cc9a51c).
+- Registration 6126 active, manifest f47f018.
+- New log fields: `LLM <model> HTTP <status> code=<Groq code> json=<0/1>`; `REVIEW … sha=<8 hex>`; `XCHAIN no_reference ref=<shape> chains=<n> proof=<0/1>`.
+- The archiver (C:\Users\hyada\tg-deploy\scores) reads 60 minutes and logs the CLI's error line. It only runs while the PC is awake (G366).
 - The main checkout is on Codex's branch codex/rank1-14-intents and holds Codex's uncommitted edits. Work in a worktree branched from origin/main, and don't touch Codex's files.
 
 Next, in order:
-1. Read epochs 47+ with /scores?intent=<ID>&limit=100 for every intent. List the intents scoring 0 where another miner scored. Split each epoch at the release time: a zero scored before a release says nothing about it.
-2. For each zero, read the archive rows whose `lines` hold that route before scored_at. CODE_REVIEW's nearest call came about 90 s before; EVENT_OUTCOME's 16 min before, so widen the window when nothing is found. Exclude our own probes and the :27:20/:57:20 `/code-review` caller, whose source is unknown. Deduplicate archive rows by `id`. Diagnose RESEARCH_QUERY, EVENT_OUTCOME (G361), CODE_REVIEW (G363, G364), FINANCIAL_DATA and GAS_PRICE.
-3. Fix only causes the logs prove. Test each fix and give it its own commit.
-4. Release with the release-miner skill:
+1. Re-read epochs 55+ with track1-miner/tools/epoch-history.mjs (it keeps the rank-1 score: judge "another miner scored" by `top`, never by third place).
+2. CROSS_CHAIN (G369): read the `XCHAIN ref=` shapes in the archive. If the scorer sends hashes without 0x, read them; fix what the shapes show.
+3. CODE_REVIEW (G364): find a `sha=` that got different verdicts and scores. Log which model answered before choosing a fix; a fix that turns `Comment` into another verdict needs the owner (G244).
+4. FINANCIAL_DATA (5 epochs lost, top 0.96–0.98) and RESEARCH_QUERY: join scores to archive `lines`; no cause proven yet.
+5. G367: any `json=0` 400 codes on /event-outcome, /research, /fact-check, /papers.
+6. Fix only causes the logs prove. Test each fix and give it its own commit.
+7. Release with the release-miner skill:
    - clean deploy tree under C:\Users\hyada\tg-deploy;
    - unit tests, preview probes, then prod plus `vercel promote`;
-   - preflight 7/7 (re-run a failing gate alone before believing it);
+   - preflight 7/7 (re-run a failing gate alone before believing it; space intent-answers runs ~2 min apart, a burst trips Groq's per-minute limit);
    - `watch.mjs --registration-id 6126 --base-url https://miner-wine.vercel.app --once`;
    - a release record, PR, then merge.
-   - The skill's mentions of registration 4829 and codex/rank1-14-intents are stale. Use 6126 and main.
+   - The skill's mentions of registration 4829/5292 and codex/rank1-14-intents are stale. Use 6126 and main.
 
 Standing authorisation: the owner said "take the decision as per your recommendation. all i want is to win". Build, commit, push, PR, merge and deploy without asking.
 
@@ -52,7 +54,7 @@ Rules:
   - Write regex-heavy code with the Edit or Write tools; sed and Python heredocs have eaten \b, \s and \n here.
   - The no-control-bytes test catches eaten escapes.
   - Use MSYS_NO_PATHCONV=1 with gh.
-- GAPS numbers: take the next free number above the highest in GAPS.md (G365 on 2026-11-24); two sessions have collided before.
+- GAPS numbers: take the next free number above the highest in GAPS.md (G369 on 2026-11-25); two sessions have collided before.
 
 Owner-only items to remind them of:
 - one app partner for a Stablecoin pre-payment screening workflow, with an independent reproduction (the biggest scoring gap: no verified app usage);

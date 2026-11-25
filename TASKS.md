@@ -9,7 +9,11 @@ commit.
 
 - [x] Join epoch 47–55 zeros to the archive: no cause proven (GAPS 2026-11-25 block, G364, G366–G368).
 - [x] Log Groq's error code on refused model calls (`80cbbc5`) and a `sha=` per reviewed input (`cc9a51c`); live.
-- [ ] Read the `code=` values of `LLM … HTTP 400` lines (G367); fix what they name.
+- [x] Archiver: 60-minute lookback inside retention, CLI error logged (`c0a18c1`, installed); epoch-history keeps
+  the rank-1 score (`8ce6dae`); `/cross-chain` logs the reference shape (`1cbd7f4`, live).
+- [ ] G369: read `XCHAIN ref=` shapes; fix what they show (CROSS_CHAIN lost 4 epochs at top ~1.0).
+- [ ] FINANCIAL_DATA: 5 epochs at 0 with top 0.96–0.98; no cause found yet.
+- [ ] Read any `json=0` `LLM … HTTP 400` codes (G367); the `json=1` ones are `json_validate_failed`, already salvaged.
 - [ ] CODE_REVIEW: when one `sha=` gets different verdicts and scores, decide a fix; ask the owner if it changes
   `Comment` (G244, G364).
 - [ ] Owner: keep the archiving PC awake, or agree to move the archiver to a runner (G366).
