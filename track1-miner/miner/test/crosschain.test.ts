@@ -85,6 +85,7 @@ test("refShape: the reference's shape, never its value", () => {
   assert.equal(refShape(`0x${h}`), "0x64");
   assert.equal(refShape(h.toUpperCase()), "hex64");
   assert.equal(refShape("0x1234"), "0x4");
+  assert.equal(refShape(`${h}88`), "hex66");
   assert.equal(refShape("5VERv8NMvzbJMEkV8xnrLkEaWRtSz9CosKDYjCJjBRnbJLgp8uirBgmQpjKhoR4tjF3ZpRzrFmBV6UjKdiSZkQUW"), "b58_88");
   const other = refShape("nonce 4412 from arbitrum");
   assert.equal(other, "other_24");
