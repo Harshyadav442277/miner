@@ -1,5 +1,13 @@
 # MEMORY.md — session continuity
 
+## 2026-11-25 ~19:10 UTC (2026-11-26 00:40 IST): organiser's Solana use cases recorded; docs only
+
+- Five use cases from Ahmed's 2026-11-23 thread are in `docs/TELEGRAPH_FACTS.md`; pointers in `WINNING.md` and
+  `RULES_SEASON2.md`. No code, deploy, post or repo star.
+- Open: G370 (the thread says submit through Anjoman, both rules pages say the H2 website; owner to find the form before Dec 1
+  23:59 UTC),
+  G371 (scoring), G372 (intent mapping is inference; the miner reads no Solana state).
+
 ## 2026-11-25 ~14:30 UTC (20:00 IST): CURRENT — `1cbd7f4` LIVE (`miner-a3k2j7mfd`); logging only, no answer changed
 
 - Production `dpl_2iZdZvzi22bdyufsbq6XEp2dUdA8`. Unit 1095/1095. Preflight was NOT a clean 7/7 in one run: first

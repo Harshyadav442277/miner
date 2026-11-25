@@ -1,5 +1,24 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-25 ~19:10 UTC (2026-11-26 00:40 IST) — Solana use cases thread: G370–G372
+
+The thread is recorded in `docs/TELEGRAPH_FACTS.md`.
+
+- **G370 — Where is the final submission made? `OPEN, owner; due Dec 1 23:59 UTC`.** The thread says "through
+  Anjoman". Re-read 2026-11-25 ~19:10 UTC: both hackathon.telegraphprotocol.com/rules and
+  anjoman.ai/dashboard/hackathon/season-2/rules still say "Submit through the official H2 website by December 1,
+  2026, at 23:59 UTC". The two may be one thing (Anjoman hosts an H2 dashboard), but no submission form has been
+  seen, and it may need the owner's sign-in. Next: the owner opens the form in advance, not on Dec 1.
+- **G371 — Does a Solana use case score anything extra? `OPEN`.** The thread says existing tracks, prizes and
+  rules, and names no new criterion or award. We assume the rubric is unchanged.
+- **G372 — Which intents these use cases would buy is not stated. `OPEN, our inference`.** From intent names and
+  our registration (6126, 44 intents). Served and possibly useful: SANCTIONS_SCREENING_MATCH,
+  CORPORATE_REGISTRY_LOOKUP, REGULATORY_FILING_MONITOR (use cases 1, 2, 4), SMART_CONTRACT_AUDIT. In the
+  catalogue, not served: CONTRACT_OBLIGATION_AUDIT, DOCUMENT_AUTHENTICITY, VENDOR_VERIFY,
+  ASSET_RESERVE_ATTESTATION, SHIPMENT_DELAY_RISK, DELIVERY_WINDOW_VERIFY, PURCHASE_ORDER_VERIFY,
+  INVOICE_LEDGER_RECONCILE. **LiveCert reads no Solana chain state:** transaction, supply and transfer reads are
+  EVM only (`onchain.ts`, `token-supply.ts`), so it cannot verify a Solana settlement or SPL token today.
+
 ## 2026-11-25 ~14:30 UTC (20:00 IST) — corrections to the block below; release `1cbd7f4`; G369 new
 
 Record: `track1-miner/docs/evidence/release-2026-11-25-xchain-shape/` (rank-1 scores in `epochs-47-55-top.txt`).
