@@ -64,9 +64,13 @@ export function namedChains(text: string): string[] {
   return hits.sort((a, b) => a.i - b.i).map((h) => h.c);
 }
 
-/** 32-byte references: transaction hashes or GUIDs, which have the same shape. */
+/**
+ * 32-byte references: transaction hashes or GUIDs, which have the same shape. A hash sent without its 0x
+ * (tx_hash=46b6…a22) is the same reference and is read as one; it answered no_reference (GAPS G369).
+ */
 export function references(text: string): string[] {
-  return [...new Set([...String(text ?? "").matchAll(/\b0x[a-fA-F0-9]{64}\b/g)].map((m) => m[0].toLowerCase()))].slice(0, 2);
+  return [...new Set([...String(text ?? "").matchAll(/(?<![0-9a-zA-Z])(?:0x)?([a-fA-F0-9]{64})(?![0-9a-zA-Z])/g)]
+    .map((m) => `0x${m[1]!.toLowerCase()}`))].slice(0, 2);
 }
 
 /**

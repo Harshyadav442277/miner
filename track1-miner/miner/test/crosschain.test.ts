@@ -40,6 +40,11 @@ test("chains are read in order of mention, and only as whole words", () => {
 test("32-byte references are collected, a 20-byte address is not", () => {
   assert.deepEqual(references(`tx ${SRC_TX} and 0x19cfce47ed54a88614648dc3f19a5980097007dd`), [SRC_TX]);
   assert.deepEqual(references("nonce 4412 from arbitrum"), []);
+  // Without its 0x, or in capitals, a hash is the same reference (GAPS G369: tx_hash answered no_reference).
+  assert.deepEqual(references(SRC_TX.slice(2)), [SRC_TX]);
+  assert.deepEqual(references(`tx ${SRC_TX.slice(2).toUpperCase()} on arbitrum`), [SRC_TX]);
+  assert.deepEqual(references(`${SRC_TX} ${SRC_TX.slice(2)}`), [SRC_TX], "one reference, once");
+  assert.deepEqual(references(`${SRC_TX}ab`), [], "66 hex digits are not a 32-byte reference");
 });
 
 test("a proof, root or header request is recognised", () => {
