@@ -24,7 +24,7 @@
  */
 
 import { walletQuantity } from "./wallet-rpc";
-import { requestedTokens, tokenBalances, type TokenBalance } from "./wallet-tokens";
+import { erc20Balance, requestedTokens, tokenBalances, walletAndToken, type TokenBalance } from "./wallet-tokens";
 
 export interface WalletResult {
   address: string | null;
@@ -79,8 +79,9 @@ const SYMBOL: Record<string, string> = {
   ethereum: "ETH", base: "ETH", arbitrum: "ETH", optimism: "ETH", polygon: "POL", bsc: "BNB",
 };
 
+/** The wallet's address: the first one, unless the question marks that one as the token (walletAndToken). */
 export function walletAddress(text: string): string | null {
-  return String(text ?? "").match(/0x[a-fA-F0-9]{40}\b/)?.[0] ?? null;
+  return walletAndToken(text).wallet;
 }
 
 /**
@@ -341,24 +342,30 @@ export async function checkBalance(
     };
   }
 
-  const tokens = requestedTokens(question);
-  if (tokens.length) {
+  // A token named by its contract is read by that contract, whatever ticker the question also writes.
+  const contract = walletAndToken(question).token;
+  const tokens = contract ? [] : requestedTokens(question);
+  if (tokens.length || contract) {
     // A named token-only request should not be answered with an unrelated native balance.
     const nativeAsked = /\bnative(?:[- ]coin)?\b|\bETH\b|\bBNB\b|\bPOL\b|\bMATIC\b/i
       .test(question.replace(/\b[a-z0-9-]+\.eth\b/gi, ""));
     if (unsupported) return {
       ...base, error: "unsupported_chain",
-      reason: `The ${tokens.join(" and ")} balance on ${unsupported} could not be read; this network is unsupported.`,
+      reason: `The ${contract ? `token ${contract}` : tokens.join(" and ")} balance on ${unsupported} could not be read; this network is unsupported.`,
     };
+    const hint = contract ? question.match(new RegExp(`\\b([A-Z][A-Z0-9]{1,9})\\s*\\(\\s*${contract}`))?.[1] ?? null : null;
     const [balances, native] = await Promise.all([
-      tokenBalances(tokens, chain, address, RPCS[chain] ?? [], timeoutMs),
+      contract ? erc20Balance(RPCS[chain] ?? [], contract, address, timeoutMs, hint).then((b) => [b])
+        : tokenBalances(tokens, chain, address, RPCS[chain] ?? [], timeoutMs),
       nativeAsked ? rpcBalance(chain, address, timeoutMs) : Promise.resolve(null),
     ]);
     const values = balances.filter(b => b.amount !== null).map(b => `${b.amount} ${b.symbol}`);
     if (native !== null) values.unshift(`${formatEth(native)} ${symbol}`);
     const incomplete = balances.some(b => b.amount === null) || (nativeAsked && native === null);
     const details = balances.map(b => b.amount === null
-      ? `${b.symbol} balance is unavailable${b.contract ? " because the RPC read failed" : " because its contract is not supported on this chain"}.`
+      ? b.error === "token_unreadable"
+        ? `The balance at token contract ${b.contract} could not be read: balanceOf and decimals() did not both answer on ${chain}.`
+        : `${b.symbol} balance is unavailable${b.contract ? " because the RPC read failed" : " because its contract is not supported on this chain"}.`
       : `${b.amount} ${b.symbol}, read using eth_call balanceOf on contract ${b.contract}.`);
     if (nativeAsked) details.unshift(native === null ? `The native ${symbol} balance is unavailable.`
       : `${formatEth(native)} ${symbol} native-coin balance, read with eth_getBalance.`);

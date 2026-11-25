@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  asksProof, decodePacketDelivered, decodePacketSent, namedChains, references, refShape, verifyCrossChain,
+  asksProof, crossChainFields, decodePacketDelivered, decodePacketSent, namedChains, references, refShape, verifyCrossChain,
 } from "../src/crosschain";
 
 /**
@@ -40,6 +40,11 @@ test("chains are read in order of mention, and only as whole words", () => {
 test("32-byte references are collected, a 20-byte address is not", () => {
   assert.deepEqual(references(`tx ${SRC_TX} and 0x19cfce47ed54a88614648dc3f19a5980097007dd`), [SRC_TX]);
   assert.deepEqual(references("nonce 4412 from arbitrum"), []);
+  // Without its 0x, or in capitals, a hash is the same reference (GAPS G369: tx_hash answered no_reference).
+  assert.deepEqual(references(SRC_TX.slice(2)), [SRC_TX]);
+  assert.deepEqual(references(`tx ${SRC_TX.slice(2).toUpperCase()} on arbitrum`), [SRC_TX]);
+  assert.deepEqual(references(`${SRC_TX} ${SRC_TX.slice(2)}`), [SRC_TX], "one reference, once");
+  assert.deepEqual(references(`${SRC_TX}ab`), [], "66 hex digits are not a 32-byte reference");
 });
 
 test("a proof, root or header request is recognised", () => {
@@ -90,4 +95,29 @@ test("refShape: the reference's shape, never its value", () => {
   const other = refShape("nonce 4412 from arbitrum");
   assert.equal(other, "other_24");
   assert.doesNotMatch(other, /4412|arbitrum/);
+});
+
+test("answers carry the intent's response fields; consistent is null when nothing was checked (2026-11-26)", async () => {
+  const none = await verifyCrossChain("Verify the state root of arbitrum block 280000000 against ethereum");
+  assert.equal(none.consistent, null, "no message was checked, so nothing is consistent or inconsistent");
+  assert.equal(none.status, "not_verified");
+  assert.deepEqual(none.chains, ["arbitrum", "ethereum"]);
+  assert.equal(none.address, null);
+  assert.match(none.summary, /^Nothing verifiable was supplied/);
+
+  const message = { guid: GUID, nonce: 607540, source_chain: "arbitrum", destination_chain: "base", sender: "0x19", receiver: "0x56",
+    source_tx: SRC_TX, destination_tx: null, scan_status: "DELIVERED" };
+  const verified = crossChainFields({ verdict: "verified", confidence: 0.95, reason: "Verified: it was delivered. Both receipts agree.", message }, "on ethereum");
+  assert.deepEqual([verified.consistent, verified.status, verified.chains, verified.address, verified.summary],
+    [true, "executed", ["arbitrum", "base"], GUID, "Verified: it was delivered."]);
+  for (const [verdict, status] of [["not_delivered", "pending"], ["mismatch", "inconsistent"]] as const) {
+    const r = crossChainFields({ verdict, confidence: 0.8, reason: "x." }, `tx ${SRC_TX} from base to arbitrum`);
+    assert.deepEqual([r.consistent, r.status], [false, status], verdict);
+  }
+  // Only LayerZero is searched: a reference it does not index may still be a completed transfer on another bridge.
+  const missing = crossChainFields({ verdict: "not_found", confidence: 0.6, reason: "x." }, `tx ${SRC_TX} from base to arbitrum`);
+  assert.deepEqual([missing.consistent, missing.status, missing.address, missing.chains], [null, "not_found", SRC_TX, ["base", "arbitrum"]]);
+  for (const verdict of ["unknown", "unsupported", "insufficient_input"] as const) {
+    assert.equal(crossChainFields({ verdict, confidence: 0, reason: "x." }, "").consistent, null, verdict);
+  }
 });
