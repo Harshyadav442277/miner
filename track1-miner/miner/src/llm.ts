@@ -250,6 +250,22 @@ export function salvage400(body: string, r: PhraseRequest): string | null {
   }
 }
 
+/**
+ * The log line for a refused model call: model, status, Groq's error code and whether JSON was asked for. The code is
+ * a fixed identifier ("json_validate_failed"); anything else becomes "other", and the message, which can quote the
+ * prompt, is never read. 27 bare "HTTP 400" lines over nine routes said nothing about which 400 (2026-11-25). Pure.
+ */
+export function llmErrorLine(model: string, status: number, body: string, json: boolean): string {
+  let code = "none";
+  try {
+    const c = (JSON.parse(body) as { error?: { code?: unknown } })?.error?.code;
+    if (typeof c === "string") code = /^[a-z0-9_]{1,40}$/.test(c) ? c : "other";
+  } catch {
+    if (body) code = "unparsed";
+  }
+  return `LLM ${model} HTTP ${status} code=${code} json=${json ? 1 : 0}`;
+}
+
 /** One model, one attempt. Null for every failure; the reason is never surfaced. */
 async function ask(model: string, r: PhraseRequest, key: string, ms: number, meter?: { used?: number }): Promise<string | "rate" | null> {
   try {
@@ -269,10 +285,12 @@ async function ask(model: string, r: PhraseRequest, key: string, ms: number, met
     });
     // Model and status only, never the key or the text: an invalid key (401) or a retired model (404) answered
     // every model-backed intent with "did not return in time" and nothing in the logs said why (2026-11-19).
-    if (!res.ok) process.stdout.write(`LLM ${model} HTTP ${res.status}\n`);
-    if (res.status === 429 || res.status >= 500) return "rate";
-    if (res.status === 400) return salvage400(await res.text().catch(() => ""), r);
-    if (!res.ok) return null;
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      process.stdout.write(`${llmErrorLine(model, res.status, body, Boolean(r.json))}\n`);
+      if (res.status === 429 || res.status >= 500) return "rate";
+      return res.status === 400 ? salvage400(body, r) : null;
+    }
     const body = (await res.json()) as { choices?: Array<{ message?: { content?: string } }>; usage?: { total_tokens?: number } };
     const used = body?.usage?.total_tokens;
     if (meter && typeof used === "number" && Number.isFinite(used) && used > 0) meter.used = used;
