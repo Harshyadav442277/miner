@@ -1,16 +1,52 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-25 ~14:30 UTC (20:00 IST) — corrections to the block below; release `1cbd7f4`; G369 new
+
+Record: `track1-miner/docs/evidence/release-2026-11-25-xchain-shape/` (rank-1 scores in `epochs-47-55-top.txt`).
+
+- **Correction: third place is not a test of "the field failed".** When we sit at rank 1–3 with a 0, third place
+  may be our own row. Rebuilt from the rank-1 score (`epoch-history.mjs` now keeps it, `8ce6dae`). **Zero where
+  another miner scored, epochs 47–54:** FINANCIAL_DATA e47, e48, e49, e52, e53 (top 0.96–0.98); CROSS_CHAIN e48,
+  e49, e50, e52 (top 0.99–1.00); RESEARCH_QUERY e47, e49–e53; GAS_PRICE e47, e51, e52, e54; EVENT_OUTCOME e49, e51,
+  e52, e54; WEB_SEARCH e48, e50, e53; RESEARCH_SYNTHESIS e48, e50, e54; MACRO e47, e49, e52; WALLET_BALANCE e49, e50,
+  e52; TOKEN_TOTAL_SUPPLY e48, e51, e54; CODE_REVIEW e47–e50; FRAUD e49, e54; URL_SAFE e49, e50; CRYPTO_TRANSFER e52,
+  e54; ONCHAIN_METRIC e47, e52; SMART_CONTRACT_AUDIT e48, e50; NEWS_SEARCH e48, e53; TOKEN_HOLDER e49;
+  REGULATORY_FILING e51; QUESTION_ANSWERING e53; TEXT_GENERATION e52; NEWS_HEADLINES e53. **Zero for the whole
+  field (top 0):** IP_GEOLOCATION e49, e52, e54, e55; CROSS_CHAIN e51, e53, e54; FINANCIAL_DATA e51, e54;
+  WALLET_BALANCE e48; ONCHAIN_TX e51; EVENT_OUTCOME e53; SMART_CONTRACT_AUDIT e52.
+- **G369 — CROSS_CHAIN answers `no_reference` to most calls. `OPEN`, now logged.** 15 of 22 archived `/cross-chain`
+  calls answered `insufficient_input error=no_reference`, including calls carrying `tx_hash`, `source_chain` and
+  `destination_chain` (11-25 08:55, 09:28, 12:43 UTC). `references()` reads only `0x`+64 hex, and a 64-hex `tx_hash`
+  without `0x` answers `no_reference` (reproduced on the preview). Whether the scorer sends that shape is
+  `NOT ESTABLISHED`; `1cbd7f4` logs `XCHAIN no_reference ref=<shape>`. The intent is judgment-scored ("generic"
+  evaluator, `/engine/v1/intents/CROSS_CHAIN_STATE_VERIFY_GENERAL`). Next: read the shapes, then fix what they show.
+- **G366, the archiver part — `FIXED` (`c0a18c1`, installed in `tg-deploy\scores`; old copy kept as
+  `archive-requests.mjs.bak-f248de6`).** Run by hand: a window starting 65–66 min back answers `Error: Response
+  Error (400)`, and one starting 64 min back answers, so every run's first window failed at the retention edge. The
+  lookback is now 60 minutes, and a failed window logs the CLI's error line. Nine windows inside retention failed
+  on the 11:17 UTC run (10:16–10:56); their cause was not recorded, and the next failure will say.
+- **G364, count corrected.** The 179-byte input was served `Comment` four times (11-24 02:21, 09:07, 09:50, 10:16) and
+  `Request changes` four times (11-24 08:07, 15:59; 11-25 09:10, 11:14), not one against four. The e54 call that scored
+  1 began with `LLM openai/gpt-oss-120b HTTP 400`, so another model or the salvage path wrote it; which one answered
+  is not logged. That decides whether a fix is model order (no G244 question) or the verdict rule (the owner's call).
+- **G367, partly answered.** On production since `cc9a51c`: `429 code=rate_limit_exceeded` (per-minute; my gate
+  bursts caused them, and the same routes answered a minute later) and `400 code=json_validate_failed json=1`, which
+  `salvage400` already handles. The archived 400s on /event-outcome, /research, /fact-check and /papers are still
+  unexplained. Note: since `80cbbc5`, a 429 or 5xx body is read (bounded by the same abort signal) before the next
+  model is tried.
+
 ## 2026-11-25 ~13:45 UTC (19:15 IST) — epochs 47–55 read; release `cc9a51c` (logging only); G366–G368 new
 
 Record: `track1-miner/docs/evidence/release-2026-11-25-llm-codes/` (scores in `epochs-47-55.txt`). Every miner of an
 intent shares one `scored_at`, so a score is joined to our calls by timing only. No zero below has a proven cause.
+**Two errors here are corrected in the block above: the third-place reading and G364's count.**
 
 - **G366 — Request archive hole: the host was off. `OPEN`, owner.** `record.log` has no output at all from
   2026-11-24 16:30 to 2026-11-25 08:08 UTC (score recorder and archiver both silent), and the archive has no rows for
-  those hours, so epochs 50–53 cannot be joined. Smaller holes: 11-24 11:30–14:43, 11-25 10:00–11:03. Code cannot fix
+  those hours, so epochs 50–53 cannot be joined. Smaller hole: 11-24 11:30–14:43. (11-25 10:00–11:00 is different:
+  the host was up and nine windows failed, see the block above.) Code cannot fix
   a sleeping host: keep the PC awake, or move the archiver to a runner (needs a Vercel token there; not done).
-  Separately, most runs log one `Command failed` for the window starting at now−65 min; probably past Vercel's
-  retention. `UNVERIFIED` (not run by hand with stderr).
+  Separately, most runs log one `Command failed` for the window starting at now−65 min (explained and fixed above).
 - **RESEARCH_QUERY zeros (6 of 8 epochs, 47–54): cause `NOT ESTABLISHED`.** Nearest preceding call per epoch:
   e47 `evidence`→0; e48 `no_evidence`→0.98; e49 `unavailable`→0; e53 `evidence`→0; e54 `unavailable`→0.86. The
   same verdict precedes both 0 and a high score, so the verdict is not the cause. e49 and e51 had third place 0.5.

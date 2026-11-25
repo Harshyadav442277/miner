@@ -1,5 +1,16 @@
 # MEMORY.md — session continuity
 
+## 2026-11-25 ~14:30 UTC (20:00 IST): CURRENT — `1cbd7f4` LIVE (`miner-a3k2j7mfd`); logging only, no answer changed
+
+- Production `dpl_2iZdZvzi22bdyufsbq6XEp2dUdA8`. Unit 1095/1095. Preflight was NOT a clean 7/7 in one run: first
+  run 3/7; each failing gate re-run alone passed except intent answers (40–42/44), whose failures moved between Groq
+  per-minute 429s from the gate burst, Google News and Blockscout. Single calls answered afterwards. Watch 6126 active.
+  Rollback: `miner-1hem8iuy0` (`cc9a51c`). Evidence: `track1-miner/docs/evidence/release-2026-11-25-xchain-shape/`.
+- The 13:45 block below had two errors (third place used as "anyone scored"; G364's 179-byte count). Corrected in
+  GAPS' 14:30 block. Biggest real losses: FINANCIAL_DATA (5 epochs at top 0.96–0.98), CROSS_CHAIN (4, G369),
+  RESEARCH_QUERY (6).
+- Archiver fixed and installed (60-minute lookback, logs the CLI error). Start-up prompt: `docs/NEXT_SESSION.md`.
+
 ## 2026-11-25 ~13:45 UTC (19:15 IST): CURRENT — `cc9a51c` LIVE (`miner-1hem8iuy0`); logging only, no answer changed
 
 - Production `dpl_7WxvntGK3GmMuax8RAjz4fzT92En`. Unit 1094/1094, preflight 7/7, watch 6126 active. Rollback:
