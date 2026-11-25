@@ -166,3 +166,13 @@ test("with Nasdaq failing, the market cap is approximated from SEC diluted share
     assert.match(r.reason, /approximated from 12,368,000,000 diluted weighted-average shares/);
   });
 });
+
+test("/financial reads the intent's own `asset` field (asset=BTC answered no_subject, production 2026-11-25)", async () => {
+  const BTC_MARKET = [{ ...SOL_MARKET[0], id: "bitcoin", symbol: "btc", name: "Bitcoin", market_cap: 1_204_617_235_375, total_volume: 34_581_864_142 }];
+  await withFetch([["api.coingecko.com/api/v3/coins/markets", () => json(BTC_MARKET)]], async () => {
+    const body = await get("/financial?asset=BTC");
+    assert.equal(body.verdict, "financial_data");
+    assert.equal(body.name, "Bitcoin");
+    assert.equal(body.market_cap_usd, 1_204_617_235_375);
+  });
+});
