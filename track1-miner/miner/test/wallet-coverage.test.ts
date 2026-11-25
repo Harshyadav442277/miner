@@ -140,3 +140,37 @@ test("wallet distinguishes a zero token balance from an empty contract result", 
     });
   }
 });
+
+test("a token contract beside the wallet is read by balanceOf, and the wallet is not mistaken for it (Daemon feed, 2026-11-25)", async () => {
+  const WALLET = "0x3e40D73EB977Dc6a537aF587D48316feE66E9C8c";
+  const LDO = "0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32";
+  const symbolWord = `0x${word(32n).slice(2)}${word(3n).slice(2)}${Buffer.from("LDO").toString("hex").padEnd(64, "0")}`;
+  const calls: Array<{ method: string; to?: string; data?: string }> = [];
+  await mockFetch((async (_url: string, init?: { body?: string }) => {
+    const body = JSON.parse(String(init?.body)) as { method: string; params: Array<{ to?: string; data?: string }> };
+    calls.push({ method: body.method, to: body.params[0]?.to, data: body.params[0]?.data });
+    const data = body.params[0]?.data ?? "";
+    const result = body.method !== "eth_call" ? "0x0" : data.startsWith("0x70a08231") ? word(128086165184599365251635349n)
+      : data === "0x313ce567" ? word(18n) : symbolWord;
+    return Response.json({ jsonrpc: "2.0", id: 1, result });
+  }) as typeof fetch, async () => {
+    for (const q of [`What is the balance of token ${LDO} held by ${WALLET} on ethereum?`, `LDO (${LDO}) balance of ${WALLET}`, `${WALLET} ${LDO.toLowerCase()} contract`.replace(/(0x5a98)/, "token $1")]) {
+      calls.length = 0;
+      const r = await checkBalance(q, 3000, "ethereum");
+      assert.equal(r.address, WALLET, q);
+      assert.equal(r.verdict, "128086165.184599365251635349 LDO", q);
+      assert.equal(r.token_balances?.[0]?.contract?.toLowerCase(), LDO.toLowerCase());
+      assert.ok(calls.every((c) => c.method === "eth_call" && c.to?.toLowerCase() === LDO.toLowerCase()), "only the token contract is called");
+      assert.ok(calls.some((c) => c.data === `0x70a08231${WALLET.slice(2).toLowerCase().padStart(64, "0")}`), "balanceOf the wallet");
+    }
+  });
+});
+
+test("one address, or two with neither marked as a token, keeps the first as the wallet", async () => {
+  const { walletAndToken } = await import("../src/wallet-tokens");
+  const A = "0x8b224783FE5b3c52B7DB0cb9B1754f8812b75287";
+  const B = "0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32";
+  assert.deepEqual(walletAndToken(`balance of ${A}`), { wallet: A, token: null });
+  assert.deepEqual(walletAndToken(`compare ${A} and ${B}`), { wallet: A, token: null });
+  assert.deepEqual(walletAndToken(`How many holders does the token at ${A} have?`), { wallet: A, token: null });
+});
