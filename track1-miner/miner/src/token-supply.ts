@@ -181,16 +181,19 @@ export function verdictFor(
 export function tokenPhrase(param: string): { symbol: string | null; chain: string | null } {
   const p = String(param ?? "").replace(/\s+/g, " ").trim();
   const on = p.match(/^(.*?)\s+on\s+(?:the\s+)?(.+)$/i);
-  const chain = on ? resolveChain("", on[2]!) : null;
   const head = on ? on[1]! : p;
-  const inParens = head.match(/\(\s*([A-Za-z][A-Za-z0-9]{1,9})\s*\)/)?.[1];
+  // A parenthesis holds the ticker ("Tether (USDT)") or the chain ("DAI (Ethereum)"), never both read as a ticker.
+  const paren = head.match(/\(([^)]*)\)/)?.[1]?.trim() ?? "";
+  const parenChain = paren && !/^0x/i.test(paren) ? resolveChain("", paren) : null;
+  const chain = (on ? resolveChain("", on[2]!) : null) ?? parenChain;
+  const inParens = parenChain ? undefined : paren.match(/^([A-Za-z][A-Za-z0-9]{1,9})$/)?.[1];
   const core = head.replace(/\([^)]*\)/g, " ").replace(/\b0x[a-fA-F0-9]{40}\b/g, " ").replace(/\s+/g, " ").trim();
   // Generic words dropped, so "the USDC token" is USDC. Any other multi-word name ("Lido DAO") stays unread
   // rather than guessed from one of its words.
   const bare = core.replace(/\b(?:the|token|tokens|contract|erc-?20|total|supply|of)\b/gi, " ").replace(/\s+/g, " ").trim();
   const fold = (s: string): string => s.replace(/[\s.-]+/g, "").toUpperCase();
   const symbol = TOKEN_NAMES[fold(core)] ?? TOKEN_NAMES[fold(bare)]
-    ?? (inParens && !/^0x/i.test(inParens) ? inParens.toUpperCase() : null)
+    ?? (inParens ? inParens.toUpperCase() : null)
     ?? (/^[A-Za-z][A-Za-z0-9]{1,9}$/.test(bare) ? bare.toUpperCase() : null);
   return { symbol, chain };
 }
