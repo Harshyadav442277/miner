@@ -8,7 +8,22 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-25 ~19:30 UTC (Nov 26 01:00 IST) · v1d SUBMITTED FROM THE WRONG WALLET; v1e READY TO SIGN
+## CURRENT — 2026-11-25 ~19:40 UTC (Nov 26 01:10 IST) · TRAINING RESUMED; NO EXECUTOR RUNNING; #245 + #246 WILL FAIL
+
+- **Owner, ~19:30 UTC:** #246 "shows inside my same account, so it's okay"; "start training for more evaluators".
+  The wallet question is closed: #246's author is `0xdad201…a39e`.
+- **Done 19:29-19:31 UTC:** v1e executor stopped (RAM for training); `EXECUTOR.lock` deleted; es_v2 took GPU.lock at
+  19:30:50 and trains (step 10/750, no errors). The other five lanes wait on GPU.lock.
+- **#245 (v1c) and #246 (v1d) both point at dead quick tunnels** and will be rejected as unreachable. v1e (hosted,
+  Stage 1 PASS, sign block in SIGN_S2.md) needs a fresh executor and a new URL before anyone signs it:
+  `launch.py --workers 4 --package TEXT_SUMMARIZATION=…/runs-v2/ts_v1e/…`, set AboveNormal, check, then re-lock.
+- **Speed:** es_v2 ~15 s/step against es_v1's 5.4 s/step on 2026-11-23; the GPU (RTX 3050, 4 GB) is shared at 99%
+  with a training job from another folder (`train-from-qa-checkpoint.py`, pid 36408). ~9 h for es_v2's 3 epochs at
+  this rate, less with early stopping.
+- **Next:** as each lane ends, measure it in the node runtime (+ public15 screen for es, cm) and write sign blocks only
+  for those that pass; restart an executor just before each signature and probe its public URL every minute.
+
+## 2026-11-25 ~19:30 UTC (Nov 26 01:00 IST) · v1d SUBMITTED FROM THE WRONG WALLET; v1e READY TO SIGN
 
 - **Owner, ~19:20 UTC:** v1d was submitted from another wallet on the same email, not `0xdAd2…A39e`. BUT `/api/wasm` at 19:31 shows v1d as #246 under author `0xdad201…a39e`, registered 19:26:26, one minute after Claude stopped the v1d executor, so #246 is dead too. Its address
   and tx hash are not yet known; at 19:24 UTC `/api/wasm` showed no v1d registration from any wallet. **Identity

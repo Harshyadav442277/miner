@@ -29,7 +29,7 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### Ready to sign (2026-11-25 ~19:30 UTC): TEXT_SUMMARIZATION v1e, from the LiveCert wallet only
+### Prepared, executor STOPPED 19:29 UTC (restart before signing; the URL below is dead): TEXT_SUMMARIZATION v1e
 
 **v1d was submitted from a different wallet of the owner's** (owner, 2026-11-25 ~19:20 UTC), not
 `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. That breaks the identity rule (AGENTS.md). Its hash may now be taken
