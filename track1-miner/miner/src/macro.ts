@@ -103,17 +103,27 @@ async function getJson(url: string): Promise<unknown> {
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const monthName = (ym: string): string => `${MONTHS[Number(ym.slice(5, 7)) - 1]} ${ym.slice(0, 4)}`;
 
-/** BLS rows: the latest month, and for an index its change on the same month a year earlier. Pure. */
+/**
+ * BLS rows: the latest month with a value, and for an index its change on the same month a year earlier. A month
+ * BLS never published is "-": October 2025 (the 2025 shutdown) made October 2026's change NaN, and production
+ * answered "US CPI was NaN% year on year" (2026-11-25). Such a month is skipped for the latest one that can be
+ * computed, and its own period is reported. Pure.
+ */
 export function blsReading(body: unknown, yoy: boolean): { value: number; period: string } | null {
   const rows = ((body as { Results?: { series?: Array<{ data?: Array<{ year: string; period: string; value: string }> }> } })
     .Results?.series?.[0]?.data ?? []).filter((r) => /^M(0[1-9]|1[0-2])$/.test(r.period));
-  const latest = rows[0];
-  if (!latest) return null;
-  const period = `${latest.year}-${latest.period.slice(1)}`;
-  if (!yoy) return { value: Number(latest.value), period };
-  const prior = rows.find((r) => Number(r.year) === Number(latest.year) - 1 && r.period === latest.period);
-  if (!prior) return null;
-  return { value: Number(((Number(latest.value) / Number(prior.value) - 1) * 100).toFixed(1)), period };
+  const num = (v: string): number | null => (/^\s*-?\d+(?:\.\d+)?\s*$/.test(String(v)) ? Number(v) : null);
+  for (const latest of rows) {
+    const now = num(latest.value);
+    if (now === null) continue;
+    const period = `${latest.year}-${latest.period.slice(1)}`;
+    if (!yoy) return { value: now, period };
+    const prior = rows.find((r) => Number(r.year) === Number(latest.year) - 1 && r.period === latest.period);
+    const then = prior ? num(prior.value) : null;
+    if (then === null || then === 0) continue;
+    return { value: Number(((now / then - 1) * 100).toFixed(1)), period };
+  }
+  return null;
 }
 
 async function bls(series: string, indicator: Indicator, yoy: boolean): Promise<Reading | null> {
@@ -259,7 +269,9 @@ export async function macroIndicators(question: string, indicatorParam = "", cou
   // year has no annual value yet, and its latest print is a reading in that year, so it keeps the latest path.
   const past = year !== null && year < new Date().getUTCFullYear() ? year : null;
   const read = (i: Indicator): Promise<Reading | null> => (past ? worldBankYear(i, region, past) : readIndicator(i, region));
-  const results = await Promise.all(asked.map((i) => read(i).then((r) => ({ i, r }), () => ({ i, r: undefined }))));
+  // A reading with no finite value counts as not retrieved: it printed "US CPI was NaN% year on year" (2026-11-25).
+  const results = await Promise.all(asked.map((i) => read(i).then(
+    (r) => ({ i, r: r && !Number.isFinite(r.value) ? undefined : r }), () => ({ i, r: undefined }))));
   const readings = results.flatMap((x) => (x.r ? [x.r] : []));
   const where = region === "EA" ? "the euro area" : regionNames.of(region) ?? region;
   const notCovered = results.filter((x) => x.r === null).map((x) => `${LABEL[x.i]} for ${where}${past ? ` in ${past}` : ""}`);

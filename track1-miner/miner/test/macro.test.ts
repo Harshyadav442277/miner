@@ -21,6 +21,18 @@ test("CPI is the change on the same month a year earlier; unemployment is the la
   assert.deepEqual(blsReading(body, false), { value: 334.98, period: "2026-08" });
 });
 
+test("a month BLS never published is skipped, never divided into NaN (October 2025, read 2026-11-25)", () => {
+  const body = { Results: { series: [{ data: [
+    { year: "2026", period: "M10", value: "337.511" }, { year: "2026", period: "M09", value: "336.940" },
+    { year: "2025", period: "M10", value: "-" }, { year: "2025", period: "M09", value: "324.800" },
+  ] }] } };
+  assert.deepEqual(blsReading(body, true), { value: 3.7, period: "2026-09" });
+  assert.deepEqual(blsReading(body, false), { value: 337.511, period: "2026-10" });
+  const gap = { Results: { series: [{ data: [{ year: "2026", period: "M10", value: "-" }, { year: "2026", period: "M09", value: "4.4" }] }] } };
+  assert.deepEqual(blsReading(gap, false), { value: 4.4, period: "2026-09" });
+  assert.equal(blsReading({ Results: { series: [{ data: [{ year: "2026", period: "M10", value: "-" }] }] } }, true), null);
+});
+
 test("Eurostat's latest month is the newest one that carries a value", () => {
   const body = { value: { "0": 4, "1": 4 }, dimension: { time: { category: { index: { "2026-07": 0, "2026-08": 1, "2026-09": 2 } } } } };
   assert.deepEqual(eurostatReading(body), { value: 4, period: "2026-08" });
