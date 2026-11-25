@@ -55,6 +55,35 @@ below, the newer section wins.
 
 ---
 
+## Organiser thread: Alibaba / Qwen commercial use cases (recorded 2026-11-25 ~19:17 UTC)
+
+Source: text pasted into the session by the owner. No author, date or channel is shown in it; that it is the
+organiser's is inferred from its voice. The thread itself was not opened by Claude. Participants' handles are
+left out here.
+
+| # | Use case | Ecosystem named | What is asked |
+|---|---|---|---|
+| 1 | Intelligent supplier discovery and verification | Alibaba.com / Accio | Beyond registry and sanctions checks: ownership, manufacturing capability, certifications, export history, product compliance, disputes, ability to fill the order (example: 10,000 units to a specification). Discover, verify claims, compare with evidence; then monitor |
+| 2 | Independent trade assurance and dispute resolution | not named | Purchase orders, invoices, inspection reports, shipment records, goods received and accepted quantities; independent providers investigate disputes; payment held, released, split or refunded under agreed conditions. Names Takar and Praman as already well advanced |
+| 3 | Cross-border trade and logistics intelligence | Alibaba.com / Cainiao | Purchase order to acceptance: supplier documents, bills of lading, vessel and container movements, port congestion, customs, deadlines, delivery evidence; document-versus-shipment mismatches, disruption and its contractual cost. Meant to feed use case 2. Names Countersign |
+| 4 | Independent software and code verification | Qwen / Alibaba Cloud | For code from Qwen and other models: package authenticity, dependencies, vulnerabilities, insecure code, API compatibility, requirements met; official registries, deterministic checks and execution, not another model's opinion. Compare Qwen alone with Qwen plus Telegraph on correctness, security, completeness, cost, latency |
+| 5 | Governed autonomous agents | Qwen / Alibaba Cloud | Agents that buy and pay within budgets, permissions and policies: check authority, counterparty, policy and conditions first; proceed, block or escalate with evidence |
+
+**Wanted for each:** a complete commercial workflow; paid Telegraph intelligence with sources and receipts;
+independent verification and evaluation; incorrect, missing and conflicting inputs; measured improvement over
+existing approaches or a model alone; a working application, repository, walkthrough video and reproducible
+results; who uses it, pays, and returns.
+
+**Also said:** applications should consume each other's capabilities; "One useful specialist Miner could serve
+several different applications and create recurring intelligence demand"; extend what exists rather than start
+again; contributions welcome across all three tracks; not limited to these five. Participants are asked to share
+progress, next work, missing intelligence and where others can help. Nothing has been posted from this repo.
+It states no prize, rubric, deadline or submission change. Links given: the Season II missions page and
+github.com/telegraphprotocol/bounties.
+
+**Checked 2026-11-25 ~19:17 UTC:** the missions page's main text, the bounties README and the 100 newest bounty
+issues matched none of "Alibaba", "Qwen", "Cainiao" or "Accio".
+
 ## Organiser announcement, 2026-11-23: Solana institutional and commercial use cases
 
 Source: a thread by Ahmed Ali, pasted into the session by the owner and recorded 2026-11-25 ~19:10 UTC. The

@@ -14,6 +14,9 @@ rules, so the rubric here is unchanged (assumption, G371). All five are applicat
 Agents. For our two entries they count through coverage and verified consumption if someone's app buys what we serve or
 score. Owner option for the growth criterion: reply in the thread with our Miner and evaluation work (not posted).
 The miner reads no Solana chain state (G372).
+**Alibaba / Qwen use cases (second thread, recorded 2026-11-25; [facts](docs/TELEGRAPH_FACTS.md)):** also
+applications, with no rubric change stated. Nearest fit for the miner is software verification (CODE_REVIEW,
+SECURITY_REVIEW, CVE_LOOKUP_CVSS), G373.
 Season I post-mortem: [track1-miner/docs/S1_LESSONS.md](track1-miner/docs/S1_LESSONS.md).
 
 **Track names.** This repo calls the miner **Track 1** (`track1-miner/`, LiveCert, registration 4829) and

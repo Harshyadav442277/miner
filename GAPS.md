@@ -1,5 +1,16 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-25 ~19:17 UTC (2026-11-26 00:47 IST) — Alibaba / Qwen use cases: G373
+
+- **G373 — What these use cases would buy from us is not stated. `OPEN, our inference`.** Thread recorded in
+  `docs/TELEGRAPH_FACTS.md`; its date and author are not shown in the paste. By intent name, we serve:
+  CODE_REVIEW, SECURITY_REVIEW, CVE_LOOKUP_CVSS (use case 4); SANCTIONS_SCREENING_MATCH,
+  CORPORATE_REGISTRY_LOOKUP (1, 5). In the catalogue, not served: VENDOR_VERIFY, PURCHASE_ORDER_VERIFY,
+  INVOICE_LEDGER_RECONCILE, VESSEL_TELEMETRY_VERIFY, SHIPMENT_DELAY_RISK, DELIVERY_WINDOW_VERIFY,
+  CODE_PATCH_VERIFY, REGRESSION_VERIFY. Use case 4 is the nearest fit, with a known weakness: CODE_REVIEW scored 0
+  in epochs 47–50 while another miner scored (11-25 14:30 block, G364). Not checked: whether our three code
+  routes cover package authenticity or execute anything; do not claim either.
+
 ## 2026-11-25 ~19:10 UTC (2026-11-26 00:40 IST) — Solana use cases thread: G370–G372
 
 The thread is recorded in `docs/TELEGRAPH_FACTS.md`.
