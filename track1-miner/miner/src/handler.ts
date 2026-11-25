@@ -1331,9 +1331,11 @@ function route(req: IncomingMessage, res: ServerResponse): void {
      * A LayerZero V2 message verified on both chains' own receipts. State roots,
      * Merkle-Patricia proofs and block headers are never claimed as verified.
      */
-    const refParam = firstValue(url, "tx_hash", "hash", "guid", "message_id");
+    // `reference` and `chains` are the intent's own request names (GET /engine/v1/intents/CROSS_CHAIN_STATE_VERIFY_GENERAL,
+    // read 2026-11-26); the YAML's names come first.
+    const refParam = firstValue(url, "tx_hash", "hash", "guid", "message_id", "reference");
     const route = [firstValue(url, "source_chain", "from_chain"), firstValue(url, "destination_chain", "to_chain")]
-      .filter(Boolean).join(" to ");
+      .filter(Boolean).join(" to ") || firstValue(url, "chains");
     const q = withSubject(withSubject(firstValue(url, "query", "q", "question", "text", "input"), refParam), route);
     const key = `xchain:${q.trim().toLowerCase().slice(0, 300)}`;
     const hit = fromCache(key);
