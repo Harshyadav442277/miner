@@ -59,12 +59,15 @@ const RPCS: Record<string, string[]> = {
   scroll: ["https://scroll-rpc.publicnode.com", "https://rpc.scroll.io"],
   zksync: ["https://mainnet.era.zksync.io"],
   sonic: ["https://sonic-rpc.publicnode.com", "https://rpc.soniclabs.com"],
+  // Both answered eth_chainId 0xa4ec (42220), eth_gasPrice ~202 Gwei and eth_getBlockByNumber with a base fee on
+  // 2026-11-25. chain=celo arrived 9 times and was refused while a1-preflight answered it.
+  celo: ["https://celo-rpc.publicnode.com", "https://forno.celo.org"],
 };
 
 /** The chain's own fee unit. Polygon prices gas in POL, BSC in BNB, Avalanche in AVAX, the rest in ETH. */
 const COIN: Record<string, string> = {
   ethereum: "ETH", base: "ETH", arbitrum: "ETH", optimism: "ETH", polygon: "POL", bsc: "BNB", avalanche: "AVAX",
-  gnosis: "xDAI", linea: "ETH", scroll: "ETH", zksync: "ETH", sonic: "S",
+  gnosis: "xDAI", linea: "ETH", scroll: "ETH", zksync: "ETH", sonic: "S", celo: "CELO",
 };
 
 /** How a chain is named in the answer, where its id is not already its name. */
@@ -73,7 +76,7 @@ const LABEL: Record<string, string> = { bsc: "BNB Smart Chain", avalanche: "Aval
 /** EVM chain ids, for a `chain` param sent as a number or as `eip155:<id>`. */
 const CHAIN_IDS: Record<string, string> = {
   "1": "ethereum", "8453": "base", "42161": "arbitrum", "10": "optimism", "137": "polygon", "56": "bsc", "43114": "avalanche",
-  "100": "gnosis", "59144": "linea", "534352": "scroll", "324": "zksync", "146": "sonic",
+  "100": "gnosis", "59144": "linea", "534352": "scroll", "324": "zksync", "146": "sonic", "42220": "celo",
 };
 
 /** Short names a `chain` param may carry that are too common to match inside a question's text. */
@@ -83,7 +86,7 @@ const PARAM_ALIASES: Record<string, string> = { op: "optimism", eth: "ethereum",
  * Test networks, named so they are refused rather than answered with their mainnet's fee: "gas on Base
  * Sepolia" matched `base` and read Base mainnet. A testnet's gas has no market value.
  */
-const TESTNET = /\b(sepolia|holesky|hoodi|goerli|görli|ropsten|rinkeby|kovan|amoy|mumbai|fuji|chapel|testnet)\b/i;
+const TESTNET = /\b(sepolia|holesky|hoodi|goerli|görli|ropsten|rinkeby|kovan|amoy|mumbai|fuji|chapel|alfajores|baklava|testnet)\b/i;
 
 /**
  * Chain words, most specific first.
@@ -105,6 +108,7 @@ const CHAIN_WORDS: Array<[RegExp, string]> = [
   [/\bscroll\b/i, "scroll"],
   [/\bzk\s?sync\b/i, "zksync"],
   [/\bsonic\b/i, "sonic"],
+  [/\bcelo\b/i, "celo"],
   [/\bethereum\b|\bmainnet\b|\beth\b|\bl1\b/i, "ethereum"],
 ];
 

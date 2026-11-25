@@ -5,7 +5,7 @@ import { asksForFees, fmtGwei, getGasPrice, notAFeeQuestion, resolveChain, round
 test("an unknown chain param is that chain, unread, never Ethereum (production 2026-11-16)", () => {
   // "Gnosis", "Fantom" and "op" were each answered with Ethereum's gas price.
   assert.deepEqual(resolveChain("Fantom", ""), { chain: null, explicit: true, unread: "Fantom" });
-  assert.deepEqual(resolveChain("Celo", ""), { chain: null, explicit: true, unread: "Celo" });
+  assert.deepEqual(resolveChain("Moonbeam", ""), { chain: null, explicit: true, unread: "Moonbeam" });
   assert.equal(resolveChain("op", "").chain, "optimism");
   assert.equal(resolveChain("Gnosis", "").chain, "gnosis");
   assert.equal(resolveChain("", "gas on Linea right now").chain, "linea");
@@ -197,5 +197,35 @@ test("every supported chain answers with a plausible fee (live)", async () => {
     // No exponent notation and no zero cost: Gnosis's 2.6e-8 Gwei read "about 2.6e-8 Gwei" and "costs about 0.00 Gwei".
     assert.doesNotMatch(r.reason, /\de-\d/, `${chain}: exponent notation in "${r.reason}"`);
     assert.doesNotMatch(r.reason, /costs about 0(?:\.0+)? (?:Gwei|[A-Z]+)\./, `${chain}: a zero transfer cost`);
+  }
+});
+
+test("Celo is read from its own RPC, by name or chain id; its testnets are refused (chain=celo, 9 calls refused by 2026-11-25)", async () => {
+  assert.equal(resolveChain("celo", "").chain, "celo");
+  assert.equal(resolveChain("Celo", "").chain, "celo");
+  assert.equal(resolveChain("42220", "").chain, "celo");
+  assert.equal(resolveChain("", "What is the gas price on Celo right now?").chain, "celo");
+  assert.match(String(resolveChain("", "gas on Celo Alfajores").unread), /a test network/);
+  assert.ok(supportedChains().includes("celo"));
+
+  const original = globalThis.fetch;
+  const hosts: string[] = [];
+  globalThis.fetch = (async (input: string | URL | Request, init?: RequestInit) => {
+    hosts.push(new URL(String(input)).hostname);
+    const { method } = JSON.parse(String(init?.body)) as { method: string };
+    // Values as celo-rpc.publicnode.com answered on 2026-11-25: 200.001 Gwei on a 200 Gwei base fee.
+    const result = method === "eth_gasPrice" ? "0x2e90fd1240" : { number: "0x4fdc6c5", baseFeePerGas: "0x2e90edd000" };
+    return Response.json({ jsonrpc: "2.0", id: 1, result });
+  }) as typeof globalThis.fetch;
+  try {
+    const r = await getGasPrice("celo");
+    assert.equal(r.verdict, "gas_price");
+    assert.equal(r.chain, "celo");
+    assert.deepEqual([...new Set(hosts)], ["celo-rpc.publicnode.com"]);
+    assert.equal(r.gwei, 200.001);
+    assert.match(r.reason, /^The current gas price on celo is 200\.00 Gwei/);
+    assert.match(r.reason, /not the price of CELO\./);
+  } finally {
+    globalThis.fetch = original;
   }
 });
