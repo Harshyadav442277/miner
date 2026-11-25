@@ -80,6 +80,8 @@ export interface FinancialResult {
   fundamentals?: FundamentalFigures;
   /** The figures the prose was written from, for a caller that reads fields. */
   data?: MarketFigures;
+  /** FINANCIAL_DATA's `metrics`: the other figures the answer reports, as written. */
+  metrics?: string;
 }
 
 /** Every figure is the provider's own value, unrounded; null means not published. */
@@ -700,20 +702,14 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
     if (f.status === "answer") return withUnfiledGaps(f.result, query, ticker);
     if (f.status === "outage") filingsOutage = f.label;
   }
-  const eq = await equityData(query, ticker, filingsOutage);
+  let eq = await equityData(query, ticker, filingsOutage);
   if (eq.verdict === "financial_data" && eq.subject === "equity") {
-    // Every stock answer carries its market cap: FINANCIAL_DATA scores `market_cap_usd`, and the node sends the
-    // asset alone, never the words "market cap".
-    const price = Number(eq.data?.["price"]);
-    const cap = await marketCapValue(ticker, price, String(eq.data?.["currency"] ?? "")).catch(() => null);
-    const asked = /\bmarket\s*cap(?:itali[sz]ation)?\b/i.test(query);
-    if (cap) return { ...eq, data: { ...(eq.data ?? {}), market_cap: cap.usd }, reason: `${eq.reason} ${cap.text}` };
-    // Alphabet, Meta and Visa tag their shares by class only, so the SEC cover has no current total (2026-11-22).
-    const nq = await nasdaqCap(ticker);
-    if (nq) return { ...eq, data: { ...(eq.data ?? {}), market_cap: nq }, reason: `${eq.reason} Its market capitalisation is about ${human(nq)} (${money(nq)}), as Nasdaq's quote summary states it.` };
-    const dil = await dilutedCapValue(ticker, price, String(eq.data?.["currency"] ?? "")).catch(() => null);
-    if (dil) return { ...eq, data: { ...(eq.data ?? {}), market_cap: dil.usd }, reason: `${eq.reason} ${dil.text}` };
-    if (asked) return { ...eq, reason: `${eq.reason} The market capitalisation was not retrieved: the shares outstanding could not be read from its SEC filings.` };
+    // Read alongside the market cap, so the filings cost no extra wall time.
+    const filed = filingsOutage ? Promise.resolve([]) : filedSnapshot(ticker);
+    const capped = await withMarketCap(eq, ticker, query);
+    const snapshot = await filed;
+    if (capped) return withFiled(capped, snapshot);
+    eq = withFiled(eq, snapshot);
   }
   // A P/E asked on its own: the market data already holds the price, so only the EPS is fetched.
   if (eq.verdict === "financial_data" && asksFundamentals(query).includes("price-to-earnings ratio")) {
@@ -723,6 +719,61 @@ export async function getFinancialData(query: string, addressParam = "", symbolP
     }
   }
   return eq;
+}
+
+/**
+ * Every stock answer carries its market cap: FINANCIAL_DATA scores `market_cap_usd`, and the node sends the asset
+ * alone, never the words "market cap". Null when none was found and none was asked for.
+ */
+async function withMarketCap(eq: FinancialResult, ticker: string, query: string): Promise<FinancialResult | null> {
+  const price = Number(eq.data?.["price"]);
+  const cap = await marketCapValue(ticker, price, String(eq.data?.["currency"] ?? "")).catch(() => null);
+  const asked = /\bmarket\s*cap(?:itali[sz]ation)?\b/i.test(query);
+  if (cap) return { ...eq, data: { ...(eq.data ?? {}), market_cap: cap.usd }, reason: `${eq.reason} ${cap.text}` };
+  // Alphabet, Meta and Visa tag their shares by class only, so the SEC cover has no current total (2026-11-22).
+  const nq = await nasdaqCap(ticker);
+  if (nq) return { ...eq, data: { ...(eq.data ?? {}), market_cap: nq }, reason: `${eq.reason} Its market capitalisation is about ${human(nq)} (${money(nq)}), as Nasdaq's quote summary states it.` };
+  const dil = await dilutedCapValue(ticker, price, String(eq.data?.["currency"] ?? "")).catch(() => null);
+  if (dil) return { ...eq, data: { ...(eq.data ?? {}), market_cap: dil.usd }, reason: `${eq.reason} ${dil.text}` };
+  if (asked) return { ...eq, reason: `${eq.reason} The market capitalisation was not retrieved: the shares outstanding could not be read from its SEC filings.` };
+  return null;
+}
+
+/**
+ * The latest annual revenue and net income from the company's 10-K, for a stock answer. Asked "NVIDIA" alone, the
+ * miners that scored FINANCIAL_DATA in epochs 47-55 (txlens, finwire, a1-preflight) all reported these filed figures,
+ * while this route reported trading ranges only and scored 0 (2026-11-25). Empty when SEC did not answer.
+ */
+async function filedSnapshot(ticker: string): Promise<FinancialResult[]> {
+  const outs = await Promise.all(["revenue", "net income"].map((m) => getFundamentals(m, ticker).catch(() => null)));
+  return outs.flatMap((o) => (o?.status === "answer" && o.result.verdict === "financial_data" && o.result.fundamentals ? [o.result] : []));
+}
+
+/** A market data answer with its filed figures appended, and `metrics` listing every figure the answer reports. Pure. */
+export function withFiled(r: FinancialResult, filed: FinancialResult[]): FinancialResult {
+  const d = r.data ?? {};
+  const n = (k: string): number | null => (typeof d[k] === "number" && Number.isFinite(d[k]) ? (d[k] as number) : null);
+  const cur = String(d["currency"] ?? "USD");
+  const parts: string[] = [];
+  const price = n("price"), prev = n("previous_close"), lo = n("day_low"), hi = n("day_high"), vol = n("volume");
+  const wkLo = n("week52_low"), wkHi = n("week52_high"), cap = n("market_cap");
+  if (price !== null) parts.push(`last price ${price.toFixed(2)} ${cur}`);
+  if (cap !== null) parts.push(`market capitalisation ${human(cap)}`);
+  if (lo !== null && hi !== null) parts.push(`day range ${lo.toFixed(2)} to ${hi.toFixed(2)} ${cur}`);
+  if (vol !== null && vol > 0) parts.push(`volume ${vol.toLocaleString("en-US")} ${d["volume_unit"] === "shares" ? "shares" : cur}`);
+  if (wkLo !== null && wkHi !== null) parts.push(`52-week range ${wkLo.toFixed(2)} to ${wkHi.toFixed(2)} ${cur}`);
+  if (price !== null && prev !== null && prev > 0) {
+    const pct = ((price - prev) / prev) * 100;
+    parts.push(`change ${pct >= 0 ? "+" : ""}${pct.toFixed(2)}% against the previous close of ${prev.toFixed(2)} ${cur}`);
+  }
+  for (const f of filed.map((x) => x.fundamentals!)) {
+    parts.push(`${f.metric} ${human(f.value)} for fiscal year ${f.fiscal_year}, ended ${f.period_end} (${f.form})`);
+  }
+  return {
+    ...r,
+    reason: filed.length ? `${r.reason} ${filed.map((x) => x.reason).join(" ")}` : r.reason,
+    ...(parts.length ? { metrics: parts.join("; ") } : {}),
+  };
 }
 
 /** "Its trailing price-to-earnings ratio is 44.65, from …", or null when either input is missing. */

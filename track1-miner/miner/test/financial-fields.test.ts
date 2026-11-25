@@ -176,3 +176,42 @@ test("/financial reads the intent's own `asset` field (asset=BTC answered no_sub
     assert.equal(body.market_cap_usd, 1_204_617_235_375);
   });
 });
+
+test("a stock asked by name alone reports its latest 10-K revenue and net income, listed in metrics (scored 0 without, epochs 47-55)", async () => {
+  const fy = (val: number) => json({ units: { USD: [
+    { start: "2024-01-29", end: "2025-01-26", val: val / 2, fy: 2025, fp: "FY", form: "10-K", filed: "2025-02-26" },
+    { start: "2025-01-27", end: "2026-01-25", val, fy: 2026, fp: "FY", form: "10-K", filed: "2026-02-25" },
+  ] } });
+  await withFetch([
+    ["finance/chart/NVDA", () => json({ chart: { result: [{ meta: { instrumentType: "EQUITY", currency: "USD", longName: "NVIDIA Corporation", regularMarketPrice: 148.31,
+      chartPreviousClose: 150.96, regularMarketDayHigh: 148.51, regularMarketDayLow: 141.17, regularMarketVolume: 267_855_701, fiftyTwoWeekHigh: 243.37, fiftyTwoWeekLow: 124.5 } }] } })],
+    ["EntityCommonStockSharesOutstanding", () => json({ units: { shares: [{ val: 24_100_000_000, end: new Date(Date.now() - 90 * 86_400_000).toISOString().slice(0, 10), filed: "2026-08-26", form: "10-Q", accn: "q3" }] } })],
+    ["us-gaap/Revenues.json", () => fy(215_938_000_000)],
+    ["us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json", () => json({}, 404)],
+    ["us-gaap/SalesRevenueNet.json", () => json({}, 404)],
+    ["us-gaap/NetIncomeLoss.json", () => fy(120_067_000_000)],
+  ], async () => {
+    const r = await getFinancialData("NVIDIA", "", "NVIDIA");
+    assert.equal(r.verdict, "financial_data");
+    assert.equal(r.data?.market_cap, Math.round(24_100_000_000 * 148.31));
+    assert.match(r.reason, /reported revenue of \$215\.94 billion for fiscal year 2026, which ended 25 January 2026/);
+    assert.match(r.reason, /reported net income of \$120\.07 billion for fiscal year 2026/);
+    assert.match(String(r.metrics), /^last price 148\.31 USD; market capitalisation \$3\.57 trillion; day range 141\.17 to 148\.51 USD; volume 267,855,701 shares;/);
+    assert.match(String(r.metrics), /; revenue \$215\.94 billion for fiscal year 2026, ended 2026-01-25 \(10-K\); net income \$120\.07 billion for fiscal year 2026/);
+  });
+});
+
+test("a stock answer keeps its market figures when SEC does not answer the filed figures", async () => {
+  await withFetch([
+    ["finance/chart/TSLA", () => json({ chart: { result: [{ meta: { instrumentType: "EQUITY", currency: "USD", longName: "Tesla, Inc.", regularMarketPrice: 381.73,
+      chartPreviousClose: 383.72, regularMarketDayHigh: 382.45, regularMarketDayLow: 357.64, regularMarketVolume: 23_924_670, fiftyTwoWeekHigh: 498.83, fiftyTwoWeekLow: 297.38 } }] } })],
+    ["EntityCommonStockSharesOutstanding", () => json({ units: { shares: [{ val: 3_952_757_946, end: new Date(Date.now() - 40 * 86_400_000).toISOString().slice(0, 10), filed: "2026-10-22", form: "10-Q", accn: "q" }] } })],
+    ["us-gaap/", () => json({}, 503)],
+  ], async () => {
+    const r = await getFinancialData("TSLA", "", "TSLA");
+    assert.equal(r.verdict, "financial_data");
+    assert.equal(r.data?.market_cap, Math.round(3_952_757_946 * 381.73));
+    assert.doesNotMatch(r.reason, /reported (?:revenue|net income)/);
+    assert.match(String(r.metrics), /^last price 381\.73 USD; market capitalisation \$1\.51 trillion;/);
+  });
+});
