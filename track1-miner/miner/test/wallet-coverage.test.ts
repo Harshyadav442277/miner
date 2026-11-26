@@ -159,6 +159,7 @@ test("a token contract beside the wallet is read by balanceOf, and the wallet is
       const r = await checkBalance(q, 3000, "ethereum");
       assert.equal(r.address, WALLET, q);
       assert.equal(r.verdict, "128086165.184599365251635349 LDO", q);
+      assert.equal(r.symbol, "LDO", q);
       assert.equal(r.token_balances?.[0]?.contract?.toLowerCase(), LDO.toLowerCase());
       assert.ok(calls.every((c) => c.method === "eth_call" && c.to?.toLowerCase() === LDO.toLowerCase()), "only the token contract is called");
       assert.ok(calls.some((c) => c.data === `0x70a08231${WALLET.slice(2).toLowerCase().padStart(64, "0")}`), "balanceOf the wallet");

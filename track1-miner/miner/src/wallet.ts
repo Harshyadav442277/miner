@@ -370,8 +370,11 @@ export async function checkBalance(
     if (nativeAsked) details.unshift(native === null ? `The native ${symbol} balance is unavailable.`
       : `${formatEth(native)} ${symbol} native-coin balance, read with eth_getBalance.`);
     const asOf = askedAsOf(question);
+    // One token and no native read: `symbol` names that token, not the chain's coin. A USDT balance was served with
+    // symbol "ETH" (preview, 2026-11-26).
+    const only = !nativeAsked && balances.length === 1 && balances[0]!.amount !== null ? balances[0]!.symbol : null;
     return {
-      ...base, balance_eth: native === null ? null : Number(native) / 1e18, token_balances: balances,
+      ...base, ...(only ? { symbol: only } : {}), balance_eth: native === null ? null : Number(native) / 1e18, token_balances: balances,
       verdict: values.length ? values.join("; ") : "unknown",
       confidence: values.length ? incomplete ? 0.5 : 0.98 : 0,
       reason: `Current balances for ${ens ? `${ens} (${address})` : address} on ${chain}: ${details.join(" ")} ` +
