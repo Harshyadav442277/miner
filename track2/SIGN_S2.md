@@ -29,6 +29,24 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
+### Ready to sign (2026-11-26 16:38 UTC): INVOICE_LEDGER_RECONCILE v1b, replacing #262
+
+#262's tunnel died when the lid closed (Modern Standby 15:08-15:55 UTC) before the node called it. v1b is the same
+adapter re-exported at max_tokens 511 for a new hash; Stage 1 bits unchanged (`0xbf21865a`). Node-runtime results as
+v1: test 80.7%, probe 77.3% (first 150 pairs). Checked 16:38 UTC: hosted sha256 = local (`8b31e0f1…f8e`);
+`check_executor.py` PASS, public = loopback, reply hash v1b's; a 30-text batch took 60.2 s.
+
+1. Deregister #262 (Anjoman → My registrations → Deregister → "Confirm deregister?" within 4 s).
+2. Register v1b. Keep the lid open and the PC online until it is decided.
+
+| Field | Value |
+|---|---|
+| Binary link | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/bbd51e7c13e4b783716cf7a49f8b26c9e1e7b0df/season2/adapter/INVOICE_LEDGER_RECONCILE/v1b/INVOICE_LEDGER_RECONCILE.safetensors` |
+| keccak256 | `0x4d0d122be29e009b6a2a9ec247b1c3386e31afbf86676650a134c8eee9cc5145` |
+| Family | `INVOICE_LEDGER_RECONCILE` |
+| Fee address | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
+| Runnable endpoint URL | `https://tried-campaign-authentication-strings.trycloudflare.com/INVOICE_LEDGER_RECONCILE` |
+
 ### Signed 2026-11-26 ~10:55 UTC as #262 (awaiting its check): INVOICE_LEDGER_RECONCILE v1, a disclosed probe like #210
 
 No champion in this family, and no adapter has been judged there. v1 is under our 85% own-test bar, as coa_v1 was when it
