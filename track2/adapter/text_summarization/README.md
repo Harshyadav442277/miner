@@ -79,9 +79,26 @@ bill.
 
 ## Training and results
 
-- **ts_v1** (synthetic only): kit 100% on its own synthetic test, which is meaningless. Stage 1 PASS, keccak
-  `0x3f3ad908…ead5`. Not yet measured on `bills_test`.
-- **ts_v2** was queued at 16:02 UTC behind cm_v2.
+**ts_v1** (synthetic pairs only; rank 8, alpha 32), measured in the node runtime (`harness/measure.py`):
 
-`../train_package.ps1 -Intent TEXT_SUMMARIZATION -Run ts_v1 -Pairs ts_v1 -BatchSize 1 -GradAccum 16` was queued at
-~12:42 UTC, third on GPU.lock. No results yet.
+| Set | ts_v1 | Longer wins | Shorter wins | Evidence |
+|---|---|---|---|---|
+| Own test, 400 pairs | 399/400 | 180 | 168 | [measure-ts_v1.json](evidence/measure-ts_v1.json) |
+| Unseen-style probe, 200 pairs | 200/200 | 96 | 72 | same file |
+| Real bills (`bills_test`), 400 pairs | 360/400 = 90.0% | 47 | 241 | [measure-ts_v1-bills.json](evidence/measure-ts_v1-bills.json) |
+
+The node's public check passed 15/15 (#217, 2026-11-23 22:16 UTC). ts_v2 (about half bills) passed the kit gate; its
+node-runtime measurement left no result file (`runs-v2/ts_v2/measure.json` is missing), so it is unmeasured.
+
+**Registrations, all the v1 adapter re-exported at a different max_tokens for a new hash** (same Stage 1 bits
+`0x3fbc8682`):
+
+| Version | Registration | Outcome |
+|---|---|---|
+| v1 (512) | #217 | rejected: remote executor unreachable after the session restart killed the tunnel |
+| v1b (511) | #222 | rejected: Cloudflare 524, workers paged out under training load |
+| v1c (510) | #245 | rejected 2026-11-26 00:11 UTC: tunnel lost the network at 15:46 UTC before the signature |
+| v1d (509) | #246 | rejected 2026-11-26 00:11 UTC: executor stopped by Claude to make room for v1e |
+| v1e (508) | not registered | hosted at `telegraph-factscore` `a644c0f`; needs a fresh executor window (SIGN_S2.md) |
+
+Every rejection was hosting, never scoring. TEXT_SUMMARIZATION has no champion (`/api/wasm`, 2026-11-26 03:45 UTC).

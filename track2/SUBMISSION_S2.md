@@ -6,7 +6,7 @@ owner also runs the LiveCert miner. Every capture flags it as a related party, a
 **What we claim, with network evidence:**
 - **#210 is the canonical CONTRACT_OBLIGATION_AUDIT evaluator**, the family's first. The node promoted it on
   2026-11-23 18:18 UTC "at 82.76% on 29 pairs (floor 70%)". It has kept the seat against two challengers (§3).
-- a measurement method, with its results on eight evaluator families, including the ones that failed;
+- a measurement method, with its results on ten evaluator families, including the ones that failed;
 - reference material for three intents (one uploaded and attested);
 - findings about live miners.
 
@@ -64,7 +64,9 @@ entry: [evidence/registration-210.json](adapter/contract_obligation_audit/eviden
 Measurements: [evidence/measure-coa_v1.json](adapter/contract_obligation_audit/evidence/measure-coa_v1.json).
 
 - **Defended twice:** #219 was rejected ("win rate 86.21% did not beat the incumbent (registration 210)"), and so was
-  #234 (79.31%), registered 2026-11-24 16:59 UTC.
+  #234 (79.31%), registered 2026-11-24 16:59 UTC. Each challenge is judged on that round's own sample, so 86.21% is
+  not compared with #210's 82.76% from its promotion round. On #219's round #210 scored about 86% (our reading of
+  that round, MEMORY 2026-11-24 03:40 UTC); the registry does not publish an incumbent's score on a challenger's round.
 - **A better-looking v2 was not shipped:** v2 scored 85.0% in the kit but 76.75% in the node runtime, so it stayed
   unregistered (G55).
 - **Weak kinds, stated:** party swaps 52/78, status on a date 9/21, CUAD clause present/absent 52/84.
@@ -77,7 +79,7 @@ Measurements: [evidence/measure-coa_v1.json](adapter/contract_obligation_audit/e
 | Family | Registration | Outcome | What it taught |
 |---|---|---|---|
 | TEXT_SUMMARIZATION | #217, #222 | rejected: remote executor unreachable (dead tunnel; Cloudflare 524 when the workers were paged out under training load) | Node runtime 399/400 own test, 200/200 probe, 360/400 = 90.0% on real bills (longer wins 47, shorter wins 241). The failures were hosting, not scoring |
-| TEXT_SUMMARIZATION | #245, #246 | pending at 2026-11-26; both quick tunnels are gone, so both will be rejected | A quick tunnel does not survive a network drop; the public URL is now probed every minute |
+| TEXT_SUMMARIZATION | #245, #246 | rejected 2026-11-26 00:11 UTC: remote executor unreachable (one tunnel lost the network, the other was stopped) | A quick tunnel does not survive a network drop or a stop; the public URL is now probed every minute while a registration is open |
 | CONTENT_MODERATION | #218 | rejected, 5/15 public pairs | The pool asks Allow/Block policy questions and verdict-only JSON; v3 reached 10/15 offline, under the floor, so it was not signed |
 | EMAIL_SECURITY | #220, #221 | #220 deregistered (dead URL); #221 rejected, 8/15 | The pool holds posture reports, worded DoH captures and phishing scenarios; v2 covers all three (training) |
 | SANCTIONS_SCREENING_MATCH | #46 | rejected, 7/15 | Longer-answer-wins solved both real-answer captures |
@@ -118,7 +120,8 @@ engine route.
 - **The harness** (`harness/`: capture, freeze, measure, merge_results, compare, gate, netguard, selfcheck_pairs;
   21 tests). It is reusable for any judgment family, and network inputs are treated as untrusted (`netguard.py`). A
   15-minute walk-through is in [TUTORIAL.md](TUTORIAL.md).
-- **A restart-proof local executor** (`executor/launch.py`, `run_local.ps1`): workers in their own process group,
+- **A detached local executor** (`executor/launch.py`, `run_local.ps1`). It survives a session restart and a console
+  Ctrl+C; it does not survive a crash, a shutdown, a network drop or a stop. It runs workers in their own process group,
   four per adapter, a fan-out that splits the node's 30-text batch (58.9 s through the tunnel, under Cloudflare's
   100 s cut), and a capture of every batch the node sends.
 - **The comparator pack** (`comparator/`): a 2,182-byte `no_std` Rust port of the network's `ReferenceScore`. It

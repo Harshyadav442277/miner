@@ -8,22 +8,31 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-26 ~03:45 UTC (09:15 IST) · LANES LOST TO A SLEEP AND RELAUNCHED; SUBMISSION REWRITTEN
+## CURRENT — 2026-11-26 ~03:55 UTC (09:25 IST) · PC WAS SHUT DOWN NOV 25; LANES REQUEUED IN ORDER; #245/#246 REJECTED
 
-- **The PC slept at 2026-11-25 19:40:12 UTC** (Kernel-Power 42, "Application API"; event 187 names `winlogon.exe`,
-  i.e. a user Sleep, sign-out, power button or lid). Every lane, and the other folder's training job, was gone by
-  03:28 UTC. es_v2 had reached step 30. Nothing trained for ~8 h.
-- **`train_queue.py --detach` exited at once, so its keep-awake ended with it** (fixed: the runner now stays for
-  `--awake-hours`). Idle sleep is covered; a user Sleep, lid close or sign-out is not.
-- **Relaunched 03:28 UTC** (same six job strings, `--awake-hours 24`) plus a no-job runner (pid 17488) holding the PC
-  awake for 24 h. cm_v4 took the GPU first: 1,248 steps × 4 epochs at 12.2 s/step ≈ 17 h unless early stopping stops
-  it. All six lanes together ≈ 60 h of GPU time at these rates: done ~Nov 28 if nothing stops them.
-- **GENERIC baseline for #210 running** (Idle priority, 1 worker): `tg-eval/runs-v2/coa_v1/measure-generic.json`,
-  GENERIC #900005 (`dc4f8bd5…`, registry-matched) on coa_v1 test (400) + probe (278). Expect ~3 h.
-- **Written:** SUBMISSION_S2.md rewritten around #210 (canonical, defended twice, length baselines, the failed
-  registrations); post 2 drafted in OUTREACH_S2.md (~Nov 27); READMEs for smart_contract_audit and sentiment_analysis.
-- **Next:** add the GENERIC result to SUBMISSION_S2.md §3 and the COA README; measure each lane as it ends; new demo
-  video and post 3 ~Nov 30; the live rules page has not been re-read since 2026-11-15 (re-read before submitting).
+- **Cause of the 8-hour loss:** a Start-menu shutdown at 2026-11-25 19:40:04 UTC (01:10 IST): event 1074 (Explorer, on
+  behalf of the user), then Winlogon log-off. Fast Startup logs it as sleep (event 42, caller winlogon). Lid closed
+  again 02:59-03:26 UTC. Same pattern on Nov 24 (16:35, 16:51 UTC). **The trainer has no resume: a shutdown restarts
+  the running lane from zero** (G57).
+- **`train_queue.py`:** with `--detach` its keep-awake ended at once (fixed: it stays for `--awake-hours`).
+- **Lanes requeued 03:44 UTC in a fixed order** on one sequential runner (`train_queue.py --awake-hours 72`, pid
+  32228, WMI): es_v2 → cm_v4 → fc_v1 → qa_v4 → sca_v1 → vt_v2. es_v2 holds GPU.lock (started 03:44:20). Estimates at
+  ~12 s/step: es_v2 ~7.5 h (ends ~11:15 UTC), cm_v4 ~17 h unless early stopping, then fc ~11 h, qa ~10 h, sca ~7.5 h,
+  vt ~7.5 h. If the runner dies, the running lane survives but later lanes do not start: relaunch with the same jobs.
+  A no-job keep-awake runner (pid 17488) also holds the PC awake until ~03:30 UTC Nov 27.
+- **Registry 03:45 UTC:** #245 and #246 rejected at 00:11 UTC ("remote executor unreachable"). #210 still canonical.
+  TEXT_SUMMARIZATION, CONTENT_MODERATION, EMAIL_SECURITY and FACT_CHECK have no champion; `0x8b2247` failed CM 10/15,
+  FC 7/15 and ES 57.1% overnight (#247-#249).
+- **GENERIC baseline for #210 running** (Idle, 1 worker, ~3 h): `tg-eval/runs-v2/coa_v1/measure-generic.json` for
+  GENERIC #900005 (`dc4f8bd5…`, registry-matched) on coa_v1 test (400) + probe (278). Costs cm_v4 ~4%.
+- **Written and committed:** SUBMISSION_S2.md rewritten around #210; post 2 draft (OUTREACH_S2.md); READMEs for
+  smart_contract_audit and sentiment_analysis; text_summarization README with its node-runtime evidence files.
+- **Branch:** `PR/evaluators-status-2026-11-25` (this worktree, `evaluators-plan-2026-11-23-19fbe3`) fast-forwards
+  `PR/evaluators-plan-2026-11-23`; the remote branch is pushed to the same head. Worktree `86db5c` needs
+  `git merge --ff-only origin/PR/evaluators-plan-2026-11-23`. `main` is 164 commits apart: a merge PR is owed.
+- **Next:** add the GENERIC result to SUBMISSION_S2.md §3 and the COA README (copy the file to its evidence folder);
+  measure es_v2 when it ends (node runtime + `tg-eval/pairs/public15/es.jsonl`); a TS v1e window between lanes if the
+  owner wants it; video and post 3 ~Nov 30; re-read the live rules before submitting.
 
 ## 2026-11-25 ~19:40 UTC (Nov 26 01:10 IST) · TRAINING RESUMED; NO EXECUTOR RUNNING; #245 + #246 WILL FAIL
 

@@ -37,7 +37,7 @@ def main():
                     help="start every job at once; GPU.lock orders them. The long-lived runner was killed on "
                          "2026-11-24 while the lanes it had started, each in its own process group, survived. The "
                          "runner still stays for --awake-hours, so the detached lanes are covered against idle sleep "
-                         "(not against Sleep, sign-out or a closed lid: winlogon slept the PC on 2026-11-25 19:40 UTC)")
+                         "(not against a shutdown, sign-out or closed lid: a Start-menu shutdown ended every lane on 2026-11-25)")
     a = ap.parse_args()
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     ctypes.windll.kernel32.SetConsoleCtrlHandler(None, True)

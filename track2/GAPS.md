@@ -4,6 +4,23 @@ The Season I gaps (G13–G27: rank_answer corpora, calibration thresholds, regis
 The modules they describe are retired: they were deleted from the tree, and the V2 registry no longer lists 1882.
 They are in `git log -p -- track2/GAPS.md`.
 
+## G57 — what can still stop the final week (2026-11-26) — `OPEN`
+
+- **Shutdowns end every lane.** The PC was shut down from the Start menu on 2026-11-24 (16:35 and 16:51 UTC) and on
+  2026-11-25 at 19:40:04 UTC (event 1074, Explorer, then log-off; Fast Startup logs it as sleep), plus an unclean
+  crash on 2026-11-24 15:39 UTC. The kit trainer has no resume flag, so a lane interrupted at any step restarts from
+  zero. No lane longer than an evening finishes unless the PC stays on overnight, plugged in with the lid open.
+- **The lane plan assumes uninterrupted GPU time** (~60 h for six lanes at 12 s/step, measured on cm_v4 2026-11-26).
+  Unverified: early stopping may cut cm_v4 and qa_v4 (4 epochs) well short of that.
+- **Assumed hyperparameters:** cm_v4's rank, and es_v2, sca_v1 and fc_v1 entirely, use the queue defaults (rank 8,
+  alpha 32, 3 epochs, lr 1e-4); the earlier job strings were never recorded.
+- **The rules page was last re-read 2026-11-15** (RULES_SEASON2.md). Re-read it tab by tab before submitting.
+- **The GENERIC baseline run slows training slightly:** cm_v4 went from 121-124 s to 126 s per 10 steps with it
+  running at Idle priority (one sample each).
+- **The demo video has not been re-cut** since 2026-11-17, which predates #210.
+- **TEXT_SUMMARIZATION v1e needs a window:** an executor with 4 workers needs the RAM that training uses, and #222 was
+  lost to 524s when both ran at once. Opening a window means stopping the running lane, or waiting for a lane to end.
+
 ## G56 — LiveCert self-check sets, and what they show about LiveCert (2026-11-24) — `OPEN`
 
 - **What was captured:** 60 frozen held-out prompts per intent, sent to LiveCert only (`capture.py --only livecert`).

@@ -15,7 +15,7 @@ does. Three updates must go out on separate dates.
 ## Post 2 (draft 2026-11-26; a 3-post thread, X lengths 254 / 271 / 236 with the link counted as 23)
 
 Before posting, re-check: #210 still canonical in `/api/wasm`; #219 and #234 rejected against it; #245 and #246
-rejected (they were pending on 2026-11-26, so "lost four" is not yet true); `main` holds track2 (else use the
+rejected (confirmed 2026-11-26 03:45 UTC, so "lost four" is true); `main` holds track2 (else use the
 branch link). Sources: SUBMISSION_S2.md §3, GAPS G56.
 
 > 1/3 Follow-up on our @Telegraphprotoc evaluators (Season II hackathon entry, prize-eligible): our
