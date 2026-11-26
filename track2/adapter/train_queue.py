@@ -34,8 +34,10 @@ def main():
     ap.add_argument("--awake-hours", type=float, default=8)
     ap.add_argument("--eval-root", default="C:/Users/hyada/tg-eval")
     ap.add_argument("--detach", action="store_true",
-                    help="start every job at once and exit; GPU.lock orders them. The long-lived runner was killed "
-                         "on 2026-11-24 while the lanes it had started, each in its own process group, survived")
+                    help="start every job at once; GPU.lock orders them. The long-lived runner was killed on "
+                         "2026-11-24 while the lanes it had started, each in its own process group, survived. The "
+                         "runner still stays for --awake-hours, so the detached lanes are covered against idle sleep "
+                         "(not against Sleep, sign-out or a closed lid: winlogon slept the PC on 2026-11-25 19:40 UTC)")
     a = ap.parse_args()
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     ctypes.windll.kernel32.SetConsoleCtrlHandler(None, True)
@@ -55,9 +57,7 @@ def main():
                             "-Run", run, "-Pairs", pairs, "-BatchSize", "1", "-GradAccum", "16", "-FreeMiB", "2200",
                             "-Rank", rank, "-Alpha", alpha, "-Epochs", epochs, "-Lr", lr],
                            stdout=out, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL, creationflags=DETACHED)
-    if a.detach:
-        return
-    while time.time() < until:  # keep the executors' host awake for the rest of the window
+    while time.time() < until:  # keep the PC awake for the lanes and any executor, whether or not jobs were detached
         time.sleep(60)
 
 

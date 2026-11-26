@@ -1,16 +1,34 @@
 # Evaluator education and activation ledger
 
 The Evaluator rubric gives 20 points to growth: education, ease of adoption, distribution and activation, 5 each.
-**The owner publishes; nothing here has been posted.** Each draft below uses only results that a reader can
+**The owner publishes; only post 1 has been posted (2026-11-23).** Each draft below uses only results that a reader can
 reproduce from the public repo. The rules say contest posts "should clearly disclose hackathon participation and the
 prize incentive where required by the platform or applicable law" (RULES_SEASON2.md, read 2026-11-16), so every draft
 does. Three updates must go out on separate dates.
 
 | # | Topic | Post on (UTC) | Published URL | Independent action |
 |---|---|---|---|---|
-| 1 | First canonical seat (#210), and what changed | 2026-11-23/24 | not published | none recorded |
-| 2 | Miner errors found by checking answers against primary sources | ≥ 1 day after #1 | not published | none recorded |
-| 3 | Two unranked intents, neutral truth sources, the network check | after the uploads + network evidence | not published | none recorded |
+| 1 | First canonical seat (#210), and what changed | 2026-11-23 | posted by the owner (URL not yet recorded) | none recorded |
+| 2 | #210 defended twice; summarization lost to hosting; our own miner scored down | ~2026-11-27 | not published | none recorded |
+| 3 | Final results, the video, and either Draft 2 (miner errors) or Draft 3 (truth sources) | ~2026-11-30 | not published | none recorded |
+
+## Post 2 (draft 2026-11-26; a 3-post thread, X lengths 254 / 271 / 236 with the link counted as 23)
+
+Before posting, re-check: #210 still canonical in `/api/wasm`; #219 and #234 rejected against it; #245 and #246
+rejected (they were pending on 2026-11-26, so "lost four" is not yet true); `main` holds track2 (else use the
+branch link). Sources: SUBMISSION_S2.md §3, GAPS G56.
+
+> 1/3 Follow-up on our @Telegraphprotoc evaluators (Season II hackathon entry, prize-eligible): our
+> CONTRACT_OBLIGATION_AUDIT scorer, registration 210, has kept its canonical seat twice. Two challengers were judged
+> on the hidden round, and neither beat it.
+
+> 2/3 What failed: our summarization adapter passed its public check 15/15, then lost four registrations to hosting.
+> The node calls the runnable URL again later, and our laptop tunnel died with a reboot, a network drop and memory
+> pressure. Scoring was fine; uptime was not.
+
+> 3/3 We also score our own miner down. On 60 frozen QA prompts, LiveCert answered from outside the passage 37 times;
+> those answers are now the worse side of training pairs. Numbers, failures and how to rerun them:
+> https://github.com/Harshyadav442277/miner/tree/main/track2
 
 ## Post 1 (final text 2026-11-23 ~23:20 UTC; the owner posts it as a 4-post thread)
 

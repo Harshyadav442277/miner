@@ -8,7 +8,24 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-25 ~19:40 UTC (Nov 26 01:10 IST) · TRAINING RESUMED; NO EXECUTOR RUNNING; #245 + #246 WILL FAIL
+## CURRENT — 2026-11-26 ~03:45 UTC (09:15 IST) · LANES LOST TO A SLEEP AND RELAUNCHED; SUBMISSION REWRITTEN
+
+- **The PC slept at 2026-11-25 19:40:12 UTC** (Kernel-Power 42, "Application API"; event 187 names `winlogon.exe`,
+  i.e. a user Sleep, sign-out, power button or lid). Every lane, and the other folder's training job, was gone by
+  03:28 UTC. es_v2 had reached step 30. Nothing trained for ~8 h.
+- **`train_queue.py --detach` exited at once, so its keep-awake ended with it** (fixed: the runner now stays for
+  `--awake-hours`). Idle sleep is covered; a user Sleep, lid close or sign-out is not.
+- **Relaunched 03:28 UTC** (same six job strings, `--awake-hours 24`) plus a no-job runner (pid 17488) holding the PC
+  awake for 24 h. cm_v4 took the GPU first: 1,248 steps × 4 epochs at 12.2 s/step ≈ 17 h unless early stopping stops
+  it. All six lanes together ≈ 60 h of GPU time at these rates: done ~Nov 28 if nothing stops them.
+- **GENERIC baseline for #210 running** (Idle priority, 1 worker): `tg-eval/runs-v2/coa_v1/measure-generic.json`,
+  GENERIC #900005 (`dc4f8bd5…`, registry-matched) on coa_v1 test (400) + probe (278). Expect ~3 h.
+- **Written:** SUBMISSION_S2.md rewritten around #210 (canonical, defended twice, length baselines, the failed
+  registrations); post 2 drafted in OUTREACH_S2.md (~Nov 27); READMEs for smart_contract_audit and sentiment_analysis.
+- **Next:** add the GENERIC result to SUBMISSION_S2.md §3 and the COA README; measure each lane as it ends; new demo
+  video and post 3 ~Nov 30; the live rules page has not been re-read since 2026-11-15 (re-read before submitting).
+
+## 2026-11-25 ~19:40 UTC (Nov 26 01:10 IST) · TRAINING RESUMED; NO EXECUTOR RUNNING; #245 + #246 WILL FAIL
 
 - **Owner, ~19:30 UTC:** #246 "shows inside my same account, so it's okay"; "start training for more evaluators".
   The wallet question is closed: #246's author is `0xdad201…a39e`.
@@ -17,11 +34,8 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 - **#245 (v1c) and #246 (v1d) both point at dead quick tunnels** and will be rejected as unreachable. v1e (hosted,
   Stage 1 PASS, sign block in SIGN_S2.md) needs a fresh executor and a new URL before anyone signs it:
   `launch.py --workers 4 --package TEXT_SUMMARIZATION=…/runs-v2/ts_v1e/…`, set AboveNormal, check, then re-lock.
-- **Speed:** es_v2 ~15 s/step against es_v1's 5.4 s/step on 2026-11-23; the GPU (RTX 3050, 4 GB) is shared at 99%
-  with a training job from another folder (`train-from-qa-checkpoint.py`, pid 36408). ~9 h for es_v2's 3 epochs at
-  this rate, less with early stopping.
-- **Next:** as each lane ends, measure it in the node runtime (+ public15 screen for es, cm) and write sign blocks only
-  for those that pass; restart an executor just before each signature and probe its public URL every minute.
+- **Speed (corrected 2026-11-26):** the es_v1 comparison was not like for like (shorter texts). Earlier lanes ran at
+  6-12 s/step; cm_v4 runs at 12.2 s/step with the GPU unshared.
 
 ## 2026-11-25 ~19:30 UTC (Nov 26 01:00 IST) · v1d SUBMITTED FROM THE WRONG WALLET; v1e READY TO SIGN
 
