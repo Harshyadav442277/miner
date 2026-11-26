@@ -12,7 +12,8 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 - **#253 (v1e) promoted 07:25 UTC**, our second seat. Node batch 07:13 UTC took 83.0 s with ilr_v1 training. Executor
   (`executor-ts7.out`) left up for now; #210 held its seat with a dead URL, so it is likely not needed (unverified).
-- **#262 = INVOICE_LEDGER_RECONCILE v1, registered ~10:55 UTC, awaiting its check; keep `executor-ilr1.out` up. da_v2 (Sonnet agent, gate PASS, `c210c1b`) queued on GPU.lock. Second GPU slot (`--lock GPU2.lock`) ready; start it once #262 is decided.**
+- **#262 is dead: the lid closed 15:08-15:55 UTC (Modern Standby), the tunnel lost the network and Cloudflare deleted it; the node had not called it yet. Replacement ilr_v1b (max_tokens 511, keccak `0x4d0d122b…`, hosted `telegraph-factscore` `bbd51e7`). New quick tunnels refused with HTTP 429 at 16:01 UTC; retrying with backoff. Owner: deregister #262, register v1b once a URL exists. Lid must stay open.**
+- (was) **#262 = INVOICE_LEDGER_RECONCILE v1, registered ~10:55 UTC; keep `executor-ilr1.out` up. da_v2 (Sonnet agent, gate PASS, `c210c1b`) queued on GPU.lock. Second GPU slot (`--lock GPU2.lock`) ready; start it once #262 is decided.**
 - **da_v1 fails in the node runtime** (67.3% test, 74.7% probe; checksum 2/17). **ilr_v1 passes** (80.7% / 77.3%) and is offered to sign as a probe: executor `executor-ilr1.out`, `discussions-situations-hitting-jeans…`. v1e executor stopped 09:11. Runner died 07:30-08:43 (unknown); relaunched 09:12 (pid 9808): cm_v4, fc_v1, qa_v4, sca_v1. COA GENERIC run died; owed.
 
 ## 2026-11-26 ~03:55 UTC (09:25 IST) · PC WAS SHUT DOWN NOV 25; LANES REQUEUED IN ORDER; #245/#246 REJECTED
