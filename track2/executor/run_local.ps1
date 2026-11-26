@@ -40,7 +40,7 @@ try {
     $url = $null
     for ($i = 0; $i -lt 60 -and -not $url; $i++) {
         Start-Sleep 2
-        $m = Select-String -Path (Join-Path $logs 'cloudflared.log') -Pattern 'https://[a-z0-9-]+\.trycloudflare\.com' |
+        $m = Select-String -Path (Join-Path $logs 'cloudflared.log') -Pattern 'https://(?!api\.)[a-z0-9-]+\.trycloudflare\.com' |  # api. appears in provisioning errors
             Select-Object -First 1
         if ($m) { $url = $m.Matches[0].Value }
     }
