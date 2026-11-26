@@ -6,7 +6,7 @@
 # Nothing is hosted, signed or registered here.
 param([Parameter(Mandatory)][string]$Intent, [Parameter(Mandatory)][string]$Run, [Parameter(Mandatory)][string]$Pairs,
       [int]$Rank = 8, [int]$Alpha = 32, [int]$Epochs = 3, [string]$Lr = '0.0001', [int]$MaxLength = 512,
-      [int]$BatchSize = 2, [int]$GradAccum = 8, [int]$FreeMiB = 600, [string]$EvalRoot = 'C:/Users/hyada/tg-eval')
+      [int]$BatchSize = 2, [int]$GradAccum = 8, [int]$FreeMiB = 600, [string]$EvalRoot = 'C:/Users/hyada/tg-eval', [string]$LockName = 'GPU.lock')
 $ErrorActionPreference = 'Stop'
 $py = Join-Path $EvalRoot '.venv/Scripts/python.exe'
 $kit = Join-Path $EvalRoot 'kit-v2'
@@ -14,7 +14,7 @@ $data = Join-Path $EvalRoot "pairs/$Pairs"
 $out = Join-Path $EvalRoot "runs-v2/$Run"
 $pkg = Join-Path $out "$Intent.safetensors"
 $f = Join-Path $EvalRoot 'foundation'
-$lock = Join-Path $EvalRoot 'GPU.lock'
+$lock = Join-Path $EvalRoot $LockName  # a second slot (GPU2.lock) lets two lanes share the 4 GB GPU
 New-Item -ItemType Directory -Force $out | Out-Null
 function Log($m) { "$((Get-Date).ToUniversalTime().ToString('s'))Z $m" | Add-Content (Join-Path $out 'chain.log') }
 

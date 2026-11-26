@@ -33,6 +33,8 @@ def main():
     ap.add_argument("--job", action="append", default=[])
     ap.add_argument("--awake-hours", type=float, default=8)
     ap.add_argument("--eval-root", default="C:/Users/hyada/tg-eval")
+    ap.add_argument("--lock", default="GPU.lock", help="GPU slot lock; GPU2.lock runs a second lane beside the first")
+    ap.add_argument("--free-mib", default="2200", help="start only while other GPU jobs hold less than this")
     ap.add_argument("--detach", action="store_true",
                     help="start every job at once; GPU.lock orders them. The long-lived runner was killed on "
                          "2026-11-24 while the lanes it had started, each in its own process group, survived. The "
@@ -54,7 +56,7 @@ def main():
         os.makedirs(os.path.dirname(log), exist_ok=True)
         out = open(os.path.join(a.eval_root, f"queue-{run}.out"), "w")
         (subprocess.Popen if a.detach else subprocess.run)([pwsh, "-NoProfile", "-File", os.path.join(HERE, "train_package.ps1"), "-Intent", intent,
-                            "-Run", run, "-Pairs", pairs, "-BatchSize", "1", "-GradAccum", "16", "-FreeMiB", "2200",
+                            "-Run", run, "-Pairs", pairs, "-BatchSize", "1", "-GradAccum", "16", "-FreeMiB", a.free_mib, "-LockName", a.lock,
                             "-Rank", rank, "-Alpha", alpha, "-Epochs", epochs, "-Lr", lr],
                            stdout=out, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL, creationflags=DETACHED)
     while time.time() < until:  # keep the PC awake for the lanes and any executor, whether or not jobs were detached
