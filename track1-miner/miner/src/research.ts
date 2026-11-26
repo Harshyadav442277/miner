@@ -31,6 +31,7 @@
  *                            not biomedical at all.
  */
 import { isTechnicalQuestion, technicalResearch } from "./technical-research";
+import { pubmed } from "./synthesis-sources";
 const TIMEOUT_MS = Number(process.env.RESEARCH_TIMEOUT_MS ?? 6_000);
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
 const CTGOV = "https://clinicaltrials.gov/api/v2/studies";
@@ -297,10 +298,73 @@ export async function findTrials(term: string, pageSize = 4): Promise<Trial[] | 
 }
 
 /**
- * Papers on `term`. With `about`, only papers whose title or abstract names one of those words: the
- * question's qualifier, which a paper on the drug alone does not address (G200).
+ * NCBI allows three requests a second without a key, and one PubMed read is two (esearch, efetch). The candidate
+ * probes run at once, so each PubMed read waits for its own slot rather than all three landing in one second.
+ */
+let ncbiNext = 0;
+async function ncbiTurn(): Promise<void> {
+  const now = Date.now();
+  const at = Math.max(now, ncbiNext);
+  ncbiNext = at + 700;
+  if (at > now) await new Promise((r) => setTimeout(r, at - now));
+}
+
+/**
+ * Papers on `term` from PubMed, the same filter applied as for Europe PMC. Each word must be in a title or abstract
+ * (synthesis-sources.ts), and with `about` the abstract must name the qualifier.
+ */
+export async function pubmedLiterature(term: string, about: string[] = []): Promise<Citation[] | "unavailable"> {
+  const words = String(term ?? "").split(/\s+/).map((w) => w.replace(/["()[\]]/g, "")).filter((w) => w.length >= 2);
+  if (!words.length) return [];
+  await ncbiTurn();
+  const found = await pubmed(words, null);
+  if (found === "unavailable") return "unavailable";
+  return found.flatMap((s) => (about.length && !namesAll(`${s.title} ${s.abstract}`, about) ? [] : [{
+    title: s.title, authors: s.firstAuthor, year: s.year, source: "PubMed",
+  }])).slice(0, about.length ? 8 : 3);
+}
+
+/**
+ * The first answer that found something; else an empty answer if any index answered; else "unavailable".
+ */
+function firstFound(reads: Array<Promise<Citation[] | "unavailable">>): Promise<Citation[] | "unavailable"> {
+  return new Promise((resolve) => {
+    let left = reads.length;
+    let empty = false;
+    for (const p of reads) {
+      p.catch(() => "unavailable" as const).then((v) => {
+        if (Array.isArray(v) && v.length) resolve(v);
+        if (Array.isArray(v)) empty = true;
+        if (--left === 0) resolve(empty ? [] : "unavailable");
+      });
+    }
+  });
+}
+
+/**
+ * Papers on `term`: Europe PMC, and PubMed when Europe PMC fails or has not answered within the hedge.
+ *
+ * Measured 2026-11-26 from this machine: Europe PMC answered the routed research terms in 6.4 to 15.6 s on half the
+ * probes (Riliprubart 14.8 s, ADI-PEG 20 15.6 s) against this route's 6 s timeout, while PubMed's esearch answered
+ * the same terms in 0.5 to 1.2 s. With no trial naming the subject, that timeout made the whole answer
+ * `unavailable` (6 of 25 archived /research calls, 2026-11-24 to 25).
  */
 export async function findLiterature(term: string, about: string[] = []): Promise<Citation[] | "unavailable"> {
+  const hedgeMs = Number(process.env.RESEARCH_HEDGE_MS ?? 2_000);
+  const epmc = europePmcLiterature(term, about);
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const early = await Promise.race([epmc, new Promise<null>((r) => { timer = setTimeout(() => r(null), hedgeMs); })]);
+  clearTimeout(timer);
+  if (Array.isArray(early)) return early;
+  const pm = pubmedLiterature(term, about).catch(() => "unavailable" as const);
+  return early === "unavailable" ? pm : firstFound([epmc, pm]);
+}
+
+/**
+ * Papers on `term` in Europe PMC. With `about`, only papers whose title or abstract names one of those words: the
+ * question's qualifier, which a paper on the drug alone does not address (G200).
+ */
+export async function europePmcLiterature(term: string, about: string[] = []): Promise<Citation[] | "unavailable"> {
   try {
     const d = (await getJson(
       `${EPMC}?query=${encodeURIComponent(term)}&format=json&pageSize=${about.length ? 8 : 3}&resultType=core`,
@@ -636,9 +700,13 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
     return { candidate, t: onTopic, l };
   }));
 
-  for (const { candidate, t, l } of probes) {
-    if (t === "unavailable" || l === "unavailable") anyIndexDown = true;
+  let trialsDown = false;
+  let litDown = false;
+  for (const { t, l } of probes) {
+    if (t === "unavailable") trialsDown = true;
+    if (l === "unavailable") litDown = true;
   }
+  if (trialsDown || litDown) anyIndexDown = true;
   for (const { candidate, t, l } of probes) {
     // Found with both terms and naming the qualifier, a trial is kept even when its title uses a code
     // ("ACE-536" for luspatercept); without a qualifier, the title must name the candidate as before.
@@ -714,12 +782,17 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
   const allDown = anyIndexDown && gotTrials.length === 0 && gotLit.length === 0 && gotWiki === null;
 
   if (allDown) {
+    // Name only what did not answer: "Neither the trial registry nor the literature index answered" was served when
+    // the registry had answered and only the literature index timed out.
+    const down = trialsDown && litDown ? "Neither the trial registry nor the literature indexes answered"
+      : trialsDown ? "The trial registry did not answer"
+      : litDown ? "The literature indexes (Europe PMC and PubMed) did not answer"
+      : "Wikipedia did not answer";
     return {
       ...empty, subject, verdict: "unavailable", confidence: 0,
       reason:
-        `Neither the trial registry nor the literature index answered, so no cited evidence on ` +
-        `${subject} could be gathered. That is a source outage rather than an absence of research, ` +
-        `and the two are not the same thing.`,
+        `${down}, so no cited evidence on ${subject} could be gathered. That is a source outage rather than an ` +
+        `absence of research, and the two are not the same thing.`,
       error: "upstream_unavailable",
     };
   }
@@ -732,8 +805,9 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
       reason:
         `No registered trial and no indexed publication on ${withQualifier(term)} was found, so nothing is claimed ` +
         `about ${subject}.${aspect && Array.isArray(found) ? ` Europe PMC was also searched for papers whose titles name ` +
-          `${aspect.phrase} with ${aspect.aspect.join(", ")}, and none was found.` : ""} ClinicalTrials.gov and Europe PMC were both searched and both answered; ` +
-        `an absence in those two indexes is not proof that no work exists.`,
+          `${aspect.phrase} with ${aspect.aspect.join(", ")}, and none was found.` : ""} ClinicalTrials.gov and the literature index ` +
+        `(Europe PMC, or PubMed when Europe PMC was slow) were searched and answered; an absence in those indexes is not ` +
+        `proof that no work exists.`,
     };
   }
 
@@ -776,7 +850,7 @@ export async function answerResearch(question: string): Promise<ResearchResult> 
   const c = gotLit[0];
   if (c) {
     parts.push(
-      `The published evidence includes "${c.title}" by ${firstAuthor(c)}${c.year ? ` (${c.year})` : ""} in Europe PMC.`,
+      `The published evidence includes "${c.title}" by ${firstAuthor(c)}${c.year ? ` (${c.year})` : ""} in ${c.source}.`,
     );
   } else if (gotWiki) {
     parts.push(gotWiki.source);

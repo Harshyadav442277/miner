@@ -127,6 +127,15 @@ const FRAME = new Set([
   // Function words topicOf keeps. "over" matched "Dust Storm Sweeps Over Mali" and
   // made an unrelated note look as though it addressed the requested topic.
   "over", "under", "help", "how", "use", "using", "between", "among", "about", "than", "then", "its", "their",
+  // Question scaffolding and the predicate asked about. Each was a required search word, so it took one of the four
+  // slots and had to appear in every quoted study: "whether remote work affects employee productivity" searched
+  // whether + remote + work + affects and answered no_sources; "the main approaches to carbon capture" searched
+  // main + approaches; "the link between social media and depression in adolescents" dropped "adolescents" for "link"
+  // (local runs, 2026-11-26).
+  "whether", "affect", "affects", "affected", "affecting", "link", "links", "relationship", "association",
+  "associations", "connection", "main", "key", "approach", "approaches", "effective", "effectiveness", "efficacy",
+  "according", "consensus", "scientific", "current", "currently", "overview", "slow", "slows", "prevent", "prevents",
+  "cause", "causes", "improve", "improves", "increase", "increases", "lower", "lowers", "they", "them", "these", "those",
 ]);
 
 export function topicWords(topic: string): string[] {
