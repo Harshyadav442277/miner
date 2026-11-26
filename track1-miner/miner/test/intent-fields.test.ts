@@ -153,6 +153,9 @@ test("format-version-3 fields: each copies what the route states, and the schema
   const open = scoredFields("/fraud-check", { verdict: "insufficient_evidence", reason: "Nothing pointed either way." });
   assert.deepEqual([open.verdict, open.risk_score], ["INCONCLUSIVE", 0.5], "a required number: the midpoint, labelled as no evidence");
   assert.match(String(open.risk_score_basis), /no evidence either way/);
+  // The route's own shape for it (fraud.ts): verdict unknown, error insufficient_evidence.
+  assert.equal(scoredFields("/fraud-check", { verdict: "unknown", error: "insufficient_evidence" }).risk_score, 0.5);
+  assert.equal(scoredFields("/fraud-check", { verdict: "unknown", error: "no_subject" }).risk_score, null, "nothing assessed");
   assert.deepEqual(only(scoredFields("/event-outcome", { verdict: "resolved", outcome: "Yes" }), { outcome: 0 }), { outcome: "yes" });
   assert.deepEqual(only(scoredFields("/event-outcome", { verdict: "resolved", outcome: "Seattle Seahawks", winner: "Seattle Seahawks" }), { outcome: 0, winner: 0 }),
     { outcome: "yes", winner: "Seattle Seahawks" });

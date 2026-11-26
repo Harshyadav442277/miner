@@ -350,11 +350,13 @@ const OVERRIDE: Record<string, (b: Body) => Body> = {
   "/fraud-check": (b) => {
     const grade: Record<string, [string, number | null]> = { high_risk: ["HIGH", 0.85], elevated_risk: ["ELEVATED", 0.5],
       low_risk: ["LOW", 0.15], no_indicators: ["LOW", 0.05], insufficient_evidence: ["INCONCLUSIVE", 0.5], unknown: ["INCONCLUSIVE", null] };
-    const g = typeof b.verdict === "string" ? grade[b.verdict] : undefined;
-    // insufficient_evidence: a subject was assessed and nothing pointed either way. risk_score is a required number
-    // (0-1); null left the scored field empty, and the calls before epochs 58 and 59's zeros answered exactly this
-    // while the top miner scored 0.9995 (2026-11-26). The scale's midpoint says "no evidence either way".
-    const basis = b.verdict === "insufficient_evidence" ? "no evidence either way: the midpoint of the scale, not an assessment"
+    // A subject assessed with nothing pointing either way: the route answers verdict "unknown", error
+    // "insufficient_evidence" (fraud.ts). risk_score is a required number (0-1); null left the scored field empty, and
+    // the calls before epochs 58 and 59's zeros answered exactly this while the top miner scored 0.9995 (2026-11-26).
+    // The scale's midpoint says "no evidence either way". No subject at all (no_subject) stays null.
+    const open = b.verdict === "insufficient_evidence" || (b.verdict === "unknown" && b.error === "insufficient_evidence");
+    const g = open ? grade.insufficient_evidence : typeof b.verdict === "string" ? grade[b.verdict] : undefined;
+    const basis = open ? "no evidence either way: the midpoint of the scale, not an assessment"
       : "the grade's stated midpoint, not a calibrated probability";
     return g ? { verdict: g[0], verdict_detail: b.verdict, risk_score: g[1], risk_score_basis: basis } : {};
   },
