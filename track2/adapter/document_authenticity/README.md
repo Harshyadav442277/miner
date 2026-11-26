@@ -27,4 +27,14 @@ genuine, so failure wording leaned to the rejected side.
 ## Training and results
 
 Job `DOCUMENT_AUTHENTICITY:da_v1:da_v1` (rank 8, alpha 32, 3 epochs, lr 1e-4), queued 2026-11-26 05:51 UTC on its
-own runner. Before signing: node runtime on test and probe with the length baselines and GENERIC #900005. No results yet.
+own runner. Trained 05:57-06:57 UTC.
+
+| Set (first 150 pairs) | Kit | Node runtime | Longer wins | Shorter wins |
+|---|---|---|---|---|
+| Own test | 97.0% | 101/150 = 67.3% | 58.0% | 42.0% |
+| Unseen-style probe (table) | — | 112/150 = 74.7% | 54.0% | 45.3% |
+
+Evidence: [measure-da_v1.json](evidence/measure-da_v1.json). **Not offered for signing:** under our 85% own-test bar, and
+a 30-point kit/node gap like coa_v2's (G55). The weakest kind is the checksum mismatch (2/17 test, 2/12 probe): the
+model cannot compare two 64-character hashes and believes a "matches" claim. Revocation (13/13) and chain (13/13)
+are learned. A v2 must make each failing check readable without comparing long strings.
