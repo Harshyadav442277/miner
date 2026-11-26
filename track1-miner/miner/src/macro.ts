@@ -13,7 +13,8 @@
  * says so rather than reaching for a different statistic.
  */
 const UA = "livecert-miner/1.0 (+https://miner-wine.vercel.app)";
-const TIMEOUT_MS = Number(process.env.MACRO_TIMEOUT_MS ?? 6_000);
+// Two attempts of 4.5 s each fit inside the route's 11 s watchdog.
+const TIMEOUT_MS = Number(process.env.MACRO_TIMEOUT_MS ?? 4_500);
 const TTL_MS = 3 * 3_600_000;
 
 export type Indicator = "cpi" | "core_cpi" | "unemployment" | "policy_rate" | "gdp_growth" | "gdp";
@@ -73,12 +74,28 @@ export function indicatorsAsked(text: string): Indicator[] {
 }
 
 const cache = new Map<string, { at: number; value: unknown }>();
+async function fetchJson(url: string): Promise<unknown> {
+  const r = await fetch(url, { headers: { accept: "application/json", "user-agent": UA }, signal: AbortSignal.timeout(TIMEOUT_MS) });
+  if (!r.ok) throw Object.assign(new Error(`HTTP ${r.status}`), { status: r.status });
+  return r.json();
+}
+
+/**
+ * One retry on a failed read. Three of five archived World Bank calls (Honduras GDP growth 2026-11-24 02:06,
+ * South Africa CPI 11:06, Armenia CPI 11-25 15:00 UTC) answered upstream_unavailable and each answered on re-ask;
+ * the two that preceded a MACRO score (epochs 47 and 49) scored 0. A 4xx other than 429 is an answer, not an outage.
+ */
 async function getJson(url: string): Promise<unknown> {
   const hit = cache.get(url);
   if (hit && Date.now() - hit.at < TTL_MS) return hit.value;
-  const r = await fetch(url, { headers: { accept: "application/json", "user-agent": UA }, signal: AbortSignal.timeout(TIMEOUT_MS) });
-  if (!r.ok) throw new Error(`HTTP ${r.status}`);
-  const value = await r.json();
+  let value: unknown;
+  try {
+    value = await fetchJson(url);
+  } catch (e) {
+    const status = (e as { status?: number }).status;
+    if (status !== undefined && status < 500 && status !== 429) throw e;
+    value = await fetchJson(url);
+  }
   cache.set(url, { at: Date.now(), value });
   return value;
 }
@@ -86,17 +103,27 @@ async function getJson(url: string): Promise<unknown> {
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const monthName = (ym: string): string => `${MONTHS[Number(ym.slice(5, 7)) - 1]} ${ym.slice(0, 4)}`;
 
-/** BLS rows: the latest month, and for an index its change on the same month a year earlier. Pure. */
+/**
+ * BLS rows: the latest month with a value, and for an index its change on the same month a year earlier. A month
+ * BLS never published is "-": October 2025 (the 2025 shutdown) made October 2026's change NaN, and production
+ * answered "US CPI was NaN% year on year" (2026-11-25). Such a month is skipped for the latest one that can be
+ * computed, and its own period is reported. Pure.
+ */
 export function blsReading(body: unknown, yoy: boolean): { value: number; period: string } | null {
   const rows = ((body as { Results?: { series?: Array<{ data?: Array<{ year: string; period: string; value: string }> }> } })
     .Results?.series?.[0]?.data ?? []).filter((r) => /^M(0[1-9]|1[0-2])$/.test(r.period));
-  const latest = rows[0];
-  if (!latest) return null;
-  const period = `${latest.year}-${latest.period.slice(1)}`;
-  if (!yoy) return { value: Number(latest.value), period };
-  const prior = rows.find((r) => Number(r.year) === Number(latest.year) - 1 && r.period === latest.period);
-  if (!prior) return null;
-  return { value: Number(((Number(latest.value) / Number(prior.value) - 1) * 100).toFixed(1)), period };
+  const num = (v: string): number | null => (/^\s*-?\d+(?:\.\d+)?\s*$/.test(String(v)) ? Number(v) : null);
+  for (const latest of rows) {
+    const now = num(latest.value);
+    if (now === null) continue;
+    const period = `${latest.year}-${latest.period.slice(1)}`;
+    if (!yoy) return { value: now, period };
+    const prior = rows.find((r) => Number(r.year) === Number(latest.year) - 1 && r.period === latest.period);
+    const then = prior ? num(prior.value) : null;
+    if (then === null || then === 0) continue;
+    return { value: Number(((now / then - 1) * 100).toFixed(1)), period };
+  }
+  return null;
 }
 
 async function bls(series: string, indicator: Indicator, yoy: boolean): Promise<Reading | null> {
@@ -141,7 +168,8 @@ async function worldBank(indicator: Indicator, region: string): Promise<Reading 
   const code = region === "EA" ? "EMU" : region;
   const j = (await getJson(`https://api.worldbank.org/v2/country/${code}/indicator/${w[0]}?format=json&mrnev=1`)) as [unknown, Array<{ date: string; value: number | null }>?];
   const row = j[1]?.[0];
-  return row && row.value !== null ? { indicator, region, value: Number(row.value.toFixed(w[1] === "%" ? 1 : 0)), unit: w[1], period: row.date,
+  // Four places, as worldBankYear keeps: one place served 3.2 for South Africa's 2025 CPI that WDI publishes as 3.2055.
+  return row && row.value !== null ? { indicator, region, value: Number(row.value.toFixed(w[1] === "%" ? 4 : 0)), unit: w[1], period: row.date,
     frequency: "annual", series: w[0], source: "World Bank World Development Indicators", source_url: `https://data.worldbank.org/indicator/${w[0]}?locations=${code}` } : null;
 }
 
@@ -241,7 +269,9 @@ export async function macroIndicators(question: string, indicatorParam = "", cou
   // year has no annual value yet, and its latest print is a reading in that year, so it keeps the latest path.
   const past = year !== null && year < new Date().getUTCFullYear() ? year : null;
   const read = (i: Indicator): Promise<Reading | null> => (past ? worldBankYear(i, region, past) : readIndicator(i, region));
-  const results = await Promise.all(asked.map((i) => read(i).then((r) => ({ i, r }), () => ({ i, r: undefined }))));
+  // A reading with no finite value counts as not retrieved: it printed "US CPI was NaN% year on year" (2026-11-25).
+  const results = await Promise.all(asked.map((i) => read(i).then(
+    (r) => ({ i, r: r && !Number.isFinite(r.value) ? undefined : r }), () => ({ i, r: undefined }))));
   const readings = results.flatMap((x) => (x.r ? [x.r] : []));
   const where = region === "EA" ? "the euro area" : regionNames.of(region) ?? region;
   const notCovered = results.filter((x) => x.r === null).map((x) => `${LABEL[x.i]} for ${where}${past ? ` in ${past}` : ""}`);

@@ -1,0 +1,26 @@
+== /wallet-balance?query=balance%20of%20token%200xdAC17F958D2ee523a2206206994597C13D831ec7%20held%20by%200x28C6c06298d514Db089934071355E5743bf21d60%20on%20ethereum
+{"answer":"Current balances for 0x28C6c06298d514Db089934071355E5743bf21d60 on ethereum: 1352018.215469 USDT, read using eth_call ba","verdict":"1352018.215469 USDT","symbol":"USDT","token_symbol":"USDT","balance":1352018.215469}
+== /macro?indicator=core%20CPI&country=US
+{"answer":"Core consumer price inflation in the US was 2.6% year on year in September 2026 (US Bureau of Labor Statistics).","verdict":"reported","rate_pct":2.6}
+== /ssl-check?query=github.com
+{"answer":"The TLS/SSL certificate configuration for github.com is valid.","verdict":"valid"}
+== /macro?indicator=inflation&country=United%20States
+{"answer":"Consumer price inflation in the US was 3.7% year on year in September 2026 (US Bureau of Labor Statistics).","verdict":"reported","rate_pct":3.7}
+== /cross-chain?chains=arbitrum%20to%20base&query=Does%20the%20state%20root%20verify%3F
+{"answer":"Nothing verifiable was supplied: this service does not verify state roots, Merkle-Patricia proofs or block headers, and no LayerZero message transaction hash or GUID was ","verdict":"insufficient_input","error":"no_reference","consistent":null,"chains":["arbitrum","base"]}
+== /financial?asset=AAPL
+{"answer":"Apple Inc. (AAPL) has a day range of 345.13 to 356.75 USD, volume of 53,060,252 shares, a 52-week range of 243.42 to 360.83 USD, a change of +0.89% against the previous c","verdict":"financial_data","metrics":"last price 355.58 USD; market capitalisation $5.17 trillion; day range 345.13 to 356.75 US"}
+== /gas-price?chain=celo
+{"answer":"The current gas price on celo is 200.00 Gwei, or about 200 Gwei, as of block 83,763,049.","verdict":"gas_price"}
+== /research?query=Will%20CareDx%27s%20HeartCare%20registry%20show%20improved%20outcomes%3F
+{"answer":"CareDx is the subject of 3 registered trials, including NCT03695601, a study titled \"Surveillance HeartCare® Outcomes Registry\", currently active not recruiting, primary ","verdict":"evidence"}
+== /news-search?query=Did%20Nvidia%20beat%20earnings%3F
+{"answer":"Recent coverage of Nvidia beat earnings includes: \"Nvidia Earnings and Forecasts Beat Expectations\" (The New York Times, 23 November 2026); \"Nvidia’s earnings beat gets n","verdict":"articles"}
+== /token-supply?token=Tether%20on%20Arbitrum
+{"answer":"USD₮0's total supply on Arbitrum at block 527619652 is 1,105,959,457.38 USD₮0 (exact: 1105959457.380762).","verdict":"verified","total_supply":1105959457.380762,"symbol":"USD₮0"}
+== /wallet-balance?query=balance%20of%20token%200xdAC17F958D2ee523a2206206994597C13D831ec7%20held%20by%200x28C6c06298d514Db089934071355E5743bf21d60%20on%20ethereum
+{"answer":"Current balances for 0x28C6c06298d514Db089934071355E5743bf21d60 on ethereum: 1352018.215469 USDT, read using eth_call balanceOf on contract 0xdAC17F958D2ee523a22062069945","verdict":"1352018.215469 USDT","balance":1352018.215469,"symbol":"ETH"}
+== /ssl-check?query=github.com
+{"answer":"The TLS/SSL certificate configuration for github.com is valid.","verdict":"valid"}
+== /convert?from=USD&to=EUR&amount=10
+{"answer":"10.00 USD is 9.14 EUR at a rate of 1 USD = 0.9145 EUR, equivalently 1 EUR = 1.0935 USD.","verdict":"converted"}

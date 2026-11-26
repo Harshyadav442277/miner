@@ -5,6 +5,16 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## 2026-11-26 — `bb6e288` live (intent fixes)
+
+- [x] Three parallel lanes on the losing intents; merged and released (release-2026-11-26-intent-fixes).
+- [x] US CPI NaN (G370); hosted archiver workflow (#64); REGISTRATION_ID variable 5292 → 6126.
+- [ ] Owner: add repo secret VERCEL_TOKEN (wukong4 access) so `requests.yml` archives (G366); then check one run.
+- [ ] Owner decision: re-sign the YAML for G371 (wallet `token`, token-supply required param, unemployment
+  source, `metrics` mapping, G348) against the new-registration risk.
+- [ ] Read epochs 56+ by rank-1 score; FINANCIAL, GAS, CROSS_CHAIN, EVENT zeros still unexplained (G372).
+- [ ] CODE_REVIEW: join `sha=` repeats with `via=` and scores (G364).
+
 ## 2026-11-25 — epochs 47–55 read; `cc9a51c` live (logging only)
 
 - [x] Join epoch 47–55 zeros to the archive: no cause proven (GAPS 2026-11-25 block, G364, G366–G368).

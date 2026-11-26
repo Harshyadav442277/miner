@@ -247,3 +247,35 @@ test("llmErrorLine: Groq's error code and the JSON flag, never the message", () 
   assert.equal(llmErrorLine("m", 429, "", false), "LLM m HTTP 429 code=none json=0");
   assert.equal(llmErrorLine("m", 400, JSON.stringify({ error: { message: "x" } }), false), "LLM m HTTP 400 code=none json=0");
 });
+
+test("report: the model that answered, then cache, and salvaged when a 400 body supplied the text", async () => {
+  const LONG = { ...REQ, long: true, json: true, clean: (s: string) => (s.includes("{") ? s : null) };
+  await withGroq(
+    async (_u, _i, call) => (call.model === "openai/gpt-oss-120b" ? new Response("{}", { status: 429 }) : ok("{\"verdict\":\"Approve\"}")),
+    async () => {
+      const report: { via?: string; salvaged?: boolean } = {};
+      assert.ok(await phrase({ ...LONG, report }));
+      assert.deepEqual(report, { via: "qwen/qwen3.8-27b", salvaged: false });
+      const again: { via?: string; salvaged?: boolean } = {};
+      assert.ok(await phrase({ ...LONG, report: again }));
+      assert.equal(again.via, "cache");
+    },
+  );
+  const failed = JSON.stringify({ error: { code: "json_validate_failed", failed_generation: "{\"verdict\":\"Comment\"} trailing" } });
+  await withGroq(
+    async () => new Response(failed, { status: 400 }),
+    async () => {
+      const report: { via?: string; salvaged?: boolean } = {};
+      assert.ok(await phrase({ ...LONG, report }));
+      assert.deepEqual(report, { via: "openai/gpt-oss-120b", salvaged: true });
+    },
+  );
+  await withGroq(
+    async () => new Response("{}", { status: 401 }),
+    async () => {
+      const report: { via?: string; salvaged?: boolean } = {};
+      assert.equal(await phrase({ ...LONG, report }), null);
+      assert.deepEqual(report, {});
+    },
+  );
+});

@@ -1,0 +1,53 @@
+preflight against https://miner-wine.vercel.app
+
+  unit + live suite                      FAIL
+  verify-deploy                          PASS
+  param shapes (engine-shaped)           PASS
+  intent answers (correctness)           FAIL
+  hostile inputs                         PASS
+  upstream health                        PASS
+  no-regression (8 identical, 0 differ)  PASS
+
+--- unit + live suite ---
+...
+  
+  'No registered trial and no indexed publication on Zzqxjjv Nnbbvvtt was found, so nothing is claimed about Zzqxjjv Nnbbvvtt be approved. ClinicalTrials.gov and the literature index (Europe PMC, or PubMed when Europe PMC was slow) were searched and answered; an absence in those indexes is not proof that no work exists.'
+  
+      at TestContext.<anonymous> (C:\Users\hyada\tg-deploy\m8ce6dae\track1-miner\miner\dist-test\test\research.test.js:126:26)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'No registered trial and no indexed publication on Zzqxjjv Nnbbvvtt was found, so nothing is claimed about Zzqxjjv Nnbbvvtt be approved. ClinicalTrials.gov and the literature index (Europe PMC, or PubMed when Europe PMC was slow) were searched and answered; an absence in those indexes is not proof that no work exists.',
+    expected: /ClinicalTrials\.gov and Europe PMC/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+--- intent answers (correctness) ---
+  NEWS_HEADLINES         FAIL
+      - only 0 headlines returned
+      - no headline names its source
+  FACT_CHECK             PASS
+  TEXT_GENERATION        FAIL
+      - the model did not answer (Groq quota or outage)
+  ONCHAIN_METRIC_VERIFY  PASS
+
+...
+  MACRO_ECONOMIC_INDICATOR PASS
+  URL_SAFE               PASS
+  QUESTION_ANSWERING     PASS
+  DNS_RECORD_LOOKUP      PASS
+  TOKEN_TOTAL_SUPPLY_VERIFY PASS
+  CHAT_COMPLETION        PASS
+  CODE_REVIEW            PASS
+  SECURITY_REVIEW        PASS
+  SMART_CONTRACT_AUDIT   PASS
+  TEXT_GENERATION        FAIL
+      - the model did not answer (Groq quota or outage)
+  ONCHAIN_METRIC_VERIFY  PASS
+
+42/44 intents answering correctly.
+
+5/7 gates passed — re-run the failing gate alone before believing it.

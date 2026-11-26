@@ -99,7 +99,8 @@ test("no source that names the subject is an absence in those indexes, not an ab
   assert.ok(["no_evidence", "evidence", "unavailable"].includes(r.verdict), `verdict ${r.verdict}`);
   if (r.verdict === "no_evidence") {
     assert.match(r.reason, /not proof that no work exists/);
-    assert.match(r.reason, /ClinicalTrials\.gov and Europe PMC/);
+    // Since the PubMed fallback (2026-11-26) the literature index is named "Europe PMC, or PubMed when Europe PMC was slow".
+    assert.match(r.reason, /ClinicalTrials\.gov and (?:Europe PMC|the literature index \(Europe PMC, or PubMed)/);
   }
   if (r.verdict === "unavailable") {
     assert.match(r.reason, /source outage rather than an absence of research/);
