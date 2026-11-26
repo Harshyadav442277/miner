@@ -1,5 +1,38 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-26 ~04:00 UTC (09:30 IST) — release `bb6e288`; hosted archiver; G370–G373 new
+
+Record: `track1-miner/docs/evidence/release-2026-11-26-intent-fixes/`. Three parallel lanes (data, on-chain/event,
+research/search) compared our answers with the top miners' public endpoints on the same inputs. **No zero's cause
+is proven**; each fix is a demonstrated defect, and no score effect is observed yet.
+
+- **G370 — US CPI answered "NaN% year on year". `FIXED` (`10f2a5e`), live.** BLS has no October 2025 value
+  (`2025M10="-"`, read 2026-11-26). Production answered NaN for US CPI and core CPI from the October 2026 print
+  until this release. Found by `tools/schema-sweep.mjs` (`rate_pct: null`). When it started is not known
+  (the October print is from mid-November); MACRO's scores in that window were 0.97–0.99 except e49/e52 zeros.
+- **G366, archiver — `MOVED`, waiting on the owner.** `.github/workflows/requests.yml` (#64): one run archives every
+  10 min for 5.5 h, keeps the `request-archive` artifact hourly, then dispatches its successor; the 2-hourly cron
+  only restarts a broken chain. It needs repo secret `VERCEL_TOKEN`; without it the run stops at the token check
+  and dispatches nothing (seen 2026-11-26 03:06 UTC). Not yet seen archiving. GitHub scheduling here is unreliable:
+  `scores.yml` (six runs an hour) started about once every few hours on Nov 19–25.
+- **Repo variable `REGISTRATION_ID` was 5292.** The uptime workflow watched a retired registration. Set to 6126
+  (2026-11-25 19:09 UTC).
+- **G371 — YAML gaps only `updateMiner` can close. `OPEN`, owner decision.** (a) `/wallet-balance` declares no
+  `token` param, so a token contract reaches us only inside `query`; (b) `/token-supply` declares `token` optional
+  only, and about 10 of 12 `no_token` calls arrived with no parameters (the node sends nothing to all-optional
+  endpoints, GAPS 2026-11-14); (c) the intent defines US unemployment as World Bank SL.UEM.TOTL.ZS (4.198 for
+  2025) while our signed YAML promises BLS monthly (4.1); (d) `metrics` on /financial has no `intent_mapping` entry;
+  (e) G348 brief wording. Risk: `updateMiner` creates a new registration id that "follows the normal evaluation
+  and ranking process" (organiser, 2026-11-05), five days before the deadline.
+- **G372 — Unexplained after this round:** FINANCIAL zeros (e48's 14 calls all answered with a market cap and
+  still scored 0; in e56 every miner, txlens included, scored 0); GAS zeros (calls before e47 and e54 were answered
+  correctly); CROSS_CHAIN (the scorer sends state-root/proof questions with no reference; a1-preflight also refuses
+  them and scores 0.99, txlens reads block headers); EVENT_OUTCOME (leaders resolve some questions from ESPN
+  scoreboards and NOAA records, sources we do not read).
+- **G373 — The research lane's final report was lost** (usage limit). Its five commits are pushed with tests; the
+  inputs it measured are only in commit messages and code comments.
+- **G367:** every 400 seen on production is `json_validate_failed json=1` (salvaged); 429s are per-minute.
+
 ## 2026-11-25 ~14:30 UTC (20:00 IST) — corrections to the block below; release `1cbd7f4`; G369 new
 
 Record: `track1-miner/docs/evidence/release-2026-11-25-xchain-shape/` (rank-1 scores in `epochs-47-55-top.txt`).
