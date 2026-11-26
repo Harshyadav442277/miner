@@ -26,6 +26,7 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
   130-row pool, the query carries invoice, PO and receipt figures (bounties #120). Kit gate PASS on the third build.
   GENERIC on its test + probe starts by itself when the COA GENERIC run ends (`runs-v2/ilr_v1/measure-generic.json`);
   if GENERIC already orders them, drop the lane.
+- **v1e executor up 05:33 UTC Nov 26** (`executor-ts7.out`, `harbour-components-boats-sending…`): check PASS, 63.4 s batch. Sign block SIGN_S2.md top. Keep it and EXECUTOR.lock until #? is decided.
 - **Next new-family candidate (not started):** DOCUMENT_AUTHENTICITY: "Query supplies a document plus its signature,
   seal or timestamp data" (bounties #80); `0x8b2247` got 6/15 (#236). 199-row pool. One new family at a time.
 - **Registry 03:45 UTC:** #245 and #246 rejected at 00:11 UTC ("remote executor unreachable"). #210 still canonical.

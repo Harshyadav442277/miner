@@ -29,7 +29,7 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### Prepared, executor STOPPED 19:29 UTC (restart before signing; the URL below is dead): TEXT_SUMMARIZATION v1e
+### Ready to sign (executor restarted 2026-11-26 05:33 UTC, checked 05:35 UTC): TEXT_SUMMARIZATION v1e
 
 **v1d was submitted from a different wallet of the owner's** (owner, 2026-11-25 ~19:20 UTC), not
 `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. That breaks the identity rule (AGENTS.md). Its hash may now be taken
@@ -48,7 +48,7 @@ the API does not show the fee address.
 4. If a registration exists from another wallet, deregister it from that wallet and send Claude its address or tx hash.
 
 Checked 2026-11-25 19:25-19:28 UTC: Stage 1 PASS (`0x3fbc8682`); hosted sha256 = local (`9f5cf1a3…e6fb`);
-`check_executor.py` PASS, public = loopback, the reply's `adapter_hash` is v1e's; the node's 30-text batch took 73.0 s.
+`check_executor.py` PASS, public = loopback, the reply's `adapter_hash` is v1e's; the node's 30-text batch took 73.0 s on 2026-11-25 and 63.4 s on 2026-11-26 05:35 UTC (executor-ts7.out).
 **Risk:** another training job runs on this PC, and the workers are partly paged out (0.7-1.1 GB of 3.8 GB resident,
 2.1 GB RAM free). 73 s is under Cloudflare's 100 s cut, with less margin than the 58.9 s measured at 13:24.
 
@@ -58,7 +58,7 @@ Checked 2026-11-25 19:25-19:28 UTC: Stage 1 PASS (`0x3fbc8682`); hosted sha256 =
 | keccak256 | `0x89974f9cf887e2fcae5741a35487b83081d3adae59635a55985a5805dfc052e3` |
 | Family | `TEXT_SUMMARIZATION` |
 | Fee address | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
-| Runnable endpoint URL | `https://dividend-versus-notes-mothers.trycloudflare.com/TEXT_SUMMARIZATION` |
+| Runnable endpoint URL | `https://harbour-components-boats-sending.trycloudflare.com/TEXT_SUMMARIZATION` |
 
 ### Superseded 2026-11-25 ~19:25 UTC (submitted from the wrong wallet; executor stopped): TEXT_SUMMARIZATION v1d
 
