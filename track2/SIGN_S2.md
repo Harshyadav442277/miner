@@ -29,7 +29,31 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### Ready to sign (executor restarted 2026-11-26 05:33 UTC, checked 05:35 UTC): TEXT_SUMMARIZATION v1e
+### Ready to sign (2026-11-26 ~10:40 UTC): INVOICE_LEDGER_RECONCILE v1, a disclosed probe like #210
+
+No champion in this family, and no adapter has been judged there. v1 is under our 85% own-test bar, as coa_v1 was when it
+was registered and promoted (#210), so this is offered as a probe: the node's 15 public pairs are the real test.
+
+Measured 2026-11-26 in the node runtime (first 150 pairs per set; `runs-v2/ilr_v1/measure.json`):
+
+| Set | ilr_v1 | Longer wins | Shorter wins |
+|---|---|---|---|
+| Own test | 121/150 = 80.7% | 34.7% | 39.3% |
+| Unseen-style probe (table) | 116/150 = 77.3% | 28.7% | 41.3% |
+
+Kit 84.75%; Stage 1 PASS (`0xbf21865a`); hosted sha256 = local (`669b14e9…3d5c`); `check_executor.py` PASS, public =
+loopback; a 30-text, 466-token batch took 70.7 s through the tunnel with cm_v4 training. Weak kinds: over-price
+10/18, clean invoices 69/83. GENERIC on the same pairs is not yet measured. Keep the PC on and online until decided.
+
+| Field | Value |
+|---|---|
+| Binary link | `https://raw.githubusercontent.com/Harshyadav442277/telegraph-factscore/7eae1669fd5614d2cb0d4b9c757aa31683b32789/season2/adapter/INVOICE_LEDGER_RECONCILE/v1/INVOICE_LEDGER_RECONCILE.safetensors` |
+| keccak256 | `0x0774327d3531b937691f193b4a71289d1fd2d6bfe95428e0a5f5a30c1cb089a5` |
+| Family | `INVOICE_LEDGER_RECONCILE` |
+| Fee address | `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e` |
+| Runnable endpoint URL | `https://discussions-situations-hitting-jeans.trycloudflare.com/INVOICE_LEDGER_RECONCILE` |
+
+### Signed 2026-11-26 05:47 UTC as #253, CANONICAL 07:25 UTC (73.91% on 23 pairs): TEXT_SUMMARIZATION v1e
 
 **v1d was submitted from a different wallet of the owner's** (owner, 2026-11-25 ~19:20 UTC), not
 `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`. That breaks the identity rule (AGENTS.md). Its hash may now be taken

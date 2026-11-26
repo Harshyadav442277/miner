@@ -57,4 +57,4 @@ python -I generate_pairs.py --tokenizer C:/Users/hyada/tg-eval/foundation/tokeni
 
 ## Results
 
-None yet.
+Kit 84.75% (length baseline 54%). Node runtime, first 150 pairs: test 121/150 = 80.7%, probe 116/150 = 77.3%; longer-wins 34.7% / 28.7%, shorter-wins 39.3% / 41.3% ([measure-ilr_v1.json](evidence/measure-ilr_v1.json)). Weak: over-price 10/18, clean 69/83. Offered for signing as a disclosed probe (SIGN_S2.md), 2026-11-26.
