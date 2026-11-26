@@ -29,7 +29,7 @@ what to send back to Claude.
 5. **Do not upload** the EMAIL_SECURITY pairs. They fail our identity bar
    ([material/email_security/README.md](material/email_security/README.md)).
 
-### Ready to sign (2026-11-26 ~10:40 UTC): INVOICE_LEDGER_RECONCILE v1, a disclosed probe like #210
+### Signed 2026-11-26 ~10:55 UTC as #262 (awaiting its check): INVOICE_LEDGER_RECONCILE v1, a disclosed probe like #210
 
 No champion in this family, and no adapter has been judged there. v1 is under our 85% own-test bar, as coa_v1 was when it
 was registered and promoted (#210), so this is offered as a probe: the node's 15 public pairs are the real test.
