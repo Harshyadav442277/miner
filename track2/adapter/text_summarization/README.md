@@ -99,6 +99,6 @@ node-runtime measurement left no result file (`runs-v2/ts_v2/measure.json` is mi
 | v1b (511) | #222 | rejected: Cloudflare 524, workers paged out under training load |
 | v1c (510) | #245 | rejected 2026-11-26 00:11 UTC: tunnel lost the network at 15:46 UTC before the signature |
 | v1d (509) | #246 | rejected 2026-11-26 00:11 UTC: executor stopped by Claude to make room for v1e |
-| v1e (508) | not registered | hosted at `telegraph-factscore` `a644c0f`; needs a fresh executor window (SIGN_S2.md) |
+| v1e (508) | **#253, canonical** | 2026-11-26 07:25 UTC: "first Canonical for TEXT_SUMMARIZATION at 73.91% on 23 pairs"; [registration-253.json](evidence/registration-253.json) |
 
-Every rejection was hosting, never scoring. TEXT_SUMMARIZATION has no champion (`/api/wasm`, 2026-11-26 03:45 UTC).
+Every rejection was hosting, never scoring; once the executor stayed up, the same scorer was promoted.

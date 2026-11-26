@@ -8,7 +8,13 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-26 ~03:55 UTC (09:25 IST) · PC WAS SHUT DOWN NOV 25; LANES REQUEUED IN ORDER; #245/#246 REJECTED
+## CURRENT — 2026-11-26 ~07:30 UTC · #253 TEXT_SUMMARIZATION CANONICAL (73.91% on 23 pairs)
+
+- **#253 (v1e) promoted 07:25 UTC**, our second seat. Node batch 07:13 UTC took 83.0 s with ilr_v1 training. Executor
+  (`executor-ts7.out`) left up for now; #210 held its seat with a dead URL, so it is likely not needed (unverified).
+- da_v1 node-runtime measurement running (`runs-v2/da_v1/measure.json`, 150 pairs per set). ilr_v1 training.
+
+## 2026-11-26 ~03:55 UTC (09:25 IST) · PC WAS SHUT DOWN NOV 25; LANES REQUEUED IN ORDER; #245/#246 REJECTED
 
 - **Cause of the 8-hour loss:** a Start-menu shutdown at 2026-11-25 19:40:04 UTC (01:10 IST): event 1074 (Explorer, on
   behalf of the user), then Winlogon log-off. Fast Startup logs it as sleep (event 42, caller winlogon). Lid closed

@@ -4,6 +4,8 @@ Network: Telegraph devnode on Ethereum Sepolia. Nothing here is mainnet, paid de
 owner also runs the LiveCert miner. Every capture flags it as a related party, and it is never favoured.
 
 **What we claim, with network evidence:**
+- **#253 is the canonical TEXT_SUMMARIZATION evaluator**, the family's first: "promoted: first Canonical for
+  TEXT_SUMMARIZATION at 73.91% on 23 pairs (floor 70%)", 2026-11-26 07:25 UTC.
 - **#210 is the canonical CONTRACT_OBLIGATION_AUDIT evaluator**, the family's first. The node promoted it on
   2026-11-23 18:18 UTC "at 82.76% on 29 pairs (floor 70%)". It has kept the seat against two challengers (§3).
 - a measurement method, with its results on ten evaluator families, including the ones that failed;
@@ -19,7 +21,7 @@ finalized ranking change, or paid material use without network evidence."
 - **Team, contact:** LiveCert, `hyadav42774@gmail.com`; wallet `0xdAd201ef02f5C1FBB8f9e931AE9B7c1bF493A39e`.
 - **Track:** Evaluators.
 - **Intents:**
-  - canonical adapter: CONTRACT_OBLIGATION_AUDIT (#210);
+  - canonical adapters: CONTRACT_OBLIGATION_AUDIT (#210), TEXT_SUMMARIZATION (#253);
   - registered, not passed: TEXT_SUMMARIZATION, CONTENT_MODERATION, EMAIL_SECURITY, SANCTIONS_SCREENING_MATCH (§3);
   - measured, not registered: QUESTION_ANSWERING, WEATHER_FORECAST_VERIFY, VULNERABILITY_TRIAGE,
     OPTIMAL_EXECUTION_ROUTE;
@@ -79,6 +81,7 @@ Measurements: [evidence/measure-coa_v1.json](adapter/contract_obligation_audit/e
 | Family | Registration | Outcome | What it taught |
 |---|---|---|---|
 | TEXT_SUMMARIZATION | #217, #222 | rejected: remote executor unreachable (dead tunnel; Cloudflare 524 when the workers were paged out under training load) | Node runtime 399/400 own test, 200/200 probe, 360/400 = 90.0% on real bills (longer wins 47, shorter wins 241). The failures were hosting, not scoring |
+| TEXT_SUMMARIZATION | #253 (v1e) | **canonical** 2026-11-26 07:25 UTC: 73.91% on 23 hidden pairs; the node's 30-text batch took 83.0 s through the tunnel | The same scorer as #217; only the hosting changed |
 | TEXT_SUMMARIZATION | #245, #246 | rejected 2026-11-26 00:11 UTC: remote executor unreachable (one tunnel lost the network, the other was stopped) | A quick tunnel does not survive a network drop or a stop; the public URL is now probed every minute while a registration is open |
 | CONTENT_MODERATION | #218 | rejected, 5/15 public pairs | The pool asks Allow/Block policy questions and verdict-only JSON; v3 reached 10/15 offline, under the floor, so it was not signed |
 | EMAIL_SECURITY | #220, #221 | #220 deregistered (dead URL); #221 rejected, 8/15 | The pool holds posture reports, worded DoH captures and phishing scenarios; v2 covers all three (training) |
@@ -171,6 +174,7 @@ are rebuilt by `adapter/contract_obligation_audit/generate_pairs.py` (command in
 |---|---|---|
 | Star telegraphprotocol/bounties | **done** (2026-11-23, 204) | `Harshyadav442277` |
 | CONTRACT_OBLIGATION_AUDIT adapter | **canonical #210** since 2026-11-23 18:18 UTC | `/api/wasm`, registration 210 |
+| TEXT_SUMMARIZATION adapter | **canonical #253** since 2026-11-26 07:25 UTC | `/api/wasm`, registration 253 |
 | LANGUAGE_TRANSLATION material | **done 2026-11-04** | 144 rows eligible, attested (§5) |
 | DNS truth upload | not done | row state; scores at an epoch after the upload |
 | Validator truth upload | not done | row state; scores at an epoch after the upload |
