@@ -9,7 +9,7 @@
  * removes the guess. REGULATORY_FILING_MONITOR_GENERAL's `filing_count` is
  * built in filings.ts, which holds the whole filing window. Pure.
  */
-import { clauseBrief } from "./clause";
+import { clauseBrief, DANGLING } from "./clause";
 import { leadSentence } from "./envelope";
 import type { RegistryResult } from "./registry";
 import type { SanctionsResult } from "./sanctions";
@@ -52,9 +52,6 @@ type Body = Record<string, unknown>;
 const num = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) ? v : null);
 const list = (v: unknown): Body[] => (Array.isArray(v) ? (v.filter((x) => x && typeof x === "object") as Body[]) : []);
 const str = (v: unknown): string | null => (typeof v === "string" && v.trim() ? v.replace(/\s+/g, " ").trim() : null);
-/** Words a clipped brief must not end on. */
-const DANGLING = /\s+(?:a|an|the|of|to|in|on|at|by|for|with|from|into|and|or|but|that|which|is|are|was|were|be|as|its|their|this|these)$/i;
-
 /**
  * At most `n` characters of `text`, ending at a word boundary, with nothing appended. Release 1f43311 cut at the
  * first ": " and added a full stop, so briefs read "Recent coverage of OpenAI from the last 30 days includes."

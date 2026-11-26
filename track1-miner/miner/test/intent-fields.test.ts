@@ -246,3 +246,10 @@ test("an attribution lead is dropped, and a clause cut that guts the sentence fa
   assert.notEqual(synth, "Compared with exercise alone.");
   assert.ok(synth.length > 45 && synth.length <= 80, synth);
 });
+
+test("a cut synthesis brief never ends on no, not, without or than (production, 2026-11-27)", async () => {
+  const { sentenceBrief } = await import("../src/intent-fields");
+  const out = sentenceBrief("All 27 IF trials found weight loss of 0.8% to 13.0% of baseline weight with no serious adverse events reported in any arm");
+  assert.ok(out.length <= 80, out);
+  assert.doesNotMatch(out, /\s(?:with|no|not|without|than)\.?$/i, out);
+});
