@@ -10,7 +10,9 @@ is proven**; each fix is a demonstrated defect, and no score effect is observed 
   (`2025M10="-"`, read 2026-11-26). Production answered NaN for US CPI and core CPI from the October 2026 print
   until this release. Found by `tools/schema-sweep.mjs` (`rate_pct: null`). When it started is not known
   (the October print is from mid-November); MACRO's scores in that window were 0.97–0.99 except e49/e52 zeros.
-- **G366, archiver — `MOVED`, waiting on the owner.** `.github/workflows/requests.yml` (#64): one run archives every
+- **G366, archiver — `LIVE` (2026-11-26 12:23 UTC).** The owner set `VERCEL_TOKEN`; run 45819239509 kept 159 rows
+  after hour 1 (from 11:28 UTC, production `dpl_4Xxd…`). The token was first pasted into the chat; whether the stored one
+  was rotated is not known. Earlier state: `.github/workflows/requests.yml` (#64): one run archives every
   10 min for 5.5 h, keeps the `request-archive` artifact hourly, then dispatches its successor; the 2-hourly cron
   only restarts a broken chain. It needs repo secret `VERCEL_TOKEN`; without it the run stops at the token check
   and dispatches nothing (seen 2026-11-26 03:06 UTC). Not yet seen archiving. GitHub scheduling here is unreliable:
