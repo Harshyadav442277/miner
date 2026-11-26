@@ -9,6 +9,14 @@ coverage 10, consumption 10, cost and latency 5, docs 5, **growth 20**. Older "(
 below for reliability, coverage, cost and docs date from the 2026-10-29 rubric; this line wins.
 Organiser answers of 2026-11-05 (Ahmed): no grace period on `updateMiner`, which closes G206;
 "submit the capabilities you can reliably demonstrate rather than claiming everything".
+**Solana use cases (organiser thread, 2026-11-23; [facts](docs/TELEGRAPH_FACTS.md)):** same tracks, prizes and
+rules, so the rubric here is unchanged (assumption, G375). All five are applications, and we do not enter Apps &
+Agents. For our two entries they count through coverage and verified consumption if someone's app buys what we serve or
+score. Owner option for the growth criterion: reply in the thread with our Miner and evaluation work (not posted).
+The miner reads no Solana chain state (G376).
+**Alibaba / Qwen use cases (second thread, recorded 2026-11-25; [facts](docs/TELEGRAPH_FACTS.md)):** also
+applications, with no rubric change stated. Nearest fit for the miner is software verification (CODE_REVIEW,
+SECURITY_REVIEW, CVE_LOOKUP_CVSS), G377.
 Season I post-mortem: [track1-miner/docs/S1_LESSONS.md](track1-miner/docs/S1_LESSONS.md).
 
 **Track names.** This repo calls the miner **Track 1** (`track1-miner/`, LiveCert, registration 4829) and

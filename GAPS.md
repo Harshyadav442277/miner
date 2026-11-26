@@ -33,6 +33,37 @@ is proven**; each fix is a demonstrated defect, and no score effect is observed 
   inputs it measured are only in commit messages and code comments.
 - **G367:** every 400 seen on production is `json_validate_failed json=1` (salvaged); 429s are per-minute.
 
+## 2026-11-25 ~19:17 UTC (2026-11-26 00:47 IST) — Alibaba / Qwen use cases: G377
+
+- **G377 — What these use cases would buy from us is not stated. `OPEN, our inference`.** Thread recorded in
+  `docs/TELEGRAPH_FACTS.md`; its date and author are not shown in the paste. By intent name, we serve:
+  CODE_REVIEW, SECURITY_REVIEW, CVE_LOOKUP_CVSS (use case 4); SANCTIONS_SCREENING_MATCH,
+  CORPORATE_REGISTRY_LOOKUP (1, 5). In the catalogue, not served: VENDOR_VERIFY, PURCHASE_ORDER_VERIFY,
+  INVOICE_LEDGER_RECONCILE, VESSEL_TELEMETRY_VERIFY, SHIPMENT_DELAY_RISK, DELIVERY_WINDOW_VERIFY,
+  CODE_PATCH_VERIFY, REGRESSION_VERIFY. Use case 4 is the nearest fit, with a known weakness: CODE_REVIEW scored 0
+  in epochs 47–50 while another miner scored (11-25 14:30 block, G364). Not checked: whether our three code
+  routes cover package authenticity or execute anything; do not claim either.
+
+## 2026-11-25 ~19:10 UTC (2026-11-26 00:40 IST) — Solana use cases thread: G374–G376
+
+The thread is recorded in `docs/TELEGRAPH_FACTS.md`.
+
+- **G374 — Where is the final submission made? `OPEN, owner; due Dec 1 23:59 UTC`.** The thread says "through
+  Anjoman". Re-read 2026-11-25 ~19:10 UTC: both hackathon.telegraphprotocol.com/rules and
+  anjoman.ai/dashboard/hackathon/season-2/rules still say "Submit through the official H2 website by December 1,
+  2026, at 23:59 UTC". The two may be one thing (Anjoman hosts an H2 dashboard), but no submission form has been
+  seen (the Anjoman Season II overview shows a countdown and no submit link when signed out). Next: the owner opens the form in advance, not on Dec 1.
+- **G375 — Does a Solana use case score anything extra? `OPEN`.** The thread says existing tracks, prizes and
+  rules, and names no new criterion or award. We assume the rubric is unchanged.
+- **G376 — Which intents these use cases would buy is not stated. `OPEN, our inference`.** From intent names and
+  our registration (6126, 44 intents). Served and possibly useful: SANCTIONS_SCREENING_MATCH,
+  CORPORATE_REGISTRY_LOOKUP, REGULATORY_FILING_MONITOR (use cases 1, 2, 4), SMART_CONTRACT_AUDIT. In the
+  catalogue, not served: CONTRACT_OBLIGATION_AUDIT, DOCUMENT_AUTHENTICITY, VENDOR_VERIFY,
+  ASSET_RESERVE_ATTESTATION, SHIPMENT_DELAY_RISK, DELIVERY_WINDOW_VERIFY, PURCHASE_ORDER_VERIFY,
+  INVOICE_LEDGER_RECONCILE. **LiveCert reads no Solana chain state:** transaction, supply and transfer reads are
+  EVM only (`onchain.ts`, `token-supply.ts`), wallet and gas name Solana only to refuse it (`wallet.ts`, `gas.ts`),
+  and a search of `src/` and `api/` found no Solana RPC call. It cannot verify a Solana settlement or SPL token.
+
 ## 2026-11-25 ~14:30 UTC (20:00 IST) — corrections to the block below; release `1cbd7f4`; G369 new
 
 Record: `track1-miner/docs/evidence/release-2026-11-25-xchain-shape/` (rank-1 scores in `epochs-47-55-top.txt`).

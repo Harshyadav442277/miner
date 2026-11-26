@@ -54,7 +54,7 @@ Rules:
   - Write regex-heavy code with the Edit or Write tools; sed and Python heredocs have eaten \b, \s and \n here.
   - The no-control-bytes test catches eaten escapes.
   - Use MSYS_NO_PATHCONV=1 with gh.
-- GAPS numbers: take the next free number above the highest in GAPS.md (G373 on 2026-11-26); two sessions have collided before.
+- GAPS numbers: take the next free number above the highest in GAPS.md (G377 on 2026-11-26); two sessions have collided before.
 
 Owner-only items to remind them of:
 - one app partner for a Stablecoin pre-payment screening workflow, with an independent reproduction (the biggest scoring gap: no verified app usage);

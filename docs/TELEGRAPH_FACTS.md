@@ -55,6 +55,84 @@ below, the newer section wins.
 
 ---
 
+## Organiser thread: Alibaba / Qwen commercial use cases (recorded 2026-11-25 ~19:17 UTC)
+
+Source: text pasted into the session by the owner. No author, date or channel is shown in it; that it is the
+organiser's is inferred from its voice. The thread itself was not opened by Claude. Participants' handles are
+left out here.
+
+| # | Use case | Ecosystem named | What is asked |
+|---|---|---|---|
+| 1 | Intelligent supplier discovery and verification | Alibaba.com / Accio | Beyond registry and sanctions checks: ownership, manufacturing capability, certifications, export history, product compliance, disputes, ability to fill the order (example: 10,000 units to a specification). Discover, verify claims, compare with evidence; then monitor |
+| 2 | Independent trade assurance and dispute resolution | not named | Purchase orders, invoices, inspection reports, shipment records, goods received and accepted quantities; independent providers investigate disputes; payment held, released, split or refunded under agreed conditions. Names Takar and Praman as already well advanced |
+| 3 | Cross-border trade and logistics intelligence | Alibaba.com / Cainiao | Purchase order to acceptance: supplier documents, bills of lading, vessel and container movements, port congestion, customs, deadlines, delivery evidence; document-versus-shipment mismatches, disruption and its contractual cost. Meant to feed use case 2. Names Countersign |
+| 4 | Independent software and code verification | Qwen / Alibaba Cloud | For code from Qwen and other models: package authenticity, dependencies, vulnerabilities, insecure code, API compatibility, requirements met; official registries, deterministic checks and execution, not another model's opinion. Compare Qwen alone with Qwen plus Telegraph on correctness, security, completeness, cost, latency |
+| 5 | Governed autonomous agents | Qwen / Alibaba Cloud | Agents that buy and pay within budgets, permissions and policies: check authority, counterparty, policy and conditions first; proceed, block or escalate with evidence |
+
+**Wanted for each:** a complete commercial workflow; paid Telegraph intelligence with sources and receipts;
+independent verification and evaluation; incorrect, missing and conflicting inputs; measured improvement over
+existing approaches or a model alone; a working application, repository, walkthrough video and reproducible
+results; who uses it, pays, and returns.
+
+**Also said:** applications should consume each other's capabilities; "One useful specialist Miner could serve
+several different applications and create recurring intelligence demand"; extend what exists rather than start
+again; contributions welcome across all three tracks; not limited to these five. Participants are asked to share
+progress, next work, missing intelligence and where others can help. Nothing has been posted from this repo.
+It states no prize, rubric, deadline or submission change. Links given: the Season II missions page and
+github.com/telegraphprotocol/bounties.
+
+**Checked 2026-11-25 ~19:17 UTC:** the missions page's main text, the bounties README and the 100 newest bounty
+issues matched none of "Alibaba", "Qwen", "Cainiao" or "Accio".
+
+## Organiser announcement, 2026-11-23: Solana institutional and commercial use cases
+
+Source: a thread by Ahmed Ali, pasted into the session by the owner and recorded 2026-11-25 ~19:10 UTC. The
+thread itself was not opened by Claude. The one timestamp shown is "11/23/26, 4:47 PM", timezone unstated.
+Unconfirmed points are GAPS G374–G376.
+
+**Frame:** "part of Telegraph Hackathon Season II, using the existing tracks, prizes and rules. No separate
+registration or new competition is required." Final submissions "through Anjoman by December 1, 2026". Solana
+already has payments, tokenized assets, settlement, Pay.sh and confidential computing; the ask is new capability
+and demand on top of these, not a rebuild.
+
+**Five priority use cases** ("priorities, not limitations"; a stronger Solana idea is welcome):
+
+| # | Use case | What it checks or does | Demonstration asked for |
+|---|---|---|---|
+| 1 | Institutional transaction intelligence and settlement assurance | Counterparty identity, contractual obligations, compliance evidence, asset restrictions and payment conditions, before a Solana transaction is authorized | A real financial scenario where specialist intelligence catches a consequential discrepancy, prevents a wrong authorization, or verifies an authorized settlement |
+| 2 | Living institutional asset intelligence | Tokenized real-world assets: issuer, asset evidence, ownership and redemption rights, legal restrictions, disclosures, material changes | A working investigation of an actual Solana tokenized asset: original evidence, cross-source checks, ongoing monitoring |
+| 3 | Verified intelligence economy (Telegraph × Pay.sh) | Solana agents buy specialists chosen by independent performance evaluation, with Telegraph's ranking, verification and recovery | An agent doing hard tasks through evaluated specialists, compared with a frontier model and with direct paid-API selection: correctness, cost, latency, task fulfillment |
+| 4 | Verified global trade and autonomous commerce | Suppliers, contracts, shipments, milestones and obligations, tied to authorized Solana stablecoin payments | A buyer-to-supplier workflow that finds a material problem, holds or escalates the payment, and verifies settlement once conditions are met |
+| 5 | Confidential institutional intelligence | Solana Confidential Compute plus specialist intelligence and verification for sensitive records | A prototype with protected data handling, execution attestations, verified intelligence and a consequential decision |
+
+**Commercial opportunity given:** (1) make Solana settlement more useful to institutions with high-value
+transactions; (2) help asset managers and custodians evaluate and monitor assets, drawing holdings to Solana;
+(3) more paid intelligence use and recurring demand for specialist providers; (4) trade, merchant activity and
+recurring B2B payments on Solana; (5) privacy-sensitive institutional AI applications.
+
+**Standard for every application:** "real functionality, measurable commercial value, independent evidence and a
+clear reason for Solana to want the product." **Beyond the prizes:** a successful Miner can keep earning from paid
+demand on mainnet "subject to performance and protocol rules"; eligible Evaluator contributions can share protocol
+rewards.
+
+**Wanted for each:** a working end-to-end application with real Solana functionality where relevant; real
+Telegraph Miners, Intents, competing providers and independently contributed evaluation; sources, paid
+intelligence receipts, hard test cases and reproducible results; a measured advantage over existing tools or
+frontier models; who pays and why; a live application, GitHub repository, short demo video, X post and results.
+"Apps & Agents, Miners and Evaluators are all important." One capability may serve several applications, and
+teams may build on existing projects, compete or collaborate.
+
+**Asked of participants, in that thread:** the use case and what will be built; existing application, Miners or
+evaluation work; what is missing; repository, progress, video and results. Nothing has been posted from this repo.
+
+**Links given:** https://anjoman.ai/dashboard/hackathon/season-2/missions ·
+https://github.com/telegraphprotocol/bounties (asks for a star) ·
+https://anjoman.ai/dashboard/hackathon/season-2/rules
+
+**Checked 2026-11-25 ~19:10 UTC:** the missions page opens without sign-in, shows fifteen missions with the same
+names as `track1-miner/docs/evidence/missions-2026-10-31/matrix.json`, and its main text does not mention Solana or Pay.sh. The bounties README and the 100 newest issues matched
+neither word. Devnode `/engine/v1/intents` returned no intent with "SOLANA" in its name.
+
 ## Checked 2026-11-22 ~09:00 UTC: ONCHAIN_METRIC_VERIFY_GENERAL schema
 
 - Source: `curl https://devnode.telegraphprotocol.com/engine/v1/intents/ONCHAIN_METRIC_VERIFY_GENERAL`.
