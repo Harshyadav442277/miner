@@ -15,11 +15,19 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
   again 02:59-03:26 UTC. Same pattern on Nov 24 (16:35, 16:51 UTC). **The trainer has no resume: a shutdown restarts
   the running lane from zero** (G57).
 - **`train_queue.py`:** with `--detach` its keep-awake ended at once (fixed: it stays for `--awake-hours`).
-- **Lanes requeued 03:44 UTC in a fixed order** on one sequential runner (`train_queue.py --awake-hours 72`, pid
-  32228, WMI): es_v2 → cm_v4 → fc_v1 → qa_v4 → sca_v1 → vt_v2. es_v2 holds GPU.lock (started 03:44:20). Estimates at
-  ~12 s/step: es_v2 ~7.5 h (ends ~11:15 UTC), cm_v4 ~17 h unless early stopping, then fc ~11 h, qa ~10 h, sca ~7.5 h,
-  vt ~7.5 h. If the runner dies, the running lane survives but later lanes do not start: relaunch with the same jobs.
-  A no-job keep-awake runner (pid 17488) also holds the PC awake until ~03:30 UTC Nov 27.
+- **Queue (04:01 UTC):** es_v2 trains (started 03:44:20, ~5.5 s/step, 2,250 steps: ends ~07:20 UTC). One sequential
+  runner (`train_queue.py --awake-hours 72`, pid 16132, WMI) then runs ilr_v1 → cm_v4 → fc_v1 → qa_v4 → sca_v1.
+  vt_v2 is dropped (vt_v1's data trained to chance). If the runner dies, the running lane survives but later lanes do
+  not start: relaunch with the same jobs, without es_v2.
+- **`EXECUTOR.lock` set 03:55 UTC on purpose:** when es_v2 ends, ilr_v1 waits, so es_v2 can be measured (node runtime
+  + `public15/es.jsonl`) and a TS v1e window opened with the RAM free. Delete it when both are done or declined.
+  #247 passed EMAIL_SECURITY's public check and still lost the hidden round at 57.14%: es_v2 needs margin on both.
+- **New lane ilr_v1, INVOICE_LEDGER_RECONCILE** ([README](adapter/invoice_ledger_reconcile/README.md)): no champion,
+  130-row pool, the query carries invoice, PO and receipt figures (bounties #120). Kit gate PASS on the third build.
+  GENERIC on its test + probe starts by itself when the COA GENERIC run ends (`runs-v2/ilr_v1/measure-generic.json`);
+  if GENERIC already orders them, drop the lane.
+- **Next new-family candidate (not started):** DOCUMENT_AUTHENTICITY: "Query supplies a document plus its signature,
+  seal or timestamp data" (bounties #80); `0x8b2247` got 6/15 (#236). 199-row pool. One new family at a time.
 - **Registry 03:45 UTC:** #245 and #246 rejected at 00:11 UTC ("remote executor unreachable"). #210 still canonical.
   TEXT_SUMMARIZATION, CONTENT_MODERATION, EMAIL_SECURITY and FACT_CHECK have no champion; `0x8b2247` failed CM 10/15,
   FC 7/15 and ES 57.1% overnight (#247-#249).
