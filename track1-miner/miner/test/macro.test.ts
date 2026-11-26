@@ -21,6 +21,18 @@ test("CPI is the change on the same month a year earlier; unemployment is the la
   assert.deepEqual(blsReading(body, false), { value: 334.98, period: "2026-08" });
 });
 
+test("a month BLS never published is skipped, never divided into NaN (October 2025, read 2026-11-25)", () => {
+  const body = { Results: { series: [{ data: [
+    { year: "2026", period: "M10", value: "337.511" }, { year: "2026", period: "M09", value: "336.940" },
+    { year: "2025", period: "M10", value: "-" }, { year: "2025", period: "M09", value: "324.800" },
+  ] }] } };
+  assert.deepEqual(blsReading(body, true), { value: 3.7, period: "2026-09" });
+  assert.deepEqual(blsReading(body, false), { value: 337.511, period: "2026-10" });
+  const gap = { Results: { series: [{ data: [{ year: "2026", period: "M10", value: "-" }, { year: "2026", period: "M09", value: "4.4" }] }] } };
+  assert.deepEqual(blsReading(gap, false), { value: 4.4, period: "2026-09" });
+  assert.equal(blsReading({ Results: { series: [{ data: [{ year: "2026", period: "M10", value: "-" }] }] } }, true), null);
+});
+
 test("Eurostat's latest month is the newest one that carries a value", () => {
   const body = { value: { "0": 4, "1": 4 }, dimension: { time: { category: { index: { "2026-07": 0, "2026-08": 1, "2026-09": 2 } } } } };
   assert.deepEqual(eurostatReading(body), { value: 4, period: "2026-08" });
@@ -85,4 +97,51 @@ test("the year is read from the parameter or the question, and a future year is 
   assert.equal(yearAsked("US unemployment for 2021", "", now), 2021);
   assert.equal(yearAsked("Will inflation fall in 2030?", "", now), null);
   assert.equal(yearAsked("What is the latest US CPI?", "", now), null);
+});
+
+test("a World Bank read that fails once is retried, and a 404 is not (epochs 47 and 49 answered upstream_unavailable)", async (t) => {
+  const original = globalThis.fetch;
+  const calls: string[] = [];
+  globalThis.fetch = (async (url: string) => {
+    const u = new URL(String(url));
+    calls.push(u.pathname);
+    const first = calls.filter((p) => p === u.pathname).length === 1;
+    // Honduras: a timeout, then the answer. Armenia: a 502, then the answer. Bhutan: 404 every time.
+    if (u.pathname.includes("/HN/")) {
+      if (first) throw new DOMException("The operation was aborted due to timeout", "TimeoutError");
+      return Response.json([{ page: 1 }, [{ date: "2025", value: 3.8 }]]);
+    }
+    if (u.pathname.includes("/AM/")) {
+      if (first) return new Response("<html>Bad Gateway</html>", { status: 502 });
+      return Response.json([{ page: 1 }, [{ date: "2025", value: 3.3 }]]);
+    }
+    return new Response("", { status: 404 });
+  }) as typeof globalThis.fetch;
+  t.after(() => { globalThis.fetch = original; });
+
+  const hn = await macroIndicators("", "real GDP growth rate", "Honduras");
+  assert.equal(hn.verdict, "reported");
+  assert.equal(hn.indicators[0]!.value, 3.8);
+  assert.equal(calls.filter((p) => p.includes("/HN/")).length, 2);
+
+  const am = await macroIndicators("", "annual consumer price inflation", "Armenia");
+  assert.equal(am.verdict, "reported");
+  assert.equal(am.indicators[0]!.value, 3.3);
+
+  const bt = await macroIndicators("", "unemployment rate", "Bhutan");
+  assert.equal(bt.verdict, "unknown");
+  assert.equal(calls.filter((p) => p.includes("/BT/")).length, 1, "a 404 is an answer, not an outage");
+});
+
+test("the latest World Bank value keeps four decimal places, as the year path does; the sentence rounds to one", async (t) => {
+  const original = globalThis.fetch;
+  // South Africa's 2025 CPI as api.worldbank.org returned it on 2026-11-25 (production answered 3.2).
+  globalThis.fetch = (async (url: string) =>
+    new URL(String(url)).pathname.includes("/ZA/")
+      ? Response.json([{ page: 1 }, [{ date: "2025", value: 3.20552311 }]])
+      : new Response("", { status: 404 })) as typeof globalThis.fetch;
+  t.after(() => { globalThis.fetch = original; });
+  const za = await macroIndicators("", "CPI inflation", "South Africa");
+  assert.equal(za.indicators[0]!.value, 3.2055);
+  assert.match(za.reason, /^Consumer price inflation in South Africa was 3\.2% in 2025 \(World Bank/);
 });

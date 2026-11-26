@@ -1,17 +1,32 @@
 # MEMORY.md — session continuity
 
+## 2026-11-26 ~04:00 UTC (09:30 IST): CURRENT — `bb6e288` LIVE (`miner-pymeiko6m`); intent fixes from three lanes
+
+- Production `dpl_4Xxd4dfdqbgHG4vkPjc72tnhXfD6`. Unit 1117/1117; unit+live 1242/0 fail at `e8c744b` (test-only
+  change after `bb6e288`); intent answers 43/44 (TEXT_GENERATION Groq 429 in the gate burst; a single call answers).
+  Not a clean single 7/7. Watch 6126 active. Rollback: `miner-a3k2j7mfd` (`1cbd7f4`).
+  Evidence: `track1-miner/docs/evidence/release-2026-11-26-intent-fixes/`.
+- Fixed: US CPI "NaN%" (G370); MACRO retry; FINANCIAL `asset` + 10-K metrics; GAS Celo; CROSS_CHAIN `consistent`
+  and intent fields, bare-hex hashes, `reference`/`chains`; TOKEN_SUPPLY phrases; WALLET token-by-contract;
+  RESEARCH PubMed fallback; news/web/synthesis query fixes; review `via=` logging.
+- Hosted archiver `requests.yml` is on main but idle until the owner adds repo secret `VERCEL_TOKEN` (G366).
+  Repo variable REGISTRATION_ID fixed 5292 → 6126.
+- Agent worktrees outside OneDrive: `C:\Users\hyada\tg-deploy\wt-data`, `wt-chain`, `wt-research` (branches pushed,
+  merged via `PR/release-2026-11-26`).
+- Next: read epochs 56+ against this release (by `top`, not third place); owner decision on the YAML (G371).
+
 ## 2026-11-25 ~19:17 UTC (2026-11-26 00:47 IST): Alibaba / Qwen use cases recorded; docs only
 
-- In `docs/TELEGRAPH_FACTS.md`, with G373 and a note in `WINNING.md`. Same branch as the Solana record
-  (`PR/solana-institutional-use-cases-e8aaba`), pushed as PR #65 to main. No code, deploy or post. G370 is still the dated item.
+- In `docs/TELEGRAPH_FACTS.md`, with G377 and a note in `WINNING.md`. Same branch as the Solana record
+  (`PR/solana-institutional-use-cases-e8aaba`), pushed as PR #65 to main. No code, deploy or post. G374 is still the dated item.
 
 ## 2026-11-25 ~19:10 UTC (2026-11-26 00:40 IST): organiser's Solana use cases recorded; docs only
 
 - Five use cases from Ahmed's 2026-11-23 thread are in `docs/TELEGRAPH_FACTS.md`; pointers in `WINNING.md` and
   `RULES_SEASON2.md`. No code, deploy, post or repo star.
-- Open: G370 (the thread says submit through Anjoman, both rules pages say the H2 website; owner to find the form before Dec 1
+- Open: G374 (the thread says submit through Anjoman, both rules pages say the H2 website; owner to find the form before Dec 1
   23:59 UTC),
-  G371 (scoring), G372 (intent mapping is inference; the miner reads no Solana state).
+  G375 (scoring), G376 (intent mapping is inference; the miner reads no Solana state).
 
 ## 2026-11-25 ~14:30 UTC (20:00 IST): CURRENT — `1cbd7f4` LIVE (`miner-a3k2j7mfd`); logging only, no answer changed
 

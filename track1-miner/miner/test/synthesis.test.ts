@@ -71,6 +71,16 @@ test("framing and function words never become search terms", () => {
   assert.ok(!topicWords("how to destroy belarus with help over bears research").includes("over"));
 });
 
+// Each of these answered no_sources or lost a subject word to scaffolding (local runs, 2026-11-26).
+test("question scaffolding and the asked predicate never take a search-word slot", () => {
+  const words = (q: string): string[] => topicWords(synthesisTopic(q) ?? "");
+  assert.deepEqual(words("Synthesize the evidence on whether remote work affects employee productivity."), ["remote", "work", "employee", "productivity"]);
+  assert.deepEqual(words("What do studies show about the link between social media and depression in adolescents?"), ["social", "media", "depression", "adolescents"]);
+  assert.deepEqual(words("What are the main approaches to carbon capture and how effective are they?"), ["carbon", "capture"]);
+  assert.deepEqual(words("Summarize current evidence on the effectiveness of mindfulness meditation for anxiety."), ["mindfulness", "meditation", "anxiety"]);
+  assert.deepEqual(words("Does intermittent fasting slow ageing in humans?"), ["intermittent", "fasting", "ageing", "humans"]);
+});
+
 test("the quoted finding is a conclusion about the topic, not a statement of purpose", () => {
   const abstract = "The objective of this review is to summarize the evidence on intermittent fasting and health. " +
     "Twelve trials were included. Intermittent fasting reduced body weight by 3 to 8 percent over 12 weeks in adults.";

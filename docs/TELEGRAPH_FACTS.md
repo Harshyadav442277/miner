@@ -88,7 +88,7 @@ issues matched none of "Alibaba", "Qwen", "Cainiao" or "Accio".
 
 Source: a thread by Ahmed Ali, pasted into the session by the owner and recorded 2026-11-25 ~19:10 UTC. The
 thread itself was not opened by Claude. The one timestamp shown is "11/23/26, 4:47 PM", timezone unstated.
-Unconfirmed points are GAPS G370–G372.
+Unconfirmed points are GAPS G374–G376.
 
 **Frame:** "part of Telegraph Hackathon Season II, using the existing tracks, prizes and rules. No separate
 registration or new competition is required." Final submissions "through Anjoman by December 1, 2026". Solana

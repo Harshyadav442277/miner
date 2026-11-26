@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { verifyTokenSupply } from "../src/token-supply";
+import { tokenPhrase, verifyTokenSupply } from "../src/token-supply";
 import { nativeCoin } from "../src/known-tokens";
 
 const word = (n: bigint): string => `0x${n.toString(16).padStart(64, "0")}`;
@@ -64,5 +64,36 @@ test("a token name maps to its listed symbol, and a resolved contract must repor
     assert.equal(r.error, "symbol_mismatch");
     assert.equal(r.total_supply, null);
     assert.match(r.reason, /reports its symbol as ZZZ/);
+  });
+});
+
+test("a token parameter written as a phrase is read for its token and chain (Daemon feed, 2026-11-25)", async () => {
+  assert.deepEqual(tokenPhrase("USD Coin on Ethereum"), { symbol: "USDC", chain: "ethereum" });
+  assert.deepEqual(tokenPhrase("Tether on Arbitrum"), { symbol: "USDT", chain: "arbitrum" });
+  assert.deepEqual(tokenPhrase("the USDC token on Base"), { symbol: "USDC", chain: "base" });
+  assert.deepEqual(tokenPhrase("Lido DAO Token (LDO)"), { symbol: "LDO", chain: null });
+  assert.deepEqual(tokenPhrase("UNI (0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984) on Ethereum"), { symbol: "UNI", chain: "ethereum" });
+  assert.equal(tokenPhrase("Lido DAO").symbol, null, "a multi-word name is not guessed from one of its words");
+  // A chain in parentheses is the chain, never the ticker (it read DAI (Ethereum) as a token called ETHEREUM).
+  assert.deepEqual(tokenPhrase("DAI (Ethereum)"), { symbol: "DAI", chain: "ethereum" });
+  assert.deepEqual(tokenPhrase("USDC (Base)"), { symbol: "USDC", chain: "base" });
+  assert.deepEqual(tokenPhrase("WETH (Arbitrum One)"), { symbol: "WETH", chain: "arbitrum" });
+
+  const ARB_USDT = "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9";
+  await withChain("USDT", { items: [] }, async (to) => {
+    // These answered no_token; txlens and a1-preflight read the token.
+    const r = await verifyTokenSupply("", "Tether on Arbitrum");
+    assert.equal(r.verdict, "verified");
+    assert.equal(r.chain, "arbitrum");
+    assert.ok(to.length && to.every((a) => a === ARB_USDT), "Tether's Arbitrum contract is read");
+    assert.doesNotMatch(r.reason, /no chain was named/);
+  });
+  await withChain("UNI", { items: [] }, async () => {
+    const r = await verifyTokenSupply("", "UNI (0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984) on Ethereum");
+    assert.equal(r.verdict, "verified");
+    assert.doesNotMatch(r.reason, /no chain was named/, "the chain named in the token parameter counts as named");
+  });
+  await withChain("USDC", { items: [] }, async () => {
+    assert.equal((await verifyTokenSupply("", "USD Coin")).verdict, "verified");
   });
 });

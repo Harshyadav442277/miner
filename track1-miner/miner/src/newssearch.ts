@@ -238,7 +238,11 @@ export function extractSubject(question: string, declared = ""): string {
   const inQuotes = quoted(q);
   if (inQuotes.length) return inQuotes.join(" ");
 
-  let s = q.replace(/[?!.]+\s*$/, "");
+  // A question's opening auxiliary is not part of its subject: "Will Piramal Critical launch Mitigo?" searched for
+  // "Will Piramal Critical launch Mitigo", counted "will" as a name, and answered "No news articles covering Will
+  // Piramal Critical launch Mitigo were found" (production, 2026-11-26). Only for a question, so "Will Smith" stays.
+  let s = /\?\s*$/.test(q) ? q.replace(/^\s*(?:will|would|should|shall|may|might)\s+(?=\S)/i, "") : q;
+  s = s.replace(/[?!.]+\s*$/, "");
   for (const re of SCAFFOLD) s = s.replace(re, " ");
   for (const [re] of WINDOWS) s = s.replace(re, " ");
   s = s.replace(/\b(?:last|past|previous)\s+\d{1,3}\s+(?:hour|day|week|month|year)s?\b/gi, " ");
@@ -255,6 +259,27 @@ export function extractSubject(question: string, declared = ""): string {
   const words = s.toLowerCase().split(/[^a-z0-9']+/).filter(Boolean);
   if (words.length > 0 && words.every((w) => GENERIC_SUBJECT.has(w) || STOP.has(w))) return "";
   return s;
+}
+
+/**
+ * A search-engine query written with OR operators, as screening callers send it:
+ * `"Siemens AG" fraud OR dispute OR lawsuit OR recall OR scam` (routed NEWS_SEARCH, 2026-11-25). The quoted name,
+ * else the leading capitalised name up to a legal suffix, is the entity every article must name; the whole query
+ * goes to the news index, which reads OR and quotes itself. Searching the quoted name alone served Siemens Energy
+ * stock-quote pages, and the unquoted form searched "Helio Fintech Ltd United Kingdom dissolved OR liquidation…"
+ * as a subject no headline could match (production, 2026-11-26). Pure.
+ */
+export function booleanQuery(question: string): { entity: string; query: string; terms: string[] } | null {
+  const q = String(question ?? "").replace(/\s+/g, " ").trim();
+  if (!/\sOR\s/.test(q) || q.length > 256) return null;
+  const named = quoted(q)[0];
+  const lead = q.match(/^((?:[A-Z][\w&.'-]*,?\s+)*?(?:[A-Z][\w&.'-]*\s+)?(?:Ltd|Limited|Inc|LLC|PLC|plc|AG|SA|S\.A\.|GmbH|Co\.?,?\s+Ltd\.?|Corp|Corporation|Group|Holdings|NV|N\.V\.|SE|BV|B\.V\.)\b\.?)/)?.[1]
+    ?? q.match(/^((?:[A-Z][\w&.'-]*\s+)*[A-Z][\w&.'-]*)/)?.[1];
+  const entity = (named ?? lead ?? "").replace(/[,\s]+$/, "").trim();
+  if (!entity || keyTerms(entity).length === 0) return null;
+  const rest = q.replace(named ? `"${named}"` : entity, " ");
+  const terms = rest.split(/\s+OR\s+/).map((t) => t.replace(/["()]/g, "").trim()).filter(Boolean);
+  return { entity, query: q, terms };
 }
 
 /** Content words of the subject, for the relevance test. */
@@ -414,12 +439,13 @@ async function searchPass(
   windowDays: number | null,
   limit: number,
   timeoutMs: number,
+  search = subject,
 ): Promise<{ articles: Article[]; seen: number } | null> {
   // `when:` is Google News's own recency operator, so the window is applied at
   // the source as well as filtered below. Both, because the operator is
   // advisory — it returned a 2026-07 article for a when:7d query on the day
   // this was written.
-  const terms = windowDays ? `${subject} when:${windowDays}d` : subject;
+  const terms = windowDays ? `${search} when:${windowDays}d` : search;
   const url = `${FEED}?q=${encodeURIComponent(terms)}`;
 
   let xml = "";
@@ -494,7 +520,10 @@ export async function searchNews(
   // the brief 2.5 s more, so a slow news index could run to 18.5 s and be cut off by the watchdog.
   const started = Date.now();
   const left = (): number => TOTAL_BUDGET_MS - (Date.now() - started);
-  const subject = extractSubject(question, declaredSubject);
+  const bool = String(declaredSubject ?? "").trim() ? null : booleanQuery(question);
+  const subject = bool ? bool.entity : extractSubject(question, declaredSubject);
+  const search = bool ? bool.query : subject;
+  const asked = bool && bool.terms.length ? `${subject} (${bool.terms.join(", ")})` : subject;
   const stated = declaredDays ?? extractWindowDays(question);
   const soft = stated === null && isSoftRecency(question);
 
@@ -518,7 +547,7 @@ export async function searchNews(
     };
   }
 
-  const first = await searchPass(subject, stated ?? (soft ? SOFT_WINDOW_DAYS : null), limit, Math.min(timeoutMs, left() - 1_500));
+  const first = await searchPass(subject, stated ?? (soft ? SOFT_WINDOW_DAYS : null), limit, Math.min(timeoutMs, left() - 1_500), search);
   if (!first) {
     return {
       subject, window_days: stated, verdict: "unknown", articles: [], count: 0, confidence: 0,
@@ -535,7 +564,7 @@ export async function searchNews(
   let { articles, seen } = first;
   let widened = false;
   if (articles.length === 0 && soft) {
-    const second = left() > 3_000 ? await searchPass(subject, null, limit, Math.min(timeoutMs, left() - 1_500)) : null;
+    const second = left() > 3_000 ? await searchPass(subject, null, limit, Math.min(timeoutMs, left() - 1_500), search) : null;
     if (second && second.articles.length) { articles = second.articles; seen = second.seen; widened = true; }
   }
 
@@ -543,8 +572,8 @@ export async function searchNews(
 
   if (articles.length === 0) {
     const why = effectiveWindow
-      ? `No news articles covering ${subject} were published in the last ${effectiveWindow} day${effectiveWindow === 1 ? "" : "s"}.`
-      : `No news articles covering ${subject} were found.`;
+      ? `No news articles covering ${asked} were published in the last ${effectiveWindow} day${effectiveWindow === 1 ? "" : "s"}.`
+      : `No news articles covering ${asked} were found.`;
     const near = seen > 0
       ? ` The search returned ${seen} article${seen === 1 ? "" : "s"}, but none of them were about ${subject}, so none are reported here.`
       : "";
@@ -569,7 +598,7 @@ export async function searchNews(
     subject, window_days: effectiveWindow, verdict: "articles", articles, count: articles.length, confidence: 0.9,
     ...(brief ? { brief } : {}),
     reason:
-      `Recent coverage of ${subject}${span} includes: ${listed}. ` +
+      `Recent coverage of ${asked}${span} includes: ${listed}. ` +
       `${articles.length} article${articles.length === 1 ? "" : "s"}, most recent first, each with ` +
       `its publisher and publication date.${note}`,
   };

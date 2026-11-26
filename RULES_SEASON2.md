@@ -17,7 +17,7 @@ repo calls the miner "Track 1" (`track1-miner/`) and the evaluators "Track 2" (`
 
 **2026-11-23 organiser thread** (Solana use cases, not a /rules read): see
 [docs/TELEGRAPH_FACTS.md](docs/TELEGRAPH_FACTS.md). It names Anjoman as the submission channel; both rules
-pages, re-read 2026-11-25 ~19:10 UTC for that line only, still say the official H2 website (GAPS G370).
+pages, re-read 2026-11-25 ~19:10 UTC for that line only, still say the official H2 website (GAPS G374).
 
 ## What changed since the 2026-10-22 read
 

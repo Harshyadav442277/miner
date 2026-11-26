@@ -1,8 +1,41 @@
 # GAPS.md — honesty ledger
 
-## 2026-11-25 ~19:17 UTC (2026-11-26 00:47 IST) — Alibaba / Qwen use cases: G373
+## 2026-11-26 ~04:00 UTC (09:30 IST) — release `bb6e288`; hosted archiver; G370–G373 new
 
-- **G373 — What these use cases would buy from us is not stated. `OPEN, our inference`.** Thread recorded in
+Record: `track1-miner/docs/evidence/release-2026-11-26-intent-fixes/`. Three parallel lanes (data, on-chain/event,
+research/search) compared our answers with the top miners' public endpoints on the same inputs. **No zero's cause
+is proven**; each fix is a demonstrated defect, and no score effect is observed yet.
+
+- **G370 — US CPI answered "NaN% year on year". `FIXED` (`10f2a5e`), live.** BLS has no October 2025 value
+  (`2025M10="-"`, read 2026-11-26). Production answered NaN for US CPI and core CPI from the October 2026 print
+  until this release. Found by `tools/schema-sweep.mjs` (`rate_pct: null`). When it started is not known
+  (the October print is from mid-November); MACRO's scores in that window were 0.97–0.99 except e49/e52 zeros.
+- **G366, archiver — `MOVED`, waiting on the owner.** `.github/workflows/requests.yml` (#64): one run archives every
+  10 min for 5.5 h, keeps the `request-archive` artifact hourly, then dispatches its successor; the 2-hourly cron
+  only restarts a broken chain. It needs repo secret `VERCEL_TOKEN`; without it the run stops at the token check
+  and dispatches nothing (seen 2026-11-26 03:06 UTC). Not yet seen archiving. GitHub scheduling here is unreliable:
+  `scores.yml` (six runs an hour) started about once every few hours on Nov 19–25.
+- **Repo variable `REGISTRATION_ID` was 5292.** The uptime workflow watched a retired registration. Set to 6126
+  (2026-11-25 19:09 UTC).
+- **G371 — YAML gaps only `updateMiner` can close. `OPEN`, owner decision.** (a) `/wallet-balance` declares no
+  `token` param, so a token contract reaches us only inside `query`; (b) `/token-supply` declares `token` optional
+  only, and about 10 of 12 `no_token` calls arrived with no parameters (the node sends nothing to all-optional
+  endpoints, GAPS 2026-11-14); (c) the intent defines US unemployment as World Bank SL.UEM.TOTL.ZS (4.198 for
+  2025) while our signed YAML promises BLS monthly (4.1); (d) `metrics` on /financial has no `intent_mapping` entry;
+  (e) G348 brief wording. Risk: `updateMiner` creates a new registration id that "follows the normal evaluation
+  and ranking process" (organiser, 2026-11-05), five days before the deadline.
+- **G372 — Unexplained after this round:** FINANCIAL zeros (e48's 14 calls all answered with a market cap and
+  still scored 0; in e56 every miner, txlens included, scored 0); GAS zeros (calls before e47 and e54 were answered
+  correctly); CROSS_CHAIN (the scorer sends state-root/proof questions with no reference; a1-preflight also refuses
+  them and scores 0.99, txlens reads block headers); EVENT_OUTCOME (leaders resolve some questions from ESPN
+  scoreboards and NOAA records, sources we do not read).
+- **G373 — The research lane's final report was lost** (usage limit). Its five commits are pushed with tests; the
+  inputs it measured are only in commit messages and code comments.
+- **G367:** every 400 seen on production is `json_validate_failed json=1` (salvaged); 429s are per-minute.
+
+## 2026-11-25 ~19:17 UTC (2026-11-26 00:47 IST) — Alibaba / Qwen use cases: G377
+
+- **G377 — What these use cases would buy from us is not stated. `OPEN, our inference`.** Thread recorded in
   `docs/TELEGRAPH_FACTS.md`; its date and author are not shown in the paste. By intent name, we serve:
   CODE_REVIEW, SECURITY_REVIEW, CVE_LOOKUP_CVSS (use case 4); SANCTIONS_SCREENING_MATCH,
   CORPORATE_REGISTRY_LOOKUP (1, 5). In the catalogue, not served: VENDOR_VERIFY, PURCHASE_ORDER_VERIFY,
@@ -11,18 +44,18 @@
   in epochs 47–50 while another miner scored (11-25 14:30 block, G364). Not checked: whether our three code
   routes cover package authenticity or execute anything; do not claim either.
 
-## 2026-11-25 ~19:10 UTC (2026-11-26 00:40 IST) — Solana use cases thread: G370–G372
+## 2026-11-25 ~19:10 UTC (2026-11-26 00:40 IST) — Solana use cases thread: G374–G376
 
 The thread is recorded in `docs/TELEGRAPH_FACTS.md`.
 
-- **G370 — Where is the final submission made? `OPEN, owner; due Dec 1 23:59 UTC`.** The thread says "through
+- **G374 — Where is the final submission made? `OPEN, owner; due Dec 1 23:59 UTC`.** The thread says "through
   Anjoman". Re-read 2026-11-25 ~19:10 UTC: both hackathon.telegraphprotocol.com/rules and
   anjoman.ai/dashboard/hackathon/season-2/rules still say "Submit through the official H2 website by December 1,
   2026, at 23:59 UTC". The two may be one thing (Anjoman hosts an H2 dashboard), but no submission form has been
   seen (the Anjoman Season II overview shows a countdown and no submit link when signed out). Next: the owner opens the form in advance, not on Dec 1.
-- **G371 — Does a Solana use case score anything extra? `OPEN`.** The thread says existing tracks, prizes and
+- **G375 — Does a Solana use case score anything extra? `OPEN`.** The thread says existing tracks, prizes and
   rules, and names no new criterion or award. We assume the rubric is unchanged.
-- **G372 — Which intents these use cases would buy is not stated. `OPEN, our inference`.** From intent names and
+- **G376 — Which intents these use cases would buy is not stated. `OPEN, our inference`.** From intent names and
   our registration (6126, 44 intents). Served and possibly useful: SANCTIONS_SCREENING_MATCH,
   CORPORATE_REGISTRY_LOOKUP, REGULATORY_FILING_MONITOR (use cases 1, 2, 4), SMART_CONTRACT_AUDIT. In the
   catalogue, not served: CONTRACT_OBLIGATION_AUDIT, DOCUMENT_AUTHENTICITY, VENDOR_VERIFY,
