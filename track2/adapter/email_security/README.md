@@ -123,3 +123,12 @@ snapshot `b40c2c48…`); not public.
 
 Bulk data lives in `C:/Users/hyada/tg-eval/data/email_security/` (Tranco, candidates, truth) and
 `C:/Users/hyada/tg-eval/captures/es-*` (miner captures).
+
+## es_v2 (2026-11-26): kit PASS, public-pair screen FAIL
+
+- Kit: 98.25% on its own test (length baseline 51.25%); Stage 1 PASS (`runs-v2/es_v2`).
+- Offline screen on the 15 public pairs (`tg-eval/pairs/public15/es.jsonl`, node runtime): **es_v2 8/15, es_v1b
+  8/15** (longer-wins 0.40, shorter-wins 0.47). The node's floor is 70% (11/15), so es_v2 is not offered for signing.
+  Evidence: [measure-public15-es_v2.json](evidence/2026-11-26/measure-public15-es_v2.json).
+- The v2 cases (posture from the answer's own SPF/DMARC fields, worded DoH captures, phishing lookalikes) raised the
+  kit score and moved nothing on the real pairs: the pool's pairs differ from our construction in a way not yet found.

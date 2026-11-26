@@ -22,6 +22,8 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 - **`EXECUTOR.lock` set 03:55 UTC on purpose:** when es_v2 ends, ilr_v1 waits, so es_v2 can be measured (node runtime
   + `public15/es.jsonl`) and a TS v1e window opened with the RAM free. Delete it when both are done or declined.
   #247 passed EMAIL_SECURITY's public check and still lost the hidden round at 57.14%: es_v2 needs margin on both.
+- **es_v2: kit 98.25%, public15 8/15 (same as v1b): FAIL, not signed** (email_security README).
+- **da_v1 DOCUMENT_AUTHENTICITY** trains since 05:57 UTC (own runner); ilr_v1 next. v1e batch under training: 71.7 s.
 - **New lane ilr_v1, INVOICE_LEDGER_RECONCILE** ([README](adapter/invoice_ledger_reconcile/README.md)): no champion,
   130-row pool, the query carries invoice, PO and receipt figures (bounties #120). Kit gate PASS on the third build.
   GENERIC on its test + probe starts by itself when the COA GENERIC run ends (`runs-v2/ilr_v1/measure-generic.json`);

@@ -1,0 +1,532 @@
+{
+ "pairs": {
+  "public15": {
+   "path": "C:\\Users\\hyada\\tg-eval\\pairs\\public15\\es.jsonl",
+   "sha256": "1548462c264fe7cead7afcb32147710be9d8c48fde1f9168acbfcfae98031b07",
+   "file_rows": 15,
+   "pairs": 15,
+   "limit": null,
+   "pair_keys": [
+    "3a70624a9da4e21a",
+    "eac0c2e82cd93f51",
+    "0576982f31cc19a8",
+    "a1cbc980be833cfa",
+    "8154a8a1267a0f29",
+    "aeb7230c1e0a8300",
+    "c34fc9bfb2e5bd86",
+    "369fb6ffb3b17c71",
+    "fee485755203464a",
+    "663ab0524ba72f3a",
+    "871baca0ca5c5cf7",
+    "23d2e9975ecf837a",
+    "5e7e993c8cac4145",
+    "307a94a34710b050",
+    "b1b4d8c0e11f201e"
+   ]
+  }
+ },
+ "baselines": {
+  "public15": {
+   "longer": {
+    "n": 15,
+    "correct": [
+     false,
+     false,
+     false,
+     true,
+     true,
+     false,
+     true,
+     false,
+     true,
+     false,
+     false,
+     false,
+     true,
+     false,
+     true
+    ],
+    "accuracy": 0.4,
+    "ties": 2,
+    "wilson95": [
+     0.1982,
+     0.6425
+    ],
+    "correct_count": 6
+   },
+   "shorter": {
+    "n": 15,
+    "correct": [
+     true,
+     true,
+     true,
+     false,
+     false,
+     false,
+     false,
+     false,
+     false,
+     true,
+     true,
+     true,
+     false,
+     true,
+     false
+    ],
+    "accuracy": 0.4667,
+    "ties": 2,
+    "wilson95": [
+     0.2481,
+     0.6988
+    ],
+    "correct_count": 7
+   }
+  }
+ },
+ "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+ "engine_hash": "77643d6e1176ab8744801cef93ccb844d0136ed32b8daa865d541f37d13292de",
+ "packages": {
+  "es_v2": {
+   "package": "C:\\Users\\hyada\\tg-eval\\runs-v2\\es_v2\\EMAIL_SECURITY.safetensors",
+   "package_sha256": "f3728d3bf7035e8f768fabda4a5daca7c562401f4f840210b435d2329efe1963",
+   "adapter_keccak": "887cdc40fa66177c3d9daffc8ad86e3b106d1fc030d65b5eba4e32415106acec",
+   "metadata": {
+    "intent": "EMAIL_SECURITY",
+    "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+    "foundation_version": "modernbert-base-lora16-v1",
+    "target_modules": "[\"Wi\",\"Wo\",\"Wqkv\"]",
+    "max_tokens": "512",
+    "class": "judgment",
+    "format_version": "1",
+    "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+    "rank": "8",
+    "alpha": "32",
+    "abi": "lora-v1"
+   },
+   "unique_texts": 30,
+   "seconds": 138.3,
+   "sets": {
+    "public15": {
+     "n": 15,
+     "correct": 8,
+     "accuracy": 0.5333,
+     "ties": 0,
+     "wilson95": [
+      0.3012,
+      0.7519
+     ],
+     "truncated_pairs": 0,
+     "by_kind": {
+      "public_pair": "8/15"
+     },
+     "by_format": {
+      "None": "8/15"
+     },
+     "rows": [
+      {
+       "index": 0,
+       "pair_key": "3a70624a9da4e21a",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1095832956,
+       "rejected_bits": 3214330464,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 1,
+       "pair_key": "eac0c2e82cd93f51",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3225102624,
+       "rejected_bits": 3238178002,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 2,
+       "pair_key": "0576982f31cc19a8",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1095638444,
+       "rejected_bits": 1093187540,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 3,
+       "pair_key": "a1cbc980be833cfa",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1096362995,
+       "rejected_bits": 1100333555,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 4,
+       "pair_key": "8154a8a1267a0f29",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3240648615,
+       "rejected_bits": 3238963102,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 5,
+       "pair_key": "aeb7230c1e0a8300",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3226164839,
+       "rejected_bits": 3228844934,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 6,
+       "pair_key": "c34fc9bfb2e5bd86",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3241175028,
+       "rejected_bits": 3244731510,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 7,
+       "pair_key": "369fb6ffb3b17c71",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3238269874,
+       "rejected_bits": 3239142346,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 8,
+       "pair_key": "fee485755203464a",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3199658892,
+       "rejected_bits": 3222121094,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 9,
+       "pair_key": "663ab0524ba72f3a",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3232966664,
+       "rejected_bits": 3219359510,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 10,
+       "pair_key": "871baca0ca5c5cf7",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3246899556,
+       "rejected_bits": 3242620966,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 11,
+       "pair_key": "23d2e9975ecf837a",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3231629319,
+       "rejected_bits": 3233607894,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 12,
+       "pair_key": "5e7e993c8cac4145",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1075641354,
+       "rejected_bits": 1092143215,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 13,
+       "pair_key": "307a94a34710b050",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3197198612,
+       "rejected_bits": 1062379848,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 14,
+       "pair_key": "b1b4d8c0e11f201e",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3246448335,
+       "rejected_bits": 3242845036,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      }
+     ]
+    }
+   }
+  },
+  "es_v1b": {
+   "package": "C:\\Users\\hyada\\tg-eval\\runs-v2\\es_v1b\\EMAIL_SECURITY.safetensors",
+   "package_sha256": "f2c8dc542dc2fbc5f995496e5cc8a967c388911baf919bcc61305b0f77a54a1f",
+   "adapter_keccak": "35de4143e5afa65dc0dafc4b4639a6f4d3f17ca6b9efd95ed6cf061bf0b96b66",
+   "metadata": {
+    "class": "judgment",
+    "foundation_hash": "0a49b325304bb4cf292e683929689d0457966be264f60bfc94d0072b614bf8e6",
+    "abi": "lora-v1",
+    "tokenizer_hash": "67bc76f8b9386efba1a761c1c8e5ad439fd0eaf1c2826e9dd1a205c7af4dc456",
+    "alpha": "32",
+    "target_modules": "[\"Wi\",\"Wo\",\"Wqkv\"]",
+    "format_version": "1",
+    "intent": "EMAIL_SECURITY",
+    "rank": "8",
+    "foundation_version": "modernbert-base-lora16-v1",
+    "max_tokens": "480"
+   },
+   "unique_texts": 30,
+   "seconds": 136.5,
+   "sets": {
+    "public15": {
+     "n": 15,
+     "correct": 8,
+     "accuracy": 0.5333,
+     "ties": 0,
+     "wilson95": [
+      0.3012,
+      0.7519
+     ],
+     "truncated_pairs": 0,
+     "by_kind": {
+      "public_pair": "8/15"
+     },
+     "by_format": {
+      "None": "8/15"
+     },
+     "rows": [
+      {
+       "index": 0,
+       "pair_key": "3a70624a9da4e21a",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1084325557,
+       "rejected_bits": 1077706586,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 1,
+       "pair_key": "eac0c2e82cd93f51",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1068865980,
+       "rejected_bits": 1066508613,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 2,
+       "pair_key": "0576982f31cc19a8",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1084674911,
+       "rejected_bits": 1085226268,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 3,
+       "pair_key": "a1cbc980be833cfa",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1085975232,
+       "rejected_bits": 1090915283,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 4,
+       "pair_key": "8154a8a1267a0f29",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3208413476,
+       "rejected_bits": 3179430880,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 5,
+       "pair_key": "aeb7230c1e0a8300",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1059804360,
+       "rejected_bits": 3185562174,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 6,
+       "pair_key": "c34fc9bfb2e5bd86",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3209167036,
+       "rejected_bits": 1063255061,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 7,
+       "pair_key": "369fb6ffb3b17c71",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3212934388,
+       "rejected_bits": 3215453888,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 8,
+       "pair_key": "fee485755203464a",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1078261371,
+       "rejected_bits": 1079793099,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 9,
+       "pair_key": "663ab0524ba72f3a",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3211262596,
+       "rejected_bits": 3214186337,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 10,
+       "pair_key": "871baca0ca5c5cf7",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3222018645,
+       "rejected_bits": 3215801079,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 11,
+       "pair_key": "23d2e9975ecf837a",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3231186926,
+       "rejected_bits": 3233350720,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 12,
+       "pair_key": "5e7e993c8cac4145",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1083048853,
+       "rejected_bits": 1086535538,
+       "correct": false,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 13,
+       "pair_key": "307a94a34710b050",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 1079918818,
+       "rejected_bits": 1079117053,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      },
+      {
+       "index": 14,
+       "pair_key": "b1b4d8c0e11f201e",
+       "id": null,
+       "kind": "public_pair",
+       "format": null,
+       "chosen_bits": 3180254568,
+       "rejected_bits": 3213375658,
+       "correct": true,
+       "tie": false,
+       "truncated": false
+      }
+     ]
+    }
+   }
+  }
+ }
+}
