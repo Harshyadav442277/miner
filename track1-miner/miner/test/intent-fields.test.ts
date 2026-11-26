@@ -150,6 +150,9 @@ test("format-version-3 fields: each copies what the route states, and the schema
   const fraud = scoredFields("/fraud-check", { verdict: "no_indicators", evidence: ["not on the OFAC list"], reason: "No fraud indicators were found." });
   assert.deepEqual(only(fraud, { verdict: 0, risk_score: 0, signals: 0 }), { verdict: "LOW", risk_score: 0.05, signals: ["not on the OFAC list"] });
   assert.equal(scoredFields("/fraud-check", { verdict: "unknown" }).risk_score, null, "no grade, no number");
+  const open = scoredFields("/fraud-check", { verdict: "insufficient_evidence", reason: "Nothing pointed either way." });
+  assert.deepEqual([open.verdict, open.risk_score], ["INCONCLUSIVE", 0.5], "a required number: the midpoint, labelled as no evidence");
+  assert.match(String(open.risk_score_basis), /no evidence either way/);
   assert.deepEqual(only(scoredFields("/event-outcome", { verdict: "resolved", outcome: "Yes" }), { outcome: 0 }), { outcome: "yes" });
   assert.deepEqual(only(scoredFields("/event-outcome", { verdict: "resolved", outcome: "Seattle Seahawks", winner: "Seattle Seahawks" }), { outcome: 0, winner: 0 }),
     { outcome: "yes", winner: "Seattle Seahawks" });
