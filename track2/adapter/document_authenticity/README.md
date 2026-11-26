@@ -38,3 +38,15 @@ Evidence: [measure-da_v1.json](evidence/measure-da_v1.json). **Not offered for s
 a 30-point kit/node gap like coa_v2's (G55). The weakest kind is the checksum mismatch (2/17 test, 2/12 probe): the
 model cannot compare two 64-character hashes and believes a "matches" claim. Revocation (13/13) and chain (13/13)
 are learned. A v2 must make each failing check readable without comparing long strings.
+
+## v2: [generate_pairs_v2.py](generate_pairs_v2.py) (2026-11-26)
+
+Only the checksum changes. The query shows each hash's first 12 hex characters ahead of the full hash, and a forged
+hash always differs from the manifest inside those 12 characters, so a mismatch is visible without comparing 64
+characters. A passing checksum answer quotes the two matching prefixes (the failing one already quoted them). Every
+other check, the answer styles, splits, seeds, MAX_TOKENS 500 and the no-refusal rule are as in v1. Pairs: 3,000 train,
+300 val, 400 test, 300 probe (`tg-eval/pairs/da_v2`).
+
+**Kit dataset gate: PASS** (unique negatives 100.0%, largest single negative 0.0%, length shortcut 50.3%, held-out
+leak 0.0%, surface/bag-of-words probe 57.7%, mean length chosen 437 / rejected 435 characters). First build, no
+rebalancing needed. Not yet trained or measured in the node runtime: the data gate says nothing about the 67.3% gap.
