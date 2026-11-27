@@ -247,3 +247,27 @@ test("with Blockscout challenged, the holder count comes from GeckoTerminal and 
     assert.match(r.reason, /read from GeckoTerminal's token index \(the chain's Blockscout index did not answer\)/);
   });
 });
+
+test("AAVE and Uniswap read their real contracts, never a look-alike from the pool search (2026-11-27)", async () => {
+  const { lookupHolders } = await import("../src/holders");
+  const real = globalThis.fetch;
+  const asked: string[] = [];
+  globalThis.fetch = (async (input: string | URL) => {
+    const url = String(input);
+    asked.push(url);
+    if (!url.includes("eth.blockscout.com/api/v2/tokens/")) return new Response("{}", { status: 500 });
+    const addr = url.split("/tokens/")[1]!.split(/[/?]/)[0]!;
+    return Response.json({ address_hash: addr, name: "T", symbol: "T", type: "ERC-20", holders_count: "197372", total_supply: "1", decimals: "18" });
+  }) as unknown as typeof fetch;
+  try {
+    for (const [symbol, contract] of [["AAVE", "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"], ["Uniswap", "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984"], ["Lido DAO", "0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32"]] as const) {
+      asked.length = 0;
+      const r = await lookupHolders("", { chain: "ethereum", symbol });
+      assert.equal(r.verdict, "holder_count", symbol);
+      assert.ok(asked.every((u) => !u.includes("geckoterminal")), `${symbol} skipped the resolver`);
+      assert.ok(asked.some((u) => u.toLowerCase().includes(contract.toLowerCase())), `${symbol} read ${contract}`);
+    }
+  } finally {
+    globalThis.fetch = real;
+  }
+});

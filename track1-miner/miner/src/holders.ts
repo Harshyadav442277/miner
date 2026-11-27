@@ -33,7 +33,7 @@
  * So symbols resolve, concentration is answered, and a non-token identifier is
  * refused by name rather than guessed at.
  */
-import { knownToken, TABLE_NOTE } from "./known-tokens";
+import { knownToken, TABLE_NOTE, TOKEN_NAMES } from "./known-tokens";
 
 import { permitted } from "./sources";
 
@@ -434,7 +434,10 @@ export async function lookupHolders(question: string, requested?: HolderRequest)
   }
 
   const address = contractAddress(requested?.address ?? "") ?? contractAddress(text);
-  const symbol = address ? null : (requested?.symbol?.trim() || tokenSymbol(text));
+  // A token named in words ("Uniswap") is read as its symbol: sent to the resolver it ran 7 s to upstream_unavailable
+  // on production (2026-11-27).
+  const said = address ? null : (requested?.symbol?.trim() || tokenSymbol(text));
+  const symbol = said ? TOKEN_NAMES[said.replace(/[\s.-]+/g, "").toUpperCase()] ?? said : null;
   const named = resolveChain(requested?.chain ?? "", text);
 
   if (!address && !symbol) {
