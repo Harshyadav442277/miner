@@ -35,6 +35,15 @@ import { createHash } from "node:crypto";
 const ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 
 /**
+ * The completion cap for a short JSON reply (a brief, a verdict, a few fields). Reasoning tokens count against
+ * `max_completion_tokens`, and at 300 the JSON was cut off: Groq answered 400 json_validate_failed on 43% of
+ * research-synthesis, 33% of news-search, 29% of web-search and 22% of research calls, against 2% of code reviews
+ * capped at 1,400 (archive, 2026-11-25 to 27). A failed brief left web-search answering no_results before its zeros.
+ * Groq bills the tokens used, not the cap.
+ */
+export const JSON_REPLY_TOKENS = 900;
+
+/**
  * The free-plan text models, read on console.groq.com/docs/rate-limits and
  * confirmed against GET /openai/v1/models on 2026-09-19: each is active and
  * carries its own 30 RPM / 1K RPD / 8K TPM / 200K TPD allowance, so rotating the

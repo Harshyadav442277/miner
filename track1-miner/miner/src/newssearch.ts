@@ -1,7 +1,7 @@
 import { decode, splitSource } from "./news";
 import { notLicensedReason, permitted } from "./sources";
 import { clauseBrief, usableBrief } from "./genai";
-import { dataValue, parseObject, phrase, plainHyphens } from "./llm";
+import { dataValue, JSON_REPLY_TOKENS, parseObject, phrase, plainHyphens } from "./llm";
 
 /**
  * NEWS_SEARCH — article coverage of a topic, entity or time period.
@@ -100,7 +100,7 @@ export function briefFrom(raw: string | null): string | null {
 async function writeBrief(request: string, articles: Article[], deadlineMs = BRIEF_MS): Promise<string | null> {
   const headlines = articles.slice(0, 3).map((a) => ({ title: dataValue(trimTitle(a.title), 200), source: dataValue(a.source ?? "", 80) || null }));
   if (!headlines.length) return null;
-  const raw = await phrase({ system: BRIEF_SYSTEM, user: JSON.stringify({ request: dataValue(request, 300), headlines }), maxTokens: 300,
+  const raw = await phrase({ system: BRIEF_SYSTEM, user: JSON.stringify({ request: dataValue(request, 300), headlines }), maxTokens: JSON_REPLY_TOKENS,
     json: true, deadlineMs: Math.min(BRIEF_MS, deadlineMs), clean: (r) => (briefFrom(r) ? r : null) });
   return briefFrom(raw);
 }

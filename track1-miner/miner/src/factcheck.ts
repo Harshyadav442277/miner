@@ -38,7 +38,7 @@
 import { findSubjectEvidence } from "./factarticle";
 import { chooseArticle, searchTerms } from "./factsearch";
 import { contentTokens, fold } from "./factwords";
-import { dataValue, parseObject, phrase } from "./llm";
+import { dataValue, JSON_REPLY_TOKENS, parseObject, phrase } from "./llm";
 
 const WIKI_SEARCH = "https://en.wikipedia.org/w/api.php";
 const DEFAULT_TIMEOUT_MS = 7000;
@@ -212,7 +212,7 @@ export function coarse(rating: Rating): FactCheckResult["verdict"] {
 async function modelJudge(claim: string, title: string | null, evidence: string, started: number): Promise<Judged | null> {
   const ev = dataValue(evidence, 1_800);
   const raw = await phrase({ system: JUDGE_SYSTEM, user: JSON.stringify({ claim: dataValue(claim, 400), article: dataValue(title ?? "", 120), evidence: ev }),
-    maxTokens: 400, json: true, deadlineMs: Math.min(JUDGE_MS, JUDGE_BY_MS - (Date.now() - started)),
+    maxTokens: JSON_REPLY_TOKENS, json: true, deadlineMs: Math.min(JUDGE_MS, JUDGE_BY_MS - (Date.now() - started)),
     clean: (r) => (parseJudged(r, ev) ? r : null) });
   return parseJudged(raw, ev);
 }

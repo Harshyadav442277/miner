@@ -77,3 +77,22 @@ test("researchParagraph: whole sentences up to the limit", async () => {
   assert.equal(researchParagraph("One. Two.", 700), "One. Two.");
   assert.equal(researchParagraph("First sentence here. Second sentence is longer than the cut.", 30), "First sentence here.");
 });
+
+test("a JSON brief asks for room past the model's reasoning: 900 completion tokens, not 300 (2026-11-27)", async () => {
+  const real = globalThis.fetch;
+  const caps: number[] = [];
+  process.env.GROQ_API_KEY = "test-key-not-real";
+  resetPhraseState();
+  globalThis.fetch = (async (_input: string | URL, init?: { body?: string }) => {
+    caps.push((JSON.parse(init!.body!) as { max_completion_tokens: number }).max_completion_tokens);
+    return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify({ brief: "Exercise modestly reduces depressive symptoms" }) } }] }), { status: 200 });
+  }) as unknown as typeof fetch;
+  try {
+    assert.ok(await researchBrief("Does exercise reduce depression?", "Two trials found a modest effect."));
+    assert.deepEqual(caps, [900]);
+  } finally {
+    globalThis.fetch = real;
+    delete process.env.GROQ_API_KEY;
+    resetPhraseState();
+  }
+});
