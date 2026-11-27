@@ -103,6 +103,7 @@ export const SOURCES: Source[] = [
   { id: "groq", name: "Groq", hosts: ["api.groq.com"], status: "unclear", licence: "Groq Services Agreement", terms: "https://console.groq.com/docs/legal/services-agreement", read: "2026-10-18", basis: "Allows a Customer Application; forbids reselling the Cloud Services (GAPS G197)." },
   { id: "tavily", name: "Tavily", hosts: ["api.tavily.com"], status: "licensed", licence: "Tavily Terms (paid key)", terms: "https://www.tavily.com/terms", read: R, basis: "Contemplates Customer Applications serving third-party end users. No key is set in production." },
   { id: "tech-docs", name: "Technical documentation sites (Python, Node.js and others)", hosts: ["docs.python.org", "nodejs.org"], status: "unread", licence: "Per site", terms: "https://docs.python.org/3/license.html", read: null, basis: "websearch.ts quotes pages from an allowlist of doc hosts; each site's licence is unread." },
+  { id: "espn", name: "ESPN scoreboards", hosts: ["site.api.espn.com"], status: "unread", licence: "Unknown", terms: "https://disneytermsofuse.com/", read: null, basis: "Public scoreboard JSON with no published API terms; not read. Used since 2026-11-27 with the licence gate off, and named in each answer." },
   { id: "polymarket", name: "Polymarket", hosts: ["gamma-api.polymarket.com"], status: "unread", licence: "Unknown", terms: "https://polymarket.com/tos", read: null, basis: "Unreachable from the network this was checked on." },
   { id: "manifold", name: "Manifold Markets", hosts: ["api.manifold.markets"], status: "barred", licence: "Manifold Terms", terms: "https://docs.manifold.markets/api", read: R, basis: "API: academic, personal and non-commercial use; commercial use needs a data licence." },
 ];
@@ -162,7 +163,7 @@ export const ENDPOINT_SOURCES: Record<string, string[]> = {
   "/crypto-price": ["bitstamp", "coinbase", "ecb", "frankfurter"],
   "/stock-price": ["bitstamp", "coinbase", "coingecko", "coinpaprika", "ecb", "frankfurter", "nasdaq", "sec", "yahoo"],
   "/cross-chain": ["4byte", "chain-rpcs", "drpc", "layerzero", "merkle", "openchain", "publicnode"],
-  "/event-outcome": ["groq", "manifold", "polymarket", "wikidata"],
+  "/event-outcome": ["espn", "groq", "manifold", "polymarket", "wikidata"],
   "/url-scan": ["dns-resolvers"],
   "/web-search": ["bitstamp", "clinicaltrials", "coinbase", "ebi", "ecb", "endoflife", "frankfurter", "google-news", "groq", "ncbi", "tech-docs", "wikidata", "wikipedia"],
   "/sentiment": ["groq"],

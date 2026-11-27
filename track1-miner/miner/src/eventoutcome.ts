@@ -27,6 +27,7 @@
 
 import { permitted } from "./sources";
 import { andList, findEventWinner, type EventWinner } from "./eventwinner";
+import { findGame, gameUrl, subject, type Game } from "./scoreboard";
 import { dataValue, JSON_REPLY_TOKENS, parseObject, phrase } from "./llm";
 
 const TIMEOUT_MS = Number(process.env.EVENT_TIMEOUT_MS ?? 5_000);
@@ -56,6 +57,8 @@ export interface EventOutcomeResult {
   venue?: string | null;
   play_money?: boolean;
   closes_at?: string | null;
+  /** When a game finished (its scheduled start, from the scoreboard); the intent's own `resolved_at` field. */
+  resolved_at?: string | null;
   source?: string;
   /** Each winner with the classification it won, when the record splits them (an F1 race's driver and constructor). */
   winners_by_class?: Array<{ name: string; klass: string }>;
@@ -390,6 +393,35 @@ export function fromRecord(asked: { party: string; event: string }, record: Even
 
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+/**
+ * The answer from a game on ESPN's scoreboard (scoreboard.ts). A finished game answers "Will/Did X win" with Yes or
+ * No, "who won" or "the score" with the winner, and "a draw" with whether it was one; an unfinished one is
+ * unresolved and nothing is predicted. Pure.
+ */
+export function fromGame(question: string, g: Game): EventOutcomeResult {
+  const [a, b] = g.teams as [Game["teams"][0], Game["teams"][1]];
+  const event = `${a.name} vs ${b.name}`;
+  const day = g.date.slice(0, 10);
+  const base = { market: null, event, venue: "ESPN scoreboard", play_money: false, source: gameUrl(g), resolved_at: g.completed ? g.date : null };
+  if (!g.completed) {
+    return { ...base, verdict: "unresolved", confidence: 0.8, outcome: null, winner: null,
+      reason: `Unresolved: ${event} (${day}) has not finished on ESPN's scoreboard (status ${g.status || "scheduled"}), so no result is reported and none is predicted.` };
+  }
+  const won = g.teams.find((t) => t.winner) ?? null;
+  const lost = won ? g.teams.find((t) => t !== won)! : null;
+  const score = `${a.name} ${a.score ?? "?"}, ${b.name} ${b.score ?? "?"}`;
+  const result = won ? `${won.name} beat ${lost!.name} ${won.score ?? "?"}–${lost!.score ?? "?"}` : `${a.name} and ${b.name} drew ${a.score ?? "?"}–${b.score ?? "?"}`;
+  const tail = ` on ${day} (final: ${score}), according to ESPN's scoreboard (${gameUrl(g)}).`;
+  if (asksWho(question) || /\b(?:final )?score\b|\bresult\b/i.test(question)) {
+    return { ...base, verdict: "resolved", confidence: 0.9, outcome: won ? won.name : "Draw", winner: won ? won.name : null, reason: `${result}${tail}` };
+  }
+  const drawAsked = /\b(?:draw|tie|tied)\b/i.test(question);
+  const who = subject(question, g);
+  const yes = drawAsked ? !won : Boolean(who && won && who === won);
+  return { ...base, verdict: "resolved", confidence: 0.9, outcome: yes ? "Yes" : "No", winner: won ? won.name : null,
+    reason: `${yes ? "Yes" : "No"}: ${result}${tail}` };
+}
+
 /** The recall prompt for the day of `now`: the date is what lets the model refuse a future event. Pure. */
 export function recallSystem(now: Date): string {
   const today = `${now.getUTCDate()} ${MONTH_NAMES[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
@@ -435,6 +467,11 @@ export async function resolveEvent(question: string, now = new Date()): Promise<
   // cannot get different answers, nor one the other's.
   const q = foldCountries(String(question ?? "").trim().slice(0, MAX_QUESTION));
   const term = searchTerm(q);
+  // A match is settled by its scoreboard before any market: EVENT_OUTCOME's leaders are scoreboard miners, and
+  // "Will Club Atlético de Madrid win on 2026-02-21?" got "no market found" here (2026-11-27). The scoreboards are read
+  // in parallel, each within SCOREBOARD_TIMEOUT_MS (2.5 s), before the market search.
+  const game = await findGame(String(question ?? "").slice(0, MAX_QUESTION), now).catch(() => null);
+  if (game) return fromGame(q, game);
   if (asksPrediction(q)) {
     return { verdict: "unknown", confidence: 0, error: "prediction_requested",
       reason: "This asks for a prediction or an opinion, not the resolution of a determinable event, so no outcome is given. Name a specific event whose result can be checked, and its settled outcome will be reported." };
