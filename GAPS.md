@@ -1,5 +1,24 @@
 # GAPS.md — honesty ledger
 
+## 2026-11-27 ~16:00 UTC (21:30 IST) — `89acf9d` live; G378–G380 new
+
+Record: `track1-miner/docs/evidence/release-2026-11-27-json-room/`. Preflight 7/7 in one run, twice.
+
+- **G378 — JSON briefs were cut off by the 300-token cap. `FIXED` (`89acf9d`), first evidence only.** Reasoning
+  tokens count against `max_completion_tokens`; Groq answered 400 json_validate_failed on 22–43% of brief-route
+  calls (2% at 1,400 tokens). After: 8 of 8 production brief calls wrote a brief with no LLM error line. Small
+  sample; re-count in the archive after a day.
+- **G379 — Scored fields left null now carry a value. `CHANGED`, score effect not observed.** CROSS_CHAIN
+  `consistent` false unless verified (null only for an outage); FRAUD `risk_score` 0.5 for "no evidence either way",
+  labelled. Both follow the live schemas' required fields. CROSS_CHAIN's whole field is near 0 since e62, so a
+  change there may not show.
+- **Reverted:** a finding-first research brief prompt (`caa7c52`) wrote non-answers on production.
+- **G380 — Still losing where the top miner scores ~1, causes `NOT ESTABLISHED`:** WEB_SEARCH (0 in e61, e63, e66;
+  calls before answered `no_results` and the brief failed, so G378 may cover part); FINANCIAL (0 in e62–64, e66;
+  calls before answered equities with `volume_24h_usd` empty); NEWS_SEARCH (0.11–0.66 against ~0.98). FRAUD treats
+  a plain company name as no subject, though the intent's subject is "entity, transaction or action".
+- **G366 archiver:** the hosted chain handed off four times (12:23, 17:54, 23:24, 04:55, 10:25 UTC), no gap.
+
 ## 2026-11-26 ~04:00 UTC (09:30 IST) — release `bb6e288`; hosted archiver; G370–G373 new
 
 Record: `track1-miner/docs/evidence/release-2026-11-26-intent-fixes/`. Three parallel lanes (data, on-chain/event,

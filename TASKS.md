@@ -5,6 +5,13 @@ Season II (H2): Nov 1 00:00 UTC – **Dec 1 23:59 UTC** 2026, every track (`RULE
 items were cut on 2026-10-17 and 2026-10-29; they are in `git log -p -- TASKS.md`. One task = one change = one
 commit.
 
+## 2026-11-27 — `89acf9d` live
+
+- [x] JSON reply room (G378); null scored fields (G379); research paragraph answer; dangling words; owner's X post done.
+- [x] Hosted archiver running (VERCEL_TOKEN set by the owner 2026-11-26).
+- [ ] Epochs 68+: WEB_SEARCH, FINANCIAL, NEWS_SEARCH (G380); re-count json_validate_failed after a day (G378).
+- [ ] FRAUD: screen a plain entity name instead of answering no_subject (G380).
+
 ## 2026-11-26 — `bb6e288` live (intent fixes)
 
 - [x] Three parallel lanes on the losing intents; merged and released (release-2026-11-26-intent-fixes).

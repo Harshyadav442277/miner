@@ -1,0 +1,22 @@
+== /cross-chain?chains=ethereum%2C%20optimism&query=Does%20the%20Optimism%20state%20root%20match%20the%20L2OutputOracle%3F
+{"answer":"Nothing verifiable was supplied: this service does not verify state roots, Merkle-Patricia proofs or block hea","verdict":"insufficient_input","consistent":false,"status":"not_verified"}
+== /fraud-check?subject=Brightwater%20Garden%20Supplies%20Ltd
+{"answer":"No wallet address, transaction hash, domain or affirmative scam-language signal was identified, so fraud risk ","verdict":"INCONCLUSIVE","verdict_detail":"unknown","risk_score":null}
+== /fraud-check?subject=0x0000000000000000000000000000000000000001
+{"answer":"No fraud indicators were found among the checks performed.","verdict":"LOW","verdict_detail":"no_indicators","risk_score":0.05}
+== /research?query=Does%20metformin%20reduce%20cancer%20risk%3F
+{"answer":"Research on metformin cancer risk covers 3 registered trials, including NCT06763328, a Phase 3 study titled \"M","verdict":"evidence","brief":"Metformin and cancer hallmarks: shedding new lights on therapeutic repurposing"}
+== /ssl-check?query=github.com
+{"answer":"The TLS/SSL certificate configuration for github.com is valid.","verdict":"valid"}
+== /convert?from=USD&to=EUR&amount=10
+{"answer":"10.00 USD is 9.11 EUR at a rate of 1 USD = 0.9112 EUR, equivalently 1 EUR = 1.0975 USD.","verdict":"converted"}
+{"verdict":"INCONCLUSIVE","detail":"unknown","error":"no_subject","risk_score":null}
+{"verdict":"ELEVATED","detail":"elevated_risk","risk_score":0.5}
+{"verdict":"valid"}
+{"verdict":"valid"}
+{"verdict":"converted"}
+{"verdict":"ELEVATED","risk":0.5}
+{"verdict":"insufficient_input","consistent":false}
+{"verdict":"valid","answer":"The TLS/SSL certificate configuration for github.com is valid."}
+{"verdict":"converted","answer":"10.00 USD is 9.13 EUR at a rate of 1 USD = 0.9127 EUR, equivalently 1 EUR = 1.09"}
+{"verdict":"answered","answer":"The most relevant current reports are \"Australia’s mortgage arrears, unemploymen"}
