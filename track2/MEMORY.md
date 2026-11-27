@@ -8,7 +8,13 @@ and files were deleted on 2026-10-18/23 and its links no longer resolved: `git l
 
 ---
 
-## CURRENT — 2026-11-26 ~07:30 UTC · #253 TEXT_SUMMARIZATION CANONICAL (73.91% on 23 pairs)
+## CURRENT — 2026-11-27 ~15:35 UTC · #253 LOST TO #254; #262 REJECTED; v1b NEVER REGISTERED
+
+- **#254 (`0x8b2247`) took TEXT_SUMMARIZATION:** "won the competition ... at 91.30% vs incumbent 253 at 65.22%" (23 pairs). #210 still canonical.
+- **#262 rejected (unreachable).** ilr_v1b (`0x4d0d122b…`) is not in `/api/wasm`: the owner's signature did not land; its executor is gone. Re-sign needs a fresh executor (SIGN_S2 block URL is dead).
+- **All runners died overnight.** cm_v4 kit 89.75%, da_v2 kit 98.5% (done Nov 26). Relaunched 15:29 UTC: fc_v1 → qa_v4 → sca_v1. cm_v4 (test + public15) and da_v2 measuring. A Sonnet agent is building the next prompt-carried family.
+
+## 2026-11-26 — 2026-11-26 ~07:30 UTC · #253 TEXT_SUMMARIZATION CANONICAL (73.91% on 23 pairs)
 
 - **#253 (v1e) promoted 07:25 UTC**, our second seat. Node batch 07:13 UTC took 83.0 s with ilr_v1 training. Executor
   (`executor-ts7.out`) left up for now; #210 held its seat with a dead URL, so it is likely not needed (unverified).
