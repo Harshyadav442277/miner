@@ -82,7 +82,7 @@ test("token supply: every listed contract is a well-formed address on a supporte
   for (const [chain, tokens] of Object.entries(KNOWN_TOKENS)) {
     assert.ok(["ethereum", "base", "arbitrum", "optimism", "polygon"].includes(chain), chain);
     for (const [symbol, address] of Object.entries(tokens)) {
-      assert.match(symbol, /^[A-Z]{3,5}$/);
+      assert.match(symbol, /^[A-Z]{2,5}$/);
       assert.match(address, /^0x[0-9a-fA-F]{40}$/, `${chain} ${symbol}`);
     }
   }

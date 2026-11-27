@@ -73,7 +73,10 @@ test("a token parameter written as a phrase is read for its token and chain (Dae
   assert.deepEqual(tokenPhrase("the USDC token on Base"), { symbol: "USDC", chain: "base" });
   assert.deepEqual(tokenPhrase("Lido DAO Token (LDO)"), { symbol: "LDO", chain: null });
   assert.deepEqual(tokenPhrase("UNI (0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984) on Ethereum"), { symbol: "UNI", chain: "ethereum" });
-  assert.equal(tokenPhrase("Lido DAO").symbol, null, "a multi-word name is not guessed from one of its words");
+  // "Lido DAO" is LDO's own name and listed as such (2026-11-27); a phrase that only contains a listed word is not.
+  assert.equal(tokenPhrase("Lido DAO").symbol, "LDO");
+  assert.equal(tokenPhrase("Lido Staked Ether").symbol, null, "a multi-word name is not guessed from one of its words");
+  assert.equal(tokenPhrase("Uniswap Labs Shares").symbol, null, "a multi-word name is not guessed from one of its words");
   // A chain in parentheses is the chain, never the ticker (it read DAI (Ethereum) as a token called ETHEREUM).
   assert.deepEqual(tokenPhrase("DAI (Ethereum)"), { symbol: "DAI", chain: "ethereum" });
   assert.deepEqual(tokenPhrase("USDC (Base)"), { symbol: "USDC", chain: "base" });
