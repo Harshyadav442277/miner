@@ -27,7 +27,7 @@
 
 import { permitted } from "./sources";
 import { andList, findEventWinner, type EventWinner } from "./eventwinner";
-import { dataValue, parseObject, phrase } from "./llm";
+import { dataValue, JSON_REPLY_TOKENS, parseObject, phrase } from "./llm";
 
 const TIMEOUT_MS = Number(process.env.EVENT_TIMEOUT_MS ?? 5_000);
 const GAMMA = "https://gamma-api.polymarket.com/public-search";
@@ -424,7 +424,7 @@ const RECALL_BY_MS = 9_500;
 async function recall(q: string, now: Date, started: number): Promise<{ answer: "yes" | "no" | "unresolved"; basis: string | null } | null> {
   const question = dataValue(q, MAX_QUESTION);
   if (!question) return null;
-  const raw = await phrase({ system: recallSystem(now), user: JSON.stringify({ question }), maxTokens: 300, json: true,
+  const raw = await phrase({ system: recallSystem(now), user: JSON.stringify({ question }), maxTokens: JSON_REPLY_TOKENS, json: true,
     deadlineMs: Math.min(RECALL_MS, RECALL_BY_MS - (Date.now() - started)), clean: (r) => (parseRecall(r) ? r : null) });
   return parseRecall(raw);
 }

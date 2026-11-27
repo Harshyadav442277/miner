@@ -14,7 +14,7 @@
  * empty reply or text, or a review whose verdict contradicts its own findings is corrected or refused. No
  * model answer is an honest `unknown`, never an invented one.
  */
-import { clauseBrief } from "./clause";
+import { clauseBrief, DANGLING } from "./clause";
 export { clauseBrief };
 import { currentFact } from "./currentfacts";
 import { fallbackAllowed, longAvailable, parseObject, phrase, type PhraseRequest } from "./llm";
@@ -48,9 +48,6 @@ export function cut(text: string, n = 80): string {
   while (DANGLING.test(out)) out = out.replace(DANGLING, "");
   return whole ? `${out}.` : `${out.replace(/[.,;:!?\s—-]+$/, "")}…`;
 }
-
-/** Words a cut sentence must not end on. */
-const DANGLING = /\s+(?:a|an|the|of|to|in|on|at|by|for|with|from|into|and|or|but|that|which|is|are|was|were|be|as|its|their|this|these)$/i;
 
 /** The opening sentence of `text`. Pure. */
 export function opening(text: string): string {

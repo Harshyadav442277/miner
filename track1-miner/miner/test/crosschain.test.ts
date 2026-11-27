@@ -97,9 +97,9 @@ test("refShape: the reference's shape, never its value", () => {
   assert.doesNotMatch(other, /4412|arbitrum/);
 });
 
-test("answers carry the intent's response fields; consistent is null when nothing was checked (2026-11-26)", async () => {
+test("answers carry the intent's response fields; consistent is false unless verified, null only for an outage", async () => {
   const none = await verifyCrossChain("Verify the state root of arbitrum block 280000000 against ethereum");
-  assert.equal(none.consistent, null, "no message was checked, so nothing is consistent or inconsistent");
+  assert.equal(none.consistent, false, "nothing was shown to be consistent; status says it was not verified");
   assert.equal(none.status, "not_verified");
   assert.deepEqual(none.chains, ["arbitrum", "ethereum"]);
   assert.equal(none.address, null);
@@ -114,10 +114,11 @@ test("answers carry the intent's response fields; consistent is null when nothin
     const r = crossChainFields({ verdict, confidence: 0.8, reason: "x." }, `tx ${SRC_TX} from base to arbitrum`);
     assert.deepEqual([r.consistent, r.status], [false, status], verdict);
   }
-  // Only LayerZero is searched: a reference it does not index may still be a completed transfer on another bridge.
+  // Not found on LayerZero is not shown completed: false, and status says not_found.
   const missing = crossChainFields({ verdict: "not_found", confidence: 0.6, reason: "x." }, `tx ${SRC_TX} from base to arbitrum`);
-  assert.deepEqual([missing.consistent, missing.status, missing.address, missing.chains], [null, "not_found", SRC_TX, ["base", "arbitrum"]]);
-  for (const verdict of ["unknown", "unsupported", "insufficient_input"] as const) {
-    assert.equal(crossChainFields({ verdict, confidence: 0, reason: "x." }, "").consistent, null, verdict);
+  assert.deepEqual([missing.consistent, missing.status, missing.address, missing.chains], [false, "not_found", SRC_TX, ["base", "arbitrum"]]);
+  for (const verdict of ["unsupported", "insufficient_input"] as const) {
+    assert.equal(crossChainFields({ verdict, confidence: 0, reason: "x." }, "").consistent, false, verdict);
   }
+  assert.equal(crossChainFields({ verdict: "unknown", confidence: 0, reason: "x." }, "").consistent, null, "an outage is not known");
 });

@@ -157,8 +157,11 @@ export function crossChainFields(r: CrossChainResult, question: string): CrossCh
     verified: "executed", not_delivered: "pending", mismatch: "inconsistent", not_found: "not_found",
     unsupported: "not_verified", insufficient_input: "not_verified", unknown: "unknown",
   };
-  // not_found is null: only LayerZero is searched, so a completed transfer over another bridge is not ruled out.
-  const consistent = r.verdict === "verified" ? true : r.verdict === "not_delivered" || r.verdict === "mismatch" ? false : null;
+  // `consistent` is a required bool: "whether the state is consistent / the transfer completed on the destination
+  // chain". Not shown to have completed is false, with `status` saying why (not_verified, not_found); null went
+  // unscored and the intent stayed at 0 in epochs 59-61, while a1-preflight scored 0.99 refusing the same state-root
+  // questions with found:false (2026-11-26). Null stays only for an outage, where the answer is not known.
+  const consistent = r.verdict === "verified" ? true : r.verdict === "unknown" ? null : false;
   const m = r.message;
   const chains = m?.source_chain && m.destination_chain ? [m.source_chain, m.destination_chain] : namedChains(question);
   return { ...r, address: m?.guid ?? references(question)[0] ?? null, status: status[r.verdict], chains, consistent,

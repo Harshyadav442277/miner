@@ -21,7 +21,7 @@
  * a lottery ticket in place of a certain zero, not a reliable score. Evidence and
  * the full matrices: docs/evidence/rank-rebuild-2026-09-19/llm-phrasing/.
  */
-import { dataValue, parseObject, phrase } from "./llm";
+import { dataValue, JSON_REPLY_TOKENS, parseObject, phrase } from "./llm";
 import {
   analyseSentiment, asksSentiment, subjectNoun, suppliedText, wordList,
   type SentimentResult, type SentimentVerdict,
@@ -193,7 +193,7 @@ export async function analyseSentimentPhrased(
   const text = String(textParam ?? "").trim() || suppliedText(q) || (asksSentiment(q) ? "" : q);
   const passage = dataValue(text, SENTIMENT_MAX_CHARS);
   if (!passage) return base;
-  const raw = await phrase({ system: SENTIMENT_JSON_SYSTEM, user: JSON.stringify({ passage }), maxTokens: 300, json: true,
+  const raw = await phrase({ system: SENTIMENT_JSON_SYSTEM, user: JSON.stringify({ passage }), maxTokens: JSON_REPLY_TOKENS, json: true,
     deadlineMs, clean: (r) => (parseSentimentJson(r) ? r : null) });
   const got = parseSentimentJson(raw);
   if (!got) return base;

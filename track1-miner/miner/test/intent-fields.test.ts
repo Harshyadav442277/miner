@@ -150,6 +150,12 @@ test("format-version-3 fields: each copies what the route states, and the schema
   const fraud = scoredFields("/fraud-check", { verdict: "no_indicators", evidence: ["not on the OFAC list"], reason: "No fraud indicators were found." });
   assert.deepEqual(only(fraud, { verdict: 0, risk_score: 0, signals: 0 }), { verdict: "LOW", risk_score: 0.05, signals: ["not on the OFAC list"] });
   assert.equal(scoredFields("/fraud-check", { verdict: "unknown" }).risk_score, null, "no grade, no number");
+  const open = scoredFields("/fraud-check", { verdict: "insufficient_evidence", reason: "Nothing pointed either way." });
+  assert.deepEqual([open.verdict, open.risk_score], ["INCONCLUSIVE", 0.5], "a required number: the midpoint, labelled as no evidence");
+  assert.match(String(open.risk_score_basis), /no evidence either way/);
+  // The route's own shape for it (fraud.ts): verdict unknown, error insufficient_evidence.
+  assert.equal(scoredFields("/fraud-check", { verdict: "unknown", error: "insufficient_evidence" }).risk_score, 0.5);
+  assert.equal(scoredFields("/fraud-check", { verdict: "unknown", error: "no_subject" }).risk_score, null, "nothing assessed");
   assert.deepEqual(only(scoredFields("/event-outcome", { verdict: "resolved", outcome: "Yes" }), { outcome: 0 }), { outcome: "yes" });
   assert.deepEqual(only(scoredFields("/event-outcome", { verdict: "resolved", outcome: "Seattle Seahawks", winner: "Seattle Seahawks" }), { outcome: 0, winner: 0 }),
     { outcome: "yes", winner: "Seattle Seahawks" });
@@ -239,4 +245,11 @@ test("an attribution lead is dropped, and a clause cut that guts the sentence fa
   const synth = String(scoredFields("/research-synthesis", { sources: [1], reason: `Across two studies: X et al. (2026): "Compared with exercise alone, the addition of psychoeducation resulted in greater reductions in depressive symptoms."` }).brief);
   assert.notEqual(synth, "Compared with exercise alone.");
   assert.ok(synth.length > 45 && synth.length <= 80, synth);
+});
+
+test("a cut synthesis brief never ends on no, not, without or than (production, 2026-11-27)", async () => {
+  const { sentenceBrief } = await import("../src/intent-fields");
+  const out = sentenceBrief("All 27 IF trials found weight loss of 0.8% to 13.0% of baseline weight with no serious adverse events reported in any arm");
+  assert.ok(out.length <= 80, out);
+  assert.doesNotMatch(out, /\s(?:with|no|not|without|than)\.?$/i, out);
 });

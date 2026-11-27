@@ -9,7 +9,7 @@
  * removes the guess. REGULATORY_FILING_MONITOR_GENERAL's `filing_count` is
  * built in filings.ts, which holds the whole filing window. Pure.
  */
-import { clauseBrief } from "./clause";
+import { clauseBrief, DANGLING } from "./clause";
 import { leadSentence } from "./envelope";
 import type { RegistryResult } from "./registry";
 import type { SanctionsResult } from "./sanctions";
@@ -52,9 +52,6 @@ type Body = Record<string, unknown>;
 const num = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) ? v : null);
 const list = (v: unknown): Body[] => (Array.isArray(v) ? (v.filter((x) => x && typeof x === "object") as Body[]) : []);
 const str = (v: unknown): string | null => (typeof v === "string" && v.trim() ? v.replace(/\s+/g, " ").trim() : null);
-/** Words a clipped brief must not end on. */
-const DANGLING = /\s+(?:a|an|the|of|to|in|on|at|by|for|with|from|into|and|or|but|that|which|is|are|was|were|be|as|its|their|this|these)$/i;
-
 /**
  * At most `n` characters of `text`, ending at a word boundary, with nothing appended. Release 1f43311 cut at the
  * first ": " and added a full stop, so briefs read "Recent coverage of OpenAI from the last 30 days includes."
@@ -349,9 +346,16 @@ const OVERRIDE: Record<string, (b: Body) => Body> = {
   // FRAUD_DETECTION_GENERAL: the grade, and risk_score as that grade's stated midpoint, not a calibrated probability
   "/fraud-check": (b) => {
     const grade: Record<string, [string, number | null]> = { high_risk: ["HIGH", 0.85], elevated_risk: ["ELEVATED", 0.5],
-      low_risk: ["LOW", 0.15], no_indicators: ["LOW", 0.05], insufficient_evidence: ["INCONCLUSIVE", null], unknown: ["INCONCLUSIVE", null] };
-    const g = typeof b.verdict === "string" ? grade[b.verdict] : undefined;
-    return g ? { verdict: g[0], verdict_detail: b.verdict, risk_score: g[1], risk_score_basis: "the grade's stated midpoint, not a calibrated probability" } : {};
+      low_risk: ["LOW", 0.15], no_indicators: ["LOW", 0.05], insufficient_evidence: ["INCONCLUSIVE", 0.5], unknown: ["INCONCLUSIVE", null] };
+    // A subject assessed with nothing pointing either way: the route answers verdict "unknown", error
+    // "insufficient_evidence" (fraud.ts). risk_score is a required number (0-1); null left the scored field empty, and
+    // the calls before epochs 58 and 59's zeros answered exactly this while the top miner scored 0.9995 (2026-11-26).
+    // The scale's midpoint says "no evidence either way". No subject at all (no_subject) stays null.
+    const open = b.verdict === "insufficient_evidence" || (b.verdict === "unknown" && b.error === "insufficient_evidence");
+    const g = open ? grade.insufficient_evidence : typeof b.verdict === "string" ? grade[b.verdict] : undefined;
+    const basis = open ? "no evidence either way: the midpoint of the scale, not an assessment"
+      : "the grade's stated midpoint, not a calibrated probability";
+    return g ? { verdict: g[0], verdict_detail: b.verdict, risk_score: g[1], risk_score_basis: basis } : {};
   },
   // EVENT_OUTCOME_RESOLUTION_GENERAL: yes | no | unresolved; a named winner stays in `winner`
   "/event-outcome": (b) => ({

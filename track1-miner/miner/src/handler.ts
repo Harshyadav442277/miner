@@ -6,7 +6,7 @@ import { checkStorm, type StormResult } from "./storm";
 import { alertAnswer, asksAlert, officialAlertAnswer, type AlertCheckResult } from "./alertcheck";
 import { translate, type TranslationResult } from "./translate";
 import { academicAnswer, findPapers, type PaperResult } from "./papers";
-import { envelope } from "./envelope";
+import { envelope, leadSentence } from "./envelope";
 import { fitPairs, scoredFields } from "./intent-fields";
 import { currentReceipt, installRecorder, readsSoFar, replayFromCache, withReceipt, type UpstreamRead } from "./receipt";
 import { MISSION_ROUTES, type MissionAnswer } from "./mission-routes";
@@ -237,12 +237,21 @@ const requestOf = new WeakMap<ServerResponse, { path: string; params: URLSearchP
  * so answers are now written for the caller. The measurements that justified the
  * old shape are in git history (`restate.ts`, `lean`).
  */
+/** At most `n` characters of whole sentences from the reason: the brief first, then the evidence. Pure. */
+export function researchParagraph(reason: string, n = 700): string {
+  const s = String(reason ?? "").replace(/\s+/g, " ").trim();
+  if (s.length <= n) return s;
+  const cut = s.slice(0, n);
+  const end = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("? "), cut.lastIndexOf("! "));
+  return end > 0 ? cut.slice(0, end + 1) : leadSentence(s);
+}
+
 /**
  * Adds the model's one-sentence answer as `brief` (answer-brief.ts) to a research answer that found evidence. A "none
  * found" answer claims nothing, so it gets no model sentence either; nor does an outage.
  */
-export function withResearchBrief(q: string) {
-  return async <T extends { verdict: string; reason: string; error?: string }>(r: T): Promise<T & { brief?: string; brief_basis?: string }> => {
+export function withResearchBrief(q: string, paragraph = false) {
+  return async <T extends { verdict: string; reason: string; error?: string }>(r: T): Promise<T & { brief?: string; brief_basis?: string; answer?: string }> => {
     // An index outage still gets a knowledge brief: Europe PMC took 6.5 s against a 6 s timeout and the scored brief
     // read "Neither the trial registry nor the literature index answered." (production, 2026-11-23; RESEARCH_QUERY
     // scored 0 in epochs 41 and 43). The answer still reports the outage.
@@ -259,7 +268,9 @@ export function withResearchBrief(q: string) {
     // The answer leads with the direct sentence, as the leaders' do; it opened with a registered trial's title
     // ("COVID-19 is the subject of one registered trial, NCT05972993, a Phase 1 study…", production 2026-11-23).
     const reason = found ? `${b} ${r.reason}` : `${b} That is from general scientific knowledge. ${r.reason}`;
-    return { ...r, reason, brief: b, brief_basis: found
+    // RESEARCH_QUERY and RESEARCH_SYNTHESIS define `answer` as "the one-paragraph research answer" (read 2026-11-26);
+    // the envelope's lead sentence made it the one-line brief again.
+    return { ...r, reason, brief: b, ...(paragraph ? { answer: researchParagraph(reason) } : {}), brief_basis: found
       ? "one sentence written by a language model (Groq) from the cited evidence, with general scientific knowledge where the evidence is indirect"
       : outage ? "one sentence written by a language model (Groq) from general scientific knowledge: the trial registry and literature index did not answer"
       : "one sentence written by a language model (Groq) from general scientific knowledge: no study was retrieved for this question" };
@@ -1267,7 +1278,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       return;
     }
     answerResearch(q)
-      .then(withResearchBrief(q))
+      .then(withResearchBrief(q, true))
       .then((r) => {
         if (r.verdict === "evidence" || r.verdict === "no_evidence") toCache(key, r);
         sendAnswer(res, q, r);
@@ -1529,7 +1540,7 @@ function route(req: IncomingMessage, res: ServerResponse): void {
       return;
     }
     synthesise(q, firstValue(url, "topic", "subject"))
-      .then(withResearchBrief(q))
+      .then(withResearchBrief(q, true))
       .then((r) => {
         // An outage is never cached; an honest "nothing quotable" is.
         if (!r.error) toCache(key, r);

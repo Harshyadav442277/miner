@@ -1,5 +1,15 @@
 # MEMORY.md — session continuity
 
+## 2026-11-27 ~16:00 UTC (21:30 IST): CURRENT — `89acf9d` LIVE (`miner-19i4dsbxb`); preflight 7/7 in one run
+
+- Production `dpl_6kcdtkx4mbfYpUgFK796wpzW5HLf`. Unit 1120/1120, preflight 7/7, watch 6126 active. Rollback:
+  `miner-pymeiko6m` (`bb6e288`). Evidence: `track1-miner/docs/evidence/release-2026-11-27-json-room/`.
+- Changed: JSON model replies get 900 tokens (G378); CROSS_CHAIN `consistent` and FRAUD `risk_score` no longer null
+  (G379); research/synthesis `answer` is a paragraph; dangling-word cuts fixed. A research prompt change was reverted.
+- Hosted archiver runs continuously (self-chaining since 2026-11-26 12:23 UTC); merge artifacts with the local
+  archive by `id`. The owner posted this week's X post.
+- Next: epochs 68+ for WEB_SEARCH, FINANCIAL, NEWS_SEARCH (G380); re-count json_validate_failed (G378).
+
 ## 2026-11-26 ~04:00 UTC (09:30 IST): CURRENT — `bb6e288` LIVE (`miner-pymeiko6m`); intent fixes from three lanes
 
 - Production `dpl_4Xxd4dfdqbgHG4vkPjc72tnhXfD6`. Unit 1117/1117; unit+live 1242/0 fail at `e8c744b` (test-only

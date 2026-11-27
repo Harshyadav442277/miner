@@ -1,5 +1,9 @@
 /** Cutting a sentence to a brief at a clause boundary, never mid-phrase. Pure; no network imports. */
-const DANGLING = /\s+(?:a|an|the|of|to|in|on|at|by|for|with|from|into|and|or|but|that|which|is|are|was|were|be|as|its|their|this|these)$/i;
+/**
+ * A word a cut sentence cannot end on. "no", "not", "without" and "than" were missing: a synthesis brief was served as
+ * "All 27 IF trials found weight loss of 0.8% to 13.0% of baseline weight with no." (production, 2026-11-27).
+ */
+export const DANGLING = /\s+(?:a|an|the|of|to|in|on|at|by|for|with|without|from|into|and|or|nor|but|that|which|who|whose|is|are|was|were|be|been|has|have|had|as|its|their|this|these|those|no|not|than|between|across|over|under|per|after|before|during|via|about|against|while|when|whereas|if|because|such)$/i;
 const VERDICT_LEAD = /^(?:Likely|Unlikely|Uncertain):\s+/;
 /** "While X, Y" asserts Y: the concession can go. "If X, Y" does not assert Y alone, so it is never dropped. */
 const CONCESSION = /^(?:while|although|even though|though|whereas|despite)\b[^,]*,\s+/i;

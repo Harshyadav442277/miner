@@ -1,0 +1,8 @@
+/web-search?query=capital%20of%20Austral | answered | "Canberra is the capital of Australia."
+/web-search?query=Who%20won%20the%202022 | answered | "Argentina national football team won the 2022 FIFA World Cup."
+/research-synthesis?query=Does%20creatin | synthesis | "Creatine improves cognition, notably in aging and stressed adults."
+/research-synthesis?query=What%20does%20 | synthesis | "Evidence suggests possible harm but overall risk remains unclear."
+/news-search?query=Tesla%20robotaxi | articles | "Tesla robotaxi expands in Dallas, adds Starlink, and shows European geofences."
+/news-search?query=European%20Central%20 | articles | "ECB keeps key rate at 2.5% and holds rates steady."
+/research?query=Does%20vitamin%20D%20pre | evidence | "Evidence is unclear whether vitamin D prevents fractures."
+/papers?query=transformer%20models%20for | papers | "Transformer models are a key approach for protein folding prediction."
